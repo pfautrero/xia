@@ -137,7 +137,7 @@ class iaObject:
                     record["path"] += '"' + path.attributes['d'].value.replace("&#xd;&#xa;"," ").replace("&#x9;"," ").replace("\n"," ").replace("\t"," ").replace("\r"," ") 
                     record["style"] = ""
 
-                    if path.attributes['d'].value.find("z") == -1:
+                    if path.attributes['d'].value.lower().find("z") == -1:
                         record["path"] += " z"
                     record['path'] += '"'
             
@@ -149,7 +149,7 @@ class iaObject:
                     title = path.getElementsByTagName('title')
                     if title.item(0) is not None:
                         if record["title"] == "":
-                            record["title"] = self.get_tag_value(title.item(0))
+                            record["title"] = self.get_tag_value(title.item(0)).replace("\n"," ").replace("\t"," ").replace("\r"," ")
             
                     if path.hasAttribute("style"):
                         str_style = path.attributes['style'].value
@@ -194,7 +194,7 @@ class iaObject:
                     if record["path"] != "[":
                         record["path"] += ","
                     record["path"] += '"' + path.attributes['d'].value.replace("&#xd;&#xa;"," ").replace("&#x9;"," ").replace("\n"," ").replace("\t"," ").replace("\r"," ") 
-                    if path.attributes['d'].value.find("z") == -1:
+                    if path.attributes['d'].value.lower().find("z") == -1:
                         record["path"] += " z"
                     record['path'] += '"'
                     desc = path.getElementsByTagName('desc')
@@ -206,7 +206,7 @@ class iaObject:
                     if title.item(0) is not None:
                         #print "TITLE = " + self.get_tag_value(title.item(0))
                         if record["title"] == "":
-                            record["title"] = self.get_tag_value(title.item(0))
+                            record["title"] = self.get_tag_value(title.item(0)).replace("\n"," ").replace("\t"," ").replace("\r"," ")
                     if path.hasAttribute("style"):                            
                         str_style = path.attributes['style'].value
                         style = {}

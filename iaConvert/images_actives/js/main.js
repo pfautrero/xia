@@ -152,6 +152,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
                     for (var i in that.kineticElement) {
                         that.kineticElement[i].zoomActive = 1;
                         that.kineticElement[i].scale({x:that.agrandissement,y:that.agrandissement});
+                        that.kineticElement[i].setZIndex(1000);
                         that.originalX[i] = that.kineticElement[i].x();
                         that.originalY[i] = that.kineticElement[i].y();
                         if (hauteur > largeur) {
@@ -172,6 +173,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
                             iaScene.zoomActive = 0;
                             that.kineticElement[i].zoomActive = 0;
                             that.kineticElement[i].scale({x:iaScene.coeff,y:iaScene.coeff});
+                            that.kineticElement[i].setZIndex(100);
                             that.kineticElement[i].x(that.originalX[i]);
                             that.kineticElement[i].y(that.originalY[i]);
 
