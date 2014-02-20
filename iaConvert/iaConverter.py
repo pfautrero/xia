@@ -21,7 +21,7 @@ from lib.iaobject import iaObject
 currentDir = os.path.dirname(os.path.realpath(__file__))
 
 imageActive = iaObject()
-imageActive.analyzeSVG("fixtures/animals2.svg")
+imageActive.analyzeSVG("fixtures/test.svg")
 imageActive.generateJSON("images_actives/datas/data.js")
 imageActive.generateAccordion("images_actives/index.html")
 imageActive.createBackground("images_actives/datas")
