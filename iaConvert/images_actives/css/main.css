@@ -1,0 +1,73 @@
+@import url(http://fonts.googleapis.com/css?family=Rye);
+body{
+    background: #000000;
+    margin:0;
+    padding:0px;
+}
+h3 {
+    font-family: Rye;
+    color:#FFF3B2;
+    position:absolute;
+    top:0;
+    left:10px;
+}
+#detect, #canvas {
+    margin:0;
+    padding:0;
+}
+#container {
+    position: relative;
+    padding-left:15px;
+    padding-right:15px;
+    width:1000px;
+    margin:10px auto;
+    border:4px solid #FFF3B2;
+}
+#detect {
+    position:absolute;
+    top:0;
+    left:0;
+    width:1000px;
+    height:655px;
+}
+.accordion {
+    position:absolute;
+    top:50px; 
+    left:550px;
+    width:450px;
+    color:black;
+    font-size:1.2em;	
+}
+.accordion-heading {
+    background: #A76945;
+    border-radius:5px;
+    border-top:10px;
+}
+.accordion-group {
+    border:0px;
+}
+.accordion-heading a{
+    text-decoration:none;
+    color:black;
+}
+.accordion-inner {
+    position: relative;
+    background:white;
+}
+#accordion2 {
+    overflow:hidden;
+    max-height:655px;
+}
+.response {
+    display:none;
+}
+.response:target {
+    display:block;
+}
+.button {
+    background-color: #dddddd;
+    position:relative;
+    right:0px;
+    border-radius: 5px;
+    padding: 5px;
+}
