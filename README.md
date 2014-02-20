@@ -14,3 +14,12 @@ Not yet implemented :
 
 # wiki syntax
 
+todo
+
+# iaConverter
+
+To generate new image active :
+* launch iaConvertWindow.py, 
+* open sample svg file located in /fixtures, 
+* generate new image active (which will be located in /images_actives) 
+
