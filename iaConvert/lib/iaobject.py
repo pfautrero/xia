@@ -67,12 +67,12 @@ class iaObject:
                     desc = image.getElementsByTagName('desc')
                     if desc.item(0) is not None:
                         if desc.item(0).parentNode == image:
-                            self.scene['intro_detail'] = self.get_tag_value(desc.item(0))
+                            self.scene['intro_detail'] = self.get_tag_value(desc.item(0)).replace("\n","<br>").replace("\t"," ").replace("\r"," ")
 
                     title = image.getElementsByTagName('title')
                     if title.item(0) is not None:
                         if title.item(0).parentNode == image:
-                            self.scene['intro_title'] = self.get_tag_value(title.item(0))
+                            self.scene['intro_title'] = self.get_tag_value(title.item(0)).replace("\n","<br>").replace("\t"," ").replace("\r"," ")
 
                     self.raster = image.attributes['xlink:href'].value
                     self.scene['image'] = image.attributes['xlink:href'].value
@@ -134,7 +134,7 @@ class iaObject:
                     record["detail"] = ""
                     record["path"] = "["
                     record["fill"] = ""
-                    record["path"] += '"' + path.attributes['d'].value 
+                    record["path"] += '"' + path.attributes['d'].value.replace("&#xd;&#xa;"," ").replace("&#x9;"," ").replace("\n"," ").replace("\t"," ").replace("\r"," ") 
                     record["style"] = ""
 
                     if path.attributes['d'].value.find("z") == -1:
@@ -175,12 +175,12 @@ class iaObject:
         desc = group.getElementsByTagName('desc')
         if desc.item(0) is not None:
             if desc.item(0).parentNode == group:
-                print "DESC = " + self.get_tag_value(desc.item(0))
+                #print "DESC = " + self.get_tag_value(desc.item(0))
                 record["detail"] = self.get_tag_value(desc.item(0))
         title = group.getElementsByTagName('title')
         if title.item(0) is not None:
             if title.item(0).parentNode == group:
-                print "TITLE = " + self.get_tag_value(title.item(0))
+                #print "TITLE = " + self.get_tag_value(title.item(0))
                 record["title"] = self.get_tag_value(title.item(0))
 
         paths = group.getElementsByTagName('path')        
@@ -193,7 +193,7 @@ class iaObject:
                     #if path.parentNode == group:
                     if record["path"] != "[":
                         record["path"] += ","
-                    record["path"] += '"' + path.attributes['d'].value 
+                    record["path"] += '"' + path.attributes['d'].value.replace("&#xd;&#xa;"," ").replace("&#x9;"," ").replace("\n"," ").replace("\t"," ").replace("\r"," ") 
                     if path.attributes['d'].value.find("z") == -1:
                         record["path"] += " z"
                     record['path'] += '"'
@@ -228,36 +228,23 @@ class iaObject:
 
     def generateJSON(self,filePath):
         """ generate json file"""
-
-
         final_str = ""
+
         final_str += 'var scene = {\n'
-        #final_str += '"intro_title":"' + self.scene["intro_title"].replace("\n","<br>").replace("\t"," ").replace("\r"," ").encode('utf-8') + '",\n'
-        #final_str += '"intro_detail":"' + self.scene["intro_detail"].replace("\n","<br>").replace("\t"," ").replace("\r"," ").encode('utf-8') + '",\n'
-        final_str += '"image":"' + self.scene["image"].encode('utf-8') + '",\n'
-        final_str += '"title":"' + self.scene["title"].encode('utf-8') + '",\n'
-        final_str += '"width":"' + self.scene["width"].encode('utf-8') + '",\n'
-        final_str += '"height":"' + self.scene["height"].encode('utf-8') + '"\n'
+        for entry in self.scene:
+            final_str += '"' + entry + '":"' + self.scene[entry].encode('utf-8') + '",\n'
         final_str += '};\n'
+
         final_str += 'var details = [\n'
         for detail in self.details:
             final_str += '{\n'
-            #final_str += '"title":"' + detail["title"].encode('utf-8') + '",\n'
-            #final_str += '"detail":"' + detail["detail"].replace("\n","<br>").replace("\r"," ").encode('utf-8') + '",\n'
-            if detail.has_key("fill"):
-                final_str += '"fill":"' + detail["fill"].encode('utf-8') + '",\n'
-            if detail.has_key("width"):
-                final_str += '"width":"' + detail["width"].encode('utf-8') + '",\n'
-            if detail.has_key("x"):
-                final_str += '"x":"' + detail["x"].encode('utf-8') + '",\n'
-            if detail.has_key("y"):
-                final_str += '"y":"' + detail["y"].encode('utf-8') + '",\n'
-            if detail.has_key("height"):
-                final_str += '"height":"' + detail["height"].encode('utf-8') + '",\n'
-            if detail.has_key("path"):
-                final_str += '"path":' + detail["path"].replace("&#xd;&#xa;"," ").replace("&#x9;"," ").replace("\n"," ").replace("\t"," ").replace("\r"," ").encode('utf-8') + ',\n'
-            if detail.has_key("image"):
-                final_str += '"image":"' + detail["image"].encode('utf-8') + '",\n'
+            for entry in detail:
+                if entry == "path":
+                    final_str += '"' + entry + '":' + detail[entry].encode('utf-8') + ',\n'
+                elif entry == "detail":
+                    final_str += '"' + entry + '":"' + PageFormatter(detail[entry]).print_html().encode('utf-8') + '",\n'
+                else:
+                    final_str += '"' + entry + '":"' + detail[entry].encode('utf-8') + '",\n'
             final_str += '},\n'
         final_str += '];\n'
 
