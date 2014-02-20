@@ -135,6 +135,6 @@ class PageFormatter:
                 final_str += self._indent_to(len(indent.group(0)))
             final_str += re.sub(scan_re, self.replace, line)
         if self.in_pre: final_str += '</pre>'
-        print final_str
+        #print final_str
         return final_str
         #return self._undent()

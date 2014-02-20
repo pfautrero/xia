@@ -70,5 +70,7 @@ if __name__=='__main__':
     root.title("IA2 Converter")
     root.geometry("550x200")
     root.attributes('-topmost', 1)
+    img = Tkinter.PhotoImage(file='img/image-active64.gif')
+    root.tk.call('wm', 'iconphoto', root._w, img)    
     IADialog(root).pack()
     root.mainloop()

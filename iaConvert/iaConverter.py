@@ -18,7 +18,7 @@
 import os
 from lib.iaobject import iaObject
 
-currentDir = os.path.dirname(os.path.realpath(__file__))
+#currentDir = os.path.dirname(os.path.realpath(__file__))
 
 imageActive = iaObject()
 imageActive.analyzeSVG("fixtures/test.svg")
