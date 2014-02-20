@@ -107,11 +107,10 @@ class PageFormatter:
         # For each line, we scan through looking for magic
         # strings, outputting verbatim any intervening text
         final_str = ""
-        
+        #             + r"|(?P<word>\b(?:[A-Z][a-z]+){2,}\b)"
         scan_re = re.compile(
             r"(?:(?P<emph>\*{2,3})"
             + r"|(?P<ent>[<>&])"
-            + r"|(?P<word>\b(?:[A-Z][a-z]+){2,}\b)"
             + r"|(?P<rule>-{4,})"
             + r"|(?P<video>https?\://[^\s'\"]+\.ogg\b)"
             + r"|(?P<audio>https?\://[^\s'\"]+\.mp3\b)"

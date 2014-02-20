@@ -72,7 +72,7 @@ class iaObject:
                     title = image.getElementsByTagName('title')
                     if title.item(0) is not None:
                         if title.item(0).parentNode == image:
-                            self.scene['intro_title'] = self.get_tag_value(title.item(0)).replace("\n"," ").replace("\t"," ").replace("\r"," ")
+                            self.scene['intro_title'] = self.get_tag_value(title.item(0))
 
                     self.raster = image.attributes['xlink:href'].value
                     self.scene['image'] = image.attributes['xlink:href'].value
@@ -232,7 +232,7 @@ class iaObject:
 
         final_str += 'var scene = {\n'
         for entry in self.scene:
-            final_str += '"' + entry + '":"' + self.scene[entry].encode('utf-8') + '",\n'
+            final_str += '"' + entry + '":"' + PageFormatter(self.scene[entry]).print_html().encode('utf-8').replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + '",\n'
         final_str += '};\n'
 
         final_str += 'var details = [\n'
@@ -242,7 +242,7 @@ class iaObject:
                 if entry == "path":
                     final_str += '"' + entry + '":' + detail[entry].encode('utf-8') + ',\n'
                 elif entry == "detail":
-                    final_str += '"' + entry + '":"' + PageFormatter(detail[entry]).print_html().encode('utf-8').replace('"', "'") + '",\n'
+                    final_str += '"' + entry + '":"' + PageFormatter(detail[entry]).print_html().encode('utf-8').replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + '",\n'
                 else:
                     final_str += '"' + entry + '":"' + detail[entry].encode('utf-8') + '",\n'
             final_str += '},\n'
