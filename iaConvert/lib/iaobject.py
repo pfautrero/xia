@@ -242,7 +242,7 @@ class iaObject:
                 if entry == "path":
                     final_str += '"' + entry + '":' + detail[entry].encode('utf-8') + ',\n'
                 elif entry == "detail":
-                    final_str += '"' + entry + '":"' + PageFormatter(detail[entry]).print_html().encode('utf-8') + '",\n'
+                    final_str += '"' + entry + '":"' + PageFormatter(detail[entry]).print_html().encode('utf-8').replace('"', "'") + '",\n'
                 else:
                     final_str += '"' + entry + '":"' + detail[entry].encode('utf-8') + '",\n'
             final_str += '},\n'
