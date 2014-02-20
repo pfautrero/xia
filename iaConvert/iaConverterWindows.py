@@ -28,17 +28,33 @@ class IADialog(Tkinter.Frame):
 
     self.filename = ""
 
-    dessin= Tkinter.PhotoImage(file="img/image-active.gif")
-    label = Tkinter.Label(self, image=dessin)
-    label.photo = dessin
-    label.pack(side=Tkinter.LEFT)
-
-    # options for buttons
-    button_opt = {'fill': Tkinter.BOTH,'padx': 5, 'pady': 5}
+    import_img= Tkinter.PhotoImage(file="img/import.gif")
+    accordion_img= Tkinter.PhotoImage(file="img/accordion.gif")    
+    bubbles_img= Tkinter.PhotoImage(file="img/bubbles.gif")    
+    ia_img= Tkinter.PhotoImage(file="img/ia.gif")    
+    buttons_img= Tkinter.PhotoImage(file="img/buttons.gif")    
 
     # define buttons
-    Tkinter.Button(self, text='Importer un fichier SVG', command=self.askopenfilename).pack(**button_opt)
-    Tkinter.Button(self, text='Créer l\'Image Active (mode Accordéon)', command=self.createAccordion).pack(**button_opt)
+    button1 = Tkinter.Button(self, image=import_img, relief=Tkinter.FLAT, bd=0, height=150, width=150, command=self.askopenfilename)
+    button1.image = import_img
+    button1.grid(row=0,column=0, columnspan=1,sticky='W')
+
+    button2 = Tkinter.Button(self, image=accordion_img, relief=Tkinter.FLAT,bd=0, height=150, width=150,  command=self.createAccordion)
+    button2.image = accordion_img
+    button2.grid(row=0,column=1)
+
+    button3 = Tkinter.Button(self, image=bubbles_img, relief=Tkinter.FLAT,bd=0, height=150, width=150,  command=self.createAccordion)
+    button3.image = bubbles_img
+    button3.grid(row=0,column=2)
+
+    label = Tkinter.Label(self, image=ia_img)
+    label.photo = ia_img
+    label.grid(row=1,column=0,columnspan=2, sticky='W')
+
+    button4 = Tkinter.Button(self, image=buttons_img, relief=Tkinter.FLAT,  padx=0, pady=0,  command=self.createAccordion)
+    button4.image = buttons_img
+    button4.grid(row=1,column=2)
+
 
     # define options for opening or saving a file
     self.file_opt = options = {}
@@ -50,11 +66,6 @@ class IADialog(Tkinter.Frame):
     options['title'] = 'Select a svg file'
 
   def askopenfilename(self):
-
-    """Returns an opened file in read mode.
-    This time the dialog just returns a filename and the file is opened by your own code.
-    """
-
     self.filename = tkFileDialog.askopenfilename(**self.file_opt)
 
   def createAccordion(self):
@@ -68,9 +79,9 @@ class IADialog(Tkinter.Frame):
 if __name__=='__main__':
     root = Tkinter.Tk()
     root.title("IA2 Converter")
-    root.geometry("550x200")
+    root.geometry("465x310")
     root.attributes('-topmost', 1)
     img = Tkinter.PhotoImage(file='img/image-active64.gif')
     root.tk.call('wm', 'iconphoto', root._w, img)    
-    IADialog(root).pack()
+    IADialog(root).pack(side="left")
     root.mainloop()
