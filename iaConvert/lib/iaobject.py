@@ -67,12 +67,12 @@ class iaObject:
                     desc = image.getElementsByTagName('desc')
                     if desc.item(0) is not None:
                         if desc.item(0).parentNode == image:
-                            self.scene['intro_detail'] = self.get_tag_value(desc.item(0)).replace("\n","<br>").replace("\t"," ").replace("\r"," ")
+                            self.scene['intro_detail'] = self.get_tag_value(desc.item(0))
 
                     title = image.getElementsByTagName('title')
                     if title.item(0) is not None:
                         if title.item(0).parentNode == image:
-                            self.scene['intro_title'] = self.get_tag_value(title.item(0)).replace("\n","<br>").replace("\t"," ").replace("\r"," ")
+                            self.scene['intro_title'] = self.get_tag_value(title.item(0)).replace("\n"," ").replace("\t"," ").replace("\r"," ")
 
                     self.raster = image.attributes['xlink:href'].value
                     self.scene['image'] = image.attributes['xlink:href'].value
