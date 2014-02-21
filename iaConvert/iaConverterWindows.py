@@ -16,7 +16,7 @@
 # @author : pascal.fautrero@crdp.ac-versailles.fr
 
 import Tkinter, Tkconstants, tkFileDialog
-import os
+import os, shutil
 from lib.iaobject import iaObject
 
 class IADialog(Tkinter.Frame):
@@ -65,16 +65,36 @@ class IADialog(Tkinter.Frame):
     options['parent'] = root
     options['title'] = 'Select a svg file'
 
+    self.dir_opt = options = {}
+    options['initialdir'] = ''
+    options['mustexist'] = False
+    options['parent'] = root
+    options['title'] = 'Select target folder'
+    
   def askopenfilename(self):
     self.filename = tkFileDialog.askopenfilename(**self.file_opt)
 
   def createAccordion(self):
         if self.filename:
-            imageActive = iaObject()
-            imageActive.analyzeSVG(self.filename)
-            imageActive.generateJSON("images_actives/datas/data.js")
-            imageActive.generateAccordion("images_actives/index.html")
-            #imageActive.createBackground("images_actives/datas")            
+            self.dirname = tkFileDialog.askdirectory(**self.dir_opt)
+            if self.dirname:
+                if os.path.isdir(self.dirname + '/img'):
+                    shutil.rmtree(self.dirname + '/img')
+                if os.path.isdir(self.dirname + '/css'):
+                    shutil.rmtree(self.dirname + '/css')
+                if os.path.isdir(self.dirname + '/js'):
+                    shutil.rmtree(self.dirname + '/js')
+                if os.path.isdir(self.dirname + '/datas'):
+                    shutil.rmtree(self.dirname + '/datas')
+                os.mkdir(self.dirname + '/datas')
+                shutil.copytree('images_actives/css/', self.dirname + '/css/')
+                shutil.copytree('images_actives/img/', self.dirname + '/img/')
+                shutil.copytree('images_actives/js/', self.dirname + '/js/')
+                imageActive = iaObject()
+                imageActive.analyzeSVG(self.filename)
+                imageActive.generateJSON(self.dirname + '/datas/data.js')
+                imageActive.generateAccordion(self.dirname + "/index.html")
+                #imageActive.createBackground("images_actives/datas")            
 
 if __name__=='__main__':
     root = Tkinter.Tk()
