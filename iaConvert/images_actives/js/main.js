@@ -151,17 +151,43 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
                     }
                     for (var i in that.kineticElement) {
                         that.kineticElement[i].zoomActive = 1;
-                        that.kineticElement[i].scale({x:that.agrandissement,y:that.agrandissement});
                         that.kineticElement[i].setZIndex(1000);
                         that.originalX[i] = that.kineticElement[i].x();
                         that.originalY[i] = that.kineticElement[i].y();
+                        //that.kineticElement[i].scale({x:that.agrandissement,y:that.agrandissement});
                         if (hauteur > largeur) {
-                            that.kineticElement[i].x(((iaScene.width-largeur*that.agrandissement)/2 - that.minX*that.agrandissement) * 1);
-                            that.kineticElement[i].y((that.kineticElement[i].y() - that.minY*that.agrandissement) * 1);
+                            //that.kineticElement[i].x(((iaScene.width-largeur*that.agrandissement)/2 - that.minX*that.agrandissement) * 1);
+                            //that.kineticElement[i].y((that.kineticElement[i].y() - that.minY*that.agrandissement) * 1);
+
+                            var tween = new Kinetic.Tween({
+                              node: that.kineticElement[i], 
+                              duration: 1,
+                              x: ((iaScene.width-largeur*that.agrandissement)/2 - that.minX*that.agrandissement) * 1,
+                              y: (that.kineticElement[i].y() - that.minY*that.agrandissement) * 1,
+                              easing: Kinetic.Easings.BackEaseIn,
+                              scaleX: that.agrandissement,
+                              scaleY: that.agrandissement
+                            });
+
+                            tween.play();                            
+                            
+                            
                         }
                         else {
-                            that.kineticElement[i].y(((iaScene.height-hauteur*that.agrandissement)/2 - that.minY*that.agrandissement) * 1);
-                            that.kineticElement[i].x((that.kineticElement[i].x() - that.minX*that.agrandissement) * 1);					
+                            //that.kineticElement[i].y(((iaScene.height-hauteur*that.agrandissement)/2 - that.minY*that.agrandissement) * 1);
+                            //that.kineticElement[i].x((that.kineticElement[i].x() - that.minX*that.agrandissement) * 1);					
+
+                            var tween = new Kinetic.Tween({
+                              node: that.kineticElement[i], 
+                              duration: 1,
+                                x: (that.kineticElement[i].x() - that.minX*that.agrandissement) * 1,
+                                y: ((iaScene.height-hauteur*that.agrandissement)/2 - that.minY*that.agrandissement) * 1,
+                                easing: Kinetic.Easings.BackEaseIn,
+                                scaleX: that.agrandissement,
+                                scaleY: that.agrandissement
+                            });
+                            tween.play();
+                                                        
                         }
                     }
                     that.layer.draw();
@@ -169,7 +195,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
                 // let's unzoom
                 else if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
                     for (var i in that.kineticElement) {
-                        if (that.kineticElement[i].zoomActive == 1) {
+                        if ((that.kineticElement[i].zoomActive == 1) && (that.kineticElement[i].scaleX().toFixed(10) == that.agrandissement.toFixed(10))) {
                             iaScene.zoomActive = 0;
                             that.kineticElement[i].zoomActive = 0;
                             that.kineticElement[i].scale({x:iaScene.coeff,y:iaScene.coeff});
