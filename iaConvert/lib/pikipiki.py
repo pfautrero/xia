@@ -45,9 +45,6 @@ class PageFormatter:
             s = s + "\n<hr size=%d>\n" % (len(word) - 2 )
         return s
 
-    def _word_repl(self, word):
-        return Page(word).link_to()
-
     def _url_repl(self, word):
         return '<a href ="%s">%s</a>' % (word, word)
 
@@ -55,7 +52,7 @@ class PageFormatter:
         return '<video controls><source type="video/ogg" src="%s" /></video>' % (word)
 
     def _audio_repl(self, word):
-        return '<audio controls><source type="audio/mp3" src="%s" /></audio><p><a href="%s">bande audio</a></p>' % (word,word)
+        return '<audio controls><source type="audio/mp3" src="%s" /></audio>' % (word)
 
     def _email_repl(self, word):
         return '<a href ="mailto:%s">%s</a>' % (word, word)
@@ -66,7 +63,7 @@ class PageFormatter:
                 '>': '&gt;'}[s]
 
     def _li_repl(self, match):
-        return '<li>'
+        return '<li>%s</li>' %(match[match.find('*')+1:])
 
     def _pre_repl(self, word):
         if word == '{{{' and not self.in_pre:
@@ -116,24 +113,21 @@ class PageFormatter:
             + r"|(?P<audio>https?\://[^\s'\"]+\.mp3\b)"
             + r"|(?P<url>(http|ftp|nntp|news|mailto)\:[^\s'\"]+\S)"
             + r"|(?P<email>[-\w._+]+\@[\w.-]+)"
-            + r"|(?P<li>^\s+\*)"
+            + r"|(?P<li>^\s+\*(.*))"
             + r"|(?P<pre>(\{\{\{|\}\}\}))"
             + r")")
         blank_re = re.compile("^\s*$")
-        bullet_re = re.compile("^\s+\*")
         indent_re = re.compile("^\s*")
         eol_re = re.compile(r'\r?\n')
         raw = string.expandtabs(self.raw)
         for line in eol_re.split(raw):
             if not self.in_pre:
-                # XXX: Should we check these conditions in this order?
                 if blank_re.match(line):
-                    final_str += '<p>'
+                    final_str += '<br>'
                     continue
                 indent = indent_re.match(line)
                 final_str += self._indent_to(len(indent.group(0)))
             final_str += re.sub(scan_re, self.replace, line)
         if self.in_pre: final_str += '</pre>'
-        #print final_str
+        final_str += self._undent()
         return final_str
-        #return self._undent()
