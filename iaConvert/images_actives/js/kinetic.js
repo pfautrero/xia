@@ -1549,7 +1549,14 @@ var Kinetic = {};
         },
         createPattern: function() {
             var a = arguments;
-            return this._context.createPattern(a[0], a[1]);
+            // workaround to avoid mozilla bug on createPattern 
+            try {
+              return this._context.createPattern(a[0], a[1]);
+            } catch(err) {
+              //console.log(err);
+              //console.trace();
+              return null;
+            }
         },
         createRadialGradient: function() {
             var a = arguments;
