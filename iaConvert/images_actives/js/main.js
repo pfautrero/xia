@@ -98,28 +98,30 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
         that.maxY = parseFloat(detail.y);
     }    
     
-    
-    
-    // Find paths and details
-    
-    if (typeof(detail.path) != 'undefined') {
-        for (var i in detail.path) {
-            this.path[i] = detail.path[i];
-            this.backgroundImage[i] = imageObj;
-            this.kineticElement[i] = new Kinetic.Path({
-                data: this.path[i],
+    /*
+     * 
+     * @param {type} path
+     * @returns {undefined}
+     */
+    var includePath = function(path) {
+            var i = 0;
+            that.path[i] = path;
+            that.backgroundImage[i] = imageObj;
+            that.kineticElement[i] = new Kinetic.Path({
+                data: path,
                 y: 50,
                 fill: 'rgba(0, 0, 0, 0)',
                 stroke: '',
                 strokeWidth: 0
             });
             that.kineticElement[i].scale({x:iaScene.coeff,y:iaScene.coeff});
+
             definePathBoxSize(i);
 
             /*
              * if mouse is over element, fill the element with semi-transparency
              */
-            this.kineticElement[i].on('mouseover', function() {
+            that.kineticElement[i].on('mouseover', function() {
                 if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
 
                 }
@@ -135,60 +137,19 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
             /*
              * if we click in this element, manage zoom-in, zoom-out
              */
-            this.kineticElement[i].on('click touchstart', function() {
+            that.kineticElement[i].on('click touchstart', function() {
                 // let's zoom
                 if ((iaScene.cursorState.indexOf("ZoomIn.cur") != -1) && (iaScene.element == that)) {
                     iaScene.zoomActive = 1;
                     document.body.style.cursor = "url(img/ZoomOut.cur),auto";
                     iaScene.cursorState = "url(img/ZoomOut.cur),auto";
-                    var largeur = (that.maxX - that.minX) * 1;
-                    var hauteur = (that.maxY - that.minY) * 1;                
-                    if (hauteur > largeur) {
-                        that.agrandissement = iaScene.height / hauteur;
-                    }
-                    else {
-                        that.agrandissement = iaScene.width / largeur;
-                    }
                     for (var i in that.kineticElement) {
                         that.kineticElement[i].zoomActive = 1;
                         that.kineticElement[i].setZIndex(1000);
                         that.originalX[i] = that.kineticElement[i].x();
                         that.originalY[i] = that.kineticElement[i].y();
-                        //that.kineticElement[i].scale({x:that.agrandissement,y:that.agrandissement});
-                        if (hauteur > largeur) {
-                            //that.kineticElement[i].x(((iaScene.width-largeur*that.agrandissement)/2 - that.minX*that.agrandissement) * 1);
-                            //that.kineticElement[i].y((that.kineticElement[i].y() - that.minY*that.agrandissement) * 1);
-
-                            var tween = new Kinetic.Tween({
-                              node: that.kineticElement[i], 
-                              duration: 1,
-                              x: ((iaScene.width-largeur*that.agrandissement)/2 - that.minX*that.agrandissement) * 1,
-                              y: (that.kineticElement[i].y() - that.minY*that.agrandissement) * 1,
-                              easing: Kinetic.Easings.BackEaseIn,
-                              scaleX: that.agrandissement,
-                              scaleY: that.agrandissement
-                            });
-
-                            tween.play();                            
-                            
-                            
-                        }
-                        else {
-                            //that.kineticElement[i].y(((iaScene.height-hauteur*that.agrandissement)/2 - that.minY*that.agrandissement) * 1);
-                            //that.kineticElement[i].x((that.kineticElement[i].x() - that.minX*that.agrandissement) * 1);					
-
-                            var tween = new Kinetic.Tween({
-                              node: that.kineticElement[i], 
-                              duration: 1,
-                                x: (that.kineticElement[i].x() - that.minX*that.agrandissement) * 1,
-                                y: ((iaScene.height-hauteur*that.agrandissement)/2 - that.minY*that.agrandissement) * 1,
-                                easing: Kinetic.Easings.BackEaseIn,
-                                scaleX: that.agrandissement,
-                                scaleY: that.agrandissement
-                            });
-                            tween.play();
-                                                        
-                        }
+                        that.kineticElement[i].scale({x:that.agrandissement,y:that.agrandissement});                    
+                        that.tween[i].play();
                     }
                     that.layer.draw();
                 }
@@ -202,7 +163,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
                             that.kineticElement[i].setZIndex(100);
                             that.kineticElement[i].x(that.originalX[i]);
                             that.kineticElement[i].y(that.originalY[i]);
-
+                            that.tween[i].reset();
                             that.kineticElement[i].fillPriority('color');
                             baseImage.opacity(1);
                             that.kineticElement[i].setFill('rgba(0, 0, 0, 0)');
@@ -241,7 +202,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
             /*
              * if we leave this element, just clear the scene
              */
-            this.kineticElement[i].on('mouseleave', function() {
+            that.kineticElement[i].on('mouseleave', function() {
                 if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
 
                 }
@@ -257,13 +218,14 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
                 }
             });
 
-            this.layer.add(this.kineticElement[i]);
-        }
+            that.layer.add(that.kineticElement[i]);
+        
     }
     
-    // path not found, default is image
-    
-    else {
+    if (typeof(detail.path) != 'undefined') {
+        includePath(detail.path);
+    }
+    else if (typeof(detail.image) != 'undefined') {
         var rasterObj = new Image();
         this.backgroundImage[0] = rasterObj;
         rasterObj.onload = function() {
@@ -277,10 +239,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
                     stroke: '',
                     strokeWidth: 0	
             });
-
-
             defineImageBoxSize();
-            
             var i = 0;
             that.kineticElement[i].on('mouseover', function() {
                 if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
@@ -345,6 +304,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
                             that.kineticElement[i].setFill('rgba(0, 0, 0, 0)');
                             document.body.style.cursor = "default";
                             iaScene.cursorState = "default";
+
                             that.layer.draw();										
                         }
                     }
@@ -396,7 +356,57 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
         };
         rasterObj.src = detail.image;        
     }
-    
+
+    else {
+        console.log(detail);
+    }
+
+
+
+    var largeur = (that.maxX - that.minX) * 1;
+    var hauteur = (that.maxY - that.minY) * 1;                
+    if (hauteur > largeur) {
+        that.agrandissement = iaScene.height / hauteur;
+    }
+    else {
+        that.agrandissement = iaScene.width / largeur;
+    }
+    that.tween = new Array();
+    if (hauteur > largeur) {
+//                            that.kineticElement[i].x(((iaScene.width-largeur*that.agrandissement)/2 - that.minX*that.agrandissement) * 1);
+//                            that.kineticElement[i].y((that.kineticElement[i].y() - that.minY*that.agrandissement) * 1);
+        for (var i in that.kineticElement) {
+            that.tween[i] = new Kinetic.Tween({
+              node: that.kineticElement[i], 
+              duration: 1,
+              x: ((iaScene.width-largeur*that.agrandissement)/2 - that.minX*that.agrandissement) * 1,
+              y: (that.kineticElement[i].y() - that.minY*that.agrandissement) * 1,
+              easing: Kinetic.Easings.BackEaseIn,
+              scaleX: that.agrandissement,
+              scaleY: that.agrandissement
+            });
+        }
+
+
+    }
+    else {
+//                            that.kineticElement[i].y(((iaScene.height-hauteur*that.agrandissement)/2 - that.minY*that.agrandissement) * 1);
+//                            that.kineticElement[i].x((that.kineticElement[i].x() - that.minX*that.agrandissement) * 1);					
+
+        for (var i in that.kineticElement) {
+            that.tween[i] = new Kinetic.Tween({
+              node: that.kineticElement[i], 
+              duration: 1,
+                x: (that.kineticElement[i].x() - that.minX*that.agrandissement) * 1,
+                y: ((iaScene.height-hauteur*that.agrandissement)/2 - that.minY*that.agrandissement) * 1,
+                easing: Kinetic.Easings.BackEaseIn,
+                scaleX: that.agrandissement,
+                scaleY: that.agrandissement
+            });
+        }
+
+    }
+
     /*
      *  manage accordion events related to this element
      */

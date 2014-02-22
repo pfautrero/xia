@@ -47,7 +47,7 @@ class iaObject:
         head, tail = os.path.split(filePath)
         
         self.scene['intro_title'] = u"Description"
-        self.scene['intro_detail'] = u"Image Active - Canopé Versailles"
+        self.scene['intro_detail'] = u"Images Actives - Canopé Versailles"
         self.scene['image'] = "datas/background.jpg"
         self.scene['width'] = ""
         self.scene['height'] = ""
@@ -56,11 +56,11 @@ class iaObject:
         # ==================== Look for images
 
         images = self.xml.getElementsByTagName('image')
-        print "NB IMAGES = " + str(images.length)
         if images.length is not 0:
             for image in images:
                     
                 # first image is considered as background image
+                self.backgroundNode = image;
                 self.scene['width'] = image.attributes['width'].value
                 self.scene['height'] =  image.attributes['height'].value
 
@@ -83,10 +83,44 @@ class iaObject:
         paths = self.xml.getElementsByTagName('path')
         self.analyzeRootPaths(paths)
 
+        # ==================== Look for images not included in groups
+
+        images = self.xml.getElementsByTagName('image')
+        self.analyzeRootImages(images)
+
+
         # ==================== Look for paths in groups root
+
         for group in groups:
             if group.parentNode.nodeName == "svg":
                 self.analyzeGroup(group)
+
+    def analyzeRootImages(self, images):
+        """Analyze images not included in a specific group"""
+        
+        if images.length is not 0:
+            for image in images:
+                print "Root Image detected"
+                if (image.parentNode.nodeName == "svg") and not image.isSameNode(self.backgroundNode):
+                    record_image = {}
+                    record_image['image'] = image.attributes['xlink:href'].value
+                    record_image['width'] = image.attributes['width'].value
+                    record_image['height'] = image.attributes['height'].value
+                    record_image['detail'] = self.getText("desc", image)
+                    record_image['title'] = self.getText("title", image)
+
+                    if image.hasAttribute("x") and image.hasAttribute("y"):
+                        record_image['x'] = image.attributes['x'].value
+                        record_image['y'] = image.attributes['y'].value
+                    elif image.hasAttribute("transform"):
+                        matrix = image.attributes['transform'].value
+                        m = matrix[matrix.find('(')+1:matrix.find(')')].split(" ")
+                        record_image['x'] = m[4]
+                        record_image['y'] = m[5]                        
+                    else:
+                        record_image['x'] = str(0)
+                        record_image['y'] = str(0)                        
+                    self.details.append(record_image)               
 
 
     def analyzeRootPaths(self,paths):
@@ -136,9 +170,9 @@ class iaObject:
         """Analyze a svg group"""
 
         record = {}
-        record["group"] = []
-        record['detail'] = self.getText("desc", group)
         record['title'] = self.getText("title", group)
+        record['detail'] = self.getText("desc", group)
+        record["group"] = []
 
         paths = group.getElementsByTagName('path')
         if paths.length is not 0:
@@ -165,11 +199,13 @@ class iaObject:
         if images.length is not 0:
             for image in images:
                 record_image = {}
-                record_image = image.attributes['xlink:href'].value
+                record_image["image"] = image.attributes['xlink:href'].value
+                record_image['width'] = image.attributes['width'].value
+                record_image['height'] = image.attributes['height'].value                
                 if record["detail"] == "":
-                    record['detail'] = self.getText("desc", path)
+                    record['detail'] = self.getText("desc", image)
                 if record["title"] == "":
-                    record['title'] = self.getText("title", path)
+                    record['title'] = self.getText("title", image)
 
                 if image.hasAttribute("x") and image.hasAttribute("y"):
                     record_image['x'] = image.attributes['x'].value
@@ -195,7 +231,7 @@ class iaObject:
                 if record["title"] == "":
                     record['title'] = self.getText("title", subgroup)
 
-        if (len(record["group"])  != 0):
+        if len(record["group"]):
             self.details.append(record)
 
 
@@ -215,7 +251,6 @@ class iaObject:
             for entry in detail:
                 if entry == "group":
                     final_str += '  "' + entry + '": [\n'
-
                     for element in detail['group']:
                         final_str += '  {\n'
                         for entry2 in element:
