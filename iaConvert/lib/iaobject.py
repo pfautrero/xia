@@ -58,58 +58,26 @@ class iaObject:
         images = self.xml.getElementsByTagName('image')
         print "NB IMAGES = " + str(images.length)
         if images.length is not 0:
-            for index, image in enumerate(images):
-                if index == 0:
-                    # first image is considered as background image
-                    self.scene['width'] = image.attributes['width'].value
-                    self.scene['height'] =  image.attributes['height'].value
+            for image in images:
+                    
+                # first image is considered as background image
+                self.scene['width'] = image.attributes['width'].value
+                self.scene['height'] =  image.attributes['height'].value
 
-                    desc = image.getElementsByTagName('desc')
-                    if desc.item(0) is not None:
-                        if desc.item(0).parentNode == image:
-                            self.scene['intro_detail'] = self.get_tag_value(desc.item(0))
+                desc = image.getElementsByTagName('desc')
+                if desc.item(0) is not None:
+                    if desc.item(0).parentNode == image:
+                        self.scene['intro_detail'] = self.get_tag_value(desc.item(0))
 
-                    title = image.getElementsByTagName('title')
-                    if title.item(0) is not None:
-                        if title.item(0).parentNode == image:
-                            self.scene['intro_title'] = self.get_tag_value(title.item(0))
+                title = image.getElementsByTagName('title')
+                if title.item(0) is not None:
+                    if title.item(0).parentNode == image:
+                        self.scene['intro_title'] = self.get_tag_value(title.item(0))
 
-                    self.raster = image.attributes['xlink:href'].value
-                    self.scene['image'] = image.attributes['xlink:href'].value
-                else:
-                    # other images are considered as details
-                    record = {}
-                    record['width'] = image.attributes['width'].value
-                    record['height'] =  image.attributes['height'].value
-                    record['detail'] = ""
-                    record['title'] = ""
-                    desc = image.getElementsByTagName('desc')
-                    if desc.item(0) is not None:
-                        if desc.item(0).parentNode == image:
-                            record['detail'] = self.get_tag_value(desc.item(0))
-
-                    title = image.getElementsByTagName('title')
-                    if title.item(0) is not None:
-                        if title.item(0).parentNode == image:
-                            record['title'] = self.get_tag_value(title.item(0))
-
-                    record['image'] = image.attributes['xlink:href'].value
-
-                    if image.hasAttribute("x") and image.hasAttribute("y"):
-                        record['x'] = image.attributes['x'].value
-                        record['y'] = image.attributes['y'].value
-                    elif image.hasAttribute("transform"):
-                        print "1"
-                        matrix = image.attributes['transform'].value
-                        m = matrix[matrix.find('(')+1:matrix.find(')')].split(" ")
-                        record['x'] = m[4]
-                        record['y'] = m[5]                        
-                    else:
-                        record['x'] = str(0)
-                        record['y'] = str(0)                        
-
-                    self.details.append(record)
-
+                self.raster = image.attributes['xlink:href'].value
+                self.scene['image'] = image.attributes['xlink:href'].value
+                break
+                
         # ==================== Look for paths not included in groups
 
         paths = self.xml.getElementsByTagName('path')
@@ -132,7 +100,7 @@ class iaObject:
                     record = {}
                     record["title"] = ""
                     record["detail"] = ""
-                    record["path"] = "["
+                    record["path"] = ""
                     record["fill"] = ""
                     record["path"] += '"' + path.attributes['d'].value.replace("&#xd;&#xa;"," ").replace("&#x9;"," ").replace("\n"," ").replace("\t"," ").replace("\r"," ") 
                     record["style"] = ""
@@ -140,90 +108,95 @@ class iaObject:
                     if path.attributes['d'].value.lower().find("z") == -1:
                         record["path"] += " z"
                     record['path'] += '"'
-            
-                    desc = path.getElementsByTagName('desc')
-                    if desc.item(0) is not None:
-                        if record["detail"] == "":
-                            record["detail"] = self.get_tag_value(desc.item(0))
-            
-                    title = path.getElementsByTagName('title')
-                    if title.item(0) is not None:
-                        if record["title"] == "":
-                            record["title"] = self.get_tag_value(title.item(0)).replace("\n"," ").replace("\t"," ").replace("\r"," ")
-            
+
+                    if record["detail"] == "":
+                        record['detail'] = self.getText("desc", path)
+                    if record["title"] == "":
+                        record['title'] = self.getText("title", path)
+
                     if path.hasAttribute("style"):
                         str_style = path.attributes['style'].value
                         style = {}
                         for item in str_style.split(";"):
                             key,value = item.split(":")
                             style[key] = value
-
                         record["fill"] = style['fill']
-                    record["path"] += "]"
-                    if (record["path"] != "["):
+                    if (record["path"] != ""):
                         self.details.append(record)
+
+    def getText(self, type, element):
+        """ type can be 'desc' or 'title' """
+        text = element.getElementsByTagName(type)
+        if text.item(0) is not None:
+            if text.item(0).parentNode == element:
+                return self.get_tag_value(text.item(0)).replace("\n"," ").replace("\t"," ").replace("\r"," ")
+        return ""
 
     def analyzeGroup(self,group):
         """Analyze a svg group"""
 
         record = {}
-        record["title"] = ""
-        record["detail"] = ""
-        record["path"] = "["
-        record["fill"] = ""
+        record["group"] = []
+        record['detail'] = self.getText("desc", group)
+        record['title'] = self.getText("title", group)
 
-        desc = group.getElementsByTagName('desc')
-        if desc.item(0) is not None:
-            if desc.item(0).parentNode == group:
-                #print "DESC = " + self.get_tag_value(desc.item(0))
-                record["detail"] = self.get_tag_value(desc.item(0))
-        title = group.getElementsByTagName('title')
-        if title.item(0) is not None:
-            if title.item(0).parentNode == group:
-                #print "TITLE = " + self.get_tag_value(title.item(0))
-                record["title"] = self.get_tag_value(title.item(0))
+        paths = group.getElementsByTagName('path')
+        if paths.length is not 0:
+            for path in paths:
+                record_path = {}
+                record_path['path'] = path.attributes['d'].value.replace("&#xd;&#xa;"," ").replace("&#x9;"," ").replace("\n"," ").replace("\t"," ").replace("\r"," ") 
+                if path.attributes['d'].value.lower().find("z") == -1:
+                    record_path['path'] += " z"
+                if record["detail"] == "":
+                    record['detail'] = self.getText("desc", path)
+                if record["title"] == "":
+                    record['title'] = self.getText("title", path)
+                if path.hasAttribute("style"):                            
+                    str_style = path.attributes['style'].value
+                    style = {}
+                    for item in str_style.split(";"):
+                        key,value = item.split(":")
+                        style[key] = value
+                    record_path['fill'] = style['fill']
+                record["title"] +="T"
+                record["group"].append(record_path)
 
-        paths = group.getElementsByTagName('path')        
-        subgroups = group.getElementsByTagName('g')
-        # if current group is named or if it is a leaf
-        # retrieve all its paths (even if they are in subgroups)
-        if (record["title"] != "") or (record["detail"] != "") or (subgroups.length is 0): 
-            if paths.length is not 0:
-                for path in paths:
-                    #if path.parentNode == group:
-                    if record["path"] != "[":
-                        record["path"] += ","
-                    record["path"] += '"' + path.attributes['d'].value.replace("&#xd;&#xa;"," ").replace("&#x9;"," ").replace("\n"," ").replace("\t"," ").replace("\r"," ") 
-                    if path.attributes['d'].value.lower().find("z") == -1:
-                        record["path"] += " z"
-                    record['path'] += '"'
-                    desc = path.getElementsByTagName('desc')
-                    if desc.item(0) is not None:
-                        #print "DESC = " + self.get_tag_value(desc.item(0))
-                        if record["detail"] == "":
-                            record["detail"] = self.get_tag_value(desc.item(0))
-                    title = path.getElementsByTagName('title')
-                    if title.item(0) is not None:
-                        #print "TITLE = " + self.get_tag_value(title.item(0))
-                        if record["title"] == "":
-                            record["title"] = self.get_tag_value(title.item(0)).replace("\n"," ").replace("\t"," ").replace("\r"," ")
-                    if path.hasAttribute("style"):                            
-                        str_style = path.attributes['style'].value
-                        style = {}
-                        for item in str_style.split(";"):
-                            key,value = item.split(":")
-                            style[key] = value
+        images = group.getElementsByTagName('image')        
+        if images.length is not 0:
+            for image in images:
+                record_image = {}
+                record_image = image.attributes['xlink:href'].value
+                if record["detail"] == "":
+                    record['detail'] = self.getText("desc", path)
+                if record["title"] == "":
+                    record['title'] = self.getText("title", path)
 
-                        record["fill"] = style['fill']
-                record["path"] += "]"
-            if (record["path"] != "["):
-                self.details.append(record)
-        # if current group is unamed and contains subgroups
-        # analyze each subgroup
-        # if current group contains direct paths, they are not retrieved !
-        elif subgroups.length is not 0:
+                if image.hasAttribute("x") and image.hasAttribute("y"):
+                    record_image['x'] = image.attributes['x'].value
+                    record_image['y'] = image.attributes['y'].value
+                elif image.hasAttribute("transform"):
+                    matrix = image.attributes['transform'].value
+                    m = matrix[matrix.find('(')+1:matrix.find(')')].split(" ")
+                    record_image['x'] = m[4]
+                    record_image['y'] = m[5]                        
+                else:
+                    record_image['x'] = str(0)
+                    record_image['y'] = str(0)                        
+                record["title"] +="T"
+                record["group"].append(record_image)        
+
+
+        # look for title and description in subgroups if not yet available
+        if (record['title'] == "") and (record['detail'] == ""):
+            subgroups = group.getElementsByTagName('g')
             for subgroup in subgroups:
-                self.analyzeGroup(subgroup)
+                if record["detail"] == "":
+                    record['detail'] = self.getText("desc", subgroup)
+                if record["title"] == "":
+                    record['title'] = self.getText("title", subgroup)
+
+        if (len(record["group"])  != 0):
+            self.details.append(record)
 
 
     def generateJSON(self,filePath):
@@ -232,6 +205,7 @@ class iaObject:
 
         final_str += 'var scene = {\n'
         for entry in self.scene:
+            print "YO="+entry
             final_str += '"' + entry + '":"' + PageFormatter(self.scene[entry]).print_html().encode('utf-8').replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + '",\n'
         final_str += '};\n'
 
@@ -239,12 +213,24 @@ class iaObject:
         for detail in self.details:
             final_str += '{\n'
             for entry in detail:
-                if entry == "path":
-                    final_str += '"' + entry + '":' + detail[entry].encode('utf-8') + ',\n'
+                if entry == "group":
+                    final_str += '  "' + entry + '": [\n'
+
+                    for element in detail['group']:
+                        final_str += '  {\n'
+                        for entry2 in element:
+                            if entry2 == "detail":
+                                final_str += '      "' + entry2 + '":"' + PageFormatter(element[entry2]).print_html().encode('utf-8').replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + '",\n'
+                            else:
+                                final_str += '      "' + entry2 + '":"' + element[entry2].encode('utf-8') + '",\n'                            
+                        final_str += '  },\n'
+                    final_str += '  ],\n'                                
+                elif entry == "path":
+                    final_str += '  "' + entry + '":' + detail[entry].encode('utf-8') + ',\n'
                 elif entry == "detail":
-                    final_str += '"' + entry + '":"' + PageFormatter(detail[entry]).print_html().encode('utf-8').replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + '",\n'
+                    final_str += '  "' + entry + '":"' + PageFormatter(detail[entry]).print_html().encode('utf-8').replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + '",\n'
                 else:
-                    final_str += '"' + entry + '":"' + detail[entry].encode('utf-8') + '",\n'
+                    final_str += '  "' + entry + '":"' + detail[entry].encode('utf-8') + '",\n'
             final_str += '},\n'
         final_str += '];\n'
 
