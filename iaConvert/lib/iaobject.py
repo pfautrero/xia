@@ -192,7 +192,6 @@ class iaObject:
                         key,value = item.split(":")
                         style[key] = value
                     record_path['fill'] = style['fill']
-                record["title"] +="T"
                 record["group"].append(record_path)
 
         images = group.getElementsByTagName('image')        
@@ -218,7 +217,7 @@ class iaObject:
                 else:
                     record_image['x'] = str(0)
                     record_image['y'] = str(0)                        
-                record["title"] +="T"
+
                 record["group"].append(record_image)        
 
 
