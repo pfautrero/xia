@@ -61,6 +61,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
     this.maxX = 0;
     this.maxY = 0;
     this.tween = new Array();    
+
     /*
      * 
      * @param {type} index
@@ -73,8 +74,8 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
         var len = element.getTotalLength();
         var point = element.getPointAtLength(0);
         if (that.minX == 0) that.minX = point.x;
-        if (that.minY == 0) that.minY = point.y;
-        if (that.maxX == 0) that.maxX = point.x;
+        if (that.minX == 0) that.minY = point.y;
+        if (that.minX == 0) that.maxX = point.x;
         if (that.maxY == 0) that.maxY = point.y;
         for (var percent =0; percent<1000;percent++) {
             var point = element.getPointAtLength( len * percent/1000 );
@@ -83,6 +84,11 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
             if (point.y < that.minY) that.minY = point.y;
             if (point.y > that.maxY) that.maxY = point.y;			
         }        
+
+        var aux = that.minY;
+        that.minY= that.maxY;
+        that.maxY = aux;
+
 
     }
     
@@ -93,309 +99,209 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
      */
     var defineImageBoxSize = function(detail) {
         "use strict";
-        that.minX = parseFloat(detail.x)*iaScene.coeff;
-        that.maxY = (parseFloat(detail.y) + parseFloat(detail.height))*iaScene.coeff+50;
-        that.maxX = (parseFloat(detail.x) + parseFloat(detail.width))*iaScene.coeff;
-        that.minY = parseFloat(detail.y)*iaScene.coeff+50;
+       
+        if (that.minX == 0) that.minX = (parseFloat(detail.x))*iaScene.coeff;
+        if (that.maxY == 0) that.maxY = (parseFloat(detail.y) + parseFloat(detail.height))*iaScene.coeff+50;
+        if (that.maxX == 0) that.maxX = (parseFloat(detail.x) + parseFloat(detail.width))*iaScene.coeff;
+        if (that.minY == 0) that.minY = (parseFloat(detail.y))*iaScene.coeff+50;
+
+        if (parseFloat(detail.x) < that.minX) that.minX = parseFloat(detail.x);
+        if (parseFloat(detail.x) > that.maxX) that.maxX = parseFloat(detail.x);
+        if (parseFloat(detail.y) < that.minY) that.miny = parseFloat(detail.y);        
+        if (parseFloat(detail.y) > that.maxY) that.maxy = parseFloat(detail.y);
+ 
 
     }    
+    /*
+     * Define mouse events on the current KineticElement
+     * @param {type} i KineticElement index
+     * @returns {undefined}
+     */
     
-    /*
-     * 
-     * @param {type} path
-     * @returns {undefined}
-     */
-    var includePath = function(path) {
-            var i = 0;
-            that.path[i] = path;
-            that.backgroundImage[i] = imageObj;
-            that.kineticElement[i] = new Kinetic.Path({
-                data: path,
-                y: 50,
-                x:0,
-                fill: 'rgba(0, 0, 0, 0)',
-                stroke: '',
-                strokeWidth: 0
-            });
-            that.kineticElement[i].scale({x:iaScene.coeff,y:iaScene.coeff});
+    var addEventsManagement = function(i) {
 
-            definePathBoxSize(i);
+        /*
+         * if mouse is over element, fill the element with semi-transparency
+         */
+        that.kineticElement[i].on('mouseover', function() {
+            if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
 
-            /*
-             * if mouse is over element, fill the element with semi-transparency
-             */
-            that.kineticElement[i].on('mouseover', function() {
-                if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
-
+            }
+            else {
+                document.body.style.cursor = "url(img/HandPointer.cur),auto";
+                iaScene.cursorState = "url(img/HandPointer.cur),auto";
+                for (var i in that.kineticElement) {
+                        that.kineticElement[i].fill('rgba(0, 221, 255, 0.4)');
                 }
-                else {
-                    document.body.style.cursor = "url(img/HandPointer.cur),auto";
-                    iaScene.cursorState = "url(img/HandPointer.cur),auto";
-                    for (var i in that.kineticElement) {
-                            that.kineticElement[i].fill('rgba(0, 221, 255, 0.4)');
-                    }
-                    that.layer.draw();
-                }
-            });
-            /*
-             * if we click in this element, manage zoom-in, zoom-out
-             */
-            that.kineticElement[i].on('click touchstart', function() {
-                // let's zoom
-                if ((iaScene.cursorState.indexOf("ZoomIn.cur") != -1) && (iaScene.element == that)) {
-                    iaScene.zoomActive = 1;
-                    document.body.style.cursor = "url(img/ZoomOut.cur),auto";
-                    iaScene.cursorState = "url(img/ZoomOut.cur),auto";
-                    for (var i in that.kineticElement) {
-                        that.kineticElement[i].zoomActive = 1;
-                        that.kineticElement[i].setZIndex(1000);
-                        that.originalX[i] = that.kineticElement[i].x();
-                        that.originalY[i] = that.kineticElement[i].y();
-                        that.kineticElement[i].scale({x:that.agrandissement,y:that.agrandissement});                    
-                        that.tween[i].play();
-                    }
-                    that.layer.draw();
-                }
-                // let's unzoom
-                else if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
-                    for (var i in that.kineticElement) {
-                        if ((that.kineticElement[i].zoomActive == 1) && (that.kineticElement[i].scaleX().toFixed(10) == that.agrandissement.toFixed(10))) {
-                            iaScene.zoomActive = 0;
-                            that.kineticElement[i].zoomActive = 0;
-                            that.kineticElement[i].scale({x:iaScene.coeff,y:iaScene.coeff});
-                            that.kineticElement[i].setZIndex(100);
-                            that.kineticElement[i].x(that.originalX[i]);
-                            that.kineticElement[i].y(that.originalY[i]);
-                            that.tween[i].reset();
-                            that.kineticElement[i].fillPriority('color');
-                            baseImage.opacity(1);
-                            that.kineticElement[i].setFill('rgba(0, 0, 0, 0)');
-                            document.body.style.cursor = "default";
-                            iaScene.cursorState = "default";
-                            that.layer.draw();										
-                        }
-                    }
-                }
-                // let's focus
-                else {
-                    if (iaScene.zoomActive == 0) {
-                        if ((iaScene.element != 0) && (typeof(iaScene.element) != 'undefined')) {
-                            for (var i in iaScene.element.kineticElement) {
-                                iaScene.element.kineticElement[i].fillPriority('color');
-                                iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
-                            }
-                        }                    
-                        document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';
-                        iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
-                        $('.collapse.in').each(function (index) {
-                                if ($(this).attr("id") != idText) $(this).collapse("toggle");
-                        });
-                        $('#' + idText).collapse("show");
-                        baseImage.opacity(0.3);
-                        for (var i in that.kineticElement) {
-                            that.kineticElement[i].fillPriority('pattern');
-                            that.kineticElement[i].fillPatternImage(imageObj);
-                            that.kineticElement[i].fillPatternOffset({x:0, y:0});
-                        }
-                        iaScene.element = that;
-                        that.layer.draw();
-                    }
-                }
-            });
-            /*
-             * if we leave this element, just clear the scene
-             */
-            that.kineticElement[i].on('mouseleave', function() {
-                if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
-
-                }
-                else {
-                    baseImage.opacity(1);
-                    for (var i in that.kineticElement) {
-                        that.kineticElement[i].fillPriority('color');
-                        that.kineticElement[i].fill('rgba(0, 0, 0, 0)');
-                    }
-                    document.body.style.cursor = "default";
-                    iaScene.cursorState = "default";
-                    that.layer.draw();						
-                }
-            });
-
-            that.layer.add(that.kineticElement[i]);
-        
-    };
-
-    /*
-     * 
-     * @param {type} detail
-     * @returns {undefined}
-     */
-    var includeImage = function(detail) {
-
-        defineImageBoxSize(detail);
-        var i = 0;
-        var rasterObj = new Image();
-        that.backgroundImage[0] = rasterObj;
-
-//        rasterObj.onload = function() {
-            var i = 0;
-            console.log("onLoad Image");
-        that.kineticElement[i] = new Kinetic.Rect({
-                x: (parseFloat(detail.x))*iaScene.coeff,
-                y: parseFloat(detail.y)*iaScene.coeff+50,
-                width: detail.width,
-                height: detail.height,
-                scale: {x:iaScene.coeff,y:iaScene.coeff},
-                fill: 'rgba(0, 0, 0, 0)',
-                stroke: '',
-                strokeWidth: 0	
+                that.layer.draw();
+            }
         });
-            
-            console.log(that.minX + " - " + that.minY + " - " + that.maxX + " - " + that.maxY );
-            that.kineticElement[i].on('mouseover', function() {
-                if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
-
+        /*
+         * if we click in this element, manage zoom-in, zoom-out
+         */
+        that.kineticElement[i].on('click touchstart', function() {
+            // let's zoom
+            if ((iaScene.cursorState.indexOf("ZoomIn.cur") != -1) && (iaScene.element == that)) {
+                iaScene.zoomActive = 1;
+                document.body.style.cursor = "url(img/ZoomOut.cur),auto";
+                iaScene.cursorState = "url(img/ZoomOut.cur),auto";
+                for (var i in that.kineticElement) {
+                    that.kineticElement[i].zoomActive = 1;
+                    that.kineticElement[i].setZIndex(1000);
+                    that.originalX[i] = that.kineticElement[i].x();
+                    that.originalY[i] = that.kineticElement[i].y();
+                    that.kineticElement[i].scale({x:that.agrandissement,y:that.agrandissement});                    
+                    that.tween[i].play();
                 }
-                else {
-                    document.body.style.cursor = "url(img/HandPointer.cur),auto";
-                    iaScene.cursorState = "url(img/HandPointer.cur),auto";
+                that.layer.draw();
+            }
+            // let's unzoom
+            else if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
+                for (var i in that.kineticElement) {
+                    if ((that.kineticElement[i].zoomActive == 1) && (that.kineticElement[i].scaleX().toFixed(10) == that.agrandissement.toFixed(10))) {
+                        iaScene.zoomActive = 0;
+                        that.kineticElement[i].zoomActive = 0;
+                        that.kineticElement[i].scale({x:iaScene.coeff,y:iaScene.coeff});
+                        that.kineticElement[i].setZIndex(100);
+                        that.kineticElement[i].x(that.originalX[i]);
+                        that.kineticElement[i].y(that.originalY[i]);
+                        that.tween[i].reset();
+                        that.kineticElement[i].fillPriority('color');
+                        baseImage.opacity(1);
+                        that.kineticElement[i].setFill('rgba(0, 0, 0, 0)');
+                        document.body.style.cursor = "default";
+                        iaScene.cursorState = "default";
+                        that.layer.draw();										
+                    }
+                }
+            }
+            // let's focus
+            else {
+                if (iaScene.zoomActive == 0) {
+                    if ((iaScene.element != 0) && (typeof(iaScene.element) != 'undefined')) {
+                        for (var i in iaScene.element.kineticElement) {
+                            iaScene.element.kineticElement[i].fillPriority('color');
+                            iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
+                        }
+                    }                    
+                    document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';
+                    iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
+                    $('.collapse.in').each(function (index) {
+                            if ($(this).attr("id") != idText) $(this).collapse("toggle");
+                    });
+                    $('#' + idText).collapse("show");
+                    baseImage.opacity(0.3);
                     for (var i in that.kineticElement) {
                         that.kineticElement[i].fillPriority('pattern');
                         that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
                         that.kineticElement[i].fillPatternOffset({x:0, y:0});
                     }
+                    iaScene.element = that;
                     that.layer.draw();
                 }
-            });
-            that.kineticElement[i].on('click touchstart', function() {
-                // let's zoom
-                if ((iaScene.cursorState.indexOf("ZoomIn.cur") != -1) && (iaScene.element == that)) {
-                    iaScene.zoomActive = 1;
-                    document.body.style.cursor = "url(img/ZoomOut.cur),auto";
-                    iaScene.cursorState = "url(img/ZoomOut.cur),auto";
-                    for (var i in that.kineticElement) {
-                        that.kineticElement[i].zoomActive = 1;
-                        that.originalX[i] = that.kineticElement[i].x();
-                        that.originalY[i] = that.kineticElement[i].y();
-                        that.kineticElement[i].scale({x:that.agrandissement,y:that.agrandissement});
-                        that.tween[i].play();  
+            }
+        });
+        /*
+         * if we leave this element, just clear the scene
+         */
+        that.kineticElement[i].on('mouseleave', function() {
+            if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
 
-//                        console.log("AGRANDISSEMENT = " + that.agrandissement + " X = " + that.kineticElement[i].x() + " - " + "Y = " + that.kineticElement[i].y());                        
-//                        if (hauteur > largeur) {
-//                            that.kineticElement[i].x(((iaScene.width-largeur)/2 - that.minX)  * iaScene.coeff);
-//                            that.kineticElement[i].y((that.kineticElement[i].y() - that.minY)  * iaScene.coeff);
-//                        }
-//                        else {
-//                            that.kineticElement[i].y(((iaScene.height-hauteur)/2 - that.minY)  * iaScene.coeff);
-//                            that.kineticElement[i].x((that.kineticElement[i].x() - that.minX)  * iaScene.coeff);					
-//                        }
-//                        console.log("X = " + that.kineticElement[i].x() + " - " + "Y = " + that.kineticElement[i].y());  
-                    }
-                    that.layer.draw();
+            }
+            else {
+                baseImage.opacity(1);
+                for (var i in that.kineticElement) {
+                    that.kineticElement[i].fillPriority('color');
+                    that.kineticElement[i].fill('rgba(0, 0, 0, 0)');
                 }
-                // let's unzoom
-                else if (iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) {
-                    for (var i in that.kineticElement) {
-                        if (that.kineticElement[i].zoomActive === 1) {
-                            iaScene.zoomActive = 0;
-                            that.kineticElement[i].zoomActive = 0;
-                            that.kineticElement[i].scale({x:iaScene.coeff,y:iaScene.coeff});
-                            that.kineticElement[i].x(that.originalX[i]);
-                            that.kineticElement[i].y(that.originalY[i]);
-                            that.tween[i].reset();
-                            that.kineticElement[i].fillPriority('color');
-                            baseImage.opacity(1);
-                            that.kineticElement[i].setFill('rgba(0, 0, 0, 0)');
-                            document.body.style.cursor = "default";
-                            iaScene.cursorState = "default";
+                document.body.style.cursor = "default";
+                iaScene.cursorState = "default";
+                that.layer.draw();						
+            }
+        });        
+    }
+    
+    /*
+     * 
+     * @param {type} path
+     * @param {type} i KineticElement index
+     * @returns {undefined}
+     */
+    var includePath = function(path, i) {
+        that.path[i] = path;
+        that.backgroundImage[i] = imageObj;
+        that.kineticElement[i] = new Kinetic.Path({
+            data: path,
+            y: 50,
+            x: 0,
+            scale: {x:iaScene.coeff,y:iaScene.coeff},
+            fill: 'rgba(0, 0, 0, 0)',
+            stroke: '',
+            strokeWidth: 0
+        });
+        definePathBoxSize(i);
+        addEventsManagement(i);
+        that.layer.add(that.kineticElement[i]);
+    };
 
-                            that.layer.draw();										
-                        }
-                    }
-                }
-                // let's focus
-                else {
-                    if (iaScene.zoomActive === 0) {
-                        if ((iaScene.element !== 0) && (typeof(iaScene.element) !== 'undefined')) {
-                            for (var i in iaScene.element.kineticElement) {
-                                iaScene.element.kineticElement[i].fillPriority('color');
-                                iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
-                            }
-                        }                    
-                        document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';
-                        iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
-                        $('.collapse.in').each(function (index) {
-                                if ($(this).attr("id") !== idText) $(this).collapse("toggle");
-                        });
-                        $('#' + idText).collapse("show");
-                        baseImage.opacity(0.3);
-                        for (var i in that.kineticElement) {
-                            that.kineticElement[i].fillPriority('pattern');
-                            that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
-                            that.kineticElement[i].fillPatternOffset({x:0, y:0});
-                        }
-                        iaScene.element = that;
-                        that.layer.draw();
-                    }
-                }
-            });
-            that.kineticElement[i].on('mouseleave', function() {
-                if (iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) {
+    /*
+     * 
+     * @param {type} detail
+     * @param {type} i KineticElement index
+     * @returns {undefined}
+     */
+    var includeImage = function(detail, i) {
+        defineImageBoxSize(detail);
+        var rasterObj = new Image();
+        rasterObj.src = detail.image;                
+        that.backgroundImage[i] = rasterObj;
+        that.kineticElement[i] = new Kinetic.Rect({
+            x: (parseFloat(detail.x))*iaScene.coeff,
+            y: parseFloat(detail.y)*iaScene.coeff+50,
+            width: detail.width,
+            height: detail.height,
+            scale: {x:iaScene.coeff,y:iaScene.coeff},
+            fill: 'rgba(0, 0, 0, 0)',
+            stroke: '',
+            strokeWidth: 0	
+        });
+        addEventsManagement(i);
+        that.layer.add(that.kineticElement[i]);
+        that.layer.draw();
 
-                }
-                else {
-                    baseImage.opacity(1);
-                    for (var i in that.kineticElement) {
-                        that.kineticElement[i].fillPriority('color');
-                        that.kineticElement[i].fill('rgba(0, 0, 0, 0)');
-                    }
-                    document.body.style.cursor = "default";
-                    iaScene.cursorState = "default";
-                    that.layer.draw();						
-                }
-            });            
-
-            that.layer.add(that.kineticElement[i]);
-            that.layer.draw();
-//        };
-        rasterObj.src = detail.image;        
-       
     }    
     
     if (typeof(detail.path) !== 'undefined') {
-        includePath(detail.path);
+        includePath(detail.path, 0);
     }
     else if (typeof(detail.image) !== 'undefined') {
-        includeImage(detail);
-        console.log("includeImage called");
+        includeImage(detail, 0);
+    }
+    else if (typeof(detail.group) !== 'undefined') {
+        for (var i in detail.group) {
+            if (typeof(detail.group[i].path) != 'undefined') {
+                includePath(detail.group[i].path, i);
+        console.log("GROUP : " + that.minX + " " + that.minY + " " + that.maxX + " " + that.maxY);
+            }
+            else if (typeof(detail.group[i].image) != 'undefined') {
+                includeImage(detail.group[i], i);
+            }
+        }
+        console.log("GROUP : " + that.minX + " " + that.minY + " " + that.maxX + " " + that.maxY);
     }
     else {
         console.log(detail);
     }
-    console.log(detail.title);
     var largeur = (that.maxX - that.minX) * 1;
     var hauteur = (that.maxY - that.minY) * 1;
-    console.log(that.minX + " - " + that.minY + " - " + that.maxX + " - " + that.maxY );
-    console.log("hauteur = " + hauteur + " - " + "largeur = " + largeur);
     if (hauteur > largeur) {
         that.agrandissement = iaScene.height / hauteur;
     }
     else {
         that.agrandissement = iaScene.width / largeur;
     }
-    console.log("a = " + that.agrandissement);
-    console.log("largeur * a" + that.agrandissement * largeur);
-    console.log("hauteur * a" + that.agrandissement * hauteur);
     if (hauteur > largeur) {
-        console.log("h>l");
-
-//                            that.kineticElement[i].x(((iaScene.width-largeur*that.agrandissement)/2 - that.minX*that.agrandissement) * 1);
-//                            that.kineticElement[i].y((that.kineticElement[i].y() - that.minY*that.agrandissement) * 1);
         for (var i in that.kineticElement) {
-        console.log((that.minX-that.kineticElement[i].x())*that.agrandissement);
-            //console.log(((iaScene.width-largeur*that.agrandissement)/2 - that.minX*that.agrandissement) * 1);
-            //console.log((that.kineticElement[i].y() - that.minY*that.agrandissement) * 1);
-            console.log((iaScene.width-largeur*that.agrandissement)/2);
             that.tween[i] = new Kinetic.Tween({
               node: that.kineticElement[i], 
               duration: 1,
@@ -406,18 +312,9 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
               scaleY: that.agrandissement
             });
         }
-//                        if (hauteur > largeur) {
-//                            that.kineticElement[i].x(((iaScene.width-largeur)/2 - that.minX)  * iaScene.coeff);
-//                            that.kineticElement[i].y((that.kineticElement[i].y() - that.minY)  * iaScene.coeff);
-//                        }
-//                        else {
-//                            that.kineticElement[i].y(((iaScene.height-hauteur)/2 - that.minY)  * iaScene.coeff);
-//                            that.kineticElement[i].x((that.kineticElement[i].x() - that.minX)  * iaScene.coeff);					
-//                        }
 
     }
     else {
-        console.log("h<l");
         for (var i in that.kineticElement) {
             that.tween[i] = new Kinetic.Tween({
               node: that.kineticElement[i], 
@@ -428,8 +325,6 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
                 scaleX: that.agrandissement,
                 scaleY: that.agrandissement
             });
-            console.log("x = " + (that.kineticElement[i].x() - (that.minX-that.kineticElement[i].x())*that.agrandissement));
-            console.log((iaScene.height-hauteur*that.agrandissement)/2 - (that.minY-that.kineticElement[i].y()+50)*that.agrandissement-50);
         }
     }
 
@@ -495,35 +390,6 @@ detect.addEventListener("touchstart", function()
             }
         }
     }, false);	
-// Load datas in the accordion menu
-/*var menu = "";
-menu += '<div class="accordion-group">';
-menu += '<div class="accordion-heading">';
-menu += '<a id="collapsecomment-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsecomment">'+scene.intro_title+'</a>';
-menu += '<div id="collapsecomment" class="accordion-body collapse">';
-menu += '<div class="accordion-inner">'+scene.intro_detail+'</div></div></div></div>';
-for (var i in details) {
-    if ((details[i].detail.indexOf("Réponse:") != -1) || (details[i].detail.indexOf("réponse:") != -1))  {
-        var question = details[i].detail.substr(0,details[i].detail.indexOf("Réponse:"));
-        var answer = details[i].detail.substr(details[i].detail.indexOf("Réponse:")+8);
-        menu += '<div class="accordion-group">';
-        menu += '<div class="accordion-heading">';
-        menu += '<a id="collapse'+i+'-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse'+i+'">'+details[i].title+'</a>';
-        menu += '<div id="collapse'+i+'" class="accordion-body collapse">';
-        menu += '<div class="accordion-inner">' + question + '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#response_'+i+'">Réponse</a></div>' + '<div class="response" id="response_'+ i +'">' + answer + '</div>' + '</div></div></div></div>';                        
-
-    }
-    else {
-        menu += '<div class="accordion-group">';
-        menu += '<div class="accordion-heading">';
-        menu += '<a id="collapse'+i+'-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse'+i+'">'+details[i].title+'</a>';
-        menu += '<div id="collapse'+i+'" class="accordion-body collapse">';
-        menu += '<div class="accordion-inner">'+details[i].detail+'</div></div></div></div>';                        
-    }
-
-}	
-$("#accordion2").html(menu);*/
-
 
 $("#collapsecomment").collapse("show");
 $("#title").html(scene.title);
