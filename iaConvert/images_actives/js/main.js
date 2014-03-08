@@ -55,11 +55,12 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
     this.originalY = new Array();
     this.layer = layer;
     this.imageObj = imageObj;
+    this.agrandissement = 0;
     this.zoomActive = 0;
-    this.minX = 0;
-    this.minY = 0;
-    this.maxX = 0;
-    this.maxY = 0;
+    this.minX = 10000;
+    this.minY = 10000;
+    this.maxX = -1;
+    this.maxY = -1;
     this.tween = new Array();    
 
     /*
@@ -73,10 +74,10 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
         element.setAttribute('d', that.path[index]);
         var len = element.getTotalLength();
         var point = element.getPointAtLength(0);
-        if (that.minX == 0) that.minX = point.x;
-        if (that.minX == 0) that.minY = point.y;
-        if (that.minX == 0) that.maxX = point.x;
-        if (that.maxY == 0) that.maxY = point.y;
+        if (that.minX == -1) that.minX = point.x;
+        if (that.minY == -1) that.minY = point.y;
+        if (that.maxX == -1) that.maxX = point.x;
+        if (that.maxY == -1) that.maxY = point.y;
         for (var percent =0; percent<1000;percent++) {
             var point = element.getPointAtLength( len * percent/1000 );
             if (point.x < that.minX) that.minX = point.x;
@@ -84,10 +85,12 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
             if (point.y < that.minY) that.minY = point.y;
             if (point.y > that.maxY) that.maxY = point.y;			
         }        
-
-        var aux = that.minY;
-        that.minY= that.maxY;
-        that.maxY = aux;
+        //that.minY += 50;
+        //that.maxY += 50;
+//
+//        var aux = that.minY;
+//        that.minY= that.maxY;
+//        that.maxY = aux;
 
 
     }
@@ -100,15 +103,15 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
     var defineImageBoxSize = function(detail) {
         "use strict";
        
-        if (that.minX == 0) that.minX = (parseFloat(detail.x))*iaScene.coeff;
-        if (that.maxY == 0) that.maxY = (parseFloat(detail.y) + parseFloat(detail.height))*iaScene.coeff+50;
-        if (that.maxX == 0) that.maxX = (parseFloat(detail.x) + parseFloat(detail.width))*iaScene.coeff;
-        if (that.minY == 0) that.minY = (parseFloat(detail.y))*iaScene.coeff+50;
+        if (that.minX == -1) that.minX = (parseFloat(detail.x));
+        if (that.maxY == 10000) that.maxY = parseFloat(detail.y) + parseFloat(detail.height);
+        if (that.maxX == -1) that.maxX = (parseFloat(detail.x) + parseFloat(detail.width));
+        if (that.minY == 10000) that.minY = (parseFloat(detail.y));
 
         if (parseFloat(detail.x) < that.minX) that.minX = parseFloat(detail.x);
-        if (parseFloat(detail.x) > that.maxX) that.maxX = parseFloat(detail.x);
+        if (parseFloat(detail.x) + parseFloat(detail.width) > that.maxX) that.maxX = parseFloat(detail.x) + parseFloat(detail.width);
         if (parseFloat(detail.y) < that.minY) that.miny = parseFloat(detail.y);        
-        if (parseFloat(detail.y) > that.maxY) that.maxy = parseFloat(detail.y);
+        if (parseFloat(detail.y) + parseFloat(detail.height) > that.maxY) that.maxY = parseFloat(detail.y) + parseFloat(detail.height);
  
 
     }    
@@ -150,7 +153,6 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
                     that.kineticElement[i].setZIndex(1000);
                     that.originalX[i] = that.kineticElement[i].x();
                     that.originalY[i] = that.kineticElement[i].y();
-                    that.kineticElement[i].scale({x:that.agrandissement,y:that.agrandissement});                    
                     that.tween[i].play();
                 }
                 that.layer.draw();
@@ -158,7 +160,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
             // let's unzoom
             else if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
                 for (var i in that.kineticElement) {
-                    if ((that.kineticElement[i].zoomActive == 1) && (that.kineticElement[i].scaleX().toFixed(10) == that.agrandissement.toFixed(10))) {
+                    if ((that.kineticElement[i].zoomActive == 1) && (that.kineticElement[i].scaleX().toFixed(10) == (that.agrandissement * iaScene.coeff).toFixed(10))) {
                         iaScene.zoomActive = 0;
                         that.kineticElement[i].zoomActive = 0;
                         that.kineticElement[i].scale({x:iaScene.coeff,y:iaScene.coeff});
@@ -251,6 +253,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
      * @returns {undefined}
      */
     var includeImage = function(detail, i) {
+//        definePathBoxSize(i);
         defineImageBoxSize(detail);
         var rasterObj = new Image();
         rasterObj.src = detail.image;                
@@ -273,61 +276,95 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
     
     if (typeof(detail.path) !== 'undefined') {
         includePath(detail.path, 0);
+        //console.log("PATH1 : " + that.minX + " " + that.minY + " " + that.maxX + " " + that.maxY);
+        //console.log("PATH2 : " + that.kineticElement[0].x() + " " + that.kineticElement[0].y());        
     }
     else if (typeof(detail.image) !== 'undefined') {
         includeImage(detail, 0);
+        //console.log("IMAGE1 : " + that.minX + " " + (that.minY) + " " + that.maxX + " " + (that.maxY));
+        //console.log("IMAGE2 : " + that.kineticElement[0].x() + " " + that.kineticElement[0].y());
     }
     else if (typeof(detail.group) !== 'undefined') {
         for (var i in detail.group) {
             if (typeof(detail.group[i].path) != 'undefined') {
                 includePath(detail.group[i].path, i);
-        console.log("GROUP : " + that.minX + " " + that.minY + " " + that.maxX + " " + that.maxY);
+        //console.log("GPATH1 : " + that.minX + " " + that.minY + " " + that.maxX + " " + that.maxY);
+        //console.log("GPATH2 : " + that.kineticElement[i].x() + " " + that.kineticElement[i].y());        
+
             }
             else if (typeof(detail.group[i].image) != 'undefined') {
                 includeImage(detail.group[i], i);
+        //console.log("GIMAGE1 : " + that.minX + " " + that.minY + " " + that.maxX + " " + that.maxY);
+        //console.log("GIMAGE2 : " + that.kineticElement[i].x() + " " + that.kineticElement[i].y());
+
             }
         }
-        console.log("GROUP : " + that.minX + " " + that.minY + " " + that.maxX + " " + that.maxY);
+        //console.log("GROUP1 : " + that.minX + " " + that.minY + " " + that.maxX + " " + that.maxY);
     }
     else {
         console.log(detail);
     }
+
+    that.minX = that.minX * iaScene.coeff;
+    that.minY = (that.minY) * iaScene.coeff;
+    that.maxX = that.maxX * iaScene.coeff;
+    that.maxY = (that.maxY) * iaScene.coeff;    
+
     var largeur = (that.maxX - that.minX) * 1;
     var hauteur = (that.maxY - that.minY) * 1;
-    if (hauteur > largeur) {
-        that.agrandissement = iaScene.height / hauteur;
-    }
-    else {
-        that.agrandissement = iaScene.width / largeur;
-    }
-    if (hauteur > largeur) {
-        for (var i in that.kineticElement) {
+    that.agrandissement1  = iaScene.height / hauteur;   // beta
+    that.agrandissement2  = iaScene.width / largeur;    // alpha
+    
+    if (hauteur * that.agrandissement2 > iaScene.height) {
+        //console.log("hauteur > largeur");
+        that.agrandissement = that.agrandissement1;
+         for (var i in that.kineticElement) {
+            var new_x = (that.kineticElement[i].x() - (that.minX)) * that.agrandissement + (iaScene.width - largeur * that.agrandissement) / 2;
+            var new_y = (that.kineticElement[i].y() - 50 - (that.minY))*that.agrandissement + 50;
             that.tween[i] = new Kinetic.Tween({
               node: that.kineticElement[i], 
               duration: 1,
-              x: ((iaScene.width-largeur*that.agrandissement)/2 - (that.minX-that.kineticElement[i].x())*that.agrandissement),
-              y: (that.kineticElement[i].y() - (that.minY- that.kineticElement[i].y()+50)*that.agrandissement-50),
-              easing: Kinetic.Easings.BackEaseIn,
-              scaleX: that.agrandissement,
-              scaleY: that.agrandissement
-            });
-        }
-
-    }
-    else {
-        for (var i in that.kineticElement) {
-            that.tween[i] = new Kinetic.Tween({
-              node: that.kineticElement[i], 
-              duration: 1,
-                x: (that.kineticElement[i].x() - (that.minX-that.kineticElement[i].x())*that.agrandissement),
-                y: ((iaScene.height-hauteur*that.agrandissement)/2 - (that.minY-that.kineticElement[i].y()+50)*that.agrandissement-50),
+              x: new_x,
+              y: new_y,
                 easing: Kinetic.Easings.BackEaseIn,
-                scaleX: that.agrandissement,
-                scaleY: that.agrandissement
+                scaleX: that.agrandissement * iaScene.coeff,
+                scaleY: that.agrandissement * iaScene.coeff                
+              
+
             });
+            //console.log(i.toString() + " new_x = " + new_x.toString());
+            //console.log(i.toString() + " new_y = " + new_y.toString());            
+            //console.log("largeur = " + largeur.toString());
+            //console.log("hauteur = " + hauteur.toString());                        
+            //console.log("min - max : " + that.minX + " " + that.minY + " " + that.maxX + " " + that.maxY);
         }
     }
-
+    else {
+        //console.log("hauteur < largeur");
+        that.agrandissement = that.agrandissement2;
+        for (var i in that.kineticElement) {
+            var new_x = (that.kineticElement[i].x() - (that.minX))*that.agrandissement;
+            var new_y = 1 * ((that.kineticElement[i].y() - 50 - (that.minY)) * that.agrandissement + 50 + (iaScene.height-hauteur*that.agrandissement)/2);
+            that.tween[i] = new Kinetic.Tween({
+              node: that.kineticElement[i], 
+              duration: 1,
+                x: new_x,
+                y: new_y,
+                easing: Kinetic.Easings.BackEaseIn,
+                scaleX: that.agrandissement * iaScene.coeff,
+                scaleY: that.agrandissement * iaScene.coeff
+            });
+            //console.log("new_x = " + new_x.toString());
+            //console.log("new_y = " + new_y.toString());            
+            //console.log("largeur = " + largeur.toString());
+            //console.log("hauteur = " + hauteur.toString());                        
+            //console.log("min - max : " + that.minX + " " + that.minY + " " + that.maxX + " " + that.maxY);
+        }
+    }
+    //console.log("agrandissement = " + that.agrandissement);
+    //    console.log("agrandissement * largeur = " + that.agrandissement*largeur);
+    //    console.log("agrandissement * hauteur = " + that.agrandissement*hauteur);
+    
     /*
      *  manage accordion events related to this element
      */
