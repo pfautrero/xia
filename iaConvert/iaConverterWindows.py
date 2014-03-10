@@ -28,11 +28,11 @@ class IADialog(Tkinter.Frame):
 
     self.filename = ""
 
-    import_img= Tkinter.PhotoImage(file="img/import.gif")
-    accordion_img= Tkinter.PhotoImage(file="img/accordion.gif")    
-    bubbles_img= Tkinter.PhotoImage(file="img/bubbles.gif")    
-    ia_img= Tkinter.PhotoImage(file="img/ia.gif")    
-    buttons_img= Tkinter.PhotoImage(file="img/buttons.gif")    
+    import_img= Tkinter.PhotoImage(file="images/import.gif")
+    accordion_img= Tkinter.PhotoImage(file="images/accordion.gif")    
+    bubbles_img= Tkinter.PhotoImage(file="images/bubbles.gif")    
+    ia_img= Tkinter.PhotoImage(file="images/ia.gif")    
+    buttons_img= Tkinter.PhotoImage(file="images/buttons.gif")    
 
     # define buttons
     button1 = Tkinter.Button(self, image=import_img, relief=Tkinter.FLAT, bd=0, height=150, width=150, command=self.askopenfilename)
@@ -94,14 +94,13 @@ class IADialog(Tkinter.Frame):
                 imageActive.analyzeSVG(self.filename)
                 imageActive.generateJSON(self.dirname + '/datas/data.js')
                 imageActive.generateAccordion(self.dirname + "/index.html")
-                #imageActive.createBackground("images_actives/datas")            
 
 if __name__=='__main__':
     root = Tkinter.Tk()
     root.title("IA2 Converter")
     root.geometry("465x310")
     root.attributes('-topmost', 1)
-    img = Tkinter.PhotoImage(file='img/image-active64.gif')
+    img = Tkinter.PhotoImage(file='images/image-active64.gif')
     root.tk.call('wm', 'iconphoto', root._w, img)    
     IADialog(root).pack(side="left")
     root.mainloop()

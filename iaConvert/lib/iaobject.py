@@ -48,7 +48,7 @@ class iaObject:
         
         self.scene['intro_title'] = u"Description"
         self.scene['intro_detail'] = u"Images Actives - Canopé Versailles"
-        self.scene['image'] = "datas/background.jpg"
+        self.scene['image'] = ""
         self.scene['width'] = ""
         self.scene['height'] = ""
         self.scene['title'] = os.path.splitext(tail)[0]
@@ -88,6 +88,11 @@ class iaObject:
         images = self.xml.getElementsByTagName('image')
         self.analyzeRootImages(images)
 
+        # ==================== Look for rectangles not included in groups
+
+        rects = self.xml.getElementsByTagName('rect')
+        self.analyzeRootRects(rects)
+
 
         # ==================== Look for paths in groups root
 
@@ -122,6 +127,31 @@ class iaObject:
                         record_image['y'] = str(0)                        
                     self.details.append(record_image)               
 
+    def analyzeRootRects(self, rects):
+        """Analyze images not included in a specific group"""
+        
+        if rects.length is not 0:
+            for rect in rects:
+                print "Root Rect detected"
+                if rect.parentNode.nodeName == "svg":
+                    record_rect = {}
+                    record_rect['width'] = rect.attributes['width'].value
+                    record_rect['height'] = rect.attributes['height'].value
+                    record_rect['detail'] = self.getText("desc", rect)
+                    record_rect['title'] = self.getText("title", rect)
+
+                    if rect.hasAttribute("x") and rect.hasAttribute("y"):
+                        record_rect['x'] = rect.attributes['x'].value
+                        record_rect['y'] = rect.attributes['y'].value
+                    elif rect.hasAttribute("transform"):
+                        matrix = rect.attributes['transform'].value
+                        m = matrix[matrix.find('(')+1:matrix.find(')')].split(" ")
+                        record_rect['x'] = m[4]
+                        record_rect['y'] = m[5]                        
+                    else:
+                        record_rect['x'] = str(0)
+                        record_rect['y'] = str(0)                        
+                    self.details.append(record_rect)  
 
     def analyzeRootPaths(self,paths):
         """Analyze paths not included in a specific group"""
@@ -197,28 +227,58 @@ class iaObject:
         images = group.getElementsByTagName('image')        
         if images.length is not 0:
             for image in images:
-                record_image = {}
-                record_image["image"] = image.attributes['xlink:href'].value
-                record_image['width'] = image.attributes['width'].value
-                record_image['height'] = image.attributes['height'].value                
+                if not image.isSameNode(self.backgroundNode):
+                    record_image = {}
+                    record_image["image"] = image.attributes['xlink:href'].value
+                    record_image['width'] = image.attributes['width'].value
+                    record_image['height'] = image.attributes['height'].value                
+                    if record["detail"] == "":
+                        record['detail'] = self.getText("desc", image)
+                    if record["title"] == "":
+                        record['title'] = self.getText("title", image)
+
+                    if image.hasAttribute("x") and image.hasAttribute("y"):
+                        record_image['x'] = image.attributes['x'].value
+                        record_image['y'] = image.attributes['y'].value
+                    elif image.hasAttribute("transform"):
+                        matrix = image.attributes['transform'].value
+                        m = matrix[matrix.find('(')+1:matrix.find(')')].split(" ")
+                        record_image['x'] = m[4]
+                        record_image['y'] = m[5]                        
+                    else:
+                        record_image['x'] = str(0)
+                        record_image['y'] = str(0)                        
+
+                    record["group"].append(record_image)        
+
+
+        rects = group.getElementsByTagName('rect')        
+        if rects.length is not 0:
+            for rect in rects:
+
+                record_rect = {}
+                record_rect['width'] = rect.attributes['width'].value
+                record_rect['height'] = rect.attributes['height'].value                
                 if record["detail"] == "":
-                    record['detail'] = self.getText("desc", image)
+                    record['detail'] = self.getText("desc", rect)
                 if record["title"] == "":
-                    record['title'] = self.getText("title", image)
+                    record['title'] = self.getText("title", rect)
 
-                if image.hasAttribute("x") and image.hasAttribute("y"):
-                    record_image['x'] = image.attributes['x'].value
-                    record_image['y'] = image.attributes['y'].value
-                elif image.hasAttribute("transform"):
-                    matrix = image.attributes['transform'].value
+                if rect.hasAttribute("x") and rect.hasAttribute("y"):
+                    record_rect['x'] = rect.attributes['x'].value
+                    record_rect['y'] = rect.attributes['y'].value
+                elif rect.hasAttribute("transform"):
+                    matrix = rect.attributes['transform'].value
                     m = matrix[matrix.find('(')+1:matrix.find(')')].split(" ")
-                    record_image['x'] = m[4]
-                    record_image['y'] = m[5]                        
+                    record_rect['x'] = m[4]
+                    record_rect['y'] = m[5]                        
                 else:
-                    record_image['x'] = str(0)
-                    record_image['y'] = str(0)                        
+                    record_rect['x'] = str(0)
+                    record_rect['y'] = str(0)                        
 
-                record["group"].append(record_image)        
+                record["group"].append(record_rect)        
+
+
 
 
         # look for title and description in subgroups if not yet available
