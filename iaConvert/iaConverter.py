@@ -24,4 +24,4 @@ imageActive = iaObject()
 imageActive.analyzeSVG("fixtures/test.svg")
 imageActive.generateJSON("images_actives/datas/data.js")
 imageActive.generateAccordion("images_actives/index.html")
-imageActive.createBackground("images_actives/datas")
+
