@@ -105,7 +105,7 @@ class iaObject:
         
         if images.length is not 0:
             for image in images:
-                print "Root Image detected"
+                # print "Root Image detected"
                 if (image.parentNode.nodeName == "svg") and not image.isSameNode(self.backgroundNode):
                     record_image = {}
                     record_image['image'] = image.attributes['xlink:href'].value
@@ -132,7 +132,7 @@ class iaObject:
         
         if rects.length is not 0:
             for rect in rects:
-                print "Root Rect detected"
+                #print "Root Rect detected"
                 if rect.parentNode.nodeName == "svg":
                     record_rect = {}
                     record_rect['width'] = rect.attributes['width'].value
@@ -159,7 +159,7 @@ class iaObject:
         if paths.length is not 0:
             
             for path in paths:
-                print "Root path detected"
+                #print "Root path detected"
                 if path.parentNode.nodeName == "svg":
                     record = {}
                     record["title"] = ""
