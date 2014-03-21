@@ -21,5 +21,8 @@ todo
 To generate new image active :
 * launch iaConvertWindow.py, 
 * open sample svg file located in /fixtures, 
-* generate new image active (which will be located in /images_actives) 
+* generate new image active (which will be located in /images_actives)
 
+# Inkscape extension :
+
+To install the inkscape extension, just copy imageactive.py, imageactive.inx and the folder iaConvert in the inkscape extensions directory.
