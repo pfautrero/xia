@@ -83,22 +83,24 @@ class IADialog(Tkinter.Frame):
     self.filename = tkFileDialog.askopenfilename(**self.file_opt)
 
   def createAccordion(self):
-        if self.filename:
-            self.dirname = tkFileDialog.askdirectory(**self.dir_opt)
-            if self.dirname:
-                if os.path.isdir(self.dirname + '/img'):
-                    shutil.rmtree(self.dirname + '/img')
-                if os.path.isdir(self.dirname + '/css'):
-                    shutil.rmtree(self.dirname + '/css')
-                if os.path.isdir(self.dirname + '/js'):
-                    shutil.rmtree(self.dirname + '/js')
-                if os.path.isdir(self.dirname + '/datas'):
-                    shutil.rmtree(self.dirname + '/datas')
-                os.mkdir(self.dirname + '/datas')
-                shutil.copytree(self.localdir + '/images_actives/css/', self.dirname + '/css/')
-                shutil.copytree(self.localdir + '/images_actives/img/', self.dirname + '/img/')
-                shutil.copytree(self.localdir + '/images_actives/js/', self.dirname + '/js/')
-                imageActive = iaObject()
-                imageActive.analyzeSVG(self.filename)
-                imageActive.generateJSON(self.dirname + '/datas/data.js')
-                imageActive.generateAccordion(self.dirname + "/index.html")
+      if self.filename:
+          self.dirname = tkFileDialog.askdirectory(**self.dir_opt)
+          if self.dirname:
+              if os.path.isdir(self.dirname + '/img'):
+                  shutil.rmtree(self.dirname + '/img')
+              if os.path.isdir(self.dirname + '/css'):
+                  shutil.rmtree(self.dirname + '/css')
+              if os.path.isdir(self.dirname + '/js'):
+                  shutil.rmtree(self.dirname + '/js')
+              if os.path.isdir(self.dirname + '/datas'):
+                  shutil.rmtree(self.dirname + '/datas')
+              os.mkdir(self.dirname + '/datas')
+              shutil.copytree(self.localdir + '/images_actives/css/', self.dirname + '/css/')
+              shutil.copytree(self.localdir + '/images_actives/img/', self.dirname + '/img/')
+              shutil.copytree(self.localdir + '/images_actives/js/', self.dirname + '/js/')
+              imageActive = iaObject()
+              imageActive.analyzeSVG(self.filename)
+              imageActive.generateJSON(self.dirname + '/datas/data.js')
+              imageActive.generateAccordion(self.dirname + "/index.html")
+  def quit(self):
+      self.root.destroy()

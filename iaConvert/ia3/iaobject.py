@@ -300,7 +300,7 @@ class iaObject:
 
         final_str += 'var scene = {\n'
         for entry in self.scene:
-            print "YO="+entry
+            #print "YO="+entry
             final_str += '"' + entry + '":"' + PageFormatter(self.scene[entry]).print_html().encode('utf-8').replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + '",\n'
         final_str += '};\n'
 
