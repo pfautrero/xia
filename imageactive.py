@@ -5,7 +5,7 @@
 import os, shutil
 import inkex
 import tempfile
-from iaConvert.lib.iaobject import iaObject
+from iaConvert.ia3.iaobject import iaObject
 import Tkinter, Tkconstants, tkFileDialog
 from iaConvert.ia3.mainwindow import IADialog
 
