@@ -1,9 +1,14 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import Tkinter, Tkconstants, tkFileDialog
-from ia3.mainwindow import IADialog
+try:
+    import Tkinter, Tkconstants, tkFileDialog
+except ImportError:
+    import sys
+    print "Requirement : Please, install python-tk package"
+    sys.exit(1)
 
+from ia3.mainwindow import IADialog
 
 if __name__=='__main__':
     root = Tkinter.Tk()
