@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension" -->
 <inkscape-extension>
-
   <_name>Image Active</_name>
   <id>http://www.tice.ac-versailles.fr/logicielslibres/</id>
-
   <dependency type="executable" location="extensions">imageactive.py</dependency>
-
-  <param name="export_path" type="string" _gui-text="Chemin de destination : ">imageactive</param>
-
   <effect>
     <object-type>all</object-type>
     <effects-menu>
       <submenu _name="Misc"/>
     </effects-menu>
   </effect>
-
   <script>
-      <command reldir="extensions">imageactive.py</command>
+      <command reldir="extensions" interpreter="python">imageactive.py</command>
   </script>
 
 </inkscape-extension>

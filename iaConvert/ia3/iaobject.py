@@ -16,7 +16,7 @@
 # @author : pascal.fautrero@crdp.ac-versailles.fr
 
 from xml.dom import minidom
-from lib.pikipiki import PageFormatter
+from pikipiki import PageFormatter
 import os
 
 class iaObject:
