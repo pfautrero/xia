@@ -225,11 +225,11 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
      * @param {type} i KineticElement index
      * @returns {undefined}
      */
-    var includePath = function(path, i) {
-        that.path[i] = path;
+    var includePath = function(detail, i) {
+        that.path[i] = detail.path;
         that.backgroundImage[i] = imageObj;
         that.kineticElement[i] = new Kinetic.Path({
-            data: path,
+            data: detail.path,
             y: 50,
             x: 0,
             scale: {x:iaScene.coeff,y:iaScene.coeff},
@@ -237,6 +237,14 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
             stroke: '',
             strokeWidth: 0
         });
+        var sx = 1;var sy = 1;
+        if (typeof(detail.sx) !== 'undefined') {
+            if (detail.sx != 0) sx = detail.sx;
+        }
+        if (typeof(detail.sy) !== 'undefined') {
+            if (detail.sy != 0) sy = detail.sy;
+        }
+        that.kineticElement[i].scale({x:sx,y:sy});
         definePathBoxSize(i);
         addEventsManagement(i);
         that.layer.add(that.kineticElement[i]);
@@ -323,7 +331,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
     // Create kineticElements
     
     if (typeof(detail.path) !== 'undefined') {
-        includePath(detail.path, 0);
+        includePath(detail, 0);
     }
     else if (typeof(detail.image) !== 'undefined') {
         includeImage(detail, 0);

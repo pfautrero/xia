@@ -17,6 +17,7 @@
 
 from xml.dom import minidom
 from pikipiki import PageFormatter
+from ctm import ctm
 import os
 
 class iaObject:
@@ -117,14 +118,20 @@ class iaObject:
                     if image.hasAttribute("x") and image.hasAttribute("y"):
                         record_image['x'] = image.attributes['x'].value
                         record_image['y'] = image.attributes['y'].value
-                    elif image.hasAttribute("transform"):
-                        matrix = image.attributes['transform'].value
-                        m = matrix[matrix.find('(')+1:matrix.find(')')].split(" ")
-                        record_image['x'] = m[4]
-                        record_image['y'] = m[5]                        
                     else:
                         record_image['x'] = str(0)
                         record_image['y'] = str(0)                        
+                    
+                    if image.hasAttribute("transform"):
+                        transformation = image.attributes['transform'].value
+                        ctm = ctm()
+                        ctm.analyze(transformation)
+                        record_image['x'] = ctm.translateX
+                        record_image['y'] = ctm.translateY
+                        record_image['sx'] = ctm.scaleX
+                        record_image['sy'] = ctm.scaleY
+                        record_image['rotate'] = ctm.rotate
+                        
                     self.details.append(record_image)               
 
     def analyzeRootRects(self, rects):
@@ -143,14 +150,19 @@ class iaObject:
                     if rect.hasAttribute("x") and rect.hasAttribute("y"):
                         record_rect['x'] = rect.attributes['x'].value
                         record_rect['y'] = rect.attributes['y'].value
-                    elif rect.hasAttribute("transform"):
-                        matrix = rect.attributes['transform'].value
-                        m = matrix[matrix.find('(')+1:matrix.find(')')].split(" ")
-                        record_rect['x'] = m[4]
-                        record_rect['y'] = m[5]                        
                     else:
                         record_rect['x'] = str(0)
                         record_rect['y'] = str(0)                        
+                    
+                    if rect.hasAttribute("transform"):
+                        transformation = rect.attributes['transform'].value
+                        ctm = ctm()
+                        ctm.analyze(transformation)
+                        record_rect['x'] = ctm.translateX
+                        record_rect['y'] = ctm.translateY
+                        record_rect['sx'] = ctm.scaleX
+                        record_rect['sy'] = ctm.scaleY
+                        record_rect['rotate'] = ctm.rotate                      
                     self.details.append(record_rect)  
 
     def analyzeRootPaths(self,paths):
@@ -185,6 +197,25 @@ class iaObject:
                             key,value = item.split(":")
                             style[key] = value
                         record["fill"] = style['fill']
+
+                    if path.hasAttribute("x") and path.hasAttribute("y"):
+                        record['x'] = path.attributes['x'].value
+                        record['y'] = path.attributes['y'].value
+                    else:
+                        record['x'] = str(0)
+                        record['y'] = str(0)                        
+                    
+                    if path.hasAttribute("transform"):
+                        transformation = path.attributes['transform'].value
+                        ctm = ctm()
+                        ctm.analyze(transformation)
+                        record['x'] = ctm.translateX
+                        record['y'] = ctm.translateY
+                        record['sx'] = ctm.scaleX
+                        record['sy'] = ctm.scaleY
+                        record['rotate'] = ctm.rotate                        
+                        
+                        
                     if (record["path"] != ""):
                         self.details.append(record)
 
@@ -222,6 +253,23 @@ class iaObject:
                         key,value = item.split(":")
                         style[key] = value
                     record_path['fill'] = style['fill']
+                if path.hasAttribute("x") and path.hasAttribute("y"):
+                    record['x'] = path.attributes['x'].value
+                    record['y'] = path.attributes['y'].value
+                else:
+                    record['x'] = str(0)
+                    record['y'] = str(0)                        
+
+                if path.hasAttribute("transform"):
+                    transformation = path.attributes['transform'].value
+                    ctm = ctm()
+                    ctm.analyze(transformation)
+                    record['x'] = ctm.translateX
+                    record['y'] = ctm.translateY
+                    record['sx'] = ctm.scaleX
+                    record['sy'] = ctm.scaleY
+                    record['rotate'] = ctm.rotate                      
+                    
                 record["group"].append(record_path)
 
         images = group.getElementsByTagName('image')        
@@ -240,14 +288,19 @@ class iaObject:
                     if image.hasAttribute("x") and image.hasAttribute("y"):
                         record_image['x'] = image.attributes['x'].value
                         record_image['y'] = image.attributes['y'].value
-                    elif image.hasAttribute("transform"):
-                        matrix = image.attributes['transform'].value
-                        m = matrix[matrix.find('(')+1:matrix.find(')')].split(" ")
-                        record_image['x'] = m[4]
-                        record_image['y'] = m[5]                        
                     else:
                         record_image['x'] = str(0)
                         record_image['y'] = str(0)                        
+                    
+                    if image.hasAttribute("transform"):
+                        transformation = image.attributes['transform'].value
+                        ctm = ctm()
+                        ctm.analyze(transformation)
+                        record_image['x'] = ctm.translateX
+                        record_image['y'] = ctm.translateY
+                        record_image['sx'] = ctm.scaleX
+                        record_image['sy'] = ctm.scaleY
+                        record_image['rotate'] = ctm.rotate                     
 
                     record["group"].append(record_image)        
 
@@ -267,14 +320,19 @@ class iaObject:
                 if rect.hasAttribute("x") and rect.hasAttribute("y"):
                     record_rect['x'] = rect.attributes['x'].value
                     record_rect['y'] = rect.attributes['y'].value
-                elif rect.hasAttribute("transform"):
-                    matrix = rect.attributes['transform'].value
-                    m = matrix[matrix.find('(')+1:matrix.find(')')].split(" ")
-                    record_rect['x'] = m[4]
-                    record_rect['y'] = m[5]                        
                 else:
                     record_rect['x'] = str(0)
                     record_rect['y'] = str(0)                        
+
+                if rect.hasAttribute("transform"):
+                    transformation = rect.attributes['transform'].value
+                    ctm = ctm()
+                    ctm.analyze(transformation)
+                    record_rect['x'] = ctm.translateX
+                    record_rect['y'] = ctm.translateY
+                    record_rect['sx'] = ctm.scaleX
+                    record_rect['sy'] = ctm.scaleY
+                    record_rect['rotate'] = ctm.rotate                        
 
                 record["group"].append(record_rect)        
 

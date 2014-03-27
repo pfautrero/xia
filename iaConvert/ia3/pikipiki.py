@@ -49,10 +49,10 @@ class PageFormatter:
         return '<a href ="%s">%s</a>' % (word, word)
 
     def _video_repl(self, word):
-        return '<video controls><source type="video/ogg" src="%s" /></video>' % (word)
+        return '<video width="400" controls><source type="video/ogg" src="%s" /></video>' % (word)
 
     def _audio_repl(self, word):
-        return '<audio controls><source type="audio/mp3" src="%s" /></audio>' % (word)
+        return '<audio controls><source type="audio/ogg" src="%s" /></audio>' % (word)
 
     def _email_repl(self, word):
         return '<a href ="mailto:%s">%s</a>' % (word, word)
@@ -109,8 +109,8 @@ class PageFormatter:
             r"(?:(?P<emph>\*{2,3})"
             + r"|(?P<ent>[<>&])"
             + r"|(?P<rule>-{4,})"
-            + r"|(?P<video>https?\://[^\s'\"]+\.ogg\b)"
-            + r"|(?P<audio>https?\://[^\s'\"]+\.mp3\b)"
+            + r"|(?P<video>[^\s'\"]+\.ogv\b)"
+            + r"|(?P<audio>[^\s'\"]+\.ogg\b)"
             + r"|(?P<url>(http|ftp|nntp|news|mailto)\:[^\s'\"]+\S)"
             + r"|(?P<email>[-\w._+]+\@[\w.-]+)"
             + r"|(?P<li>^\s+\*(.*))"

@@ -95,9 +95,9 @@ class IADialog(Tkinter.Frame):
               if os.path.isdir(self.dirname + '/datas'):
                   shutil.rmtree(self.dirname + '/datas')
               os.mkdir(self.dirname + '/datas')
-              shutil.copytree(self.localdir + '/images_actives/css/', self.dirname + '/css/')
-              shutil.copytree(self.localdir + '/images_actives/img/', self.dirname + '/img/')
-              shutil.copytree(self.localdir + '/images_actives/js/', self.dirname + '/js/')
+              shutil.copytree(self.localdir + '/themes/accordion/css/', self.dirname + '/css/')
+              shutil.copytree(self.localdir + '/themes/accordion/img/', self.dirname + '/img/')
+              shutil.copytree(self.localdir + '/themes/accordion/js/', self.dirname + '/js/')
               imageActive = iaObject()
               imageActive.analyzeSVG(self.filename)
               imageActive.generateJSON(self.dirname + '/datas/data.js')
