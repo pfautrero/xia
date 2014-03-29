@@ -69,15 +69,17 @@ class IADialog(Tkinter.Frame):
     self.file_opt = options = {}
     options['defaultextension'] = '.svg'
     options['filetypes'] = [('svg files', '.svg')]
-    #options['initialdir'] = "$HOME"
-    options['initialdir'] = os.environ['HOME']
+
+    if os.environ.has_key('HOME'):
+        options['initialdir'] = os.environ['HOME']
     options['initialfile'] = 'myfile.svg'
     options['parent'] = root
     options['title'] = 'Select a svg file'
 
     self.dir_opt = options = {}
-    #options['initialdir'] = "$HOME"
-    options['initialdir'] = os.environ['HOME']
+
+    if os.environ.has_key('HOME'):
+        options['initialdir'] = os.environ['HOME']
     options['mustexist'] = False
     options['parent'] = root
     options['title'] = 'Select target folder'
