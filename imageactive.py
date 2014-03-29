@@ -14,7 +14,11 @@ class ImageActive(inkex.Effect):
         inkex.Effect.__init__(self)
 
     def effect(self):
-        
+
+        # fix inkscape bug https://bugs.launchpad.net/ubuntu/+source/inkscape/+bug/944077/comments/11
+        pathNodes = self.document.xpath('//sodipodi:namedview',namespaces=inkex.NSS)
+        pathNodes[0].set('id','base')        
+       
         try:
             filePath = tempfile.mkdtemp() + "/" + "temp.svg"
             with open(filePath,"w") as file:
