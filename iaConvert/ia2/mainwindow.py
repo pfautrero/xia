@@ -89,6 +89,7 @@ class IADialog(Tkinter.Frame):
       if self.filename:
           self.dirname = tkFileDialog.askdirectory(**self.dir_opt)
           if self.dirname:
+              self.dir_opt['initialdir'] = self.dirname
               if os.path.isdir(self.dirname + '/img'):
                   shutil.rmtree(self.dirname + '/img')
               if os.path.isdir(self.dirname + '/css'):
@@ -97,6 +98,7 @@ class IADialog(Tkinter.Frame):
                   shutil.rmtree(self.dirname + '/js')
               if os.path.isdir(self.dirname + '/datas'):
                   shutil.rmtree(self.dirname + '/datas')
+              
               os.mkdir(self.dirname + '/datas')
               shutil.copytree(self.localdir + '/themes/accordion/css/', self.dirname + '/css/')
               shutil.copytree(self.localdir + '/themes/accordion/img/', self.dirname + '/img/')

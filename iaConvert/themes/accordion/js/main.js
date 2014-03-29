@@ -153,7 +153,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
             // let's unzoom
             else if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
                 for (var i in that.kineticElement) {
-                    if ((that.kineticElement[i].zoomActive == 1) && (that.kineticElement[i].scaleX().toFixed(10) == (that.agrandissement * iaScene.coeff).toFixed(10))) {
+                    if ((that.kineticElement[i].zoomActive == 1) && (that.kineticElement[i].scaleX().toFixed(5) == (that.agrandissement * iaScene.coeff).toFixed(5))) {
                         iaScene.zoomActive = 0;
                         that.kineticElement[i].zoomActive = 0;
                         that.kineticElement[i].scale({x:iaScene.coeff,y:iaScene.coeff});
@@ -230,24 +230,17 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
         that.backgroundImage[i] = imageObj;
         that.kineticElement[i] = new Kinetic.Path({
             data: detail.path,
-            y: 50,
-            x: 0,
+            x: parseFloat(detail.x) * iaScene.coeff,
+            y: parseFloat(detail.y) * iaScene.coeff + 50,
             scale: {x:iaScene.coeff,y:iaScene.coeff},
             fill: 'rgba(0, 0, 0, 0)',
             stroke: '',
             strokeWidth: 0
         });
-        var sx = 1;var sy = 1;
-        if (typeof(detail.sx) !== 'undefined') {
-            if (detail.sx != 0) sx = detail.sx;
-        }
-        if (typeof(detail.sy) !== 'undefined') {
-            if (detail.sy != 0) sy = detail.sy;
-        }
-        that.kineticElement[i].scale({x:sx,y:sy});
         definePathBoxSize(i);
         addEventsManagement(i);
         that.layer.add(that.kineticElement[i]);
+        that.layer.draw();
     };
 
     /*
@@ -339,7 +332,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
     else if (typeof(detail.group) !== 'undefined') {
         for (var i in detail.group) {
             if (typeof(detail.group[i].path) != 'undefined') {
-                includePath(detail.group[i].path, i);
+                includePath(detail.group[i], i);
             }
             else if (typeof(detail.group[i].image) != 'undefined') {
                 includeImage(detail.group[i], i);
@@ -395,7 +388,6 @@ detect.addEventListener("mouseover", function()
         canvas.style.pointerEvents="auto";
 
         if ((iaScene.element != 0) && (typeof(iaScene.element) != 'undefined')) {
-            console.log(iaScene.element);
             for (var i in iaScene.element.kineticElement) {
                 iaScene.element.kineticElement[i].fillPriority('color');
                 iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
@@ -407,7 +399,6 @@ detect.addEventListener("touchstart", function()
         canvas.style.pointerEvents="auto";
 
         if ((iaScene.element != 0) && (typeof(iaScene.element) != 'undefined')) {
-            console.log(iaScene.element);
             for (var i in iaScene.element.kineticElement) {
                 iaScene.element.kineticElement[i].fillPriority('color');
                 iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');

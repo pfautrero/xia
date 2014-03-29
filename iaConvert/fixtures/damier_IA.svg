@@ -40,14 +40,14 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1470"
-     inkscape:window-height="763"
+     inkscape:window-height="736"
      id="namedview4"
      showgrid="false"
      inkscape:zoom="1.01"
      inkscape:cx="250"
      inkscape:cy="250"
-     inkscape:window-x="229"
-     inkscape:window-y="131"
+     inkscape:window-x="472"
+     inkscape:window-y="91"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg2" />
   <image
@@ -95,45 +95,34 @@
     <desc
        id="desc3790">test</desc>
     <title
-       id="title3788">test</title>
+       id="title3788">test1</title>
   </path>
   <g
-     id="g3039">
-    <desc
-       id="desc3053">REGROUPE</desc>
-    <title
-       id="title3051">REGROUPE</title>
-    <g
-       id="g3025">
-      <desc
-         id="desc3035">GROUPE</desc>
-      <title
-         id="title3033">GROUPE</title>
-      <path
-         transform="translate(4,0)"
-         style="opacity:0.81159417;fill:#800000;fill-opacity:1;fill-rule:nonzero;stroke:none"
-         d="m 370.29704,437.12872 c 0,33.62922 -27.26187,60.89109 -60.8911,60.89109 -33.62922,0 -60.89109,-27.26187 -60.89109,-60.89109 0,-33.62922 27.26187,-60.89109 60.89109,-60.89109 33.62923,0 60.8911,27.26187 60.8911,60.89109 z"
-         id="path2994">
-        <desc
-           id="desc2999">TEST</desc>
-        <title
-           id="title2997">CERCLE</title>
-      </path>
-      <path
-         inkscape:connector-curvature="0"
-         style="opacity:0.81159417;fill:#800000;fill-opacity:1;fill-rule:nonzero;stroke:none"
-         d="m 496.53466,313.86139 c 0,33.62922 -27.26187,60.89109 -60.8911,60.89109 -33.62922,0 -60.89109,-27.26187 -60.89109,-60.89109 0,-33.62922 27.26187,-60.89109 60.89109,-60.89109 33.62923,0 60.8911,27.26187 60.8911,60.89109 z"
-         id="path2994-3">
-        <desc
-           id="desc2999-3">TEST</desc>
-        <title
-           id="title2997-8">CERCLE</title>
-      </path>
-    </g>
+     id="g3940">
     <path
        inkscape:connector-curvature="0"
-       id="path3037"
-       d="m 58.415842,194.05941 -29.702971,37.62376 40.59406,81.18812 124.752479,10.89109 21.78217,-80.19802 -46.53465,-55.44555 z"
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+       id="path2994"
+       d="m 374.29704,437.12872 c 0,33.62922 -27.26187,60.89109 -60.8911,60.89109 -33.62922,0 -60.89109,-27.26187 -60.89109,-60.89109 0,-33.62922 27.26187,-60.89109 60.89109,-60.89109 33.62923,0 60.8911,27.26187 60.8911,60.89109 z"
+       style="opacity:0.81159417;fill:#800000;fill-opacity:1;fill-rule:nonzero;stroke:none">
+      <desc
+         id="desc2999">TEST</desc>
+      <title
+         id="title2997">CERCLE</title>
+    </path>
+    <path
+       id="path2994-3"
+       d="m 496.53466,313.86139 c 0,33.62922 -27.26187,60.89109 -60.8911,60.89109 -33.62922,0 -60.89109,-27.26187 -60.89109,-60.89109 0,-33.62922 27.26187,-60.89109 60.89109,-60.89109 33.62923,0 60.8911,27.26187 60.8911,60.89109 z"
+       style="opacity:0.81159417;fill:#800000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       inkscape:connector-curvature="0">
+      <desc
+         id="desc2999-3">TEST</desc>
+      <title
+         id="title2997-8">CERCLE</title>
+    </path>
   </g>
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="m 146.77958,170.45848 -47.179896,-8.47766 -52.49341,74.05289 49.15962,115.17434 81.003356,-18.56454 26.98753,-67.16663 z"
+     id="path3037"
+     inkscape:connector-curvature="0" />
 </svg>

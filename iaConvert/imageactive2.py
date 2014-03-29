@@ -8,7 +8,7 @@ except ImportError:
     print "Requirement : Please, install python-tk package"
     sys.exit(1)
 
-from ia3.mainwindow import IADialog
+from ia2.mainwindow import IADialog
 
 if __name__=='__main__':
     root = Tkinter.Tk()

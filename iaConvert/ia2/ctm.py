@@ -15,9 +15,9 @@
 #   
 # @author : pascal.fautrero@crdp.ac-versailles.fr
 
-import re
+import re, math
 
-class ctm:
+class CurrentTransformation:
     """ Used to analyze transformation applied on svg element
         CTM (Current Transformation Matrix)
         expected forms :
@@ -29,29 +29,23 @@ class ctm:
             rotate(angle cx cy)
             skewX(x)
             skewY(y)
-
-        translateX = e
-        translateY = f
-        scaleX = sqrt(a*a+b*b)
-        scaleY = sqrt(c*c+d*d)
-        rotate = (180/pi) * arctan(d/c) - 90
-        skewY = (180/pi) * arctan(b/a)
-    
+   
     """
 
     def __init__(self):
         """Init"""
+        self.matrix = [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0]]
         self.rotate = 0
         self.rX = 0
         self.rY = 0
         self.translateX = 0
         self.translateY = 0
-        self.scaleX = 0
-        self.scaleY = 0
+        self.scaleX = 1
+        self.scaleY = 1
 
     def analyze(self,entry):
         """Analyze transform attribute"""
-        regex_group = r'([^\s,])\s*,?\s*'
+        regex_group = r'([^\s,]*)\s*,?\s*'
         
         # look for something with such a form : "matrix(a b c d e f)"
         regex_matrix = r'matrix\(\s*' + regex_group * 6 + r'\)'
@@ -59,7 +53,7 @@ class ctm:
         if matchObj:
             self.extractMatrix(matchObj.groups())
             return
-        
+
         # look for something with such a form : "translate(a b)"
         regex_translate = r'translate\(\s*' + regex_group * 2 + r'\)'
         matchObj = re.match( regex_translate, entry)
@@ -112,10 +106,12 @@ class ctm:
     def extractScale(self,groups):
         """extract a and b from scale(a b) pattern"""
         self.scaleX = groups[0]
-        self.scaleY = groups[0]
+        
         if len(groups) == 2:
             self.scaleY = groups[1]
 
+        
+        
     def extractRotate(self,groups):
         """extract a,b and c from rotate(a b c) pattern"""
         self.rotate = groups[0]
@@ -131,9 +127,50 @@ class ctm:
         d = groups[3]
         e = groups[4]
         f = groups[5]
+        self.matrix=[[float(a),float(c),float(e)], [float(b),float(d),float(f)]]
         self.translateX = e
         self.translateY = f
-        self.scaleX = math.sqrt(a*a+b*b)
-        self.scaleY = math.sqrt(c*c+d*d)
-        self.rotate = (180/math.pi) * math.atan2(d,c) - 90
+        self.scaleX = math.sqrt(float(a)**2+float(c)**2)
+        self.scaleY = math.sqrt(float(b)**2+float(d)**2)
+        self.rotate = math.atan2(float(b),float(d))
         
+    def rectToPath(self,node):
+        """inspired from inkscape pathmodifier.py"""
+        x =float(node['x'])
+        y =float(node['y'])
+        
+        try:
+            rx=float(node['rx'])
+            ry=float(node['ry'])
+        except:
+            rx=0
+            ry=0
+        w =float(node['width'])
+        h =float(node['height'])
+        #d ='M %f,%f '%(x+rx,y)
+        #d+='L %f,%f '%(x+w-rx,y)
+        #d+='A %f,%f,%i,%i,%i,%f,%f '%(rx,ry,0,0,1,x+w,y+ry)
+        #d+='L %f,%f '%(x+w,y+h-ry)
+        #d+='A %f,%f,%i,%i,%i,%f,%f '%(rx,ry,0,0,1,x+w-rx,y+h)
+        #d+='L %f,%f '%(x+rx,y+h)
+        #d+='A %f,%f,%i,%i,%i,%f,%f '%(rx,ry,0,0,1,x,y+h-ry)
+        #d+='L %f,%f '%(x,y+ry)
+        #d+='A %f,%f,%i,%i,%i,%f,%f '%(rx,ry,0,0,1,x+rx,y)
+        d ='M %f,%f '%(x,y)
+        d+='L %f,%f '%(x+w,y)
+        d+='L %f,%f '%(x+w,y+h)
+        d+='L %f,%f '%(x,y+h)
+        d+='L %f,%f '%(x,y)
+        return d
+     
+    def applyTransformToPoint(self,mat,pt):
+        x = mat[0][0]*pt[0] + mat[0][1]*pt[1] + mat[0][2]
+        y = mat[1][0]*pt[0] + mat[1][1]*pt[1] + mat[1][2]
+        pt[0]=x
+        pt[1]=y
+
+    def applyTransformToPath(self,mat,path):
+        for comp in path:
+            for ctl in comp:
+                for pt in ctl:
+                    self.applyTransformToPoint(mat,pt)

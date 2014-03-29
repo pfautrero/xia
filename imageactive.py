@@ -5,9 +5,9 @@
 import os, shutil
 import inkex
 import tempfile
-from iaConvert.ia3.iaobject import iaObject
 import Tkinter, Tkconstants, tkFileDialog
-from iaConvert.ia3.mainwindow import IADialog
+from iaConvert.ia2.iaobject import iaObject
+from iaConvert.ia2.mainwindow import IADialog
 
 class ImageActive(inkex.Effect):
     def __init__(self):
@@ -21,7 +21,7 @@ class ImageActive(inkex.Effect):
                 self.document.write(filePath)
 
             root = Tkinter.Tk()
-            root.title("Image Active 3")
+            root.title("Image Active 2")
             root.geometry("465x310")
             root.attributes('-topmost', 1)
             img = Tkinter.PhotoImage(file='iaConvert/images/image-active64.gif')
@@ -31,7 +31,8 @@ class ImageActive(inkex.Effect):
             root.mainloop()
 
         except ValueError:
-           print(ValueError)
+           #print(ValueError)
+           pass
                               
 ia = ImageActive()
 ia.affect()

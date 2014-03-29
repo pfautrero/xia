@@ -15,9 +15,17 @@
 #   
 # @author : pascal.fautrero@crdp.ac-versailles.fr
 
+# inkscape transformations
+import cubicsuperpath
+
+# dom manipulation
 from xml.dom import minidom
+
+# wiki engine
 from pikipiki import PageFormatter
-from ctm import ctm
+
+# svg transform analyzer
+from ctm import CurrentTransformation
 import os
 
 class iaObject:
@@ -106,7 +114,6 @@ class iaObject:
         
         if images.length is not 0:
             for image in images:
-                # print "Root Image detected"
                 if (image.parentNode.nodeName == "svg") and not image.isSameNode(self.backgroundNode):
                     record_image = {}
                     record_image['image'] = image.attributes['xlink:href'].value
@@ -124,14 +131,9 @@ class iaObject:
                     
                     if image.hasAttribute("transform"):
                         transformation = image.attributes['transform'].value
-                        ctm = ctm()
+                        ctm = CurrentTransformation()
                         ctm.analyze(transformation)
-                        record_image['x'] = ctm.translateX
-                        record_image['y'] = ctm.translateY
-                        record_image['sx'] = ctm.scaleX
-                        record_image['sy'] = ctm.scaleY
-                        record_image['rotate'] = ctm.rotate
-                        
+
                     self.details.append(record_image)               
 
     def analyzeRootRects(self, rects):
@@ -139,7 +141,6 @@ class iaObject:
         
         if rects.length is not 0:
             for rect in rects:
-                #print "Root Rect detected"
                 if rect.parentNode.nodeName == "svg":
                     record_rect = {}
                     record_rect['width'] = rect.attributes['width'].value
@@ -153,38 +154,47 @@ class iaObject:
                     else:
                         record_rect['x'] = str(0)
                         record_rect['y'] = str(0)                        
+
+                    if rect.hasAttribute("rx") and rect.hasAttribute("ry"):
+                        record_rect['rx'] = rect.attributes['rx'].value
+                        record_rect['ry'] = rect.attributes['ry'].value
+                    else:
+                        record_rect['rx'] = str(0)
+                        record_rect['ry'] = str(0)                     
+                    
+                    # ObjectToPath                    
+                    ctm = CurrentTransformation()
+                    record_rect['path'] = ctm.rectToPath(record_rect)
+
+                    p = cubicsuperpath.parsePath(record_rect['path'])
+                    record_rect['path'] = cubicsuperpath.formatPath(p)
+                    record_rect['x'] = str(0)
+                    record_rect['y'] = str(0)                        
                     
                     if rect.hasAttribute("transform"):
                         transformation = rect.attributes['transform'].value
-                        ctm = ctm()
                         ctm.analyze(transformation)
-                        record_rect['x'] = ctm.translateX
-                        record_rect['y'] = ctm.translateY
-                        record_rect['sx'] = ctm.scaleX
-                        record_rect['sy'] = ctm.scaleY
-                        record_rect['rotate'] = ctm.rotate                      
+
+                        ctm.applyTransformToPath(ctm.matrix,p)
+                        record_rect['path'] = cubicsuperpath.formatPath(p)
+
+                    record_rect['path'] = '"' + record_rect['path'] + ' z"'
                     self.details.append(record_rect)  
 
     def analyzeRootPaths(self,paths):
         """Analyze paths not included in a specific group"""
         
         if paths.length is not 0:
-            
             for path in paths:
-                #print "Root path detected"
                 if path.parentNode.nodeName == "svg":
                     record = {}
                     record["title"] = ""
                     record["detail"] = ""
                     record["path"] = ""
                     record["fill"] = ""
-                    record["path"] += '"' + path.attributes['d'].value.replace("&#xd;&#xa;"," ").replace("&#x9;"," ").replace("\n"," ").replace("\t"," ").replace("\r"," ") 
+                    record["path"] =  path.attributes['d'].value.replace("&#xd;&#xa;"," ").replace("&#x9;"," ").replace("\n"," ").replace("\t"," ").replace("\r"," ") 
                     record["style"] = ""
-
-                    if path.attributes['d'].value.lower().find("z") == -1:
-                        record["path"] += " z"
-                    record['path'] += '"'
-
+                    
                     if record["detail"] == "":
                         record['detail'] = self.getText("desc", path)
                     if record["title"] == "":
@@ -204,18 +214,23 @@ class iaObject:
                     else:
                         record['x'] = str(0)
                         record['y'] = str(0)                        
+
+                    # ObjectToPath
+                    p = cubicsuperpath.parsePath(record['path'])
+                    record['path'] = cubicsuperpath.formatPath(p)
                     
                     if path.hasAttribute("transform"):
                         transformation = path.attributes['transform'].value
-                        ctm = ctm()
+                        ctm = CurrentTransformation()
                         ctm.analyze(transformation)
-                        record['x'] = ctm.translateX
-                        record['y'] = ctm.translateY
-                        record['sx'] = ctm.scaleX
-                        record['sy'] = ctm.scaleY
-                        record['rotate'] = ctm.rotate                        
-                        
-                        
+
+                        ctm.applyTransformToPath(ctm.matrix,p)
+                        record['path'] = cubicsuperpath.formatPath(p)
+
+                    if record["path"].lower().find("z") == -1:
+                        record["path"] += " z"
+                    record['path'] = '"' + record['path'] + '"'
+                  
                     if (record["path"] != ""):
                         self.details.append(record)
 
@@ -240,8 +255,6 @@ class iaObject:
             for path in paths:
                 record_path = {}
                 record_path['path'] = path.attributes['d'].value.replace("&#xd;&#xa;"," ").replace("&#x9;"," ").replace("\n"," ").replace("\t"," ").replace("\r"," ") 
-                if path.attributes['d'].value.lower().find("z") == -1:
-                    record_path['path'] += " z"
                 if record["detail"] == "":
                     record['detail'] = self.getText("desc", path)
                 if record["title"] == "":
@@ -254,22 +267,28 @@ class iaObject:
                         style[key] = value
                     record_path['fill'] = style['fill']
                 if path.hasAttribute("x") and path.hasAttribute("y"):
-                    record['x'] = path.attributes['x'].value
-                    record['y'] = path.attributes['y'].value
+                    record_path['x'] = path.attributes['x'].value
+                    record_path['y'] = path.attributes['y'].value
                 else:
-                    record['x'] = str(0)
-                    record['y'] = str(0)                        
+                    record_path['x'] = str(0)
+                    record_path['y'] = str(0)                        
+
+                # ObjectToPath
+                p = cubicsuperpath.parsePath(record_path['path'])
+                record_path['path'] = cubicsuperpath.formatPath(p)
 
                 if path.hasAttribute("transform"):
                     transformation = path.attributes['transform'].value
-                    ctm = ctm()
+                    ctm = CurrentTransformation()
                     ctm.analyze(transformation)
-                    record['x'] = ctm.translateX
-                    record['y'] = ctm.translateY
-                    record['sx'] = ctm.scaleX
-                    record['sy'] = ctm.scaleY
-                    record['rotate'] = ctm.rotate                      
-                    
+
+                    ctm.applyTransformToPath(ctm.matrix,p)
+                    record_path['path'] = cubicsuperpath.formatPath(p)
+
+                if record_path["path"].lower().find("z") == -1:
+                    record_path["path"] += " z"
+                record_path['path'] = '"' + record_path['path'] + '"'
+
                 record["group"].append(record_path)
 
         images = group.getElementsByTagName('image')        
@@ -294,13 +313,9 @@ class iaObject:
                     
                     if image.hasAttribute("transform"):
                         transformation = image.attributes['transform'].value
-                        ctm = ctm()
+                        ctm = CurrentTransformation()
                         ctm.analyze(transformation)
-                        record_image['x'] = ctm.translateX
-                        record_image['y'] = ctm.translateY
-                        record_image['sx'] = ctm.scaleX
-                        record_image['sy'] = ctm.scaleY
-                        record_image['rotate'] = ctm.rotate                     
+
 
                     record["group"].append(record_image)        
 
@@ -324,20 +339,31 @@ class iaObject:
                     record_rect['x'] = str(0)
                     record_rect['y'] = str(0)                        
 
+                if rect.hasAttribute("rx") and rect.hasAttribute("ry"):
+                    record_rect['rx'] = rect.attributes['rx'].value
+                    record_rect['ry'] = rect.attributes['ry'].value
+                else:
+                    record_rect['rx'] = str(0)
+                    record_rect['ry'] = str(0)                     
+
+                # ObjectToPath                    
+                ctm = CurrentTransformation()
+                record_rect['path'] = ctm.rectToPath(record_rect)
+
+                p = cubicsuperpath.parsePath(record_rect['path'])
+                record_rect['path'] = cubicsuperpath.formatPath(p)
+                record_rect['x'] = str(0)
+                record_rect['y'] = str(0)                        
+
                 if rect.hasAttribute("transform"):
                     transformation = rect.attributes['transform'].value
-                    ctm = ctm()
                     ctm.analyze(transformation)
-                    record_rect['x'] = ctm.translateX
-                    record_rect['y'] = ctm.translateY
-                    record_rect['sx'] = ctm.scaleX
-                    record_rect['sy'] = ctm.scaleY
-                    record_rect['rotate'] = ctm.rotate                        
 
+                    ctm.applyTransformToPath(ctm.matrix,p)
+                    record_rect['path'] = cubicsuperpath.formatPath(p)
+
+                record_rect['path'] = "'" + record_rect['path'] + " z'"
                 record["group"].append(record_rect)        
-
-
-
 
         # look for title and description in subgroups if not yet available
         if (record['title'] == "") and (record['detail'] == ""):
@@ -358,7 +384,6 @@ class iaObject:
 
         final_str += 'var scene = {\n'
         for entry in self.scene:
-            #print "YO="+entry
             final_str += '"' + entry + '":"' + PageFormatter(self.scene[entry]).print_html().encode('utf-8').replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + '",\n'
         final_str += '};\n'
 
@@ -371,7 +396,9 @@ class iaObject:
                     for element in detail['group']:
                         final_str += '  {\n'
                         for entry2 in element:
-                            if entry2 == "detail":
+                            if entry2 == "path":
+                                final_str += '  "' + entry2 + '":' + element[entry2].encode('utf-8') + ',\n'                                
+                            elif entry2 == "detail":
                                 final_str += '      "' + entry2 + '":"' + PageFormatter(element[entry2]).print_html().encode('utf-8').replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + '",\n'
                             else:
                                 final_str += '      "' + entry2 + '":"' + element[entry2].encode('utf-8') + '",\n'                            
