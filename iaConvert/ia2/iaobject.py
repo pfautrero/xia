@@ -250,6 +250,14 @@ class iaObject:
         record['detail'] = self.getText("desc", group)
         record["group"] = []
 
+        # retrieve transformations applied on master group
+        # TODO : manage nested groups tranformations
+        
+        ctm_group = CurrentTransformation()
+        if group.hasAttribute("transform"):
+            transformation = group.attributes['transform'].value
+            ctm_group.analyze(transformation)
+
         paths = group.getElementsByTagName('path')
         if paths.length is not 0:
             for path in paths:
@@ -283,8 +291,11 @@ class iaObject:
                     ctm.analyze(transformation)
 
                     ctm.applyTransformToPath(ctm.matrix,p)
-                    record_path['path'] = cubicsuperpath.formatPath(p)
 
+                # apply group transformation on current object
+                ctm_group.applyTransformToPath(ctm_group.matrix,p)
+                record_path['path'] = cubicsuperpath.formatPath(p)
+                
                 if record_path["path"].lower().find("z") == -1:
                     record_path["path"] += " z"
                 record_path['path'] = '"' + record_path['path'] + '"'
@@ -360,7 +371,11 @@ class iaObject:
                     ctm.analyze(transformation)
 
                     ctm.applyTransformToPath(ctm.matrix,p)
-                    record_rect['path'] = cubicsuperpath.formatPath(p)
+
+                # apply group transformation on current object
+                ctm_group.applyTransformToPath(ctm_group.matrix,p)
+                record_rect['path'] = cubicsuperpath.formatPath(p)
+
 
                 record_rect['path'] = "'" + record_rect['path'] + " z'"
                 record["group"].append(record_rect)        

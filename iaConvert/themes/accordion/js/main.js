@@ -407,7 +407,7 @@ detect.addEventListener("touchstart", function()
     }, false);	
 
 $("#collapsecomment").collapse("show");
-$("#title").html(scene.title);
+//$("#title").html(scene.title);
 
 // Load background image
 

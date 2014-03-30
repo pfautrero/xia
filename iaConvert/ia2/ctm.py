@@ -102,6 +102,7 @@ class CurrentTransformation:
         self.translateY = 0
         if len(groups) == 2:
             self.translateY = groups[1]
+        self.matrix = [[1.0, 0.0, float(self.translateX)], [0.0, 1.0, float(self.translateY)]]
 
     def extractScale(self,groups):
         """extract a and b from scale(a b) pattern"""
@@ -109,16 +110,35 @@ class CurrentTransformation:
         
         if len(groups) == 2:
             self.scaleY = groups[1]
-
+        self.matrix = [[float(self.scaleX), 0.0, 0.0], [0.0, float(self.scaleY), 0.0]]
         
         
     def extractRotate(self,groups):
-        """extract a,b and c from rotate(a b c) pattern"""
+        """extract a,b and c from rotate(a b c) pattern
+            cos(a)  -sin(a)  -cx.cos(a) + cy.sin(a) + cx
+            sin(a)   cos(a)  -cx.sin(a) - cy.cos(a) + cy
+            0       0        1
+        """
         self.rotate = groups[0]
         if len(groups) == 3:
             self.rX = groups[1]
             self.rY = groups[2]
-
+            
+        alpha = float(self.rotate)
+        cx = float(self.rX)
+        cy = float(self.rY)
+        self.matrix = [ [
+                            math.cos(alpha), 
+                            -math.sin(alpha), 
+                            -cx * math.cos(alpha) + cy * math.sin(alpha) + cx
+                        ], 
+                        [
+                            math.sin(alpha), 
+                            math.cos(alpha), 
+                            -cx * math.sin(alpha) - cy * math.cos(alpha) + cy
+                        ]
+                    ]
+        
     def extractMatrix(self,groups):
         """extract a,b,c,d,e,f from matrix(a b c d e f) pattern"""
         a = groups[0]
