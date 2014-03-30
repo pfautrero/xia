@@ -111,7 +111,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
      * @returns {undefined}
      */
     
-    var addEventsManagement = function(i) {
+    var addEventsManagement = function(i, zoomable) {
 
         /*
          * if mouse is over element, fill the element with semi-transparency
@@ -181,8 +181,10 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
                             iaScene.element.kineticElement[i].stroke('rgba(0,0,0,0)');                                                
                         }
                     }                    
-                    document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';
-                    iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
+                    if (zoomable == true) {
+                        document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';
+                        iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
+                    }
                     $('.collapse.in').each(function (index) {
                             if ($(this).attr("id") != idText) $(this).collapse("toggle");
                     });
@@ -238,7 +240,11 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
             strokeWidth: 0
         });
         definePathBoxSize(i);
-        addEventsManagement(i);
+        var zoomable = true;
+        if ((typeof(detail.fill) !== 'undefined') && (detail.fill == "#000000")) {
+            zoomable = false;
+        }
+        addEventsManagement(i, zoomable);
         that.layer.add(that.kineticElement[i]);
         that.layer.draw();
     };
@@ -264,7 +270,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
             stroke: '',
             strokeWidth: 0	
         });
-        addEventsManagement(i);
+        addEventsManagement(i,true);
         that.layer.add(that.kineticElement[i]);
         that.layer.draw();
 

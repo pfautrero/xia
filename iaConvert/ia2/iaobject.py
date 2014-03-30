@@ -161,6 +161,17 @@ class iaObject:
                     else:
                         record_rect['rx'] = str(0)
                         record_rect['ry'] = str(0)                     
+
+                    if rect.hasAttribute("style"):                            
+                        str_style = rect.attributes['style'].value
+                        style = {}
+                        for item in str_style.split(";"):
+                            key,value = item.split(":")
+                            style[key] = value
+                        record_rect['fill'] = style['fill']
+                    
+                    
+                    
                     
                     # ObjectToPath                    
                     ctm = CurrentTransformation()
@@ -356,6 +367,18 @@ class iaObject:
                 else:
                     record_rect['rx'] = str(0)
                     record_rect['ry'] = str(0)                     
+
+
+                if rect.hasAttribute("style"):                            
+                    str_style = rect.attributes['style'].value
+                    style = {}
+                    for item in str_style.split(";"):
+                        key,value = item.split(":")
+                        style[key] = value
+                    record_rect['fill'] = style['fill']
+
+
+
 
                 # ObjectToPath                    
                 ctm = CurrentTransformation()
