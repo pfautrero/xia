@@ -128,6 +128,17 @@ class iaObject:
                     else:
                         record_image['x'] = str(0)
                         record_image['y'] = str(0)                        
+
+
+                    if image.hasAttribute("style"):                            
+                        str_style = image.attributes['style'].value
+                        style = {}
+                        for item in str_style.split(";"):
+                            key,value = item.split(":")
+                            style[key] = value
+                        record_image['fill'] = style['fill']
+                                        
+                    
                     
                     if image.hasAttribute("transform"):
                         transformation = image.attributes['transform'].value
@@ -332,6 +343,14 @@ class iaObject:
                     else:
                         record_image['x'] = str(0)
                         record_image['y'] = str(0)                        
+
+                    if image.hasAttribute("style"):                            
+                        str_style = image.attributes['style'].value
+                        style = {}
+                        for item in str_style.split(";"):
+                            key,value = item.split(":")
+                            style[key] = value
+                        record_image['fill'] = style['fill']
                     
                     if image.hasAttribute("transform"):
                         transformation = image.attributes['transform'].value
@@ -368,7 +387,6 @@ class iaObject:
                     record_rect['rx'] = str(0)
                     record_rect['ry'] = str(0)                     
 
-
                 if rect.hasAttribute("style"):                            
                     str_style = rect.attributes['style'].value
                     style = {}
@@ -376,9 +394,6 @@ class iaObject:
                         key,value = item.split(":")
                         style[key] = value
                     record_rect['fill'] = style['fill']
-
-
-
 
                 # ObjectToPath                    
                 ctm = CurrentTransformation()

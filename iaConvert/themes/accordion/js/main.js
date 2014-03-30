@@ -270,7 +270,11 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
             stroke: '',
             strokeWidth: 0	
         });
-        addEventsManagement(i,true);
+        var zoomable = true;
+        if ((typeof(detail.fill) !== 'undefined') && (detail.fill == "#000000")) {
+            zoomable = false;
+        }
+        addEventsManagement(i,zoomable);
         that.layer.add(that.kineticElement[i]);
         that.layer.draw();
 
