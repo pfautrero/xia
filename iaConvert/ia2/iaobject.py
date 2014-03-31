@@ -51,16 +51,30 @@ class iaObject:
     def analyzeSVG(self,filePath):
         """analyze svg file and fill self.details and self.scene"""
         self.xml = minidom.parse(filePath)
-        groups = self.xml.getElementsByTagName('g')
 
         head, tail = os.path.split(filePath)
-        
         self.scene['intro_title'] = u"Description"
         self.scene['intro_detail'] = u"Images Actives - Canopé Versailles"
         self.scene['image'] = ""
         self.scene['width'] = ""
         self.scene['height'] = ""
         self.scene['title'] = os.path.splitext(tail)[0]
+
+        # ==================== Retrieve metadatas
+        
+        metadatas = self.xml.getElementsByTagName('metadata')
+        if metadatas.item(0) is not 0:
+            metadata = metadatas.item(0).getElementsByTagName('dc:title')
+            if metadata.item(0) is not 0:
+                self.scene['title'] = self.get_tag_value(metadata.item(0))
+            metadata = metadatas.item(0).getElementsByTagName('dc:creator')
+            if metadata.item(0) is not 0:
+                creator = metadata.item(0).getElementsByTagName('dc:title')
+                if creator.item(0) is not 0:
+                    self.scene['creator'] = self.get_tag_value(creator.item(0))
+            metadata = metadatas.item(0).getElementsByTagName('dc:description')
+            if metadata.item(0) is not 0:
+                self.scene['description'] = self.get_tag_value(metadata.item(0))
 
         # ==================== Look for images
 
@@ -105,6 +119,7 @@ class iaObject:
 
         # ==================== Look for paths in groups root
 
+        groups = self.xml.getElementsByTagName('g')
         for group in groups:
             if group.parentNode.nodeName == "svg":
                 self.analyzeGroup(group)
@@ -413,7 +428,6 @@ class iaObject:
                 # apply group transformation on current object
                 ctm_group.applyTransformToPath(ctm_group.matrix,p)
                 record_rect['path'] = cubicsuperpath.formatPath(p)
-
 
                 record_rect['path'] = "'" + record_rect['path'] + " z'"
                 record["group"].append(record_rect)        

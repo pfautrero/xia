@@ -16,7 +16,7 @@
 # @author : pascal.fautrero@crdp.ac-versailles.fr
 
 import Tkinter, Tkconstants, tkFileDialog
-import os, shutil
+import os, shutil, sys
 from iaobject import iaObject
 
 class IADialog(Tkinter.Frame):
@@ -47,6 +47,22 @@ class IADialog(Tkinter.Frame):
         label1 = Tkinter.Label(self, image=inkscape)
         label1.photo = inkscape
         label1.grid(row=0,column=0,columnspan=1, sticky='W')
+    
+    #tab_path = os.path.dirname(os.path.relpath(__file__)).split("/")
+    #tab_path.pop()
+    #rel_path = "."
+    #import_path = ""
+    #for folder in tab_path:
+    #    rel_path = rel_path + "/" + folder
+        
+    #self.themes_list = []
+
+    #if os.path.isdir(rel_path + "/themes"):
+    #    for filename in os.listdir(rel_path + "/themes"):
+    #        sys.path.append(rel_path + "/themes/" + filename)
+    #        __import__(filename)
+    #        self.themes_list.append(filename)
+
         
     button2 = Tkinter.Button(self, image=accordion_img, relief=Tkinter.FLAT,bd=0, height=150, width=150,  command=self.createAccordion)
     button2.image = accordion_img
@@ -92,6 +108,7 @@ class IADialog(Tkinter.Frame):
           self.dirname = tkFileDialog.askdirectory(**self.dir_opt)
           if self.dirname:
               self.dir_opt['initialdir'] = self.dirname
+              
               if os.path.isdir(self.dirname + '/img'):
                   shutil.rmtree(self.dirname + '/img')
               if os.path.isdir(self.dirname + '/css'):
@@ -108,6 +125,7 @@ class IADialog(Tkinter.Frame):
               imageActive = iaObject()
               imageActive.analyzeSVG(self.filename)
               imageActive.generateJSON(self.dirname + '/datas/data.js')
+
               imageActive.generateAccordion(self.dirname + "/index.html")
   def quit(self):
       self.root.destroy()
