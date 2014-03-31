@@ -32,14 +32,14 @@ h3 {
     position:absolute;
     top:0;
     left:0;
-    width:1000px;
+    width:95%;
     height:655px;
 }
 .accordion {
     position:absolute;
     top:50px; 
-    left:550px;
-    width:450px;
+    left:58%;
+    width:40%;
     color:black;
     font-size:1.2em;	
 }

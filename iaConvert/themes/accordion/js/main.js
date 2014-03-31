@@ -421,8 +421,21 @@ $("#collapsecomment").collapse("show");
 
 // Load background image
 
+scaleScene = function(mainScene){
+    var viewportWidth = $(window).width();
+    var viewportHeight = $(window).height();
+    if (viewportWidth < 1000) {
+        mainScene.width = viewportWidth - 50;
+        mainScene.coeff = (mainScene.width / 2) / parseFloat(mainScene.originalWidth);
+        $('#container').css({"width": viewportWidth-50});
+    }
+}
+
 imageObj.onload = function() {
+    var that = this;
     var mainScene = new iaScene(scene.width,scene.height);
+    
+    scaleScene(mainScene);
     
     var stage = new Kinetic.Stage({
             container: 'canvas',
