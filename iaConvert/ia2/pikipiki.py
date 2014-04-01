@@ -16,7 +16,7 @@
 # source code from pikipiki parser (sligthly modified)
 
 
-import re, string
+import re, string, os
 class PageFormatter:
     """Object that turns Wiki markup into HTML.
 
@@ -49,10 +49,18 @@ class PageFormatter:
         return '<a href ="%s">%s</a>' % (word, word)
 
     def _video_repl(self, word):
-        return '<video width="400" controls><source type="video/ogg" src="%s" /></video>' % (word)
+        return '<video controls> \
+                    <source type="video/ogg" src="%s.ogv" /> \
+                    <source type="video/mp4" src="%s.mp4" /> \
+                    <source type="video/webm" src="%s.webm" /> \
+                </video>' % (os.path.splitext(word)[0], os.path.splitext(word)[0], os.path.splitext(word)[0])
 
     def _audio_repl(self, word):
-        return '<audio controls><source type="audio/ogg" src="%s" /></audio>' % (word)
+
+        return '<audio controls> \
+                    <source type="audio/ogg" src="%s.ogg" /> \
+                    <source type="audio/mp3" src="%s.mp3" /> \
+                </audio>' % (os.path.splitext(word)[0], os.path.splitext(word)[0])
 
     def _email_repl(self, word):
         return '<a href ="mailto:%s">%s</a>' % (word, word)
@@ -104,13 +112,12 @@ class PageFormatter:
         # For each line, we scan through looking for magic
         # strings, outputting verbatim any intervening text
         final_str = ""
-        #             + r"|(?P<word>\b(?:[A-Z][a-z]+){2,}\b)"
         scan_re = re.compile(
             r"(?:(?P<emph>\*{2,3})"
             + r"|(?P<ent>[<>&])"
             + r"|(?P<rule>-{4,})"
-            + r"|(?P<video>[^\s'\"]+\.ogv\b)"
-            + r"|(?P<audio>[^\s'\"]+\.ogg\b)"
+            + r"|(?P<video>[^\s'\"]+\.(ogv|mp4|webm)$)"
+            + r"|(?P<audio>[^\s'\"]+\.(ogg|mp3)$)"
             + r"|(?P<url>(http|ftp|nntp|news|mailto)\:[^\s'\"]+\S)"
             + r"|(?P<email>[-\w._+]+\@[\w.-]+)"
             + r"|(?P<li>^\s+\*(.*))"
@@ -120,6 +127,7 @@ class PageFormatter:
         indent_re = re.compile("^\s*")
         eol_re = re.compile(r'\r?\n')
         raw = string.expandtabs(self.raw)
+
         for line in eol_re.split(raw):
             if not self.in_pre:
                 if blank_re.match(line):

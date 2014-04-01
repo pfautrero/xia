@@ -6,12 +6,26 @@ body{
     padding:0px;
 
 }
+video {
+    width:100%;
+}
+audio {
+    width:100%;
+}
+a:hover {
+    background-color: #dddddd;
+}
 h3 {
-    font-family: Rye;
-    color:#FFF3B2;
+    /*font-family: Rye;*/
+    margin:0px;
+    background-color: black;
+    display:block;
+    width:100%;
+    color:#ffffff;
     position:absolute;
+    padding-left:5px;
     top:0;
-    left:10px;
+    left:0px;
 }
 #detect, #canvas {
     margin:0;
@@ -19,14 +33,17 @@ h3 {
 }
 #container {
     position: relative;
-    padding-left:15px;
-    padding-right:15px;
+    padding:0px;
+    padding-left:5px;
+    padding-right:5px;
+    
     width:1000px;
-    margin:10px auto;
+    margin:50px auto;
     border:0px solid #FFF3B2;
-    background-color: rgba(100,100,100,0.4);
-    border-radius:10px;
-    box-shadow:1px 2px 10px #000000;    
+
+    background: #000000; /* Old browsers */
+    border-radius:5px;
+    box-shadow:1px 2px 10px #555555;    
 }
 #detect {
     position:absolute;

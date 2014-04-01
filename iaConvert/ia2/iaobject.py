@@ -63,17 +63,19 @@ class iaObject:
         # ==================== Retrieve metadatas
         
         metadatas = self.xml.getElementsByTagName('metadata')
-        if metadatas.item(0) is not 0:
+        if metadatas.item(0) is not None:
             metadata = metadatas.item(0).getElementsByTagName('dc:title')
-            if metadata.item(0) is not 0:
+            if metadata.item(0) is not None:
                 self.scene['title'] = self.get_tag_value(metadata.item(0))
-            metadata = metadatas.item(0).getElementsByTagName('dc:creator')
-            if metadata.item(0) is not 0:
-                creator = metadata.item(0).getElementsByTagName('dc:title')
-                if creator.item(0) is not 0:
+            
+            metacreator = metadatas.item(0).getElementsByTagName('dc:creator')
+            if metacreator.item(0) is not None:
+                creator = metacreator.item(0).getElementsByTagName('dc:title')
+                if creator.item(0) is not None:
                     self.scene['creator'] = self.get_tag_value(creator.item(0))
+            
             metadata = metadatas.item(0).getElementsByTagName('dc:description')
-            if metadata.item(0) is not 0:
+            if metadata.item(0) is not None:
                 self.scene['description'] = self.get_tag_value(metadata.item(0))
 
         # ==================== Look for images
@@ -276,7 +278,8 @@ class iaObject:
         text = element.getElementsByTagName(type)
         if text.item(0) is not None:
             if text.item(0).parentNode == element:
-                return self.get_tag_value(text.item(0)).replace("\n"," ").replace("\t"," ").replace("\r"," ")
+                #return self.get_tag_value(text.item(0)).replace("\n"," ").replace("\t"," ").replace("\r"," ")
+                return self.get_tag_value(text.item(0))
         return ""
 
     def analyzeGroup(self,group):

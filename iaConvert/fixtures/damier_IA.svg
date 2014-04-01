@@ -16,6 +16,8 @@
    width="500"
    height="500"
    sodipodi:docname="damier_IA.svg">
+  <title
+     id="title3002">Les animaux gentils</title>
   <metadata
      id="metadata8">
     <rdf:RDF>
@@ -24,7 +26,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title>Les animaux gentils</dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -44,9 +46,9 @@
      id="namedview4"
      showgrid="false"
      inkscape:zoom="1.01"
-     inkscape:cx="250"
+     inkscape:cx="-80.19802"
      inkscape:cy="250"
-     inkscape:window-x="472"
+     inkscape:window-x="448"
      inkscape:window-y="91"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg2" />

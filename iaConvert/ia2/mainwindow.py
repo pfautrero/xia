@@ -35,6 +35,7 @@ class IADialog(Tkinter.Frame):
     ia_img= Tkinter.PhotoImage(file=self.localdir + "/images/ia.gif")    
     inkscape= Tkinter.PhotoImage(file=self.localdir + "/images/inkscape.gif")    
     buttons_img= Tkinter.PhotoImage(file=self.localdir + "/images/buttons.gif")    
+    void_img= Tkinter.PhotoImage(file=self.localdir + "/images/void.gif")  
 
     self.filename = svgfile
 
@@ -68,17 +69,28 @@ class IADialog(Tkinter.Frame):
     button2.image = accordion_img
     button2.grid(row=0,column=1)
 
-    button3 = Tkinter.Button(self, image=bubbles_img, relief=Tkinter.FLAT,bd=0, height=150, width=150,  command=self.createAccordion)
-    button3.image = bubbles_img
-    button3.grid(row=0,column=2)
+    label3 = Tkinter.Label(self, image=void_img)
+    label3.photo = void_img
+    label3.grid(row=0,column=2,columnspan=1, sticky='W')
+
+
+    #button3 = Tkinter.Button(self, image=bubbles_img, relief=Tkinter.FLAT,bd=0, height=150, width=150,  command=self.createAccordion)
+    #button3.image = bubbles_img
+    #button3.grid(row=0,column=2)
 
     label = Tkinter.Label(self, image=ia_img)
     label.photo = ia_img
     label.grid(row=1,column=0,columnspan=2, sticky='W')
 
-    button4 = Tkinter.Button(self, image=buttons_img, relief=Tkinter.FLAT,  padx=0, pady=0,  command=self.createAccordion)
-    button4.image = buttons_img
-    button4.grid(row=1,column=2)
+
+    label4 = Tkinter.Label(self, image=void_img)
+    label4.photo = void_img
+    label4.grid(row=1,column=2,columnspan=1, sticky='W')
+
+
+    #button4 = Tkinter.Button(self, image=buttons_img, relief=Tkinter.FLAT,  padx=0, pady=0,  command=self.createAccordion)
+    #button4.image = buttons_img
+    #button4.grid(row=1,column=2)
 
 
     # define options for opening or saving a file
