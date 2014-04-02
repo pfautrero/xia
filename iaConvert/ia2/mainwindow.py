@@ -49,6 +49,8 @@ class IADialog(Tkinter.Frame):
         label1.photo = inkscape
         label1.grid(row=0,column=0,columnspan=1, sticky='W')
     
+    # TODO : Automatic import of themes
+    
     #tab_path = os.path.dirname(os.path.relpath(__file__)).split("/")
     #tab_path.pop()
     #rel_path = "."

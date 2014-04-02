@@ -359,23 +359,25 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
      *  manage accordion events related to this element
      */
     $("#" + idText + "-heading").on('click touchstart',function(){
-        $('.collapse.in').each(function (index) {
-            if ($(this).attr("id") != idText) $(this).collapse("toggle");
-        });
-        if ((iaScene.element != 0) && (typeof(iaScene.element) != 'undefined')) {
-            for (var i in iaScene.element.kineticElement) {
-                iaScene.element.kineticElement[i].fillPriority('color');
-                iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
+        if (iaScene.zoomActive == 0) {
+            $('.collapse.in').each(function (index) {
+                if ($(this).attr("id") != idText) $(this).collapse("toggle");
+            });
+            if ((iaScene.element != 0) && (typeof(iaScene.element) != 'undefined')) {
+                for (var i in iaScene.element.kineticElement) {
+                    iaScene.element.kineticElement[i].fillPriority('color');
+                    iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
+                }
             }
+            baseImage.opacity(0.3);
+            for (var i in that.kineticElement) {
+                that.kineticElement[i].fillPriority('pattern');
+                that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
+                that.kineticElement[i].fillPatternOffset({x:0, y:0});
+            }
+            iaScene.element = that;
+            that.layer.draw();				
         }
-        baseImage.opacity(0.3);
-        for (var i in that.kineticElement) {
-            that.kineticElement[i].fillPriority('pattern');
-            that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
-            that.kineticElement[i].fillPatternOffset({x:0, y:0});
-        }
-        iaScene.element = that;
-        that.layer.draw();				
     });
 }
 /*

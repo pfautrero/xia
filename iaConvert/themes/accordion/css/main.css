@@ -94,7 +94,7 @@ h3 {
     background:white;
 }
 #accordion2 {
-    overflow:hidden;
+    overflow:auto;
     max-height:655px;
 }
 .response {

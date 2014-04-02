@@ -66,7 +66,8 @@ class iaObject:
         if metadatas.item(0) is not None:
             metadata = metadatas.item(0).getElementsByTagName('dc:title')
             if metadata.item(0) is not None:
-                self.scene['title'] = self.get_tag_value(metadata.item(0))
+                if self.get_tag_value(metadata.item(0)) != "":
+                    self.scene['title'] = self.get_tag_value(metadata.item(0))
             
             metacreator = metadatas.item(0).getElementsByTagName('dc:creator')
             if metacreator.item(0) is not None:
