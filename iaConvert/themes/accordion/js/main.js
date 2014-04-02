@@ -429,6 +429,10 @@ scaleScene = function(mainScene){
         mainScene.coeff = (mainScene.width / 2) / parseFloat(mainScene.originalWidth);
         $('#container').css({"width": viewportWidth-50});
     }
+    if (viewportHeight < 755) {
+        mainScene.height = viewportHeight-50;
+        $('#detect').css({"height": viewportHeight-50});
+    }
 }
 
 imageObj.onload = function() {

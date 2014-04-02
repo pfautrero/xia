@@ -20,12 +20,20 @@ h3 {
     margin:0px;
     background-color: black;
     display:block;
-    width:100%;
+    width:95%;
     color:#ffffff;
     position:absolute;
     padding-left:5px;
     top:0;
     left:0px;
+}
+@media screen and (max-width: 640px) {
+    body {
+        font-size:0.7em;
+    }
+    h3 {
+        font-size:20px;
+    }
 }
 #detect, #canvas {
     margin:0;
@@ -38,7 +46,7 @@ h3 {
     padding-right:5px;
     
     width:1000px;
-    margin:50px auto;
+    margin:10px auto;
     border:0px solid #FFF3B2;
 
     background: #000000; /* Old browsers */
