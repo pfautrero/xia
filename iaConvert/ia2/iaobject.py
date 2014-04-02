@@ -513,8 +513,13 @@ class iaObject:
         final_str += '</head>\n'
         final_str += '<body>\n'
         final_str += '  <div id="container">\n'
+        final_str += '      <header>\n'
+        final_str += '          <h1 id="title">' + self.scene["title"].encode('utf-8') + '</h1>\n'
+        final_str += '          <a class="eyes" href=""></a>\n'              
+        final_str += '          <a class="meta-doc" href=""></a>\n'
+        final_str += '          <a class="infos" href=""></a>\n'
+        final_str += '      </header>\n'
         final_str += '      <div id="detect"></div>\n'
-        final_str += '      <h3 id="title">' + self.scene["title"].encode('utf-8') + '</h3>\n'
         final_str += '      <div class="accordion" id="accordion2">\n'
         final_str += '          <div class="accordion-group">\n';
         final_str += '              <div class="accordion-heading">\n';
@@ -526,9 +531,10 @@ class iaObject:
         final_str += '              </div>\n'
         final_str += '          </div>\n'
         for i, detail in enumerate(self.details):
-            if detail['detail'].encode("utf-8").find("Réponse:") != -1:
-                question = detail['detail'][0:detail['detail'].encode("utf-8").find("Réponse:")-1].encode("utf-8")
-                answer = detail['detail'][detail['detail'].encode("utf-8").find("Réponse:")+8:].encode("utf-8")
+            detail['detail'] = detail['detail'].encode("utf-8")
+            if detail['detail'].find("Réponse:") != -1:
+                question = detail['detail'][0:detail['detail'].find("Réponse:")]
+                answer = detail['detail'][detail['detail'].find("Réponse:") + 9:]
                 final_str += '<div class="accordion-group">\n'
                 final_str += '  <div class="accordion-heading">\n'
                 final_str += '      <a id="collapse'+str(i)+'-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse'+str(i)+'">'+detail['title'].encode("utf-8")+'</a>\n'
@@ -543,7 +549,7 @@ class iaObject:
                 final_str += '  <div class="accordion-heading">\n'
                 final_str += '      <a id="collapse'+str(i)+'-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse'+str(i)+'">'+detail['title'].encode("utf-8") +'</a>\n'
                 final_str += '      <div id="collapse'+str(i)+'" class="accordion-body collapse">\n'
-                final_str += '          <div class="accordion-inner">' + PageFormatter(detail["detail"].encode('utf-8')).print_html() + '\n'
+                final_str += '          <div class="accordion-inner">' + PageFormatter(detail["detail"]).print_html() + '\n'
                 final_str += '          </div>\n'
                 final_str += '      </div>\n'
                 final_str += '  </div>\n'

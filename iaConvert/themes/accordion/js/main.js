@@ -27,6 +27,9 @@ function iaScene(originalWidth, originalHeight) {
     this.width = 1000;
     this.height = 755;
     
+    
+    this.y = 0;
+    
     this.zoomActive = 0;
     this.element = 0;
     this.originalWidth = originalWidth;
@@ -233,7 +236,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
         that.kineticElement[i] = new Kinetic.Path({
             data: detail.path,
             x: parseFloat(detail.x) * iaScene.coeff,
-            y: parseFloat(detail.y) * iaScene.coeff + 50,
+            y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
             scale: {x:iaScene.coeff,y:iaScene.coeff},
             fill: 'rgba(0, 0, 0, 0)',
             stroke: '',
@@ -262,7 +265,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
         that.backgroundImage[i] = rasterObj;
         that.kineticElement[i] = new Kinetic.Rect({
             x: parseFloat(detail.x) * iaScene.coeff,
-            y: parseFloat(detail.y) * iaScene.coeff + 50,
+            y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
             width: detail.width,
             height: detail.height,
             scale: {x:iaScene.coeff,y:iaScene.coeff},
@@ -294,14 +297,14 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
         var largeur = that.maxX - that.minX;
         var hauteur = that.maxY - that.minY;
 
-        that.agrandissement1  = (iaScene.height - 50) / hauteur;   // beta
+        that.agrandissement1  = (iaScene.height - iaScene.y) / hauteur;   // beta
         that.agrandissement2  = iaScene.width / largeur;    // alpha
 
         if (hauteur * that.agrandissement2 > iaScene.height) {
             that.agrandissement = that.agrandissement1;
              for (var i in that.kineticElement) {
                 var new_x = (that.kineticElement[i].x() - (that.minX)) * that.agrandissement + (iaScene.width - largeur * that.agrandissement) / 2;
-                var new_y = (that.kineticElement[i].y() - 50 - (that.minY)) * that.agrandissement + 50;
+                var new_y = (that.kineticElement[i].y() - iaScene.y - (that.minY)) * that.agrandissement + iaScene.y;
                 that.tween[i] = new Kinetic.Tween({
                   node: that.kineticElement[i], 
                   duration: 1,
@@ -317,7 +320,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
             that.agrandissement = that.agrandissement2;
             for (var i in that.kineticElement) {
                 var new_x = (that.kineticElement[i].x() - (that.minX)) * that.agrandissement;
-                var new_y = 1 * ((that.kineticElement[i].y() - 50 - (that.minY)) * that.agrandissement + 50 + (iaScene.height - hauteur * that.agrandissement) / 2);
+                var new_y = 1 * ((that.kineticElement[i].y() - iaScene.y - (that.minY)) * that.agrandissement + iaScene.y + (iaScene.height - hauteur * that.agrandissement) / 2);
                 that.tween[i] = new Kinetic.Tween({
                   node: that.kineticElement[i], 
                   duration: 1,
@@ -427,13 +430,13 @@ scaleScene = function(mainScene){
     var viewportWidth = $(window).width();
     var viewportHeight = $(window).height();
     if (viewportWidth < 1000) {
-        mainScene.width = viewportWidth - 50;
+        mainScene.width = viewportWidth - mainScene.y;
         mainScene.coeff = (mainScene.width / 2) / parseFloat(mainScene.originalWidth);
-        $('#container').css({"width": viewportWidth-50});
+        $('#container').css({"width": viewportWidth - mainScene.y});
     }
     if (viewportHeight < 755) {
-        mainScene.height = viewportHeight-50;
-        $('#detect').css({"height": viewportHeight-50});
+        mainScene.height = viewportHeight - mainScene.y;
+        $('#detect').css({"height": viewportHeight - mainScene.y});
     }
 }
 
@@ -453,7 +456,7 @@ imageObj.onload = function() {
     // area containing image background    
     var baseImage = new Kinetic.Rect({
             x: 0,
-            y: 50,
+            y: mainScene.y,
             width: scene.width,
             height: scene.height,
             scale: {x:mainScene.coeff,y:mainScene.coeff},
@@ -465,7 +468,7 @@ imageObj.onload = function() {
     // mouse is over. Thus, we can reach div located under canvas 
     var disableArea = new Kinetic.Rect({
             x: mainScene.width / 2,
-            y: 50,
+            y: mainScene.y,
             width: mainScene.width / 2,
             height: mainScene.height,
             stroke: '',

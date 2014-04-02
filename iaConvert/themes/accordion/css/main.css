@@ -1,10 +1,61 @@
-@import url(http://fonts.googleapis.com/css?family=Rye);
-body{
-    background: #000000;
-    background-image: url('../img/background2.jpg');
-    margin:0;
-    padding:0px;
+/*fonts*/
+@font-face {
+    font-family: 'yanone_bold';
+    src: url('../font/yanonekaffeesatz-bold-webfont.eot');
+    src: url('../font/yanonekaffeesatz-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/yanonekaffeesatz-bold-webfont.woff') format('woff'),
+         url('../font/yanonekaffeesatz-bold-webfont.ttf') format('truetype'),
+         url('../font/yanonekaffeesatz-bold-webfont.svg#yanone_kaffeesatzbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'yanone_light';
+    src: url('../font/yanonekaffeesatz-light-webfont.eot');
+    src: url('../font/yanonekaffeesatz-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/yanonekaffeesatz-light-webfont.woff') format('woff'),
+         url('../font/yanonekaffeesatz-light-webfont.ttf') format('truetype'),
+         url('../font/yanonekaffeesatz-light-webfont.svg#yanone_kaffeesatzlight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'yanone_regular';
+    src: url('../font/yanonekaffeesatz-regular-webfont.eot');
+    src: url('../font/yanonekaffeesatz-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/yanonekaffeesatz-regular-webfont.woff') format('woff'),
+         url('../font/yanonekaffeesatz-regular-webfont.ttf') format('truetype'),
+         url('../font/yanonekaffeesatz-regular-webfont.svg#yanone_kaffeesatzregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+	font-family: 'yanone_thin';
+    src: url('../font/yanonekaffeesatz-thin-webfont.eot');
+    src: url('../font/yanonekaffeesatz-thin-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/yanonekaffeesatz-thin-webfont.woff') format('woff'),
+         url('../font/yanonekaffeesatz-thin-webfont.ttf') format('truetype'),
+         url('../font/yanonekaffeesatz-thin-webfont.svg#yanone_kaffeesatzthin') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+/*fin de font*/
 
+/* override Wahid */
+
+html {
+  margin:0;
+  padding:0;
+  background: url('../img/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+body{
+    background: none;
+    /*background-image: url('../img/background2.jpg');*/
+    margin:0;
+    border:none;
+    margin-top:10px;
+    padding:0px;
 }
 video {
     width:100%;
@@ -12,21 +63,56 @@ video {
 audio {
     width:100%;
 }
-a:hover {
-    background-color: #dddddd;
+a {
+    color:#00c6ff;
 }
-h3 {
-    /*font-family: Rye;*/
-    margin:0px;
-    background-color: black;
-    display:block;
-    width:95%;
-    color:#ffffff;
-    position:absolute;
-    padding-left:5px;
+a:active, a:focus, a:hover {color:#FFF;}
+header {
+    width:100%; 
+    padding:0; 
+    margin:0 auto; 
+    background:#000;
+}
+
+header h1 {    
+    margin:0;
     top:0;
     left:0px;
+    background:url(../img/imagedoc-darknoise.png);
+    display:inline;
+    max-width:20%;
+    padding: 0px 1em 0 5px;
+    margin-bottom:0; 
+    color:#00C6FF;
+    font-family: yanone_thin; 
 }
+
+
+.eyes { 
+    background:url(../img/eyes.png) center bottom no-repeat;
+    margin-left: 10px;
+    padding:.3em 1em;
+}
+.eyes:hover {
+    background:url(../img/eyes2.png) center bottom  no-repeat;
+}
+.meta-doc {
+    background:url(../img/meta-doc.png) center bottom  no-repeat;
+    margin-left: 10px;padding:.3em 1em
+}
+.meta-doc:hover{
+    background:url(../img/meta-doc2.png) center bottom  no-repeat;
+}
+.infos {
+    background:url(../img/infos.png) center bottom no-repeat;
+    margin-left: 10px;
+    padding:.3em 1em; 
+}
+.infos:hover{
+    background:url(../img/infos2.png) center bottom  no-repeat;
+}
+.title-document {display: block;}
+
 @media screen and (max-width: 640px) {
     body {
         font-size:0.7em;
@@ -42,53 +128,49 @@ h3 {
 #container {
     position: relative;
     padding:0px;
-    padding-left:5px;
-    padding-right:5px;
-    
     width:1000px;
     margin:10px auto;
     border:0px solid #FFF3B2;
-
     background: #000000; /* Old browsers */
-    border-radius:5px;
-    box-shadow:1px 2px 10px #555555;    
 }
 #detect {
     position:absolute;
-    top:0;
+    top:50px;
     left:0;
-    width:95%;
+    width:100%;
     height:655px;
 }
+
 .accordion {
     position:absolute;
     top:50px; 
     left:58%;
     width:40%;
     color:black;
-    font-size:1.2em;	
-}
-.accordion-heading {
-
-    border-radius:5px;
-    border-top:10px;
-    background: #e2e2e2; /* Old browsers */
-    background: -moz-linear-gradient(top, #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e2e2e2), color-stop(50%,#dbdbdb), color-stop(51%,#d1d1d1), color-stop(100%,#fefefe)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); /* IE10+ */
-    background: linear-gradient(to bottom, #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=0 ); /* IE6-9 */
-
-}
-.accordion-group {
-    border:0px;
+    /*font-size:1.2em;	*/
 }
 .accordion-heading a{
     text-decoration:none;
     color:black;
 }
+a.accordion-toggle { 
+    font-family:yanone_regular; 
+    color:#00c6ff;
+    font-size:2em;
+    text-decoration:none;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+.accordion-toggle:hover {
+    color:#FFF;
+}
+.accordion-group {
+    border:0px;
+}
+
 .accordion-inner {
     position: relative;
     background:white;

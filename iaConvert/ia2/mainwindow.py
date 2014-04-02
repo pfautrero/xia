@@ -122,7 +122,8 @@ class IADialog(Tkinter.Frame):
           self.dirname = tkFileDialog.askdirectory(**self.dir_opt)
           if self.dirname:
               self.dir_opt['initialdir'] = self.dirname
-              
+              if os.path.isdir(self.dirname + '/font'):
+                  shutil.rmtree(self.dirname + '/font')              
               if os.path.isdir(self.dirname + '/img'):
                   shutil.rmtree(self.dirname + '/img')
               if os.path.isdir(self.dirname + '/css'):
@@ -133,6 +134,7 @@ class IADialog(Tkinter.Frame):
                   shutil.rmtree(self.dirname + '/datas')
               
               os.mkdir(self.dirname + '/datas')
+              shutil.copytree(self.localdir + '/themes/accordion/font/', self.dirname + '/font/')              
               shutil.copytree(self.localdir + '/themes/accordion/css/', self.dirname + '/css/')
               shutil.copytree(self.localdir + '/themes/accordion/img/', self.dirname + '/img/')
               shutil.copytree(self.localdir + '/themes/accordion/js/', self.dirname + '/js/')
