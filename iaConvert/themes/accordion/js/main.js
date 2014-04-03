@@ -25,7 +25,7 @@ function iaScene(originalWidth, originalHeight) {
      *  define scene dimensions on the page
      */
     this.width = 1000;
-    this.height = 755;
+    this.height = 800;
     
     
     this.y = 0;
@@ -429,11 +429,17 @@ $("#collapsecomment").collapse("show");
 scaleScene = function(mainScene){
     var viewportWidth = $(window).width();
     var viewportHeight = $(window).height();
+    var new_height = scene.height * mainScene.coeff + $('#canvas').offset().top - $('#container').offset().top;
+    $('#container').css({"height": new_height + 'px'});
+    $('#canvas').css({"height": mainScene.originalHeight * mainScene.coeff + 'px'});
+    
     if (viewportWidth < 1000) {
         mainScene.width = viewportWidth - mainScene.y;
         mainScene.coeff = (mainScene.width / 2) / parseFloat(mainScene.originalWidth);
         $('#container').css({"width": viewportWidth - mainScene.y});
+        
     }
+
     if (viewportHeight < 755) {
         mainScene.height = viewportHeight - mainScene.y;
         $('#detect').css({"height": viewportHeight - mainScene.y});
@@ -467,9 +473,9 @@ imageObj.onload = function() {
     // define area to disable canvas events management when
     // mouse is over. Thus, we can reach div located under canvas 
     var disableArea = new Kinetic.Rect({
-            x: mainScene.width / 2,
+            x: mainScene.width  * 0.55,
             y: mainScene.y,
-            width: mainScene.width / 2,
+            width: mainScene.width * (1 - 0.55),
             height: mainScene.height,
             stroke: '',
             strokeWidth: 0

@@ -49,11 +49,19 @@ class PageFormatter:
         return '<a href ="%s">%s</a>' % (word, word)
 
     def _video_repl(self, word):
-        return '<video controls> \
-                    <source type="video/ogg" src="%s.ogv" /> \
+        return '<video controls preload="none"> \
                     <source type="video/mp4" src="%s.mp4" /> \
+                    <source type="video/ogg" src="%s.ogv" /> \
                     <source type="video/webm" src="%s.webm" /> \
                 </video>' % (os.path.splitext(word)[0], os.path.splitext(word)[0], os.path.splitext(word)[0])
+
+    def _iframe_repl(self, word):
+        word_url = word.split("src=&quot;")[1].split("&quot;")[0]
+        if word_url[0:2] == "//":
+            word_url = "http:" + word_url
+        return '<iframe src="%s" width="100%%" height="200px"></iframe>' % (word_url)
+
+
 
     def _audio_repl(self, word):
 
@@ -112,8 +120,10 @@ class PageFormatter:
         # For each line, we scan through looking for magic
         # strings, outputting verbatim any intervening text
         final_str = ""
+
         scan_re = re.compile(
             r"(?:(?P<emph>\*{2,3})"
+            + r"|(?P<iframe>&lt;iframe(.*)src=&quot;(.*)&quot;(.*)&gt;&lt;/iframe&gt;)"
             + r"|(?P<ent>[<>&])"
             + r"|(?P<rule>-{4,})"
             + r"|(?P<video>[^\s'\"]+\.(ogv|mp4|webm)$)"

@@ -51,10 +51,9 @@ html {
 }
 body{
     background: none;
-    /*background-image: url('../img/background2.jpg');*/
     margin:0;
     border:none;
-    margin-top:10px;
+    margin-top:0px;
     padding:0px;
 }
 video {
@@ -129,9 +128,14 @@ header h1 {
     position: relative;
     padding:0px;
     width:1000px;
-    margin:10px auto;
+    margin:20px auto;
     border:0px solid #FFF3B2;
     background: #000000; /* Old browsers */
+}
+#canvas {
+    width:55%;
+    border:0px solid white;
+    border-radius:5px;
 }
 #detect {
     position:absolute;
