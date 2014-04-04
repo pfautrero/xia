@@ -218,6 +218,30 @@ class iaObject:
                         ctm.applyTransformToPath(ctm.matrix,p)
                         record_rect['path'] = cubicsuperpath.formatPath(p)
 
+                    minX = 10000
+                    minY = 10000
+                    maxX = 0
+                    maxY = 0
+                    for cmd, params in cubicsuperpath.unCubicSuperPath(p):
+                        i = 0
+                        for p in params:
+                            if (i%2 == 0):
+                                if float(p) < float(minX):
+                                    minX = float(p)
+                                if float(p) > float(maxX):
+                                    maxX = float(p)
+                            else:
+                                if float(p) < float(minY):
+                                    minY = float(p)
+                                if float(p) > float(maxY):
+                                    maxY = float(p)
+                            i = i + 1
+                    record_rect["minX"] = str(minX)
+                    record_rect["minY"] = str(minY)
+                    record_rect["maxX"] = str(maxX)
+                    record_rect["maxY"] = str(maxY)
+
+
                     record_rect['path'] = '"' + record_rect['path'] + ' z"'
                     self.details.append(record_rect)  
 
@@ -270,7 +294,28 @@ class iaObject:
                     if record["path"].lower().find("z") == -1:
                         record["path"] += " z"
                     record['path'] = '"' + record['path'] + '"'
-                  
+                    minX = 10000
+                    minY = 10000
+                    maxX = 0
+                    maxY = 0
+                    for cmd, params in cubicsuperpath.unCubicSuperPath(p):
+                        i = 0
+                        for p in params:
+                            if (i%2 == 0):
+                                if float(p) < float(minX):
+                                    minX = float(p)
+                                if float(p) > float(maxX):
+                                    maxX = float(p)
+                            else:
+                                if float(p) < float(minY):
+                                    minY = float(p)
+                                if float(p) > float(maxY):
+                                    maxY = float(p)
+                            i = i + 1
+                    record["minX"] = str(minX)
+                    record["minY"] = str(minY)
+                    record["maxX"] = str(maxX)
+                    record["maxY"] = str(maxY)
                     if (record["path"] != ""):
                         self.details.append(record)
 
@@ -290,7 +335,10 @@ class iaObject:
         record['title'] = self.getText("title", group)
         record['detail'] = self.getText("desc", group)
         record["group"] = []
-
+        minX = 10000
+        minY = 10000
+        maxX = 0
+        maxY = 0
         # retrieve transformations applied on master group
         # TODO : manage nested groups tranformations
         
@@ -336,6 +384,26 @@ class iaObject:
                 # apply group transformation on current object
                 ctm_group.applyTransformToPath(ctm_group.matrix,p)
                 record_path['path'] = cubicsuperpath.formatPath(p)
+
+
+                for cmd, params in cubicsuperpath.unCubicSuperPath(p):
+                    i = 0
+                    for p in params:
+                        if (i%2 == 0):
+                            if float(p) < float(minX):
+                                minX = float(p)
+                            if float(p) > float(maxX):
+                                maxX = float(p)
+                        else:
+                            if float(p) < float(minY):
+                                minY = float(p)
+                            if float(p) > float(maxY):
+                                maxY = float(p)
+                        i = i + 1
+                record["minX"] = str(minX)
+                record["minY"] = str(minY)
+                record["maxX"] = str(maxX)
+                record["maxY"] = str(maxY)                
                 
                 if record_path["path"].lower().find("z") == -1:
                     record_path["path"] += " z"
@@ -432,6 +500,30 @@ class iaObject:
                 # apply group transformation on current object
                 ctm_group.applyTransformToPath(ctm_group.matrix,p)
                 record_rect['path'] = cubicsuperpath.formatPath(p)
+
+                minX = 10000
+                minY = 10000
+                maxX = 0
+                maxY = 0
+                for cmd, params in cubicsuperpath.unCubicSuperPath(p):
+                    i = 0
+                    for p in params:
+                        if (i%2 == 0):
+                            if float(p) < float(minX):
+                                minX = float(p)
+                            if float(p) > float(maxX):
+                                maxX = float(p)
+                        else:
+                            if float(p) < float(minY):
+                                minY = float(p)
+                            if float(p) > float(maxY):
+                                maxY = float(p)
+                        i = i + 1
+                record["minX"] = str(minX)
+                record["minY"] = str(minY)
+                record["maxX"] = str(maxX)
+                record["maxY"] = str(maxY)
+
 
                 record_rect['path'] = "'" + record_rect['path'] + " z'"
                 record["group"].append(record_rect)        

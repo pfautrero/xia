@@ -36,6 +36,7 @@ function iaScene(originalWidth, originalHeight) {
     this.originalHeight = originalHeight;
     this.coeff = (this.width * 0.55) / parseFloat(originalWidth);
     this.cursorState=""
+    this.overColor = 'rgba(66, 133, 244,0.4)';
 }
 
 /*
@@ -71,23 +72,38 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
      * @param {type} index
      * @returns {undefined}
      */
-    var definePathBoxSize = function(index) {
+    var definePathBoxSize = function(detail, index) {
         "use strict";
-        var element = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        element.setAttribute('d', that.path[index]);
-        var len = element.getTotalLength();
-        var point = element.getPointAtLength(0);
-        if (that.minX === 10000) that.minX = point.x;
-        if (that.minY === 10000) that.minY = point.y;
-        if (that.maxX === -1) that.maxX = point.x;
-        if (that.maxY === -1) that.maxY = point.y;
-        for (var percent =0; percent<1000;percent++) {
-            var point = element.getPointAtLength( len * percent/1000 );
-            if (point.x < that.minX) that.minX = point.x;
-            if (point.x > that.maxX) that.maxX = point.x;
-            if (point.y < that.minY) that.minY = point.y;
-            if (point.y > that.maxY) that.maxY = point.y;			
-        }        
+        if (  (typeof(detail.minX) != 'undefined') &&
+              (typeof(detail.minY) != 'undefined') &&
+              (typeof(detail.maxX) != 'undefined') &&
+              (typeof(detail.maxY) != 'undefined')) {
+            that.minX = detail.minX;
+            that.minY = detail.minY;
+            that.maxX = detail.maxX;
+            that.maxY = detail.maxY;
+        }
+        else {
+            var element = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            element.setAttribute('d', that.path[index]);
+            var len = element.getTotalLength();
+            var point = element.getPointAtLength(0);
+            if (that.minX === 10000) that.minX = point.x;
+            if (that.minY === 10000) that.minY = point.y;
+            if (that.maxX === -1) that.maxX = point.x;
+            if (that.maxY === -1) that.maxY = point.y;
+            for (var percent =0; percent<100;percent++) {
+                var curve_length = parseFloat(len * percent/100);
+                if (!isNaN(curve_length)) {
+                    var point = element.getPointAtLength(curve_length);
+                    if (point.x < that.minX) that.minX = point.x;
+                    if (point.x > that.maxX) that.maxX = point.x;
+                    if (point.y < that.minY) that.minY = point.y;
+                    if (point.y > that.maxY) that.maxY = point.y;
+                }
+            }                    
+        }
+
     }
     
     /*
@@ -127,8 +143,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
                 document.body.style.cursor = "url(img/HandPointer.cur),auto";
                 iaScene.cursorState = "url(img/HandPointer.cur),auto";
                 for (var i in that.kineticElement) {
-                        that.kineticElement[i].fill('rgba(66, 133, 244,0.4)');
-                        //that.kineticElement[i].stroke('#6E0106');
+                        that.kineticElement[i].fill(iaScene.overColor);
                         that.kineticElement[i].stroke('rgba(0,0,0,0)');
                         that.kineticElement[i].strokeWidth(2);
                 }
@@ -242,7 +257,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
             stroke: '',
             strokeWidth: 0
         });
-        definePathBoxSize(i);
+        definePathBoxSize(detail, i);
         var zoomable = true;
         if ((typeof(detail.fill) !== 'undefined') && (detail.fill == "#000000")) {
             zoomable = false;
@@ -296,7 +311,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
 
         var largeur = that.maxX - that.minX;
         var hauteur = that.maxY - that.minY;
-
+        console.log(largeur.toString() + " - " + hauteur.toString());
         that.agrandissement1  = (iaScene.height - iaScene.y) / hauteur;   // beta
         that.agrandissement2  = iaScene.width / largeur;    // alpha
 
@@ -422,10 +437,11 @@ detect.addEventListener("touchstart", function()
     }, false);	
 
 $("#collapsecomment").collapse("show");
-//$("#title").html(scene.title);
 
-// Load background image
-
+/*
+ * Scale entire scene
+ *  
+ */
 scaleScene = function(mainScene){
     var viewportWidth = $(window).width();
     var viewportHeight = $(window).height();
@@ -437,15 +453,14 @@ scaleScene = function(mainScene){
         mainScene.width = viewportWidth - mainScene.y;
         mainScene.coeff = (mainScene.width / 2) / parseFloat(mainScene.originalWidth);
         $('#container').css({"width": viewportWidth - mainScene.y});
-        
     }
-
     if (viewportHeight < 755) {
         mainScene.height = viewportHeight - mainScene.y;
         $('#detect').css({"height": viewportHeight - mainScene.y});
     }
 }
 
+// Load background image
 imageObj.onload = function() {
     var that = this;
     var mainScene = new iaScene(scene.width,scene.height);
@@ -457,7 +472,6 @@ imageObj.onload = function() {
             width: mainScene.width,
             height: mainScene.height
     });
-
 
     // area containing image background    
     var baseImage = new Kinetic.Rect({
