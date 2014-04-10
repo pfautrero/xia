@@ -49,7 +49,7 @@ function iaScene(originalWidth, originalHeight) {
  * @param {type} iaScene
  * @constructor create image active object
  */
-function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
+function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, background_layer, layer_ghost) {
     "use strict";
     var that = this;
     this.path = new Array();
@@ -58,6 +58,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
     this.originalX = new Array();
     this.originalY = new Array();
     this.layer = layer;
+    this.background_layer = background_layer;
     this.imageObj = imageObj;
     this.agrandissement = 0;
     this.zoomActive = 0;
@@ -65,7 +66,12 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
     this.minY = 10000;
     this.maxX = -1;
     this.maxY = -1;
-    this.tween = new Array();    
+    this.tween = new Array(); 
+    this.tween_group = 0;
+    this.group = 0;
+    this.group_ghost = 0;
+    this.layer_ghost = layer_ghost;
+
 
     /*
      * 
@@ -130,7 +136,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
      * @returns {undefined}
      */
     
-    var addEventsManagement = function(i, zoomable) {
+    var addEventsManagement = function(i, zoomable, detail) {
 
         /*
          * if mouse is over element, fill the element with semi-transparency
@@ -139,15 +145,14 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
             if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
 
             }
-            else {
+            else if (iaScene.cursorState.indexOf("HandPointer.cur") == -1) {
                 document.body.style.cursor = "url(img/HandPointer.cur),auto";
                 iaScene.cursorState = "url(img/HandPointer.cur),auto";
                 for (var i in that.kineticElement) {
-                        that.kineticElement[i].fill(iaScene.overColor);
-                        that.kineticElement[i].stroke('rgba(0,0,0,0)');
-                        that.kineticElement[i].strokeWidth(2);
+                    that.kineticElement[i].fill(iaScene.overColor);
+                    that.kineticElement[i].scale(iaScene.coeff);
                 }
-                that.layer.draw();
+                that.layer.batchDraw();
             }
         });
         /*
@@ -156,21 +161,57 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
         that.kineticElement[i].on('click touchstart', function() {
             // let's zoom
             if ((iaScene.cursorState.indexOf("ZoomIn.cur") != -1) && (iaScene.element == that)) {
+                console.log("let's zoom !");
                 iaScene.zoomActive = 1;
                 document.body.style.cursor = "url(img/ZoomOut.cur),auto";
                 iaScene.cursorState = "url(img/ZoomOut.cur),auto";
-                for (var i in that.kineticElement) {
+                that.layer.moveToTop();
+                
+                that.group.zoomActive = 1;
+                //that.group.clearCache();
+                that.originalX[0] = that.group.x();
+                that.originalY[0] = that.group.y();
+                that.group.draw();
+
+                //that.group.cache();
+                //that.tween[i].play();
+                that.tween_group.play();
+
+                /*for (var i in that.kineticElement) {
                     that.kineticElement[i].zoomActive = 1;
-                    that.kineticElement[i].setZIndex(1000);
                     that.originalX[i] = that.kineticElement[i].x();
                     that.originalY[i] = that.kineticElement[i].y();
-                    that.tween[i].play();
-                }
-                that.layer.draw();
+                    that.kineticElement[i].draw();
+                    //that.tween[i].play();
+                    that.tween_group.play();
+                }*/
             }
             // let's unzoom
             else if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
-                for (var i in that.kineticElement) {
+
+                if ((that.group.zoomActive == 1) && (that.group.scaleX().toFixed(5) == (that.agrandissement).toFixed(5))) {
+                    iaScene.zoomActive = 0;
+                    that.group.zoomActive = 0;
+                    that.group.scale({x:iaScene.coeff,y:iaScene.coeff});
+                    
+                    that.group.x(that.originalX[0]);
+                    that.group.y(that.originalY[0]);
+                    that.tween_group.reset();
+                    baseImage.opacity(1);
+                    document.body.style.cursor = "default";
+                    iaScene.cursorState = "default";
+
+                    for (var i in that.kineticElement) {
+                        that.kineticElement[i].clearCache();
+                    }                    
+                    that.layer.draw();
+                    that.background_layer.draw();
+                }
+
+                
+                /*for (var i in that.kineticElement) {
+                    console.log(that.group.scaleX().toFixed(5));
+                    console.log((that.agrandissement).toFixed(5));
                     if ((that.kineticElement[i].zoomActive == 1) && (that.kineticElement[i].scaleX().toFixed(5) == (that.agrandissement * iaScene.coeff).toFixed(5))) {
                         iaScene.zoomActive = 0;
                         that.kineticElement[i].zoomActive = 0;
@@ -185,9 +226,10 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
                         that.kineticElement[i].stroke('rgba(0,0,0,0)');                                                                        
                         document.body.style.cursor = "default";
                         iaScene.cursorState = "default";
-                        that.layer.draw();										
+                        that.layer.draw();
+                        that.background_layer.draw();
                     }
-                }
+                }*/
             }
             // let's focus
             else {
@@ -208,13 +250,20 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
                     });
                     $('#' + idText).collapse("show");
                     baseImage.opacity(0.3);
+                    //baseImage.brightness(-10);
+                    that.background_layer.draw();
                     for (var i in that.kineticElement) {
                         that.kineticElement[i].fillPriority('pattern');
                         that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
                         that.kineticElement[i].fillPatternOffset({x:0, y:0});
                     }
+                    for (var i in that.kineticElement) {
+                        that.kineticElement[i].cache();
+                    }
+                    
+                    that.layer.draw(); 
+                    //that.group.cache();
                     iaScene.element = that;
-                    that.layer.draw();
                 }
             }
         });
@@ -227,7 +276,10 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
             }
             else {
                 baseImage.opacity(1);
+                //baseImage.brightness(0);
+                that.background_layer.draw();
                 for (var i in that.kineticElement) {
+                    that.kineticElement[i].clearCache();
                     that.kineticElement[i].fillPriority('color');
                     that.kineticElement[i].fill('rgba(0, 0, 0, 0)');
                     that.kineticElement[i].stroke('rgba(0,0,0,0)');                    
@@ -253,18 +305,47 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
             x: parseFloat(detail.x) * iaScene.coeff,
             y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
             scale: {x:iaScene.coeff,y:iaScene.coeff},
-            fill: 'rgba(0, 0, 0, 0)',
-            stroke: '',
-            strokeWidth: 0
+            fill: 'rgba(0, 0, 0, 0)'
         });
+        /*var test = new Kinetic.Path({
+            data: detail.path,
+            x: parseFloat(detail.x) * iaScene.coeff,
+            y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
+            scale: {x:iaScene.coeff,y:iaScene.coeff},
+            fill: 'rgba(100, 100, 100, 100)',
+            stroke: 'red',
+            strokeWidth: '1'
+        });*/        
         definePathBoxSize(detail, i);
         var zoomable = true;
         if ((typeof(detail.fill) !== 'undefined') && (detail.fill == "#000000")) {
             zoomable = false;
         }
-        addEventsManagement(i, zoomable);
-        that.layer.add(that.kineticElement[i]);
-        that.layer.draw();
+        addEventsManagement(i, zoomable, detail);
+        
+
+        
+        //that.layer.add(test);
+        /*test.toImage({
+            callback: function(imgxx) {
+                
+                that.kineticElement[i] = new Kinetic.Image({
+                    image: imgxx,
+                    x:0,
+                    y:0
+                });
+                
+                that.group.add(that.kineticElement[i]);
+                
+                addEventsManagement(i, true, detail);
+                that.group.draw();
+            }
+            
+        });*/
+        
+        
+        that.group.add(that.kineticElement[i]);
+        that.group.draw();
     };
 
     /*
@@ -288,13 +369,29 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
             stroke: '',
             strokeWidth: 0	
         });
-        var zoomable = true;
-        if ((typeof(detail.fill) !== 'undefined') && (detail.fill == "#000000")) {
-            zoomable = false;
+        rasterObj.onload = function() {
+            /*that.kineticElement[i] = new Kinetic.Image({
+                image: rasterObj,
+                x: parseFloat(detail.x) * iaScene.coeff,
+                y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
+                width: detail.width,
+                height: detail.height,
+                scale: {x: iaScene.coeff, y: iaScene.coeff}
+
+            });*/
+
+            var zoomable = true;
+            if ((typeof(detail.fill) !== 'undefined') && (detail.fill == "#000000")) {
+                zoomable = false;
+            }
+            addEventsManagement(i,zoomable, detail);
+            that.group.add(that.kineticElement[i]);
+
+            // buggy on kinetic 5.1.0
+            //that.kineticElement[i].cache();
+            //that.kineticElement[i].drawHitFromCache();
+            that.group.draw();        
         }
-        addEventsManagement(i,zoomable);
-        that.layer.add(that.kineticElement[i]);
-        that.layer.draw();
 
     }    
     /*
@@ -311,13 +408,23 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
 
         var largeur = that.maxX - that.minX;
         var hauteur = that.maxY - that.minY;
-        console.log(largeur.toString() + " - " + hauteur.toString());
         that.agrandissement1  = (iaScene.height - iaScene.y) / hauteur;   // beta
         that.agrandissement2  = iaScene.width / largeur;    // alpha
 
         if (hauteur * that.agrandissement2 > iaScene.height) {
             that.agrandissement = that.agrandissement1;
-             for (var i in that.kineticElement) {
+            
+            that.tween_group = new Kinetic.Tween({
+                  node: that.group, 
+                  duration: 1,
+                  x: (0 - (that.minX)) * that.agrandissement + (iaScene.width - largeur * that.agrandissement) / 2,
+                  y: (0 - iaScene.y - (that.minY)) * that.agrandissement + iaScene.y,
+                  easing: Kinetic.Easings.BackEaseIn,
+                  scaleX: that.agrandissement,
+                  scaleY: that.agrandissement
+            });
+            
+            /*for (var i in that.kineticElement) {
                 var new_x = (that.kineticElement[i].x() - (that.minX)) * that.agrandissement + (iaScene.width - largeur * that.agrandissement) / 2;
                 var new_y = (that.kineticElement[i].y() - iaScene.y - (that.minY)) * that.agrandissement + iaScene.y;
                 that.tween[i] = new Kinetic.Tween({
@@ -327,13 +434,24 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
                   y: new_y,
                   easing: Kinetic.Easings.BackEaseIn,
                   scaleX: that.agrandissement * iaScene.coeff,
-                  scaleY: that.agrandissement * iaScene.coeff                
+                  scaleY: that.agrandissement * iaScene.coeff
                 });
-            }
+            }*/
         }
         else {
             that.agrandissement = that.agrandissement2;
-            for (var i in that.kineticElement) {
+            
+            that.tween_group = new Kinetic.Tween({
+                  node: that.group, 
+                  duration: 1,
+                  x: (0 - (that.minX)) * that.agrandissement,
+                  y: 1 * ((0 - iaScene.y - (that.minY)) * that.agrandissement + iaScene.y + (iaScene.height - hauteur * that.agrandissement) / 2),
+                  easing: Kinetic.Easings.BackEaseIn,
+                  scaleX: that.agrandissement,
+                  scaleY: that.agrandissement
+            });            
+            
+            /*for (var i in that.kineticElement) {
                 var new_x = (that.kineticElement[i].x() - (that.minX)) * that.agrandissement;
                 var new_y = 1 * ((that.kineticElement[i].y() - iaScene.y - (that.minY)) * that.agrandissement + iaScene.y + (iaScene.height - hauteur * that.agrandissement) / 2);
                 that.tween[i] = new Kinetic.Tween({
@@ -345,11 +463,16 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
                   scaleX: that.agrandissement * iaScene.coeff,
                   scaleY: that.agrandissement * iaScene.coeff
                 });
-            }
+            }*/
         }        
     }    
     
-    // Create kineticElements
+    // Create kineticElements and include them in a group
+    
+    that.group = new Kinetic.Group();
+    that.group_ghost = new Kinetic.Group();
+    that.layer_ghost.add(that.group_ghost);
+    that.layer.add(that.group);
     
     if (typeof(detail.path) !== 'undefined') {
         includePath(detail, 0);
@@ -385,6 +508,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
                 for (var i in iaScene.element.kineticElement) {
                     iaScene.element.kineticElement[i].fillPriority('color');
                     iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
+                    iaScene.element.layer.draw();
                 }
             }
             baseImage.opacity(0.3);
@@ -395,6 +519,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene) {
             }
             iaScene.element = that;
             that.layer.draw();				
+            that.background_layer.draw();
         }
     });
 }
@@ -474,16 +599,18 @@ imageObj.onload = function() {
     });
 
     // area containing image background    
-    var baseImage = new Kinetic.Rect({
+    var baseImage = new Kinetic.Image({
             x: 0,
             y: mainScene.y,
             width: scene.width,
             height: scene.height,
             scale: {x:mainScene.coeff,y:mainScene.coeff},
-            fillPatternImage: imageObj,
-            stroke: '',
-            strokeWidth: 0
+            //fillPatternImage: imageObj,
+            image: imageObj,
+            //stroke: '',
+            //strokeWidth: 0
     });
+
     // define area to disable canvas events management when
     // mouse is over. Thus, we can reach div located under canvas 
     var disableArea = new Kinetic.Rect({
@@ -497,14 +624,27 @@ imageObj.onload = function() {
     disableArea.on('mouseover touchstart', function() {
         canvas.style.pointerEvents="none";
     });
-    var layer = new Kinetic.Layer();	
-    layer.add(disableArea);	
-    layer.add(baseImage);
+    var layers = new Array();
+    layers[0] = new Kinetic.FastLayer();	
+    layers[1] = new Kinetic.Layer();
+    layer_ghost = new Kinetic.Layer();
+    
+    layers[0].add(baseImage);
+    // buggy on kinetic 5.1.0
+    //baseImage.cache();
+    //baseImage.filters([Kinetic.Filters.Brighten]);
+    
+    layers[1].add(disableArea);	
+    
+    stage.add(layer_ghost);
+    layer_ghost.hide();
+    stage.add(layers[0]);
+    stage.add(layers[1]);
+    
     for (var i in details) {
-        iaObj = new iaObject(imageObj, details[i], layer, "collapse" + i, baseImage, mainScene);
+        layers[i+2] = new Kinetic.Layer();
+        stage.add(layers[i+2]);
+        iaObj = new iaObject(imageObj, details[i], layers[i+2], "collapse" + i, baseImage, mainScene, layers[0], layer_ghost);
     }
-    layer.draw();
-    stage.add(layer);
-
 };
 imageObj.src = scene.image;

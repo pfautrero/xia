@@ -116,6 +116,9 @@ class IADialog(Tkinter.Frame):
     
   def askopenfilename(self):
     self.filename = tkFileDialog.askopenfilename(**self.file_opt)
+    if self.filename:
+        head, tail = os.path.split(self.filename)
+        self.file_opt['initialdir'] = head
 
   def createAccordion(self):
       if self.filename:

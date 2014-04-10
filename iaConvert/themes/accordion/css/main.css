@@ -133,7 +133,7 @@ header h1 {
     background: #000000; /* Old browsers */
 }
 #canvas {
-    width:100%;
+    width:55%;
     border:0px solid white;
     border-radius:5px;
 }
