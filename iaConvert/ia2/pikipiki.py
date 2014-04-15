@@ -46,7 +46,7 @@ class PageFormatter:
         return s
 
     def _url_repl(self, word):
-        return '<a href ="%s">%s</a>' % (word, word)
+        return '<a href ="%s" target="_blank">%s</a>' % (word, word)
 
     def _video_repl(self, word):
         return '<video controls preload="none"> \
@@ -54,6 +54,9 @@ class PageFormatter:
                     <source type="video/ogg" src="%s.ogv" /> \
                     <source type="video/webm" src="%s.webm" /> \
                 </video>' % (os.path.splitext(word)[0], os.path.splitext(word)[0], os.path.splitext(word)[0])
+
+    def _img_repl(self, word):
+        return '<img src="%s">' % (word)
 
     def _iframe_repl(self, word):
         word_url = word.split("src=&quot;")[1].split("&quot;")[0]
@@ -127,6 +130,7 @@ class PageFormatter:
             + r"|(?P<ent>[<>&])"
             + r"|(?P<rule>-{4,})"
             + r"|(?P<video>[^\s'\"]+\.(ogv|mp4|webm)$)"
+            + r"|(?P<img>[^\s'\"]+\.(jpg|jpeg|png|gif)$)"
             + r"|(?P<audio>[^\s'\"]+\.(ogg|mp3)$)"
             + r"|(?P<url>(http|ftp|nntp|news|mailto)\:[^\s'\"]+\S)"
             + r"|(?P<email>[-\w._+]+\@[\w.-]+)"

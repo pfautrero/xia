@@ -104,220 +104,201 @@ class iaObject:
                 self.scene['image'] = image.attributes['xlink:href'].value
                 break
                 
-        # ==================== Look for paths not included in groups
+        mainSVG = self.xml.getElementsByTagName('svg')[0].childNodes
+        for childnode in mainSVG:
+            if childnode.parentNode.nodeName == "svg":
+                if childnode.nodeName == "path":
+                    self.analyzeRootPaths(childnode)
+                if childnode.nodeName == "image":
+                    self.analyzeRootImages(childnode)
+                if childnode.nodeName == "rect":
+                    self.analyzeRootRects(childnode)
+                if childnode.nodeName == "g":
+                    self.analyzeGroup(childnode)
 
-        paths = self.xml.getElementsByTagName('path')
-        self.analyzeRootPaths(paths)
-
-        # ==================== Look for images not included in groups
-
-        images = self.xml.getElementsByTagName('image')
-        self.analyzeRootImages(images)
-
-        # ==================== Look for rectangles not included in groups
-
-        rects = self.xml.getElementsByTagName('rect')
-        self.analyzeRootRects(rects)
-
-
-        # ==================== Look for paths in groups root
-
-        groups = self.xml.getElementsByTagName('g')
-        for group in groups:
-            if group.parentNode.nodeName == "svg":
-                self.analyzeGroup(group)
-
-    def analyzeRootImages(self, images):
+    def analyzeRootImages(self, image):
         """Analyze images not included in a specific group"""
         
-        if images.length is not 0:
-            for image in images:
-                if (image.parentNode.nodeName == "svg") and not image.isSameNode(self.backgroundNode):
-                    record_image = {}
-                    record_image['image'] = image.attributes['xlink:href'].value
-                    record_image['width'] = image.attributes['width'].value
-                    record_image['height'] = image.attributes['height'].value
-                    record_image['detail'] = self.getText("desc", image)
-                    record_image['title'] = self.getText("title", image)
+        if not image.isSameNode(self.backgroundNode):
+            record_image = {}
+            record_image['image'] = image.attributes['xlink:href'].value
+            record_image['width'] = image.attributes['width'].value
+            record_image['height'] = image.attributes['height'].value
+            record_image['detail'] = self.getText("desc", image)
+            record_image['title'] = self.getText("title", image)
 
-                    if image.hasAttribute("x") and image.hasAttribute("y"):
-                        record_image['x'] = image.attributes['x'].value
-                        record_image['y'] = image.attributes['y'].value
-                    else:
-                        record_image['x'] = str(0)
-                        record_image['y'] = str(0)                        
+            if image.hasAttribute("x") and image.hasAttribute("y"):
+                record_image['x'] = image.attributes['x'].value
+                record_image['y'] = image.attributes['y'].value
+            else:
+                record_image['x'] = str(0)
+                record_image['y'] = str(0)                        
 
 
-                    if image.hasAttribute("style"):                            
-                        str_style = image.attributes['style'].value
-                        style = {}
-                        for item in str_style.split(";"):
-                            key,value = item.split(":")
-                            style[key] = value
-                        record_image['fill'] = style['fill']
-                                        
-                    
-                    
-                    if image.hasAttribute("transform"):
-                        transformation = image.attributes['transform'].value
-                        ctm = CurrentTransformation()
-                        ctm.analyze(transformation)
+            if image.hasAttribute("style"):                            
+                str_style = image.attributes['style'].value
+                style = {}
+                for item in str_style.split(";"):
+                    key,value = item.split(":")
+                    style[key] = value
+                record_image['fill'] = style['fill']
 
-                    self.details.append(record_image)               
 
-    def analyzeRootRects(self, rects):
+
+            if image.hasAttribute("transform"):
+                transformation = image.attributes['transform'].value
+                ctm = CurrentTransformation()
+                ctm.analyze(transformation)
+
+            self.details.append(record_image)               
+
+    def analyzeRootRects(self, rect):
         """Analyze images not included in a specific group"""
         
-        if rects.length is not 0:
-            for rect in rects:
-                if rect.parentNode.nodeName == "svg":
-                    record_rect = {}
-                    record_rect['width'] = rect.attributes['width'].value
-                    record_rect['height'] = rect.attributes['height'].value
-                    record_rect['detail'] = self.getText("desc", rect)
-                    record_rect['title'] = self.getText("title", rect)
+        record_rect = {}
+        record_rect['width'] = rect.attributes['width'].value
+        record_rect['height'] = rect.attributes['height'].value
+        record_rect['detail'] = self.getText("desc", rect)
+        record_rect['title'] = self.getText("title", rect)
 
-                    if rect.hasAttribute("x") and rect.hasAttribute("y"):
-                        record_rect['x'] = rect.attributes['x'].value
-                        record_rect['y'] = rect.attributes['y'].value
-                    else:
-                        record_rect['x'] = str(0)
-                        record_rect['y'] = str(0)                        
+        if rect.hasAttribute("x") and rect.hasAttribute("y"):
+            record_rect['x'] = rect.attributes['x'].value
+            record_rect['y'] = rect.attributes['y'].value
+        else:
+            record_rect['x'] = str(0)
+            record_rect['y'] = str(0)                        
 
-                    if rect.hasAttribute("rx") and rect.hasAttribute("ry"):
-                        record_rect['rx'] = rect.attributes['rx'].value
-                        record_rect['ry'] = rect.attributes['ry'].value
-                    else:
-                        record_rect['rx'] = str(0)
-                        record_rect['ry'] = str(0)                     
+        if rect.hasAttribute("rx") and rect.hasAttribute("ry"):
+            record_rect['rx'] = rect.attributes['rx'].value
+            record_rect['ry'] = rect.attributes['ry'].value
+        else:
+            record_rect['rx'] = str(0)
+            record_rect['ry'] = str(0)                     
 
-                    if rect.hasAttribute("style"):                            
-                        str_style = rect.attributes['style'].value
-                        style = {}
-                        for item in str_style.split(";"):
-                            key,value = item.split(":")
-                            style[key] = value
-                        record_rect['fill'] = style['fill']
-                    
-                    
-                    
-                    
-                    # ObjectToPath                    
-                    ctm = CurrentTransformation()
-                    record_rect['path'] = ctm.rectToPath(record_rect)
-
-                    p = cubicsuperpath.parsePath(record_rect['path'])
-                    record_rect['path'] = cubicsuperpath.formatPath(p)
-                    record_rect['x'] = str(0)
-                    record_rect['y'] = str(0)                        
-                    
-                    if rect.hasAttribute("transform"):
-                        transformation = rect.attributes['transform'].value
-                        ctm.analyze(transformation)
-
-                        ctm.applyTransformToPath(ctm.matrix,p)
-                        record_rect['path'] = cubicsuperpath.formatPath(p)
-
-                    minX = 10000
-                    minY = 10000
-                    maxX = 0
-                    maxY = 0
-                    for cmd, params in cubicsuperpath.unCubicSuperPath(p):
-                        i = 0
-                        for p in params:
-                            if (i%2 == 0):
-                                if float(p) < float(minX):
-                                    minX = float(p)
-                                if float(p) > float(maxX):
-                                    maxX = float(p)
-                            else:
-                                if float(p) < float(minY):
-                                    minY = float(p)
-                                if float(p) > float(maxY):
-                                    maxY = float(p)
-                            i = i + 1
-                    record_rect["minX"] = str(minX)
-                    record_rect["minY"] = str(minY)
-                    record_rect["maxX"] = str(maxX)
-                    record_rect["maxY"] = str(maxY)
+        if rect.hasAttribute("style"):                            
+            str_style = rect.attributes['style'].value
+            style = {}
+            for item in str_style.split(";"):
+                key,value = item.split(":")
+                style[key] = value
+            record_rect['fill'] = style['fill']
 
 
-                    record_rect['path'] = '"' + record_rect['path'] + ' z"'
-                    self.details.append(record_rect)  
 
-    def analyzeRootPaths(self,paths):
+
+        # ObjectToPath                    
+        ctm = CurrentTransformation()
+        record_rect['path'] = ctm.rectToPath(record_rect)
+
+        p = cubicsuperpath.parsePath(record_rect['path'])
+        record_rect['path'] = cubicsuperpath.formatPath(p)
+        record_rect['x'] = str(0)
+        record_rect['y'] = str(0)                        
+
+        if rect.hasAttribute("transform"):
+            transformation = rect.attributes['transform'].value
+            ctm.analyze(transformation)
+
+            ctm.applyTransformToPath(ctm.matrix,p)
+            record_rect['path'] = cubicsuperpath.formatPath(p)
+
+        minX = 10000
+        minY = 10000
+        maxX = 0
+        maxY = 0
+        for cmd, params in cubicsuperpath.unCubicSuperPath(p):
+            i = 0
+            for p in params:
+                if (i%2 == 0):
+                    if float(p) < float(minX):
+                        minX = float(p)
+                    if float(p) > float(maxX):
+                        maxX = float(p)
+                else:
+                    if float(p) < float(minY):
+                        minY = float(p)
+                    if float(p) > float(maxY):
+                        maxY = float(p)
+                i = i + 1
+        record_rect["minX"] = str(minX)
+        record_rect["minY"] = str(minY)
+        record_rect["maxX"] = str(maxX)
+        record_rect["maxY"] = str(maxY)
+
+
+        record_rect['path'] = '"' + record_rect['path'] + ' z"'
+        self.details.append(record_rect)  
+
+    def analyzeRootPaths(self,path):
         """Analyze paths not included in a specific group"""
         
-        if paths.length is not 0:
-            for path in paths:
-                if path.parentNode.nodeName == "svg":
-                    record = {}
-                    record["title"] = ""
-                    record["detail"] = ""
-                    record["path"] = ""
-                    record["fill"] = ""
-                    record["path"] =  path.attributes['d'].value.replace("&#xd;&#xa;"," ").replace("&#x9;"," ").replace("\n"," ").replace("\t"," ").replace("\r"," ") 
-                    record["style"] = ""
-                    
-                    if record["detail"] == "":
-                        record['detail'] = self.getText("desc", path)
-                    if record["title"] == "":
-                        record['title'] = self.getText("title", path)
+        record = {}
+        record["title"] = ""
+        record["detail"] = ""
+        record["path"] = ""
+        record["fill"] = ""
+        record["path"] =  path.attributes['d'].value.replace("&#xd;&#xa;"," ").replace("&#x9;"," ").replace("\n"," ").replace("\t"," ").replace("\r"," ") 
+        record["style"] = ""
 
-                    if path.hasAttribute("style"):
-                        str_style = path.attributes['style'].value
-                        style = {}
-                        for item in str_style.split(";"):
-                            key,value = item.split(":")
-                            style[key] = value
-                        record["fill"] = style['fill']
+        if record["detail"] == "":
+            record['detail'] = self.getText("desc", path)
+        if record["title"] == "":
+            record['title'] = self.getText("title", path)
 
-                    if path.hasAttribute("x") and path.hasAttribute("y"):
-                        record['x'] = path.attributes['x'].value
-                        record['y'] = path.attributes['y'].value
-                    else:
-                        record['x'] = str(0)
-                        record['y'] = str(0)                        
+        if path.hasAttribute("style") and (path.attributes['style'].value != ""):
+            str_style = path.attributes['style'].value
+            style = {}
+            for item in str_style.split(";"):
+                key,value = item.split(":")
+                style[key] = value
+            record["fill"] = style['fill']
 
-                    # ObjectToPath
-                    p = cubicsuperpath.parsePath(record['path'])
-                    record['path'] = cubicsuperpath.formatPath(p)
-                    
-                    if path.hasAttribute("transform"):
-                        transformation = path.attributes['transform'].value
-                        ctm = CurrentTransformation()
-                        ctm.analyze(transformation)
+        if path.hasAttribute("x") and path.hasAttribute("y"):
+            record['x'] = path.attributes['x'].value
+            record['y'] = path.attributes['y'].value
+        else:
+            record['x'] = str(0)
+            record['y'] = str(0)                        
 
-                        ctm.applyTransformToPath(ctm.matrix,p)
-                        record['path'] = cubicsuperpath.formatPath(p)
+        # ObjectToPath
+        p = cubicsuperpath.parsePath(record['path'])
+        record['path'] = cubicsuperpath.formatPath(p)
 
-                    if record["path"].lower().find("z") == -1:
-                        record["path"] += " z"
-                    record['path'] = '"' + record['path'] + '"'
-                    minX = 10000
-                    minY = 10000
-                    maxX = 0
-                    maxY = 0
-                    for cmd, params in cubicsuperpath.unCubicSuperPath(p):
-                        i = 0
-                        for p in params:
-                            if (i%2 == 0):
-                                if float(p) < float(minX):
-                                    minX = float(p)
-                                if float(p) > float(maxX):
-                                    maxX = float(p)
-                            else:
-                                if float(p) < float(minY):
-                                    minY = float(p)
-                                if float(p) > float(maxY):
-                                    maxY = float(p)
-                            i = i + 1
-                    record["minX"] = str(minX)
-                    record["minY"] = str(minY)
-                    record["maxX"] = str(maxX)
-                    record["maxY"] = str(maxY)
-                    if (record["path"] != ""):
-                        self.details.append(record)
+        if path.hasAttribute("transform"):
+            transformation = path.attributes['transform'].value
+            ctm = CurrentTransformation()
+            ctm.analyze(transformation)
+
+            ctm.applyTransformToPath(ctm.matrix,p)
+            record['path'] = cubicsuperpath.formatPath(p)
+
+        if record["path"].lower().find("z") == -1:
+            record["path"] += " z"
+        record['path'] = '"' + record['path'] + '"'
+        minX = 10000
+        minY = 10000
+        maxX = 0
+        maxY = 0
+        for cmd, params in cubicsuperpath.unCubicSuperPath(p):
+            i = 0
+            for p in params:
+                if (i%2 == 0):
+                    if float(p) < float(minX):
+                        minX = float(p)
+                    if float(p) > float(maxX):
+                        maxX = float(p)
+                else:
+                    if float(p) < float(minY):
+                        minY = float(p)
+                    if float(p) > float(maxY):
+                        maxY = float(p)
+                i = i + 1
+        record["minX"] = str(minX)
+        record["minY"] = str(minY)
+        record["maxX"] = str(maxX)
+        record["maxY"] = str(maxY)
+        if (record["path"] != ""):
+            self.details.append(record)
 
     def getText(self, type, element):
         """ type can be 'desc' or 'title' """
@@ -356,7 +337,7 @@ class iaObject:
                     record['detail'] = self.getText("desc", path)
                 if record["title"] == "":
                     record['title'] = self.getText("title", path)
-                if path.hasAttribute("style"):                            
+                if path.hasAttribute("style") and (path.attributes['style'].value != ""):                            
                     str_style = path.attributes['style'].value
                     style = {}
                     for item in str_style.split(";"):
