@@ -21,22 +21,28 @@
 function iaScene(originalWidth, originalHeight) {
     "use strict";
     var that = this;
-    /*
-     *  define scene dimensions on the page
-     */
+    //  canvas width
     this.width = 1000;
-    this.height = 800;
-    
-    
+    // canvas height
+    this.height = 800;  
+    // default color used to fill shapes during mouseover
+    this.overColor = 'rgba(66, 133, 244,0.4)';  
+    // Image ratio on the scene
+    this.ratio = 0.50;  
+    // padding-top in the canvas
     this.y = 0;
+    // easing effect
+    this.easing = Kinetic.Easings.Linear;
+    
+    // internal
     
     this.zoomActive = 0;
     this.element = 0;
     this.originalWidth = originalWidth;
     this.originalHeight = originalHeight;
-    this.coeff = (this.width * 0.55) / parseFloat(originalWidth);
+    this.coeff = (this.width * this.ratio) / parseFloat(originalWidth);
     this.cursorState=""
-    this.overColor = 'rgba(66, 133, 244,0.4)';
+
 }
 
 /*
@@ -64,21 +70,20 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     this.zoomActive = 0;
     this.minX = 10000;
     this.minY = 10000;
-    this.maxX = -1;
-    this.maxY = -1;
+    this.maxX = -10000;
+    this.maxY = -10000;
     this.tween = new Array(); 
     this.tween_group = 0;
     this.group = 0;
     this.group_ghost = 0;
     this.layer_ghost = layer_ghost;
 
-
     /*
      * 
      * @param {type} index
      * @returns {undefined}
      */
-    var definePathBoxSize = function(detail, index) {
+    var definePathBoxSize = function(detail) {
         "use strict";
         if (  (typeof(detail.minX) != 'undefined') &&
               (typeof(detail.minY) != 'undefined') &&
@@ -89,7 +94,8 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
             that.maxX = detail.maxX;
             that.maxY = detail.maxY;
         }
-        else {
+        /*else {
+            // obsolete
             var element = document.createElementNS('http://www.w3.org/2000/svg', 'path');
             element.setAttribute('d', that.path[index]);
             var len = element.getTotalLength();
@@ -108,7 +114,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
                     if (point.y > that.maxY) that.maxY = point.y;
                 }
             }                    
-        }
+        }*/
 
     }
     
@@ -160,7 +166,8 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
          */
         that.kineticElement[i].on('click touchstart', function() {
             // let's zoom
-            if ((iaScene.cursorState.indexOf("ZoomIn.cur") != -1) && (iaScene.element == that)) {
+            if ((iaScene.cursorState.indexOf("ZoomIn.cur") != -1) && 
+                (iaScene.element == that)) {
                 console.log("let's zoom !");
                 iaScene.zoomActive = 1;
                 document.body.style.cursor = "url(img/ZoomOut.cur),auto";
@@ -168,68 +175,33 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
                 that.layer.moveToTop();
                 
                 that.group.zoomActive = 1;
-                //that.group.clearCache();
                 that.originalX[0] = that.group.x();
                 that.originalY[0] = that.group.y();
                 that.group.draw();
-
-                //that.group.cache();
-                //that.tween[i].play();
                 that.tween_group.play();
-
-                /*for (var i in that.kineticElement) {
-                    that.kineticElement[i].zoomActive = 1;
-                    that.originalX[i] = that.kineticElement[i].x();
-                    that.originalY[i] = that.kineticElement[i].y();
-                    that.kineticElement[i].draw();
-                    //that.tween[i].play();
-                    that.tween_group.play();
-                }*/
             }
             // let's unzoom
             else if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
 
-                if ((that.group.zoomActive == 1) && (that.group.scaleX().toFixed(5) == (that.agrandissement).toFixed(5))) {
+                if ((that.group.zoomActive == 1) && 
+                    (that.group.scaleX().toFixed(5) == (that.agrandissement).toFixed(5))) {
                     iaScene.zoomActive = 0;
                     that.group.zoomActive = 0;
-                    that.group.scale({x:iaScene.coeff,y:iaScene.coeff});
+                    //that.group.scale({x:iaScene.coeff,y:iaScene.coeff});
                     
-                    that.group.x(that.originalX[0]);
-                    that.group.y(that.originalY[0]);
+                    //that.group.x(that.originalX[0]);
+                    //that.group.y(that.originalY[0]);
                     that.tween_group.reset();
                     baseImage.opacity(1);
                     document.body.style.cursor = "default";
                     iaScene.cursorState = "default";
 
-                    for (var i in that.kineticElement) {
+                    /*for (var i in that.kineticElement) {
                         that.kineticElement[i].clearCache();
-                    }                    
+                    } */                   
                     that.layer.draw();
                     that.background_layer.draw();
                 }
-
-                
-                /*for (var i in that.kineticElement) {
-                    console.log(that.group.scaleX().toFixed(5));
-                    console.log((that.agrandissement).toFixed(5));
-                    if ((that.kineticElement[i].zoomActive == 1) && (that.kineticElement[i].scaleX().toFixed(5) == (that.agrandissement * iaScene.coeff).toFixed(5))) {
-                        iaScene.zoomActive = 0;
-                        that.kineticElement[i].zoomActive = 0;
-                        that.kineticElement[i].scale({x:iaScene.coeff,y:iaScene.coeff});
-                        that.kineticElement[i].setZIndex(100);
-                        that.kineticElement[i].x(that.originalX[i]);
-                        that.kineticElement[i].y(that.originalY[i]);
-                        that.tween[i].reset();
-                        that.kineticElement[i].fillPriority('color');
-                        baseImage.opacity(1);
-                        that.kineticElement[i].setFill('rgba(0, 0, 0, 0)');
-                        that.kineticElement[i].stroke('rgba(0,0,0,0)');                                                                        
-                        document.body.style.cursor = "default";
-                        iaScene.cursorState = "default";
-                        that.layer.draw();
-                        that.background_layer.draw();
-                    }
-                }*/
             }
             // let's focus
             else {
@@ -238,7 +210,6 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
                         for (var i in iaScene.element.kineticElement) {
                             iaScene.element.kineticElement[i].fillPriority('color');
                             iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
-                            iaScene.element.kineticElement[i].stroke('rgba(0,0,0,0)');                                                
                         }
                     }                    
                     if (zoomable == true) {
@@ -250,19 +221,16 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
                     });
                     $('#' + idText).collapse("show");
                     baseImage.opacity(0.3);
-                    //baseImage.brightness(-10);
                     that.background_layer.draw();
                     for (var i in that.kineticElement) {
                         that.kineticElement[i].fillPriority('pattern');
                         that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
-                        that.kineticElement[i].fillPatternOffset({x:0, y:0});
                     }
-                    for (var i in that.kineticElement) {
+                    /*for (var i in that.kineticElement) {
                         that.kineticElement[i].cache();
-                    }
+                    }*/
                     
                     that.layer.draw(); 
-                    //that.group.cache();
                     iaScene.element = that;
                 }
             }
@@ -276,20 +244,19 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
             }
             else {
                 baseImage.opacity(1);
-                //baseImage.brightness(0);
                 that.background_layer.draw();
                 for (var i in that.kineticElement) {
-                    that.kineticElement[i].clearCache();
+                    //that.kineticElement[i].clearCache();
                     that.kineticElement[i].fillPriority('color');
                     that.kineticElement[i].fill('rgba(0, 0, 0, 0)');
-                    that.kineticElement[i].stroke('rgba(0,0,0,0)');                    
+                    //that.kineticElement[i].stroke('rgba(0,0,0,0)');                    
                 }
                 document.body.style.cursor = "default";
                 iaScene.cursorState = "default";
                 that.layer.draw();						
             }
         });        
-    }
+    };
     
     /*
      * 
@@ -299,7 +266,8 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
      */
     var includePath = function(detail, i) {
         that.path[i] = detail.path;
-        that.backgroundImage[i] = imageObj;
+        //that.backgroundImage[i] = imageObj;
+        
         that.kineticElement[i] = new Kinetic.Path({
             data: detail.path,
             x: parseFloat(detail.x) * iaScene.coeff,
@@ -307,43 +275,60 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
             scale: {x:iaScene.coeff,y:iaScene.coeff},
             fill: 'rgba(0, 0, 0, 0)'
         });
-        /*var test = new Kinetic.Path({
-            data: detail.path,
-            x: parseFloat(detail.x) * iaScene.coeff,
-            y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
-            scale: {x:iaScene.coeff,y:iaScene.coeff},
-            fill: 'rgba(100, 100, 100, 100)',
-            stroke: 'red',
-            strokeWidth: '1'
-        });*/        
-        definePathBoxSize(detail, i);
+        
+
+        definePathBoxSize(detail);
+
+	var cropCanvas = document.createElement('canvas');
+
+        cropCanvas.setAttribute('width', detail.maxX - detail.minX);
+        cropCanvas.setAttribute('height', detail.maxY - detail.minY);
+        var myctx = cropCanvas.getContext('2d');
+        //console.log(iaScene.originalWidth + " " + iaScene.originalHeight);
+        //console.log(that.maxX - that.minX);
+        myctx.drawImage(
+            imageObj, 
+            Math.max(parseFloat(detail.minX), 0), 
+            Math.max(parseFloat(detail.minY), 0),
+            Math.min(detail.maxX - detail.minX, iaScene.originalWidth),
+            Math.min(detail.maxY - detail.minY, iaScene.originalHeight), 
+            0, 
+            0,
+            Math.min(detail.maxX - detail.minX, iaScene.originalWidth),
+            Math.min(detail.maxY - detail.minY, iaScene.originalHeight)
+        );
+	var dataUrl = cropCanvas.toDataURL();
+	cropCanvas.remove();
+        var myImage2 = new Image();
+	myImage2.src = dataUrl;
+        myImage2.onload = function() {
+            /*var cropCanvas = document.createElement('canvas');
+            cropCanvas.setAttribute('width', detail.maxX - detail.minX);
+            cropCanvas.setAttribute('height', detail.maxY - detail.minY);            
+            var myctx = cropCanvas.getContext('2d');
+            document.body.appendChild(cropCanvas);
+            myctx.drawImage(
+                myImage2, 
+                0, 
+                0
+            );*/            
+            
+            that.backgroundImage[i] = myImage2;
+            //that.kineticElement[i].fillPriority("pattern");
+            //that.kineticElement[i].fillPatternImage(myImage2);
+            that.kineticElement[i].fillPatternRepeat('no-repeat');
+            //that.kineticElement[i].fillPatternScale([iaScene.ratio,iaScene.ratio]);
+            that.kineticElement[i].fillPatternX(detail.minX);
+            that.kineticElement[i].fillPatternY(detail.minY);
+            that.kineticElement[i].draw();
+        };
+        
         var zoomable = true;
         if ((typeof(detail.fill) !== 'undefined') && (detail.fill == "#000000")) {
             zoomable = false;
         }
         addEventsManagement(i, zoomable, detail);
-        
 
-        
-        //that.layer.add(test);
-        /*test.toImage({
-            callback: function(imgxx) {
-                
-                that.kineticElement[i] = new Kinetic.Image({
-                    image: imgxx,
-                    x:0,
-                    y:0
-                });
-                
-                that.group.add(that.kineticElement[i]);
-                
-                addEventsManagement(i, true, detail);
-                that.group.draw();
-            }
-            
-        });*/
-        
-        
         that.group.add(that.kineticElement[i]);
         that.group.draw();
     };
@@ -365,20 +350,9 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
             width: detail.width,
             height: detail.height,
             scale: {x:iaScene.coeff,y:iaScene.coeff},
-            fill: 'rgba(0, 0, 0, 0)',
-            stroke: '',
-            strokeWidth: 0	
+            fill: 'rgba(0, 0, 0, 0)'	
         });
         rasterObj.onload = function() {
-            /*that.kineticElement[i] = new Kinetic.Image({
-                image: rasterObj,
-                x: parseFloat(detail.x) * iaScene.coeff,
-                y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
-                width: detail.width,
-                height: detail.height,
-                scale: {x: iaScene.coeff, y: iaScene.coeff}
-
-            });*/
 
             var zoomable = true;
             if ((typeof(detail.fill) !== 'undefined') && (detail.fill == "#000000")) {
@@ -391,11 +365,11 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
             //that.kineticElement[i].cache();
             //that.kineticElement[i].drawHitFromCache();
             that.group.draw();        
-        }
+        };
 
     }    
     /*
-     * Define zoom rate and define tween effect for each kineticElement
+     * Define zoom rate and define tween effect for each group
      * @returns {undefined}
      */
     
@@ -413,58 +387,24 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
 
         if (hauteur * that.agrandissement2 > iaScene.height) {
             that.agrandissement = that.agrandissement1;
-            
-            that.tween_group = new Kinetic.Tween({
-                  node: that.group, 
-                  duration: 1,
-                  x: (0 - (that.minX)) * that.agrandissement + (iaScene.width - largeur * that.agrandissement) / 2,
-                  y: (0 - iaScene.y - (that.minY)) * that.agrandissement + iaScene.y,
-                  easing: Kinetic.Easings.BackEaseIn,
-                  scaleX: that.agrandissement,
-                  scaleY: that.agrandissement
-            });
-            
-            /*for (var i in that.kineticElement) {
-                var new_x = (that.kineticElement[i].x() - (that.minX)) * that.agrandissement + (iaScene.width - largeur * that.agrandissement) / 2;
-                var new_y = (that.kineticElement[i].y() - iaScene.y - (that.minY)) * that.agrandissement + iaScene.y;
-                that.tween[i] = new Kinetic.Tween({
-                  node: that.kineticElement[i], 
-                  duration: 1,
-                  x: new_x,
-                  y: new_y,
-                  easing: Kinetic.Easings.BackEaseIn,
-                  scaleX: that.agrandissement * iaScene.coeff,
-                  scaleY: that.agrandissement * iaScene.coeff
-                });
-            }*/
+            that.tweenX = (0 - (that.minX)) * that.agrandissement + (iaScene.width - largeur * that.agrandissement) / 2;
+            that.tweenY = (0 - iaScene.y - (that.minY)) * that.agrandissement + iaScene.y;
         }
         else {
             that.agrandissement = that.agrandissement2;
-            
-            that.tween_group = new Kinetic.Tween({
-                  node: that.group, 
-                  duration: 1,
-                  x: (0 - (that.minX)) * that.agrandissement,
-                  y: 1 * ((0 - iaScene.y - (that.minY)) * that.agrandissement + iaScene.y + (iaScene.height - hauteur * that.agrandissement) / 2),
-                  easing: Kinetic.Easings.BackEaseIn,
-                  scaleX: that.agrandissement,
-                  scaleY: that.agrandissement
-            });            
-            
-            /*for (var i in that.kineticElement) {
-                var new_x = (that.kineticElement[i].x() - (that.minX)) * that.agrandissement;
-                var new_y = 1 * ((that.kineticElement[i].y() - iaScene.y - (that.minY)) * that.agrandissement + iaScene.y + (iaScene.height - hauteur * that.agrandissement) / 2);
-                that.tween[i] = new Kinetic.Tween({
-                  node: that.kineticElement[i], 
-                  duration: 1,
-                  x: new_x,
-                  y: new_y,
-                  easing: Kinetic.Easings.BackEaseIn,
-                  scaleX: that.agrandissement * iaScene.coeff,
-                  scaleY: that.agrandissement * iaScene.coeff
-                });
-            }*/
-        }        
+            that.tweenX = (0 - (that.minX)) * that.agrandissement;
+            that.tweenY = 1 * ((0 - iaScene.y - (that.minY)) * that.agrandissement + iaScene.y + (iaScene.height - hauteur * that.agrandissement) / 2);
+        }
+        that.tween_group = new Kinetic.Tween({
+            node: that.group, 
+            duration: 1,
+            x: that.tweenX,
+            y: that.tweenY,
+            easing: iaScene.easing,
+            scaleX: that.agrandissement,
+            scaleY: that.agrandissement
+        });        
+        
     }    
     
     // Create kineticElements and include them in a group
@@ -489,6 +429,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
                 includeImage(detail.group[i], i);
             }
         }
+        definePathBoxSize(detail);
     }
     else {
         console.log(detail);
@@ -533,10 +474,11 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
  * 4th layer : div "disablearea" - if clicked, disable events canvas  
  */
 
-imageObj = new Image();
+
 canvas = document.getElementById("canvas");
 
-// area located under the canvas. If mouse over is detected, we must re-activate mouse events on canvas
+// area located under the canvas. If mouse over is detected, 
+// we must re-activate mouse events on canvas
 detect = document.getElementById("detect");
 detect.addEventListener("mouseover", function()
     {
@@ -563,6 +505,8 @@ detect.addEventListener("touchstart", function()
 
 $("#collapsecomment").collapse("show");
 
+
+
 /*
  * Scale entire scene
  *  
@@ -576,16 +520,18 @@ scaleScene = function(mainScene){
     
     if (viewportWidth < 1000) {
         mainScene.width = viewportWidth - mainScene.y;
-        mainScene.coeff = (mainScene.width / 2) / parseFloat(mainScene.originalWidth);
+        mainScene.coeff = (mainScene.width * mainScene.ratio) / parseFloat(mainScene.originalWidth);
         $('#container').css({"width": viewportWidth - mainScene.y});
     }
     if (viewportHeight < 755) {
         mainScene.height = viewportHeight - mainScene.y;
         $('#detect').css({"height": viewportHeight - mainScene.y});
     }
-}
+};
 
 // Load background image
+imageObj = new Image();
+imageObj.src = scene.image;
 imageObj.onload = function() {
     var that = this;
     var mainScene = new iaScene(scene.width,scene.height);
@@ -593,33 +539,28 @@ imageObj.onload = function() {
     scaleScene(mainScene);
     
     var stage = new Kinetic.Stage({
-            container: 'canvas',
-            width: mainScene.width,
-            height: mainScene.height
+        container: 'canvas',
+        width: mainScene.width,
+        height: mainScene.height
     });
 
     // area containing image background    
     var baseImage = new Kinetic.Image({
-            x: 0,
-            y: mainScene.y,
-            width: scene.width,
-            height: scene.height,
-            scale: {x:mainScene.coeff,y:mainScene.coeff},
-            //fillPatternImage: imageObj,
-            image: imageObj,
-            //stroke: '',
-            //strokeWidth: 0
+        x: 0,
+        y: mainScene.y,
+        width: scene.width,
+        height: scene.height,
+        scale: {x:mainScene.coeff,y:mainScene.coeff},
+        image: imageObj
     });
 
     // define area to disable canvas events management when
     // mouse is over. Thus, we can reach div located under canvas 
     var disableArea = new Kinetic.Rect({
-            x: mainScene.width  * 0.55,
-            y: mainScene.y,
-            width: mainScene.width * (1 - 0.55),
-            height: mainScene.height,
-            stroke: '',
-            strokeWidth: 0
+        x: mainScene.width  * mainScene.ratio,
+        y: mainScene.y,
+        width: mainScene.width * (1 - mainScene.ratio),
+        height: mainScene.height
     });		
     disableArea.on('mouseover touchstart', function() {
         canvas.style.pointerEvents="none";
@@ -644,7 +585,6 @@ imageObj.onload = function() {
     for (var i in details) {
         layers[i+2] = new Kinetic.Layer();
         stage.add(layers[i+2]);
-        iaObj = new iaObject(imageObj, details[i], layers[i+2], "collapse" + i, baseImage, mainScene, layers[0], layer_ghost);
+        var iaObj = new iaObject(imageObj, details[i], layers[i+2], "collapse" + i, baseImage, mainScene, layers[0], layer_ghost);
     }
 };
-imageObj.src = scene.image;

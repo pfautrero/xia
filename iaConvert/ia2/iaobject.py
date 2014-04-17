@@ -204,8 +204,8 @@ class iaObject:
 
         minX = 10000
         minY = 10000
-        maxX = 0
-        maxY = 0
+        maxX = -10000
+        maxY = -10000
         for cmd, params in cubicsuperpath.unCubicSuperPath(p):
             i = 0
             for p in params:
@@ -277,8 +277,8 @@ class iaObject:
         record['path'] = '"' + record['path'] + '"'
         minX = 10000
         minY = 10000
-        maxX = 0
-        maxY = 0
+        maxX = -10000
+        maxY = -10000
         for cmd, params in cubicsuperpath.unCubicSuperPath(p):
             i = 0
             for p in params:
@@ -367,6 +367,10 @@ class iaObject:
                 record_path['path'] = cubicsuperpath.formatPath(p)
 
 
+                localminX = 10000
+                localminY = 10000
+                localmaxX = -10000
+                localmaxY = -10000
                 for cmd, params in cubicsuperpath.unCubicSuperPath(p):
                     i = 0
                     for p in params:
@@ -375,12 +379,27 @@ class iaObject:
                                 minX = float(p)
                             if float(p) > float(maxX):
                                 maxX = float(p)
+                            if float(p) < float(localminX):
+                                localminX = float(p)
+                            if float(p) > float(localmaxX):
+                                localmaxX = float(p)
+
                         else:
                             if float(p) < float(minY):
                                 minY = float(p)
                             if float(p) > float(maxY):
                                 maxY = float(p)
+                            if float(p) < float(localminY):
+                                localminY = float(p)
+                            if float(p) > float(localmaxY):
+                                localmaxY = float(p)
+
                         i = i + 1
+                record_path["minX"] = str(localminX)
+                record_path["minY"] = str(localminY)
+                record_path["maxX"] = str(localmaxX)
+                record_path["maxY"] = str(localmaxY)
+
                 record["minX"] = str(minX)
                 record["minY"] = str(minY)
                 record["maxX"] = str(maxX)
@@ -482,10 +501,10 @@ class iaObject:
                 ctm_group.applyTransformToPath(ctm_group.matrix,p)
                 record_rect['path'] = cubicsuperpath.formatPath(p)
 
-                minX = 10000
-                minY = 10000
-                maxX = 0
-                maxY = 0
+                localminX = 10000
+                localminY = 10000
+                localmaxX = -10000
+                localmaxY = -10000
                 for cmd, params in cubicsuperpath.unCubicSuperPath(p):
                     i = 0
                     for p in params:
@@ -494,12 +513,27 @@ class iaObject:
                                 minX = float(p)
                             if float(p) > float(maxX):
                                 maxX = float(p)
+                            if float(p) < float(localminX):
+                                localminX = float(p)
+                            if float(p) > float(localmaxX):
+                                localmaxX = float(p)
+
                         else:
                             if float(p) < float(minY):
                                 minY = float(p)
                             if float(p) > float(maxY):
                                 maxY = float(p)
+                            if float(p) < float(localminY):
+                                localminY = float(p)
+                            if float(p) > float(localmaxY):
+                                localmaxY = float(p)
+
                         i = i + 1
+                record_rect["minX"] = str(localminX)
+                record_rect["minY"] = str(localminY)
+                record_rect["maxX"] = str(localmaxX)
+                record_rect["maxY"] = str(localmaxY)
+
                 record["minX"] = str(minX)
                 record["minY"] = str(minY)
                 record["maxX"] = str(maxX)
@@ -581,7 +615,7 @@ class iaObject:
         final_str += '<html xmlns="http://www.w3.org/1999/xhtml">\n'
         final_str += '<head>\n'
         final_str += '  <meta charset="utf-8"/>\n'
-        final_str += '  <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css"/>\n'
+        final_str += '  <link rel="stylesheet" type="text/css" href="css/bootstrap-combined.no-icons.min.css"/>\n'
         final_str += '  <link rel="stylesheet" type="text/css" href="css/main.css"/>\n'
         final_str += '</head>\n'
         final_str += '<body>\n'
@@ -631,8 +665,8 @@ class iaObject:
         final_str += '      </div>\n'
         final_str += '      <div id="canvas"></div>\n'
         final_str += '  </div>\n'
-        final_str += '  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>\n'
-        final_str += '  <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>\n'
+        final_str += '  <script type="text/javascript" src="js/jquery-1.9.1.js"></script>\n'
+        final_str += '  <script src="js/bootstrap.min.js"></script>\n'
         final_str += '  <script src="js/kinetic.js"></script>\n'
         final_str += '  <script src="datas/data.js"></script>\n'
         final_str += '  <script defer="defer" src="js/main.js"></script>\n'
