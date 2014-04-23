@@ -134,7 +134,6 @@ class iaObject:
                 record_image['x'] = str(0)
                 record_image['y'] = str(0)                        
 
-
             if image.hasAttribute("style"):                            
                 str_style = image.attributes['style'].value
                 style = {}
@@ -142,8 +141,6 @@ class iaObject:
                     key,value = item.split(":")
                     style[key] = value
                 record_image['fill'] = style['fill']
-
-
 
             if image.hasAttribute("transform"):
                 transformation = image.attributes['transform'].value
@@ -182,9 +179,6 @@ class iaObject:
                 key,value = item.split(":")
                 style[key] = value
             record_rect['fill'] = style['fill']
-
-
-
 
         # ObjectToPath                    
         ctm = CurrentTransformation()
@@ -366,7 +360,6 @@ class iaObject:
                 ctm_group.applyTransformToPath(ctm_group.matrix,p)
                 record_path['path'] = cubicsuperpath.formatPath(p)
 
-
                 localminX = 10000
                 localminY = 10000
                 localmaxX = -10000
@@ -444,9 +437,7 @@ class iaObject:
                         ctm = CurrentTransformation()
                         ctm.analyze(transformation)
 
-
                     record["group"].append(record_image)        
-
 
         rects = group.getElementsByTagName('rect')        
         if rects.length is not 0:
@@ -539,7 +530,6 @@ class iaObject:
                 record["maxX"] = str(maxX)
                 record["maxY"] = str(maxY)
 
-
                 record_rect['path'] = "'" + record_rect['path'] + " z'"
                 record["group"].append(record_rect)        
 
@@ -554,7 +544,6 @@ class iaObject:
 
         if len(record["group"]):
             self.details.append(record)
-
 
     def generateJSON(self,filePath):
         """ generate json file"""
@@ -594,7 +583,6 @@ class iaObject:
         with open(filePath,"w") as jsonfile:
             jsonfile.write(final_str)
 
-
     def createBackground(self,filePath):
         """if raster is included in svg file, generate file from that raster"""
         if self.raster != "":
@@ -606,47 +594,3 @@ class iaObject:
                     self.scene['image'] = filePath + "/background.jpg"
                 with open(self.scene['image'],"w") as image:
                     image.write(self.raster.decode('base64','strict'))
-        
-    def generateAccordion(self,filePath, templatePath):
-        """ generate accordion index file"""
-        
-        final_str  = '<div class="accordion-group">\n';
-        final_str += '  <div class="accordion-heading">\n';
-        final_str += '    <a id="collapsecomment-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsecomment">' + self.scene["intro_title"].encode("utf-8") + '</a>\n';
-        final_str += '      <div id="collapsecomment" class="accordion-body collapse">\n';
-        final_str += '        <div class="accordion-inner">' + PageFormatter(self.scene["intro_detail"].encode('utf-8')).print_html() + '\n';
-        final_str += '        </div>\n'
-        final_str += '      </div>\n'
-        final_str += '  </div>\n'
-        final_str += '</div>\n'
-        for i, detail in enumerate(self.details):
-            detail['detail'] = detail['detail'].encode("utf-8")
-            if detail['detail'].find("Réponse:") != -1:
-                question = detail['detail'][0:detail['detail'].find("Réponse:")]
-                answer = detail['detail'][detail['detail'].find("Réponse:") + 9:]
-                final_str += '<div class="accordion-group">\n'
-                final_str += '  <div class="accordion-heading">\n'
-                final_str += '      <a id="collapse'+str(i)+'-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse'+str(i)+'">'+detail['title'].encode("utf-8")+'</a>\n'
-                final_str += '      <div id="collapse'+str(i)+'" class="accordion-body collapse">\n'
-                final_str += '          <div class="accordion-inner">' + PageFormatter(question).print_html() + '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#response_'+str(i)+'">Réponse</a></div>' + '<div class="response" id="response_'+ str(i) +'">' + PageFormatter(answer).print_html() + '</div>' + '\n'
-                final_str += '          </div>\n'
-                final_str += '      </div>\n'
-                final_str += '  </div>\n'
-                final_str += '</div>\n'
-            else:
-                final_str += '<div class="accordion-group">\n'
-                final_str += '  <div class="accordion-heading">\n'
-                final_str += '      <a id="collapse'+str(i)+'-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse'+str(i)+'">'+detail['title'].encode("utf-8") +'</a>\n'
-                final_str += '      <div id="collapse'+str(i)+'" class="accordion-body collapse">\n'
-                final_str += '          <div class="accordion-inner">' + PageFormatter(detail["detail"]).print_html() + '\n'
-                final_str += '          </div>\n'
-                final_str += '      </div>\n'
-                final_str += '  </div>\n'
-                final_str += '</div>\n'        
-
-        with open(templatePath,"r") as template:
-            final_index = template.read()
-            final_index = final_index.replace("{{TITLE}}", self.scene["title"].encode('utf-8'))
-            final_index = final_index.replace("{{ACCORDION}}", final_str)            
-        with open(filePath,"w") as indexfile:
-            indexfile.write(final_index)
