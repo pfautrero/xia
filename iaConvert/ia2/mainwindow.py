@@ -145,6 +145,6 @@ class IADialog(Tkinter.Frame):
               imageActive.analyzeSVG(self.filename)
               imageActive.generateJSON(self.dirname + '/datas/data.js')
 
-              imageActive.generateAccordion(self.dirname + "/index.html")
+              imageActive.generateAccordion(self.dirname + "/index.html", self.localdir + '/themes/accordion/index.html')
   def quit(self):
       self.root.destroy()

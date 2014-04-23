@@ -607,36 +607,18 @@ class iaObject:
                 with open(self.scene['image'],"w") as image:
                     image.write(self.raster.decode('base64','strict'))
         
-
-    def generateAccordion(self,filePath):
+    def generateAccordion(self,filePath, templatePath):
         """ generate accordion index file"""
-
-        final_str  = '<!DOCTYPE html>\n'
-        final_str += '<html xmlns="http://www.w3.org/1999/xhtml">\n'
-        final_str += '<head>\n'
-        final_str += '  <meta charset="utf-8"/>\n'
-        final_str += '  <link rel="stylesheet" type="text/css" href="css/bootstrap-combined.no-icons.min.css"/>\n'
-        final_str += '  <link rel="stylesheet" type="text/css" href="css/main.css"/>\n'
-        final_str += '</head>\n'
-        final_str += '<body>\n'
-        final_str += '  <div id="container">\n'
-        final_str += '      <header>\n'
-        final_str += '          <h1 id="title">' + self.scene["title"].encode('utf-8') + '</h1>\n'
-        final_str += '          <a class="eyes" href=""></a>\n'              
-        final_str += '          <a class="meta-doc" href=""></a>\n'
-        final_str += '          <a class="infos" href=""></a>\n'
-        final_str += '      </header>\n'
-        final_str += '      <div id="detect"></div>\n'
-        final_str += '      <div class="accordion" id="accordion2">\n'
-        final_str += '          <div class="accordion-group">\n';
-        final_str += '              <div class="accordion-heading">\n';
-        final_str += '                  <a id="collapsecomment-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsecomment">' + self.scene["intro_title"].encode("utf-8") + '</a>\n';
-        final_str += '                  <div id="collapsecomment" class="accordion-body collapse">\n';
-        final_str += '                      <div class="accordion-inner">' + PageFormatter(self.scene["intro_detail"].encode('utf-8')).print_html() + '\n';
-        final_str += '                      </div>\n'
-        final_str += '                  </div>\n'
-        final_str += '              </div>\n'
-        final_str += '          </div>\n'
+        
+        final_str  = '<div class="accordion-group">\n';
+        final_str += '  <div class="accordion-heading">\n';
+        final_str += '    <a id="collapsecomment-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsecomment">' + self.scene["intro_title"].encode("utf-8") + '</a>\n';
+        final_str += '      <div id="collapsecomment" class="accordion-body collapse">\n';
+        final_str += '        <div class="accordion-inner">' + PageFormatter(self.scene["intro_detail"].encode('utf-8')).print_html() + '\n';
+        final_str += '        </div>\n'
+        final_str += '      </div>\n'
+        final_str += '  </div>\n'
+        final_str += '</div>\n'
         for i, detail in enumerate(self.details):
             detail['detail'] = detail['detail'].encode("utf-8")
             if detail['detail'].find("Réponse:") != -1:
@@ -660,18 +642,11 @@ class iaObject:
                 final_str += '          </div>\n'
                 final_str += '      </div>\n'
                 final_str += '  </div>\n'
-                final_str += '</div>\n'
+                final_str += '</div>\n'        
 
-        final_str += '      </div>\n'
-        final_str += '      <div id="canvas"></div>\n'
-        final_str += '  </div>\n'
-        final_str += '  <script type="text/javascript" src="js/jquery-1.9.1.js"></script>\n'
-        final_str += '  <script src="js/bootstrap.min.js"></script>\n'
-        final_str += '  <script src="js/kinetic.js"></script>\n'
-        final_str += '  <script src="datas/data.js"></script>\n'
-        final_str += '  <script defer="defer" src="js/main.js"></script>\n'
-        final_str += '</body>\n'
-        final_str += '</html>'
+        with open(templatePath,"r") as template:
+            final_index = template.read()
+            final_index = final_index.replace("{{TITLE}}", self.scene["title"].encode('utf-8'))
+            final_index = final_index.replace("{{ACCORDION}}", final_str)            
         with open(filePath,"w") as indexfile:
-            indexfile.write(final_str)
-
+            indexfile.write(final_index)

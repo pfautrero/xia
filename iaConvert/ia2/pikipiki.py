@@ -46,35 +46,28 @@ class PageFormatter:
         return s
 
     def _url_repl(self, word):
-        return '<a href ="%s" target="_blank">%s</a>' % (word, word)
+        return '<a href ="%s" target="_blank">%s</a>\n' % (word, word)
 
     def _video_repl(self, word):
-        return '<video controls preload="none"> \
-                    <source type="video/mp4" src="%s.mp4" /> \
-                    <source type="video/ogg" src="%s.ogv" /> \
-                    <source type="video/webm" src="%s.webm" /> \
-                </video>' % (os.path.splitext(word)[0], os.path.splitext(word)[0], os.path.splitext(word)[0])
+        return '<video controls preload="none">\n\t<source type="video/mp4" src="%s.mp4" />\n\t<source type="video/ogg" src="%s.ogv" />\n\t<source type="video/webm" src="%s.webm" />\n</video>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0], os.path.splitext(word)[0])
 
     def _img_repl(self, word):
-        return '<img src="%s">' % (word)
+        return '<img src="%s">\n' % (word)
 
     def _iframe_repl(self, word):
         word_url = word.split("src=&quot;")[1].split("&quot;")[0]
         if word_url[0:2] == "//":
             word_url = "http:" + word_url
-        return '<iframe src="%s" width="100%%" height="200px"></iframe>' % (word_url)
+        return '<iframe src="%s" width="100%%" height="200px"></iframe>\n' % (word_url)
 
 
 
     def _audio_repl(self, word):
 
-        return '<audio controls> \
-                    <source type="audio/ogg" src="%s.ogg" /> \
-                    <source type="audio/mp3" src="%s.mp3" /> \
-                </audio>' % (os.path.splitext(word)[0], os.path.splitext(word)[0])
+        return '<audio controls>\n\t<source type="audio/ogg" src="%s.ogg" />\n\t<source type="audio/mp3" src="%s.mp3" />\n</audio>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0])
 
     def _email_repl(self, word):
-        return '<a href ="mailto:%s">%s</a>' % (word, word)
+        return '<a href ="mailto:%s">%s</a>\n' % (word, word)
 
     def _ent_repl(self, s):
         return {'&': '&amp;',
@@ -82,15 +75,15 @@ class PageFormatter:
                 '>': '&gt;'}[s]
 
     def _li_repl(self, match):
-        return '<li>%s</li>' %(match[match.find('*')+1:])
+        return '<li>%s</li>\n' %(match[match.find('*')+1:])
 
     def _pre_repl(self, word):
         if word == '{{{' and not self.in_pre:
             self.in_pre = 1
-            return '<pre>'
+            return '<pre>\n'
         elif self.in_pre:
             self.in_pre = 0
-            return '</pre>'
+            return '</pre>\n'
         else:
             return ''
 
@@ -145,11 +138,11 @@ class PageFormatter:
         for line in eol_re.split(raw):
             if not self.in_pre:
                 if blank_re.match(line):
-                    final_str += '<br>'
+                    final_str += '<br>\n'
                     continue
                 indent = indent_re.match(line)
                 final_str += self._indent_to(len(indent.group(0)))
             final_str += re.sub(scan_re, self.replace, line)
-        if self.in_pre: final_str += '</pre>'
+        if self.in_pre: final_str += '</pre>\n'
         final_str += self._undent()
         return final_str
