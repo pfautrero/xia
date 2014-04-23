@@ -46,6 +46,30 @@ function iaScene(originalWidth, originalHeight) {
 }
 
 /*
+ * Scale entire scene
+ *  
+ */
+iaScene.prototype.scaleScene = function(mainScene){
+    var viewportWidth = $(window).width();
+    var viewportHeight = $(window).height();
+    var new_height = scene.height * mainScene.coeff + $('#canvas').offset().top - $('#container').offset().top;
+    $('#container').css({"height": new_height + 'px'});
+    $('#canvas').css({"height": mainScene.originalHeight * mainScene.coeff + 'px'});
+
+    if (viewportWidth < 1000) {
+        mainScene.width = viewportWidth - mainScene.y;
+        mainScene.coeff = (mainScene.width * mainScene.ratio) / parseFloat(mainScene.originalWidth);
+        $('#container').css({"width": viewportWidth - mainScene.y});
+    }
+    if (viewportHeight < 755) {
+        mainScene.height = viewportHeight - mainScene.y;
+        $('#detect').css({"height": viewportHeight - mainScene.y});
+    }
+};
+
+
+
+/*
  * 
  * @param {type} imageObj
  * @param {type} detail
@@ -101,6 +125,11 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     else {
         console.log(detail);
     }
+
+    /*that.group.cache({
+        width : iaScene.width,
+        height : iaScene.height
+    });*/
 
     this.defineTweens(this, iaScene);
     
@@ -337,12 +366,17 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 
         }
         else if (iaScene.cursorState.indexOf("HandPointer.cur") === -1) {
+            //that.group.clearCache();
             document.body.style.cursor = "url(img/HandPointer.cur),auto";
             iaScene.cursorState = "url(img/HandPointer.cur),auto";
             for (var i in that.kineticElement) {
                 that.kineticElement[i].fill(iaScene.overColor);
                 that.kineticElement[i].scale(iaScene.coeff);
             }
+            /*that.group.cache({
+                width : iaScene.width,
+                height : iaScene.height
+            });*/
             that.layer.batchDraw();
         }
     });
@@ -357,12 +391,10 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             document.body.style.cursor = "url(img/ZoomOut.cur),auto";
             iaScene.cursorState = "url(img/ZoomOut.cur),auto";
             that.layer.moveToTop();
-
             that.group.zoomActive = 1;
             that.originalX[0] = that.group.x();
             that.originalY[0] = that.group.y();
-            that.group.draw();
-            that.tween_group = new Kinetic.Tween({
+            /*that.tween_group = new Kinetic.Tween({
                 node: that.group, 
                 duration: 1,
                 x: that.tweenX,
@@ -370,8 +402,29 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 easing: iaScene.easing,
                 scaleX: that.agrandissement,
                 scaleY: that.agrandissement
-            });                
-            that.tween_group.play();
+            });*/                
+            //that.tween_group.play();
+            that.alpha = 0;
+            that.step = 0.05;
+            var personalTween = function() {
+                // linear
+                var tempX = that.originalX[0] + that.alpha.toFixed(2) * (that.tweenX - that.originalX[0]);
+                var tempY = that.originalY[0] + that.alpha.toFixed(2) * (that.tweenY - that.originalY[0]);
+                var tempScale = 1 + that.alpha.toFixed(2) * (that.agrandissement - 1);
+                if (that.alpha.toFixed(2) <= 1) {
+                    that.alpha = that.alpha + that.step;
+                    that.group.x(tempX);
+                    that.group.y(tempY);
+                    that.group.scaleX(tempScale);
+                    that.group.scaleY(tempScale);
+                    that.layer.draw();
+                    var t = setTimeout(personalTween, 20);
+                }
+                else {
+                    clearTimeout(t);
+                }
+            };
+            var t = setTimeout(personalTween, 20);
         }
         // let's unzoom
         else if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
@@ -380,12 +433,14 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 (that.group.scaleX().toFixed(5) == (that.agrandissement).toFixed(5))) {
                 iaScene.zoomActive = 0;
                 that.group.zoomActive = 0;
-                //that.group.scale({x:iaScene.coeff,y:iaScene.coeff});
-                //that.group.x(that.originalX[0]);
-                //that.group.y(that.originalY[0]);
-                that.tween_group.reset();
-                that.tween_group.destroy();
-                delete that.tween_group;
+                that.group.scaleX(1);
+                that.group.scaleY(1);
+                that.group.x(that.originalX[0]);
+                that.group.y(that.originalY[0]);
+                //that.group.clearCache();
+                //that.tween_group.reset();
+                //that.tween_group.destroy();
+                //delete that.tween_group;
 
                 baseImage.opacity(1);
                 document.body.style.cursor = "default";
@@ -404,6 +459,7 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             if (iaScene.zoomActive === 0) {
                 if ((iaScene.element !== 0) && 
                     (typeof(iaScene.element) !== 'undefined')) {
+                    //iaScene.element.group.clearCache();
                     for (var i in iaScene.element.kineticElement) {
                         iaScene.element.kineticElement[i].fillPriority('color');
                         iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
@@ -420,16 +476,17 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 $('#' + idText).collapse("show");
                 baseImage.opacity(0.3);
                 that.background_layer.draw();
+                //that.group.clearCache();
                 for (var i in that.kineticElement) {
                     that.kineticElement[i].fillPriority('pattern');
                     that.kineticElement[i].fillPatternScaleX(1/iaScene.scale);
                     that.kineticElement[i].fillPatternScaleY(1/iaScene.scale);
                     that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
-
                 }
-                /*for (var i in that.kineticElement) {
-                    that.kineticElement[i].cache();
-                }*/
+                /*that.group.cache({
+                    width : iaScene.width,
+                    height : iaScene.height
+                });*/
 
                 that.layer.draw(); 
                 iaScene.element = that;
@@ -444,6 +501,7 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 
         }
         else {
+            //that.group.clearCache();
             baseImage.opacity(1);
             that.background_layer.draw();
             for (var i in that.kineticElement) {
@@ -469,68 +527,49 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
  * 4th layer : div "disablearea" - if clicked, disable events canvas  
  */
 
+function main() {
+    "use strict";
+    var that=this;
 
-canvas = document.getElementById("canvas");
+    that.canvas = document.getElementById("canvas");
 
-// area located under the canvas. If mouse over is detected, 
-// we must re-activate mouse events on canvas
-detect = document.getElementById("detect");
-detect.addEventListener("mouseover", function()
-    {
-        canvas.style.pointerEvents="auto";
+    // area located under the canvas. If mouse over is detected, 
+    // we must re-activate mouse events on canvas
+    var detect = document.getElementById("detect");
+    detect.addEventListener("mouseover", function()
+        {
+            that.canvas.style.pointerEvents="auto";
 
-        if ((iaScene.element !== 0) && (typeof(iaScene.element) !== 'undefined')) {
-            for (var i in iaScene.element.kineticElement) {
-                iaScene.element.kineticElement[i].fillPriority('color');
-                iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
+            if ((iaScene.element !== 0) && (typeof(iaScene.element) !== 'undefined')) {
+                for (var i in iaScene.element.kineticElement) {
+                    iaScene.element.kineticElement[i].fillPriority('color');
+                    iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
+                }
             }
-        }
-    }, false);			
-detect.addEventListener("touchstart", function()
-    {   
-        canvas.style.pointerEvents="auto";
+        }, false);			
+    detect.addEventListener("touchstart", function()
+        {   
+            that.canvas.style.pointerEvents="auto";
 
-        if ((iaScene.element !== 0) && (typeof(iaScene.element) !== 'undefined')) {
-            for (var i in iaScene.element.kineticElement) {
-                iaScene.element.kineticElement[i].fillPriority('color');
-                iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
+            if ((iaScene.element !== 0) && (typeof(iaScene.element) !== 'undefined')) {
+                for (var i in iaScene.element.kineticElement) {
+                    iaScene.element.kineticElement[i].fillPriority('color');
+                    iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
+                }
             }
-        }
-    }, false);	
+        }, false);	
 
-$("#collapsecomment").collapse("show");
+    $("#collapsecomment").collapse("show");
 
-/*
- * Scale entire scene
- *  
- */
-scaleScene = function(mainScene){
-    var viewportWidth = $(window).width();
-    var viewportHeight = $(window).height();
-    var new_height = scene.height * mainScene.coeff + $('#canvas').offset().top - $('#container').offset().top;
-    $('#container').css({"height": new_height + 'px'});
-    $('#canvas').css({"height": mainScene.originalHeight * mainScene.coeff + 'px'});
-    
-    if (viewportWidth < 1000) {
-        mainScene.width = viewportWidth - mainScene.y;
-        mainScene.coeff = (mainScene.width * mainScene.ratio) / parseFloat(mainScene.originalWidth);
-        $('#container').css({"width": viewportWidth - mainScene.y});
-    }
-    if (viewportHeight < 755) {
-        mainScene.height = viewportHeight - mainScene.y;
-        $('#detect').css({"height": viewportHeight - mainScene.y});
-    }
-};
 
-// Load background image
+    // Load background image
 
-imageObj = new Image();
-imageObj.src = scene.image;
-imageObj.onload = function() {
-        var that = this;
+    that.imageObj = new Image();
+    that.imageObj.src = scene.image;
+    that.imageObj.onload = function() {
         // define the maximum number of pixels allowed in the image
-        // iPad can't manage images up to 5MB
-        var maxNumberPixels = 5 * 1024 * 1024;
+        // iPad can't manage images up to 5MB pixels
+        var maxNumberPixels = 1 * 1024 * 1024;
         var ratio = 1;
         if (parseFloat(scene.width) * parseFloat(scene.height) >= maxNumberPixels) {
             ratio = Math.sqrt(maxNumberPixels/(parseFloat(scene.width) * parseFloat(scene.height)));
@@ -540,31 +579,32 @@ imageObj.onload = function() {
             console.log("Background Image is used without being resized");
         }
         //console.log(ratio);
-        this.newwidth = parseFloat(scene.width) * ratio;
-        this.newheight = parseFloat(scene.height) * ratio;
-	this.scaleCanvas = document.createElement('canvas');
-        this.scaleCanvas.setAttribute('width', this.newwidth);
-        this.scaleCanvas.setAttribute('height', this.newheight);
-        this.scaleCtx = this.scaleCanvas.getContext('2d');
-        this.scaleCtx.drawImage(
-            imageObj, 
+        that.newwidth = parseFloat(scene.width) * ratio;
+        that.newheight = parseFloat(scene.height) * ratio;
+        that.scaleCanvas = document.createElement('canvas');
+        that.scaleCanvas.setAttribute('width', that.newwidth);
+        that.scaleCanvas.setAttribute('height', that.newheight);
+        that.scaleCtx = that.scaleCanvas.getContext('2d');
+        that.scaleCtx.drawImage(
+            that.imageObj, 
             0, 
             0,
-            this.newwidth,
-            this.newheight
+            that.newwidth,
+            that.newheight
         );
         //document.body.appendChild(this.scaleCanvas);
-	var dataUrl = this.scaleCanvas.toDataURL();
-	delete this.scaleCanvas;
+        var dataUrl = that.scaleCanvas.toDataURL();
+        delete that.scaleCanvas;
+        delete that.imageObj;
         var scaledImage = new Image();
-	scaledImage.src = dataUrl;
+        scaledImage.src = dataUrl;
         scaledImage.onload = function() {
 
             //scene.width = that.newwidth;
             //scene.height = that.newheight;
             var mainScene = new iaScene(scene.width,scene.height);
             mainScene.scale = that.newwidth / scene.width; 
-            scaleScene(mainScene);
+            mainScene.scaleScene(mainScene);
 
             var stage = new Kinetic.Stage({
                 container: 'canvas',
@@ -638,7 +678,7 @@ imageObj.onload = function() {
                 else {
                     RunPrefixMethod(div_container, "RequestFullScreen");
                 }
-            }
+            };
 
             var pfx = ["webkit", "moz", "ms", "o", ""];
             function RunPrefixMethod(obj, method) {
@@ -656,9 +696,14 @@ imageObj.onload = function() {
                     }
                     p++;
                 }
-            }
+            };
 
         };
 
+    };    
     
-};
+}
+
+launch = new main();
+
+
