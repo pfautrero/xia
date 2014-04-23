@@ -18,6 +18,7 @@
 import Tkinter, Tkconstants, tkFileDialog
 import os, shutil, sys, imp
 from iaobject import iaObject
+
 # wiki engine
 from pikipiki import PageFormatter
 
@@ -59,13 +60,13 @@ class IADialog(Tkinter.Frame):
     tab_path = os.path.dirname(os.path.relpath(__file__)).split("/")
     tab_path.pop()
     rel_path = "."
-    import_path = ""
     for folder in tab_path:
         rel_path = rel_path + "/" + folder
 
     self.themes = []
         
     if os.path.isdir(rel_path + "/themes"):
+        theme_index = 1
         for filename in os.listdir(rel_path + "/themes"):
             theme = {}
             theme['name'] = filename
@@ -73,23 +74,35 @@ class IADialog(Tkinter.Frame):
             imported_class = __import__(filename)
             theme['object'] = imported_class.hook(self.imageActive, PageFormatter)
             self.themes.append(theme)
+
             img_button = Tkinter.PhotoImage(file= rel_path + "/themes/" + filename + "/" + "icon.gif")    
-            
             button = Tkinter.Button(self, image=img_button, relief=Tkinter.FLAT,bd=0, height=150, width=150,  command= lambda : self.createIA(theme))
             button.image = img_button
-            button.grid(row=0,column=1)
+            button.grid(row=theme_index // 3,column=theme_index % 3)
+            theme_index = theme_index + 1
+            if theme_index == 3:
+                theme_index = 5
 
-    #label3 = Tkinter.Label(self, image=void_img)
-    #label3.photo = void_img
-    #label3.grid(row=0,column=2,columnspan=1, sticky='W')
+    # padding
+    
+    while (theme_index % 3) != 0:
+        label = Tkinter.Label(self, image=void_img)
+        label.photo = void_img
+        label.grid(row=theme_index // 3,column=theme_index % 3,columnspan=1, sticky='W')
+        theme_index = theme_index + 1
+        if theme_index == 3:
+            theme_index = 5
+            
+    # redefine window height if necessary
 
+    root.geometry("465x" + str((theme_index // 3) * 155))
+
+    # title
+    
     label = Tkinter.Label(self, image=ia_img)
     label.photo = ia_img
     label.grid(row=1,column=0,columnspan=2, sticky='W')
 
-    #label4 = Tkinter.Label(self, image=void_img)
-    #label4.photo = void_img
-    #label4.grid(row=1,column=2,columnspan=1, sticky='W')
 
     # define options for opening or saving a file
 
@@ -132,16 +145,15 @@ class IADialog(Tkinter.Frame):
                   shutil.rmtree(self.dirname + '/js')
               if os.path.isdir(self.dirname + '/datas'):
                   shutil.rmtree(self.dirname + '/datas')
-              
               os.mkdir(self.dirname + '/datas')
               shutil.copytree(self.localdir + '/themes/' + theme['name']+ '/font/', self.dirname + '/font/')              
               shutil.copytree(self.localdir + '/themes/' + theme['name']+ '/css/', self.dirname + '/css/')
               shutil.copytree(self.localdir + '/themes/' + theme['name']+ '/img/', self.dirname + '/img/')
               shutil.copytree(self.localdir + '/themes/' + theme['name']+ '/js/', self.dirname + '/js/')
+
               self.imageActive.analyzeSVG(self.filename)
               self.imageActive.generateJSON(self.dirname + '/datas/data.js')
-
               theme['object'].generateIndex(self.dirname + "/index.html", self.localdir + '/themes/' + theme['name']+ '/index.html')
-              #imageActive.generateAccordion(self.dirname + "/index.html", self.localdir + '/themes/accordion/index.html')
+
   def quit(self):
       self.root.destroy()
