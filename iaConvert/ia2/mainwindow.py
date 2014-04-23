@@ -15,12 +15,14 @@
 #   
 # @author : pascal.fautrero@crdp.ac-versailles.fr
 
-import Tkinter, Tkconstants, tkFileDialog
-import os, shutil, sys, imp
+import Tkinter, tkFileDialog
+import os, shutil, imp
 from iaobject import iaObject
 
 # wiki engine
 from pikipiki import PageFormatter
+
+from splashscreen import Splash
 
 class IADialog(Tkinter.Frame):
 
@@ -30,6 +32,8 @@ class IADialog(Tkinter.Frame):
 
     self.filename = ""
     self.localdir = localdir
+    
+    self.root = root
     
     # define images
 
@@ -134,6 +138,10 @@ class IADialog(Tkinter.Frame):
       if self.filename:
           self.dirname = tkFileDialog.askdirectory(**self.dir_opt)
           if self.dirname:
+
+              mysplash = Splash(self.root , 'images/processing.gif', 0)
+              mysplash.enter()              
+              
               self.dir_opt['initialdir'] = self.dirname
               if os.path.isdir(self.dirname + '/font'):
                   shutil.rmtree(self.dirname + '/font')              
@@ -155,5 +163,7 @@ class IADialog(Tkinter.Frame):
               self.imageActive.generateJSON(self.dirname + '/datas/data.js')
               theme['object'].generateIndex(self.dirname + "/index.html", self.localdir + '/themes/' + theme['name']+ '/index.html')
 
+              mysplash.exit()
+              
   def quit(self):
       self.root.destroy()

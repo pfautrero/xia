@@ -547,41 +547,40 @@ class iaObject:
 
     def generateJSON(self,filePath):
         """ generate json file"""
-        final_str = ""
-
-        final_str += 'var scene = {\n'
+        final_str = u""
+        final_str += u'var scene = {\n'
         for entry in self.scene:
-            final_str += '"' + entry + '":"' + PageFormatter(self.scene[entry]).print_html().encode('utf-8').replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + '",\n'
-        final_str += '};\n'
+            final_str += u'"' + entry + u'":"' + PageFormatter(self.scene[entry]).print_html().replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + u'",\n'
+        final_str += u'};\n'
 
-        final_str += 'var details = [\n'
+        final_str += u'var details = [\n'
         for detail in self.details:
-            final_str += '{\n'
+            final_str += u'{\n'
             for entry in detail:
                 if entry == "group":
-                    final_str += '  "' + entry + '": [\n'
+                    final_str += u'  "' + entry + u'": [\n'
                     for element in detail['group']:
                         final_str += '  {\n'
                         for entry2 in element:
                             if entry2 == "path":
-                                final_str += '  "' + entry2 + '":' + element[entry2].encode('utf-8') + ',\n'                                
+                                final_str += u'  "' + entry2 + u'":' + element[entry2] + u',\n'                                
                             elif entry2 == "detail":
-                                final_str += '      "' + entry2 + '":"' + PageFormatter(element[entry2]).print_html().encode('utf-8').replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + '",\n'
+                                final_str += u'      "' + entry2 + u'":"' + PageFormatter(element[entry2]).print_html().replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + u'",\n'
                             else:
-                                final_str += '      "' + entry2 + '":"' + element[entry2].encode('utf-8') + '",\n'                            
-                        final_str += '  },\n'
-                    final_str += '  ],\n'                                
+                                final_str += u'      "' + entry2 + u'":"' + element[entry2] + u'",\n'                            
+                        final_str += u'  },\n'
+                    final_str += u'  ],\n'                                
                 elif entry == "path":
-                    final_str += '  "' + entry + '":' + detail[entry].encode('utf-8') + ',\n'
+                    final_str += u'  "' + entry + u'":' + detail[entry] + ',\n'
                 elif entry == "detail":
-                    final_str += '  "' + entry + '":"' + PageFormatter(detail[entry]).print_html().encode('utf-8').replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + '",\n'
+                    final_str += u'  "' + entry + u'":"' + PageFormatter(detail[entry]).print_html().replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + u'",\n'
                 else:
-                    final_str += '  "' + entry + '":"' + detail[entry].encode('utf-8') + '",\n'
-            final_str += '},\n'
-        final_str += '];\n'
+                    final_str += u'  "' + entry + u'":"' + detail[entry] + u'",\n'
+            final_str += u'},\n'
+        final_str += u'];\n'
 
         with open(filePath,"w") as jsonfile:
-            jsonfile.write(final_str)
+            jsonfile.write(final_str.encode('utf8'))
 
     def createBackground(self,filePath):
         """if raster is included in svg file, generate file from that raster"""

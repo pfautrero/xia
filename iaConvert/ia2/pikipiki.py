@@ -32,42 +32,42 @@ class PageFormatter:
     def _emph_repl(self, word):
         if len(word) == 3:
             self.is_b = not self.is_b
-            return ['</b>', '<b>'][self.is_b]
+            return [u'</b>', u'<b>'][self.is_b]
         else:
             self.is_em = not self.is_em
-            return ['</em>', '<em>'][self.is_em]
+            return [u'</em>', u'<em>'][self.is_em]
 
     def _rule_repl(self, word):
         s = self._undent()
         if len(word) <= 4:
-            s = s + "\n<hr>\n"
+            s = s + u"\n<hr>\n"
         else:
-            s = s + "\n<hr size=%d>\n" % (len(word) - 2 )
+            s = s + u"\n<hr size=%d>\n" % (len(word) - 2 )
         return s
 
     def _url_repl(self, word):
-        return '<a href ="%s" target="_blank">%s</a>\n' % (word, word)
+        return u'<a href ="%s" target="_blank">%s</a>\n' % (word, word)
 
     def _video_repl(self, word):
-        return '<video controls preload="none">\n\t<source type="video/mp4" src="%s.mp4" />\n\t<source type="video/ogg" src="%s.ogv" />\n\t<source type="video/webm" src="%s.webm" />\n</video>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0], os.path.splitext(word)[0])
+        return u'<video controls preload="none">\n\t<source type="video/mp4" src="%s.mp4" />\n\t<source type="video/ogg" src="%s.ogv" />\n\t<source type="video/webm" src="%s.webm" />\n</video>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0], os.path.splitext(word)[0])
 
     def _img_repl(self, word):
-        return '<img src="%s">\n' % (word)
+        return u'<img src="%s">\n' % (word)
 
     def _iframe_repl(self, word):
         word_url = word.split("src=&quot;")[1].split("&quot;")[0]
         if word_url[0:2] == "//":
             word_url = "http:" + word_url
-        return '<iframe src="%s" width="100%%" height="200px"></iframe>\n' % (word_url)
+        return u'<iframe src="%s" width="100%%" height="200px"></iframe>\n' % (word_url)
 
 
 
     def _audio_repl(self, word):
 
-        return '<audio controls>\n\t<source type="audio/ogg" src="%s.ogg" />\n\t<source type="audio/mp3" src="%s.mp3" />\n</audio>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0])
+        return u'<audio controls>\n\t<source type="audio/ogg" src="%s.ogg" />\n\t<source type="audio/mp3" src="%s.mp3" />\n</audio>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0])
 
     def _email_repl(self, word):
-        return '<a href ="mailto:%s">%s</a>\n' % (word, word)
+        return u'<a href ="mailto:%s">%s</a>\n' % (word, word)
 
     def _ent_repl(self, s):
         return {'&': '&amp;',
@@ -75,33 +75,33 @@ class PageFormatter:
                 '>': '&gt;'}[s]
 
     def _li_repl(self, match):
-        return '<li>%s</li>\n' %(match[match.find('*')+1:])
+        return u'<li>%s</li>\n' %(match[match.find('*')+1:])
 
     def _pre_repl(self, word):
         if word == '{{{' and not self.in_pre:
             self.in_pre = 1
-            return '<pre>\n'
+            return u'<pre>\n'
         elif self.in_pre:
             self.in_pre = 0
-            return '</pre>\n'
+            return u'</pre>\n'
         else:
-            return ''
+            return u''
 
     def _indent_level(self):
         return len(self.list_indents) and self.list_indents[-1]
 
     def _indent_to(self, new_level):
-        s = ''
+        s = u''
         while self._indent_level() > new_level:
             del(self.list_indents[-1])
-            s = s + '</ul>\n'
+            s = s + u'</ul>\n'
         while self._indent_level() < new_level:
             self.list_indents.append(new_level)
-            s = s + '<ul>\n'
+            s = s + u'<ul>\n'
         return s
 
     def _undent(self):
-        res = '</ul>' * len(self.list_indents)
+        res = u'</ul>' * len(self.list_indents)
         self.list_indents = []
         return res
 
@@ -115,7 +115,7 @@ class PageFormatter:
     def print_html(self):
         # For each line, we scan through looking for magic
         # strings, outputting verbatim any intervening text
-        final_str = ""
+        final_str = u""
 
         scan_re = re.compile(
             r"(?:(?P<emph>\*{2,3})"
@@ -138,11 +138,11 @@ class PageFormatter:
         for line in eol_re.split(raw):
             if not self.in_pre:
                 if blank_re.match(line):
-                    final_str += '<br>\n'
+                    final_str += u'<br>\n'
                     continue
                 indent = indent_re.match(line)
                 final_str += self._indent_to(len(indent.group(0)))
             final_str += re.sub(scan_re, self.replace, line)
-        if self.in_pre: final_str += '</pre>\n'
+        if self.in_pre: final_str += u'</pre>\n'
         final_str += self._undent()
-        return final_str
+        return final_str.encode('utf8')
