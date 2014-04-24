@@ -102,12 +102,14 @@ class iaObject:
 
                 self.raster = image.attributes['xlink:href'].value
                 if image.attributes['xlink:href'].value.find(u"file://") != -1:
+                    # Embed background image thanks to data URI Scheme
                     fileNameImage, fileExtensionImage = os.path.splitext(image.attributes['xlink:href'].value[7:])
                     imgMimeTypes = {}
                     imgMimeTypes['.png'] = 'image/png'
                     imgMimeTypes['.jpg'] = 'image/jpeg'
                     imgMimeTypes['.jpeg'] = 'image/jpeg'
                     imgMimeTypes['.gif'] = 'image/gif'
+                    imgMimeTypes['.bmp'] = 'image/bmp'
                     self.rasterPrefix = u"data:" + imgMimeTypes[fileExtensionImage.lower()] + u";base64,"
                     with open(image.attributes['xlink:href'].value[7:], 'rb') as bgImage:
                         self.raster = self.rasterPrefix + bgImage.read().encode("base64", "strict")
@@ -594,15 +596,3 @@ class iaObject:
 
         with open(filePath,"w") as jsonfile:
             jsonfile.write(final_str.encode('utf8'))
-
-    def createBackground(self,filePath):
-        """if raster is included in svg file, generate file from that raster"""
-        if self.raster != "":
-            if self.raster.find("base64,"):
-                self.raster = self.raster[self.raster.find("base64,")+7:]
-                if self.raster.find("image/png"):
-                    self.scene['image'] = filePath +"/background.png"
-                if self.raster.find("image/jpeg"):
-                    self.scene['image'] = filePath + "/background.jpg"
-                with open(self.scene['image'],"w") as image:
-                    image.write(self.raster.decode('base64','strict'))
