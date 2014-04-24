@@ -101,7 +101,17 @@ class iaObject:
                         self.scene['intro_title'] = self.get_tag_value(title.item(0))
 
                 self.raster = image.attributes['xlink:href'].value
-                self.scene['image'] = image.attributes['xlink:href'].value
+                if image.attributes['xlink:href'].value.find(u"file://") != -1:
+                    fileNameImage, fileExtensionImage = os.path.splitext(image.attributes['xlink:href'].value[7:])
+                    imgMimeTypes = {}
+                    imgMimeTypes['.png'] = 'image/png'
+                    imgMimeTypes['.jpg'] = 'image/jpeg'
+                    imgMimeTypes['.jpeg'] = 'image/jpeg'
+                    imgMimeTypes['.gif'] = 'image/gif'
+                    self.rasterPrefix = u"data:" + imgMimeTypes[fileExtensionImage.lower()] + u";base64,"
+                    with open(image.attributes['xlink:href'].value[7:], 'rb') as bgImage:
+                        self.raster = self.rasterPrefix + bgImage.read().encode("base64", "strict")
+                self.scene['image'] = self.raster
                 break
                 
         mainSVG = self.xml.getElementsByTagName('svg')[0].childNodes
@@ -550,7 +560,10 @@ class iaObject:
         final_str = u""
         final_str += u'var scene = {\n'
         for entry in self.scene:
-            final_str += u'"' + entry + u'":"' + PageFormatter(self.scene[entry]).print_html().replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + u'",\n'
+            if entry == "image":
+                final_str += u'"' + entry + u'":"' + self.scene[entry].replace("\n","").replace("\t","").replace("\r","") + u'",\n'
+            else:
+                final_str += u'"' + entry + u'":"' + PageFormatter(self.scene[entry]).print_html().replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + u'",\n'
         final_str += u'};\n'
 
         final_str += u'var details = [\n'
@@ -573,7 +586,6 @@ class iaObject:
                 elif entry == "path":
                     final_str += u'  "' + entry + u'":' + detail[entry] + ',\n'
                 elif entry == "detail":
-                    print(type(PageFormatter(detail[entry]).print_html()))
                     final_str += u'  "' + entry + u'":"' + PageFormatter(detail[entry]).print_html().replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + u'",\n'
                 else:
                     final_str += u'  "' + entry + u'":"' + detail[entry] + u'",\n'
