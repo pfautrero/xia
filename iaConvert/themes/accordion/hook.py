@@ -27,43 +27,42 @@ class hook:
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""
         
-        final_str  = '<div class="accordion-group">\n';
-        final_str += '  <div class="accordion-heading">\n';
-        final_str += '    <a id="collapsecomment-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsecomment">' + self.iaobject.scene["intro_title"].encode("utf-8") + '</a>\n';
-        final_str += '      <div id="collapsecomment" class="accordion-body collapse">\n';
-        final_str += '        <div class="accordion-inner">' + self.PageFormatter(self.iaobject.scene["intro_detail"].encode('utf-8')).print_html() + '\n';
-        final_str += '        </div>\n'
-        final_str += '      </div>\n'
-        final_str += '  </div>\n'
-        final_str += '</div>\n'
+        final_str  = u'<div class="accordion-group">\n';
+        final_str += u'  <div class="accordion-heading">\n';
+        final_str += u'    <a id="collapsecomment-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsecomment">' + self.iaobject.scene["intro_title"] + '</a>\n';
+        final_str += u'      <div id="collapsecomment" class="accordion-body collapse">\n';
+        final_str += u'        <div class="accordion-inner">' + self.PageFormatter(self.iaobject.scene["intro_detail"]).print_html() + u'\n';
+        final_str += u'        </div>\n'
+        final_str += u'      </div>\n'
+        final_str += u'  </div>\n'
+        final_str += u'</div>\n'
         for i, detail in enumerate(self.iaobject.details):
-            detail['detail'] = detail['detail'].encode("utf-8")
-            if detail['detail'].find("Réponse:") != -1:
-                question = detail['detail'][0:detail['detail'].find("Réponse:")]
-                answer = detail['detail'][detail['detail'].find("Réponse:") + 9:]
-                final_str += '<div class="accordion-group">\n'
-                final_str += '  <div class="accordion-heading">\n'
-                final_str += '      <a id="collapse'+str(i)+'-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse'+str(i)+'">'+detail['title'].encode("utf-8")+'</a>\n'
-                final_str += '      <div id="collapse'+str(i)+'" class="accordion-body collapse">\n'
-                final_str += '          <div class="accordion-inner">' + self.PageFormatter(question).print_html() + '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#response_'+str(i)+'">Réponse</a></div>' + '<div class="response" id="response_'+ str(i) +'">' + self.PageFormatter(answer).print_html() + '</div>' + '\n'
-                final_str += '          </div>\n'
-                final_str += '      </div>\n'
-                final_str += '  </div>\n'
-                final_str += '</div>\n'
+            if detail['detail'].find(u"Réponse:") != -1:
+                question = detail['detail'][0:detail['detail'].find(u"Réponse:")]
+                answer = detail['detail'][detail['detail'].find(u"Réponse:") + 9:]
+                final_str += u'<div class="accordion-group">\n'
+                final_str += u'  <div class="accordion-heading">\n'
+                final_str += u'      <a id="collapse'+unicode(str(i), "utf8") + u'-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse' + unicode(str(i), "utf8") + u'">' + detail['title'] + u'</a>\n'
+                final_str += u'      <div id="collapse'+unicode(str(i), "utf8") + u'" class="accordion-body collapse">\n'
+                final_str += u'          <div class="accordion-inner">' + self.PageFormatter(question).print_html() + u'<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#response_' + unicode(str(i), "utf8") + u'">Réponse</a></div>' + u'<div class="response" id="response_'+ unicode(str(i), "utf8") + u'">' + self.PageFormatter(answer).print_html() + u'</div>' + u'\n'
+                final_str += u'          </div>\n'
+                final_str += u'      </div>\n'
+                final_str += u'  </div>\n'
+                final_str += u'</div>\n'
             else:
-                final_str += '<div class="accordion-group">\n'
-                final_str += '  <div class="accordion-heading">\n'
-                final_str += '      <a id="collapse'+str(i)+'-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse'+str(i)+'">'+detail['title'].encode("utf-8") +'</a>\n'
-                final_str += '      <div id="collapse'+str(i)+'" class="accordion-body collapse">\n'
-                final_str += '          <div class="accordion-inner">' + self.PageFormatter(detail["detail"]).print_html() + '\n'
-                final_str += '          </div>\n'
-                final_str += '      </div>\n'
-                final_str += '  </div>\n'
-                final_str += '</div>\n'        
+                final_str += u'<div class="accordion-group">\n'
+                final_str += u'  <div class="accordion-heading">\n'
+                final_str += u'      <a id="collapse' + unicode(str(i), "utf8") + u'-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse' + unicode(str(i), "utf8") + u'">' + detail['title'] + u'</a>\n'
+                final_str += u'      <div id="collapse' + unicode(str(i), "utf8") + u'" class="accordion-body collapse">\n'
+                final_str += u'          <div class="accordion-inner">' + self.PageFormatter(detail["detail"]).print_html() + u'\n'
+                final_str += u'          </div>\n'
+                final_str += u'      </div>\n'
+                final_str += u'  </div>\n'
+                final_str += u'</div>\n'        
 
         with open(templatePath,"r") as template:
             final_index = template.read()
-            final_index = final_index.replace("{{TITLE}}", self.iaobject.scene["title"].encode('utf-8'))
+            final_index = final_index.replace("{{TITLE}}", self.iaobject.scene["title"])
             final_index = final_index.replace("{{ACCORDION}}", final_str)            
         with open(filePath,"w") as indexfile:
-            indexfile.write(final_index)
+            indexfile.write(final_index.encode("utf-8"))

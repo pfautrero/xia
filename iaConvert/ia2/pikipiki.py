@@ -145,4 +145,4 @@ class PageFormatter:
             final_str += re.sub(scan_re, self.replace, line)
         if self.in_pre: final_str += u'</pre>\n'
         final_str += self._undent()
-        return final_str.encode('utf8')
+        return final_str

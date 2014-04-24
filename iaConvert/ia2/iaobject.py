@@ -573,6 +573,7 @@ class iaObject:
                 elif entry == "path":
                     final_str += u'  "' + entry + u'":' + detail[entry] + ',\n'
                 elif entry == "detail":
+                    print(type(PageFormatter(detail[entry]).print_html()))
                     final_str += u'  "' + entry + u'":"' + PageFormatter(detail[entry]).print_html().replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + u'",\n'
                 else:
                     final_str += u'  "' + entry + u'":"' + detail[entry] + u'",\n'
