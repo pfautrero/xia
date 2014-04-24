@@ -126,6 +126,8 @@ class IADialog(Tkinter.Frame):
     options['parent'] = root
     options['title'] = 'Select target folder'
 
+    # retrieves source and target directories from config file
+
     if os.path.isfile("config_ia.ini"):
         self.config = ConfigParser.ConfigParser()
         self.config.read('config_ia.ini')
@@ -155,6 +157,7 @@ class IADialog(Tkinter.Frame):
               self.config.set("paths", "target_dir", self.dirname)
               with open("config_ia.ini", "w") as config_file:
                 self.config.write(config_file)
+                
               mysplash = Splash(self.root , 'images/processing.gif', 0)
               mysplash.enter()              
               

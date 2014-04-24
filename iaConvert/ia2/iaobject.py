@@ -50,6 +50,9 @@ class iaObject:
 
     def analyzeSVG(self,filePath):
         """analyze svg file and fill self.details and self.scene"""
+        self.details[:] = []
+        self.scene.clear()
+        
         self.xml = minidom.parse(filePath)
 
         head, tail = os.path.split(filePath)
