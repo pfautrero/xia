@@ -9,7 +9,36 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
+export PYBUILD_NAME=image-active
+
+# The absolute path of the rules file.
+RULES_PATH := $(realpath $(firstword $(MAKEFILE_LIST)))
+
+# The working directory is obtained by removing the
+# "/debian/rules" string at the end of RULES_PATH.
+WORKING_DIR := $(realpath $(RULES_PATH:/debian/rules=))
+
 %:
 	dh $@ --with python2
+
+
+########################
+### Personal targets ###
+########################
+
+clean_for_git:
+	# Remove all files which mustn't belong to the git repository.
+	dh_clean
+	cd "$(WORKING_DIR)" && rm -fr *.egg-info/
+	cd "$(WORKING_DIR)" && rm -fr build/
+	# All files in the parent directory created by the building.
+	cd "$(WORKING_DIR)" && rm -f ../$(PYBUILD_NAME)*.deb
+	cd "$(WORKING_DIR)" && rm -f ../$(PYBUILD_NAME)*.dsc
+	cd "$(WORKING_DIR)" && rm -f ../$(PYBUILD_NAME)*.changes
+	cd "$(WORKING_DIR)" && rm -f ../$(PYBUILD_NAME)*.debian.tar.gz
+	cd "$(WORKING_DIR)" && rm -f ../$(PYBUILD_NAME)*.build
+
+create_deb: clean_for_git
+	cd "$(WORKING_DIR)" && debuild -us -uc && echo 'Building is OK!'
 
 
