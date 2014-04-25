@@ -1,0 +1,17 @@
+Source: image-active
+Section: misc
+Priority: extra
+Maintainer: François Lafont <francois.lafont@crdp.ac-versailles.fr>
+Build-Depends: devscripts, fakeroot, debhelper (>= 8.0.0), python-setuptools
+Standards-Version: 3.9.3
+Homepage: http://images-actives.crdp-versailles.fr
+X-Python-Version: >= 2.7, << 3.0
+
+
+Package: image-active
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}
+Description: Tool to make full html5 active picture
+ Tool to make full html5 active pictures.
+
+
