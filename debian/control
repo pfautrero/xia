@@ -8,10 +8,16 @@ Homepage: http://images-actives.crdp-versailles.fr
 X-Python-Version: >= 2.7, << 3.0
 
 
-Package: image-active
+Package: ia-converter
 Architecture: all
 Depends: ${misc:Depends}, ${python:Depends}, python-tk
-Description: Tool to make full html5 interactive pictures
- Tool to make full html5 interactive pictures.
+Description: Convert svg to html5 interactive pictures
+ Tool to convert svg to html5 interactive pictures.
+
+Package: image-active
+Architecture: all
+Depends: ${misc:Depends}, ia-converter, python-lxml, inkscape
+Description: Inkscape plugin to create html5 interactive pictures
+ Inkscape plugin to create full html5 interactive pictures.
 
 

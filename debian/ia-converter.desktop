@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=2.0
+Name=Image Active converter
+GenericName=Image Active converter
+X-GNOME-FullName=Image Active converter
+Comment=Convert svg to html5 interactive pictures
+Comment[fr]=Convertit svg en des images interactives html5
+Type=Application
+Categories=Graphics;
+MimeType=image/svg+xml;application/illustrator;
+Exec=ia-converter
+Terminal=false
+Icon=/usr/share/pyshared/iaConvert/images/image-active.gif
+
+

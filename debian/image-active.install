@@ -1,4 +1,5 @@
-debian/bin/image-active usr/bin/
-debian/image-active.desktop usr/share/applications/
+imageactive.py usr/share/inkscape/extensions/
+imageactive.inx usr/share/inkscape/extensions/
+debian/symlinks/iaConvert usr/share/inkscape/extensions/
 
 

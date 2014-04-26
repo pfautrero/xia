@@ -4,7 +4,7 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-export PYBUILD_NAME=image-active
+PYBUILD_NAME := "ia-converter"
 
 # The absolute path of the rules file.
 RULES_PATH := $(realpath $(firstword $(MAKEFILE_LIST)))
@@ -15,6 +15,13 @@ WORKING_DIR := $(realpath $(RULES_PATH:/debian/rules=))
 
 %:
 	dh $@ --with python2
+
+# To use setup.py with --root=debian/$(PYBUILD_NAME) instead of
+# --root=debian/tmp. See "man dh_auto_install" for more details.
+override_dh_auto_install:
+	dh_auto_install --destdir="$(WORKING_DIR)/debian/$(PYBUILD_NAME)"
+
+
 
 
 ########################
@@ -27,11 +34,11 @@ clean_for_git:
 	cd "$(WORKING_DIR)" && rm -fr *.egg-info/
 	cd "$(WORKING_DIR)" && rm -fr build/
 	# All files in the parent directory created by the building.
-	cd "$(WORKING_DIR)" && rm -f ../$(PYBUILD_NAME)*.deb
-	cd "$(WORKING_DIR)" && rm -f ../$(PYBUILD_NAME)*.dsc
-	cd "$(WORKING_DIR)" && rm -f ../$(PYBUILD_NAME)*.changes
-	cd "$(WORKING_DIR)" && rm -f ../$(PYBUILD_NAME)*.debian.tar.gz
-	cd "$(WORKING_DIR)" && rm -f ../$(PYBUILD_NAME)*.build
+	cd "$(WORKING_DIR)" && rm -f ../*.deb
+	cd "$(WORKING_DIR)" && rm -f ../*.dsc
+	cd "$(WORKING_DIR)" && rm -f ../*.changes
+	cd "$(WORKING_DIR)" && rm -f ../*.debian.tar.gz
+	cd "$(WORKING_DIR)" && rm -f ../*.build
 
 create_deb: clean_for_git
 	cd "$(WORKING_DIR)" && debuild -us -uc && echo 'Building is OK!'
