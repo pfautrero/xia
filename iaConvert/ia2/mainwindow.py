@@ -128,13 +128,19 @@ class IADialog(Tkinter.Frame):
 
     # retrieves source and target directories from config file
 
-    if os.path.isfile("config_ia.ini"):
+    # Creation of config_dir if not exists.
+    self.config_dir = os.path.expanduser('~/.image-active')
+    self.config_ini = self.config_dir + '/config_ia.ini'
+    if not os.path.isdir(self.config_dir):
+        os.mkdir(self.config_dir, 0755)
+
+    if os.path.isfile(self.config_ini):
         self.config = ConfigParser.ConfigParser()
-        self.config.read('config_ia.ini')
+        self.config.read(self.config_ini)
         self.file_opt['initialdir'] = self.config.get("paths", "source_dir")
         self.dir_opt['initialdir'] = self.config.get("paths", "target_dir")
     else:
-        with open("config_ia.ini", "w") as config_file:
+        with open(self.config_ini, "w") as config_file:
             self.config = ConfigParser.ConfigParser()
             self.config.add_section('paths')
             self.config.set("paths", "source_dir", self.file_opt['initialdir'])
@@ -147,7 +153,7 @@ class IADialog(Tkinter.Frame):
         head, tail = os.path.split(self.filename)
         self.file_opt['initialdir'] = head
         self.config.set("paths", "source_dir", head)
-        with open("config_ia.ini", "w") as config_file:
+        with open(self.config_ini, "w") as config_file:
             self.config.write(config_file)
         
   def createIA(self, theme):
@@ -155,7 +161,7 @@ class IADialog(Tkinter.Frame):
           self.dirname = tkFileDialog.askdirectory(**self.dir_opt)
           if self.dirname:
               self.config.set("paths", "target_dir", self.dirname)
-              with open("config_ia.ini", "w") as config_file:
+              with open(self.config_ini, "w") as config_file:
                 self.config.write(config_file)
                 
               mysplash = Splash(self.root , 'images/processing.gif', 0)
