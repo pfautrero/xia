@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=2.0
+Name=Image-Active
+GenericName=Image-Active
+X-GNOME-FullName=Image-Active
+Comment=Tool to make full html5 active pictures
+Type=Application
+Categories=Graphics;
+MimeType=image/svg+xml;application/illustrator;
+Exec=image-active
+Terminal=false
+StartupNotify=true
+Icon=/usr/share/pyshared/iaConvert/images/image-active.gif
+
+

@@ -1,3 +1,4 @@
 debian/bin/image-active usr/bin/
+debian/image-active.desktop usr/share/applications/
 
 
