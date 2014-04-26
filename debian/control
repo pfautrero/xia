@@ -11,7 +11,7 @@ X-Python-Version: >= 2.7, << 3.0
 Package: image-active
 Architecture: all
 Depends: ${misc:Depends}, ${python:Depends}, python-tk
-Description: Tool to make full html5 active pictures
- Tool to make full html5 active pictures.
+Description: Tool to make full html5 interactive pictures
+ Tool to make full html5 interactive pictures.
 
 

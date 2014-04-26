@@ -25,7 +25,7 @@ setup(
     packages=find_packages(),
     author='Pascal Fautrero',
     author_email='pascal.fautrero@crdp.ac-versailles.fr',
-    description='Tool to make full html5 active pictures',
+    description='Tool to make full html5 interactive pictures',
     long_description=open('README.md').read(),
     include_package_data=True,
     url='http://images-actives.crdp-versailles.fr',
