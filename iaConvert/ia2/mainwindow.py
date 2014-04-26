@@ -16,7 +16,7 @@
 # @author : pascal.fautrero@crdp.ac-versailles.fr
 
 import Tkinter, tkFileDialog
-import os, shutil, imp
+import os, shutil, imp, sys
 import ConfigParser
 from iaobject import iaObject
 from pikipiki import PageFormatter
@@ -129,10 +129,16 @@ class IADialog(Tkinter.Frame):
     # retrieves source and target directories from config file
 
     # Creation of config_dir if not exists.
-    self.config_dir = os.path.expanduser('~/.image-active')
-    self.config_ini = self.config_dir + '/config_ia.ini'
+    self.home_dir = os.path.expanduser('~')
+    self.config_dir = os.path.join(self.home_dir, '.image-active')
+    self.config_ini = os.path.join(self.config_dir, 'config_ia.ini')
     if not os.path.isdir(self.config_dir):
-        os.mkdir(self.config_dir, 0755)
+        try:
+            os.mkdir(self.config_dir, 0755)
+        except Exception as e:
+            print("Sorry, impossible to create the {0} directory".format(self.config_dir))
+            print("Error({0}): {1}".format(e.errno, e.strerror))
+            sys.exit(1)
 
     if os.path.isfile(self.config_ini):
         self.config = ConfigParser.ConfigParser()
