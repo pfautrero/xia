@@ -9,7 +9,6 @@ Categories=Graphics;
 MimeType=image/svg+xml;application/illustrator;
 Exec=image-active
 Terminal=false
-StartupNotify=true
 Icon=/usr/share/pyshared/iaConvert/images/image-active.gif
 
 
