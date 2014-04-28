@@ -150,7 +150,7 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
 
         // define hit area excluding transparent pixels
 
-/*        detail.minX = parseFloat(detail.x);
+        /*detail.minX = parseFloat(detail.x);
         detail.minY = parseFloat(detail.y);
         detail.maxX = parseFloat(detail.x) + parseFloat(detail.width);
         detail.maxY = parseFloat(detail.y) + parseFloat(detail.height);
@@ -158,6 +158,7 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         var cropY = Math.max(parseFloat(detail.minY), 0);
         var cropWidth = (Math.min(parseFloat(detail.maxX) - parseFloat(detail.minX), Math.floor(parseFloat(iaScene.originalWidth) * 1)));
         var cropHeight = (Math.min(parseFloat(detail.maxY) - parseFloat(detail.minY), Math.floor(parseFloat(iaScene.originalHeight) * 1)));
+
 
         that.kineticElement[i].hitFunc(function(context) {
             var canvas_source = document.createElement('canvas');
@@ -169,21 +170,25 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
             len = imageDataSource.data.length;
             
             var imageDataDestination = context.getImageData(cropX, cropY, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);
-            console.log(imageDataDestination.data.length);
-            console.log(imageDataSource.data.length);
-            console.log(this.colorKey);
             rgbColorKey = Kinetic.Util._hexToRgb(this.colorKey);
-
+       
             for(j = 0; j < len; j += 4) {
+
                 imageDataDestination.data[j + 0] = rgbColorKey.r;
                 imageDataDestination.data[j + 1] = rgbColorKey.g;
                 imageDataDestination.data[j + 2] = rgbColorKey.b;
                 imageDataDestination.data[j + 3] = imageDataSource.data[j + 3];
+
             }
             context.putImageData(imageDataDestination, cropX * iaScene.coeff, cropY * iaScene.coeff);     
             this.scaleX(iaScene.coeff);
 
-        });        */
+        });        
+
+        that.kineticElement[i].sceneFunc(function(context) {
+            var yo = that.layer.getHitCanvas().getContext().getImageData(0,0,iaScene.width, iaScene.height);
+            context.putImageData(yo, 0,0);  
+        });*/
 
         that.group.draw();        
     };
@@ -409,6 +414,12 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 }
             };
             var t = setTimeout(personalTween, 30);
+            
+            
+            
+            
+            
+            
         }
         // let's unzoom
         else if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {

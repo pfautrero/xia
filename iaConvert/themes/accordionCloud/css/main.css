@@ -1,0 +1,205 @@
+/*fonts*/
+@font-face {
+    font-family: 'yanone_bold';
+    src: url('../font/yanonekaffeesatz-bold-webfont.eot');
+    src: url('../font/yanonekaffeesatz-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/yanonekaffeesatz-bold-webfont.woff') format('woff'),
+         url('../font/yanonekaffeesatz-bold-webfont.ttf') format('truetype'),
+         url('../font/yanonekaffeesatz-bold-webfont.svg#yanone_kaffeesatzbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'yanone_light';
+    src: url('../font/yanonekaffeesatz-light-webfont.eot');
+    src: url('../font/yanonekaffeesatz-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/yanonekaffeesatz-light-webfont.woff') format('woff'),
+         url('../font/yanonekaffeesatz-light-webfont.ttf') format('truetype'),
+         url('../font/yanonekaffeesatz-light-webfont.svg#yanone_kaffeesatzlight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'yanone_regular';
+    src: url('../font/yanonekaffeesatz-regular-webfont.eot');
+    src: url('../font/yanonekaffeesatz-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/yanonekaffeesatz-regular-webfont.woff') format('woff'),
+         url('../font/yanonekaffeesatz-regular-webfont.ttf') format('truetype'),
+         url('../font/yanonekaffeesatz-regular-webfont.svg#yanone_kaffeesatzregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+	font-family: 'yanone_thin';
+    src: url('../font/yanonekaffeesatz-thin-webfont.eot');
+    src: url('../font/yanonekaffeesatz-thin-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/yanonekaffeesatz-thin-webfont.woff') format('woff'),
+         url('../font/yanonekaffeesatz-thin-webfont.ttf') format('truetype'),
+         url('../font/yanonekaffeesatz-thin-webfont.svg#yanone_kaffeesatzthin') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+/*fin de font*/
+
+/* override Wahid */
+
+html {
+  margin:0;
+  padding:0;
+  background: url('../img/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+body{
+    background: none;
+    margin:0;
+    border:none;
+    margin-top:0px;
+    padding:0px;
+}
+video {
+    width:100%;
+}
+audio {
+    width:100%;
+}
+a {
+    color:#333;
+}
+a:active, a:focus, a:hover {color:#FFF;}
+header {
+    width:100%; 
+    padding:0; 
+    margin:0 auto; 
+    /*background:#000;*/
+}
+
+header h1 {    
+    margin:0;
+    top:0;
+    left:0px;
+    /*background:url(../img/imagedoc-darknoise.png);*/
+    display:inline;
+    max-width:20%;
+    padding: 0px 1em 0 5px;
+    margin-bottom:0; 
+    color:#115c99;
+    font-family: yanone_regular; 
+    font-size: 3em;
+}
+
+
+.eyes { 
+    background:url(../img/eyes.png) center bottom no-repeat;
+    margin-left: 10px;
+    padding:.3em 1em;
+}
+.eyes:hover {
+    background:url(../img/eyes2.png) center bottom  no-repeat;
+}
+.meta-doc {
+    background:url(../img/meta-doc.png) center bottom  no-repeat;
+    margin-left: 10px;padding:.3em 1em
+}
+.meta-doc:hover{
+    background:url(../img/meta-doc2.png) center bottom  no-repeat;
+}
+.infos {
+    background:url(../img/infos.png) center bottom no-repeat;
+    margin-left: 10px;
+    padding:.3em 1em; 
+}
+.infos:hover{
+    background:url(../img/infos2.png) center bottom  no-repeat;
+}
+.title-document {display: block;}
+
+@media screen and (max-width: 640px) {
+    body {
+        font-size:0.7em;
+    }
+    h3 {
+        font-size:20px;
+    }
+}
+#detect, #canvas {
+    margin:0;
+    padding:0;
+}
+#container {
+    position: relative;
+    padding:0px;
+    width:1000px;
+    margin:20px auto;
+    border:0px solid #FFF3B2;
+    /*background: #000000;  Old browsers */
+}
+#canvas {
+    width:650px;
+    border:10px solid white;
+    border-radius:5px;
+    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.3)    
+}
+#detect {
+    position:absolute;
+    top:50px;
+    left:0;
+    width:100%;
+    height:655px;
+}
+
+.accordion {
+    position:absolute;
+    top:50px; 
+    left:70%;
+    width:28%;
+    color:black;
+    /*font-size:1.2em;	*/
+}
+.accordion-heading a{
+    text-decoration:none;
+    color:black;
+}
+.accordion-group {
+    border:0px;
+    padding-bottom:10px;
+    border-bottom:1px solid black;
+    border-radius:0;
+}
+a.accordion-toggle { 
+    font-family:yanone_regular; 
+    color:#115c99;
+    font-size:2em;
+    text-decoration:none;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+.accordion-toggle:hover {
+    color:#FFF;
+}
+
+.accordion-inner {
+    position: relative;
+    background:white;
+}
+#accordion2 {
+    overflow:auto;
+    max-height:655px;
+}
+.response {
+    display:none;
+}
+.response:target {
+    display:block;
+}
+.button {
+    background-color: #dddddd;
+    position:relative;
+    right:0px;
+    border-radius: 5px;
+    padding: 5px;
+}

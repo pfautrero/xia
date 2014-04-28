@@ -78,7 +78,8 @@ class IADialog(Tkinter.Frame):
             self.themes.append(theme)
 
             img_button = Tkinter.PhotoImage(file= rel_path + "/themes/" + filename + "/" + "icon.gif")    
-            button = Tkinter.Button(self, image=img_button, relief=Tkinter.FLAT,bd=0, height=150, width=150,  command= lambda : self.createIA(theme))
+            button = Tkinter.Button(self, image=img_button, relief=Tkinter.FLAT,bd=0, height=150, width=150)
+            button["command"] = lambda t=theme:self.createIA(t)
             button.image = img_button
             button.grid(row=theme_index // 3,column=theme_index % 3)
             theme_index = theme_index + 1
@@ -161,7 +162,7 @@ class IADialog(Tkinter.Frame):
         self.config.set("paths", "source_dir", head)
         with open(self.config_ini, "w") as config_file:
             self.config.write(config_file)
-        
+
   def createIA(self, theme):
       if self.filename:
           self.dirname = tkFileDialog.askdirectory(**self.dir_opt)
@@ -195,6 +196,12 @@ class IADialog(Tkinter.Frame):
               theme['object'].generateIndex(self.dirname + "/index.html", self.localdir + '/themes/' + theme['name']+ '/index.html')
 
               mysplash.exit()
+
+
+
+
+              
+              
               
   def quit(self):
       self.root.destroy()

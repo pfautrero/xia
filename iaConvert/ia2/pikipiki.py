@@ -58,7 +58,7 @@ class PageFormatter:
         word_url = word.split("src=&quot;")[1].split("&quot;")[0]
         if word_url[0:2] == "//":
             word_url = "http:" + word_url
-        return u'<iframe src="%s" width="100%%" height="200px"></iframe>\n' % (word_url)
+        return u'<iframe src="%s" width="100%%"></iframe>\n' % (word_url)
 
 
 
