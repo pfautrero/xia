@@ -117,6 +117,17 @@ function main() {
                 image: scaledImage
             });
 
+            // cache used over background image
+            var baseCache = new Kinetic.Rect({
+                x: 0,
+                y: mainScene.y,
+                width: scene.width,
+                height: scene.height,
+                scale: {x:mainScene.coeff,y:mainScene.coeff},
+                fill: mainScene.backgroundCacheColor
+            });
+
+
             // define area to disable canvas events management when
             // mouse is over. Thus, we can reach div located under canvas 
             var disableArea = new Kinetic.Rect({
@@ -130,18 +141,21 @@ function main() {
             });
             var layers = new Array();
             layers[0] = new Kinetic.FastLayer();	
-            layers[1] = new Kinetic.Layer();
+            layers[1] = new Kinetic.FastLayer();	
+            layers[2] = new Kinetic.Layer();
 
-            layers[0].add(baseImage);
-            layers[1].add(disableArea);	
+            layers[0].add(baseCache);
+            layers[1].add(baseImage);
+            layers[2].add(disableArea);	
             stage.add(layers[0]);
             stage.add(layers[1]);
+            stage.add(layers[2]);
 
             for (var i in details) {
-                var indice = parseInt(i+2);
+                var indice = parseInt(i+3);
                 layers[indice] = new Kinetic.Layer();
                 stage.add(layers[indice]);
-                var iaObj = new iaObject(scaledImage, details[i], layers[indice], "collapse" + i, baseImage, mainScene, layers[0]);
+                var iaObj = new iaObject(scaledImage, details[i], layers[indice], "collapse" + i, baseImage, mainScene, layers[1], layers[0]);
             }
 
             $("#collapsecomment-heading").on('click touchstart',function(){
@@ -156,9 +170,8 @@ function main() {
                             mainScene.element.layer.draw();
                         }
                     }
-                    baseImage.opacity(1);
                     mainScene.element = that;
-                    layers[0].draw();
+                    layers[0].moveToBottom();
                 }
             });
 
@@ -173,6 +186,16 @@ function main() {
                 else {
                     RunPrefixMethod(div_container, "RequestFullScreen");
                 }
+                mainScene.fullScreen = mainScene.fullScreen == "on" ? "off": "on";
+                /*mainScene.scaleScene(mainScene);
+                baseImage.scale({x:mainScene.coeff,y:mainScene.coeff});
+                baseCache.scale({x:mainScene.coeff,y:mainScene.coeff});
+                disableArea.x(mainScene.width  * mainScene.ratio);
+                disableArea.width(mainScene.width * (1 - mainScene.ratio));
+                disableArea.height(mainScene.height);
+                for (var i in layers) {
+                    layers[i].draw();
+                }*/
             };
 
             var pfx = ["webkit", "moz", "ms", "o", ""];

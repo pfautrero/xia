@@ -452,6 +452,20 @@ class iaObject:
                         ctm = CurrentTransformation()
                         ctm.analyze(transformation)
 
+                    if float(record_image['x']) < float(minX):
+                        minX = float(record_image['x'])
+                    if (float(record_image['x']) + float(record_image['width'])) > float(maxX):
+                        maxX = float(record_image['x']) + float(record_image['width'])
+                    if float(record_image['y']) < float(minY):
+                        minY = float(record_image['y'])
+                    if (float(record_image['y']) + float(record_image['height'])) > float(maxY):
+                        maxY = float(record_image['y']) + float(record_image['height'])
+
+                    record["minX"] = str(minX)
+                    record["minY"] = str(minY)
+                    record["maxX"] = str(maxX)
+                    record["maxY"] = str(maxY) 
+
                     record["group"].append(record_image)        
 
         rects = group.getElementsByTagName('rect')        

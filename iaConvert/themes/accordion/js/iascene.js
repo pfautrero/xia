@@ -23,18 +23,29 @@ function iaScene(originalWidth, originalHeight) {
     var that = this;
     //  canvas width
     this.width = 1000;
+    
     // canvas height
     this.height = 800;  
+    
     // default color used to fill shapes during mouseover
-    this.overColor = 'rgba(66, 133, 244,0.4)';  
+    var _colorOver = {red:66, green:133, blue:244, opacity:0.6};
+
     // Image ratio on the scene
     this.ratio = 0.50;  
+    
     // padding-top in the canvas
     this.y = 0;
+
     // easing effect
-    this.easing = Kinetic.Easings.StrongEaseOut;
-    
+    //this.easing = Kinetic.Easings.StrongEaseOut;
+
+    // color used over background image during focus
+    var _colorCache = {red:0, green:0, blue:0, opacity:0.6};
+ 
     // internal
+    this.fullScreen = "off";
+    this.backgroundCacheColor = 'rgba(' + _colorCache.red + ',' + _colorCache.green + ',' + _colorCache.blue + ',' + _colorCache.opacity + ')';
+    this.overColor = 'rgba(' + _colorOver.red + ',' + _colorOver.green + ',' + _colorOver.blue + ',' + _colorOver.opacity + ')';    
     this.scale = 1;
     this.zoomActive = 0;
     this.element = 0;
@@ -55,8 +66,12 @@ iaScene.prototype.scaleScene = function(mainScene){
     var new_height = scene.height * mainScene.coeff + $('#canvas').offset().top - $('#container').offset().top;
     $('#container').css({"height": new_height + 'px'});
     $('#canvas').css({"height": mainScene.originalHeight * mainScene.coeff + 'px'});
-
-    if (viewportWidth < 1000) {
+    
+    var resize = false;
+    if ((this.fullScreen == "on") || (viewportWidth < 1000)) {
+        resize = true;
+    }
+    if (resize) {
         mainScene.width = viewportWidth - mainScene.y;
         mainScene.coeff = (mainScene.width * mainScene.ratio) / parseFloat(mainScene.originalWidth);
         $('#container').css({"width": viewportWidth - mainScene.y});
