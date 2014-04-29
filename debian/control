@@ -1,4 +1,4 @@
-Source: image-active
+Source: images-actives
 Section: misc
 Priority: extra
 Maintainer: François Lafont <francois.lafont@crdp.ac-versailles.fr>
@@ -14,7 +14,7 @@ Depends: ${misc:Depends}, ${python:Depends}, python-tk
 Description: Convert svg to html5 interactive pictures
  Tool to convert svg to html5 interactive pictures.
 
-Package: image-active
+Package: images-actives
 Architecture: all
 Depends: ${misc:Depends}, ia-converter, python-lxml, inkscape
 Description: Inkscape plugin to create html5 interactive pictures
