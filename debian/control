@@ -19,5 +19,3 @@ Architecture: all
 Depends: ${misc:Depends}, ia-converter, python, python-lxml, inkscape
 Description: Inkscape plugin to create html5 interactive pictures
  Inkscape plugin to create full html5 interactive pictures.
-
-
