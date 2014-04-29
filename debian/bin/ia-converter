@@ -21,7 +21,7 @@ export PATH='/usr/local/bin:/usr/bin:/bin'
 if ! cd '/usr/share/pyshared/iaConvert/'
 then
     echo "Sorry, 'cd /usr/share/pyshared/iaConvert/' failed."
-    echo "There is something wrong with the installation of image-active."
+    echo "There is something wrong with the installation of the ia-converter package."
     exit 1
 fi
 

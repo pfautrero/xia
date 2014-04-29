@@ -1,8 +1,8 @@
 [Desktop Entry]
 Version=2.0
-Name=Image Active converter
-GenericName=Image Active converter
-X-GNOME-FullName=Image Active converter
+Name=Images-Actives converter
+GenericName=Images-Actives converter
+X-GNOME-FullName=Images-Actives converter
 Comment=Convert svg to html5 interactive pictures
 Comment[fr]=Convertit svg en des images interactives html5
 Type=Application
