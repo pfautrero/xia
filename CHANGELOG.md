@@ -13,3 +13,4 @@
 - Effet de zoom optimisé pour éviter le memory leaking sur Firefox et Iceweasel
 - Prise en compte des images dans les descriptions (demandé par Aurélie Chauvet)
 - Prise en compte des iframes dans les descriptions (demandé par Marie Persiaux)
+- Prise en compte des liens wiki de la forme [http://link key_word] (demandé par Serge Raynaud)
