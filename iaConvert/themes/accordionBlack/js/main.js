@@ -64,7 +64,7 @@ function main() {
     that.imageObj.onload = function() {
         // define the maximum number of pixels allowed in the image
         // iPad can't manage images up to 5MB pixels
-        var maxNumberPixels = 2 * 1024 * 1024;
+        var maxNumberPixels = 3 * 1024 * 1024;
         var ratio = 1;
         if (parseFloat(scene.width) * parseFloat(scene.height) >= maxNumberPixels) {
             ratio = Math.sqrt(maxNumberPixels/(parseFloat(scene.width) * parseFloat(scene.height)));

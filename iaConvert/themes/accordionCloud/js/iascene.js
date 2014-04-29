@@ -79,9 +79,11 @@ iaScene.prototype.scaleScene = function(mainScene){
         mainScene.coeff = (mainScene.width * mainScene.ratio) / parseFloat(mainScene.originalWidth);
         $('#container').css({"width": viewportWidth - mainScene.y});
     }
-    if (viewportHeight < 755) {
-        mainScene.height = viewportHeight - mainScene.y;
-        $('#detect').css({"height": viewportHeight - mainScene.y});
-    }
+    //if (viewportHeight < 755) {
+        //mainScene.height = viewportHeight - mainScene.y;
+        //$('#detect').css({"height": viewportHeight - mainScene.y});
+        mainScene.height = mainScene.originalHeight * mainScene.coeff;
+        $('#detect').css({"height": mainScene.originalHeight * mainScene.coeff + 'px'});
+    //}
 };
 
