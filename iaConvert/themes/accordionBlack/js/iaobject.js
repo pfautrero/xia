@@ -21,6 +21,7 @@
  * @param {type} idText
  * @param {type} baseImage
  * @param {type} iaScene
+ * @param {type} backgroundCache_layer
  * @constructor create image active object
  */
 function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, background_layer, backgroundCache_layer) {
@@ -52,18 +53,18 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     that.layer.add(that.group);
     
     if (typeof(detail.path) !== 'undefined') {
-        that.includePath(detail, 0, that, iaScene, baseImage, idText, backgroundCache_layer);
+        that.includePath(detail, 0, that, iaScene, baseImage, idText);
     }
     else if (typeof(detail.image) !== 'undefined') {
-        that.includeImage(detail, 0, that, iaScene, baseImage, idText, backgroundCache_layer);
+        that.includeImage(detail, 0, that, iaScene, baseImage, idText);
     }
     else if (typeof(detail.group) !== 'undefined') {
         for (var i in detail.group) {
             if (typeof(detail.group[i].path) !== 'undefined') {
-                that.includePath(detail.group[i], i, that, iaScene, baseImage, idText, backgroundCache_layer);
+                that.includePath(detail.group[i], i, that, iaScene, baseImage, idText);
             }
             else if (typeof(detail.group[i].image) !== 'undefined') {
-                that.includeImage(detail.group[i], i, that, iaScene, baseImage, idText, backgroundCache_layer);
+                that.includeImage(detail.group[i], i, that, iaScene, baseImage, idText);
             }
         }
         that.definePathBoxSize(detail, that);
@@ -85,10 +86,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
             if ((iaScene.element !== 0) && 
                 (typeof(iaScene.element) !== 'undefined')) {
                 for (var i in iaScene.element.kineticElement) {
-                    //iaScene.element.kineticElement[i].fillPriority('color');
-                    //iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
-                    //iaScene.element.layer.draw();
-                    
+                   
                     if (iaScene.element.persistent[i] == "off") {
                         iaScene.element.kineticElement[i].fillPriority('color');
                         iaScene.element.kineticElement[i].fill('rgba(0, 0, 0, 0)');
@@ -143,7 +141,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
  * @param {type} i KineticElement index
  * @returns {undefined}
  */
-iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, idText, backgroundCache_layer) {
+iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, idText) {
     that.defineImageBoxSize(detail, that);
     var rasterObj = new Image();
     rasterObj.src = detail.image;                
@@ -154,7 +152,6 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         width: detail.width,
         height: detail.height,
         scale: {x:iaScene.coeff,y:iaScene.coeff}
-        //fill: 'rgba(0, 0, 0, 0)'	
     });
 
     rasterObj.onload = function() {
@@ -178,7 +175,7 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         
         
         that.group.add(that.kineticElement[i]);
-        that.addEventsManagement(i,zoomable, that, iaScene, baseImage, idText, backgroundCache_layer);
+        that.addEventsManagement(i,zoomable, that, iaScene, baseImage, idText);
 
         // define hit area excluding transparent pixels
 
@@ -234,7 +231,7 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
  * @param {type} i KineticElement index
  * @returns {undefined}
  */
-iaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, idText, backgroundCache_layer) {
+iaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, idText) {
     that.path[i] = detail.path;
     //that.backgroundImage[i] = imageObj;
 
@@ -290,7 +287,7 @@ iaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         that.persistent[i] = "onPath";
         that.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');
     }    
-    that.addEventsManagement(i, zoomable, that, iaScene, baseImage, idText, backgroundCache_layer);
+    that.addEventsManagement(i, zoomable, that, iaScene, baseImage, idText);
 
     that.group.add(that.kineticElement[i]);
     that.group.draw();
@@ -380,7 +377,7 @@ iaObject.prototype.defineTweens = function(that, iaScene) {
  * @returns {undefined}
  */
    
-iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, baseImage, idText, backgroundCache_layer) {
+iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, baseImage, idText) {
 
     /*
      * if mouse is over element, fill the element with semi-transparency

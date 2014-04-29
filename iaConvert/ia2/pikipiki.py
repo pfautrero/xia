@@ -77,6 +77,19 @@ class PageFormatter:
     def _li_repl(self, match):
         return u'<li>%s</li>\n' %(match[match.find('*')+1:])
 
+    def _link_repl(self, word):
+        word_filtered = re.sub(' +', ' ', word[1:-1])
+        word_displayed = ""
+        word_url = ""
+        for i in word_filtered.split(" "):
+            if word_url == "":
+                word_url = i
+            elif word_displayed == "":
+                word_displayed = i
+            else:
+                word_displayed = word_displayed + " " + i
+        return u'<a href="%s">%s</a>' %(word_url, word_displayed)
+
     def _pre_repl(self, word):
         if word == '{{{' and not self.in_pre:
             self.in_pre = 1
@@ -123,6 +136,7 @@ class PageFormatter:
             + r"|(?P<ent>[<>&])"
             + r"|(?P<rule>-{4,})"
             + r"|(?P<video>[^\s'\"]+\.(ogv|mp4|webm)$)"
+            + r"|(?P<link>\[http(.*)\])"
             + r"|(?P<img>[^\s'\"]+\.(jpg|jpeg|png|gif)$)"
             + r"|(?P<audio>[^\s'\"]+\.(ogg|mp3)$)"
             + r"|(?P<url>(http|ftp|nntp|news|mailto)\:[^\s'\"]+\S)"
