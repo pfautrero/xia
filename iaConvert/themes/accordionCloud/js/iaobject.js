@@ -29,6 +29,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     this.path = new Array();
     this.kineticElement = new Array();
     this.backgroundImage = new Array();
+    this.persistent = new Array();
     this.originalX = new Array();
     this.originalY = new Array();
     this.layer = layer;
@@ -71,11 +72,6 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
         console.log(detail);
     }
 
-    /*that.group.cache({
-        width : iaScene.width,
-        height : iaScene.height
-    });*/
-
     this.defineTweens(this, iaScene);
     
     /*
@@ -89,26 +85,50 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
             if ((iaScene.element !== 0) && 
                 (typeof(iaScene.element) !== 'undefined')) {
                 for (var i in iaScene.element.kineticElement) {
-                    iaScene.element.kineticElement[i].fillPriority('color');
-                    iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
+                    //iaScene.element.kineticElement[i].fillPriority('color');
+                    //iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
+                    //iaScene.element.layer.draw();
+                    
+                    if (iaScene.element.persistent[i] == "off") {
+                        iaScene.element.kineticElement[i].fillPriority('color');
+                        iaScene.element.kineticElement[i].fill('rgba(0, 0, 0, 0)');
+                    }
+                    else if (iaScene.element.persistent[i] == "onPath") {
+                        iaScene.element.kineticElement[i].fillPriority('color');
+                        iaScene.element.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');                       
+                    }
+                    else if (iaScene.element.persistent[i] == "onImage") {
+                        iaScene.element.kineticElement[i].fillPriority('pattern');
+                        iaScene.element.kineticElement[i].fillPatternScaleX(1/iaScene.scale);
+                        iaScene.element.kineticElement[i].fillPatternScaleY(1/iaScene.scale);
+                        iaScene.element.kineticElement[i].fillPatternImage(iaScene.element.backgroundImage[i]);                        
+                    }                     
                     iaScene.element.layer.draw();
                 }
+                
             }
             var zoomable = true;
             if ((typeof(detail.fill) !== 'undefined') && 
                 (detail.fill === "#000000")) {
                 zoomable = false;
             }
+
             if (zoomable === true) {
                 document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';
                 iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
             }            
-            //baseImage.opacity(0.3);
-            that.backgroundCache_layer.moveToTop();
+            var cacheBackground = true;
             for (var i in that.kineticElement) {
+                if (that.persistent[i] === "onImage") cacheBackground = false;
                 that.kineticElement[i].fillPriority('pattern');
+                that.kineticElement[i].fillPatternScaleX(1/iaScene.scale);
+                that.kineticElement[i].fillPatternScaleY(1/iaScene.scale);                
                 that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
             }
+            if (cacheBackground == true) {
+                that.backgroundCache_layer.moveToTop();
+            }
+
             iaScene.element = that;
             that.layer.moveToTop();
             that.layer.draw();				
@@ -133,7 +153,7 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
         width: detail.width,
         height: detail.height,
-        scale: {x:iaScene.coeff,y:iaScene.coeff},
+        scale: {x:iaScene.coeff,y:iaScene.coeff}
         //fill: 'rgba(0, 0, 0, 0)'	
     });
 
@@ -144,6 +164,18 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
             (detail.fill === "#000000")) {
             zoomable = false;
         }
+
+        that.persistent[i] = "off";
+        if ((typeof(detail.fill) !== 'undefined') && 
+            (detail.fill === "#ffffff")) {
+            that.persistent[i] = "onImage";
+            that.kineticElement[i].fillPriority('pattern');
+            that.kineticElement[i].fillPatternScaleX(1/iaScene.scale);
+            that.kineticElement[i].fillPatternScaleY(1/iaScene.scale);                
+            that.kineticElement[i].fillPatternImage(that.backgroundImage[i]); 
+            zoomable = false;
+        }
+        
         
         that.group.add(that.kineticElement[i]);
         that.addEventsManagement(i,zoomable, that, iaScene, baseImage, idText, backgroundCache_layer);
@@ -244,7 +276,7 @@ iaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         that.kineticElement[i].fillPatternRepeat('no-repeat');
         that.kineticElement[i].fillPatternX(detail.minX);
         that.kineticElement[i].fillPatternY(detail.minY);
-        that.kineticElement[i].draw();
+        //that.kineticElement[i].draw();
     };
 
     var zoomable = true;
@@ -252,6 +284,12 @@ iaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         (detail.fill === "#000000")) {
         zoomable = false;
     }
+    that.persistent[i] = "off";
+    if ((typeof(detail.fill) !== 'undefined') && 
+        (detail.fill === "#ffffff")) {
+        that.persistent[i] = "onPath";
+        that.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');
+    }    
     that.addEventsManagement(i, zoomable, that, iaScene, baseImage, idText, backgroundCache_layer);
 
     that.group.add(that.kineticElement[i]);
@@ -348,22 +386,28 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
      * if mouse is over element, fill the element with semi-transparency
      */
     that.kineticElement[i].on('mouseover', function() {
-        //console.log(that.layer.getParent().getPointerPosition().x);
-        //console.log(that.layer.getContext());
         if (iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) {
 
         }
         else if (iaScene.cursorState.indexOf("HandPointer.cur") === -1) {
-
-            //var c = that.layer.getContext();
-            //var p = c.getImageData(that.layer.getParent().getPointerPosition().x, that.layer.getParent().getPointerPosition().y, 1, 1).data; 
-            //console.log(p);  
-            //that.group.clearCache();
             document.body.style.cursor = "url(img/HandPointer.cur),auto";
             iaScene.cursorState = "url(img/HandPointer.cur),auto";
             for (var i in that.kineticElement) {
-                that.kineticElement[i].fill(iaScene.overColor);
-                that.kineticElement[i].scale(iaScene.coeff);
+                if (that.persistent[i] == "off") {
+                    that.kineticElement[i].fillPriority('color');
+                    that.kineticElement[i].fill(iaScene.overColor);
+                    that.kineticElement[i].scale(iaScene.coeff);
+                }
+                else if (that.persistent[i] == "onPath") {
+                    that.kineticElement[i].fillPriority('color');
+                    that.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');                       
+                }
+                else if (that.persistent[i] == "onImage") {
+                    that.kineticElement[i].fillPriority('pattern');
+                    that.kineticElement[i].fillPatternScaleX(1/iaScene.scale);
+                    that.kineticElement[i].fillPatternScaleY(1/iaScene.scale);
+                    that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);                        
+                }                
             }
             that.layer.batchDraw();
         }
@@ -437,14 +481,25 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 //that.tween_group.destroy();
                 //delete that.tween_group;
 
-                //baseImage.opacity(1);
                 that.backgroundCache_layer.moveToBottom();
                 document.body.style.cursor = "default";
                 iaScene.cursorState = "default";
 
                 for (var i in that.kineticElement) {
-                    that.kineticElement[i].fillPriority('color');
-                    that.kineticElement[i].fill('rgba(0, 0, 0, 0)');
+                    if (that.persistent[i] == "off") {
+                        that.kineticElement[i].fillPriority('color');
+                        that.kineticElement[i].fill('rgba(0, 0, 0, 0)');
+                    }
+                    else if (that.persistent[i] == "onPath") {
+                        that.kineticElement[i].fillPriority('color');
+                        that.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');                       
+                    }
+                    else if (that.persistent[i] == "onImage") {
+                        that.kineticElement[i].fillPriority('pattern');
+                        that.kineticElement[i].fillPatternScaleX(1/iaScene.scale);
+                        that.kineticElement[i].fillPatternScaleY(1/iaScene.scale);
+                        that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);                        
+                    }
                 }                    
                 that.layer.draw();
                 that.backgroundCache_layer.draw();
@@ -470,15 +525,16 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                             $(this).collapse("toggle");
                 });
                 $('#' + idText).collapse("show");
-                //baseImage.opacity(0.3);
 
+                var cacheBackground = true;
                 for (var i in that.kineticElement) {
+                    if (that.persistent[i] === "onImage") cacheBackground = false;
                     that.kineticElement[i].fillPriority('pattern');
                     that.kineticElement[i].fillPatternScaleX(1/iaScene.scale);
                     that.kineticElement[i].fillPatternScaleY(1/iaScene.scale);
                     that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
                 }
-                that.backgroundCache_layer.moveToTop();
+                if (cacheBackground === true) that.backgroundCache_layer.moveToTop();
                 that.layer.moveToTop();
                 that.layer.draw(); 
                 iaScene.element = that;
@@ -497,8 +553,20 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             if ((that.layer.getStage().getIntersection(mouseXY) != this)) {
                 that.backgroundCache_layer.moveToBottom();
                 for (var i in that.kineticElement) {
-                    that.kineticElement[i].fillPriority('color');
-                    that.kineticElement[i].fill('rgba(0, 0, 0, 0)');
+                    if (that.persistent[i] == "off") {
+                        that.kineticElement[i].fillPriority('color');
+                        that.kineticElement[i].fill('rgba(0, 0, 0, 0)');
+                    }
+                    else if (that.persistent[i] == "onPath") {
+                        that.kineticElement[i].fillPriority('color');
+                        that.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');                       
+                    }
+                    else if (that.persistent[i] == "onImage") {
+                        that.kineticElement[i].fillPriority('pattern');
+                        that.kineticElement[i].fillPatternScaleX(1/iaScene.scale);
+                        that.kineticElement[i].fillPatternScaleY(1/iaScene.scale);
+                        that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);                        
+                    }                    
                 }
                 document.body.style.cursor = "default";
                 iaScene.cursorState = "default";

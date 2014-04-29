@@ -30,6 +30,9 @@ function iaScene(originalWidth, originalHeight) {
     // default color used to fill shapes during mouseover
     var _colorOver = {red:66, green:133, blue:244, opacity:0.6};
 
+    // default color used to fill shapes if defined as cache
+    this.colorPersistent = {red:124, green:154, blue:174, opacity:1};
+    
     // Image ratio on the scene
     this.ratio = 0.65;  
     
