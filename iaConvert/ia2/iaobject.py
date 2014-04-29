@@ -161,6 +161,8 @@ class iaObject:
                 transformation = image.attributes['transform'].value
                 ctm = CurrentTransformation()
                 ctm.analyze(transformation)
+                record_image['x'] = ctm.translateX
+                record_image['y'] = ctm.translateY
 
             self.details.append(record_image)               
 
