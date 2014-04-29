@@ -153,12 +153,12 @@ header h1 {
     color:black;
     /*font-size:1.2em;	*/
 }
-.accordion-heading a{
+.accordion-body a{
     text-decoration:none;
     color:black;
     font-style: italic;
 }
-.accordion-heading a:hover{
+.accordion-body a:hover{
     text-decoration:none;
     color:black;
     background:#DDDDDD;
@@ -169,7 +169,7 @@ header h1 {
     -ms-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;    
 }
-.accordion-heading a{
+.accordion-body a{
     text-decoration:none;
     color:black;
 }

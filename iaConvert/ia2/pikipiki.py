@@ -88,7 +88,9 @@ class PageFormatter:
                 word_displayed = i
             else:
                 word_displayed = word_displayed + " " + i
-        return u'<a href="%s">%s</a>' %(word_url, word_displayed)
+        if word_displayed == "":
+            word_displayed = word_url
+        return u'<a href="%s" target="_blank">%s</a>' %(word_url, word_displayed)
 
     def _pre_repl(self, word):
         if word == '{{{' and not self.in_pre:
