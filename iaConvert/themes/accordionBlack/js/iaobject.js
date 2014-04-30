@@ -386,6 +386,9 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
         if (iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) {
 
         }
+        else if (iaScene.cursorState.indexOf("ZoomIn.cur") !== -1) {
+
+        }
         else if (iaScene.cursorState.indexOf("HandPointer.cur") === -1) {
             document.body.style.cursor = "url(img/HandPointer.cur),auto";
             iaScene.cursorState = "url(img/HandPointer.cur),auto";
