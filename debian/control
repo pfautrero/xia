@@ -2,7 +2,7 @@ Source: images-actives
 Section: misc
 Priority: extra
 Maintainer: François Lafont <francois.lafont@crdp.ac-versailles.fr>
-Build-Depends: devscripts, fakeroot, debhelper (>= 8.0.0), python-setuptools
+Build-Depends: devscripts, fakeroot, debhelper (>= 8.0.0), python, python-setuptools
 Standards-Version: 3.9.3
 Homepage: http://images-actives.crdp-versailles.fr
 X-Python-Version: >= 2.7, << 3.0
@@ -16,8 +16,6 @@ Description: Convert svg to html5 interactive pictures
 
 Package: images-actives
 Architecture: all
-Depends: ${misc:Depends}, ia-converter, python-lxml, inkscape
+Depends: ${misc:Depends}, ia-converter, python, python-lxml, inkscape
 Description: Inkscape plugin to create html5 interactive pictures
  Inkscape plugin to create full html5 interactive pictures.
-
-

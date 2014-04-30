@@ -41,6 +41,6 @@ clean_for_git:
 	cd "$(WORKING_DIR)" && rm -f ../*.build
 
 create_deb: clean_for_git
-	cd "$(WORKING_DIR)" && debuild -us -uc && echo 'Building is OK!'
+	cd "$(WORKING_DIR)" && debuild --no-tgz-check -us -uc && echo 'Building is OK!'
 
 
