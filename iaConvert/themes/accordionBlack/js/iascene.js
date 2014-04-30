@@ -86,4 +86,3 @@ iaScene.prototype.scaleScene = function(mainScene){
         $('#detect').css({"height": mainScene.originalHeight * mainScene.coeff + 'px'});
     //}
 };
-
