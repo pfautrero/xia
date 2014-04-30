@@ -52,10 +52,12 @@ class IADialog(Tkinter.Frame):
         button1 = Tkinter.Button(self, image=import_img, relief=Tkinter.FLAT, bd=0, height=150, width=150, command=self.askopenfilename)
         button1.image = import_img
         button1.grid(row=0,column=0, columnspan=1,sticky='W')
+        self.keep_alive = "yes"
     else:
         label1 = Tkinter.Label(self, image=inkscape)
         label1.photo = inkscape
         label1.grid(row=0,column=0,columnspan=1, sticky='W')
+        self.keep_alive = "no"
 
     # Automatic import of themes
     
@@ -169,7 +171,7 @@ class IADialog(Tkinter.Frame):
               with open(self.config_ini, "w") as config_file:
                 self.config.write(config_file)
                 
-              mysplash = Splash(self.root , 'images/processing.gif', 0)
+              mysplash = Splash(self.root , self.localdir + '/images/processing.gif', 0)
               mysplash.enter()              
               
               self.dir_opt['initialdir'] = self.dirname
@@ -195,11 +197,8 @@ class IADialog(Tkinter.Frame):
 
               mysplash.exit()
 
-
-
-
-              
-              
+              if self.keep_alive == "no":
+                  self.root.destroy()
               
   def quit(self):
       self.root.destroy()
