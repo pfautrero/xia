@@ -30,9 +30,13 @@ class IADialog(Tkinter.Frame):
 
     self.filename = ""
     self.localdir = localdir
-    
+
     self.root = root
-    
+
+    root.tk.call('namespace', 'import', '::tk::dialog::file::')
+    root.call('set', '::tk::dialog::file::showHiddenVar',  '0')
+    root.call('set', '::tk::dialog::file::showHiddenBtn',  '1')
+
     # define images
 
     import_img= Tkinter.PhotoImage(file=self.localdir + "/images/import.gif")
