@@ -33,6 +33,7 @@ class IADialog(Tkinter.Frame):
 
     self.root = root
 
+    # Don't show hidden files and directories (with tkinter, by default, it's the opposite).
     root.tk.call('namespace', 'import', '::tk::dialog::file::')
     root.call('set', '::tk::dialog::file::showHiddenVar',  '0')
     root.call('set', '::tk::dialog::file::showHiddenBtn',  '1')
