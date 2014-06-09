@@ -46,7 +46,7 @@ class PageFormatter:
         return s
 
     def _url_repl(self, word):
-        return u'<a href ="%s" target="_blank">%s</a>\n' % (word, word)
+        return u'<a href="%s" target="_blank">%s</a>\n' % (word, word)
 
     def _video_repl(self, word):
         return u'<video controls preload="none">\n\t<source type="video/mp4" src="%s.mp4" />\n\t<source type="video/ogg" src="%s.ogv" />\n\t<source type="video/webm" src="%s.webm" />\n</video>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0], os.path.splitext(word)[0])
@@ -67,7 +67,7 @@ class PageFormatter:
         return u'<audio controls>\n\t<source type="audio/ogg" src="%s.ogg" />\n\t<source type="audio/mp3" src="%s.mp3" />\n</audio>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0])
 
     def _email_repl(self, word):
-        return u'<a href ="mailto:%s">%s</a>\n' % (word, word)
+        return u'<a href="mailto:%s">%s</a>\n' % (word, word)
 
     def _ent_repl(self, s):
         return {'&': '&amp;',
