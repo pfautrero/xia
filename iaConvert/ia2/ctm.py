@@ -165,12 +165,12 @@ class CurrentTransformation:
         x =float(node['x'])
         y =float(node['y'])
         
-        try:
-            rx=float(node['rx'])
-            ry=float(node['ry'])
-        except:
-            rx=0
-            ry=0
+#        try:
+#            rx=float(node['rx'])
+#            ry=float(node['ry'])
+#        except:
+#            rx=0
+#            ry=0
         w =float(node['width'])
         h =float(node['height'])
         d ='M %f,%f '%(x,y)
