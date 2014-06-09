@@ -72,14 +72,14 @@ class CurrentTransformation:
         regex_rotate = r'rotate\(\s*' + regex_group * 3 + r'\)'
         matchObj = re.match( regex_rotate, entry)
         if matchObj:
-            self.extractRotation(matchObj.groups())
+            self.extractRotate(matchObj.groups())
             return        
 
         # look for something with such a form : "rotate(a)"
         regex_rotate = r'rotate\(\s*' + regex_group * 1 + r'\)'
         matchObj = re.match( regex_rotate, entry)
         if matchObj:
-            self.extractRotation(matchObj.groups())
+            self.extractRotate(matchObj.groups())
             return        
 
         # look for something with such a form : "scale(a b)"
@@ -99,16 +99,17 @@ class CurrentTransformation:
     def extractTranslate(self,groups):
         """extract a and b from translate(a b) pattern"""
         self.translateX = groups[0]
-        self.translateY = 0
-        if len(groups) == 2:
+        self.translateY = groups[0]
+        if len(groups) == 2 and groups[1]:
             self.translateY = groups[1]
         self.matrix = [[1.0, 0.0, float(self.translateX)], [0.0, 1.0, float(self.translateY)]]
+        print self.matrix
 
     def extractScale(self,groups):
         """extract a and b from scale(a b) pattern"""
         self.scaleX = groups[0]
-        
-        if len(groups) == 2:
+        self.scaleY = groups[0]        
+        if len(groups) == 2 and groups[1]:
             self.scaleY = groups[1]
         self.matrix = [[float(self.scaleX), 0.0, 0.0], [0.0, float(self.scaleY), 0.0]]
         
@@ -120,9 +121,13 @@ class CurrentTransformation:
             0       0        1
         """
         self.rotate = groups[0]
+        self.rX = "0"
+        self.rY = "0"
         if len(groups) == 3:
-            self.rX = groups[1]
-            self.rY = groups[2]
+            if groups[1]:
+            	self.rX = groups[1]
+            if groups[2]:
+            	self.rY = groups[2]
             
         alpha = float(self.rotate)
         cx = float(self.rX)
