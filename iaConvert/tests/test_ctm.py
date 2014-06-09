@@ -63,18 +63,18 @@ class TestCurrentTransformation:
 		assert_equal(ctm.rX, "20")
 		assert_equal(ctm.rY, "-30")		
 		assert_equal(ctm.matrix, 
-				[ 
-					[
-            		math.cos(10), 
-                  -math.sin(10), 
-                  -20 * math.cos(10) - 30 * math.sin(10) + 20
-               ], 
-               [
-               	math.sin(10), 
-                  math.cos(10), 
-                  -20 * math.sin(10) + 30 * math.cos(10) - 30
-               ]
-            ])
+                    [ 
+                        [
+                            math.cos(10), 
+                            -math.sin(10), 
+                            -20 * math.cos(10) - 30 * math.sin(10) + 20
+                        ], 
+                        [
+                            math.sin(10), 
+                            math.cos(10), 
+                            -20 * math.sin(10) + 30 * math.cos(10) - 30
+                        ]
+                    ])
 
 
 		ctm.analyze("rotate(10)")
@@ -82,15 +82,28 @@ class TestCurrentTransformation:
 		assert_equal(ctm.rX, "0")
 		assert_equal(ctm.rY, "0")		
 		assert_equal(ctm.matrix, 
-				[ 
-					[
-            		math.cos(10), 
-                  -math.sin(10), 
-                  0
-               ], 
-               [
-               	math.sin(10), 
-                  math.cos(10), 
-                  0
-               ]
-            ])
+                    [ 
+                        [
+                            math.cos(10), 
+                            -math.sin(10), 
+                            0
+                        ], 
+                        [
+                            math.sin(10), 
+                            math.cos(10), 
+                            0
+                        ]
+                    ])
+
+	def test_analyze_matrix(self):
+		ctm = CurrentTransformation();
+		ctm.analyze("matrix(1 2 3 4 5 6)")
+		assert_equal(ctm.translateX, "5")
+		assert_equal(ctm.translateY, "6")
+                assert_equal(ctm.scaleX, math.sqrt(float(1)**2+float(3)**2))
+                assert_equal(ctm.scaleY, math.sqrt(float(2)**2+float(4)**2))
+                assert_equal(ctm.rotate, math.atan2(float(2),float(4)))                
+                # @TODO assert_equal(ctm.rX, ??)
+		# @TODO assert_equal(ctm.rY, ??)		
+		assert_equal(ctm.matrix, [[1.0,3.0,5.0],[2.0,4.0,6.0]])
+

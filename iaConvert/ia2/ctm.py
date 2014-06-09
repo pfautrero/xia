@@ -54,6 +54,13 @@ class CurrentTransformation:
             self.extractMatrix(matchObj.groups())
             return
 
+        # look for something with such a form : "translate(a)"
+        regex_translate = r'translate\(\s*' + regex_group * 1 + r'\)'
+        matchObj = re.match( regex_translate, entry)
+        if matchObj:
+            self.extractTranslate(matchObj.groups())
+            return
+
         # look for something with such a form : "translate(a b)"
         regex_translate = r'translate\(\s*' + regex_group * 2 + r'\)'
         matchObj = re.match( regex_translate, entry)
@@ -61,13 +68,13 @@ class CurrentTransformation:
             self.extractTranslate(matchObj.groups())
             return
 
-        # look for something with such a form : "translate(a)"
-        regex_translate = r'translate\(\s*' + regex_group * 1 + r'\)'
-        matchObj = re.match( regex_translate, entry)
+        # look for something with such a form : "rotate(a)"
+        regex_rotate = r'rotate\(\s*' + regex_group * 1 + r'\)'
+        matchObj = re.match( regex_rotate, entry)
         if matchObj:
-            self.extractTranslate(matchObj.groups())
-            return
-        
+            self.extractRotate(matchObj.groups())
+            return        
+       
         # look for something with such a form : "rotate(a b c)"
         regex_rotate = r'rotate\(\s*' + regex_group * 3 + r'\)'
         matchObj = re.match( regex_rotate, entry)
@@ -75,11 +82,11 @@ class CurrentTransformation:
             self.extractRotate(matchObj.groups())
             return        
 
-        # look for something with such a form : "rotate(a)"
-        regex_rotate = r'rotate\(\s*' + regex_group * 1 + r'\)'
-        matchObj = re.match( regex_rotate, entry)
+        # look for something with such a form : "scale(a)"
+        regex_scale = r'scale\(\s*' + regex_group * 1 + r'\)'
+        matchObj = re.match( regex_scale, entry)
         if matchObj:
-            self.extractRotate(matchObj.groups())
+            self.extractScale(matchObj.groups())
             return        
 
         # look for something with such a form : "scale(a b)"
@@ -89,12 +96,6 @@ class CurrentTransformation:
             self.extractScale(matchObj.groups())
             return        
 
-        # look for something with such a form : "scale(a)"
-        regex_scale = r'scale\(\s*' + regex_group * 1 + r'\)'
-        matchObj = re.match( regex_scale, entry)
-        if matchObj:
-            self.extractScale(matchObj.groups())
-            return        
         
     def extractTranslate(self,groups):
         """extract a and b from translate(a b) pattern"""
@@ -172,15 +173,6 @@ class CurrentTransformation:
             ry=0
         w =float(node['width'])
         h =float(node['height'])
-        #d ='M %f,%f '%(x+rx,y)
-        #d+='L %f,%f '%(x+w-rx,y)
-        #d+='A %f,%f,%i,%i,%i,%f,%f '%(rx,ry,0,0,1,x+w,y+ry)
-        #d+='L %f,%f '%(x+w,y+h-ry)
-        #d+='A %f,%f,%i,%i,%i,%f,%f '%(rx,ry,0,0,1,x+w-rx,y+h)
-        #d+='L %f,%f '%(x+rx,y+h)
-        #d+='A %f,%f,%i,%i,%i,%f,%f '%(rx,ry,0,0,1,x,y+h-ry)
-        #d+='L %f,%f '%(x,y+ry)
-        #d+='A %f,%f,%i,%i,%i,%f,%f '%(rx,ry,0,0,1,x+rx,y)
         d ='M %f,%f '%(x,y)
         d+='L %f,%f '%(x+w,y)
         d+='L %f,%f '%(x+w,y+h)
