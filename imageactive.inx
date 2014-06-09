@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension" -->
 <inkscape-extension>
-  <_name>Image Active</_name>
+  <_name>Images Actives</_name>
   <id>http://www.tice.ac-versailles.fr/logicielslibres/</id>
   <dependency type="executable" location="extensions">imageactive.py</dependency>
   <effect>
