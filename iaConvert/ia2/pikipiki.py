@@ -123,9 +123,10 @@ class PageFormatter:
     def replace(self, match):
         for type, hit in match.groupdict().items():
             if hit:
-                return getattr(self, '_' + type + '_repl')(hit,)
-        else:
-            raise "Can't handle match " + `match`
+                if hasattr(self, '_' + type + '_repl'):
+                    return getattr(self, '_' + type + '_repl')(hit,)
+                else:
+                    return "Can't handle match %s" % type
 
     def print_html(self):
         # For each line, we scan through looking for magic
@@ -144,6 +145,7 @@ class PageFormatter:
             + r"|(?P<url>(http|ftp|nntp|news|mailto)\:[^\s'\"]+\S)"
             + r"|(?P<email>[-\w._+]+\@[\w.-]+)"
             + r"|(?P<li>^\s+\*(.*))"
+            + r"|(?P<nothandled>nothandled)"
             + r"|(?P<pre>(\{\{\{|\}\}\}))"
             + r")")
         blank_re = re.compile("^\s*$")

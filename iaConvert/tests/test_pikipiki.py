@@ -76,33 +76,38 @@ class TestPageFormatter:
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)         
 
-        #raw = '&lt;iframe src="test.html"&gt;&lt;/iframe&gt;';
-        #expected_output = '<iframe src="test.html" width="100%"></iframe>\n';
-        #output = PageFormatter(raw).print_html()
-        #assert_equal(expected_output, output)         
-
-        raw = "http://test.com";
-        expected_output = '<a href="http://test.com" target="_blank">http://test.com</a>\n';
+        raw = '&lt;iframe src=&quot;http://example.com&quot;&gt;&lt;/iframe&gt;';
+        expected_output = '<iframe src="http://example.com" width="100%"></iframe>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)         
 
-        raw = "ftp://test.com";
-        expected_output = '<a href="ftp://test.com" target="_blank">ftp://test.com</a>\n';
+        raw = '&lt;iframe src=&quot;//example.com&quot;&gt;&lt;/iframe&gt;';
+        expected_output = '<iframe src="http://example.com" width="100%"></iframe>\n';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output) 
+
+        raw = "http://example.com";
+        expected_output = '<a href="http://example.com" target="_blank">http://example.com</a>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)         
 
-        raw = "nntp://test.com";
-        expected_output = '<a href="nntp://test.com" target="_blank">nntp://test.com</a>\n';
+        raw = "ftp://example.com";
+        expected_output = '<a href="ftp://example.com" target="_blank">ftp://example.com</a>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)         
 
-        raw = "news://test.com";
-        expected_output = '<a href="news://test.com" target="_blank">news://test.com</a>\n';
+        raw = "nntp://example.com";
+        expected_output = '<a href="nntp://example.com" target="_blank">nntp://example.com</a>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)         
 
-        raw = "mailto://test.com";
-        expected_output = '<a href="mailto://test.com" target="_blank">mailto://test.com</a>\n';
+        raw = "news://example.com";
+        expected_output = '<a href="news://example.com" target="_blank">news://example.com</a>\n';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)         
+
+        raw = "mailto://example.com";
+        expected_output = '<a href="mailto://example.com" target="_blank">mailto://example.com</a>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)         
         
@@ -110,6 +115,58 @@ class TestPageFormatter:
         expected_output = '<ul>\n<li> line 1</li>\n<li> line2</li>\n</ul>';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
+       
+        raw = "   * line 1\n  * line2";
+        expected_output = '<ul>\n<li> line 1</li>\n</ul>\n<ul>\n<li> line2</li>\n</ul>';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
         
+        raw = "video.mp4";
+        expected_output = '<video controls preload="none">\n\t<source type="video/mp4" src="video.mp4" />\n\t<source type="video/ogg" src="video.ogv" />\n\t<source type="video/webm" src="video.webm" />\n</video>\n';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
 
+        raw = "video.ogv";
+        expected_output = '<video controls preload="none">\n\t<source type="video/mp4" src="video.mp4" />\n\t<source type="video/ogg" src="video.ogv" />\n\t<source type="video/webm" src="video.webm" />\n</video>\n';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
 
+        raw = "video.webm";
+        expected_output = '<video controls preload="none">\n\t<source type="video/mp4" src="video.mp4" />\n\t<source type="video/ogg" src="video.ogv" />\n\t<source type="video/webm" src="video.webm" />\n</video>\n';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
+
+        raw = "audio.mp3";
+        expected_output = '<audio controls>\n\t<source type="audio/ogg" src="audio.ogg" />\n\t<source type="audio/mp3" src="audio.mp3" />\n</audio>\n';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
+
+        raw = "audio.ogg";
+        expected_output = '<audio controls>\n\t<source type="audio/ogg" src="audio.ogg" />\n\t<source type="audio/mp3" src="audio.mp3" />\n</audio>\n';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
+
+        raw = "[http://example.com A small test]";
+        expected_output = '<a href="http://example.com" target="_blank">A small test</a>';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
+
+        raw = "[http://example.com]";
+        expected_output = '<a href="http://example.com" target="_blank">http://example.com</a>';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
+
+        raw = " ";
+        expected_output = '<br>\n';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
+
+        raw = "}}}";
+        expected_output = '';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
+
+        raw = "nothandled";
+        expected_output = "Can't handle match nothandled";
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
