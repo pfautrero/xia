@@ -104,7 +104,6 @@ class CurrentTransformation:
         if len(groups) == 2 and groups[1]:
             self.translateY = groups[1]
         self.matrix = [[1.0, 0.0, float(self.translateX)], [0.0, 1.0, float(self.translateY)]]
-        print self.matrix
 
     def extractScale(self,groups):
         """extract a and b from scale(a b) pattern"""

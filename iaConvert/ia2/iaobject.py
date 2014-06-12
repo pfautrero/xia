@@ -38,15 +38,16 @@ class iaObject:
         self.raster = ""
 
     def get_tag_value(self,node):
-        """retrieves value of given XML node - used here for desc and title"""
-        xml_str = node.toxml()
-        start = xml_str.find('>')
-        if start == -1:
-            return ''
-        end = xml_str.rfind('<')
-        if end < start:
-            return ''
-        return xml_str[start + 1:end]
+        #"""retrieves value of given XML node - used here for desc and title"""
+        #xml_str = node.toxml()
+        #start = xml_str.find('>')
+        #if start == -1:
+        #    return ''
+        #end = xml_str.rfind('<')
+        #if end < start:
+        #    return ''
+        #return xml_str[start + 1:end]
+        return node.childNodes[0].nodeValue
 
     def analyzeSVG(self,filePath):
         """analyze svg file and fill self.details and self.scene"""
@@ -598,8 +599,8 @@ class iaObject:
                         for entry2 in element:
                             if entry2 == "path":
                                 final_str += u'  "' + entry2 + u'":' + element[entry2] + u',\n'                                
-                            elif entry2 == "detail":
-                                final_str += u'      "' + entry2 + u'":"' + PageFormatter(element[entry2]).print_html().replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + u'",\n'
+                            #elif entry2 == "detail":
+                            #    final_str += u'      "' + entry2 + u'":"' + PageFormatter(element[entry2]).print_html().replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + u'",\n'
                             else:
                                 final_str += u'      "' + entry2 + u'":"' + element[entry2] + u'",\n'                            
                         final_str += u'  },\n'
