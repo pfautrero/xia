@@ -147,6 +147,7 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
     rasterObj.src = detail.image;                
     that.backgroundImage[i] = rasterObj;
     that.kineticElement[i] = new Kinetic.Image({
+        name: detail.title,
         x: parseFloat(detail.x) * iaScene.coeff,
         y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
         width: detail.width,
@@ -236,6 +237,7 @@ iaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     //that.backgroundImage[i] = imageObj;
 
     that.kineticElement[i] = new Kinetic.Path({
+        name: detail.title,
         data: detail.path,
         x: parseFloat(detail.x) * iaScene.coeff,
         y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,

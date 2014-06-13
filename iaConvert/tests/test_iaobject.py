@@ -22,7 +22,7 @@ import tempfile
 
 class TestiaObject:
     def test_analyzeSVG(self):
-        ia = iaObject();
+        ia = iaObject()
         ia.analyzeSVG("tests/fixtures/inkscape1.svg")
         assert_equal(ia.scene['width'],'500')
         assert_equal(ia.scene['height'],'500')
@@ -31,7 +31,7 @@ class TestiaObject:
         assert_equal(ia.scene['description'],'description')
         assert_equal(ia.scene['title'],'fixture 1')
         
-        ia = iaObject();
+        ia = iaObject()
         ia.analyzeSVG("tests/fixtures/generic1.svg")
         assert_equal(ia.scene['width'],'10')
         assert_equal(ia.scene['height'],'10')
@@ -40,13 +40,13 @@ class TestiaObject:
         
         
         # check get_tag_value output
-        ia = iaObject();        
+        ia = iaObject()        
         dom1 = minidom.parseString("<?xml version='1.0' ?><desc>description</desc>")
         desc = dom1.getElementsByTagName('desc')
         assert_equal("description",ia.get_tag_value(desc[0]))
 
         # check root path
-        ia = iaObject();
+        ia = iaObject()
         dom1 = minidom.parseString("<?xml version='1.0' ?><path d='M 0,0 L 10,0 L 10,10 L 0,10 L 0,0 z' />")
         path = dom1.getElementsByTagName('path')
         ia.analyzeRootPaths(path[0])
@@ -58,7 +58,7 @@ class TestiaObject:
         assert_equal(ia.details[0]['x'],'0')
         assert_equal(ia.details[0]['y'],'0')
 
-        ia = iaObject();
+        ia = iaObject()
         dom1 = minidom.parseString("<?xml version='1.0' ?><path transform='translate(10)' x='10' y='30' d='M 0,0 L 10,0 L 10,10 L 0,10 L 0,0 z' />")
         path = dom1.getElementsByTagName('path')
         ia.analyzeRootPaths(path[0])
@@ -71,7 +71,7 @@ class TestiaObject:
         assert_equal(ia.details[0]['y'],'30')
 
         # check path included in a group
-        ia = iaObject();
+        ia = iaObject()
         dom1 = minidom.parseString("<?xml version='1.0' ?><g><path transform='translate(10)' x='10' y='30' d='M 0,0 L 10,0 L 10,10 L 0,10 L 0,0 z' /></g>")
         group = dom1.getElementsByTagName('g')
         ia.analyzeGroup(group[0])
@@ -84,7 +84,7 @@ class TestiaObject:
         assert_equal(ia.details[0]["group"][0]['y'],'30')
         
         # check image included in a group
-        ia = iaObject();
+        ia = iaObject()
         dom1 = minidom.parseString('<?xml version="1.0" ?><svg xmlns:xlink="http://www.w3.org/1999/xlink"><g><image xlink:href="file:///path/to/image.png" width="50" height="50"></image></g></svg>')
         group = dom1.getElementsByTagName('g')
         ia.backgroundNode = 0
@@ -95,7 +95,7 @@ class TestiaObject:
         assert_equal(ia.details[0]["group"][0]['height'],'50')                
 
         # check rect included in a group
-        ia = iaObject();
+        ia = iaObject()
         dom1 = minidom.parseString('<?xml version="1.0" ?><svg><g><rect width="50" height="50"></rect></g></svg>')
         group = dom1.getElementsByTagName('g')
         ia.analyzeGroup(group[0])
@@ -106,7 +106,7 @@ class TestiaObject:
 
 
         # check groups included in a group
-        ia = iaObject();
+        ia = iaObject()
         dom1 = minidom.parseString('<?xml version="1.0" ?><svg><g><rect width="50" height="50"></rect><g><desc>description</desc><title>title</title></g></g></svg>')
         group = dom1.getElementsByTagName('g')
         ia.analyzeGroup(group[0])
@@ -115,7 +115,7 @@ class TestiaObject:
                
 
         temp = tempfile.NamedTemporaryFile()
-        ia = iaObject();
+        ia = iaObject()
         ia.analyzeSVG("tests/fixtures/generic1.svg")
         ia.generateJSON(temp.name)
         temp_content = temp.read()
