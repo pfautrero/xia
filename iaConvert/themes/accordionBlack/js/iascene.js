@@ -66,9 +66,6 @@ function iaScene(originalWidth, originalHeight) {
 iaScene.prototype.scaleScene = function(mainScene){
     var viewportWidth = $(window).width();
     var viewportHeight = $(window).height();
-    var new_height = scene.height * mainScene.coeff + $('#canvas').offset().top - $('#container').offset().top;
-    $('#container').css({"height": new_height + 'px'});
-    $('#canvas').css({"height": mainScene.originalHeight * mainScene.coeff + 'px'});
     
     var resize = false;
     if ((this.fullScreen == "on") || (viewportWidth < 1000)) {
@@ -79,6 +76,11 @@ iaScene.prototype.scaleScene = function(mainScene){
         mainScene.coeff = (mainScene.width * mainScene.ratio) / parseFloat(mainScene.originalWidth);
         $('#container').css({"width": viewportWidth - mainScene.y});
     }
+    var new_height = scene.height * mainScene.coeff + $('#canvas').offset().top - $('#container').offset().top;
+    $('#container').css({"height": new_height + 'px'});
+
+    $('#canvas').css({"height": mainScene.originalHeight * mainScene.coeff + 'px'});    
+    $('#canvas').css({"width": (mainScene.coeff * mainScene.originalWidth ) + 'px'});     
     //if (viewportHeight < 755) {
         //mainScene.height = viewportHeight - mainScene.y;
         //$('#detect').css({"height": viewportHeight - mainScene.y});
