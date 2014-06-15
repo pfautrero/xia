@@ -161,22 +161,34 @@ class CurrentTransformation:
         
     def rectToPath(self,node):
         """inspired from inkscape pathmodifier.py"""
-        x =float(node['x'])
-        y =float(node['y'])
-        w =float(node['width'])
-        h =float(node['height'])        
-#        try:
-#            rx=float(node['rx'])
-#            ry=float(node['ry'])
-#        except:
-#            rx=0
-#            ry=0
+        x = float(node['x'])
+        y = float(node['y'])
+        w = float(node['width'])
+        h = float(node['height'])        
+        rx = 0
+        ry = 0
+        if 'rx' in node:
+            rx = float(node['rx'])
+        if 'ry' in node:
+            ry = float(node['ry'])
 
-        d ='M %f,%f '%(x,y)
-        d+='L %f,%f '%(x+w,y)
-        d+='L %f,%f '%(x+w,y+h)
-        d+='L %f,%f '%(x,y+h)
-        d+='L %f,%f '%(x,y)
+        if rx==0 and ry ==0:
+            d ='M %f,%f '%(x,y)
+            d+='L %f,%f '%(x+w,y)
+            d+='L %f,%f '%(x+w,y+h)
+            d+='L %f,%f '%(x,y+h)
+            d+='L %f,%f '%(x,y)
+        else:
+            d ='M %f,%f '%(x+rx,y)
+            d+='L %f,%f '%(x+w-rx,y)
+            d+='A %f,%f 0 0 1 %f,%f'%(rx,ry,x+w,y+ry)
+            d+='L %f,%f '%(x+w,y+h-ry)
+            d+='A %f,%f 0 0 1 %f,%f'%(rx,ry,x+w-rx,y+h)
+            d+='L %f,%f '%(x+rx,y+h)
+            d+='A %f,%f 0 0 1 %f,%f'%(rx,ry,x,y+h-ry)
+            d+='L %f,%f '%(x,y+ry)
+            d+='A %f,%f 0 0 1 %f,%f'%(rx,ry,x+rx,y)
+            
         return d
      
     def applyTransformToPoint(self,mat,pt):

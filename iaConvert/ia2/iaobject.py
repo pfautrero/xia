@@ -38,7 +38,10 @@ class iaObject:
         self.raster = ""
 
     def get_tag_value(self,node):
-        return node.childNodes[0].nodeValue
+        if node.childNodes:
+            return node.childNodes[0].nodeValue
+        else:
+            return ""
 
     def analyzeSVG(self,filePath):
         """analyze svg file and fill self.details and self.scene"""
@@ -131,14 +134,14 @@ class iaObject:
             record_image['height'] = image.attributes['height'].value
             record_image['detail'] = self.getText("desc", image)
             record_image['title'] = self.getText("title", image)
+            record_image['x'] = str(0)
+            record_image['y'] = str(0)                        
 
-            if image.hasAttribute("x") and image.hasAttribute("y"):
+            if image.hasAttribute("x"):
                 record_image['x'] = image.attributes['x'].value
+            if image.hasAttribute("y"):
                 record_image['y'] = image.attributes['y'].value
-            else:
-                record_image['x'] = str(0)
-                record_image['y'] = str(0)                        
-
+            
             if image.hasAttribute("style"):                            
                 str_style = image.attributes['style'].value
                 style = {}
@@ -243,7 +246,6 @@ class iaObject:
         record_rect["maxX"] = str(maxX)
         record_rect["maxY"] = str(maxY)
 
-
         record_rect['path'] = '"' + record_rect['path'] + ' z"'
         return record_rect
 
@@ -257,7 +259,8 @@ class iaObject:
         record["style"] = ""
         record['detail'] = self.getText("desc", path)
         record['title'] = self.getText("title", path)
-
+        record['x'] = str(0)
+        record['y'] = str(0)
         if path.hasAttribute("style") and (path.attributes['style'].value != ""):
             str_style = path.attributes['style'].value
             style = {}
@@ -266,12 +269,10 @@ class iaObject:
                 style[key] = value
             record["fill"] = style['fill']
 
-        if path.hasAttribute("x") and path.hasAttribute("y"):
+        if path.hasAttribute("x"):
             record['x'] = path.attributes['x'].value
+        if path.hasAttribute("y"):            
             record['y'] = path.attributes['y'].value
-        else:
-            record['x'] = str(0)
-            record['y'] = str(0)                        
 
         # ObjectToPath
         p = cubicsuperpath.parsePath(record['path'])

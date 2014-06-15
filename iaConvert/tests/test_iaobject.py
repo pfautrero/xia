@@ -38,12 +38,16 @@ class TestiaObject:
         assert_equal(ia.details[0]['width'],'152')
         assert_equal(ia.details[0]['height'],'161')
         
-        
         # check get_tag_value output
         ia = iaObject()        
         dom1 = minidom.parseString("<?xml version='1.0' ?><desc>description</desc>")
         desc = dom1.getElementsByTagName('desc')
         assert_equal("description",ia.get_tag_value(desc[0]))
+
+        ia = iaObject()        
+        dom1 = minidom.parseString("<?xml version='1.0' ?><desc></desc>")
+        desc = dom1.getElementsByTagName('desc')
+        assert_equal("",ia.get_tag_value(desc[0]))
 
         # check root path
         ia = iaObject()
@@ -104,7 +108,6 @@ class TestiaObject:
         assert_equal(newrecord["group"][0]['width'],'50')
         assert_equal(newrecord["group"][0]['height'],'50')                
 
-
         # check groups included in a group
         ia = iaObject()
         dom1 = minidom.parseString('<?xml version="1.0" ?><svg><g><rect width="50" height="50"></rect><g><desc>description</desc><title>title</title></g></g></svg>')
@@ -112,7 +115,6 @@ class TestiaObject:
         newrecord = ia.extract_g(group[0])
         assert_equal(newrecord['detail'],'description')
         assert_equal(newrecord['title'],'title')
-               
 
         temp = tempfile.NamedTemporaryFile()
         ia = iaObject()
