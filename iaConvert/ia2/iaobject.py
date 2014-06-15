@@ -120,11 +120,11 @@ class iaObject:
             for childnode in mainSVG[0].childNodes:
                 if childnode.parentNode.nodeName == "svg":
                     if childnode.nodeName in svgElements:
-                        newrecord = getattr(self, 'extract_' + childnode.nodeName)(childnode)
+                        newrecord = getattr(self, 'extract_' + childnode.nodeName)(childnode, 0)
                         if newrecord is not None:
                             self.details.append(newrecord)
 
-    def extract_image(self, image):
+    def extract_image(self, image, ctm_group):
         """Analyze images not included in a specific group"""
         
         if not image.isSameNode(self.backgroundNode):
@@ -177,7 +177,7 @@ class iaObject:
 
             return record_image
 
-    def extract_rect(self, rect):
+    def extract_rect(self, rect, ctm_group):
         """Analyze images not included in a specific group"""
         
         record_rect = {}
@@ -223,6 +223,13 @@ class iaObject:
             ctm.applyTransformToPath(ctm.matrix,p)
             record_rect['path'] = cubicsuperpath.formatPath(p)
 
+
+        # apply group transformation on current object
+        if ctm_group:
+            ctm_group.applyTransformToPath(ctm_group.matrix,p)
+            record_rect['path'] = cubicsuperpath.formatPath(p)
+
+
         minX = 10000
         minY = 10000
         maxX = -10000
@@ -249,7 +256,7 @@ class iaObject:
         record_rect['path'] = '"' + record_rect['path'] + ' z"'
         return record_rect
 
-    def extract_path(self,path):
+    def extract_path(self,path, ctm_group):
         """Analyze paths not included in a specific group"""
         
         record = {}
@@ -285,6 +292,12 @@ class iaObject:
 
             ctm.applyTransformToPath(ctm.matrix,p)
             record['path'] = cubicsuperpath.formatPath(p)
+
+        # apply group transformation on current object
+        if ctm_group:
+            ctm_group.applyTransformToPath(ctm_group.matrix,p)
+            record['path'] = cubicsuperpath.formatPath(p)
+
 
         if record["path"].lower().find("z") == -1:
             record["path"] += " z"
@@ -323,7 +336,7 @@ class iaObject:
                 return self.get_tag_value(text.item(0))
         return ""
 
-    def extract_g(self,group):
+    def extract_g(self,group, ctm_group):
         """Analyze a svg group"""
 
         record = {}
@@ -345,7 +358,7 @@ class iaObject:
         svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'image']
         for childnode in group.childNodes:
             if childnode.nodeName in svgElements:
-                newrecord = getattr(self, 'extract_' + childnode.nodeName)(childnode)
+                newrecord = getattr(self, 'extract_' + childnode.nodeName)(childnode, ctm_group)
                 if newrecord is not None:
                     record["group"].append(newrecord)
 
