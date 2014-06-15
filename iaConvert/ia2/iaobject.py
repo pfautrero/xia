@@ -38,15 +38,6 @@ class iaObject:
         self.raster = ""
 
     def get_tag_value(self,node):
-        #"""retrieves value of given XML node - used here for desc and title"""
-        #xml_str = node.toxml()
-        #start = xml_str.find('>')
-        #if start == -1:
-        #    return ''
-        #end = xml_str.rfind('<')
-        #if end < start:
-        #    return ''
-        #return xml_str[start + 1:end]
         return node.childNodes[0].nodeValue
 
     def analyzeSVG(self,filePath):
@@ -86,7 +77,7 @@ class iaObject:
         # ==================== Look for images
 
         images = self.xml.getElementsByTagName('image')
-        if images.length is not 0:
+        if images:
             for image in images:
                     
                 # first image is considered as background image
@@ -105,7 +96,7 @@ class iaObject:
                         self.scene['intro_title'] = self.get_tag_value(title.item(0))
 
                 self.raster = image.attributes['xlink:href'].value
-                if image.attributes['xlink:href'].value.find(u"file://") != -1:
+                if image.attributes['xlink:href'].value.startswith("file://"):
                     # Embed background image thanks to data URI Scheme
                     fileNameImage, fileExtensionImage = os.path.splitext(image.attributes['xlink:href'].value[7:])
                     imgMimeTypes = {}
@@ -120,19 +111,17 @@ class iaObject:
                 self.scene['image'] = self.raster
                 break
                 
-        mainSVG = self.xml.getElementsByTagName('svg')[0].childNodes
-        for childnode in mainSVG:
-            if childnode.parentNode.nodeName == "svg":
-                if childnode.nodeName == "path":
-                    self.analyzeRootPaths(childnode)
-                if childnode.nodeName == "image":
-                    self.analyzeRootImages(childnode)
-                if childnode.nodeName == "rect":
-                    self.analyzeRootRects(childnode)
-                if childnode.nodeName == "g":
-                    self.analyzeGroup(childnode)
+        svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'image', 'g']
+        mainSVG = self.xml.getElementsByTagName('svg')
+        if mainSVG[0]:
+            for childnode in mainSVG[0].childNodes:
+                if childnode.parentNode.nodeName == "svg":
+                    if childnode.nodeName in svgElements:
+                        newrecord = getattr(self, 'extract_' + childnode.nodeName)(childnode)
+                        if newrecord is not None:
+                            self.details.append(newrecord)
 
-    def analyzeRootImages(self, image):
+    def extract_image(self, image):
         """Analyze images not included in a specific group"""
         
         if not image.isSameNode(self.backgroundNode):
@@ -165,9 +154,27 @@ class iaObject:
                 record_image['x'] = ctm.translateX
                 record_image['y'] = ctm.translateY
 
-            self.details.append(record_image)               
+            minX = 10000
+            minY = 10000
+            maxX = -10000
+            maxY = -10000
+            if float(record_image['x']) < float(minX):
+                minX = float(record_image['x'])
+            if (float(record_image['x']) + float(record_image['width'])) > float(maxX):
+                maxX = float(record_image['x']) + float(record_image['width'])
+            if float(record_image['y']) < float(minY):
+                minY = float(record_image['y'])
+            if (float(record_image['y']) + float(record_image['height'])) > float(maxY):
+                maxY = float(record_image['y']) + float(record_image['height'])
 
-    def analyzeRootRects(self, rect):
+            record_image["minX"] = str(minX)
+            record_image["minY"] = str(minY)
+            record_image["maxX"] = str(maxX)
+            record_image["maxY"] = str(maxY) 
+
+            return record_image
+
+    def extract_rect(self, rect):
         """Analyze images not included in a specific group"""
         
         record_rect = {}
@@ -175,20 +182,19 @@ class iaObject:
         record_rect['height'] = rect.attributes['height'].value
         record_rect['detail'] = self.getText("desc", rect)
         record_rect['title'] = self.getText("title", rect)
+        record_rect['x'] = str(0)
+        record_rect['y'] = str(0)
+        record_rect['rx'] = str(0)
+        record_rect['ry'] = str(0)                     
 
-        if rect.hasAttribute("x") and rect.hasAttribute("y"):
+        if rect.hasAttribute("x"):
             record_rect['x'] = rect.attributes['x'].value
+        if rect.hasAttribute("y"):
             record_rect['y'] = rect.attributes['y'].value
-        else:
-            record_rect['x'] = str(0)
-            record_rect['y'] = str(0)                        
-
-        if rect.hasAttribute("rx") and rect.hasAttribute("ry"):
+        if rect.hasAttribute("rx"):
             record_rect['rx'] = rect.attributes['rx'].value
+        if rect.hasAttribute("ry"):
             record_rect['ry'] = rect.attributes['ry'].value
-        else:
-            record_rect['rx'] = str(0)
-            record_rect['ry'] = str(0)                     
 
         if rect.hasAttribute("style"):                            
             str_style = rect.attributes['style'].value
@@ -239,23 +245,18 @@ class iaObject:
 
 
         record_rect['path'] = '"' + record_rect['path'] + ' z"'
-        self.details.append(record_rect)  
+        return record_rect
 
-    def analyzeRootPaths(self,path):
+    def extract_path(self,path):
         """Analyze paths not included in a specific group"""
         
         record = {}
-        record["title"] = ""
-        record["detail"] = ""
         record["path"] = ""
         record["fill"] = ""
         record["path"] =  path.attributes['d'].value.replace("&#xd;&#xa;"," ").replace("&#x9;"," ").replace("\n"," ").replace("\t"," ").replace("\r"," ") 
         record["style"] = ""
-
-        if record["detail"] == "":
-            record['detail'] = self.getText("desc", path)
-        if record["title"] == "":
-            record['title'] = self.getText("title", path)
+        record['detail'] = self.getText("desc", path)
+        record['title'] = self.getText("title", path)
 
         if path.hasAttribute("style") and (path.attributes['style'].value != ""):
             str_style = path.attributes['style'].value
@@ -309,8 +310,8 @@ class iaObject:
         record["minY"] = str(minY)
         record["maxX"] = str(maxX)
         record["maxY"] = str(maxY)
-        if (record["path"] != ""):
-            self.details.append(record)
+        if record["path"]:
+            return record
 
     def getText(self, type, element):
         """ type can be 'desc' or 'title' """
@@ -321,7 +322,7 @@ class iaObject:
                 return self.get_tag_value(text.item(0))
         return ""
 
-    def analyzeGroup(self,group):
+    def extract_g(self,group):
         """Analyze a svg group"""
 
         record = {}
@@ -340,230 +341,21 @@ class iaObject:
             transformation = group.attributes['transform'].value
             ctm_group.analyze(transformation)
 
-        paths = group.getElementsByTagName('path')
-        if paths.length is not 0:
-            for path in paths:
-                record_path = {}
-                record_path['path'] = path.attributes['d'].value.replace("&#xd;&#xa;"," ").replace("&#x9;"," ").replace("\n"," ").replace("\t"," ").replace("\r"," ") 
-                if record["detail"] == "":
-                    record['detail'] = self.getText("desc", path)
-                if record["title"] == "":
-                    record['title'] = self.getText("title", path)
-                if path.hasAttribute("style") and (path.attributes['style'].value != ""):                            
-                    str_style = path.attributes['style'].value
-                    style = {}
-                    for item in str_style.split(";"):
-                        key,value = item.split(":")
-                        style[key] = value
-                    record_path['fill'] = style['fill']
-                if path.hasAttribute("x") and path.hasAttribute("y"):
-                    record_path['x'] = path.attributes['x'].value
-                    record_path['y'] = path.attributes['y'].value
-                else:
-                    record_path['x'] = str(0)
-                    record_path['y'] = str(0)                        
+        svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'image']
+        for childnode in group.childNodes:
+            if childnode.nodeName in svgElements:
+                newrecord = getattr(self, 'extract_' + childnode.nodeName)(childnode)
+                if newrecord is not None:
+                    record["group"].append(newrecord)
 
-                # ObjectToPath
-                p = cubicsuperpath.parsePath(record_path['path'])
-                record_path['path'] = cubicsuperpath.formatPath(p)
-
-                if path.hasAttribute("transform"):
-                    transformation = path.attributes['transform'].value
-                    ctm = CurrentTransformation()
-                    ctm.analyze(transformation)
-
-                    ctm.applyTransformToPath(ctm.matrix,p)
-
-                # apply group transformation on current object
-                ctm_group.applyTransformToPath(ctm_group.matrix,p)
-                record_path['path'] = cubicsuperpath.formatPath(p)
-
-                localminX = 10000
-                localminY = 10000
-                localmaxX = -10000
-                localmaxY = -10000
-                for cmd, params in cubicsuperpath.unCubicSuperPath(p):
-                    i = 0
-                    for p in params:
-                        if (i%2 == 0):
-                            if float(p) < float(minX):
-                                minX = float(p)
-                            if float(p) > float(maxX):
-                                maxX = float(p)
-                            if float(p) < float(localminX):
-                                localminX = float(p)
-                            if float(p) > float(localmaxX):
-                                localmaxX = float(p)
-
-                        else:
-                            if float(p) < float(minY):
-                                minY = float(p)
-                            if float(p) > float(maxY):
-                                maxY = float(p)
-                            if float(p) < float(localminY):
-                                localminY = float(p)
-                            if float(p) > float(localmaxY):
-                                localmaxY = float(p)
-
-                        i = i + 1
-                record_path["minX"] = str(localminX)
-                record_path["minY"] = str(localminY)
-                record_path["maxX"] = str(localmaxX)
-                record_path["maxY"] = str(localmaxY)
-
-                record["minX"] = str(minX)
-                record["minY"] = str(minY)
-                record["maxX"] = str(maxX)
-                record["maxY"] = str(maxY)                
-                
-                if record_path["path"].lower().find("z") == -1:
-                    record_path["path"] += " z"
-                record_path['path'] = '"' + record_path['path'] + '"'
-
-                record["group"].append(record_path)
-
-        images = group.getElementsByTagName('image')        
-        if images.length is not 0:
-            for image in images:
-                if not image.isSameNode(self.backgroundNode):
-                    record_image = {}
-                    record_image["image"] = image.attributes['xlink:href'].value
-                    record_image['width'] = image.attributes['width'].value
-                    record_image['height'] = image.attributes['height'].value                
-                    if record["detail"] == "":
-                        record['detail'] = self.getText("desc", image)
-                    if record["title"] == "":
-                        record['title'] = self.getText("title", image)
-
-                    if image.hasAttribute("x") and image.hasAttribute("y"):
-                        record_image['x'] = image.attributes['x'].value
-                        record_image['y'] = image.attributes['y'].value
-                    else:
-                        record_image['x'] = str(0)
-                        record_image['y'] = str(0)                        
-
-                    if image.hasAttribute("style"):                            
-                        str_style = image.attributes['style'].value
-                        style = {}
-                        for item in str_style.split(";"):
-                            key,value = item.split(":")
-                            style[key] = value
-                        record_image['fill'] = style['fill']
-                    
-                    if image.hasAttribute("transform"):
-                        transformation = image.attributes['transform'].value
-                        ctm = CurrentTransformation()
-                        ctm.analyze(transformation)
-
-                    if float(record_image['x']) < float(minX):
-                        minX = float(record_image['x'])
-                    if (float(record_image['x']) + float(record_image['width'])) > float(maxX):
-                        maxX = float(record_image['x']) + float(record_image['width'])
-                    if float(record_image['y']) < float(minY):
-                        minY = float(record_image['y'])
-                    if (float(record_image['y']) + float(record_image['height'])) > float(maxY):
-                        maxY = float(record_image['y']) + float(record_image['height'])
-
-                    record["minX"] = str(minX)
-                    record["minY"] = str(minY)
-                    record["maxX"] = str(maxX)
-                    record["maxY"] = str(maxY) 
-
-                    record["group"].append(record_image)        
-
-        rects = group.getElementsByTagName('rect')        
-        if rects.length is not 0:
-            for rect in rects:
-
-                record_rect = {}
-                record_rect['width'] = rect.attributes['width'].value
-                record_rect['height'] = rect.attributes['height'].value                
-                if record["detail"] == "":
-                    record['detail'] = self.getText("desc", rect)
-                if record["title"] == "":
-                    record['title'] = self.getText("title", rect)
-
-                if rect.hasAttribute("x") and rect.hasAttribute("y"):
-                    record_rect['x'] = rect.attributes['x'].value
-                    record_rect['y'] = rect.attributes['y'].value
-                else:
-                    record_rect['x'] = str(0)
-                    record_rect['y'] = str(0)                        
-
-                if rect.hasAttribute("rx") and rect.hasAttribute("ry"):
-                    record_rect['rx'] = rect.attributes['rx'].value
-                    record_rect['ry'] = rect.attributes['ry'].value
-                else:
-                    record_rect['rx'] = str(0)
-                    record_rect['ry'] = str(0)                     
-
-                if rect.hasAttribute("style"):                            
-                    str_style = rect.attributes['style'].value
-                    style = {}
-                    for item in str_style.split(";"):
-                        key,value = item.split(":")
-                        style[key] = value
-                    record_rect['fill'] = style['fill']
-
-                # ObjectToPath                    
-                ctm = CurrentTransformation()
-                record_rect['path'] = ctm.rectToPath(record_rect)
-
-                p = cubicsuperpath.parsePath(record_rect['path'])
-                record_rect['path'] = cubicsuperpath.formatPath(p)
-                record_rect['x'] = str(0)
-                record_rect['y'] = str(0)                        
-
-                if rect.hasAttribute("transform"):
-                    transformation = rect.attributes['transform'].value
-                    ctm.analyze(transformation)
-
-                    ctm.applyTransformToPath(ctm.matrix,p)
-
-                # apply group transformation on current object
-                ctm_group.applyTransformToPath(ctm_group.matrix,p)
-                record_rect['path'] = cubicsuperpath.formatPath(p)
-
-                localminX = 10000
-                localminY = 10000
-                localmaxX = -10000
-                localmaxY = -10000
-                for cmd, params in cubicsuperpath.unCubicSuperPath(p):
-                    i = 0
-                    for p in params:
-                        if (i%2 == 0):
-                            if float(p) < float(minX):
-                                minX = float(p)
-                            if float(p) > float(maxX):
-                                maxX = float(p)
-                            if float(p) < float(localminX):
-                                localminX = float(p)
-                            if float(p) > float(localmaxX):
-                                localmaxX = float(p)
-
-                        else:
-                            if float(p) < float(minY):
-                                minY = float(p)
-                            if float(p) > float(maxY):
-                                maxY = float(p)
-                            if float(p) < float(localminY):
-                                localminY = float(p)
-                            if float(p) > float(localmaxY):
-                                localmaxY = float(p)
-
-                        i = i + 1
-                record_rect["minX"] = str(localminX)
-                record_rect["minY"] = str(localminY)
-                record_rect["maxX"] = str(localmaxX)
-                record_rect["maxY"] = str(localmaxY)
-
-                record["minX"] = str(minX)
-                record["minY"] = str(minY)
-                record["maxX"] = str(maxX)
-                record["maxY"] = str(maxY)
-
-                record_rect['path'] = "'" + record_rect['path'] + " z'"
-                record["group"].append(record_rect)        
+                    if float(newrecord["minX"]) < minX:
+                        minX = float(newrecord["minX"])
+                    if float(newrecord["minY"]) < minY:
+                        minY = float(newrecord["minY"])
+                    if float(newrecord["maxX"]) > maxX:
+                        maxX = float(newrecord["maxX"])
+                    if float(newrecord["maxY"]) > maxY:
+                        maxY = float(newrecord["maxY"])
 
         # look for title and description in subgroups if not yet available
         if (record['title'] == "") and (record['detail'] == ""):
@@ -574,8 +366,13 @@ class iaObject:
                 if record["title"] == "":
                     record['title'] = self.getText("title", subgroup)
 
-        if len(record["group"]):
-            self.details.append(record)
+        record["minX"] = str(minX)
+        record["minY"] = str(minY)
+        record["maxX"] = str(maxX)
+        record["maxY"] = str(maxY)
+
+        if record["group"]:
+            return record
 
     def generateJSON(self,filePath):
         """ generate json file"""
@@ -599,8 +396,6 @@ class iaObject:
                         for entry2 in element:
                             if entry2 == "path":
                                 final_str += u'  "' + entry2 + u'":' + element[entry2] + u',\n'                                
-                            #elif entry2 == "detail":
-                            #    final_str += u'      "' + entry2 + u'":"' + PageFormatter(element[entry2]).print_html().replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + u'",\n'
                             else:
                                 final_str += u'      "' + entry2 + u'":"' + element[entry2] + u'",\n'                            
                         final_str += u'  },\n'

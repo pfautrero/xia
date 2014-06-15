@@ -163,15 +163,15 @@ class CurrentTransformation:
         """inspired from inkscape pathmodifier.py"""
         x =float(node['x'])
         y =float(node['y'])
-        
+        w =float(node['width'])
+        h =float(node['height'])        
 #        try:
 #            rx=float(node['rx'])
 #            ry=float(node['ry'])
 #        except:
 #            rx=0
 #            ry=0
-        w =float(node['width'])
-        h =float(node['height'])
+
         d ='M %f,%f '%(x,y)
         d+='L %f,%f '%(x+w,y)
         d+='L %f,%f '%(x+w,y+h)
