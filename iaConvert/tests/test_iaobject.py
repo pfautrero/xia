@@ -86,6 +86,19 @@ class TestiaObject:
         assert_equal(newrecord["group"][0]['minY'],'10.0')
         assert_equal(newrecord["group"][0]['x'],'10')
         assert_equal(newrecord["group"][0]['y'],'30')
+
+        ia = iaObject()
+        dom1 = minidom.parseString("<?xml version='1.0' ?><g transform='rotate(40)'><path transform='rotate(10)' x='10' y='30' d='M 0,0 L 10,0 L 10,10 L 0,10 L 0,0 z' /></g>")
+        group = dom1.getElementsByTagName('g')
+        newrecord = ia.extract_g(group[0], 0)
+        assert_equal(newrecord["group"][0]['path'],'"M0.0 0.0C0.0 0.0 9.64966028492 -2.62374853704 9.64966028492 -2.62374853704C9.64966028492 -2.62374853704 12.273408822 7.02591174788 12.273408822 7.02591174788C12.273408822 7.02591174788 2.62374853704 9.64966028492 2.62374853704 9.64966028492C2.62374853704 9.64966028492 0.0 0.0 0.0 0.0C0.0 0.0 0.0 0.0 0.0 0.0 z"')
+        assert_equal(newrecord["group"][0]['maxX'],'12.273408822')
+        assert_equal(newrecord["group"][0]['maxY'],'9.64966028492')
+        assert_equal(newrecord["group"][0]['minX'],'0.0')
+        assert_equal(newrecord["group"][0]['minY'],'-2.62374853704')
+        assert_equal(newrecord["group"][0]['x'],'10')
+        assert_equal(newrecord["group"][0]['y'],'30')        
+        
         
         # check image included in a group
         ia = iaObject()
@@ -116,6 +129,7 @@ class TestiaObject:
         assert_equal(newrecord['detail'],'description')
         assert_equal(newrecord['title'],'title')
 
+        # check generateJSON
         temp = tempfile.NamedTemporaryFile()
         ia = iaObject()
         ia.analyzeSVG("tests/fixtures/generic1.svg")
