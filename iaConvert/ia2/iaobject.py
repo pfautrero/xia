@@ -43,6 +43,70 @@ class iaObject:
         else:
             return ""
 
+
+    def extractMetadatas(self, xml):
+        
+        metadatas = xml.getElementsByTagName('metadata')
+        if metadatas.item(0) is not None:
+            
+            metadata = metadatas.item(0).getElementsByTagName('dc:title')
+            if metadata.item(0) is not None:
+                if self.get_tag_value(metadata.item(0)) != "":
+                    self.scene['title'] = self.get_tag_value(metadata.item(0))
+
+            self.scene['date'] = ""
+            metadata = metadatas.item(0).getElementsByTagName('dc:date')
+            if metadata.item(0) is not None:
+                self.scene['date'] = self.get_tag_value(metadata.item(0))            
+
+            self.scene['creator'] = ""
+            metadata = metadatas.item(0).getElementsByTagName('dc:creator')
+            if metadata.item(0) is not None:
+                metadata_value = metadata.item(0).getElementsByTagName('dc:title')
+                if metadata_value.item(0) is not None:
+                    self.scene['creator'] = self.get_tag_value(metadata_value.item(0))
+
+            self.scene['rights'] = ""
+            metadata = metadatas.item(0).getElementsByTagName('dc:rights')
+            if metadata.item(0) is not None:
+                metadata_value = metadata.item(0).getElementsByTagName('dc:title')
+                if metadata_value.item(0) is not None:
+                    self.scene['rights'] = self.get_tag_value(metadata_value.item(0))
+
+            self.scene['publisher'] = ""
+            metadata = metadatas.item(0).getElementsByTagName('dc:publisher')
+            if metadata.item(0) is not None:
+                metadata_value = metadata.item(0).getElementsByTagName('dc:title')
+                if metadata_value.item(0) is not None:
+                    self.scene['publisher'] = self.get_tag_value(metadata_value.item(0))
+
+            self.scene['language'] = ""
+            metadata = metadatas.item(0).getElementsByTagName('dc:language')
+            if metadata.item(0) is not None:
+                self.scene['language'] = self.get_tag_value(metadata.item(0))
+            
+            self.scene['keywords'] = ""
+            metadata = metadatas.item(0).getElementsByTagName('dc:subject')
+            if metadata.item(0) is not None:
+                items = metadata.item(0).getElementsByTagName('rdf:li')
+                for key_word in items:
+                    if self.scene['keywords']:
+                        self.scene['keywords'] += ","
+                    self.scene['keywords'] += self.get_tag_value(key_word) 
+            
+            self.scene['description'] = ""
+            metadata = metadatas.item(0).getElementsByTagName('dc:description')
+            if metadata.item(0) is not None:
+                self.scene['description'] = self.get_tag_value(metadata.item(0))
+
+            self.scene['contributor'] = ""
+            metadata = metadatas.item(0).getElementsByTagName('dc:contributor')
+            if metadata.item(0) is not None:
+                metadata_value = metadata.item(0).getElementsByTagName('dc:title')
+                if metadata_value.item(0) is not None:
+                    self.scene['contributor'] = self.get_tag_value(metadata_value.item(0))
+
+
     def analyzeSVG(self,filePath):
         """analyze svg file and fill self.details and self.scene"""
         self.details[:] = []
@@ -58,24 +122,7 @@ class iaObject:
         self.scene['height'] = ""
         self.scene['title'] = os.path.splitext(tail)[0]
 
-        # ==================== Retrieve metadatas
-        
-        metadatas = self.xml.getElementsByTagName('metadata')
-        if metadatas.item(0) is not None:
-            metadata = metadatas.item(0).getElementsByTagName('dc:title')
-            if metadata.item(0) is not None:
-                if self.get_tag_value(metadata.item(0)) != "":
-                    self.scene['title'] = self.get_tag_value(metadata.item(0))
-            
-            metacreator = metadatas.item(0).getElementsByTagName('dc:creator')
-            if metacreator.item(0) is not None:
-                creator = metacreator.item(0).getElementsByTagName('dc:title')
-                if creator.item(0) is not None:
-                    self.scene['creator'] = self.get_tag_value(creator.item(0))
-            
-            metadata = metadatas.item(0).getElementsByTagName('dc:description')
-            if metadata.item(0) is not None:
-                self.scene['description'] = self.get_tag_value(metadata.item(0))
+        self.extractMetadatas(self.xml)
 
         # ==================== Look for images
 

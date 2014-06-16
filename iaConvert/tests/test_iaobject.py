@@ -40,7 +40,8 @@ class TestiaObject:
         
         # check get_tag_value output
         ia = iaObject()        
-        dom1 = minidom.parseString("<?xml version='1.0' ?><desc>description</desc>")
+        dom1 = minidom.parseString("<?xml version='1.0' ?>\
+            <desc>description</desc>")
         desc = dom1.getElementsByTagName('desc')
         assert_equal("description",ia.get_tag_value(desc[0]))
 
@@ -51,7 +52,10 @@ class TestiaObject:
 
         # check root path
         ia = iaObject()
-        dom1 = minidom.parseString("<?xml version='1.0' ?><svg><path d='M 0,0 L 10,0 L 10,10 L 0,10 L 0,0 z' /></svg>")
+        dom1 = minidom.parseString("<?xml version='1.0' ?>\
+            <svg>\
+                <path d='M 0,0 L 10,0 L 10,10 L 0,10 L 0,0 z' />\
+            </svg>")
         path = dom1.getElementsByTagName('path')
         newrecord = ia.extract_path(path[0], 0)
         assert_equal(newrecord['path'],'"M0.0 0.0C0.0 0.0 10.0 0.0 10.0 0.0C10.0 0.0 10.0 10.0 10.0 10.0C10.0 10.0 0.0 10.0 0.0 10.0C0.0 10.0 0.0 0.0 0.0 0.0C0.0 0.0 0.0 0.0 0.0 0.0 z"')
@@ -63,7 +67,14 @@ class TestiaObject:
         assert_equal(newrecord['y'],'0')
 
         ia = iaObject()
-        dom1 = minidom.parseString("<?xml version='1.0' ?><svg><path transform='translate(10)' x='10' y='30' d='M 0,0 L 10,0 L 10,10 L 0,10 L 0,0 z' /></svg>")
+        dom1 = minidom.parseString("<?xml version='1.0' ?>\
+            <svg>\
+                <path \
+                    transform='translate(10)'\
+                    x='10'\
+                    y='30'\
+                    d='M 0,0 L 10,0 L 10,10 L 0,10 L 0,0 z' />\
+            </svg>")
         path = dom1.getElementsByTagName('path')
         newrecord = ia.extract_path(path[0], 0)
         assert_equal(newrecord['path'],'"M10.0 10.0C10.0 10.0 20.0 10.0 20.0 10.0C20.0 10.0 20.0 20.0 20.0 20.0C20.0 20.0 10.0 20.0 10.0 20.0C10.0 20.0 10.0 10.0 10.0 10.0C10.0 10.0 10.0 10.0 10.0 10.0 z"')
@@ -76,7 +87,14 @@ class TestiaObject:
 
         # check path included in a group
         ia = iaObject()
-        dom1 = minidom.parseString("<?xml version='1.0' ?><g><path transform='translate(10)' x='10' y='30' d='M 0,0 L 10,0 L 10,10 L 0,10 L 0,0 z' /></g>")
+        dom1 = minidom.parseString("<?xml version='1.0' ?>\
+            <g>\
+                <path \
+                    transform='translate(10)'\
+                    x='10'\
+                    y='30'\
+                    d='M 0,0 L 10,0 L 10,10 L 0,10 L 0,0 z' />\
+            </g>")
         group = dom1.getElementsByTagName('g')
         newrecord = ia.extract_g(group[0], 0)
         assert_equal(newrecord["group"][0]['path'],'"M10.0 10.0C10.0 10.0 20.0 10.0 20.0 10.0C20.0 10.0 20.0 20.0 20.0 20.0C20.0 20.0 10.0 20.0 10.0 20.0C10.0 20.0 10.0 10.0 10.0 10.0C10.0 10.0 10.0 10.0 10.0 10.0 z"')
@@ -88,7 +106,14 @@ class TestiaObject:
         assert_equal(newrecord["group"][0]['y'],'30')
 
         ia = iaObject()
-        dom1 = minidom.parseString("<?xml version='1.0' ?><g transform='rotate(40)'><path transform='rotate(10)' x='10' y='30' d='M 0,0 L 10,0 L 10,10 L 0,10 L 0,0 z' /></g>")
+        dom1 = minidom.parseString("<?xml version='1.0' ?>\
+            <g transform='rotate(40)'>\
+                <path \
+                    transform='rotate(10)' \
+                    x='10' \
+                    y='30' \
+                    d='M 0,0 L 10,0 L 10,10 L 0,10 L 0,0 z' />\
+            </g>")
         group = dom1.getElementsByTagName('g')
         newrecord = ia.extract_g(group[0], 0)
         assert_equal(newrecord["group"][0]['path'],'"M0.0 0.0C0.0 0.0 9.64966028492 -2.62374853704 9.64966028492 -2.62374853704C9.64966028492 -2.62374853704 12.273408822 7.02591174788 12.273408822 7.02591174788C12.273408822 7.02591174788 2.62374853704 9.64966028492 2.62374853704 9.64966028492C2.62374853704 9.64966028492 0.0 0.0 0.0 0.0C0.0 0.0 0.0 0.0 0.0 0.0 z"')
@@ -102,7 +127,16 @@ class TestiaObject:
         
         # check image included in a group
         ia = iaObject()
-        dom1 = minidom.parseString('<?xml version="1.0" ?><svg xmlns:xlink="http://www.w3.org/1999/xlink"><g><image xlink:href="file:///path/to/image.png" width="50" height="50"></image></g></svg>')
+        dom1 = minidom.parseString('<?xml version="1.0" ?> \
+            <svg xmlns:xlink="http://www.w3.org/1999/xlink">\
+                <g>\
+                    <image \
+                        xlink:href="file:///path/to/image.png"\
+                        width="50"\
+                        height="50">\
+                    </image>\
+                </g>\
+            </svg>')
         group = dom1.getElementsByTagName('g')
         ia.backgroundNode = 0
         newrecord = ia.extract_g(group[0], 0)
@@ -113,7 +147,12 @@ class TestiaObject:
 
         # check rect included in a group
         ia = iaObject()
-        dom1 = minidom.parseString('<?xml version="1.0" ?><svg><g><rect width="50" height="50"></rect></g></svg>')
+        dom1 = minidom.parseString('<?xml version="1.0" ?>\
+            <svg>\
+                <g>\
+                    <rect width="50" height="50"></rect>\
+                </g>\
+            </svg>')
         group = dom1.getElementsByTagName('g')
         newrecord = ia.extract_g(group[0], 0)
         assert_equal(newrecord["group"][0]['x'],'0')
@@ -123,12 +162,53 @@ class TestiaObject:
 
         # check groups included in a group
         ia = iaObject()
-        dom1 = minidom.parseString('<?xml version="1.0" ?><svg><g><rect width="50" height="50"></rect><g><desc>description</desc><title>title</title></g></g></svg>')
+        dom1 = minidom.parseString('<?xml version="1.0" ?> \
+            <svg> \
+                <g> \
+                    <rect width="50" height="50"></rect> \
+                    <g> \
+                        <desc>description</desc> \
+                        <title>title</title> \
+                    </g> \
+                </g> \
+            </svg>')
         group = dom1.getElementsByTagName('g')
         newrecord = ia.extract_g(group[0], 0)
         assert_equal(newrecord['detail'],'description')
         assert_equal(newrecord['title'],'title')
 
+        # check metadatas
+        ia = iaObject()
+        dom1 = minidom.parseString('<?xml version="1.0" ?> \
+            <svg \
+                xmlns:dc="http://purl.org/dc/elements/1.1/" \
+                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" > \
+                <metadata> \
+                    <rdf:RDF> \
+                        <dc:title>title</dc:title>\
+                        <dc:date>16/06/2014</dc:date>\
+                        <dc:creator><dc:title>creator</dc:title></dc:creator>\
+                        <dc:rights><dc:title>GPL</dc:title></dc:rights>\
+                        <dc:publisher><dc:title>publisher</dc:title></dc:publisher>\
+                        <dc:language>FR</dc:language>\
+                        <dc:subject>\
+                            <rdf:li>keyword1</rdf:li>\
+                            <rdf:li>keyword2</rdf:li>\
+                        </dc:subject>\
+                        <dc:contributor><dc:title>contributor</dc:title></dc:contributor>\
+                    </rdf:RDF> \
+                </metadata> \
+            </svg>')
+        ia.extractMetadatas(dom1)
+        assert_equal(ia.scene['title'],'title')
+        assert_equal(ia.scene['date'],'16/06/2014')
+        assert_equal(ia.scene['creator'],'creator')
+        assert_equal(ia.scene['rights'],'GPL')
+        assert_equal(ia.scene['publisher'],'publisher')
+        assert_equal(ia.scene['language'],'FR')
+        assert_equal(ia.scene['keywords'],'keyword1,keyword2')        
+        assert_equal(ia.scene['contributor'],'contributor')
+        
         # check generateJSON
         temp = tempfile.NamedTemporaryFile()
         ia = iaObject()
