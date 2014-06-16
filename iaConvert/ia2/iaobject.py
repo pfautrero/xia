@@ -125,7 +125,7 @@ class iaObject:
                             self.details.append(newrecord)
 
     def extract_image(self, image, ctm_group):
-        """Analyze images not included in a specific group"""
+        """Analyze images"""
         
         if not image.isSameNode(self.backgroundNode):
             record_image = {}
@@ -178,7 +178,7 @@ class iaObject:
             return record_image
 
     def extract_rect(self, rect, ctm_group):
-        """Analyze images not included in a specific group"""
+        """Analyze rectangles"""
         
         record_rect = {}
         record_rect['width'] = rect.attributes['width'].value
@@ -257,7 +257,7 @@ class iaObject:
         return record_rect
 
     def extract_path(self,path, ctm_group):
-        """Analyze paths not included in a specific group"""
+        """Analyze paths"""
         
         record = {}
         record["path"] = ""

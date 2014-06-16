@@ -33,14 +33,11 @@ function iaScene(originalWidth, originalHeight) {
     // default color used to fill shapes if defined as cache
     this.colorPersistent = {red:124, green:154, blue:174, opacity:1};
     
-    // Image ratio on the scene
+    // Image width ratio on the scene
     this.ratio = 0.65;  
     
     // padding-top in the canvas
     this.y = 0;
-
-    // easing effect
-    //this.easing = Kinetic.Easings.StrongEaseOut;
 
     // color used over background image during focus
     var _colorCache = {red:255, green:255, blue:255, opacity:0.6};
@@ -64,6 +61,7 @@ function iaScene(originalWidth, originalHeight) {
  *  
  */
 iaScene.prototype.scaleScene = function(mainScene){
+    "use strict";
     var viewportWidth = $(window).width();
     var viewportHeight = $(window).height();
     

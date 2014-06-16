@@ -39,9 +39,6 @@ function iaScene(originalWidth, originalHeight) {
     // padding-top in the canvas
     this.y = 0;
 
-    // easing effect
-    //this.easing = Kinetic.Easings.StrongEaseOut;
-
     // color used over background image during focus
     var _colorCache = {red:0, green:0, blue:0, opacity:0.6};
  
@@ -64,6 +61,7 @@ function iaScene(originalWidth, originalHeight) {
  *  
  */
 iaScene.prototype.scaleScene = function(mainScene){
+    "use strict";
     var viewportWidth = $(window).width();
     var viewportHeight = $(window).height();
     

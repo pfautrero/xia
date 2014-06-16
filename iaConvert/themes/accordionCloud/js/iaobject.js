@@ -29,6 +29,8 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     this.path = new Array();
     this.kineticElement = new Array();
     this.backgroundImage = new Array();
+    this.backgroundImageOwnScaleX = new Array();
+    this.backgroundImageOwnScaleY = new Array();    
     this.persistent = new Array();
     this.originalX = new Array();
     this.originalY = new Array();
@@ -99,8 +101,8 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
                     }
                     else if (iaScene.element.persistent[i] == "onImage") {
                         iaScene.element.kineticElement[i].fillPriority('pattern');
-                        iaScene.element.kineticElement[i].fillPatternScaleX(1/iaScene.scale);
-                        iaScene.element.kineticElement[i].fillPatternScaleY(1/iaScene.scale);
+                        iaScene.element.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
+                        iaScene.element.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);
                         iaScene.element.kineticElement[i].fillPatternImage(iaScene.element.backgroundImage[i]);                        
                     }                     
                     iaScene.element.layer.draw();
@@ -121,8 +123,8 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
             for (var i in that.kineticElement) {
                 if (that.persistent[i] === "onImage") cacheBackground = false;
                 that.kineticElement[i].fillPriority('pattern');
-                that.kineticElement[i].fillPatternScaleX(1/iaScene.scale);
-                that.kineticElement[i].fillPatternScaleY(1/iaScene.scale);                
+                that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
+                that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);                
                 that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
             }
             if (cacheBackground == true) {
@@ -158,7 +160,8 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
     });
 
     rasterObj.onload = function() {
-
+        that.backgroundImageOwnScaleX[i] = detail.width / this.width;
+        that.backgroundImageOwnScaleY[i] = detail.height / this.height;
         var zoomable = true;
         if ((typeof(detail.fill) !== 'undefined') && 
             (detail.fill === "#000000")) {
@@ -170,8 +173,8 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
             (detail.fill === "#ffffff")) {
             that.persistent[i] = "onImage";
             that.kineticElement[i].fillPriority('pattern');
-            that.kineticElement[i].fillPatternScaleX(1/iaScene.scale);
-            that.kineticElement[i].fillPatternScaleY(1/iaScene.scale);                
+            that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
+            that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);                
             that.kineticElement[i].fillPatternImage(that.backgroundImage[i]); 
             zoomable = false;
         }
@@ -273,6 +276,8 @@ iaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     cropedImage.src = dataUrl;
     cropedImage.onload = function() {
         that.backgroundImage[i] = cropedImage;
+        that.backgroundImageOwnScaleX[i] = 1;
+        that.backgroundImageOwnScaleY[i] = 1;        
         that.kineticElement[i].fillPatternRepeat('no-repeat');
         that.kineticElement[i].fillPatternX(detail.minX);
         that.kineticElement[i].fillPatternY(detail.minY);
@@ -407,8 +412,8 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 }
                 else if (that.persistent[i] == "onImage") {
                     that.kineticElement[i].fillPriority('pattern');
-                    that.kineticElement[i].fillPatternScaleX(1/iaScene.scale);
-                    that.kineticElement[i].fillPatternScaleY(1/iaScene.scale);
+                    that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
+                    that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);
                     that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);                        
                 }                
             }
@@ -499,8 +504,8 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     }
                     else if (that.persistent[i] == "onImage") {
                         that.kineticElement[i].fillPriority('pattern');
-                        that.kineticElement[i].fillPatternScaleX(1/iaScene.scale);
-                        that.kineticElement[i].fillPatternScaleY(1/iaScene.scale);
+                        that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
+                        that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);
                         that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);                        
                     }
                 }                    
@@ -533,8 +538,8 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 for (var i in that.kineticElement) {
                     if (that.persistent[i] === "onImage") cacheBackground = false;
                     that.kineticElement[i].fillPriority('pattern');
-                    that.kineticElement[i].fillPatternScaleX(1/iaScene.scale);
-                    that.kineticElement[i].fillPatternScaleY(1/iaScene.scale);
+                    that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
+                    that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);
                     that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
                 }
                 if (cacheBackground === true) that.backgroundCache_layer.moveToTop();
@@ -566,8 +571,8 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     }
                     else if (that.persistent[i] == "onImage") {
                         that.kineticElement[i].fillPriority('pattern');
-                        that.kineticElement[i].fillPatternScaleX(1/iaScene.scale);
-                        that.kineticElement[i].fillPatternScaleY(1/iaScene.scale);
+                        that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
+                        that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);
                         that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);                        
                     }                    
                 }
