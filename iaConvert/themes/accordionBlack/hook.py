@@ -62,6 +62,9 @@ class hook:
 
         with open(templatePath,"r") as template:
             final_index = template.read()
+            final_index = final_index.replace("{{DESCRIPTION}}", self.iaobject.scene["description"])            
+            final_index = final_index.replace("{{AUTHOR}}", self.iaobject.scene["creator"])
+            final_index = final_index.replace("{{KEYWORDS}}", self.iaobject.scene["keywords"])            
             final_index = final_index.replace("{{TITLE}}", self.iaobject.scene["title"])
             final_index = final_index.replace("{{ACCORDION}}", final_str)            
         with open(filePath,"w") as indexfile:

@@ -124,42 +124,40 @@ class iaObject:
 
         self.extractMetadatas(self.xml)
 
-        # ==================== Look for images
+        # ==================== Look for background image
 
         images = self.xml.getElementsByTagName('image')
-        if images:
-            for image in images:
-                    
-                # first image is considered as background image
-                self.backgroundNode = image;
-                self.scene['width'] = image.attributes['width'].value
-                self.scene['height'] =  image.attributes['height'].value
+        if images.item(0) is not None:
+            image = images.item(0)
+            self.backgroundNode = image;
+            self.scene['width'] = image.attributes['width'].value
+            self.scene['height'] =  image.attributes['height'].value
 
-                desc = image.getElementsByTagName('desc')
-                if desc.item(0) is not None:
-                    if desc.item(0).parentNode == image:
-                        self.scene['intro_detail'] = self.get_tag_value(desc.item(0))
+            desc = image.getElementsByTagName('desc')
+            if desc.item(0) is not None:
+                if desc.item(0).parentNode == image:
+                    self.scene['intro_detail'] = self.get_tag_value(desc.item(0))
 
-                title = image.getElementsByTagName('title')
-                if title.item(0) is not None:
-                    if title.item(0).parentNode == image:
-                        self.scene['intro_title'] = self.get_tag_value(title.item(0))
+            title = image.getElementsByTagName('title')
+            if title.item(0) is not None:
+                if title.item(0).parentNode == image:
+                    self.scene['intro_title'] = self.get_tag_value(title.item(0))
 
-                self.raster = image.attributes['xlink:href'].value
-                if image.attributes['xlink:href'].value.startswith("file://"):
-                    # Embed background image thanks to data URI Scheme
-                    fileNameImage, fileExtensionImage = os.path.splitext(image.attributes['xlink:href'].value[7:])
-                    imgMimeTypes = {}
-                    imgMimeTypes['.png'] = 'image/png'
-                    imgMimeTypes['.jpg'] = 'image/jpeg'
-                    imgMimeTypes['.jpeg'] = 'image/jpeg'
-                    imgMimeTypes['.gif'] = 'image/gif'
-                    imgMimeTypes['.bmp'] = 'image/bmp'
-                    self.rasterPrefix = u"data:" + imgMimeTypes[fileExtensionImage.lower()] + u";base64,"
-                    with open(image.attributes['xlink:href'].value[7:], 'rb') as bgImage:
-                        self.raster = self.rasterPrefix + bgImage.read().encode("base64", "strict")
-                self.scene['image'] = self.raster
-                break
+            self.raster = image.attributes['xlink:href'].value
+            if image.attributes['xlink:href'].value.startswith("file://"):
+                # Embed background image thanks to data URI Scheme
+                fileNameImage, fileExtensionImage = os.path.splitext(image.attributes['xlink:href'].value[7:])
+                imgMimeTypes = {}
+                imgMimeTypes['.png'] = 'image/png'
+                imgMimeTypes['.jpg'] = 'image/jpeg'
+                imgMimeTypes['.jpeg'] = 'image/jpeg'
+                imgMimeTypes['.gif'] = 'image/gif'
+                imgMimeTypes['.bmp'] = 'image/bmp'
+                self.rasterPrefix = u"data:" + imgMimeTypes[fileExtensionImage.lower()] + u";base64,"
+                with open(image.attributes['xlink:href'].value[7:], 'rb') as bgImage:
+                    self.raster = self.rasterPrefix + bgImage.read().encode("base64", "strict")
+            self.scene['image'] = self.raster
+
                 
         svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'image', 'g']
         mainSVG = self.xml.getElementsByTagName('svg')

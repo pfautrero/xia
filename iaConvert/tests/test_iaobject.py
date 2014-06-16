@@ -124,7 +124,6 @@ class TestiaObject:
         assert_equal(newrecord["group"][0]['x'],'10')
         assert_equal(newrecord["group"][0]['y'],'30')        
         
-        
         # check image included in a group
         ia = iaObject()
         dom1 = minidom.parseString('<?xml version="1.0" ?> \
