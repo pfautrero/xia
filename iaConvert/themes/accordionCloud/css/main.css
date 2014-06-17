@@ -215,3 +215,37 @@ a.accordion-toggle {
     border-radius: 5px;
     padding: 5px;
 }
+/* popup */
+#overlay {
+    display:none;
+    position:fixed;
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+    background: rgba(0,0,0,0.6);
+}
+#popup {
+    position:relative;
+    border-radius: 20px;
+    border: 20px solid #ddd;
+    width: 60%;
+    margin: 50px auto;
+    background:white;
+    min-height: 100px;
+    box-shadow: black 5px 5px 10px;
+}
+#popup_text {
+    text-align:center;
+}
+#popup_text img{
+    float:left;
+    width:100px;
+}
+#popup_close {
+    cursor: pointer;
+    position:absolute;
+    top:-40px;
+    right:-40px;
+    width:50px;
+}

@@ -1,32 +1,42 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta name="description" content="{{DESCRIPTION}}" />
-  <meta name="author" content="{{AUTHOR}}" />
-  <meta name="keywords" content="{{KEYWORDS}}" />
-  <meta charset="utf-8" />
-  <title>{{TITLE}}</title>
-  <link rel="stylesheet" type="text/css" href="css/bootstrap-combined.no-icons.min.css"/>
-  <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <meta name="description" content="{{DESCRIPTION}}" />
+    <meta name="author" content="{{AUTHOR}}" />
+    <meta name="keywords" content="{{KEYWORDS}}" />
+    <meta charset="utf-8" />
+    <title>{{TITLE}}</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-combined.no-icons.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
 </head>
 <body>
-  <div id="container">
-      <div id="detect"></div>
-      <header>
-        <h1 id="title">{{TITLE}}</h1>
-        <a class="eyes" href=""></a> 
-        <a class="meta-doc" href=""></a>
-        <a class="infos" href=""></a>      
-      </header>
-      <div class="accordion" id="accordion2">{{ACCORDION}}</div>
-      <div id="canvas"></div>
-  </div>
-  <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/kinetic.js"></script>
-  <script src="datas/data.js"></script>
-  <script defer="defer" src="js/iascene.js"></script>
-  <script defer="defer" src="js/iaobject.js"></script>  
-  <script defer="defer" src="js/main.js"></script>
+    <main id="container">
+        <div id="detect"></div>
+        <header>
+            <h1 id="title">{{TITLE}}</h1>
+            <a class="eyes" href="#"></a> 
+            <a class="infos" href="#"></a>      
+        </header>
+        <nav class="accordion" id="accordion2">{{ACCORDION}}</nav>
+        <div id="canvas"></div>
+    </main>
+    <footer id="overlay">
+        <section id="popup">
+            <img id="popup_close" src="img/close.png" alt="close"/>
+            <article id="popup_text">
+                <img src="img/image-active.png" alt="Images Actives" />
+                <p>{{RIGHTS}}</p>
+                <p>{{CREATOR}}</p>
+                <p>{{PUBLISHER}}</p>
+            </article>
+        </section>
+    </footer>
+    <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/kinetic.js"></script>
+    <script src="datas/data.js"></script>
+    <script defer="defer" src="js/iascene.js"></script>
+    <script defer="defer" src="js/iaobject.js"></script>  
+    <script defer="defer" src="js/main.js"></script>
 </body>
 </html>

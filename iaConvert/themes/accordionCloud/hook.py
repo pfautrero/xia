@@ -66,6 +66,9 @@ class hook:
             final_index = final_index.replace("{{AUTHOR}}", self.iaobject.scene["creator"])
             final_index = final_index.replace("{{KEYWORDS}}", self.iaobject.scene["keywords"])            
             final_index = final_index.replace("{{TITLE}}", self.iaobject.scene["title"])
+            final_index = final_index.replace("{{RIGHTS}}", self.iaobject.scene["rights"])
+            final_index = final_index.replace("{{CREATOR}}", self.iaobject.scene["creator"])
+            final_index = final_index.replace("{{PUBLISHER}}", self.iaobject.scene["publisher"])
             final_index = final_index.replace("{{ACCORDION}}", final_str)            
         with open(filePath,"w") as indexfile:
             indexfile.write(final_index.encode("utf-8"))

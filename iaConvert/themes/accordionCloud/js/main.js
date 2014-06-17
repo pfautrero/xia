@@ -223,3 +223,10 @@ function main() {
 }
 
 launch = new main();
+
+$(".infos").on("click", function(){
+    $("#overlay").show();
+});
+$("#popup_close").on("click", function(){
+    $("#overlay").hide();
+});
