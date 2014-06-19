@@ -230,3 +230,35 @@ $(".infos").on("click", function(){
 $("#popup_close").on("click", function(){
     $("#overlay").hide();
 });
+// Load datas in the accordion menu - only useful for themes debugging
+if ($("#accordion2").html() === "{{ACCORDION}}") {
+    var menu = "";
+    menu += '<div class="accordion-group">';
+    menu += '<div class="accordion-heading">';
+    menu += '<a id="collapsecomment-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsecomment">'+scene.intro_title+'</a>';
+    menu += '<div id="collapsecomment" class="accordion-body collapse">';
+    menu += '<div class="accordion-inner">'+scene.intro_detail+'</div></div></div></div>';
+
+    for (var i in details) {
+        if ((details[i].detail.indexOf("Réponse:") != -1) || (details[i].detail.indexOf("réponse:") != -1)) {
+            var question = details[i].detail.substr(0,details[i].detail.indexOf("Réponse:"));
+            var answer = details[i].detail.substr(details[i].detail.indexOf("Réponse:")+8);
+            menu += '<div class="accordion-group">';
+            menu += '<div class="accordion-heading">';
+            menu += '<a id="collapse'+i+'-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse'+i+'">'+details[i].title+'</a>';
+            menu += '<div id="collapse'+i+'" class="accordion-body collapse">';
+            menu += '<div class="accordion-inner">' + question + '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#response_'+i+'">Réponse</a></div>' + '<div class="response" id="response_'+ i +'">' + answer + '</div>' + '</div></div></div></div>';
+        }
+
+        else {
+            menu += '<div class="accordion-group">';
+            menu += '<div class="accordion-heading">';
+            menu += '<a id="collapse'+i+'-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse'+i+'">'+details[i].title+'</a>';
+            menu += '<div id="collapse'+i+'" class="accordion-body collapse">';
+            menu += '<div class="accordion-inner">'+details[i].detail+'</div></div></div></div>';
+        }
+    }
+    $("#accordion2").html(menu);
+    $("#collapsecomment").collapse("show");
+}
+if ($("#title").html() === "{{TITLE}}") $("#title").html(scene.title);

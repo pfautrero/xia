@@ -62,28 +62,35 @@ function iaScene(originalWidth, originalHeight) {
  */
 iaScene.prototype.scaleScene = function(mainScene){
     "use strict";
+
     var viewportWidth = $(window).width();
     var viewportHeight = $(window).height();
-    
-    var resize = false;
-    if ((this.fullScreen == "on") || (viewportWidth < 1000)) {
-        resize = true;
-    }
-    if (resize) {
-        mainScene.width = viewportWidth - mainScene.y;
-        mainScene.coeff = (mainScene.width * mainScene.ratio) / parseFloat(mainScene.originalWidth);
-        $('#container').css({"width": viewportWidth - mainScene.y});
-    }
-    var new_height = scene.height * mainScene.coeff + $('#canvas').offset().top - $('#container').offset().top;
-    $('#container').css({"height": new_height + 'px'});
 
-    $('#canvas').css({"height": mainScene.originalHeight * mainScene.coeff + 'px'});    
-    $('#canvas').css({"width": (mainScene.coeff * mainScene.originalWidth ) + 'px'});     
-    //if (viewportHeight < 755) {
-        //mainScene.height = viewportHeight - mainScene.y;
-        //$('#detect').css({"height": viewportHeight - mainScene.y});
-        mainScene.height = mainScene.originalHeight * mainScene.coeff;
-        $('#detect').css({"height": mainScene.originalHeight * mainScene.coeff + 'px'});
-    //}
+    var coeff_width = (viewportWidth * mainScene.ratio) / parseFloat(mainScene.originalWidth);
+    var coeff_height = (viewportHeight) / (parseFloat(mainScene.originalHeight) + $('#canvas').offset().top + $('#container').offset().top);
+    console.log("0");
+    if ((viewportWidth >= parseFloat(mainScene.originalWidth) * coeff_width) && (viewportHeight >= ((parseFloat(mainScene.originalHeight) + $('#canvas').offset().top) * coeff_width))) {
+        mainScene.width = viewportWidth * mainScene.ratio;
+        console.log("1");
+        mainScene.coeff = (mainScene.width) / parseFloat(mainScene.originalWidth);
+        mainScene.height = parseFloat(mainScene.originalHeight) * mainScene.coeff;
+    }
+    else if ((viewportWidth >= parseFloat(mainScene.originalWidth) * coeff_height) && (viewportHeight >= (parseFloat(mainScene.originalHeight) + $('#canvas').offset().top) * coeff_height)) {
+        console.log("2");
+        mainScene.height = viewportHeight - $('#container').offset().top - $('#canvas').offset().top -5;
+        mainScene.coeff = (mainScene.height) / parseFloat(mainScene.originalHeight);
+        mainScene.width = parseFloat(mainScene.originalWidth) * mainScene.coeff;
+    }
+
+    mainScene.width = mainScene.width / mainScene.ratio;
+    $('#container').css({"width": mainScene.width + 'px'});
+    $('#container').css({"height": (mainScene.height + $('#canvas').offset().top - $('#container').offset().top) + 'px'});
+    $('#canvas').css({"height": (mainScene.height) + 'px'});    
+    $('#canvas').css({"width": mainScene.width * mainScene.ratio + 'px'});     
+    $('#detect').css({"height": (mainScene.height) + 'px'});
+    $('#detect').css({"top": ($('#canvas').offset().top - $('#container').offset().top) + 'px'});       
+    
+    
+    
 };
 
