@@ -174,7 +174,7 @@ function main() {
                     layers[0].moveToBottom();
                 }
             });
-
+            $("#loader").hide();
             // FullScreen ability
             // source code from http://blogs.sitepointstatic.com/examples/tech/full-screen/index.html
             var e = document.getElementById("title");

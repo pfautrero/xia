@@ -25,7 +25,6 @@
 function main() {
     "use strict";
     var that=this;
-
     that.canvas = document.getElementById("canvas");
 
     // area located under the canvas. If mouse over is detected, 
@@ -34,7 +33,6 @@ function main() {
     detect.addEventListener("mouseover", function()
         {
             that.canvas.style.pointerEvents="auto";
-
             if ((iaScene.element !== 0) && (typeof(iaScene.element) !== 'undefined')) {
                 for (var i in iaScene.element.kineticElement) {
                     iaScene.element.kineticElement[i].fillPriority('color');
@@ -45,7 +43,6 @@ function main() {
     detect.addEventListener("touchstart", function()
         {   
             that.canvas.style.pointerEvents="auto";
-
             if ((iaScene.element !== 0) && (typeof(iaScene.element) !== 'undefined')) {
                 for (var i in iaScene.element.kineticElement) {
                     iaScene.element.kineticElement[i].fillPriority('color');
@@ -54,7 +51,6 @@ function main() {
             }
         }, false);	
 
-    $("#collapsecomment").collapse("show");
 
 
     // Load background image
@@ -73,7 +69,6 @@ function main() {
         else {
             console.log("Background Image is used without being resized");
         }
-        //console.log(ratio);
         that.newwidth = parseFloat(scene.width) * ratio;
         that.newheight = parseFloat(scene.height) * ratio;
         that.scaleCanvas = document.createElement('canvas');
@@ -87,16 +82,12 @@ function main() {
             that.newwidth,
             that.newheight
         );
-        //document.body.appendChild(this.scaleCanvas);
         var dataUrl = that.scaleCanvas.toDataURL();
         delete that.scaleCanvas;
         delete that.imageObj;
         var scaledImage = new Image();
         scaledImage.src = dataUrl;
         scaledImage.onload = function() {
-
-            //scene.width = that.newwidth;
-            //scene.height = that.newheight;
             var mainScene = new iaScene(scene.width,scene.height);
             mainScene.scale = that.newwidth / scene.width; 
             mainScene.scaleScene(mainScene);
@@ -127,7 +118,6 @@ function main() {
                 fill: mainScene.backgroundCacheColor
             });
 
-
             // define area to disable canvas events management when
             // mouse is over. Thus, we can reach div located under canvas 
             var disableArea = new Kinetic.Rect({
@@ -155,25 +145,8 @@ function main() {
                 var indice = parseInt(i+3);
                 layers[indice] = new Kinetic.Layer();
                 stage.add(layers[indice]);
-                var iaObj = new iaObject(scaledImage, details[i], layers[indice], "collapse" + i, baseImage, mainScene, layers[1], layers[0]);
+                var iaObj = new iaObject(scaledImage, details[i], layers[indice], "article-" + i, baseImage, mainScene, layers[1], layers[0]);
             }
-
-            $("#collapsecomment-heading").on('click touchstart',function(){
-                if (mainScene.zoomActive === 0) {
-                    $('.collapse.in').each(function (index) {
-                        if ($(this).attr("id") !== "collapsecomment") $(this).collapse("toggle");
-                    });
-                    if ((mainScene.element !== 0) && (typeof(mainScene.element) !== 'undefined')) {
-                        for (var i in mainScene.element.kineticElement) {
-                            mainScene.element.kineticElement[i].fillPriority('color');
-                            mainScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
-                            mainScene.element.layer.draw();
-                        }
-                    }
-                    mainScene.element = that;
-                    layers[0].moveToBottom();
-                }
-            });
             $("#loader").hide();
             // FullScreen ability
             // source code from http://blogs.sitepointstatic.com/examples/tech/full-screen/index.html
@@ -187,15 +160,6 @@ function main() {
                     RunPrefixMethod(div_container, "RequestFullScreen");
                 }
                 mainScene.fullScreen = mainScene.fullScreen == "on" ? "off": "on";
-                /*mainScene.scaleScene(mainScene);
-                baseImage.scale({x:mainScene.coeff,y:mainScene.coeff});
-                baseCache.scale({x:mainScene.coeff,y:mainScene.coeff});
-                disableArea.x(mainScene.width  * mainScene.ratio);
-                disableArea.width(mainScene.width * (1 - mainScene.ratio));
-                disableArea.height(mainScene.height);
-                for (var i in layers) {
-                    layers[i].draw();
-                }*/
             };
 
             var pfx = ["webkit", "moz", "ms", "o", ""];
@@ -215,50 +179,73 @@ function main() {
                     p++;
                 }
             };
-
         };
-
     };    
-    
 }
 
 launch = new main();
 
-$(".infos").on("click", function(){
-    $("#overlay").show();
-});
-$("#popup_close").on("click", function(){
-    $("#overlay").hide();
-});
-// Load datas in the accordion menu - only useful for themes debugging
-if ($("#accordion2").html() === "{{ACCORDION}}") {
-    var menu = "";
-    menu += '<div class="accordion-group">';
-    menu += '<div class="accordion-heading">';
-    menu += '<a id="collapsecomment-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsecomment">'+scene.intro_title+'</a>';
-    menu += '<div id="collapsecomment" class="accordion-body collapse">';
-    menu += '<div class="accordion-inner">'+scene.intro_detail+'</div></div></div></div>';
 
+// Load datas - only useful for themes debugging
+if ($("#content").html() === "{{CONTENT}}") {
+    var menu = "";
+    menu += '<article id="general">';
+    menu += '<img class="article_close" src="img/close.png" alt="close"/>';
+    menu += '<h1>'+scene.intro_title+'</h1>';
+    menu += '<p>' + scene.intro_detail + '</p>';
+    menu += '</article>';
+    
     for (var i in details) {
         if ((details[i].detail.indexOf("Réponse:") != -1) || (details[i].detail.indexOf("réponse:") != -1)) {
             var question = details[i].detail.substr(0,details[i].detail.indexOf("Réponse:"));
             var answer = details[i].detail.substr(details[i].detail.indexOf("Réponse:")+8);
-            menu += '<div class="accordion-group">';
-            menu += '<div class="accordion-heading">';
-            menu += '<a id="collapse'+i+'-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse'+i+'">'+details[i].title+'</a>';
-            menu += '<div id="collapse'+i+'" class="accordion-body collapse">';
-            menu += '<div class="accordion-inner">' + question + '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#response_'+i+'">Réponse</a></div>' + '<div class="response" id="response_'+ i +'">' + answer + '</div>' + '</div></div></div></div>';
+            menu += '<article id="article-'+i+'">';
+            menu += '<img class="article_close" src="img/close.png" alt="close"/>';
+            menu += '<h1>'+details[i].title+'</h1>';
+            menu += '<p>' + question + '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#response_'+i+'">Réponse</a></div>' + '<div class="response" id="response_'+ i +'">' + answer + '</div>' + '</p>';
+            menu += '</article>';            
         }
 
         else {
-            menu += '<div class="accordion-group">';
-            menu += '<div class="accordion-heading">';
-            menu += '<a id="collapse'+i+'-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse'+i+'">'+details[i].title+'</a>';
-            menu += '<div id="collapse'+i+'" class="accordion-body collapse">';
-            menu += '<div class="accordion-inner">'+details[i].detail+'</div></div></div></div>';
+            menu += '<article id="article-'+i+'">';
+            menu += '<img class="article_close" src="img/close.png" alt="close"/>';
+            menu += '<h1>'+details[i].title+'</h1>';
+            menu += '<p>'+details[i].detail+'</p>';
+            menu += '</article>';                        
         }
     }
-    $("#accordion2").html(menu);
-    $("#collapsecomment").collapse("show");
+    $("#content").html(menu);
 }
 if ($("#title").html() === "{{TITLE}}") $("#title").html(scene.title);
+
+
+//
+
+var viewportHeight = $(window).height();
+
+$(".meta-doc").on("click", function(){
+    $("#content").show();
+    $("#general").show();
+    var general_border = $("#general").css("border-top-width").substr(0,$("#general").css("border-top-width").length - 2);
+    var general_offset = $("#general").offset();
+    var content_offset = $("#content").offset();
+    $("#general").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});
+});
+
+
+
+
+$(".overlay").hide();
+
+$(".infos").on("click", function(){
+    $("#rights").show();
+});
+$("#popup_close").on("click", function(){
+    $("#rights").hide();
+});
+
+$(".article_close").on("click", function(){
+    $(this).parent().hide();
+    $("#content").hide();
+});
+

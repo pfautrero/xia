@@ -454,9 +454,9 @@ class iaObject:
                         final_str += '  {\n'
                         for entry2 in element:
                             if entry2 == "path":
-                                final_str += u'  "' + entry2 + u'":' + element[entry2] + u',\n'                                
+                                final_str += u'  "' + entry2 + u'":' + PageFormatter(element[entry2]).print_html().replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + u',\n'                                
                             else:
-                                final_str += u'      "' + entry2 + u'":"' + element[entry2] + u'",\n'                            
+                                final_str += u'      "' + entry2 + u'":"' + PageFormatter(element[entry2]).print_html().replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + u'",\n'                            
                         final_str += u'  },\n'
                     final_str += u'  ],\n'                                
                 elif entry == "path":

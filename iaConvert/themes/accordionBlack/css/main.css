@@ -252,3 +252,23 @@ a.accordion-toggle {
     right:-40px;
     width:50px;
 }
+#loader {
+    position:fixed;
+    display: table;
+    text-align:center;
+    width:100%;
+    height:100%;
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+    background: black;
+    z-index:100;
+}
+#loader div{
+    font-family: yanone_thin, Arial;
+    font-size: 2em;    
+    display:table-cell;
+    vertical-align: middle;
+    color:white;
+}

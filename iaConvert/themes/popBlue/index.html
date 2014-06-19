@@ -6,7 +6,6 @@
     <meta name="keywords" content="{{KEYWORDS}}" />
     <meta charset="utf-8" />
     <title>{{TITLE}}</title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-combined.no-icons.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
 </head>
 <body>
@@ -15,18 +14,19 @@
             <p><img src="img/image-active.png" alt="images actives"/></p>
             <p>Chargement...</p>
         </div>
-    </div>    
+    </div>
     <main id="container">
         <div id="detect"></div>
         <header>
             <h1 id="title">{{TITLE}}</h1>
             <a class="eyes" href="#"></a> 
+            <a class="meta-doc" href="#"></a> 
             <a class="infos" href="#"></a>      
         </header>
-        <nav class="accordion" id="accordion2">{{ACCORDION}}</nav>
         <div id="canvas"></div>
+        <section id="content" class="overlay">{{CONTENT}}</section>
     </main>
-    <footer id="overlay">
+    <footer class="overlay" id="rights">
         <section id="popup">
             <img id="popup_close" src="img/close.png" alt="close"/>
             <article id="popup_text">
@@ -37,8 +37,7 @@
             </article>
         </section>
     </footer>
-    <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.9.1.js"></script>    
     <script src="js/kinetic.js"></script>
     <script src="datas/data.js"></script>
     <script defer="defer" src="js/iascene.js"></script>
