@@ -130,9 +130,10 @@ header h1 {
     width:100%;
     margin:10px auto;
     border:0px solid #FFF3B2;
-    /*background: red; */
+
     border-image-width: 0;
 }
+
 #canvas {
     width:55%;
     margin-top: 0px;

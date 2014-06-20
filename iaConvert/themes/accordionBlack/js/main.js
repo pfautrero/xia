@@ -178,7 +178,7 @@ function main() {
             // FullScreen ability
             // source code from http://blogs.sitepointstatic.com/examples/tech/full-screen/index.html
             var e = document.getElementById("title");
-            var div_container = document.getElementById("container");
+            var div_container = document.getElementById("image-active");
             e.onclick = function() {
                 if (RunPrefixMethod(document, "FullScreen") || RunPrefixMethod(document, "IsFullScreen")) {
                     RunPrefixMethod(document, "CancelFullScreen");

@@ -151,7 +151,7 @@ function main() {
             // FullScreen ability
             // source code from http://blogs.sitepointstatic.com/examples/tech/full-screen/index.html
             var e = document.getElementById("title");
-            var div_container = document.getElementById("container");
+            var div_container = document.getElementById("image-active");
             e.onclick = function() {
                 if (RunPrefixMethod(document, "FullScreen") || RunPrefixMethod(document, "IsFullScreen")) {
                     RunPrefixMethod(document, "CancelFullScreen");
@@ -219,7 +219,7 @@ if ($("#content").html() === "{{CONTENT}}") {
 if ($("#title").html() === "{{TITLE}}") $("#title").html(scene.title);
 
 
-//
+// some stuff to manage popin windows
 
 var viewportHeight = $(window).height();
 
@@ -231,9 +231,6 @@ $(".meta-doc").on("click", function(){
     var content_offset = $("#content").offset();
     $("#general").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});
 });
-
-
-
 
 $(".overlay").hide();
 
