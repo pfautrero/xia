@@ -532,6 +532,11 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                             $(this).collapse("toggle");
                 });
                 $('#' + idText).collapse("show");
+                $('#' + idText + " audio").each(function(){
+                    if ($(this).data("state") === "autostart") {
+                        $(this)[0].play();
+                    }
+                });                
 
                 var cacheBackground = true;
                 for (var i in that.kineticElement) {

@@ -274,7 +274,6 @@ class iaObject:
             ctm_group.applyTransformToPath(ctm_group.matrix,p)
             record_rect['path'] = cubicsuperpath.formatPath(p)
 
-
         minX = 10000
         minY = 10000
         maxX = -10000
@@ -454,11 +453,11 @@ class iaObject:
                         final_str += '  {\n'
                         for entry2 in element:
                             if entry2 == "path":
-                                final_str += u'  "' + entry2 + u'":' + PageFormatter(element[entry2]).print_html().replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + u',\n'                                
+                                final_str += u'  "' + entry2 + u'":' + PageFormatter(element[entry2]).print_html().replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + u',\n'
                             else:
-                                final_str += u'      "' + entry2 + u'":"' + PageFormatter(element[entry2]).print_html().replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + u'",\n'                            
+                                final_str += u'      "' + entry2 + u'":"' + PageFormatter(element[entry2]).print_html().replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + u'",\n'
                         final_str += u'  },\n'
-                    final_str += u'  ],\n'                                
+                    final_str += u'  ],\n'
                 elif entry == "path":
                     final_str += u'  "' + entry + u'":' + detail[entry] + ',\n'
                 elif entry == "detail":

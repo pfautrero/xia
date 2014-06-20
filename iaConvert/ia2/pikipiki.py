@@ -60,11 +60,12 @@ class PageFormatter:
             word_url = "http:" + word_url
         return u'<iframe src="%s" width="100%%"></iframe>\n' % (word_url)
 
+    def _audiostart_repl(self, word):
+        return u'<audio controls data-state="autostart">\n\t<source type="audio/ogg" src="%s.ogg" />\n\t<source type="audio/mp3" src="%s.mp3" />\n</audio>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0])
 
 
     def _audio_repl(self, word):
-
-        return u'<audio controls>\n\t<source type="audio/ogg" src="%s.ogg" />\n\t<source type="audio/mp3" src="%s.mp3" />\n</audio>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0])
+        return u'<audio controls data-state="none">\n\t<source type="audio/ogg" src="%s.ogg" />\n\t<source type="audio/mp3" src="%s.mp3" />\n</audio>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0])
 
     def _email_repl(self, word):
         return u'<a href="mailto:%s">%s</a>\n' % (word, word)
@@ -141,6 +142,7 @@ class PageFormatter:
             + r"|(?P<video>[^\s'\"]+\.(ogv|mp4|webm)$)"
             + r"|(?P<link>\[http(.*)\])"
             + r"|(?P<img>[^\s'\"]+\.(jpg|jpeg|png|gif)$)"
+            + r"|(?P<audiostart>[^\s'\"]+\.(ogg|mp3)(\s*)autostart$)"
             + r"|(?P<audio>[^\s'\"]+\.(ogg|mp3)$)"
             + r"|(?P<url>(http|ftp|nntp|news|mailto)\:[^\s'\"]+\S)"
             + r"|(?P<email>[-\w._+]+\@[\w.-]+)"

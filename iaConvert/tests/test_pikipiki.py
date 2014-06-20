@@ -137,14 +137,25 @@ class TestPageFormatter:
         assert_equal(expected_output, output)
 
         raw = "audio.mp3";
-        expected_output = '<audio controls>\n\t<source type="audio/ogg" src="audio.ogg" />\n\t<source type="audio/mp3" src="audio.mp3" />\n</audio>\n';
+        expected_output = '<audio controls data-state="none">\n\t<source type="audio/ogg" src="audio.ogg" />\n\t<source type="audio/mp3" src="audio.mp3" />\n</audio>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
 
         raw = "audio.ogg";
-        expected_output = '<audio controls>\n\t<source type="audio/ogg" src="audio.ogg" />\n\t<source type="audio/mp3" src="audio.mp3" />\n</audio>\n';
+        expected_output = '<audio controls data-state="none">\n\t<source type="audio/ogg" src="audio.ogg" />\n\t<source type="audio/mp3" src="audio.mp3" />\n</audio>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
+
+        raw = "audio.mp3  autostart";
+        expected_output = '<audio controls data-state="autostart">\n\t<source type="audio/ogg" src="audio.ogg" />\n\t<source type="audio/mp3" src="audio.mp3" />\n</audio>\n';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
+
+        raw = "audio.ogg    autostart";
+        expected_output = '<audio controls data-state="autostart">\n\t<source type="audio/ogg" src="audio.ogg" />\n\t<source type="audio/mp3" src="audio.mp3" />\n</audio>\n';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
+
 
         raw = "[http://example.com A small test]";
         expected_output = '<a href="http://example.com" target="_blank">A small test</a>';

@@ -61,7 +61,7 @@ class hook:
                 final_str += u'</div>\n'        
 
         with open(templatePath,"r") as template:
-            final_index = template.read()
+            final_index = template.read().decode("utf-8")
             final_index = final_index.replace("{{DESCRIPTION}}", self.iaobject.scene["description"])            
             final_index = final_index.replace("{{AUTHOR}}", self.iaobject.scene["creator"])
             final_index = final_index.replace("{{KEYWORDS}}", self.iaobject.scene["keywords"])            

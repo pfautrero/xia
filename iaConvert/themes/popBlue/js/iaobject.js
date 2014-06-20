@@ -331,6 +331,11 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             var viewportHeight = $(window).height();
             $("#content").show();
             $('#' + idText).show();
+            $('#' + idText + " audio").each(function(){
+                if ($(this).data("state") === "autostart") {
+                    $(this)[0].play();
+                }
+            });            
             var article_border = $('#' + idText).css("border-top-width").substr(0,$('#' + idText).css("border-top-width").length - 2);
             var article_offset = $('#' + idText).offset();
             var content_offset = $("#content").offset();
