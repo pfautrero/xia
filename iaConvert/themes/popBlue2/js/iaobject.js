@@ -48,6 +48,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     this.tween = new Array(); 
     this.tween_group = 0;
     this.group = 0;
+    this.idText = idText;
     
     // Create kineticElements and include them in a group
    
@@ -426,16 +427,20 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 
                 var viewportHeight = $(window).height();
                 $("#content").show();
-                $('#' + idText).show();
-                $('#' + idText + " audio").each(function(){
+                $(".detail_content").hide();
+                $('#' + that.idText).show();
+                $('.article_close').show();
+                $('.article_close').css({"top":$('#' + idText).offset().top - 20});
+                $('.article_close').css({"left":($('#content').width() - 40) / 2});
+                $('#' + that.idText + " audio").each(function(){
                     if ($(this).data("state") === "autostart") {
                         $(this)[0].play();
                     }
                 });                
-                var article_border = $('#' + idText).css("border-top-width").substr(0,$('#' + idText).css("border-top-width").length - 2);
-                var article_offset = $('#' + idText).offset();
+                var article_border = $('#' + that.idText).css("border-top-width").substr(0,$('#' + idText).css("border-top-width").length - 2);
+                var article_offset = $('#' + that.idText).offset();
                 var content_offset = $("#content").offset();
-                $('#' + idText).css({'max-height':(viewportHeight - article_offset.top - content_offset.top - 2 * article_border)});             
+                $('#' + that.idText).css({'max-height':(viewportHeight - article_offset.top - content_offset.top - 2 * article_border)});
                 
 
             }

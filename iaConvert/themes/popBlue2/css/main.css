@@ -191,7 +191,7 @@ header h1 {
     
     width: calc(100% - 40px);
     margin: 0px auto;
-    background:white;
+    background:rgba(255,255,255,1);
     box-shadow: black 5px 5px 10px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -205,11 +205,13 @@ header h1 {
 }
 
 .article_close {
+    z-index:200;
+    display: none;
     cursor: pointer;
     position:absolute;
     top:0px;
-    right:0px;
-    width:40px;
+    height:40px;
+    text-align:center;
 }
 #popup_text {
     text-align:center;

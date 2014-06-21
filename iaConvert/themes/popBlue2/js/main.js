@@ -189,26 +189,23 @@ launch = new main();
 // Load datas - only useful for themes debugging
 if ($("#content").html() === "{{CONTENT}}") {
     var menu = "";
-    menu += '<article id="general">';
-    menu += '<img class="article_close" src="img/close.png" alt="close"/>';
+    menu += '<img class="article_close" src="img/close.png" alt="close"/>';    
+    menu += '<article class="detail_content" id="general">';
     menu += '<h1>'+scene.intro_title+'</h1>';
     menu += '<p>' + scene.intro_detail + '</p>';
     menu += '</article>';
-    
     for (var i in details) {
         if ((details[i].detail.indexOf("Réponse:") != -1) || (details[i].detail.indexOf("réponse:") != -1)) {
             var question = details[i].detail.substr(0,details[i].detail.indexOf("Réponse:"));
             var answer = details[i].detail.substr(details[i].detail.indexOf("Réponse:")+8);
-            menu += '<article id="article-'+i+'">';
-            menu += '<img class="article_close" src="img/close.png" alt="close"/>';
+            menu += '<article class="detail_content" id="article-'+i+'">';
             menu += '<h1>'+details[i].title+'</h1>';
             menu += '<p>' + question + '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#response_'+i+'">Réponse</a></div>' + '<div class="response" id="response_'+ i +'">' + answer + '</div>' + '</p>';
             menu += '</article>';            
         }
 
         else {
-            menu += '<article id="article-'+i+'">';
-            menu += '<img class="article_close" src="img/close.png" alt="close"/>';
+            menu += '<article class="detail_content" id="article-'+i+'">';
             menu += '<h1>'+details[i].title+'</h1>';
             menu += '<p>'+details[i].detail+'</p>';
             menu += '</article>';                        
@@ -224,12 +221,16 @@ if ($("#title").html() === "{{TITLE}}") $("#title").html(scene.title);
 var viewportHeight = $(window).height();
 
 $(".meta-doc").on("click", function(){
+    $(".detail_content").hide();
     $("#content").show();
     $("#general").show();
     var general_border = $("#general").css("border-top-width").substr(0,$("#general").css("border-top-width").length - 2);
     var general_offset = $("#general").offset();
     var content_offset = $("#content").offset();
     $("#general").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});
+    $('.article_close').show();
+    $('.article_close').css({"top":$('#general').offset().top - 20});
+    $('.article_close').css({"left":($('#content').width() - 40) / 2});    
 });
 
 $(".overlay").hide();
@@ -242,7 +243,8 @@ $("#popup_close").on("click", function(){
 });
 
 $(".article_close").on("click", function(){
-    $(this).parent().hide();
+    $(this).hide();
+    $(".detail_content").hide();
     $("#content").hide();
 });
 
