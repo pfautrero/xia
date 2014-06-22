@@ -1,0 +1,250 @@
+/*fonts*/
+@font-face {
+    font-family: 'yanone_bold';
+    src: url('../font/yanonekaffeesatz-bold-webfont.eot');
+    src: url('../font/yanonekaffeesatz-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/yanonekaffeesatz-bold-webfont.woff') format('woff'),
+         url('../font/yanonekaffeesatz-bold-webfont.ttf') format('truetype'),
+         url('../font/yanonekaffeesatz-bold-webfont.svg#yanone_kaffeesatzbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'yanone_light';
+    src: url('../font/yanonekaffeesatz-light-webfont.eot');
+    src: url('../font/yanonekaffeesatz-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/yanonekaffeesatz-light-webfont.woff') format('woff'),
+         url('../font/yanonekaffeesatz-light-webfont.ttf') format('truetype'),
+         url('../font/yanonekaffeesatz-light-webfont.svg#yanone_kaffeesatzlight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'yanone_regular';
+    src: url('../font/yanonekaffeesatz-regular-webfont.eot');
+    src: url('../font/yanonekaffeesatz-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/yanonekaffeesatz-regular-webfont.woff') format('woff'),
+         url('../font/yanonekaffeesatz-regular-webfont.ttf') format('truetype'),
+         url('../font/yanonekaffeesatz-regular-webfont.svg#yanone_kaffeesatzregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+	font-family: 'yanone_thin';
+    src: url('../font/yanonekaffeesatz-thin-webfont.eot');
+    src: url('../font/yanonekaffeesatz-thin-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/yanonekaffeesatz-thin-webfont.woff') format('woff'),
+         url('../font/yanonekaffeesatz-thin-webfont.ttf') format('truetype'),
+         url('../font/yanonekaffeesatz-thin-webfont.svg#yanone_kaffeesatzthin') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+/*fin de font*/
+
+/* override Wahid */
+
+html {
+  margin:0;
+  padding:0;
+  background: url('../img/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+body{
+    background: none;
+    margin:0;
+    border:none;
+    padding:0px;
+    border-image-width: 0;
+}
+video {
+    width:100%;
+}
+audio {
+    width:100%;
+}
+a {
+    color:#00c6ff;
+}
+a:active, a:focus, a:hover {color:#FFF;}
+header {
+    width:100%; 
+    padding:0; 
+    margin:0 auto; 
+    /*background:#000;*/
+}
+
+header h1 {    
+    margin:0;
+    top:0;
+    left:0px;
+    /*background:url(../img/imagedoc-darknoise.png);*/
+    display:inline;
+    /*max-width:20%;*/
+    padding: 0px 1em 0 5px;
+    margin-bottom:0; 
+    color:black;
+    font-family: yanone_thin; 
+    font-size: 1.5em;
+}
+
+.eyes { 
+    background:url(../img/eyes.png) center bottom no-repeat;
+    /*margin-left: 10px;*/
+    padding:.3em 1em;
+}
+.eyes:hover {
+    background:url(../img/eyes2.png) center bottom  no-repeat;
+}
+.meta-doc {
+    background:url(../img/meta-doc.png) center bottom  no-repeat;
+    /*margin-left: 10px;*/
+    padding:.3em 1em
+}
+.meta-doc:hover{
+    background:url(../img/meta-doc2.png) center bottom  no-repeat;
+}
+.infos {
+    background:url(../img/infos.png) center bottom no-repeat;
+    /*margin-left: 10px;*/
+    padding:.3em 1em; 
+}
+.infos:hover{
+    background:url(../img/infos2.png) center bottom  no-repeat;
+}
+.title-document {display: block;}
+
+@media screen and (max-width: 640px) {
+    body {
+        font-size:0.7em;
+    }
+    h1 {
+        font-size:20px;
+    }
+}
+#detect, #canvas {
+    margin:0;
+    padding:0;
+}
+#container {
+    position: relative;
+    padding:0px;
+    width:100%;
+    margin:10px auto;
+    border:0px solid #FFF3B2;
+
+    border-image-width: 0;
+}
+
+#canvas {
+    width:55%;
+    margin-top: 40px;
+    border:20px solid rgba(255,255,255,0.5);
+
+}
+#detect {
+    position:absolute;
+    /*top:50px;*/
+    left:0;
+    width:100%;
+    height:655px;
+}
+
+
+.response {
+    display:none;
+}
+.response:target {
+    display:block;
+}
+.button {
+    background-color: #dddddd;
+    position:relative;
+    right:0px;
+    border-radius: 5px;
+    padding: 5px;
+}
+/* popup */
+.overlay {
+    position:fixed;
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+    background: rgba(0,0,0,0.6);
+}
+#popup {
+    position:relative;
+    border-radius: 20px;
+    border: 20px solid #ddd;
+    width: 60%;
+    margin: 50px auto;
+    background:white;
+    min-height: 100px;
+    box-shadow: black 5px 5px 10px;
+}
+#content article {
+    display:none;
+    z-index:100;
+    position:absolute;
+    border: 20px solid #ddd;
+    border-radius:20px;
+    
+    width: calc(100% - 40px);
+    margin: 0px auto;
+    background:rgba(255,255,255,1);
+    box-shadow: black 5px 5px 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+#content article p, h1 {
+    margin: 10px;
+}
+
+#content article h1 {
+    font-family: yanone_thin; 
+}
+
+.article_close {
+    z-index:200;
+    display: none;
+    cursor: pointer;
+    position:absolute;
+    top:0px;
+    height:40px;
+    text-align:center;
+}
+#popup_text {
+    text-align:center;
+}
+#popup_text img{
+    float:left;
+    width:20%;
+    max-width: 100px;
+}
+#popup_close {
+    cursor: pointer;
+    position:absolute;
+    top:-40px;
+    right:-40px;
+    width:50px;
+}
+#loader {
+    position:fixed;
+    display: table;
+    text-align:center;
+    width:100%;
+    height:100%;
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+    background: black;
+    z-index:100;
+}
+#loader div{
+    font-family: yanone_thin, Arial;
+    font-size: 2em;    
+    display:table-cell;
+    vertical-align: middle;
+    color:white;
+}

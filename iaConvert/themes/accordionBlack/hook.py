@@ -23,6 +23,7 @@ class hook:
         """Init"""
         self.iaobject = iaobject
         self.PageFormatter = PageFormatter
+        self.tooltip = "export accordionBlack"
 
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""

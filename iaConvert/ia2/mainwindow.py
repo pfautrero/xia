@@ -21,6 +21,7 @@ import ConfigParser
 from iaobject import iaObject
 from pikipiki import PageFormatter
 from splashscreen import Splash
+from tooltip import ToolTip
 
 class IADialog(Tkinter.Frame):
 
@@ -57,6 +58,7 @@ class IADialog(Tkinter.Frame):
         button1 = Tkinter.Button(self, image=import_img, relief=Tkinter.FLAT, bd=0, height=150, width=150, command=self.askopenfilename)
         button1.image = import_img
         button1.grid(row=0,column=0, columnspan=1,sticky='W')
+        tooltip = ToolTip(button1,"sélectionner le fichier SVG", None, 0.1)
         self.keep_alive = "yes"
     else:
         label1 = Tkinter.Label(self, image=inkscape)
@@ -89,6 +91,7 @@ class IADialog(Tkinter.Frame):
             button["command"] = lambda t=theme:self.createIA(t)
             button.image = img_button
             button.grid(row=theme_index // 3,column=theme_index % 3)
+            tooltip = ToolTip(button,theme['object'].tooltip, None, 0.1)
             theme_index = theme_index + 1
             if theme_index == 3:
                 theme_index = 5
