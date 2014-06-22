@@ -189,7 +189,7 @@ launch = new main();
 // Load datas - only useful for themes debugging
 if ($("#content").html() === "{{CONTENT}}") {
     var menu = "";
-    menu += '<article id="general">';
+    menu += '<article class="detail_content" id="general">';
     menu += '<img class="article_close" src="img/close.png" alt="close"/>';
     menu += '<h1>'+scene.intro_title+'</h1>';
     menu += '<p>' + scene.intro_detail + '</p>';
@@ -199,7 +199,7 @@ if ($("#content").html() === "{{CONTENT}}") {
         if ((details[i].detail.indexOf("Réponse:") != -1) || (details[i].detail.indexOf("réponse:") != -1)) {
             var question = details[i].detail.substr(0,details[i].detail.indexOf("Réponse:"));
             var answer = details[i].detail.substr(details[i].detail.indexOf("Réponse:")+8);
-            menu += '<article id="article-'+i+'">';
+            menu += '<article class="detail_content" id="article-'+i+'">';
             menu += '<img class="article_close" src="img/close.png" alt="close"/>';
             if (details[i].title !== "") {
                 menu += '<h1>'+details[i].title+'</h1>';
@@ -209,7 +209,7 @@ if ($("#content").html() === "{{CONTENT}}") {
         }
 
         else {
-            menu += '<article id="article-'+i+'">';
+            menu += '<article class="detail_content" id="article-'+i+'">';
             menu += '<img class="article_close" src="img/close.png" alt="close"/>';
             if (details[i].title !== "") {
                 menu += '<h1>'+details[i].title+'</h1>';
@@ -229,6 +229,7 @@ var viewportHeight = $(window).height();
 
 $(".meta-doc").on("click", function(){
     $("#content").show();
+    $(".detail_content").hide();
     $("#general").show();
     //var general_border = $("#general").css("border-top-width").substr(0,$("#general").css("border-top-width").length - 2);
     //var general_offset = $("#general").offset();
@@ -246,7 +247,7 @@ $("#popup_close").on("click", function(){
 });
 
 $(".article_close").on("click", function(){
-    $(this).parent().hide();
+    $(".detail_content").hide();
     $("#content").hide();
 });
 

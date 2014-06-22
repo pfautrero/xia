@@ -425,6 +425,7 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 iaScene.element = that;
                 
                 $("#content").show();
+                $(".detail_content").hide();
                 $('#' + idText).show();
                 $('#' + idText + " audio").each(function(){
                     if ($(this).data("state") === "autostart") {
