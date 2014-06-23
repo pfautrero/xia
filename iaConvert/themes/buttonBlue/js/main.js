@@ -148,28 +148,6 @@ function main() {
                 var iaObj = new iaObject(scaledImage, details[i], layers[indice], "article-" + i, baseImage, mainScene, layers[1], layers[0]);
             }
             $("#loader").hide();
-            
-            
-            document.addEventListener("click", function(ev){
-                if (mainScene.noPropagation) {
-                    mainScene.noPropagation = false;
-                }
-                else {
-                    if (mainScene.zoomActive === 1) {
-                        if ((mainScene.element !== 0) && 
-                        (typeof(mainScene.element) !== 'undefined')) {
-                            console.log("yo");
-                            mainScene.element.kineticElement[0].fire("click");
-                        }
-                    }
-                    else if (mainScene.cursorState.indexOf("ZoomIn.cur") !== -1) {
-                        document.body.style.cursor = "default";
-                        mainScene.cursorState = "default";
-                        mainScene.element.kineticElement[0].fire("mouseleave");
-                    }
-                }
-            });
-            
             // FullScreen ability
             // source code from http://blogs.sitepointstatic.com/examples/tech/full-screen/index.html
             var e = document.getElementById("title");

@@ -214,7 +214,7 @@ class TestiaObject:
         ia.analyzeSVG("tests/fixtures/generic1.svg")
         ia.generateJSON(temp.name)
         temp_content = temp.read()
-        #with open('tests/fixtures/generic1.js', 'w') as js:
+        #with open('tests/fixtures/temp.js', 'w') as js:
         #    js.write(temp_content)
         with open('tests/fixtures/generic1.js') as js:
             assert_equal(js.read(),temp_content)

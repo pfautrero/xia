@@ -86,6 +86,11 @@ class TestPageFormatter:
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output) 
 
+        raw = '<iframe width="560" height="315" src="//www.youtube.com/embed/ctXwWpMz44M" frameborder="0" allowfullscreen></iframe>';
+        expected_output = '<iframe src="http://www.youtube.com/embed/ctXwWpMz44M" width="100%"></iframe>\n';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output) 
+
         raw = "http://example.com";
         expected_output = '<a href="http://example.com" target="_blank">http://example.com</a>\n';
         output = PageFormatter(raw).print_html()

@@ -48,6 +48,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     this.tween = new Array(); 
     this.tween_group = 0;
     this.group = 0;
+    this.idText = idText;
     
     // Create kineticElements and include them in a group
    
@@ -77,64 +78,6 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
 
     this.defineTweens(this, iaScene);
     
-    /*
-     *  manage accordion events related to this element
-     */
-    $("#" + idText + "-heading").on('click touchstart',function(){
-        if (iaScene.zoomActive === 0) {
-            $('.collapse.in').each(function (index) {
-                if ($(this).attr("id") !== idText) $(this).collapse("toggle");
-            });
-            if ((iaScene.element !== 0) && 
-                (typeof(iaScene.element) !== 'undefined')) {
-                for (var i in iaScene.element.kineticElement) {
-                   
-                    if (iaScene.element.persistent[i] == "off") {
-                        iaScene.element.kineticElement[i].fillPriority('color');
-                        iaScene.element.kineticElement[i].fill('rgba(0, 0, 0, 0)');
-                    }
-                    else if (iaScene.element.persistent[i] == "onPath") {
-                        iaScene.element.kineticElement[i].fillPriority('color');
-                        iaScene.element.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');                       
-                    }
-                    else if (iaScene.element.persistent[i] == "onImage") {
-                        iaScene.element.kineticElement[i].fillPriority('pattern');
-                        iaScene.element.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
-                        iaScene.element.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
-                        iaScene.element.kineticElement[i].fillPatternImage(iaScene.element.backgroundImage[i]);                        
-                    }                     
-                    iaScene.element.layer.draw();
-                }
-                
-            }
-            var zoomable = true;
-            if ((typeof(detail.fill) !== 'undefined') && 
-                (detail.fill == "#000000")) {
-                zoomable = false;
-            }
-
-            if (zoomable === true) {
-                document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';
-                iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
-            }            
-            var cacheBackground = true;
-            for (var i in that.kineticElement) {
-                if (that.persistent[i] === "onImage") cacheBackground = false;
-                that.kineticElement[i].fillPriority('pattern');
-                that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
-                that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);               
-                that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
-            }
-            if (cacheBackground == true) {
-                that.backgroundCache_layer.moveToTop();
-            }
-
-            iaScene.element = that;
-            that.layer.moveToTop();
-            that.layer.draw();				
-            that.backgroundCache_layer.draw();
-        }
-    });
 }
 
 /*
@@ -162,13 +105,13 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         that.backgroundImageOwnScaleY[i] = detail.height / this.height;
         var zoomable = true;
         if ((typeof(detail.fill) !== 'undefined') && 
-            (detail.fill == "#000000")) {
+            (detail.fill === "#000000")) {
             zoomable = false;
         }
 
         that.persistent[i] = "off";
         if ((typeof(detail.fill) !== 'undefined') && 
-            (detail.fill == "#ffffff")) {
+            (detail.fill === "#ffffff")) {
             that.persistent[i] = "onImage";
             that.kineticElement[i].fillPriority('pattern');
             that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
@@ -177,52 +120,8 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
             zoomable = false;
         }
         
-        
         that.group.add(that.kineticElement[i]);
         that.addEventsManagement(i,zoomable, that, iaScene, baseImage, idText);
-
-        // define hit area excluding transparent pixels
-
-        /*detail.minX = parseFloat(detail.x);
-        detail.minY = parseFloat(detail.y);
-        detail.maxX = parseFloat(detail.x) + parseFloat(detail.width);
-        detail.maxY = parseFloat(detail.y) + parseFloat(detail.height);
-        var cropX = Math.max(parseFloat(detail.minX), 0);
-        var cropY = Math.max(parseFloat(detail.minY), 0);
-        var cropWidth = (Math.min(parseFloat(detail.maxX) - parseFloat(detail.minX), Math.floor(parseFloat(iaScene.originalWidth) * 1)));
-        var cropHeight = (Math.min(parseFloat(detail.maxY) - parseFloat(detail.minY), Math.floor(parseFloat(iaScene.originalHeight) * 1)));
-
-
-        that.kineticElement[i].hitFunc(function(context) {
-            var canvas_source = document.createElement('canvas');
-            canvas_source.setAttribute('width', cropWidth * iaScene.coeff);
-            canvas_source.setAttribute('height', cropHeight * iaScene.coeff);
-            var context_source = canvas_source.getContext('2d');
-            context_source.drawImage(rasterObj,0,0, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);
-            var imageDataSource = context_source.getImageData(0, 0, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);            
-            len = imageDataSource.data.length;
-            
-            var imageDataDestination = context.getImageData(cropX, cropY, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);
-            rgbColorKey = Kinetic.Util._hexToRgb(this.colorKey);
-       
-            for(j = 0; j < len; j += 4) {
-
-                imageDataDestination.data[j + 0] = rgbColorKey.r;
-                imageDataDestination.data[j + 1] = rgbColorKey.g;
-                imageDataDestination.data[j + 2] = rgbColorKey.b;
-                imageDataDestination.data[j + 3] = imageDataSource.data[j + 3];
-
-            }
-            context.putImageData(imageDataDestination, cropX * iaScene.coeff, cropY * iaScene.coeff);     
-            this.scaleX(iaScene.coeff);
-
-        });        
-
-        that.kineticElement[i].sceneFunc(function(context) {
-            var yo = that.layer.getHitCanvas().getContext().getImageData(0,0,iaScene.width, iaScene.height);
-            context.putImageData(yo, 0,0);  
-        });*/
-
         that.group.draw();        
     };
 
@@ -237,7 +136,6 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
  */
 iaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, idText) {
     that.path[i] = detail.path;
-    //that.backgroundImage[i] = imageObj;
 
     that.kineticElement[i] = new Kinetic.Path({
         name: detail.title,
@@ -280,17 +178,16 @@ iaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         that.kineticElement[i].fillPatternRepeat('no-repeat');
         that.kineticElement[i].fillPatternX(detail.minX);
         that.kineticElement[i].fillPatternY(detail.minY);
-        //that.kineticElement[i].draw();
     };
 
     var zoomable = true;
     if ((typeof(detail.fill) !== 'undefined') && 
-        (detail.fill == "#000000")) {
+        (detail.fill === "#000000")) {
         zoomable = false;
     }
     that.persistent[i] = "off";
     if ((typeof(detail.fill) !== 'undefined') && 
-        (detail.fill == "#ffffff")) {
+        (detail.fill === "#ffffff")) {
         that.persistent[i] = "onPath";
         that.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');
     }    
@@ -427,23 +324,14 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
         if ((iaScene.cursorState.indexOf("ZoomIn.cur") !== -1) && 
             (iaScene.element === that)) {
             
-            iaScene.zoomActive = 1;
+           iaScene.zoomActive = 1;
             document.body.style.cursor = "url(img/ZoomOut.cur),auto";
             iaScene.cursorState = "url(img/ZoomOut.cur),auto";
             that.layer.moveToTop();
             that.group.zoomActive = 1;
             that.originalX[0] = that.group.x();
             that.originalY[0] = that.group.y();
-            /*that.tween_group = new Kinetic.Tween({
-                node: that.group, 
-                duration: 1,
-                x: that.tweenX,
-                y: that.tweenY,
-                easing: iaScene.easing,
-                scaleX: that.agrandissement,
-                scaleY: that.agrandissement
-            });*/                
-            //that.tween_group.play();
+
             that.alpha = 0;
             that.step = 0.1;
             var personalTween = function() {
@@ -466,27 +354,17 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             };
             var t = setTimeout(personalTween, 30);
             
-            
-            
-            
-            
-            
         }
         // let's unzoom
         else if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
 
-            if ((that.group.zoomActive == 1) && 
-                (that.group.scaleX().toFixed(5) == (that.agrandissement).toFixed(5))) {
+            if ((that.group.zoomActive == 1)) {
                 iaScene.zoomActive = 0;
                 that.group.zoomActive = 0;
                 that.group.scaleX(1);
                 that.group.scaleY(1);
                 that.group.x(that.originalX[0]);
                 that.group.y(that.originalY[0]);
-                //that.group.clearCache();
-                //that.tween_group.reset();
-                //that.tween_group.destroy();
-                //delete that.tween_group;
 
                 that.backgroundCache_layer.moveToBottom();
                 document.body.style.cursor = "default";
@@ -528,15 +406,11 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
                 }
                 $('.collapse.in').each(function (index) {
-                        if ($(this).attr("id") !== idText) 
-                            $(this).collapse("toggle");
+                        //if ($(this).attr("id") !== idText) 
+                            //$(this).collapse("toggle");
                 });
-                $('#' + idText).collapse("show");
-                $('#' + idText + " audio").each(function(){
-                    if ($(this).data("state") === "autostart") {
-                        $(this)[0].play();
-                    }
-                });                
+                //$('#' + idText).collapse("show");
+               
 
                 var cacheBackground = true;
                 for (var i in that.kineticElement) {
@@ -550,6 +424,25 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 that.layer.moveToTop();
                 that.layer.draw(); 
                 iaScene.element = that;
+                
+                var viewportHeight = $(window).height();
+                $("#content").show();
+                $(".detail_content").hide();
+                $('#' + that.idText).show();
+                $('.article_close').show();
+                $('.article_close').css({"top":$('#' + idText).offset().top - 20});
+                $('.article_close').css({"left":($('#content').width() - 40) / 2});
+                $('#' + that.idText + " audio").each(function(){
+                    if ($(this).data("state") === "autostart") {
+                        $(this)[0].play();
+                    }
+                });                
+                var article_border = $('#' + that.idText).css("border-top-width").substr(0,$('#' + idText).css("border-top-width").length - 2);
+                var article_offset = $('#' + that.idText).offset();
+                var content_offset = $("#content").offset();
+                $('#' + that.idText).css({'max-height':(viewportHeight - article_offset.top - content_offset.top - 2 * article_border)});
+                
+
             }
         }
     });

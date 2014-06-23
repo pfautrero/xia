@@ -319,7 +319,9 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
     /*
      * if we click in this element, manage zoom-in, zoom-out
      */
-    that.kineticElement[i].on('click touchstart', function() {
+    that.kineticElement[i].on('click touchstart', function(evt) {
+
+        iaScene.noPropagation = true;
         // let's zoom
         if ((iaScene.cursorState.indexOf("ZoomIn.cur") !== -1) && 
             (iaScene.element === that)) {
@@ -405,12 +407,6 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';
                     iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
                 }
-                $('.collapse.in').each(function (index) {
-                        //if ($(this).attr("id") !== idText) 
-                            //$(this).collapse("toggle");
-                });
-                //$('#' + idText).collapse("show");
-               
 
                 var cacheBackground = true;
                 for (var i in that.kineticElement) {
@@ -445,12 +441,15 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 
             }
         }
+
     });
     /*
      * if we leave this element, just clear the scene
      */
     that.kineticElement[i].on('mouseleave', function() {
-        if (iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) {
+        //iaScene.noPropagation = true;
+        if ((iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) ||
+                (iaScene.cursorState.indexOf("ZoomIn.cur") !== -1)){
 
         }
         else {

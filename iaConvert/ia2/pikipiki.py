@@ -24,6 +24,8 @@ class PageFormatter:
     some state is carried over between lines.
     """
     def __init__(self, raw):
+        if type(raw) != unicode:
+            raw = raw.decode("utf-8")
         self.raw = raw
         self.is_em = self.is_b = 0
         self.list_indents = []
@@ -60,6 +62,12 @@ class PageFormatter:
             word_url = "http:" + word_url
         return u'<iframe src="%s" width="100%%"></iframe>\n' % (word_url)
 
+    def _iframe2_repl(self, word):
+        word_url = word.split('src="')[1].split('"')[0]
+        if word_url[0:2] == "//":
+            word_url = "http:" + word_url
+        return u'<iframe src="%s" width="100%%"></iframe>\n' % (word_url)
+    
     def _audiostart_repl(self, word):
         return u'<audio controls data-state="autostart">\n\t<source type="audio/ogg" src="%s.ogg" />\n\t<source type="audio/mp3" src="%s.mp3" />\n</audio>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0])
 
@@ -133,10 +141,10 @@ class PageFormatter:
         # For each line, we scan through looking for magic
         # strings, outputting verbatim any intervening text
         final_str = u""
-
         scan_re = re.compile(
             r"(?:(?P<emph>\*{2,3})"
-            + r"|(?P<iframe>&lt;iframe(.*)src=&quot;(.*)&quot;(.*)&gt;&lt;/iframe&gt;)"
+            + r'|(?P<iframe2><iframe(.*)src="(.*)"(.*)></iframe>)'
+            + r"|(?P<iframe>&lt;iframe(.*)src=&quot;(.*)&quot;(.*)&gt;&lt;/iframe&gt;)"        
             + r"|(?P<ent>[<>&])"
             + r"|(?P<rule>-{4,})"
             + r"|(?P<video>[^\s'\"]+\.(ogv|mp4|webm)$)"
