@@ -54,7 +54,7 @@ function main() {
             }
         }, false);	
 
-    $("#collapsecomment").collapse("show");
+    //$("#collapsecomment").collapse("show");
 
 
     // Load background image
