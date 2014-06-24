@@ -88,6 +88,7 @@ iaScene.prototype.scaleScene = function(mainScene){
     $('#canvas').css({"height": (mainScene.height) + 'px'});    
     $('#canvas').css({"width": mainScene.width * mainScene.ratio + 'px'});     
     $('#detect').css({"height": (mainScene.height) + 'px'});
+    $('#accordion2').css({"height": (mainScene.height) + 'px'});
     $('#detect').css({"top": ($('#canvas').offset().top - $('#container').offset().top) + 'px'});       
     
     

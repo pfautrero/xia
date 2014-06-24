@@ -199,7 +199,7 @@ a.accordion-toggle {
     background:white;
 }
 #accordion2 {
-    /*overflow:auto;*/
+    overflow:auto;
     max-height:655px;
 }
 .response {
