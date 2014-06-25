@@ -158,8 +158,8 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
     });
 
     rasterObj.onload = function() {
-        that.backgroundImageOwnScaleX[i] = detail.width / this.width;
-        that.backgroundImageOwnScaleY[i] = detail.height / this.height;
+        that.backgroundImageOwnScaleX[i] = iaScene.scale * detail.width / this.width;
+        that.backgroundImageOwnScaleY[i] = iaScene.scale * detail.height / this.height;
         var zoomable = true;
         if ((typeof(detail.fill) !== 'undefined') && 
             (detail.fill == "#000000")) {
