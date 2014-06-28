@@ -24,7 +24,7 @@
  * @param {type} backgroundCache_layer
  * @constructor create image active object
  */
-function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, background_layer, backgroundCache_layer) {
+function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, background_layer, backgroundCache_layer, myhooks) {
     "use strict";
     var that = this;
     this.path = new Array();
@@ -49,6 +49,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     this.tween_group = 0;
     this.group = 0;
     
+    this.myhooks = myhooks;
     // Create kineticElements and include them in a group
    
     that.group = new Kinetic.Group();
@@ -76,7 +77,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     }
 
     this.defineTweens(this, iaScene);
-    
+    this.myhooks.afterIaObjectConstructor(iaScene, idText, detail, this);
 }
 
 /*
@@ -326,20 +327,9 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             iaScene.zoomActive = 0;
             document.body.style.cursor = 'default';
             iaScene.cursorState = 'default';
+            that.myhooks.afterIaObjectZoom(iaScene, idText, that);
 
-
-            var viewportHeight = $(window).height();
-            $("#content").show();
-            $('#' + idText).show();
-            $('#' + idText + " audio").each(function(){
-                if ($(this).data("state") === "autostart") {
-                    $(this)[0].play();
-                }
-            });            
-            var article_border = $('#' + idText).css("border-top-width").substr(0,$('#' + idText).css("border-top-width").length - 2);
-            var article_offset = $('#' + idText).offset();
-            var content_offset = $("#content").offset();
-            $('#' + idText).css({'max-height':(viewportHeight - article_offset.top - content_offset.top - 2 * article_border)});             
+           
             
             
         }
@@ -412,6 +402,7 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 that.layer.moveToTop();
                 that.layer.draw(); 
                 iaScene.element = that;
+                that.myhooks.afterIaObjectFocus(iaScene, idText, that);
             }
         }
     });
