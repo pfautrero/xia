@@ -24,7 +24,7 @@ setup(
     version='2.0',
     packages=find_packages(),
     author='Pascal Fautrero',
-    author_email='pascal.fautrero@crdp.ac-versailles.fr',
+    author_email='pascal.fautrero@ac-versailles.fr',
     description='Convert svg to full html5 interactive pictures',
     long_description=open('README.md').read(),
     include_package_data=True,
