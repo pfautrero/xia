@@ -10,7 +10,7 @@
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
 //   
 //   
-// @author : pascal.fautrero@crdp.ac-versailles.fr
+// @author : pascal.fautrero@ac-versailles.fr
 
 
 /*
@@ -23,7 +23,7 @@
  * @param {type} iaScene
  * @constructor create image active object
  */
-function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, background_layer, backgroundCache_layer) {
+function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, background_layer, backgroundCache_layer, myhooks) {
     "use strict";
     var that = this;
     this.path = new Array();
@@ -47,6 +47,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     this.tween = new Array(); 
     this.tween_group = 0;
     this.group = 0;
+    this.myhooks = myhooks;
     
     // Create kineticElements and include them in a group
    
@@ -75,68 +76,8 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     }
 
     this.defineTweens(this, iaScene);
-    
-    /*
-     *  manage accordion events related to this element
-     */
-    $("#" + idText + "-heading").on('click touchstart',function(){
-        if (iaScene.zoomActive === 0) {
-            $('.collapse.in').each(function (index) {
-                if ($(this).attr("id") !== idText) $(this).collapse("toggle");
-            });
-            if ((iaScene.element !== 0) && 
-                (typeof(iaScene.element) !== 'undefined')) {
-                for (var i in iaScene.element.kineticElement) {
-                    //iaScene.element.kineticElement[i].fillPriority('color');
-                    //iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
-                    //iaScene.element.layer.draw();
-                    
-                    if (iaScene.element.persistent[i] == "off") {
-                        iaScene.element.kineticElement[i].fillPriority('color');
-                        iaScene.element.kineticElement[i].fill('rgba(0, 0, 0, 0)');
-                    }
-                    else if (iaScene.element.persistent[i] == "onPath") {
-                        iaScene.element.kineticElement[i].fillPriority('color');
-                        iaScene.element.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');                       
-                    }
-                    else if (iaScene.element.persistent[i] == "onImage") {
-                        iaScene.element.kineticElement[i].fillPriority('pattern');
-                        iaScene.element.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
-                        iaScene.element.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);
-                        iaScene.element.kineticElement[i].fillPatternImage(iaScene.element.backgroundImage[i]);                        
-                    }                     
-                    iaScene.element.layer.draw();
-                }
-                
-            }
-            var zoomable = true;
-            if ((typeof(detail.fill) !== 'undefined') && 
-                (detail.fill === "#000000")) {
-                zoomable = false;
-            }
+    this.myhooks.afterIaObjectConstructor(iaScene, idText, detail, this);
 
-            if (zoomable === true) {
-                document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';
-                iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
-            }            
-            var cacheBackground = true;
-            for (var i in that.kineticElement) {
-                if (that.persistent[i] === "onImage") cacheBackground = false;
-                that.kineticElement[i].fillPriority('pattern');
-                that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
-                that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);                
-                that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
-            }
-            if (cacheBackground == true) {
-                that.backgroundCache_layer.moveToTop();
-            }
-
-            iaScene.element = that;
-            that.layer.moveToTop();
-            that.layer.draw();				
-            that.backgroundCache_layer.draw();
-        }
-    });
 }
 
 /*
@@ -151,6 +92,7 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
     rasterObj.src = detail.image;                
     that.backgroundImage[i] = rasterObj;
     that.kineticElement[i] = new Kinetic.Image({
+        name: detail.title,
         x: parseFloat(detail.x) * iaScene.coeff,
         y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
         width: detail.width,
@@ -242,6 +184,7 @@ iaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     //that.backgroundImage[i] = imageObj;
 
     that.kineticElement[i] = new Kinetic.Path({
+        name: detail.title,
         data: detail.path,
         x: parseFloat(detail.x) * iaScene.coeff,
         y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
@@ -528,16 +471,7 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';
                     iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
                 }
-                $('.collapse.in').each(function (index) {
-                        if ($(this).attr("id") !== idText) 
-                            $(this).collapse("toggle");
-                });
-                $('#' + idText).collapse("show");
-                $('#' + idText + " audio").each(function(){
-                    if ($(this).data("state") === "autostart") {
-                        $(this)[0].play();
-                    }
-                });
+
                 var cacheBackground = true;
                 for (var i in that.kineticElement) {
                     if (that.persistent[i] === "onImage") cacheBackground = false;
@@ -550,6 +484,7 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 that.layer.moveToTop();
                 that.layer.draw(); 
                 iaScene.element = that;
+                that.myhooks.afterIaObjectFocus(iaScene, idText, that);
             }
         }
     });

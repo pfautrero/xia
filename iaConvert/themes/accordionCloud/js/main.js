@@ -22,7 +22,7 @@
  * 4th layer : div "disablearea" - if clicked, disable events canvas  
  */
 
-function main() {
+function main(myhooks) {
     "use strict";
     var that=this;
 
@@ -140,6 +140,7 @@ function main() {
                 canvas.style.pointerEvents="none";
             });
             var layers = new Array();
+            that.layers = layers;
             layers[0] = new Kinetic.FastLayer();	
             layers[1] = new Kinetic.FastLayer();	
             layers[2] = new Kinetic.Layer();
@@ -150,31 +151,17 @@ function main() {
             stage.add(layers[0]);
             stage.add(layers[1]);
             stage.add(layers[2]);
-
+            
+            myhooks.beforeMainConstructor(mainScene, that.layers);
             for (var i in details) {
                 var indice = parseInt(i+3);
                 layers[indice] = new Kinetic.Layer();
                 stage.add(layers[indice]);
-                var iaObj = new iaObject(scaledImage, details[i], layers[indice], "collapse" + i, baseImage, mainScene, layers[1], layers[0]);
+                var iaObj = new iaObject(scaledImage, details[i], layers[indice], "collapse" + i, baseImage, mainScene, layers[1], layers[0], myhooks);
             }
 
-            $("#collapsecomment-heading").on('click touchstart',function(){
-                if (mainScene.zoomActive === 0) {
-                    $('.collapse.in').each(function (index) {
-                        if ($(this).attr("id") !== "collapsecomment") $(this).collapse("toggle");
-                    });
-                    if ((mainScene.element !== 0) && (typeof(mainScene.element) !== 'undefined')) {
-                        for (var i in mainScene.element.kineticElement) {
-                            mainScene.element.kineticElement[i].fillPriority('color');
-                            mainScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
-                            mainScene.element.layer.draw();
-                        }
-                    }
-                    mainScene.element = that;
-                    layers[0].moveToBottom();
-                }
-            });
             $("#loader").hide();
+            myhooks.afterMainConstructor(mainScene, that.layers);
             // FullScreen ability
             // source code from http://blogs.sitepointstatic.com/examples/tech/full-screen/index.html
             var e = document.getElementById("title");
@@ -222,43 +209,6 @@ function main() {
     
 }
 
-launch = new main();
+myhooks = new hooks();
+launch = new main(myhooks);
 
-$(".infos").on("click", function(){
-    $("#overlay").show();
-});
-$("#popup_close").on("click", function(){
-    $("#overlay").hide();
-});
-// Load datas in the accordion menu - only useful for themes debugging
-if ($("#accordion2").html() === "{{ACCORDION}}") {
-    var menu = "";
-    menu += '<div class="accordion-group">';
-    menu += '<div class="accordion-heading">';
-    menu += '<a id="collapsecomment-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsecomment">'+scene.intro_title+'</a>';
-    menu += '<div id="collapsecomment" class="accordion-body collapse">';
-    menu += '<div class="accordion-inner">'+scene.intro_detail+'</div></div></div></div>';
-
-    for (var i in details) {
-        if ((details[i].detail.indexOf("Réponse:") != -1) || (details[i].detail.indexOf("réponse:") != -1)) {
-            var question = details[i].detail.substr(0,details[i].detail.indexOf("Réponse:"));
-            var answer = details[i].detail.substr(details[i].detail.indexOf("Réponse:")+8);
-            menu += '<div class="accordion-group">';
-            menu += '<div class="accordion-heading">';
-            menu += '<a id="collapse'+i+'-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse'+i+'">'+details[i].title+'</a>';
-            menu += '<div id="collapse'+i+'" class="accordion-body collapse">';
-            menu += '<div class="accordion-inner">' + question + '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#response_'+i+'">Réponse</a></div>' + '<div class="response" id="response_'+ i +'">' + answer + '</div>' + '</div></div></div></div>';
-        }
-
-        else {
-            menu += '<div class="accordion-group">';
-            menu += '<div class="accordion-heading">';
-            menu += '<a id="collapse'+i+'-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse'+i+'">'+details[i].title+'</a>';
-            menu += '<div id="collapse'+i+'" class="accordion-body collapse">';
-            menu += '<div class="accordion-inner">'+details[i].detail+'</div></div></div></div>';
-        }
-    }
-    $("#accordion2").html(menu);
-    $("#collapsecomment").collapse("show");
-}
-if ($("#title").html() === "{{TITLE}}") $("#title").html(scene.title);
