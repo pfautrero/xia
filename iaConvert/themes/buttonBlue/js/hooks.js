@@ -105,6 +105,13 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
 hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaObject) {
 
 };
+/*
+ *
+ *  
+ */
+hooks.prototype.afterIaObjectZoom = function(iaScene, idText, iaObject) {
+
+}
     
 /*
  *

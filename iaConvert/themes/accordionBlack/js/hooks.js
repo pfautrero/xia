@@ -158,6 +158,13 @@ hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaO
         }
     });
 };
+/*
+ *
+ *  
+ */
+hooks.prototype.afterIaObjectZoom = function(iaScene, idText, iaObject) {
+
+}
     
 /*
  *

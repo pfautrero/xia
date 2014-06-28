@@ -10,7 +10,7 @@
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
 //   
 //   
-// @author : pascal.fautrero@crdp.ac-versailles.fr
+// @author : pascal.fautrero@ac-versailles.fr
 
 
 /*
@@ -24,7 +24,7 @@
  * @param {type} backgroundCache_layer
  * @constructor create image active object
  */
-function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, background_layer, backgroundCache_layer) {
+function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, background_layer, backgroundCache_layer, myhooks) {
     "use strict";
     var that = this;
     this.path = new Array();
@@ -49,7 +49,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     this.tween_group = 0;
     this.group = 0;
     this.idText = idText;
-    
+    this.myhooks = myhooks;
     // Create kineticElements and include them in a group
    
     that.group = new Kinetic.Group();
@@ -77,7 +77,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     }
 
     this.defineTweens(this, iaScene);
-    
+    this.myhooks.afterIaObjectConstructor(iaScene, idText, detail, this);
 }
 
 /*
@@ -355,7 +355,7 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 }
             };
             var t = setTimeout(personalTween, 30);
-            
+            that.myhooks.afterIaObjectZoom(iaScene, idText, that);
         }
         // let's unzoom
         else if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
@@ -420,24 +420,8 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 that.layer.moveToTop();
                 that.layer.draw(); 
                 iaScene.element = that;
-                
-                var viewportHeight = $(window).height();
-                $("#content").show();
-                $(".detail_content").hide();
-                $('#' + that.idText).show();
-                $('.article_close').show();
-                $('.article_close').css({"top":$('#' + idText).offset().top - 20});
-                $('.article_close').css({"left":($('#content').width() - 40) / 2});
-                $('#' + that.idText + " audio").each(function(){
-                    if ($(this).data("state") === "autostart") {
-                        $(this)[0].play();
-                    }
-                });                
-                var article_border = $('#' + that.idText).css("border-top-width").substr(0,$('#' + idText).css("border-top-width").length - 2);
-                var article_offset = $('#' + that.idText).offset();
-                var content_offset = $("#content").offset();
-                $('#' + that.idText).css({'max-height':(viewportHeight - article_offset.top - content_offset.top - 2 * article_border)});
-                
+                that.myhooks.afterIaObjectFocus(iaScene, idText, that);
+
 
             }
         }

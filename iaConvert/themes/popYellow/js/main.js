@@ -10,7 +10,7 @@
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
 //   
 //   
-// @author : pascal.fautrero@crdp.ac-versailles.fr
+// @author : pascal.fautrero@ac-versailles.fr
 
 /*
  * Main
@@ -22,7 +22,7 @@
  * 4th layer : div "disablearea" - if clicked, disable events canvas  
  */
 
-function main() {
+function main(myhooks) {
     "use strict";
     var that=this;
     that.canvas = document.getElementById("canvas");
@@ -130,6 +130,7 @@ function main() {
                 canvas.style.pointerEvents="none";
             });
             var layers = new Array();
+            that.layers = layers;
             layers[0] = new Kinetic.FastLayer();	
             layers[1] = new Kinetic.FastLayer();	
             layers[2] = new Kinetic.Layer();
@@ -140,35 +141,15 @@ function main() {
             stage.add(layers[0]);
             stage.add(layers[1]);
             stage.add(layers[2]);
-
+            myhooks.beforeMainConstructor(mainScene, that.layers);
             for (var i in details) {
                 var indice = parseInt(i+3);
                 layers[indice] = new Kinetic.Layer();
                 stage.add(layers[indice]);
-                var iaObj = new iaObject(scaledImage, details[i], layers[indice], "article-" + i, baseImage, mainScene, layers[1], layers[0]);
+                var iaObj = new iaObject(scaledImage, details[i], layers[indice], "article-" + i, baseImage, mainScene, layers[1], layers[0], myhooks);
             }
+            myhooks.afterMainConstructor(mainScene, that.layers);             
             $("#loader").hide();
-            
-            
-            document.addEventListener("click", function(ev){
-                if (mainScene.noPropagation) {
-                    mainScene.noPropagation = false;
-                }
-                else {
-                    if (mainScene.zoomActive === 1) {
-                        if ((mainScene.element !== 0) && 
-                        (typeof(mainScene.element) !== 'undefined')) {
-                            console.log("yo");
-                            mainScene.element.kineticElement[0].fire("click");
-                        }
-                    }
-                    else if (mainScene.cursorState.indexOf("ZoomIn.cur") !== -1) {
-                        document.body.style.cursor = "default";
-                        mainScene.cursorState = "default";
-                        mainScene.element.kineticElement[0].fire("mouseleave");
-                    }
-                }
-            });
             
             // FullScreen ability
             // source code from http://blogs.sitepointstatic.com/examples/tech/full-screen/index.html
@@ -205,68 +186,5 @@ function main() {
     };    
 }
 
-launch = new main();
-
-
-// Load datas - only useful for themes debugging
-if ($("#content").html() === "{{CONTENT}}") {
-    var menu = "";
-    menu += '<img class="article_close" src="img/close.png" alt="close"/>';    
-    menu += '<article class="detail_content" id="general">';
-    menu += '<h1>'+scene.intro_title+'</h1>';
-    menu += '<p>' + scene.intro_detail + '</p>';
-    menu += '</article>';
-    for (var i in details) {
-        if ((details[i].detail.indexOf("Réponse:") != -1) || (details[i].detail.indexOf("réponse:") != -1)) {
-            var question = details[i].detail.substr(0,details[i].detail.indexOf("Réponse:"));
-            var answer = details[i].detail.substr(details[i].detail.indexOf("Réponse:")+8);
-            menu += '<article class="detail_content" id="article-'+i+'">';
-            menu += '<h1>'+details[i].title+'</h1>';
-            menu += '<p>' + question + '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#response_'+i+'">Réponse</a></div>' + '<div class="response" id="response_'+ i +'">' + answer + '</div>' + '</p>';
-            menu += '</article>';            
-        }
-
-        else {
-            menu += '<article class="detail_content" id="article-'+i+'">';
-            menu += '<h1>'+details[i].title+'</h1>';
-            menu += '<p>'+details[i].detail+'</p>';
-            menu += '</article>';                        
-        }
-    }
-    $("#content").html(menu);
-}
-if ($("#title").html() === "{{TITLE}}") $("#title").html(scene.title);
-
-
-// some stuff to manage popin windows
-
-var viewportHeight = $(window).height();
-
-$(".meta-doc").on("click", function(){
-    $(".detail_content").hide();
-    $("#content").show();
-    $("#general").show();
-    var general_border = $("#general").css("border-top-width").substr(0,$("#general").css("border-top-width").length - 2);
-    var general_offset = $("#general").offset();
-    var content_offset = $("#content").offset();
-    $("#general").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});
-    $('.article_close').show();
-    $('.article_close').css({"top":$('#general').offset().top - 20});
-    $('.article_close').css({"left":($('#content').width() - 40) / 2});    
-});
-
-$(".overlay").hide();
-
-$(".infos").on("click", function(){
-    $("#rights").show();
-});
-$("#popup_close").on("click", function(){
-    $("#rights").hide();
-});
-
-$(".article_close").on("click", function(){
-    $(this).hide();
-    $(".detail_content").hide();
-    $("#content").hide();
-});
-
+myhooks = new hooks();
+launch = new main(myhooks);
