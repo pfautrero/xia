@@ -10,7 +10,7 @@
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
 //   
 //   
-// @author : pascal.fautrero@crdp.ac-versailles.fr
+// @author : pascal.fautrero@ac-versailles.fr
 
 
 /*
@@ -24,7 +24,7 @@
  * @param {type} backgroundCache_layer
  * @constructor create image active object
  */
-function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, background_layer, backgroundCache_layer) {
+function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, background_layer, backgroundCache_layer, myhooks) {
     "use strict";
     var that = this;
     this.path = new Array();
@@ -48,7 +48,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     this.tween = new Array(); 
     this.tween_group = 0;
     this.group = 0;
-    
+    this.myhooks = myhooks;
     // Create kineticElements and include them in a group
    
     that.group = new Kinetic.Group();
@@ -76,6 +76,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     }
 
     this.defineTweens(this, iaScene);
+    this.myhooks.afterIaObjectConstructor(iaScene, idText, detail, this);
     
 }
 
@@ -404,12 +405,6 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';
                     iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
                 }
-                $('.collapse.in').each(function (index) {
-                        //if ($(this).attr("id") !== idText) 
-                            //$(this).collapse("toggle");
-                });
-                //$('#' + idText).collapse("show");
-               
 
                 var cacheBackground = true;
                 for (var i in that.kineticElement) {
@@ -423,15 +418,8 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 that.layer.moveToTop();
                 that.layer.draw(); 
                 iaScene.element = that;
-                
-                $("#content").show();
-                $(".detail_content").hide();
-                $('#' + idText).show();
-                $('#' + idText + " audio").each(function(){
-                    if ($(this).data("state") === "autostart") {
-                        $(this)[0].play();
-                    }
-                });
+                that.myhooks.afterIaObjectFocus(iaScene, idText, that);
+
                 //var viewportHeight = $(window).height();
                 //var article_border = $('#' + idText).css("border-top-width").substr(0,$('#' + idText).css("border-top-width").length - 2);
                 //var article_offset = $('#' + idText).offset();
