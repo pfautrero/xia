@@ -30,6 +30,7 @@ hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
     // Load datas - only useful for themes debugging
     if ($("#content").html() === "{{CONTENT}}") {
         var menu = "";
+        var buttons = "<ul>";
         menu += '<img class="article_close" src="img/close.png" alt="close"/>';    
         menu += '<article class="detail_content" id="general">';
         menu += '<h1>'+scene.intro_title+'</h1>';
@@ -51,9 +52,12 @@ hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
                 menu += '<p>'+details[i].detail+'</p>';
                 menu += '</article>';                        
             }
+            buttons += '<li class="button-unselected button-li" id="li-article-' + i + '">' + (parseInt(i)+1) + '</li>';
         }
         $("#content").html(menu);
     }
+    buttons += '</ul>';
+    $("#buttons").html(buttons);
     if ($("#title").html() === "{{TITLE}}") $("#title").html(scene.title);
 
 
@@ -104,6 +108,13 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
  */
 hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaObject) {
 
+        $("#li-" + idText).on("click", function(){
+            $(".button-li").removeClass("button-selected").addClass("button-unselected");
+            $(this).addClass("button-selected").removeClass("button-unselected");
+            iaObject.kineticElement[0].fire("click");
+
+        });
+
 };
 /*
  *
@@ -134,5 +145,6 @@ hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
     var article_offset = $('#' + idText).offset();
     var content_offset = $("#content").offset();
     $('#' + idText).css({'max-height':(viewportHeight - article_offset.top - content_offset.top - 2 * article_border)});
-
+    $(".button-li").removeClass("button-selected").addClass("button-unselected");
+    $("#li-" + idText).addClass("button-selected").removeClass("button-unselected");
 };

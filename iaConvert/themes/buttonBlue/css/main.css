@@ -247,3 +247,49 @@ header h1 {
     vertical-align: middle;
     color:white;
 }
+ul {
+    margin:0;
+    margin-top: 5px;
+    padding:0;
+}
+.button-unselected {
+    list-style:none;
+    background:#CCE8FF;
+    display:inline-block;
+    margin-left:2px;
+    margin-right:2px;
+    padding: 0.4em;
+    border:0.2em solid #263868;
+    width: 1em;
+    height: 1em;
+    border-radius: 1.3em;
+    text-align:center;
+    transition: 0.5s;
+    box-shadow: 3px 3px 4px rgba(0,0,0,0.6);
+}
+.button-selected {
+    list-style:none;
+    background:#1A2948;
+    display:inline-block;
+    margin-left:2px;
+    margin-right:2px;
+    padding: 0.4em;
+    border:0.2em solid #263868;
+    width: 1em;
+    height: 1em;
+    border-radius: 1.3em;
+    text-align:center;
+    transition: 0.5s;
+    box-shadow: 3px 3px 4px rgba(0,0,0,0.6);
+    color:white;
+}
+li:hover {
+    cursor:pointer;
+    color:white;
+    background:#4A6FC7;
+    box-shadow: 0px 0px 3px rgba(0,0,0,0.9);
+}
+
+#buttons {
+    text-align: center;
+}
