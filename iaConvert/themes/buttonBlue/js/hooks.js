@@ -20,7 +20,12 @@
 function hooks() {
     "use strict";
     var that = this;
+    this.dragwindow = false;
+    this.popvisible = 0;
+    this.deltaX = 0;
+    this.deltaY = 0;
 }
+
 /*
  * @param array layers
  * @param iaScene mainScene
@@ -31,7 +36,7 @@ hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
     if ($("#content").html() === "{{CONTENT}}") {
         var menu = "";
         var buttons = "<ul>";
-        menu += '<img class="article_close" src="img/close.png" alt="close"/>';    
+
         menu += '<article class="detail_content" id="general">';
         menu += '<h1>'+scene.intro_title+'</h1>';
         menu += '<p>' + scene.intro_detail + '</p>';
@@ -72,18 +77,20 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
     // some stuff to manage popin windows
 
     var viewportHeight = $(window).height();
-
+    var that = this;
+    
     $(".meta-doc").on("click", function(){
         $(".detail_content").hide();
+        that.popvisible = "general";
         $("#content").show();
         $("#general").show();
         var general_border = $("#general").css("border-top-width").substr(0,$("#general").css("border-top-width").length - 2);
         var general_offset = $("#general").offset();
         var content_offset = $("#content").offset();
         $("#general").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});
-        $('.article_close').show();
-        $('.article_close').css({"top":$('#general').offset().top - 20});
-        $('.article_close').css({"left":($('#content').width() - 40) / 2});    
+        $('.buttons_container').show();
+        $('.buttons_container').css({"top":$('#general').offset().top - 10});
+        $('.buttons_container').css({"left": $('#general').offset().left + ($('#content').width() - $('.buttons_container').width()) / 2});   
     });
 
     $(".overlay").hide();
@@ -95,27 +102,45 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         $("#rights").hide();
     });
 
-    $(".article_close").on("click", function(){
-        $(this).hide();
+    $("#article_close").on("click", function(){
+        $(".buttons_container").hide();
         $(".detail_content").hide();
         $("#content").hide();
     });
-
+    $("#article_move").on("mousedown", function(evt){
+        that.dragwindow = true;
+        that.deltaX = Math.abs(evt.pageX - $(".buttons_container").offset().left);
+        that.deltaY = Math.abs(evt.pageY - $(".buttons_container").offset().top);
+        $(".buttons_container").offset().top = $("#" + that.popvisible).offset().top;
+        $(".buttons_container").offset().left = $("#" + that.popvisible).offset().left + $("#container").offset().left;
+        // disable text selection
+        return false;
+    });
+    $(document).on("mousemove", function(evt){
+         if (that.dragwindow) {
+            $("#" + that.popvisible).css({"top":evt.pageY});
+            $("#" + that.popvisible).css({"left":evt.pageX - $("#container").offset().left - ($('#content').width() - $('.buttons_container').width()) / 2  - that.deltaX}); 
+            $(".buttons_container").css({"top":evt.pageY - 10});
+            $(".buttons_container").css({"left":evt.pageX - that.deltaX}); 
+        }
+    });
+    $(document).on("mouseup", function(evt){
+        that.dragwindow = false;
+     });
 };
+
 /*
  *
  *  
  */
 hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaObject) {
-
-        $("#li-" + idText).on("click", function(){
-            $(".button-li").removeClass("button-selected").addClass("button-unselected");
-            $(this).addClass("button-selected").removeClass("button-unselected");
-            iaObject.kineticElement[0].fire("click");
-
-        });
-
+    $("#li-" + idText).on("click", function(){
+        $(".button-li").removeClass("button-selected").addClass("button-unselected");
+        $(this).addClass("button-selected").removeClass("button-unselected");
+        iaObject.kineticElement[0].fire("click");
+    });
 };
+
 /*
  *
  *  
@@ -130,12 +155,14 @@ hooks.prototype.afterIaObjectZoom = function(iaScene, idText, iaObject) {
  */
 hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
     var viewportHeight = $(window).height();
+    var that = this;
+    that.popvisible = idText;
     $("#content").show();
     $(".detail_content").hide();
     $('#' + idText).show();
-    $('.article_close').show();
-    $('.article_close').css({"top":$('#' + idText).offset().top - 20});
-    $('.article_close').css({"left":($('#content').width() - 40) / 2});
+    $('.buttons_container').show();
+    $('.buttons_container').css({"top":$('#' + idText).offset().top - 10});
+    $('.buttons_container').css({"left":$('#' + idText).offset().left + ($('#content').width() - $('.buttons_container').width()) / 2});
     $('#' + idText + " audio").each(function(){
         if ($(this).data("state") === "autostart") {
             $(this)[0].play();

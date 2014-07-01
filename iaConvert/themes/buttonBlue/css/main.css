@@ -203,14 +203,29 @@ header h1 {
     font-family: yanone_thin; 
 }
 
-.article_close {
-    z-index:200;
-    display: none;
+#article_move {
+    background-image: url(../img/move.png);
+    background-repeat: no-repeat;
+    z-index:500;
     cursor: pointer;
-    position:absolute;
-    top:0px;
     height:40px;
-    text-align:center;
+    width:40px;
+    display:inline-block;
+}
+#article_close {
+    background-image: url(../img/close.png);
+    background-repeat: no-repeat;
+    z-index:500;
+    cursor: pointer;
+    height:40px;
+    width:40px;
+    display:inline-block;
+}
+.buttons_container {
+    display: none;
+    z-index:200;
+    position:absolute;
+    text-align : center;
 }
 #popup_text {
     text-align:center;
