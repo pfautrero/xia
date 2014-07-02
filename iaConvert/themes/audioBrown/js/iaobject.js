@@ -301,6 +301,8 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     that.kineticElement[i].fillPriority('color');
                     that.kineticElement[i].fill(iaScene.overColor);
                     that.kineticElement[i].scale(iaScene.coeff);
+                    that.kineticElement[i].stroke(iaScene.overColorStroke);
+                    that.kineticElement[i].strokeWidth(2);                    
                 }
                 else if (that.persistent[i] == "onPath") {
                     that.kineticElement[i].fillPriority('color');
@@ -399,7 +401,10 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     for (var i in iaScene.element.kineticElement) {
                         iaScene.element.kineticElement[i].fillPriority('color');
                         iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
+                        iaScene.element.kineticElement[i].setStroke('rgba(0, 0, 0, 0)');
+                        iaScene.element.kineticElement[i].setStrokeWidth(0);                         
                     }
+                    iaScene.element.layer.draw();
                 }                    
                 if (zoomable === true) {
                     document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';
@@ -413,6 +418,8 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
                     that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale); 
                     that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
+                    that.kineticElement[i].stroke(iaScene.overColorStroke);
+                    that.kineticElement[i].strokeWidth(2);                    
                 }
                 if (cacheBackground === true) that.backgroundCache_layer.moveToTop();
                 that.layer.moveToTop();
@@ -444,16 +451,24 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     if (that.persistent[i] == "off") {
                         that.kineticElement[i].fillPriority('color');
                         that.kineticElement[i].fill('rgba(0, 0, 0, 0)');
+                        that.kineticElement[i].stroke('rgba(0, 0, 0, 0)');
+                        that.kineticElement[i].strokeWidth(0);                        
                     }
                     else if (that.persistent[i] == "onPath") {
                         that.kineticElement[i].fillPriority('color');
                         that.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');                       
+                        that.kineticElement[i].stroke('rgba(0, 0, 0, 0)');
+                        that.kineticElement[i].strokeWidth(0);                        
+
                     }
                     else if (that.persistent[i] == "onImage") {
                         that.kineticElement[i].fillPriority('pattern');
                         that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
                         that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale); 
                         that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);                        
+                        that.kineticElement[i].stroke('rgba(0, 0, 0, 0)');
+                        that.kineticElement[i].strokeWidth(0);                        
+
                     }                    
                 }
                 document.body.style.cursor = "default";

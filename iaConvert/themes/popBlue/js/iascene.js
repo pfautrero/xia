@@ -30,6 +30,9 @@ function iaScene(originalWidth, originalHeight) {
     // default color used to fill shapes during mouseover
     var _colorOver = {red:66, green:133, blue:244, opacity:0.6};
 
+    // default color used to fill stroke around shapes during mouseover
+    var _colorOverStroke = {red:255, green:0, blue:0, opacity:1};
+    
     // default color used to fill shapes if defined as cache
     this.colorPersistent = {red:124, green:154, blue:174, opacity:1};
 
@@ -45,7 +48,8 @@ function iaScene(originalWidth, originalHeight) {
     // internal
     this.fullScreen = "off";
     this.backgroundCacheColor = 'rgba(' + _colorCache.red + ',' + _colorCache.green + ',' + _colorCache.blue + ',' + _colorCache.opacity + ')';
-    this.overColor = 'rgba(' + _colorOver.red + ',' + _colorOver.green + ',' + _colorOver.blue + ',' + _colorOver.opacity + ')';    
+    this.overColor = 'rgba(' + _colorOver.red + ',' + _colorOver.green + ',' + _colorOver.blue + ',' + _colorOver.opacity + ')'; 
+    this.overColorStroke = 'rgba(' + _colorOverStroke.red + ',' + _colorOverStroke.green + ',' + _colorOverStroke.blue + ',' + _colorOverStroke.opacity + ')';
     this.scale = 1;
     this.zoomActive = 0;
     this.element = 0;
