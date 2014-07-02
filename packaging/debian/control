@@ -2,7 +2,12 @@ Source: images-actives
 Section: misc
 Priority: extra
 Maintainer: François Lafont <francois.lafont@crdp.ac-versailles.fr>
-Build-Depends: devscripts, fakeroot, debhelper (>= 8.0.0), python, python-setuptools
+Build-Depends: devscripts,
+ fakeroot,
+ debhelper (>= 8.0.0),
+ quilt,
+ python,
+ python-setuptools
 Standards-Version: 3.9.3
 Homepage: http://images-actives.crdp-versailles.fr
 X-Python-Version: >= 2.7, << 3.0
