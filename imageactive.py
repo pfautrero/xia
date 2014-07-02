@@ -39,7 +39,7 @@ class ImageActive(inkex.Effect):
                 self.document.write(filePath)
 
             root = Tkinter.Tk()
-            root.title("Image Active 2 - alpha 2")
+            root.title("Image Active 2 - alpha 3")
             root.geometry("465x310")
             root.attributes('-topmost', 1)
             img = Tkinter.PhotoImage(file='iaConvert/images/image-active64.gif')
