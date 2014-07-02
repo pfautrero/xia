@@ -50,8 +50,11 @@ class PageFormatter:
     def _url_repl(self, word):
         return u'<a href="%s" target="_blank">%s</a>\n' % (word, word)
 
+    def _videostart_repl(self, word):
+        return u'<video controls preload="none" data-state="autostart">\n\t<source type="video/mp4" src="%s.mp4" />\n\t<source type="video/ogg" src="%s.ogv" />\n\t<source type="video/webm" src="%s.webm" />\n</video>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0], os.path.splitext(word)[0])
+
     def _video_repl(self, word):
-        return u'<video controls preload="none">\n\t<source type="video/mp4" src="%s.mp4" />\n\t<source type="video/ogg" src="%s.ogv" />\n\t<source type="video/webm" src="%s.webm" />\n</video>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0], os.path.splitext(word)[0])
+        return u'<video controls preload="none" data-state="none">\n\t<source type="video/mp4" src="%s.mp4" />\n\t<source type="video/ogg" src="%s.ogv" />\n\t<source type="video/webm" src="%s.webm" />\n</video>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0], os.path.splitext(word)[0])
 
     def _img_repl(self, word):
         return u'<img src="%s">\n' % (word)
@@ -147,12 +150,13 @@ class PageFormatter:
             + r"|(?P<iframe>&lt;iframe(.*)src=&quot;(.*)&quot;(.*)&gt;&lt;/iframe&gt;)"        
             + r"|(?P<ent>[<>&])"
             + r"|(?P<rule>-{4,})"
+            + r"|(?P<videostart>[^\s'\"]+\.(ogv|mp4|webm)(\s*)autostart$)"
             + r"|(?P<video>[^\s'\"]+\.(ogv|mp4|webm)$)"
             + r"|(?P<link>\[http(.*)\])"
             + r"|(?P<img>[^\s'\"]+\.(jpg|jpeg|png|gif)$)"
             + r"|(?P<audiostart>[^\s'\"]+\.(ogg|mp3)(\s*)autostart$)"
             + r"|(?P<audio>[^\s'\"]+\.(ogg|mp3)$)"
-            + r"|(?P<url>(http|ftp|nntp|news|mailto)\:[^\s'\"]+\S)"
+            + r"|(?P<url>(http|ftp|nntp|news|mailto|https)\:[^\s'\"]+\S)"
             + r"|(?P<email>[-\w._+]+\@[\w.-]+)"
             + r"|(?P<li>^\s+\*(.*))"
             + r"|(?P<nothandled>nothandled)"

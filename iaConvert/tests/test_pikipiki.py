@@ -94,7 +94,12 @@ class TestPageFormatter:
         raw = "http://example.com";
         expected_output = '<a href="http://example.com" target="_blank">http://example.com</a>\n';
         output = PageFormatter(raw).print_html()
-        assert_equal(expected_output, output)         
+        assert_equal(expected_output, output)  
+
+        raw = "https://example.com";
+        expected_output = '<a href="https://example.com" target="_blank">https://example.com</a>\n';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
 
         raw = "ftp://example.com";
         expected_output = '<a href="ftp://example.com" target="_blank">ftp://example.com</a>\n';
@@ -127,17 +132,22 @@ class TestPageFormatter:
         assert_equal(expected_output, output)
         
         raw = "video.mp4";
-        expected_output = '<video controls preload="none">\n\t<source type="video/mp4" src="video.mp4" />\n\t<source type="video/ogg" src="video.ogv" />\n\t<source type="video/webm" src="video.webm" />\n</video>\n';
+        expected_output = '<video controls preload="none" data-state="none">\n\t<source type="video/mp4" src="video.mp4" />\n\t<source type="video/ogg" src="video.ogv" />\n\t<source type="video/webm" src="video.webm" />\n</video>\n';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
+
+        raw = "video.mp4 autostart";
+        expected_output = '<video controls preload="none" data-state="autostart">\n\t<source type="video/mp4" src="video.mp4" />\n\t<source type="video/ogg" src="video.ogv" />\n\t<source type="video/webm" src="video.webm" />\n</video>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
 
         raw = "video.ogv";
-        expected_output = '<video controls preload="none">\n\t<source type="video/mp4" src="video.mp4" />\n\t<source type="video/ogg" src="video.ogv" />\n\t<source type="video/webm" src="video.webm" />\n</video>\n';
+        expected_output = '<video controls preload="none" data-state="none">\n\t<source type="video/mp4" src="video.mp4" />\n\t<source type="video/ogg" src="video.ogv" />\n\t<source type="video/webm" src="video.webm" />\n</video>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
 
         raw = "video.webm";
-        expected_output = '<video controls preload="none">\n\t<source type="video/mp4" src="video.mp4" />\n\t<source type="video/ogg" src="video.ogv" />\n\t<source type="video/webm" src="video.webm" />\n</video>\n';
+        expected_output = '<video controls preload="none" data-state="none">\n\t<source type="video/mp4" src="video.mp4" />\n\t<source type="video/ogg" src="video.ogv" />\n\t<source type="video/webm" src="video.webm" />\n</video>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
 
