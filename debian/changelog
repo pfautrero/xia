@@ -1,11 +1,5 @@
-images-actives (2.1) unstable; urgency=low
-
-  * New upstream release.
-
- -- François Lafont <francois.lafont@crdp.ac-versailles.fr>  Fri, 20 Jun 2014 19:35:49 +0200
-
-images-actives (2.0-5) unstable; urgency=low
+images-actives (2.0.alpha3) unstable; urgency=low
 
   * Initial Release.
 
- -- François Lafont <francois.lafont@crdp.ac-versailles.fr>  Sun, 04 May 2014 23:51:44 +0200
+ -- François Lafont <francois.lafont@crdp.ac-versailles.fr>  Wed, 02 Jul 2014 23:43:12 +0200
