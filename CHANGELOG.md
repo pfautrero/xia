@@ -1,3 +1,20 @@
+* version alpha 3 - 07/02/2014
+
+- Ajout d'une popup durant la génération d'une image active
+- L'image de fond n'est plus estompée durant la lecture de la description générale
+- L'image de fond est embarquée même si elle est liée dans Inkscape
+- pikipiki : ajout des liens hypertexte
+- Conservation des chemins vers source et destination pour génération des images actives
+- Améliorations importantes du packaging
+- Images persistantes si elles ont un fond blanc
+- Masquage des fichiers cachés lors de la recherche d'un fichier svg dans le filesystem
+- tests unitaires ajoutés
+- tests fonctionnels sur les thèmes ajoutés
+- Ajout de la gestion des metadonnées
+- popup disponible dans les thèmes pour afficher les metadonnées
+- Ajout des thèmes popBlue, popYellow, audioBlue, buttonBlue
+- Ajout des bordures sur les détourages
+
 * version alpha 2 - 04/30/2014
 
 - L'outil standalone est packagé pour debian (François Lafont)
