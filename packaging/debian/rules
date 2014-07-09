@@ -13,6 +13,15 @@ RULES_PATH := $(realpath $(firstword $(MAKEFILE_LIST)))
 # "/debian/rules" string at the end of RULES_PATH.
 WORKING_DIR := $(realpath $(RULES_PATH:/debian/rules=))
 
+# List of files in the working directory which do not belong
+# to the git repository (all files except the debian/ directory).
+FILES_TO_CLEAN := $(shell cd $(WORKING_DIR) && \ls | grep -v debian)
+
+# Version number in the changelog to create the tarball
+# of the upstream application with the good name.
+VERSION := $(shell cd $(WORKING_DIR) && dpkg-parsechangelog | awk '/^Version/ {print $$2}' | cut -d'-' -f1)
+
+
 %:
 	dh $@ --with python2
 
@@ -33,14 +42,21 @@ clean_for_git:
 	dh_clean
 	cd "$(WORKING_DIR)" && rm -fr *.egg-info/
 	cd "$(WORKING_DIR)" && rm -fr build/
+	# All files in the working directory are removed except the debian/ directory.
+	{ cd "$(WORKING_DIR)" && [ ! -z "$(FILES_TO_CLEAN)" ] && rm -rf $(FILES_TO_CLEAN); } || true
 	# All files in the parent directory created by the building.
 	cd "$(WORKING_DIR)" && rm -f ../*.deb
 	cd "$(WORKING_DIR)" && rm -f ../*.dsc
 	cd "$(WORKING_DIR)" && rm -f ../*.changes
 	cd "$(WORKING_DIR)" && rm -f ../*.debian.tar.gz
+	cd "$(WORKING_DIR)" && rm -f ../*.orig.tar.gz
 	cd "$(WORKING_DIR)" && rm -f ../*.build
 
-create_deb: clean_for_git
+populate_working_dir: clean_for_git
+	cd "$(WORKING_DIR)/.." && tar --exclude-vcs -zcf images-actives_$(VERSION).orig.tar.gz upstream
+	cd "$(WORKING_DIR)" && tar --strip-components=1 -zxf ../images-actives_$(VERSION).orig.tar.gz -C .
+
+create_deb: populate_working_dir
 	cd "$(WORKING_DIR)" && debuild --no-tgz-check -us -uc && echo 'Building is OK!'
 
 
