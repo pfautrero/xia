@@ -82,7 +82,7 @@ header h1 {
     /*max-width:20%;*/
     padding: 0px 1em 0 5px;
     margin-bottom:0; 
-    color:white;
+    color:black;
     font-family: yanone_thin; 
     font-size: 1.5em;
 }
@@ -137,7 +137,7 @@ header h1 {
 
 #canvas {
     width:55%;
-    margin-top: 50px;
+    margin-top: 10px;
     border:20px solid rgba(255,255,255,0.5);
 
 }
@@ -163,41 +163,6 @@ header h1 {
     border-radius: 5px;
     padding: 5px;
 }
-
-#content article {
-    display:none;
-    z-index:100;
-    position:absolute;
-    border: 5px solid #ddd;
-    width: 100%;
-    left:-5px;
-    margin: 0px auto;
-    background:white;
-    box-shadow: black 5px 5px 10px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    max-height: 65px;
-}
-#content article p, h1 {
-    margin: 0px;
-    width:95%;
-    /*margin: 10px;*/
-}
-#content article audio {
-    max-height: 40px;
-    margin:10px;
-}
-#content article h1 {
-    font-family: yanone_thin; 
-}
-
-.article_close {
-    cursor: pointer;
-    position:absolute;
-    top:0px;
-    right:0px;
-    width:30px;
-}
 /* popup */
 .overlay {
     position:fixed;
@@ -208,6 +173,7 @@ header h1 {
     background: rgba(0,0,0,0.6);
 }
 #popup {
+    z-index:1000;
     position:relative;
     border-radius: 20px;
     border: 20px solid #ddd;
@@ -216,6 +182,37 @@ header h1 {
     background:white;
     min-height: 100px;
     box-shadow: black 5px 5px 10px;
+}
+#content article {
+    display:none;
+    z-index:100;
+    position:absolute;
+    border: 20px solid #ddd;
+    border-radius:20px;
+    
+    width: calc(100% - 40px);
+    margin: 0px auto;
+    background:rgba(255,255,255,1);
+    box-shadow: black 5px 5px 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+#content article p, h1 {
+    margin: 10px;
+}
+
+#content article h1 {
+    font-family: yanone_thin; 
+}
+
+.article_close {
+    z-index:200;
+    display: none;
+    cursor: pointer;
+    position:absolute;
+    top:0px;
+    height:40px;
+    text-align:center;
 }
 #popup_text {
     text-align:center;

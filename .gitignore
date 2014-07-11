@@ -1,6 +1,6 @@
 nbproject/
 *.pyc
-iaConvert/images_actives/datas/data.js
-iaConvert/images_actives/index.html
+upstream/iaConvert/images_actives/datas/data.js
+upstream/iaConvert/images_actives/index.html
 config_ia.ini
-iaConvert/.coverage
+upstream/iaConvert/.coverage

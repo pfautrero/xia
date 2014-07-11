@@ -63,13 +63,27 @@ class PageFormatter:
         word_url = word.split("src=&quot;")[1].split("&quot;")[0]
         if word_url[0:2] == "//":
             word_url = "http:" + word_url
-        return u'<iframe src="%s" width="100%%"></iframe>\n' % (word_url)
+        iframe_width = word.split('width="')[1].split('"')[0]
+        iframe_height = word.split('height="')[1].split('"')[0]
+        videoClass = 'videoWrapper4_3'
+        if iframe_width and iframe_height:
+            ratio = (float(iframe_height) / float(iframe_width)) * 16
+            if (ratio == 9):
+                videoClass = 'videoWrapper16_9'
+        return u'<div class="' + videoClass + '"><iframe src="%s"></iframe></div>\n' % (word_url)
 
     def _iframe2_repl(self, word):
         word_url = word.split('src="')[1].split('"')[0]
         if word_url[0:2] == "//":
             word_url = "http:" + word_url
-        return u'<iframe src="%s" width="100%%"></iframe>\n' % (word_url)
+        iframe_width = word.split('width="')[1].split('"')[0]
+        iframe_height = word.split('height="')[1].split('"')[0]
+        videoClass = 'videoWrapper4_3'
+        if iframe_width and iframe_height:
+            ratio = (float(iframe_height) / float(iframe_width)) * 16
+            if (ratio == 9):
+                videoClass = 'videoWrapper16_9'
+        return u'<div class="' + videoClass + '"><iframe src="%s"></iframe></div>\n' % (word_url)
     
     def _audiostart_repl(self, word):
         return u'<audio controls data-state="autostart">\n\t<source type="audio/ogg" src="%s.ogg" />\n\t<source type="audio/mp3" src="%s.mp3" />\n</audio>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0])
@@ -146,8 +160,8 @@ class PageFormatter:
         final_str = u""
         scan_re = re.compile(
             r"(?:(?P<emph>\*{2,3})"
-            + r'|(?P<iframe2><iframe(.*)src="(.*)"(.*)></iframe>)'
-            + r"|(?P<iframe>&lt;iframe(.*)src=&quot;(.*)&quot;(.*)&gt;&lt;/iframe&gt;)"        
+            + r'|(?P<iframe2><iframe(.*)></iframe>)'
+            + r"|(?P<iframe>&lt;iframe(.*)&gt;&lt;/iframe&gt;)"        
             + r"|(?P<ent>[<>&])"
             + r"|(?P<rule>-{4,})"
             + r"|(?P<videostart>[^\s'\"]+\.(ogv|mp4|webm)(\s*)autostart$)"

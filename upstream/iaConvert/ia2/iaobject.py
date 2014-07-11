@@ -416,7 +416,7 @@ class iaObject:
                         maxY = float(newrecord["maxY"])
 
         # look for title and description in subgroups if not yet available
-        if (record['title'] == "") and (record['detail'] == ""):
+        if (record['title'] == "") or (record['detail'] == ""):
             subgroups = group.getElementsByTagName('g')
             for subgroup in subgroups:
                 if record["detail"] == "":
