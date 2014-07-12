@@ -173,7 +173,7 @@ header h1 {
     background: rgba(0,0,0,0.6);
 }
 #popup {
-    z-index:1000;
+    z-index:200;
     position:relative;
     border-radius: 20px;
     border: 20px solid #ddd;
@@ -240,7 +240,7 @@ header h1 {
     left:0;
     bottom:0;
     background: black;
-    z-index:100;
+    z-index:1000;
 }
 #loader div{
     font-family: yanone_thin, Arial;

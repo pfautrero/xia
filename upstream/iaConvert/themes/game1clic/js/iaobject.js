@@ -35,6 +35,7 @@ function iaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     this.persistent = new Array();
     this.originalX = new Array();
     this.originalY = new Array();
+    this.options = new Array();
     this.layer = layer;
     this.background_layer = background_layer;
     this.backgroundCache_layer = backgroundCache_layer;
@@ -104,6 +105,11 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         that.backgroundImageOwnScaleX[i] = iaScene.scale * detail.width / this.width;
         that.backgroundImageOwnScaleY[i] = iaScene.scale * detail.height / this.height;
         var zoomable = true;
+
+        if ((typeof(detail.options) !== 'undefined')) {
+            that.options[i] = detail.options;
+        }
+
         if ((typeof(detail.fill) !== 'undefined') && 
             (detail.fill === "#000000")) {
             zoomable = false;
@@ -179,6 +185,10 @@ iaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         that.kineticElement[i].fillPatternX(detail.minX);
         that.kineticElement[i].fillPatternY(detail.minY);
     };
+
+    if ((typeof(detail.options) !== 'undefined')) {
+        that.options[i] = detail.options;
+    }
 
     var zoomable = true;
     if ((typeof(detail.fill) !== 'undefined') && 
@@ -283,9 +293,11 @@ iaObject.prototype.defineTweens = function(that, iaScene) {
    
 iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, baseImage, idText) {
 
+    if (that.options[i].indexOf("disable-click") !== -1) return;
     /*
      * if mouse is over element, fill the element with semi-transparency
      */
+    
     that.kineticElement[i].on('mouseover', function() {
         if (iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) {
 
@@ -426,11 +438,20 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 
                 for (var i in that.kineticElement) {
                     if (that.persistent[i] == "off") {
-                        that.kineticElement[i].fillPriority('color');
-                        that.kineticElement[i].fill(iaScene.overColor);
-                        that.kineticElement[i].scale(iaScene.coeff);
-                        that.kineticElement[i].stroke(iaScene.overColorStroke);
-                        that.kineticElement[i].strokeWidth(2);                    
+                        if (that.kineticElement[i] instanceof Kinetic.Image) {
+                            that.kineticElement[i].fillPriority('pattern');
+                            that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
+                            that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale); 
+                            that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);                        
+                        }
+                        else {
+                            that.kineticElement[i].fillPriority('color');
+                            that.kineticElement[i].fill(iaScene.overColor);
+                            that.kineticElement[i].scale(iaScene.coeff);
+                            that.kineticElement[i].stroke(iaScene.overColorStroke);
+                            that.kineticElement[i].strokeWidth(2);                                                
+                        }
+
                     }
                     else if (that.persistent[i] == "onPath") {
                         that.kineticElement[i].fillPriority('color');

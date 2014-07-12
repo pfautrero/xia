@@ -33,6 +33,22 @@ hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
         menu += '<article class="message_success" id="message_success" data-score="3">';
         menu += '<p>Bravo !!</p>';
         menu += '</article>';
+        for (var i in details) {
+            if ((details[i].detail.indexOf("Réponse:") != -1) || (details[i].detail.indexOf("réponse:") != -1)) {
+                var question = details[i].detail.substr(0,details[i].detail.indexOf("Réponse:"));
+                var answer = details[i].detail.substr(details[i].detail.indexOf("Réponse:")+8);
+                menu += '<article class="detail_content" id="article-'+i+'">';
+                menu += '<h1>'+details[i].title+'</h1>';
+                menu += '<p>' + question + '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#response_'+i+'">Réponse</a></div>' + '<div class="response" id="response_'+ i +'">' + answer + '</div>' + '</p>';
+                menu += '</article>';            
+            }
+            else {
+                menu += '<article class="detail_content" id="article-'+i+'">';
+                menu += '<h1>'+details[i].title+'</h1>';
+                menu += '<p>'+details[i].detail+'</p>';
+                menu += '</article>';                        
+            }
+        }        
         $("#content").html(menu);
     }
     if ($("#title").html() === "{{TITLE}}") $("#title").html(scene.title);

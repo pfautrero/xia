@@ -181,7 +181,8 @@ class iaObject:
             record_image['title'] = self.getText("title", image)
             record_image['x'] = str(0)
             record_image['y'] = str(0)                        
-
+            record_image['options'] = ""
+            
             if image.hasAttribute("x"):
                 record_image['x'] = image.attributes['x'].value
             if image.hasAttribute("y"):
@@ -195,6 +196,11 @@ class iaObject:
                     style[key] = value
                 record_image['fill'] = style['fill']
 
+            if image.hasAttribute("onclick"):                            
+                str_onclick = image.attributes['onclick'].value
+                if str_onclick == "off":
+                    record_image['options'] += " disable-click "
+            
             if image.hasAttribute("transform"):
                 transformation = image.attributes['transform'].value
                 ctm = CurrentTransformation()
@@ -233,7 +239,8 @@ class iaObject:
         record_rect['x'] = str(0)
         record_rect['y'] = str(0)
         record_rect['rx'] = str(0)
-        record_rect['ry'] = str(0)                     
+        record_rect['ry'] = str(0)
+        record_rect['options'] = ""
 
         if rect.hasAttribute("x"):
             record_rect['x'] = rect.attributes['x'].value
@@ -243,6 +250,11 @@ class iaObject:
             record_rect['rx'] = rect.attributes['rx'].value
         if rect.hasAttribute("ry"):
             record_rect['ry'] = rect.attributes['ry'].value
+
+        if rect.hasAttribute("onclick"):                            
+            str_onclick = rect.attributes['onclick'].value
+            if str_onclick == "off":
+                record_rect['options'] += " disable-click "
 
         if rect.hasAttribute("style"):                            
             str_style = rect.attributes['style'].value
@@ -312,13 +324,21 @@ class iaObject:
         record['title'] = self.getText("title", path)
         record['x'] = str(0)
         record['y'] = str(0)
+        record['options'] = ""
+
+        if path.hasAttribute("onclick"):                            
+            str_onclick = path.attributes['onclick'].value
+            if str_onclick == "off":
+                record['options'] += " disable-click "
+        
         if path.hasAttribute("style") and (path.attributes['style'].value != ""):
             str_style = path.attributes['style'].value
             style = {}
             for item in str_style.split(";"):
                 key,value = item.split(":")
                 style[key] = value
-            record["fill"] = style['fill']
+            if 'fill' in style:
+                record["fill"] = style['fill']
 
         if path.hasAttribute("x"):
             record['x'] = path.attributes['x'].value
@@ -387,12 +407,19 @@ class iaObject:
         record['title'] = self.getText("title", group)
         record['detail'] = self.getText("desc", group)
         record["group"] = []
+        record["options"] = ""
+        
         minX = 10000
         minY = 10000
         maxX = 0
         maxY = 0
         # retrieve transformations applied on master group
         # TODO : manage nested groups tranformations
+       
+        if group.hasAttribute("onclick"):                            
+            str_onclick = group.attributes['onclick'].value
+            if str_onclick == "off":
+                record['options'] += " disable-click "
         
         ctm_group = CurrentTransformation()
         if group.hasAttribute("transform"):
@@ -404,6 +431,7 @@ class iaObject:
             if childnode.nodeName in svgElements:
                 newrecord = getattr(self, 'extract_' + childnode.nodeName)(childnode, ctm_group)
                 if newrecord is not None:
+                    newrecord["options"] += record["options"]
                     record["group"].append(newrecord)
 
                     if float(newrecord["minX"]) < minX:
