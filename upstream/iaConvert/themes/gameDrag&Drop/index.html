@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="description" content="{{DESCRIPTION}}" />
+    <meta name="author" content="{{AUTHOR}}" />
+    <meta name="keywords" content="{{KEYWORDS}}" />
+    <meta charset="utf-8" />
+    <title>{{TITLE}}</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+</head>
+<body id="image-active">
+    <div id="loader">
+        <div>
+            <p><img src="img/image-active.png" alt="images actives"/></p>
+            <p>Chargement...</p>
+        </div>
+    </div>
+    <div id="container">
+        <div id="detect"></div>
+        <header>
+            <h1 id="title">{{TITLE}}</h1>
+            <a class="infos" href="#" title="à propos"></a>      
+        </header>
+        <section id="content">{{CONTENT}}</section>        
+        <div id="canvas"></div>
+
+    </div>
+    <footer class="overlay" id="rights">
+        <section id="popup">
+            <img id="popup_close" src="img/close.png" alt="close"/>
+            <article id="popup_text">
+                <img src="img/image-active.png" alt="Images Actives" />
+                <p>{{RIGHTS}}</p>
+                <p>{{CREATOR}}</p>
+                <p>{{PUBLISHER}}</p>
+            </article>
+        </section>
+    </footer>
+    <script type="text/javascript" src="js/jquery-1.9.1.js"></script>    
+    <script src="js/kinetic.js"></script>
+    <script src="datas/data.js"></script>
+    <script defer="defer" src="js/iascene.js"></script>
+    <script defer="defer" src="js/iaobject.js"></script>  
+    <script defer="defer" src="js/hooks.js"></script>      
+    <script defer="defer" src="js/main.js"></script>
+</body>
+</html>

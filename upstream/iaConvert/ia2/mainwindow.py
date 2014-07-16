@@ -78,7 +78,8 @@ class IADialog(Tkinter.Frame):
         
     if os.path.isdir(rel_path + "/themes"):
         theme_index = 1
-        for filename in os.listdir(rel_path + "/themes"):
+        themes_folders = sorted(os.listdir(rel_path + "/themes"))
+        for filename in themes_folders:
             theme = {}
             theme['name'] = filename
             imp.load_source(filename, rel_path + "/themes/" + filename + "/hook.py")

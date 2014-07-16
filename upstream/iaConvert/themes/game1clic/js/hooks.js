@@ -30,7 +30,7 @@ hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
     // Load datas - only useful for themes debugging
     if ($("#content").html() === "{{CONTENT}}") {
         var menu = "";
-        menu += '<article class="message_success" id="message_success" data-score="3">';
+        menu += '<article class="message_success" id="message_success" data-score="14">';
         menu += '<p>Bravo !!</p>';
         menu += '</article>';
         for (var i in details) {
