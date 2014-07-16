@@ -392,6 +392,9 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             //that.tween_group.play();
             that.alpha = 0;
             that.step = 0.1;
+            for (var i in that.kineticElement) {
+               that.kineticElement[i].setStrokeWidth(parseFloat(6 / that.agrandissement));
+            }            
             var personalTween = function() {
                 // linear
                 var tempX = that.originalX[0] + that.alpha.toFixed(2) * (that.tweenX - that.originalX[0]);
@@ -399,10 +402,12 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 var tempScale = 1 + that.alpha.toFixed(2) * (that.agrandissement - 1);
                 if (that.alpha.toFixed(2) <= 1) {
                     that.alpha = that.alpha + that.step;
+
                     that.group.x(tempX);
                     that.group.y(tempY);
                     that.group.scaleX(tempScale);
                     that.group.scaleY(tempScale);
+
                     that.layer.draw();
                     var t = setTimeout(personalTween, 30);
                 }

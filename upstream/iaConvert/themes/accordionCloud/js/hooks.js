@@ -91,6 +91,8 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
                 for (var i in mainScene.element.kineticElement) {
                     mainScene.element.kineticElement[i].fillPriority('color');
                     mainScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
+                    mainScene.element.kineticElement[i].setStroke('rgba(0, 0, 0, 0)');
+                    mainScene.element.kineticElement[i].setStrokeWidth(0);                     
                     mainScene.element.layer.draw();
                 }
             }

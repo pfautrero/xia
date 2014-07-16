@@ -389,6 +389,9 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             //that.tween_group.play();
             that.alpha = 0;
             that.step = 0.1;
+            for (var i in that.kineticElement) {
+               that.kineticElement[i].setStrokeWidth(parseFloat(6 / that.agrandissement));
+            }            
             var personalTween = function() {
                 // linear
                 var tempX = that.originalX[0] + that.alpha.toFixed(2) * (that.tweenX - that.originalX[0]);
