@@ -68,6 +68,7 @@ hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
  */
 hooks.prototype.afterMainConstructor = function(mainScene, layers) {
 
+    var that = this;
     $(".infos").on("click", function(){
         $("#overlay").show();
     });
@@ -76,7 +77,6 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
     });
 
     $("#collapsecomment-heading").on('click touchstart',function(){
-        console.log("test");
         if (mainScene.zoomActive === 0) {
             $('.collapse.in').each(function (index) {
                 if ($(this).attr("id") !== "collapsecomment") $(this).collapse("toggle");
