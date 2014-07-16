@@ -111,58 +111,7 @@ hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaO
      *  manage accordion events related to this element
      */
     $("#" + idText + "-heading").on('click touchstart',function(){
-        if (iaScene.zoomActive === 0) {
-            $('.collapse.in').each(function (index) {
-                if ($(this).attr("id") !== idText) $(this).collapse("toggle");
-            });
-            if ((iaScene.element !== 0) && 
-                (typeof(iaScene.element) !== 'undefined')) {
-                for (var i in iaScene.element.kineticElement) {
-                   
-                    if (iaScene.element.persistent[i] == "off") {
-                        iaScene.element.kineticElement[i].fillPriority('color');
-                        iaScene.element.kineticElement[i].fill('rgba(0, 0, 0, 0)');
-                    }
-                    else if (iaScene.element.persistent[i] == "onPath") {
-                        iaScene.element.kineticElement[i].fillPriority('color');
-                        iaScene.element.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');                       
-                    }
-                    else if (iaScene.element.persistent[i] == "onImage") {
-                        iaScene.element.kineticElement[i].fillPriority('pattern');
-                        iaScene.element.kineticElement[i].fillPatternScaleX(iaObject.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
-                        iaScene.element.kineticElement[i].fillPatternScaleY(iaObject.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
-                        iaScene.element.kineticElement[i].fillPatternImage(iaScene.element.backgroundImage[i]);                        
-                    }                     
-                    iaScene.element.layer.draw();
-                }
-            }
-            var zoomable = true;
-            if ((typeof(detail.fill) !== 'undefined') && 
-                (detail.fill == "#000000")) {
-                zoomable = false;
-            }
-
-            if (zoomable === true) {
-                document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';
-                iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
-            }            
-            var cacheBackground = true;
-            for (var i in iaObject.kineticElement) {
-                if (iaObject.persistent[i] === "onImage") cacheBackground = false;
-                iaObject.kineticElement[i].fillPriority('pattern');
-                iaObject.kineticElement[i].fillPatternScaleX(iaObject.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
-                iaObject.kineticElement[i].fillPatternScaleY(iaObject.backgroundImageOwnScaleY[i] * 1/iaScene.scale);               
-                iaObject.kineticElement[i].fillPatternImage(iaObject.backgroundImage[i]);
-            }
-            if (cacheBackground == true) {
-                iaObject.backgroundCache_layer.moveToTop();
-            }
-
-            iaScene.element = iaObject;
-            iaObject.layer.moveToTop();
-            iaObject.layer.draw();				
-            iaObject.backgroundCache_layer.draw();
-        }
+        iaObject.kineticElement[0].fire("click");
     });
 };
 /*
