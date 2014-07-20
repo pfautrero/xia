@@ -470,7 +470,7 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         iaScene.element.kineticElement[i].setStrokeWidth(0);                         
                         
                     }
-                    iaScene.element.layer.draw();
+                    if (iaScene.element.layer) iaScene.element.layer.draw();
                 }                    
                 if (zoomable === true) {
                     document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';
