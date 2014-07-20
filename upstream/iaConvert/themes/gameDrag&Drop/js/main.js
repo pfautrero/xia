@@ -42,6 +42,8 @@ function main(myhooks) {
             return this.iaobject;
         }
     });
+    Kinetic.draggedshape = null;
+    
     var that=this;
     that.canvas = document.getElementById("canvas");
 

@@ -9382,8 +9382,13 @@ var Kinetic = {};
         _mousemove: function(evt) {
             if (!Kinetic.UA.mobile) {
                 this._setPointerPosition(evt);
-                var dd = Kinetic.DD,
-                    shape = this.getIntersection(this.getPointerPosition());
+                var dd = Kinetic.DD;
+                if (Kinetic.draggedshape) {
+                    var shape = Kinetic.draggedshape;
+                }
+                else {
+                    var shape = this.getIntersection(this.getPointerPosition());
+                }
 
                 if(shape && shape.isListening()) {
                     if(!Kinetic.isDragging() && (!this.targetShape || this.targetShape._id !== shape._id)) {
@@ -9561,8 +9566,13 @@ var Kinetic = {};
         },
         _touchmove: function(evt) {
             this._setPointerPosition(evt);
-            var dd = Kinetic.DD,
-                shape = this.getIntersection(this.getPointerPosition());
+            var dd = Kinetic.DD;
+            if (Kinetic.draggedshape) {
+                var shape = Kinetic.draggedshape;
+            }
+            else {
+                var shape = this.getIntersection(this.getPointerPosition());
+            }            
 
             if (shape && shape.isListening()) {
                 shape._fireAndBubble(TOUCHMOVE, {evt: evt});

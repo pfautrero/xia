@@ -132,6 +132,43 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         
         that.group.add(that.kineticElement[i]);
         that.addEventsManagement(i,zoomable, that, iaScene, baseImage, idText);
+        
+        // define hit area excluding transparent pixels
+        // =============================================================
+
+        that.rasterObj = rasterObj;
+
+        that.kineticElement[i].hitFunc(function(context) {
+
+            var cropX = Math.max(parseFloat(detail.minX), 0);
+            var cropY = Math.max(parseFloat(detail.minY), 0);
+            var cropWidth = (Math.min(parseFloat(detail.maxX) - parseFloat(detail.minX), Math.floor(parseFloat(iaScene.originalWidth) * 1)));
+            var cropHeight = (Math.min(parseFloat(detail.maxY) - parseFloat(detail.minY), Math.floor(parseFloat(iaScene.originalHeight) * 1)));
+            
+            var canvas_source = document.createElement('canvas');
+            canvas_source.setAttribute('width', cropWidth * iaScene.coeff);
+            canvas_source.setAttribute('height', cropHeight * iaScene.coeff);
+            var context_source = canvas_source.getContext('2d');
+            context_source.drawImage(rasterObj,0,0, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);
+            var imageDataSource = context_source.getImageData(0, 0, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);            
+            len = imageDataSource.data.length;
+            
+            var imageDataDestination = context.getImageData(cropX, cropY, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);
+            rgbColorKey = Kinetic.Util._hexToRgb(this.colorKey);
+       
+            for(j = 0; j < len; j += 4) {
+                imageDataDestination.data[j + 0] = rgbColorKey.r;
+                imageDataDestination.data[j + 1] = rgbColorKey.g;
+                imageDataDestination.data[j + 2] = rgbColorKey.b;
+                imageDataDestination.data[j + 3] = imageDataSource.data[j + 3];
+            }
+            context.putImageData(imageDataDestination, cropX * iaScene.coeff, cropY * iaScene.coeff);     
+            this.scaleX(iaScene.coeff);
+        });        
+         
+        // =============================================================        
+        
+        
         that.group.draw();        
     };
 
@@ -307,10 +344,40 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
         iaScene.element = that;
         that.myhooks.afterIaObjectDragStart(iaScene, idText, that);
         that.layer.moveToTop();
+        Kinetic.draggedshape = this;
     });
     that.kineticElement[i].on('dragend', function(e) {
         iaScene.element = that;
-        that.myhooks.afterIaObjectDragEnd(iaScene, idText, that, e);      
+        Kinetic.draggedshape = null;
+        that.myhooks.afterIaObjectDragEnd(iaScene, idText, that, e);
+        
+        this.hitFunc(function(context) {
+
+            var cropX = Math.max(parseFloat(that.minX), 0);
+            var cropY = Math.max(parseFloat(that.minY), 0);
+            var cropWidth = (Math.min(parseFloat(that.maxX) - parseFloat(that.minX), Math.floor(parseFloat(iaScene.originalWidth) * 1)));
+            var cropHeight = (Math.min(parseFloat(that.maxY) - parseFloat(that.minY), Math.floor(parseFloat(iaScene.originalHeight) * 1)));
+            
+            var canvas_source = document.createElement('canvas');
+            canvas_source.setAttribute('width', cropWidth * 1);
+            canvas_source.setAttribute('height', cropHeight * 1);
+            var context_source = canvas_source.getContext('2d');
+            context_source.drawImage(that.rasterObj,0,0, cropWidth * 1, cropHeight * 1);
+            var imageDataSource = context_source.getImageData(0, 0, cropWidth * 1, cropHeight * 1);            
+            len = imageDataSource.data.length;
+            
+            var imageDataDestination = context.getImageData(cropX, cropY, cropWidth * 1, cropHeight * 1);
+            rgbColorKey = Kinetic.Util._hexToRgb(this.colorKey);
+       
+            for(j = 0; j < len; j += 4) {
+                imageDataDestination.data[j + 0] = rgbColorKey.r;
+                imageDataDestination.data[j + 1] = rgbColorKey.g;
+                imageDataDestination.data[j + 2] = rgbColorKey.b;
+                imageDataDestination.data[j + 3] = imageDataSource.data[j + 3];
+            }
+            context.putImageData(imageDataDestination, cropX * 1, cropY * 1);     
+            //this.scaleX(1);
+        });        
         that.layer.draw();
     });    
     that.kineticElement[i].on('mouseover', function() {

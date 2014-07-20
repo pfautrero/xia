@@ -92,7 +92,6 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
             if (mainScene.zoomActive === 1) {
                 if ((mainScene.element !== 0) && 
                 (typeof(mainScene.element) !== 'undefined')) {
-                    console.log("yo");
                     mainScene.element.kineticElement[0].fire("click");
                 }
             }
@@ -118,6 +117,7 @@ hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaO
  *  
  */
 hooks.prototype.afterIaObjectDragStart = function(iaScene, idText, iaObject) {
+    
     $('#' + idText + " audio").each(function(){
         if ($(this).data("state") === "autostart") {
             $(this)[0].play();
