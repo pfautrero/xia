@@ -70,26 +70,22 @@ header {
     width:100%; 
     padding:0; 
     margin:0 auto; 
-    /*background:#000;*/
 }
 
 header h1 {    
     margin:0;
     top:0;
     left:0px;
-    /*background:url(../img/imagedoc-darknoise.png);*/
     display:inline;
-    /*max-width:20%;*/
     padding: 0px 1em 0 5px;
     margin-bottom:0; 
-    color:black;
+    color:white;
     font-family: yanone_thin; 
     font-size: 1.5em;
 }
 
 .eyes { 
     background:url(../img/eyes.png) center bottom no-repeat;
-    /*margin-left: 10px;*/
     padding:.3em 1em;
 }
 .eyes:hover {
@@ -97,7 +93,6 @@ header h1 {
 }
 .meta-doc {
     background:url(../img/meta-doc.png) center bottom  no-repeat;
-    /*margin-left: 10px;*/
     padding:.3em 1em
 }
 .meta-doc:hover{
@@ -105,7 +100,6 @@ header h1 {
 }
 .infos {
     background:url(../img/infos.png) center bottom no-repeat;
-    /*margin-left: 10px;*/
     padding:.3em 1em; 
 }
 .infos:hover{

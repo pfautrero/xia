@@ -17,6 +17,7 @@
 
 # dom manipulation
 from xml.dom import minidom
+import re
 
 class hook:
     """do some stuff during image active generations"""
@@ -31,16 +32,23 @@ class hook:
 
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""
-        xml = minidom.parseString(u"<game>"+self.iaobject.scene["intro_detail"]+u"</game>")
+        #xml = minidom.parseString(u"<game>"+self.iaobject.scene["intro_detail"]+u"</game>")
         
-        score = xml.getElementsByTagName('score')
-        if score.item(0) is not None:
-            self.score = score.item(0).childNodes[0].nodeValue
+        #score = xml.getElementsByTagName('score')
+        #if score.item(0) is not None:
+        #    self.score = score.item(0).childNodes[0].nodeValue
 
-        message = xml.getElementsByTagName('message')
-        if message.item(0) is not None:
-            self.message = message.item(0).childNodes[0].nodeValue
+        #message = xml.getElementsByTagName('message')
+        #if message.item(0) is not None:
+        #    self.message = message.item(0).childNodes[0].nodeValue
         
+        score = re.search('<score>(.*)</score>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
+        if score:
+            self.score = score.group(1)
+
+        message = re.search('<message>(.*)</message>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
+        if message:
+            self.message = message.group(1)
         
         final_str = u'<article class="message_success" id="message_success" data-score="' + self.score + '">\n'
         final_str += u'  <p>' + self.PageFormatter(self.message).print_html() + u'</p>\n'

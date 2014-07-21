@@ -139,6 +139,9 @@ hooks.prototype.afterIaObjectDragEnd = function(iaScene, idText, iaObject, event
     iaObject.maxY = event.target.y() + iaObject_height;    
     
     if (target_id) {
+        // retrieve kineticElement drop zone
+        // if center of dropped element is located in the drop zone
+        // then drop !
         var target_object = iaObject.kineticElement[0].getStage().find("#" + target_id);
         var middle_coords = {x: event.target.x() + (iaObject.maxX - iaObject.minX)/2,y:event.target.y() + (iaObject.maxY - iaObject.minY)/2};
         var target_iaObject = target_object[0].getIaObject();
