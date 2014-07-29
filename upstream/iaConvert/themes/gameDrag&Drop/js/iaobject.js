@@ -126,6 +126,8 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
             that.kineticElement[i].fillPriority('pattern');
             that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
             that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);                
+            //that.kineticElement[i].fillPatternScaleX(1/iaScene.scale);
+            //that.kineticElement[i].fillPatternScaleY(1/iaScene.scale);                            
             that.kineticElement[i].fillPatternImage(that.backgroundImage[i]); 
             zoomable = false;
         }
@@ -142,34 +144,53 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
 
             var cropX = Math.max(parseFloat(detail.minX), 0);
             var cropY = Math.max(parseFloat(detail.minY), 0);
-            var cropWidth = (Math.min(parseFloat(detail.maxX) - parseFloat(detail.minX), Math.floor(parseFloat(iaScene.originalWidth) * 1)));
-            var cropHeight = (Math.min(parseFloat(detail.maxY) - parseFloat(detail.minY), Math.floor(parseFloat(iaScene.originalHeight) * 1)));
-            
+            //var cropWidth = (Math.min(parseFloat(detail.maxX) - parseFloat(detail.minX), Math.floor(parseFloat(iaScene.originalWidth) * 1)));
+            //var cropHeight = (Math.min(parseFloat(detail.maxY) - parseFloat(detail.minY), Math.floor(parseFloat(iaScene.originalHeight) * 1)));
+            var cropWidth = (Math.min((parseFloat(detail.maxX) - parseFloat(detail.minX)) * iaScene.scale, Math.floor(parseFloat(iaScene.originalWidth) * iaScene.scale)));
+            var cropHeight = (Math.min((parseFloat(detail.maxY) - parseFloat(detail.minY)) * iaScene.scale, Math.floor(parseFloat(iaScene.originalHeight) * iaScene.scale)));            
             var canvas_source = document.createElement('canvas');
             canvas_source.setAttribute('width', cropWidth * iaScene.coeff);
             canvas_source.setAttribute('height', cropHeight * iaScene.coeff);
             var context_source = canvas_source.getContext('2d');
             context_source.drawImage(rasterObj,0,0, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);
             var imageDataSource = context_source.getImageData(0, 0, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);            
-            len = imageDataSource.data.length;
+            var len = imageDataSource.data.length;
             
-            var imageDataDestination = context.getImageData(cropX, cropY, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);
+            //var imageDataDestination = context.getImageData(cropX, cropY, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);
             rgbColorKey = Kinetic.Util._hexToRgb(this.colorKey);
        
-            for(j = 0; j < len; j += 4) {
+            /*for(j = 0; j < len; j += 4) {
                 imageDataDestination.data[j + 0] = rgbColorKey.r;
                 imageDataDestination.data[j + 1] = rgbColorKey.g;
                 imageDataDestination.data[j + 2] = rgbColorKey.b;
                 imageDataDestination.data[j + 3] = imageDataSource.data[j + 3];
             }
             context.putImageData(imageDataDestination, cropX * iaScene.coeff, cropY * iaScene.coeff);     
-            this.scaleX(iaScene.coeff);
+            */
+           
+            for(j = 0; j < len; j += 4) {
+                imageDataSource.data[j + 0] = rgbColorKey.r;
+                imageDataSource.data[j + 1] = rgbColorKey.g;
+                imageDataSource.data[j + 2] = rgbColorKey.b;
+            }
+            context.putImageData(imageDataSource, cropX * iaScene.coeff, cropY * iaScene.coeff);     
+                       
+           
+            //this.scaleX(iaScene.coeff);
         });        
-         
+
+        //var test = document.createElement('img');
+        //test.src = rasterObj.src;
+        //document.body.appendChild(test); 
+
+        /*that.kineticElement[i].sceneFunc(function(context) {
+            var yo = that.layer.getHitCanvas().getContext().getImageData(0,0,iaScene.width, iaScene.height);
+            context.putImageData(yo, 0,0);  
+        });*/
         // =============================================================        
         
-        
-        that.group.draw();        
+        that.kineticElement[i].draw();
+        //that.group.draw();        
     };
 
 };    
@@ -366,20 +387,28 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             var imageDataSource = context_source.getImageData(0, 0, cropWidth * 1, cropHeight * 1);            
             len = imageDataSource.data.length;
             
-            var imageDataDestination = context.getImageData(cropX, cropY, cropWidth * 1, cropHeight * 1);
+            // var imageDataDestination = context.getImageData(cropX, cropY, cropWidth * 1, cropHeight * 1);
             rgbColorKey = Kinetic.Util._hexToRgb(this.colorKey);
        
             for(j = 0; j < len; j += 4) {
-                imageDataDestination.data[j + 0] = rgbColorKey.r;
-                imageDataDestination.data[j + 1] = rgbColorKey.g;
-                imageDataDestination.data[j + 2] = rgbColorKey.b;
-                imageDataDestination.data[j + 3] = imageDataSource.data[j + 3];
+                imageDataSource.data[j + 0] = rgbColorKey.r;
+                imageDataSource.data[j + 1] = rgbColorKey.g;
+                imageDataSource.data[j + 2] = rgbColorKey.b;
+                
             }
-            context.putImageData(imageDataDestination, cropX * 1, cropY * 1);     
+            context.putImageData(imageDataSource, cropX * 1, cropY * 1);     
             //this.scaleX(1);
-        });        
+        });
+
+        /*that.kineticElement[i].sceneFunc(function(context) {
+            var yo = that.layer.getHitCanvas().getContext().getImageData(0,0,iaScene.width, iaScene.height);
+            context.putImageData(yo, 0,0);  
+        });*/
+        //this.draw();
+        
         that.layer.draw();
     });    
+    
     that.kineticElement[i].on('mouseover', function() {
         if (iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) {
 
@@ -388,6 +417,7 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 
         }
         else if (iaScene.cursorState.indexOf("HandPointer.cur") === -1) {
+            console.log("mouseover");
             document.body.style.cursor = "url(img/HandPointer.cur),auto";
             iaScene.cursorState = "url(img/HandPointer.cur),auto";
             for (var i in that.kineticElement) {
@@ -405,11 +435,13 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
      */
     that.kineticElement[i].on('mouseleave', function() {
         //iaScene.noPropagation = true;
+        
         if ((iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) ||
                 (iaScene.cursorState.indexOf("ZoomIn.cur") !== -1)){
 
         }
         else {
+            console.log("mouseleave");
             var mouseXY = that.layer.getStage().getPointerPosition();
             if ((that.layer.getStage().getIntersection(mouseXY) != this)) {
                 //that.backgroundCache_layer.moveToBottom();

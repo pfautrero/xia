@@ -233,7 +233,8 @@ class iaObject:
         """Analyze rectangles"""
         
         record_rect = {}
-        record_rect['id'] = rect.attributes['id'].value
+        if rect.hasAttribute("id"):
+            record_rect['id'] = rect.attributes['id'].value
         record_rect['width'] = rect.attributes['width'].value
         record_rect['height'] = rect.attributes['height'].value
         record_rect['detail'] = self.getText("desc", rect)
@@ -320,7 +321,8 @@ class iaObject:
         record = {}
         record["path"] = ""
         record["fill"] = ""
-        record["id"] =  path.attributes['id'].value
+        if path.hasAttribute("id"):
+            record["id"] =  path.attributes['id'].value
         record["path"] =  path.attributes['d'].value.replace("&#xd;&#xa;"," ").replace("&#x9;"," ").replace("\n"," ").replace("\t"," ").replace("\r"," ") 
         record["style"] = ""
         record['detail'] = self.getText("desc", path)
