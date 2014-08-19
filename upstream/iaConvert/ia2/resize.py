@@ -37,9 +37,13 @@ def getHeightWidth(file):
  
 def resize(file, height, width, target_height, target_width):
     if height <= width:
-        commands.getstatusoutput('sips -z {0} {1} {2}'.format(min(target_width, target_height), max(target_width, target_height), file))
+        commands.getstatusoutput('sips -z {0} {1} {2}' . \
+          format(min(target_width, target_height), \
+            max(target_width, target_height), file))
     else:
-        commands.getstatusoutput('sips -z {0} {1} {2}'.format(max(target_width, target_height), min(target_width, target_height), file))
+        commands.getstatusoutput('sips -z {0} {1} {2}' . \
+        format(max(target_width, target_height), \
+          min(target_width, target_height), file))
  
  
 def main(args):

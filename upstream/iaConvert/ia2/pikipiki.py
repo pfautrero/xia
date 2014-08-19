@@ -51,10 +51,20 @@ class PageFormatter:
         return u'<a href="%s" target="_blank">%s</a>\n' % (word, word)
 
     def _videostart_repl(self, word):
-        return u'<video controls preload="none" data-state="autostart">\n\t<source type="video/mp4" src="%s.mp4" />\n\t<source type="video/ogg" src="%s.ogv" />\n\t<source type="video/webm" src="%s.webm" />\n</video>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0], os.path.splitext(word)[0])
+        return u'<video controls preload="none" data-state="autostart">\n\t\
+            <source type="video/mp4" src="%s.mp4" />\n\t\
+            <source type="video/ogg" src="%s.ogv" />\n\t\
+            <source type="video/webm" src="%s.webm" />\n\
+            </video>\n' % (os.path.splitext(word)[0], \
+              os.path.splitext(word)[0], os.path.splitext(word)[0])
 
     def _video_repl(self, word):
-        return u'<video controls preload="none" data-state="none">\n\t<source type="video/mp4" src="%s.mp4" />\n\t<source type="video/ogg" src="%s.ogv" />\n\t<source type="video/webm" src="%s.webm" />\n</video>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0], os.path.splitext(word)[0])
+        return u'<video controls preload="none" data-state="none">\n\t\
+            <source type="video/mp4" src="%s.mp4" />\n\t\
+            <source type="video/ogg" src="%s.ogv" />\n\t\
+            <source type="video/webm" src="%s.webm" />\n\
+            </video>\n' % (os.path.splitext(word)[0], \
+              os.path.splitext(word)[0], os.path.splitext(word)[0])
 
     def _img_repl(self, word):
         return u'<img src="%s">\n' % (word)
@@ -70,7 +80,8 @@ class PageFormatter:
             ratio = (float(iframe_height) / float(iframe_width)) * 16
             if (ratio == 9):
                 videoClass = 'videoWrapper16_9'
-        return u'<div class="' + videoClass + '"><iframe src="%s"></iframe></div>\n' % (word_url)
+        return u'<div class="' + videoClass + \
+          '"><iframe src="%s"></iframe></div>\n' % (word_url)
 
     def _iframe2_repl(self, word):
         word_url = word.split('src="')[1].split('"')[0]
@@ -83,14 +94,21 @@ class PageFormatter:
             ratio = (float(iframe_height) / float(iframe_width)) * 16
             if (ratio == 9):
                 videoClass = 'videoWrapper16_9'
-        return u'<div class="' + videoClass + '"><iframe src="%s"></iframe></div>\n' % (word_url)
+        return u'<div class="' + videoClass + \
+          '"><iframe src="%s"></iframe></div>\n' % (word_url)
     
     def _audiostart_repl(self, word):
-        return u'<audio controls data-state="autostart">\n\t<source type="audio/ogg" src="%s.ogg" />\n\t<source type="audio/mp3" src="%s.mp3" />\n</audio>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0])
+        return u'<audio controls data-state="autostart">\n\t\
+            <source type="audio/ogg" src="%s.ogg" />\n\t\
+            <source type="audio/mp3" src="%s.mp3" />\n\
+            </audio>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0])
 
 
     def _audio_repl(self, word):
-        return u'<audio controls data-state="none">\n\t<source type="audio/ogg" src="%s.ogg" />\n\t<source type="audio/mp3" src="%s.mp3" />\n</audio>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0])
+        return u'<audio controls data-state="none">\n\t\
+            <source type="audio/ogg" src="%s.ogg" />\n\t\
+            <source type="audio/mp3" src="%s.mp3" />\n\
+            </audio>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0])
 
     def _email_repl(self, word):
         return u'<a href="mailto:%s">%s</a>\n' % (word, word)

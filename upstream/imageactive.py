@@ -29,7 +29,8 @@ class ImageActive(inkex.Effect):
 
     def effect(self):
 
-        # fix inkscape bug https://bugs.launchpad.net/ubuntu/+source/inkscape/+bug/944077/comments/11
+        # fix inkscape bug 
+        # https://bugs.launchpad.net/ubuntu/+source/inkscape/+bug/944077/comments/11
         pathNodes = self.document.xpath('//sodipodi:namedview',namespaces=inkex.NSS)
         pathNodes[0].set('id','base')        
        
@@ -41,6 +42,7 @@ class ImageActive(inkex.Effect):
             root = Tkinter.Tk()
             root.title("Image Active 2 - alpha 3")
             root.geometry("465x310")
+            root.resizable(0,0)
             root.attributes('-topmost', 1)
             img = Tkinter.PhotoImage(file='iaConvert/images/image-active64.gif')
             root.tk.call('wm', 'iconphoto', root._w, img)  

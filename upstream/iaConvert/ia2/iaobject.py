@@ -28,6 +28,24 @@ from pikipiki import PageFormatter
 from ctm import CurrentTransformation
 import os
 
+import math
+import re
+import tempfile
+import sys
+import shutil
+
+# import PIL for windows and Linux
+# For MAC OS X, use internal tool called "sips"
+
+if not sys.platform.startswith('darwin'):
+    try:
+        from PIL import Image
+    except ImportError:
+        print "Requirement : Please, install python-pil package"
+        sys.exit(1)
+
+
+
 class iaObject:
     """generate Image Active Object"""
 
@@ -36,6 +54,9 @@ class iaObject:
         self.details = []
         self.scene = {}
         self.raster = ""
+        
+        # used to identify if background image must be resized for mobiles
+        self.ratio = 1
 
     def get_tag_value(self,node):
         if node.childNodes:
@@ -64,21 +85,24 @@ class iaObject:
             if metadata.item(0) is not None:
                 metadata_value = metadata.item(0).getElementsByTagName('dc:title')
                 if metadata_value.item(0) is not None:
-                    self.scene['creator'] = self.get_tag_value(metadata_value.item(0))
+                    self.scene['creator'] = self.get_tag_value(\
+                      metadata_value.item(0))
 
             self.scene['rights'] = ""
             metadata = metadatas.item(0).getElementsByTagName('dc:rights')
             if metadata.item(0) is not None:
                 metadata_value = metadata.item(0).getElementsByTagName('dc:title')
                 if metadata_value.item(0) is not None:
-                    self.scene['rights'] = self.get_tag_value(metadata_value.item(0))
+                    self.scene['rights'] = self.get_tag_value(\
+                      metadata_value.item(0))
 
             self.scene['publisher'] = ""
             metadata = metadatas.item(0).getElementsByTagName('dc:publisher')
             if metadata.item(0) is not None:
                 metadata_value = metadata.item(0).getElementsByTagName('dc:title')
                 if metadata_value.item(0) is not None:
-                    self.scene['publisher'] = self.get_tag_value(metadata_value.item(0))
+                    self.scene['publisher'] = self.get_tag_value(\
+                      metadata_value.item(0))
 
             self.scene['language'] = ""
             metadata = metadatas.item(0).getElementsByTagName('dc:language')
@@ -104,7 +128,8 @@ class iaObject:
             if metadata.item(0) is not None:
                 metadata_value = metadata.item(0).getElementsByTagName('dc:title')
                 if metadata_value.item(0) is not None:
-                    self.scene['contributor'] = self.get_tag_value(metadata_value.item(0))
+                    self.scene['contributor'] = self.get_tag_value(\
+                      metadata_value.item(0))
 
 
     def analyzeSVG(self,filePath):
@@ -146,29 +171,68 @@ class iaObject:
             self.raster = image.attributes['xlink:href'].value
             if image.attributes['xlink:href'].value.startswith("file://"):
                 # Embed background image thanks to data URI Scheme
-                fileNameImage, fileExtensionImage = os.path.splitext(image.attributes['xlink:href'].value[7:])
+                fileNameImage, fileExtensionImage = os.path.splitext(\
+                    image.attributes['xlink:href'].value[7:])
                 imgMimeTypes = {}
                 imgMimeTypes['.png'] = 'image/png'
                 imgMimeTypes['.jpg'] = 'image/jpeg'
                 imgMimeTypes['.jpeg'] = 'image/jpeg'
                 imgMimeTypes['.gif'] = 'image/gif'
                 imgMimeTypes['.bmp'] = 'image/bmp'
-                self.rasterPrefix = u"data:" + imgMimeTypes[fileExtensionImage.lower()] + u";base64,"
-                with open(image.attributes['xlink:href'].value[7:], 'rb') as bgImage:
-                    self.raster = self.rasterPrefix + bgImage.read().encode("base64", "strict")
+                self.rasterPrefix = u"data:" + \
+                    imgMimeTypes[fileExtensionImage.lower()] + u";base64,"
+                with open(image.attributes['xlink:href'].value[7:], 'rb') as \
+                  bgImage:
+                    self.raster = self.rasterPrefix + \
+                        bgImage.read().encode("base64", "strict")
             self.scene['image'] = self.raster
 
-                
-        svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'image', 'g']
+            # calculate ratio to resize background image down to maxNumPixels
+            
+            maxNumPixels = float(5 * 1024 * 1024)
+            bgNumPixels = float(int(self.scene['width']) * \
+                int(self.scene['height']))
+            if (bgNumPixels > maxNumPixels):
+                self.ratio = math.sqrt(maxNumPixels / bgNumPixels)
+         
+            if self.ratio != 1:
+                self.scene['image'], self.scene['width'], self.scene['height'] = \
+                  self.resizeImage(self.scene['image'], \
+                    self.scene['width'], \
+                    self.scene['height'])
+
+        svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', \
+            'polygon', 'path', 'image', 'g']
         mainSVG = self.xml.getElementsByTagName('svg')
         if mainSVG[0]:
             for childnode in mainSVG[0].childNodes:
                 if childnode.parentNode.nodeName == "svg":
                     if childnode.nodeName in svgElements:
-                        newrecord = getattr(self, 'extract_' + childnode.nodeName)(childnode, 0)
+                        newrecord = getattr(self, 'extract_' + \
+                            childnode.nodeName)(childnode, 0)
                         if newrecord is not None:
                             self.details.append(newrecord)
 
+    def extract_circle(self, image, ctm_group):
+        """not yet implemented"""
+        print("circle is not implemented")
+
+    def extract_ellipse(self, image, ctm_group):
+        """not yet implemented"""
+        print("ellipse is not implemented")
+
+    def extract_line(self, image, ctm_group):
+        """not yet implemented"""
+        print("line is not implemented")
+
+    def extract_polyline(self, image, ctm_group):
+        """not yet implemented"""
+        print("polyline is not implemented")
+
+    def extract_polygon(self, image, ctm_group):
+        """not yet implemented"""
+        print("polygon is not implemented")
+        
     def extract_image(self, image, ctm_group):
         """Analyze images"""
         
@@ -185,10 +249,18 @@ class iaObject:
             record_image['options'] = ""
             
             if image.hasAttribute("x"):
-                record_image['x'] = image.attributes['x'].value
+                record_image['x'] = image.attributes['x'].value * self.ratio
             if image.hasAttribute("y"):
-                record_image['y'] = image.attributes['y'].value
+                record_image['y'] = image.attributes['y'].value * self.ratio
             
+            if self.ratio != 1:
+                record_image['image'], \
+                record_image['width'], \
+                record_image['height'] = \
+                    self.resizeImage(record_image['image'], \
+                      record_image['width'], \
+                      record_image['height'])
+
             if image.hasAttribute("style"):                            
                 str_style = image.attributes['style'].value
                 style = {}
@@ -215,11 +287,13 @@ class iaObject:
             maxY = -10000
             if float(record_image['x']) < float(minX):
                 minX = float(record_image['x'])
-            if (float(record_image['x']) + float(record_image['width'])) > float(maxX):
+            if (float(record_image['x']) + \
+              float(record_image['width'])) > float(maxX):
                 maxX = float(record_image['x']) + float(record_image['width'])
             if float(record_image['y']) < float(minY):
                 minY = float(record_image['y'])
-            if (float(record_image['y']) + float(record_image['height'])) > float(maxY):
+            if (float(record_image['y']) + \
+              float(record_image['height'])) > float(maxY):
                 maxY = float(record_image['y']) + float(record_image['height'])
 
             record_image["minX"] = str(minX)
@@ -289,6 +363,12 @@ class iaObject:
             ctm_group.applyTransformToPath(ctm_group.matrix,p)
             record_rect['path'] = cubicsuperpath.formatPath(p)
 
+        if self.ratio != 1:
+            ctm = CurrentTransformation()
+            ctm.extractScale([self.ratio])
+            ctm.applyTransformToPath(ctm.matrix,p)
+            record_rect['path'] = cubicsuperpath.formatPath(p) 
+
         minX = 10000
         minY = 10000
         maxX = -10000
@@ -323,7 +403,12 @@ class iaObject:
         record["fill"] = ""
         if path.hasAttribute("id"):
             record["id"] =  path.attributes['id'].value
-        record["path"] =  path.attributes['d'].value.replace("&#xd;&#xa;"," ").replace("&#x9;"," ").replace("\n"," ").replace("\t"," ").replace("\r"," ") 
+        record["path"] =  path.attributes['d'].value. \
+            replace("&#xd;&#xa;"," "). \
+            replace("&#x9;"," "). \
+            replace("\n"," "). \
+            replace("\t"," "). \
+            replace("\r"," ") 
         record["style"] = ""
         record['detail'] = self.getText("desc", path)
         record['title'] = self.getText("title", path)
@@ -367,6 +452,11 @@ class iaObject:
             ctm_group.applyTransformToPath(ctm_group.matrix,p)
             record['path'] = cubicsuperpath.formatPath(p)
 
+        if self.ratio != 1:
+            ctm = CurrentTransformation()
+            ctm.extractScale([self.ratio])
+            ctm.applyTransformToPath(ctm.matrix,p)
+            record['path'] = cubicsuperpath.formatPath(p)       
 
         if record["path"].lower().find("z") == -1:
             record["path"] += " z"
@@ -401,7 +491,6 @@ class iaObject:
         text = element.getElementsByTagName(type)
         if text.item(0) is not None:
             if text.item(0).parentNode == element:
-                #return self.get_tag_value(text.item(0)).replace("\n"," ").replace("\t"," ").replace("\r"," ")
                 return self.get_tag_value(text.item(0))
         return ""
 
@@ -432,10 +521,12 @@ class iaObject:
             transformation = group.attributes['transform'].value
             ctm_group.analyze(transformation)
 
-        svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'image']
+        svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', \
+            'polygon', 'path', 'image']
         for childnode in group.childNodes:
             if childnode.nodeName in svgElements:
-                newrecord = getattr(self, 'extract_' + childnode.nodeName)(childnode, ctm_group)
+                newrecord = getattr(self, 'extract_' + \
+                    childnode.nodeName)(childnode, ctm_group)
                 if newrecord is not None:
                     newrecord["options"] += record["options"]
                     record["group"].append(newrecord)
@@ -466,15 +557,74 @@ class iaObject:
         if record["group"]:
             return record
 
+    def resizeImage(self, raster, rasterWidth, rasterHeight):
+        """ 
+        if needed, we must resize background image to be usable
+        on tablets and mobiles. iPad limitation is approximatly 5Mb.
+        """
+        
+        dirname = tempfile.mkdtemp()
+        newraster = raster
+        newrasterWidth = rasterWidth
+        newrasterHeight = rasterHeight
+        rasterStartPosition = raster.find('base64,') + 7
+        rasterEncoded = raster[rasterStartPosition:]
+        rasterPrefix = raster[0:rasterStartPosition]
+        extension = re.search('image/(.*);base64', rasterPrefix)
+        if extension.group(1):
+            imageFile = dirname + "/image." + extension.group(1)
+            imageFileSmall = dirname + \
+              "/image_small." + extension.group(1)
+            with open(imageFile, "w") as bgImage:
+                bgImage.write(rasterEncoded.decode("base64"))
+            if self.ratio != 1:
+                # Background image is too big to be used on mobiles
+                if sys.platform.startswith('darwin'):
+                    print "Platform MAC OS X : resizing using sips"
+                else:
+                    # "Platform Linux or Windows : resizing using PIL"
+                    currentBg = Image.open(imageFile)
+                    oldwidth = int(rasterWidth)
+                    oldheight = int(rasterHeight)
+                    newwidth = int( oldwidth * self.ratio)
+                    newheight = int( oldheight * self.ratio)
+                    resizedBg = currentBg.resize( \
+                        (newwidth,newheight), \
+                        Image.ANTIALIAS)
+                    resizedBg.save(imageFileSmall) 
+                    
+                    with open(imageFileSmall) as bgSmallImage:
+                        rasterSmallEncoded = bgSmallImage.read().\
+                          encode("base64")
+                        newraster = rasterPrefix + \
+                          rasterSmallEncoded
+                    
+                    newrasterWidth = newwidth.__str__()
+                    newrasterHeight = newheight.__str__()
+        else:
+            print('ERROR : image is not embedded')
+        shutil.rmtree(dirname)
+        return [newraster, newrasterWidth, newrasterHeight]
+
+
     def generateJSON(self,filePath):
         """ generate json file"""
         final_str = u""
         final_str += u'var scene = {\n'
         for entry in self.scene:
             if entry == "image":
-                final_str += u'"' + entry + u'":"' + self.scene[entry].replace("\n","").replace("\t","").replace("\r","") + u'",\n'
+                final_str += u'"' + entry + u'":"' + \
+                    self.scene[entry]. \
+                        replace("\n",""). \
+                        replace("\t",""). \
+                        replace("\r","") + u'",\n'
             else:
-                final_str += u'"' + entry + u'":"' + PageFormatter(self.scene[entry]).print_html().replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + u'",\n'
+                final_str += u'"' + entry + u'":"' + \
+                    PageFormatter(self.scene[entry]).print_html(). \
+                        replace('"', "'"). \
+                        replace("\n"," "). \
+                        replace("\t"," "). \
+                        replace("\r"," ") + u'",\n'
         final_str += u'};\n'
 
         final_str += u'var details = [\n'
@@ -487,15 +637,30 @@ class iaObject:
                         final_str += '  {\n'
                         for entry2 in element:
                             if entry2 == "path":
-                                final_str += u'  "' + entry2 + u'":' + PageFormatter(element[entry2]).print_html().replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + u',\n'
+                                final_str += u'  "' + entry2 + u'":' + \
+                                    PageFormatter(element[entry2]).print_html().\
+                                        replace('"', "'").\
+                                        replace("\n"," ").\
+                                        replace("\t"," ").\
+                                        replace("\r"," ") + u',\n'
                             else:
-                                final_str += u'      "' + entry2 + u'":"' + PageFormatter(element[entry2]).print_html().replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + u'",\n'
+                                final_str += u'      "' + entry2 + u'":"' + \
+                                    PageFormatter(element[entry2]).print_html().\
+                                        replace('"', "'").\
+                                        replace("\n"," ").\
+                                        replace("\t"," ").\
+                                        replace("\r"," ") + u'",\n'
                         final_str += u'  },\n'
                     final_str += u'  ],\n'
                 elif entry == "path":
                     final_str += u'  "' + entry + u'":' + detail[entry] + ',\n'
                 elif entry == "detail":
-                    final_str += u'  "' + entry + u'":"' + PageFormatter(detail[entry]).print_html().replace('"', "'").replace("\n"," ").replace("\t"," ").replace("\r"," ") + u'",\n'
+                    final_str += u'  "' + entry + u'":"' + \
+                        PageFormatter(detail[entry]).print_html().\
+                            replace('"', "'").\
+                            replace("\n"," ").\
+                            replace("\t"," ").\
+                            replace("\r"," ") + u'",\n'
                 else:
                     final_str += u'  "' + entry + u'":"' + detail[entry] + u'",\n'
             final_str += u'},\n'

@@ -144,7 +144,8 @@ def main():
             msgFunc = None
             text += 'Static Message'
         btnList.append( Button( root, text=text ) )
-        ToolTip( btnList[-1], msg=msg, msgFunc=msgFunc, follow=follow, delay=delay)
+        ToolTip( btnList[-1], msg=msg, msgFunc=msgFunc, follow=follow, \
+          delay=delay)
         btnList[-1].grid( row=i, column=j, sticky=N+S+E+W )
     root.mainloop()
     

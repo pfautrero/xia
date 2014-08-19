@@ -180,7 +180,6 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
 iaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, idText) {
     that.path[i] = detail.path;
     //that.backgroundImage[i] = imageObj;
-
     that.kineticElement[i] = new Kinetic.Path({
         name: detail.title,
         data: detail.path,
