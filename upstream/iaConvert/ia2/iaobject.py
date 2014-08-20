@@ -58,6 +58,8 @@ class iaObject:
         # used to identify if background image must be resized for mobiles
         self.ratio = 1
 
+        self.translation = 0
+        
     def get_tag_value(self,node):
         if node.childNodes:
             return node.childNodes[0].nodeValue
@@ -157,6 +159,13 @@ class iaObject:
             self.backgroundNode = image;
             self.scene['width'] = image.attributes['width'].value
             self.scene['height'] =  image.attributes['height'].value
+            self.backgroundX = float(image.attributes['x'].value)
+            self.backgroundY =  float(image.attributes['y'].value)
+            
+            if (self.backgroundX != 0) or (self.backgroundY != 0):
+                ctm = CurrentTransformation()
+                ctm.extractTranslate([self.backgroundX * (-1), self.backgroundY * (-1)])
+                self.translation = ctm.matrix
 
             desc = image.getElementsByTagName('desc')
             if desc.item(0) is not None:
@@ -249,9 +258,11 @@ class iaObject:
             record_image['options'] = ""
             
             if image.hasAttribute("x"):
-                record_image['x'] = image.attributes['x'].value * self.ratio
+                record_image['x'] = str((float(image.attributes['x'].value) - \
+                  self.backgroundX) * self.ratio)
             if image.hasAttribute("y"):
-                record_image['y'] = image.attributes['y'].value * self.ratio
+                record_image['y'] = str((float(image.attributes['y'].value) - \
+                  self.backgroundY) * self.ratio)
             
             if self.ratio != 1:
                 record_image['image'], \
@@ -321,8 +332,12 @@ class iaObject:
 
         if rect.hasAttribute("x"):
             record_rect['x'] = rect.attributes['x'].value
+            if self.translation != 0:
+                record_rect['x'] = float(record_rect['x']) - self.backgroundX
         if rect.hasAttribute("y"):
             record_rect['y'] = rect.attributes['y'].value
+            if self.translation != 0:
+                record_rect['y'] = float(record_rect['y']) - self.backgroundY
         if rect.hasAttribute("rx"):
             record_rect['rx'] = rect.attributes['rx'].value
         if rect.hasAttribute("ry"):
@@ -452,11 +467,18 @@ class iaObject:
             ctm_group.applyTransformToPath(ctm_group.matrix,p)
             record['path'] = cubicsuperpath.formatPath(p)
 
+        if self.translation != 0:
+            ctm = CurrentTransformation()
+            ctm.applyTransformToPath(self.translation,p)
+            record['path'] = cubicsuperpath.formatPath(p)  
+            
         if self.ratio != 1:
             ctm = CurrentTransformation()
             ctm.extractScale([self.ratio])
             ctm.applyTransformToPath(ctm.matrix,p)
             record['path'] = cubicsuperpath.formatPath(p)       
+
+
 
         if record["path"].lower().find("z") == -1:
             record["path"] += " z"
@@ -638,11 +660,18 @@ class iaObject:
                         for entry2 in element:
                             if entry2 == "path":
                                 final_str += u'  "' + entry2 + u'":' + \
-                                    PageFormatter(element[entry2]).print_html().\
+                                    element[entry2].\
                                         replace('"', "'").\
                                         replace("\n"," ").\
                                         replace("\t"," ").\
                                         replace("\r"," ") + u',\n'
+                            elif entry2 == "image":
+                                final_str += u'  "' + entry2 + u'":"' + \
+                                    element[entry2].\
+                                        replace('"', "'").\
+                                        replace("\n"," ").\
+                                        replace("\t"," ").\
+                                        replace("\r"," ") + u'",\n'
                             else:
                                 final_str += u'      "' + entry2 + u'":"' + \
                                     PageFormatter(element[entry2]).print_html().\
@@ -654,6 +683,8 @@ class iaObject:
                     final_str += u'  ],\n'
                 elif entry == "path":
                     final_str += u'  "' + entry + u'":' + detail[entry] + ',\n'
+                elif entry == "image":
+                    final_str += u'  "' + entry + u'":"' + detail[entry] + u'",\n'
                 elif entry == "detail":
                     final_str += u'  "' + entry + u'":"' + \
                         PageFormatter(detail[entry]).print_html().\

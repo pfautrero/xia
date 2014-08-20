@@ -174,7 +174,7 @@ class CurrentTransformation:
         if 'ry' in node:
             ry = float(node['ry'])
 
-        if rx==0 and ry ==0:
+        if rx==0 or ry ==0:
             d ='M %f,%f '%(x,y)
             d+='L %f,%f '%(x+w,y)
             d+='L %f,%f '%(x+w,y+h)
