@@ -572,10 +572,10 @@ class iaObject:
         rasterPrefix = raster[0:rasterStartPosition]
         extension = re.search('image/(.*);base64', rasterPrefix)
         if extension.group(1):
-            imageFile = dirname + "/image." + extension.group(1)
+            imageFile = dirname + os.path.sep + "image." + extension.group(1)
             imageFileSmall = dirname + \
-              "/image_small." + extension.group(1)
-            with open(imageFile, "w") as bgImage:
+              os.path.sep + "image_small." + extension.group(1)
+            with open(imageFile, "wb") as bgImage:
                 bgImage.write(rasterEncoded.decode("base64"))
             if self.ratio != 1:
                 # Background image is too big to be used on mobiles
@@ -593,7 +593,7 @@ class iaObject:
                         Image.ANTIALIAS)
                     resizedBg.save(imageFileSmall) 
                     
-                    with open(imageFileSmall) as bgSmallImage:
+                    with open(imageFileSmall, 'rb') as bgSmallImage:
                         rasterSmallEncoded = bgSmallImage.read().\
                           encode("base64")
                         newraster = rasterPrefix + \
