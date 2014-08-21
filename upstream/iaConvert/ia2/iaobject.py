@@ -552,7 +552,12 @@ class iaObject:
                 if newrecord is not None:
                     newrecord["options"] += record["options"]
                     record["group"].append(newrecord)
-
+                    
+                    if record["detail"] == "":
+                        record['detail'] = newrecord['detail']
+                    if record["title"] == "":
+                        record['title'] = newrecord['title']
+                        
                     if float(newrecord["minX"]) < minX:
                         minX = float(newrecord["minX"])
                     if float(newrecord["minY"]) < minY:
@@ -571,6 +576,10 @@ class iaObject:
                 if record["title"] == "":
                     record['title'] = self.getText("title", subgroup)
 
+        if record['title'] == "":
+            if group.hasAttribute("inkscape:label"):
+                record['title'] = group.attributes["inkscape:label"].value
+                
         record["minX"] = str(minX)
         record["minY"] = str(minY)
         record["maxX"] = str(maxX)
