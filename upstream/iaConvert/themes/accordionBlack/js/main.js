@@ -64,7 +64,7 @@ function main(myhooks) {
     that.imageObj.onload = function() {
         // define the maximum number of pixels allowed in the image
 
-        var maxNumberPixels = 3 * 1024 * 1024;
+        var maxNumberPixels = 5 * 1024 * 1024;
         var ratio = 1;
         if (parseFloat(scene.width) * parseFloat(scene.height) >= maxNumberPixels) {
             ratio = Math.sqrt(maxNumberPixels/(parseFloat(scene.width) * parseFloat(scene.height)));
