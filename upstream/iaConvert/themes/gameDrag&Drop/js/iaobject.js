@@ -100,7 +100,7 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
         width: detail.width,
         height: detail.height,
-        scale: {x:iaScene.coeff,y:iaScene.coeff},
+        //scale: {x:iaScene.coeff,y:iaScene.coeff},
         draggable: true
     });
     that.kineticElement[i].setIaObject(that);
@@ -140,44 +140,50 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
 
         that.rasterObj = rasterObj;
 
-        that.kineticElement[i].hitFunc(function(context) {
+        that.kineticElement[i].cache();
+        that.kineticElement[i].scale({x:iaScene.coeff,y:iaScene.coeff});
+        that.kineticElement[i].drawHitFromCache();
+        
+        /*that.kineticElement[i].hitFunc(function(context) {
 
-            var cropX = Math.max(parseFloat(detail.minX), 0);
-            var cropY = Math.max(parseFloat(detail.minY), 0);
-            //var cropWidth = (Math.min(parseFloat(detail.maxX) - parseFloat(detail.minX), Math.floor(parseFloat(iaScene.originalWidth) * 1)));
-            //var cropHeight = (Math.min(parseFloat(detail.maxY) - parseFloat(detail.minY), Math.floor(parseFloat(iaScene.originalHeight) * 1)));
-            var cropWidth = (Math.min((parseFloat(detail.maxX) - parseFloat(detail.minX)) * iaScene.scale, Math.floor(parseFloat(iaScene.originalWidth) * iaScene.scale)));
-            var cropHeight = (Math.min((parseFloat(detail.maxY) - parseFloat(detail.minY)) * iaScene.scale, Math.floor(parseFloat(iaScene.originalHeight) * iaScene.scale)));            
-            var canvas_source = document.createElement('canvas');
-            canvas_source.setAttribute('width', cropWidth * iaScene.coeff);
-            canvas_source.setAttribute('height', cropHeight * iaScene.coeff);
-            var context_source = canvas_source.getContext('2d');
-            context_source.drawImage(rasterObj,0,0, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);
-            var imageDataSource = context_source.getImageData(0, 0, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);            
-            var len = imageDataSource.data.length;
+            console.log(typeof(this.imageDataSource));
+            if (typeof(this.imageDataSource) == "undefined") {
+                var cropX = Math.max(parseFloat(detail.minX), 0);
+                var cropY = Math.max(parseFloat(detail.minY), 0);
             
-            //var imageDataDestination = context.getImageData(cropX, cropY, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);
-            rgbColorKey = Kinetic.Util._hexToRgb(this.colorKey);
-       
-            /*for(j = 0; j < len; j += 4) {
-                imageDataDestination.data[j + 0] = rgbColorKey.r;
-                imageDataDestination.data[j + 1] = rgbColorKey.g;
-                imageDataDestination.data[j + 2] = rgbColorKey.b;
-                imageDataDestination.data[j + 3] = imageDataSource.data[j + 3];
+                //var cropWidth = (Math.min(parseFloat(detail.maxX) - parseFloat(detail.minX), Math.floor(parseFloat(iaScene.originalWidth) * 1)));
+                //var cropHeight = (Math.min(parseFloat(detail.maxY) - parseFloat(detail.minY), Math.floor(parseFloat(iaScene.originalHeight) * 1)));
+                var cropWidth = (Math.min((parseFloat(detail.maxX) - parseFloat(detail.minX)) * iaScene.scale, Math.floor(parseFloat(iaScene.originalWidth) * iaScene.scale)));
+                var cropHeight = (Math.min((parseFloat(detail.maxY) - parseFloat(detail.minY)) * iaScene.scale, Math.floor(parseFloat(iaScene.originalHeight) * iaScene.scale)));            
+                var canvas_source = document.createElement('canvas');
+                canvas_source.setAttribute('width', cropWidth * iaScene.coeff);
+                canvas_source.setAttribute('height', cropHeight * iaScene.coeff);
+                var context_source = canvas_source.getContext('2d');
+                context_source.drawImage(that.rasterObj,0,0, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);
+                var imageDataSource = context_source.getImageData(0, 0, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);            
+                var len = imageDataSource.data.length;
+
+                rgbColorKey = Kinetic.Util._hexToRgb(this.colorKey);
+
+                for(j = 0; j < len; j += 4) {
+                    imageDataSource.data[j + 0] = rgbColorKey.r;
+                    imageDataSource.data[j + 1] = rgbColorKey.g;
+                    imageDataSource.data[j + 2] = rgbColorKey.b;
+                }
+                this.imageDataSource = imageDataSource;
             }
-            context.putImageData(imageDataDestination, cropX * iaScene.coeff, cropY * iaScene.coeff);     
-            */
-           
-            for(j = 0; j < len; j += 4) {
-                imageDataSource.data[j + 0] = rgbColorKey.r;
-                imageDataSource.data[j + 1] = rgbColorKey.g;
-                imageDataSource.data[j + 2] = rgbColorKey.b;
+            else {
+                var cropX = Math.max(parseFloat(that.minX), 0);
+                var cropY = Math.max(parseFloat(that.minY), 0);                
             }
-            context.putImageData(imageDataSource, cropX * iaScene.coeff, cropY * iaScene.coeff);     
+            context.putImageData(this.imageDataSource, cropX * iaScene.coeff, cropY * iaScene.coeff);     
                        
            
             //this.scaleX(iaScene.coeff);
-        });        
+        });*/ 
+
+
+
 
         //var test = document.createElement('img');
         //test.src = rasterObj.src;
@@ -185,7 +191,7 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
 
         /*that.kineticElement[i].sceneFunc(function(context) {
             var yo = that.layer.getHitCanvas().getContext().getImageData(0,0,iaScene.width, iaScene.height);
-            context.putImageData(yo, 0,0);  
+            context.putImageData(yo, that.minX,that.minY);  
         });*/
         // =============================================================        
         
@@ -372,7 +378,14 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
         Kinetic.draggedshape = null;
         that.myhooks.afterIaObjectDragEnd(iaScene, idText, that, e);
         
-        this.hitFunc(function(context) {
+        //this.hitFunc(function(context) {
+        //    var cropX = Math.max(parseFloat(that.minX), 0);
+        //    var cropY = Math.max(parseFloat(that.minY), 0);
+        //    context.putImageData(that.imageDataSource, cropX * 1, cropY * 1);                 
+            //that.layer.draw();
+        //});
+        
+        /*this.hitFunc(function(context) {
 
             var cropX = Math.max(parseFloat(that.minX), 0);
             var cropY = Math.max(parseFloat(that.minY), 0);
@@ -398,7 +411,7 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             }
             context.putImageData(imageDataSource, cropX * 1, cropY * 1);     
             //this.scaleX(1);
-        });
+        });*/
 
         /*that.kineticElement[i].sceneFunc(function(context) {
             var yo = that.layer.getHitCanvas().getContext().getImageData(0,0,iaScene.width, iaScene.height);
@@ -417,16 +430,16 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 
         }
         else if (iaScene.cursorState.indexOf("HandPointer.cur") === -1) {
-            console.log("mouseover");
+            //console.log("mouseover");
             document.body.style.cursor = "url(img/HandPointer.cur),auto";
             iaScene.cursorState = "url(img/HandPointer.cur),auto";
-            for (var i in that.kineticElement) {
+            /*for (var i in that.kineticElement) {
                 that.kineticElement[i].fillPriority('pattern');
                 that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
                 that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale); 
                 that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);                 
             }
-            that.layer.draw();
+            that.layer.draw();*/
         }
     });
 
@@ -441,7 +454,7 @@ iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 
         }
         else {
-            console.log("mouseleave");
+            //console.log("mouseleave");
             var mouseXY = that.layer.getStage().getPointerPosition();
             if ((that.layer.getStage().getIntersection(mouseXY) != this)) {
                 //that.backgroundCache_layer.moveToBottom();

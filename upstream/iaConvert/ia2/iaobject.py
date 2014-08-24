@@ -198,7 +198,7 @@ class iaObject:
 
             # calculate ratio to resize background image down to maxNumPixels
             
-            maxNumPixels = float(5 * 1024 * 1024)
+            maxNumPixels = float(512 * 1024)
             bgNumPixels = float(int(self.scene['width']) * \
                 int(self.scene['height']))
             if (bgNumPixels > maxNumPixels):
@@ -693,7 +693,11 @@ class iaObject:
                 elif entry == "path":
                     final_str += u'  "' + entry + u'":' + detail[entry] + ',\n'
                 elif entry == "image":
-                    final_str += u'  "' + entry + u'":"' + detail[entry] + u'",\n'
+                    final_str += u'  "' + entry + u'":"' + detail[entry] .\
+                                        replace('"', "'").\
+                                        replace("\n"," ").\
+                                        replace("\t"," ").\
+                                        replace("\r"," ") + u'",\n'
                 elif entry == "detail":
                     final_str += u'  "' + entry + u'":"' + \
                         PageFormatter(detail[entry]).print_html().\
