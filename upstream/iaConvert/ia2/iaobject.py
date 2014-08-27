@@ -348,6 +348,13 @@ class iaObject:
             if str_onclick == "off":
                 record_rect['options'] += " disable-click "
 
+        if record_rect['title'].startswith("http://") or \
+          record_rect['title'].startswith("https://") or \
+          record_rect['title'].startswith("//") or \
+          record_rect['title'].startswith("./") or \
+          record_rect['title'].startswith("../"):
+            record_rect['options'] += " direct-link "
+
         if rect.hasAttribute("style"):                            
             str_style = rect.attributes['style'].value
             style = {}
