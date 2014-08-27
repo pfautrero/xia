@@ -37,6 +37,7 @@ class IADialog(Tkinter.Frame):
         self.filename = ""
         self.localdir = localdir
         self.root = root
+        self.resize = 3
 
         # Don't show hidden files and directories 
         # (with tkinter, by default, it's the opposite).
@@ -201,11 +202,11 @@ class IADialog(Tkinter.Frame):
         except:
             self.params = Tkinter.Toplevel()
             self.params.title("Paramètres")
-            self.params.geometry("465x310")
+            self.params.geometry("310x310")
             self.params.resizable(0,0)
             img = Tkinter.PhotoImage(file='images/image-active64.gif')
             self.params.tk.call('wm', 'iconphoto', self.params._w, img)    
-            IAParams(self.params).pack(side="left")
+            IAParams(self.params, self).pack(side="left")
         
     def askopenfilename(self):
         self.filename = tkFileDialog.askopenfilename(**self.file_opt)
@@ -249,7 +250,8 @@ class IADialog(Tkinter.Frame):
                 shutil.copytree(self.localdir + '/themes/' + theme['name'] + \
                     '/js/', self.dirname + '/js/')
 
-                self.imageActive.analyzeSVG(self.filename)
+                maxNumPixels = self.defineMaxPixels(self.resize)
+                self.imageActive.analyzeSVG(self.filename, maxNumPixels)
                 
                 self.imageActive.generateJSON(self.dirname + '/datas/data.js')
 
@@ -260,6 +262,18 @@ class IADialog(Tkinter.Frame):
 
                 if self.keep_alive == "no":
                     self.root.destroy()
-                    
+
+    def defineMaxPixels(self, resizeCoeff):
+        if resizeCoeff == 0:
+            return float(512 * 1024)
+        elif resizeCoeff == 1:
+            return float(1024 * 1024)            
+        elif resizeCoeff == 2:
+            return float(3 * 1024 * 1024)            
+        elif resizeCoeff == 3:
+            return float(5 * 1024 * 1024)            
+        else:
+            return float(512 * 1024)            
+            
     def quit(self):
         self.root.destroy()

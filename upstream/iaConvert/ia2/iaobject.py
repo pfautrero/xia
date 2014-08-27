@@ -134,7 +134,7 @@ class iaObject:
                       metadata_value.item(0))
 
 
-    def analyzeSVG(self,filePath):
+    def analyzeSVG(self,filePath, maxNumPixels):
         """analyze svg file and fill self.details and self.scene"""
         self.details[:] = []
         self.scene.clear()
@@ -198,7 +198,6 @@ class iaObject:
 
             # calculate ratio to resize background image down to maxNumPixels
             
-            maxNumPixels = float(512 * 1024)
             bgNumPixels = float(int(self.scene['width']) * \
                 int(self.scene['height']))
             if (bgNumPixels > maxNumPixels):

@@ -21,12 +21,14 @@ from tooltip import ToolTip
 
 class IAParams(Tkinter.Frame):
 
-    def __init__(self, root, localdir="."):
+    def __init__(self, root, parent, localdir="."):
 
         Tkinter.Frame.__init__(self, root)
 
         self.root = root
         self.localdir = localdir
+        self.parent = parent
+        self.resizeCoeff = parent.resize
         
         # define images
         self.resize_img = {}
@@ -44,16 +46,17 @@ class IAParams(Tkinter.Frame):
 
         # define buttons
 
-        self.button_resize = Tkinter.Button(self, image=self.resize_img[0], \
-            relief=Tkinter.FLAT, bd=0, height=150, width=150, \
-            command=self.resize)
-        self.button_resize.image = self.resize_img[0]
+        self.button_resize = Tkinter.Button(self, \
+          image=self.resize_img[self.resizeCoeff % 4], \
+          relief=Tkinter.FLAT, bd=0, height=150, width=150, \
+          command=self.resize)
+        self.button_resize.image = self.resize_img[self.resizeCoeff % 4]
         self.button_resize.grid(row=0,column=0, columnspan=1,sticky='W')
         tooltip2 = ToolTip(self.button_resize,"Modifier la résolution des images\n \
-          1 : faible définition, idéale pour smartphones et tablettes\n \
-          4 : haute définition, idéale pour des zooms sur des détails", None, 0.1)
+1 : faible définition, idéale pour smartphones et tablettes\n \
+4 : haute définition, idéale pour des zooms sur des détails", None, 0.1)
 
-        self.resize = 0
+        
 
         # title
 
@@ -62,7 +65,8 @@ class IAParams(Tkinter.Frame):
         label.grid(row=1,column=0,columnspan=2, sticky='W')
 
     def resize(self):
-        self.resize = (self.resize + 1) % 4
-        self.button_resize.configure(image=self.resize_img[self.resize])
+        self.resizeCoeff = (self.resizeCoeff + 1) % 4
+        self.parent.resize = self.resizeCoeff
+        self.button_resize.configure(image=self.resize_img[self.resizeCoeff])
     def quit(self):
         self.root.destroy()
