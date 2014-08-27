@@ -26,6 +26,7 @@ from iaobject import iaObject
 from pikipiki import PageFormatter
 from splashscreen import Splash
 from tooltip import ToolTip
+from paramswindow import IAParams
 
 class IADialog(Tkinter.Frame):
 
@@ -35,7 +36,6 @@ class IADialog(Tkinter.Frame):
 
         self.filename = ""
         self.localdir = localdir
-
         self.root = root
 
         # Don't show hidden files and directories 
@@ -47,13 +47,15 @@ class IADialog(Tkinter.Frame):
         # define images
 
         import_img= Tkinter.PhotoImage(file=self.localdir + \
-            "/images/import.gif")
+            "/images/open.gif")
         ia_img= Tkinter.PhotoImage(file=self.localdir + \
             "/images/ia.gif")    
         inkscape= Tkinter.PhotoImage(file=self.localdir + \
             "/images/inkscape.gif")    
         void_img= Tkinter.PhotoImage(file=self.localdir + \
-            "/images/void.gif")  
+            "/images/void.gif")
+        params_img= Tkinter.PhotoImage(file=self.localdir + \
+            "/images/params.gif")            
 
         self.filename = svgfile
 
@@ -77,6 +79,14 @@ class IADialog(Tkinter.Frame):
             label1.grid(row=0,column=0,columnspan=1, sticky='W')
             self.keep_alive = "no"
 
+        button2 = Tkinter.Button(self, image=params_img, \
+            relief=Tkinter.FLAT, bd=0, height=150, width=150, \
+            command=self.openparams)
+        button2.image = params_img
+        button2.grid(row=0,column=1, columnspan=1,sticky='W')
+        tooltip2 = ToolTip(button2,"ajuster les paramètres", None, 0.1)
+
+
         # Automatic import of themes
 
         tab_path = os.path.dirname(os.path.relpath(__file__)).split("/")
@@ -88,7 +98,7 @@ class IADialog(Tkinter.Frame):
         self.themes = []
 
         if os.path.isdir(rel_path + "/themes"):
-            theme_index = 1
+            theme_index = 2
             themes_folders = sorted(os.listdir(rel_path + "/themes"))
             for filename in themes_folders:
                 theme = {}
@@ -183,6 +193,19 @@ class IADialog(Tkinter.Frame):
                 self.config.set("paths", "target_dir", \
                     self.dir_opt['initialdir'])
                 self.config.write(config_file)
+
+    def openparams(self):
+        try:
+            self.params.focus()
+            self.params.lift()
+        except:
+            self.params = Tkinter.Toplevel()
+            self.params.title("Paramètres")
+            self.params.geometry("465x310")
+            self.params.resizable(0,0)
+            img = Tkinter.PhotoImage(file='images/image-active64.gif')
+            self.params.tk.call('wm', 'iconphoto', self.params._w, img)    
+            IAParams(self.params).pack(side="left")
         
     def askopenfilename(self):
         self.filename = tkFileDialog.askopenfilename(**self.file_opt)
