@@ -271,6 +271,13 @@ class iaObject:
                       record_image['width'], \
                       record_image['height'])
 
+            if record_image['title'].startswith("http://") or \
+              record_image['title'].startswith("https://") or \
+              record_image['title'].startswith("//") or \
+              record_image['title'].startswith("./") or \
+              record_image['title'].startswith("../"):
+                record_image['options'] += " direct-link "
+
             if image.hasAttribute("style"):                            
                 str_style = image.attributes['style'].value
                 style = {}
@@ -441,6 +448,13 @@ class iaObject:
             str_onclick = path.attributes['onclick'].value
             if str_onclick == "off":
                 record['options'] += " disable-click "
+
+        if record['title'].startswith("http://") or \
+          record['title'].startswith("https://") or \
+          record['title'].startswith("//") or \
+          record['title'].startswith("./") or \
+          record['title'].startswith("../"):
+            record['options'] += " direct-link "        
         
         if path.hasAttribute("style") and (path.attributes['style'].value != ""):
             str_style = path.attributes['style'].value

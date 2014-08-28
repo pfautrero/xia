@@ -183,8 +183,18 @@ class IADialog(Tkinter.Frame):
         if os.path.isfile(self.config_ini):
             self.config = ConfigParser.ConfigParser()
             self.config.read(self.config_ini)
-            self.file_opt['initialdir'] = self.config.get("paths", "source_dir")
-            self.dir_opt['initialdir'] = self.config.get("paths", "target_dir")
+            try:
+                self.file_opt['initialdir'] = self.config.get("paths", "source_dir")
+            except:
+                self.config.set("paths", "source_dir", \
+                    self.file_opt['initialdir'])
+                self.config.write(config_ini)
+            try:
+                self.dir_opt['initialdir'] = self.config.get("paths", "target_dir")
+            except:
+                self.config.set("paths", "target_dir", \
+                    self.dir_opt['initialdir'])
+                self.config.write(config_ini)
         else:
             with open(self.config_ini, "w") as config_file:
                 self.config = ConfigParser.ConfigParser()

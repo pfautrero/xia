@@ -336,6 +336,7 @@ iaObject.prototype.defineTweens = function(that, iaScene) {
    
 iaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, baseImage, idText) {
 
+    if (that.options[i].indexOf("disable-click") !== -1) return;
     /*
      * if mouse is over element, fill the element with semi-transparency
      */
