@@ -635,8 +635,8 @@ class iaObject:
                 else:
                     # "Platform Linux or Windows : resizing using PIL"
                     currentBg = Image.open(imageFile)
-                    oldwidth = int(rasterWidth)
-                    oldheight = int(rasterHeight)
+                    oldwidth = int(float(rasterWidth))
+                    oldheight = int(float(rasterHeight))
                     newwidth = int( oldwidth * self.ratio)
                     newheight = int( oldheight * self.ratio)
                     resizedBg = currentBg.resize( \

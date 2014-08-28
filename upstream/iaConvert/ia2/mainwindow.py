@@ -275,7 +275,7 @@ class IADialog(Tkinter.Frame):
 
     def defineMaxPixels(self, resizeCoeff):
         if resizeCoeff == 0:
-            return float(512 * 1024)
+            return float(512 * 512)
         elif resizeCoeff == 1:
             return float(1024 * 1024)            
         elif resizeCoeff == 2:

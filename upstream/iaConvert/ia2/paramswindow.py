@@ -53,8 +53,8 @@ class IAParams(Tkinter.Frame):
         self.button_resize.image = self.resize_img[self.resizeCoeff % 4]
         self.button_resize.grid(row=0,column=0, columnspan=1,sticky='W')
         tooltip2 = ToolTip(self.button_resize,"Modifier la résolution des images\n \
-1 : faible définition, idéale pour smartphones et tablettes\n \
-4 : haute définition, idéale pour des zooms sur des détails", None, 0.1)
+1 : faible définition, idéale pour le web, smartphones et tablettes\n \
+4 : haute définition, idéale pour des zooms importants sur des détails. (Si possible, à éviter si la ressource est destinée pour le web).", None, 0.1)
 
         
 
