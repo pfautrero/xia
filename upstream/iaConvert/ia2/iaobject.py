@@ -339,11 +339,11 @@ class iaObject:
         if rect.hasAttribute("x"):
             record_rect['x'] = rect.attributes['x'].value
             if self.translation != 0:
-                record_rect['x'] = float(record_rect['x']) - self.backgroundX
+                record_rect['x'] = float(record_rect['x'])
         if rect.hasAttribute("y"):
             record_rect['y'] = rect.attributes['y'].value
             if self.translation != 0:
-                record_rect['y'] = float(record_rect['y']) - self.backgroundY
+                record_rect['y'] = float(record_rect['y'])
         if rect.hasAttribute("rx"):
             record_rect['rx'] = rect.attributes['rx'].value
         if rect.hasAttribute("ry"):
@@ -390,6 +390,11 @@ class iaObject:
         if ctm_group:
             ctm_group.applyTransformToPath(ctm_group.matrix,p)
             record_rect['path'] = cubicsuperpath.formatPath(p)
+
+        if self.translation != 0:
+            ctm = CurrentTransformation()
+            ctm.applyTransformToPath(self.translation,p)
+            record_rect['path'] = cubicsuperpath.formatPath(p) 
 
         if self.ratio != 1:
             ctm = CurrentTransformation()
@@ -448,13 +453,13 @@ class iaObject:
             str_onclick = path.attributes['onclick'].value
             if str_onclick == "off":
                 record['options'] += " disable-click "
-
+        
         if record['title'].startswith("http://") or \
           record['title'].startswith("https://") or \
           record['title'].startswith("//") or \
           record['title'].startswith("./") or \
           record['title'].startswith("../"):
-            record['options'] += " direct-link "        
+            record['options'] += " direct-link "
         
         if path.hasAttribute("style") and (path.attributes['style'].value != ""):
             str_style = path.attributes['style'].value
@@ -571,6 +576,7 @@ class iaObject:
                     childnode.nodeName)(childnode, ctm_group)
                 if newrecord is not None:
                     newrecord["options"] += record["options"]
+                    record["options"] =  newrecord["options"]
                     record["group"].append(newrecord)
                     
                     if record["detail"] == "":
@@ -694,7 +700,7 @@ class iaObject:
                                         replace("\n"," ").\
                                         replace("\t"," ").\
                                         replace("\r"," ") + u',\n'
-                            elif entry2 == "image":
+                            elif entry2 == "image"  or entry2 == "title":
                                 final_str += u'  "' + entry2 + u'":"' + \
                                     element[entry2].\
                                         replace('"', "'").\
