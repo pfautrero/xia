@@ -260,6 +260,12 @@ class IADialog(Tkinter.Frame):
                 shutil.copytree(self.localdir + '/themes/' + theme['name'] + \
                     '/js/', self.dirname + '/js/')
 
+                shutil.copyfile(self.localdir + '/themes/' + theme['name'] + \
+                    '/manifest.webapp', self.dirname + '/manifest.webapp')
+
+                shutil.copyfile(self.localdir + '/themes/' + theme['name'] + \
+                    '/deploy.html', self.dirname + '/deploy.html')
+                    
                 maxNumPixels = self.defineMaxPixels(self.resize)
                 self.imageActive.analyzeSVG(self.filename, maxNumPixels)
                 
