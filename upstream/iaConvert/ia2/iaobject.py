@@ -735,6 +735,7 @@ class iaObject:
                     final_str += u'  "' + entry + u'":"' + detail[entry] + u'",\n'
             final_str += u'},\n'
         final_str += u'];\n'
+        #final_str += u'lazyload("/js/iascene.js");'
 
         with open(filePath,"w") as jsonfile:
             jsonfile.write(final_str.encode('utf8'))
