@@ -77,17 +77,17 @@ class TestPageFormatter:
         assert_equal(expected_output, output)         
 
         raw = '&lt;iframe src=&quot;http://example.com&quot;&gt;&lt;/iframe&gt;';
-        expected_output = '<iframe src="http://example.com" width="100%"></iframe>\n';
+        expected_output = '<div class="videoWrapper4_3"><iframe src="http://example.com"></iframe></div>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)         
 
         raw = '&lt;iframe src=&quot;//example.com&quot;&gt;&lt;/iframe&gt;';
-        expected_output = '<iframe src="http://example.com" width="100%"></iframe>\n';
+        expected_output = '<div class="videoWrapper4_3"><iframe src="http://example.com"></iframe></div>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output) 
 
         raw = '<iframe width="560" height="315" src="//www.youtube.com/embed/ctXwWpMz44M" frameborder="0" allowfullscreen></iframe>';
-        expected_output = '<iframe src="http://www.youtube.com/embed/ctXwWpMz44M" width="100%"></iframe>\n';
+        expected_output = '<div class="videoWrapper16_9"><iframe src="http://www.youtube.com/embed/ctXwWpMz44M"></iframe></div>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output) 
 
@@ -132,42 +132,42 @@ class TestPageFormatter:
         assert_equal(expected_output, output)
         
         raw = "video.mp4";
-        expected_output = '<video controls preload="none" data-state="none">\n\t<source type="video/mp4" src="video.mp4" />\n\t<source type="video/ogg" src="video.ogv" />\n\t<source type="video/webm" src="video.webm" />\n</video>\n';
+        expected_output = '<video controls preload="none" data-state="none">\n\t            <source type="video/mp4" src="video.mp4" />\n\t            <source type="video/ogg" src="video.ogv" />\n\t            <source type="video/webm" src="video.webm" />\n            </video>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
 
         raw = "video.mp4 autostart";
-        expected_output = '<video controls preload="none" data-state="autostart">\n\t<source type="video/mp4" src="video.mp4" />\n\t<source type="video/ogg" src="video.ogv" />\n\t<source type="video/webm" src="video.webm" />\n</video>\n';
+        expected_output = '<video controls preload="none" data-state="autostart">\n\t            <source type="video/mp4" src="video.mp4" />\n\t            <source type="video/ogg" src="video.ogv" />\n\t            <source type="video/webm" src="video.webm" />\n            </video>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
 
         raw = "video.ogv";
-        expected_output = '<video controls preload="none" data-state="none">\n\t<source type="video/mp4" src="video.mp4" />\n\t<source type="video/ogg" src="video.ogv" />\n\t<source type="video/webm" src="video.webm" />\n</video>\n';
+        expected_output = '<video controls preload="none" data-state="none">\n\t            <source type="video/mp4" src="video.mp4" />\n\t            <source type="video/ogg" src="video.ogv" />\n\t            <source type="video/webm" src="video.webm" />\n            </video>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
 
         raw = "video.webm";
-        expected_output = '<video controls preload="none" data-state="none">\n\t<source type="video/mp4" src="video.mp4" />\n\t<source type="video/ogg" src="video.ogv" />\n\t<source type="video/webm" src="video.webm" />\n</video>\n';
+        expected_output = '<video controls preload="none" data-state="none">\n\t            <source type="video/mp4" src="video.mp4" />\n\t            <source type="video/ogg" src="video.ogv" />\n\t            <source type="video/webm" src="video.webm" />\n            </video>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
 
         raw = "audio.mp3";
-        expected_output = '<audio controls data-state="none">\n\t<source type="audio/ogg" src="audio.ogg" />\n\t<source type="audio/mp3" src="audio.mp3" />\n</audio>\n';
+        expected_output = '<audio controls data-state="none">\n\t            <source type="audio/ogg" src="audio.ogg" />\n\t            <source type="audio/mp3" src="audio.mp3" />\n            </audio>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
 
         raw = "audio.ogg";
-        expected_output = '<audio controls data-state="none">\n\t<source type="audio/ogg" src="audio.ogg" />\n\t<source type="audio/mp3" src="audio.mp3" />\n</audio>\n';
+        expected_output = '<audio controls data-state="none">\n\t            <source type="audio/ogg" src="audio.ogg" />\n\t            <source type="audio/mp3" src="audio.mp3" />\n            </audio>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
 
         raw = "audio.mp3  autostart";
-        expected_output = '<audio controls data-state="autostart">\n\t<source type="audio/ogg" src="audio.ogg" />\n\t<source type="audio/mp3" src="audio.mp3" />\n</audio>\n';
+        expected_output = '<audio controls data-state="autostart">\n\t            <source type="audio/ogg" src="audio.ogg" />\n\t            <source type="audio/mp3" src="audio.mp3" />\n            </audio>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
 
         raw = "audio.ogg    autostart";
-        expected_output = '<audio controls data-state="autostart">\n\t<source type="audio/ogg" src="audio.ogg" />\n\t<source type="audio/mp3" src="audio.mp3" />\n</audio>\n';
+        expected_output = '<audio controls data-state="autostart">\n\t            <source type="audio/ogg" src="audio.ogg" />\n\t            <source type="audio/mp3" src="audio.mp3" />\n            </audio>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
 

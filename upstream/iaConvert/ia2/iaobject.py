@@ -159,8 +159,12 @@ class iaObject:
             self.backgroundNode = image;
             self.scene['width'] = image.attributes['width'].value
             self.scene['height'] =  image.attributes['height'].value
-            self.backgroundX = float(image.attributes['x'].value)
-            self.backgroundY =  float(image.attributes['y'].value)
+            self.backgroundX = 0
+            self.backgroundY = 0
+            if image.hasAttribute('x'):
+                self.backgroundX = float(image.attributes['x'].value)
+            if image.hasAttribute('y'):
+                self.backgroundY =  float(image.attributes['y'].value)
             
             if (self.backgroundX != 0) or (self.backgroundY != 0):
                 ctm = CurrentTransformation()
@@ -246,7 +250,8 @@ class iaObject:
         
         if not image.isSameNode(self.backgroundNode):
             record_image = {}
-            record_image['id'] = image.attributes['id'].value
+            if image.hasAttribute('id'):
+                record_image['id'] = image.attributes['id'].value
             record_image['image'] = image.attributes['xlink:href'].value
             record_image['width'] = image.attributes['width'].value
             record_image['height'] = image.attributes['height'].value
@@ -545,7 +550,8 @@ class iaObject:
         """Analyze a svg group"""
 
         record = {}
-        record["id"] =  group.attributes['id'].value
+        if group.hasAttribute("id"):
+            record["id"] =  group.attributes['id'].value
         record['title'] = self.getText("title", group)
         record['detail'] = self.getText("desc", group)
         record["group"] = []

@@ -100,8 +100,8 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         x: parseFloat(detail.x) * iaScene.coeff,
         y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
         width: detail.width,
-        height: detail.height,
-        scale: {x:iaScene.coeff,y:iaScene.coeff}
+        height: detail.height
+        //scale: {x:iaScene.coeff,y:iaScene.coeff}
     });
 
     rasterObj.onload = function() {
@@ -128,6 +128,9 @@ iaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
             that.kineticElement[i].fillPatternImage(that.backgroundImage[i]); 
             zoomable = false;
         }
+        that.kineticElement[i].cache();
+        that.kineticElement[i].scale({x:iaScene.coeff,y:iaScene.coeff});
+        that.kineticElement[i].drawHitFromCache();
         
         that.group.add(that.kineticElement[i]);
         that.addEventsManagement(i,zoomable, that, iaScene, baseImage, idText);

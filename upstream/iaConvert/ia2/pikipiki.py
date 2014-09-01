@@ -73,8 +73,12 @@ class PageFormatter:
         word_url = word.split("src=&quot;")[1].split("&quot;")[0]
         if word_url[0:2] == "//":
             word_url = "http:" + word_url
-        iframe_width = word.split('width="')[1].split('"')[0]
-        iframe_height = word.split('height="')[1].split('"')[0]
+        iframe_width = 0
+        iframe_height = 0
+        if len(word.split('width="')) > 1:
+            iframe_width = word.split('width="')[1].split('"')[0]
+        if len(word.split('height="')) > 1:
+            iframe_height = word.split('height="')[1].split('"')[0]
         videoClass = 'videoWrapper4_3'
         if iframe_width and iframe_height:
             ratio = (float(iframe_height) / float(iframe_width)) * 16
