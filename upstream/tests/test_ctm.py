@@ -15,7 +15,7 @@
 #   
 # @author : pascal.fautrero@ac-versailles.fr
 
-from iaConvert.ia2.ctm import CurrentTransformation
+from src.iaConvert.ia2.ctm import CurrentTransformation
 from nose.tools import *
 import math
 

@@ -15,7 +15,7 @@
 #   
 # @author : pascal.fautrero@ac-versailles.fr
 
-from iaConvert.ia2.iaobject import iaObject
+from src.iaConvert.ia2.iaobject import iaObject
 from nose.tools import *
 from xml.dom import minidom
 import tempfile

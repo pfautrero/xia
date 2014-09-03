@@ -27,9 +27,6 @@ function hooks() {
  */
 hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
 
-
-
-
     // Load datas in the accordion menu - only useful for themes debugging
     if ($("#accordion2").html() === "{{ACCORDION}}") {
         var menu = "";

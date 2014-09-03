@@ -16,7 +16,9 @@
 # source code from pikipiki parser (sligthly modified)
 
 
-import re, string, os
+import re
+import string
+import os
 class PageFormatter:
     """Object that turns Wiki markup into HTML.
 

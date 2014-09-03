@@ -15,7 +15,7 @@
 #   
 # @author : pascal.fautrero@ac-versailles.fr
 
-from iaConvert.ia2.pikipiki import PageFormatter
+from src.iaConvert.ia2.pikipiki import PageFormatter
 from nose.tools import *
 
 class TestPageFormatter:
