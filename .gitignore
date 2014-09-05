@@ -1,5 +1,6 @@
 nbproject/
 *.pyc
 upstream/src/converter/.coverage
+upstream/.coverage
 node_modules
 build
