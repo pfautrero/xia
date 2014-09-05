@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: activit 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-05 14:11+0200\n"
+"POT-Creation-Date: 2014-09-05 16:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,12 +59,12 @@ msgstr "exporter en accordionBlack"
 #: build/converter/themes/accordionCloud/hook.py:34
 #, fuzzy
 msgid "export accordionCloud"
-msgstr "exporter en accordionBlack"
+msgstr "exporter en accordionCloud"
 
 #: build/converter/themes/audioBrown/hook.py:34
 #, fuzzy
 msgid "export audioBrown"
-msgstr "exporter en accordionBlack"
+msgstr "exporter en audioBrown"
 
 #: build/converter/themes/buttonBlue/hook.py:34
 msgid "export buttonBlue"
