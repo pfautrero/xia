@@ -15,11 +15,11 @@
 #   
 # @author : pascal.fautrero@ac-versailles.fr
 
-from src.iaConvert.ia2.ctm import CurrentTransformation
+from src.converter.includes.ctm import CurrentTransformation
 from nose.tools import *
 import math
 
-import iaConvert.ia2.cubicsuperpath
+import converter.includes.cubicsuperpath
 
 class TestCurrentTransformation:
 

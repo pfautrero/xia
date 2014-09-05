@@ -1,0 +1,24 @@
+{
+  "name": "activit",
+  "version": "1.0.0",
+  "description": "tools to create images actives and games",
+  "main": "src/converter/activit.py",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pascal Fautrero",
+  "license": "GPL3",
+  "dependencies": {
+    "grunt": "^0.4.5",
+    "grunt-chmod": "^1.0.3",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-pot": "^0.1.2",
+    "grunt-potomo": "^2.1.0",
+    "grunt-shell": "^1.1.1"
+  }
+}

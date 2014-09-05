@@ -1,28 +1,16 @@
-# Images Actives stuffs
+# Activ'it
 
-Some code to show it is possible to have Images Actives HTML5 available without implementing huge amount of code
-Available right now :
-- iaConvert -> generate json datas from svg file
-- Images Actives html5 accordion (with canvas and kineticjs)
-- Quiz mode is available if detail description contains "Réponse:"
-- Some wiki syntax is available in descriptions.
-
-Not yet implemented :
-- Images Actives bubbles
-- Images Actives buttons
-- Images Actives audio
-
-# wiki syntax
-
-todo
-
-# iaConverter
-
-To generate new image active :
-* launch iaConvertWindow.py, 
-* open sample svg file located in /fixtures, 
-* generate new image active (which will be located in /images_actives)
+This tool is used to generate pedagogical html5 resources.
+Thanks to it, you can generate three kinds of resources :
+- first ones : Images actives. It is simple images on which we can make a focus on some details by zooming and adding descriptions.
+- second ones : games using what we call the "1 click with scoring".
+- third ones : games using what we call the "drag and drop with scoring" and "drag and drop without scoring" 
 
 # Inkscape extension :
 
 To install the inkscape extension, just copy imageactive.py, imageactive.inx and the folder iaConvert in the inkscape extensions directory.
+
+# Compile application
+
+npm install lodash
+grunt default

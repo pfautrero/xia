@@ -1,0 +1,13 @@
+{ 
+	"name": "Activit",
+	"version" : "1.0",
+	"release_notes" : "generated with Activ'it", 
+	"launch_path": "/index.html",
+	"package_path" : "/package.zip",
+	"icons": { 
+		"16": "/img/ia16.png",
+		"48": "/img/ia48.png",
+		"64": "/img/ia64.png",
+		"128": "/img/ia128.png" 
+	}
+}
