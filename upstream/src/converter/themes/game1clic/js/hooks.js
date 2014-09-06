@@ -137,8 +137,13 @@ hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
         if ($(this).data("state") === "autostart") {
             $(this)[0].play();
         }
-    });                
-    iaScene.currentScore += 1;
+    }); 
+    
+    var options = $('#' + idText).data("options");
+    if (options.indexOf("disable-score") == -1) {
+        iaScene.currentScore += 1;        
+    }
+
     if (iaScene.score == iaScene.currentScore) {
         $("#content").show();
         $("#message_success").show();

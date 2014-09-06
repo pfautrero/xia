@@ -68,12 +68,12 @@ class hook:
                 if detail['detail'].find(u"Réponse:") != -1:
                     question = detail['detail'][0:detail['detail'].find(u"Réponse:")]
                     answer = detail['detail'][detail['detail'].find(u"Réponse:") + 9:]
-                    final_str += u'<article class="detail_content" id="article-'+unicode(str(i), "utf8") + u'">\n'
+                    final_str += u'<article class="detail_content" data-options="' + detail['options'] + u'" id="article-'+unicode(str(i), "utf8") + u'">\n'
                     final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
                     final_str += u'  <p>' + self.PageFormatter(question).print_html() + u'<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#response_' + unicode(str(i), "utf8") + u'">Réponse</a></div>' + u'<div class="response" id="response_'+ unicode(str(i), "utf8") + u'">' + self.PageFormatter(answer).print_html() + u'</p>' + u'\n'
                     final_str += u'</article>\n'
                 else:
-                    final_str += u'<article class="detail_content" id="article-'+unicode(str(i), "utf8") + u'">\n'
+                    final_str += u'<article class="detail_content" data-options="' + detail['options'] + u'" id="article-'+unicode(str(i), "utf8") + u'">\n'
                     final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
                     final_str += u'  <p>' + self.PageFormatter(detail["detail"]).print_html() + u'<p>\n'
                     final_str += u'</article>\n'

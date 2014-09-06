@@ -77,6 +77,13 @@ module.exports = function(grunt) {
     },
     jshint: {
       all: ['Gruntfile.js', 'src/**/*.js', '!src/**/jquery-1.11.1.js', '!src/**/LAB.min.js', '!src/**/kinetic.js', '!src/**/bootstrap.min.js']
+    },
+    nose: {
+     options: {
+      verbosity: 2,
+      with_coverage: true
+     },
+     src: ['tests']
     }    
   });
 
@@ -87,6 +94,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-chmod');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-nose');
   grunt.registerTask('default', ['clean', 'copy', 'pot',  'shell:msgmerge', 'potomo', 'chmod']);
   grunt.registerTask('dev', ['jshint']);
 };

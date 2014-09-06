@@ -37,7 +37,6 @@ function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     this.originalX = [];
     this.originalY = [];
     this.options = [];
-    this.options = [];    
     this.layer = layer;
     this.background_layer = background_layer;
     this.backgroundCache_layer = backgroundCache_layer;

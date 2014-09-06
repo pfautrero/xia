@@ -17,6 +17,7 @@
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-copy": "^0.5.0",
     "grunt-contrib-jshint": "^0.10.0",
+    "grunt-nose": "^0.4.0",
     "grunt-pot": "^0.1.2",
     "grunt-potomo": "^2.1.0",
     "grunt-shell": "^1.1.1"

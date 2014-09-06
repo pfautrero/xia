@@ -246,7 +246,7 @@ class iaObject:
         print("polygon is not implemented")
         
     def extract_image(self, image, ctm_group):
-        """Analyze images"""
+d        """Analyze images"""
         
         if not image.isSameNode(self.backgroundNode):
             record_image = {}
@@ -295,6 +295,8 @@ class iaObject:
                 str_onclick = image.attributes['onclick'].value
                 if str_onclick == "off":
                     record_image['options'] += " disable-click "
+                else:
+                    record_image['options'] += " " + str_onclick + " "
             
             if image.hasAttribute("transform"):
                 transformation = image.attributes['transform'].value
@@ -358,6 +360,8 @@ class iaObject:
             str_onclick = rect.attributes['onclick'].value
             if str_onclick == "off":
                 record_rect['options'] += " disable-click "
+            else:
+                record_image['options'] += " " + str_onclick + " "
 
         if record_rect['title'].startswith("http://") or \
           record_rect['title'].startswith("https://") or \
@@ -458,7 +462,9 @@ class iaObject:
             str_onclick = path.attributes['onclick'].value
             if str_onclick == "off":
                 record['options'] += " disable-click "
-        
+            else:
+                record_image['options'] += " " + str_onclick + " "
+                
         if record['title'].startswith("http://") or \
           record['title'].startswith("https://") or \
           record['title'].startswith("//") or \
@@ -568,6 +574,9 @@ class iaObject:
             str_onclick = group.attributes['onclick'].value
             if str_onclick == "off":
                 record['options'] += " disable-click "
+            else:
+                record_image['options'] += " " + str_onclick + " "
+        
         
         ctm_group = CurrentTransformation()
         if group.hasAttribute("transform"):

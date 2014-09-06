@@ -51,7 +51,7 @@ function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     this.tween_group = 0;
     this.group = 0;
     this.myhooks = myhooks;
-    
+    this.idText = idText;
     // Create kineticElements and include them in a group
    
     that.group = new Kinetic.Group();
@@ -381,7 +381,6 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
         });
     }
     else {
-        
 
         that.kineticElement[i].on('click touchstart', function() {
             // let's zoom
@@ -431,11 +430,6 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     }
                 };
                 var t = setTimeout(personalTween, 30);
-
-
-
-
-
             }
             // let's unzoom
             else if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
@@ -456,6 +450,13 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     that.backgroundCache_layer.moveToBottom();
                     document.body.style.cursor = "default";
                     iaScene.cursorState = "default";
+
+                    $('#' + that.idText + " audio").each(function(){
+                        $(this)[0].stop();
+                    });        
+                    $('#' + that.idText + " video").each(function(){
+                        $(this)[0].stop();
+                    });
 
                     for (i in that.kineticElement) {
                         if (that.persistent[i] == "off") {
@@ -488,9 +489,14 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                             iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
                             iaScene.element.kineticElement[i].setStroke('rgba(0, 0, 0, 0)');
                             iaScene.element.kineticElement[i].setStrokeWidth(0);                         
-
                         }
                         if (iaScene.element.layer) iaScene.element.layer.draw();
+                        $('#' + iaScene.element.idText + " audio").each(function(){
+                            $(this)[0].stop();
+                        });        
+                        $('#' + iaScene.element.idText + " video").each(function(){
+                            $(this)[0].stop();
+                        });
                     }                    
                     if (zoomable === true) {
                         document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';

@@ -51,6 +51,7 @@ function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     this.tween_group = 0;
     this.group = 0;
     this.myhooks = myhooks;
+    this.idText = idText;    
     // Create kineticElements and include them in a group
    
     that.group = new Kinetic.Group();
