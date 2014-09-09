@@ -117,54 +117,65 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
             var x_value = pos.x;
             var y_value = pos.y;
             var len = iaScene.shapes.length;
-                
+            var getAbsolutePosition = {
+                x : this.getAbsolutePosition().x,
+                y : this.getAbsolutePosition().y,
+            }    
+
             for(var i=0; i< len; i++) {
                 if (that != iaScene.shapes[i] && iaScene.shapes[i].collisions == "on") {
-                    var pos_y = (this.getAbsolutePosition().y < iaScene.shapes[i].maxY - 10) &&
-                          (this.getAbsolutePosition().y > iaScene.shapes[i].minY - (that.maxY - that.minY) + 10);
-                    var pos_x = (this.getAbsolutePosition().x < iaScene.shapes[i].maxX - 10) &&
-                          (this.getAbsolutePosition().x > iaScene.shapes[i].minX - (that.maxX - that.minX) + 10);
 
-                    if (pos.x <= iaScene.shapes[i].maxX && 
+                    var shape = {
+                        maxX : iaScene.shapes[i].maxX,
+                        maxY : iaScene.shapes[i].maxY,
+                        minX : iaScene.shapes[i].minX - (that.maxX - that.minX),
+                        minY : iaScene.shapes[i].minY - (that.maxY - that.minY)
+                    };                    
+                    var pos_y = (getAbsolutePosition.y < shape.maxY - 10) &&
+                          (getAbsolutePosition.y > shape.minY + 10);
+                    var pos_x = (getAbsolutePosition.x < shape.maxX - 10) &&
+                          (getAbsolutePosition.x > shape.minX + 10);
+
+                    if (pos.x <= shape.maxX && 
                             pos_y && 
-                            this.getAbsolutePosition().x >= iaScene.shapes[i].maxX - 10) {
+                            getAbsolutePosition.x >= shape.maxX - 10) {
                         if (x_value == pos.x) {
-                            x_value = iaScene.shapes[i].maxX;
+                            x_value = shape.maxX;
                         }
                         else {
-                            x_value = Math.max(iaScene.shapes[i].maxX, x_value);
+                            x_value = Math.max(shape.maxX, x_value);
                         }
                     }
 
-                    if (pos.x >= iaScene.shapes[i].minX - (that.maxX - that.minX) && 
+                    if (pos.x >= shape.minX && 
                             pos_y && 
-                            this.getAbsolutePosition().x <= iaScene.shapes[i].minX - (that.maxX - that.minX) + 10) {
+                            getAbsolutePosition.x <= shape.minX + 10) {
                         if (x_value == pos.x) {
-                            x_value = iaScene.shapes[i].minX - (that.maxX - that.minX);
+                            x_value = shape.minX;
                         }
                         else {
-                            x_value = Math.min(iaScene.shapes[i].minX - (that.maxX - that.minX), x_value);
+                            x_value = Math.min(shape.minX, x_value);
                         }
                     }
-                    if (pos.y <= iaScene.shapes[i].maxY && 
+                    if (pos.y <= shape.maxY && 
                             pos_x && 
-                            this.getAbsolutePosition().y >= iaScene.shapes[i].maxY -10) {
+                            getAbsolutePosition.y >= shape.maxY -10) {
                         if (y_value == pos.y) {
-                            y_value = iaScene.shapes[i].maxY;
+                            y_value = shape.maxY;
                         }
                         else {
-                            y_value = Math.max(iaScene.shapes[i].maxY, y_value);
+                            y_value = Math.max(shape.maxY, y_value);
                         }
                     }                    
 
-                    if (pos.y >= iaScene.shapes[i].minY - (that.maxY - that.minY) && 
+                    if (pos.y >= shape.minY && 
                             pos_x && 
-                            this.getAbsolutePosition().y <= 10 + iaScene.shapes[i].minY - (that.maxY - that.minY)) {
+                            getAbsolutePosition.y <= 10 + shape.minY) {
                         if (y_value == pos.y) {
-                            y_value = iaScene.shapes[i].minY - (that.maxY - that.minY);
+                            y_value = shape.minY;
                         }
                         else {
-                            y_value = Math.min(iaScene.shapes[i].minY - (that.maxY - that.minY), y_value);
+                            y_value = Math.min(shape.minY, y_value);
                         }
                     }
                 }
@@ -253,54 +264,65 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
             var x_value = pos.x;
             var y_value = pos.y;
             var len = iaScene.shapes.length;
-                
+            var getAbsolutePosition = {
+                x : this.getAbsolutePosition().x,
+                y : this.getAbsolutePosition().y,
+            }    
+
             for(var i=0; i< len; i++) {
                 if (that != iaScene.shapes[i] && iaScene.shapes[i].collisions == "on") {
-                    var pos_y = (this.getAbsolutePosition().y < iaScene.shapes[i].maxY - 10) &&
-                          (this.getAbsolutePosition().y > iaScene.shapes[i].minY - (that.maxY - that.minY) + 10);
-                    var pos_x = (this.getAbsolutePosition().x < iaScene.shapes[i].maxX - 10) &&
-                          (this.getAbsolutePosition().x > iaScene.shapes[i].minX - (that.maxX - that.minX) + 10);
 
-                    if (pos.x <= iaScene.shapes[i].maxX && 
+                    var shape = {
+                        maxX : iaScene.shapes[i].maxX,
+                        maxY : iaScene.shapes[i].maxY,
+                        minX : iaScene.shapes[i].minX - (that.maxX - that.minX),
+                        minY : iaScene.shapes[i].minY - (that.maxY - that.minY)
+                    };                    
+                    var pos_y = (getAbsolutePosition.y < shape.maxY - 10) &&
+                          (getAbsolutePosition.y > shape.minY + 10);
+                    var pos_x = (getAbsolutePosition.x < shape.maxX - 10) &&
+                          (getAbsolutePosition.x > shape.minX + 10);
+
+                    if (pos.x <= shape.maxX && 
                             pos_y && 
-                            this.getAbsolutePosition().x >= iaScene.shapes[i].maxX - 10) {
+                            getAbsolutePosition.x >= shape.maxX - 10) {
                         if (x_value == pos.x) {
-                            x_value = iaScene.shapes[i].maxX;
+                            x_value = shape.maxX;
                         }
                         else {
-                            x_value = Math.max(iaScene.shapes[i].maxX, x_value);
+                            x_value = Math.max(shape.maxX, x_value);
                         }
                     }
 
-                    if (pos.x >= iaScene.shapes[i].minX - (that.maxX - that.minX) && 
+                    if (pos.x >= shape.minX && 
                             pos_y && 
-                            this.getAbsolutePosition().x <= iaScene.shapes[i].minX - (that.maxX - that.minX) + 10) {
+                            getAbsolutePosition.x <= shape.minX + 10) {
                         if (x_value == pos.x) {
-                            x_value = iaScene.shapes[i].minX - (that.maxX - that.minX);
+                            x_value = shape.minX;
                         }
                         else {
-                            x_value = Math.min(iaScene.shapes[i].minX - (that.maxX - that.minX), x_value);
+                            x_value = Math.min(shape.minX, x_value);
                         }
                     }
-                    if (pos.y <= iaScene.shapes[i].maxY && 
+                    if (pos.y <= shape.maxY && 
                             pos_x && 
-                            this.getAbsolutePosition().y >= iaScene.shapes[i].maxY -10) {
+                            getAbsolutePosition.y >= shape.maxY -10) {
                         if (y_value == pos.y) {
-                            y_value = iaScene.shapes[i].maxY;
+                            y_value = shape.maxY;
                         }
                         else {
-                            y_value = Math.max(iaScene.shapes[i].maxY, y_value);
+                            y_value = Math.max(shape.maxY, y_value);
                         }
                     }                    
 
-                    if (pos.y >= iaScene.shapes[i].minY - (that.maxY - that.minY) && 
+                    if (pos.y >= shape.minY && 
                             pos_x && 
-                            this.getAbsolutePosition().y <= 10 + iaScene.shapes[i].minY - (that.maxY - that.minY)) {
+                            getAbsolutePosition.y <= 10 + shape.minY) {
                         if (y_value == pos.y) {
-                            y_value = iaScene.shapes[i].minY - (that.maxY - that.minY);
+                            y_value = shape.minY;
                         }
                         else {
-                            y_value = Math.min(iaScene.shapes[i].minY - (that.maxY - that.minY), y_value);
+                            y_value = Math.min(shape.minY, y_value);
                         }
                     }
                 }
@@ -310,6 +332,7 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
               x: x_value,
               y: y_value
             };
+              
         
         });
         
@@ -320,42 +343,47 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     that.kineticElement[i].setIaObject(that);
     that.definePathBoxSize(detail, that);
     // crop background image to suit shape box
-    that.cropCanvas = document.createElement('canvas');
-    that.cropCanvas.setAttribute('width', parseFloat(detail.maxX) - parseFloat(detail.minX));
-    that.cropCanvas.setAttribute('height', parseFloat(detail.maxY) - parseFloat(detail.minY));
-    var cropCtx = that.cropCanvas.getContext('2d');
-    var cropX = Math.max(parseFloat(detail.minX), 0);
-    var cropY = Math.max(parseFloat(detail.minY), 0);
-    var cropWidth = (Math.min((parseFloat(detail.maxX) - parseFloat(detail.minX)) * iaScene.scale, Math.floor(parseFloat(iaScene.originalWidth) * iaScene.scale)));
-    var cropHeight = (Math.min((parseFloat(detail.maxY) - parseFloat(detail.minY)) * iaScene.scale, Math.floor(parseFloat(iaScene.originalHeight) * iaScene.scale)));
-
-    cropCtx.drawImage(
-        that.imageObj,
-        cropX * iaScene.scale,
-        cropY * iaScene.scale,
-        cropWidth,
-        cropHeight,
-        0,
-        0,
-        cropWidth,
-        cropHeight
-    );
-    var dataUrl = that.cropCanvas.toDataURL();
-    delete that.cropCanvas;
-    var cropedImage = new Image();
-    cropedImage.src = dataUrl;
-    cropedImage.onload = function() {
-        that.backgroundImage[i] = cropedImage;
-        that.backgroundImageOwnScaleX[i] = 1;
-        that.backgroundImageOwnScaleY[i] = 1;
-        that.kineticElement[i].fillPatternRepeat('no-repeat');
-        that.kineticElement[i].fillPatternX(detail.minX);
-        that.kineticElement[i].fillPatternY(detail.minY);
-    };
 
     if ((typeof(detail.options) !== 'undefined')) {
         that.options[i] = detail.options;
     }
+    
+    if (that.options[i].indexOf("disable-click") == -1) {
+        that.cropCanvas = document.createElement('canvas');
+        that.cropCanvas.setAttribute('width', parseFloat(detail.maxX) - parseFloat(detail.minX));
+        that.cropCanvas.setAttribute('height', parseFloat(detail.maxY) - parseFloat(detail.minY));
+        var cropCtx = that.cropCanvas.getContext('2d');
+        var cropX = Math.max(parseFloat(detail.minX), 0);
+        var cropY = Math.max(parseFloat(detail.minY), 0);
+        var cropWidth = (Math.min((parseFloat(detail.maxX) - parseFloat(detail.minX)) * iaScene.scale, Math.floor(parseFloat(iaScene.originalWidth) * iaScene.scale)));
+        var cropHeight = (Math.min((parseFloat(detail.maxY) - parseFloat(detail.minY)) * iaScene.scale, Math.floor(parseFloat(iaScene.originalHeight) * iaScene.scale)));
+
+        cropCtx.drawImage(
+            that.imageObj,
+            cropX * iaScene.scale,
+            cropY * iaScene.scale,
+            cropWidth,
+            cropHeight,
+            0,
+            0,
+            cropWidth,
+            cropHeight
+        );
+        var dataUrl = that.cropCanvas.toDataURL();
+        delete that.cropCanvas;
+        var cropedImage = new Image();
+        cropedImage.src = dataUrl;
+        cropedImage.onload = function() {
+            that.backgroundImage[i] = cropedImage;
+            that.backgroundImageOwnScaleX[i] = 1;
+            that.backgroundImageOwnScaleY[i] = 1;
+            that.kineticElement[i].fillPatternRepeat('no-repeat');
+            that.kineticElement[i].fillPatternX(detail.minX);
+            that.kineticElement[i].fillPatternY(detail.minY);
+        };
+    }
+
+
 
     var zoomable = true;
     if ((typeof(detail.fill) !== 'undefined') && 
@@ -475,14 +503,6 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             that.myhooks.afterIaObjectDragStart(iaScene, idText, that);
             that.layer.moveToTop();
             Kinetic.draggedshape = this;
-        });
-        that.kineticElement[i].on('dragmove', function(e) {
-            
-           
-            
-            
-
-
         });
         
         that.kineticElement[i].on('dragend', function(e) {
