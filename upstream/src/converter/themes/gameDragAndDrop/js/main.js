@@ -138,6 +138,8 @@ function main(myhooks) {
             layers[indice] = new Kinetic.Layer();
             stage.add(layers[indice]);
             var iaObj = new IaObject(that.imageObj, details[i], layers[indice], "article-" + i, baseImage, mainScene, layers[1], layers[0], myhooks);
+            mainScene.shapes.push(iaObj);
+
         }
         myhooks.afterMainConstructor(mainScene, that.layers);             
         $("#loader").hide();

@@ -36,20 +36,12 @@ class hook:
         self.iaobject = iaobject
         self.PageFormatter = PageFormatter
         self.tooltip = _("export gameDragAndDrop")        
-        self.score = 0
+        self.score = "0"
+        self.collisions = "off"
         self.message = _("This game is not properly configured")
 
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""
-        #xml = minidom.parseString(u"<game>"+self.iaobject.scene["intro_detail"]+u"</game>")
-        
-        #score = xml.getElementsByTagName('score')
-        #if score.item(0) is not None:
-        #    self.score = score.item(0).childNodes[0].nodeValue
-
-        #message = xml.getElementsByTagName('message')
-        #if message.item(0) is not None:
-        #    self.message = message.item(0).childNodes[0].nodeValue
         
         score = re.search('<score>(.*)</score>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
         if score:
@@ -58,25 +50,45 @@ class hook:
         message = re.search('<message>(.*)</message>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
         if message:
             self.message = message.group(1)
+
+        collisions = re.search('<collisions>(.*)</collisions>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
+        if collisions:
+            self.collisions = collisions.group(1)        
         
-        final_str = u'<article class="message_success" id="message_success" data-score="' + self.score + '">\n'
+        final_str = u'<article class="message_success" id="message_success" data-collisions="' + self.collisions + '" data-score="' + self.score + '">\n'
         final_str += u'  <p>' + self.PageFormatter(self.message).print_html() + u'</p>\n'
         final_str += u'</article>\n'
         for i, detail in enumerate(self.iaobject.details):
             if detail['options'].find(u"direct-link") == -1:            
-                xml = minidom.parseString(u"<detail>"+detail["detail"]+u"</detail>")
+                #xml = minidom.parseString(u"<detail>"+detail["detail"]+u"</detail>")
 
-                target = xml.getElementsByTagName("target");
                 target_id = ""
-                if target.item(0) is not None:
-                    target_id = target.item(0).childNodes[0].nodeValue
+                target = re.search('<target>(.*)</target>', detail["detail"], re.IGNORECASE|re.DOTALL)
+                if target:
+                    target_id = target.group(1)
 
-                magnet = xml.getElementsByTagName("magnet");
                 magnet_state = "off"
-                if magnet.item(0) is not None:
-                    magnet_state = magnet.item(0).childNodes[0].nodeValue            
+                magnet = re.search('<magnet>(.*)</magnet>', detail["detail"], re.IGNORECASE|re.DOTALL)
+                if magnet:
+                    magnet_state = magnet.group(1)
 
-                final_str += u'<article class="detail_content" data-magnet="'+ magnet_state +'" data-kinetic_id="'+detail["id"]+'" data-target="'+target_id+'" id="article-'+unicode(str(i), "utf8") + u'">\n'
+                collision_state = "on"
+                collision = re.search('<collisions>(.*)</collisions>', detail["detail"], re.IGNORECASE|re.DOTALL)
+                if collision:
+                    collision_state = collision.group(1)
+
+                #target = xml.getElementsByTagName("target");
+                #target_id = ""
+                #if target.item(0) is not None:
+                #    target_id = target.item(0).childNodes[0].nodeValue
+
+                #magnet = xml.getElementsByTagName("magnet");
+                #magnet_state = "off"
+                #if magnet.item(0) is not None:
+                #    magnet_state = magnet.item(0).childNodes[0].nodeValue   
+                    
+
+                final_str += u'<article class="detail_content" data-collisions="'+ collision_state +'" data-magnet="'+ magnet_state +'" data-kinetic_id="'+detail["id"]+'" data-target="'+target_id+'" id="article-'+unicode(str(i), "utf8") + u'">\n'
                 final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
                 final_str += u'  <p>' + self.PageFormatter(detail["detail"]).print_html() + u'<p>\n'
                 final_str += u'</article>\n'

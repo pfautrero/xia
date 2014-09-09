@@ -246,7 +246,7 @@ class iaObject:
         print("polygon is not implemented")
         
     def extract_image(self, image, ctm_group):
-d        """Analyze images"""
+        """Analyze images"""
         
         if not image.isSameNode(self.backgroundNode):
             record_image = {}

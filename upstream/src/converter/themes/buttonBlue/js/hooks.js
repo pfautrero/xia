@@ -17,13 +17,13 @@
  * 
  * @constructor init specific hooks
  */
-function hooks() {
+var hooks = function() {
     "use strict";
     this.dragwindow = false;
     this.popvisible = 0;
     this.deltaX = 0;
     this.deltaY = 0;
-}
+};
 
 /*
  * @param array layers

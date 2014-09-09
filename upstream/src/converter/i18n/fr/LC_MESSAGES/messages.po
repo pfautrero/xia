@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: activit 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-07 00:33+0200\n"
+"POT-Creation-Date: 2014-09-09 11:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -82,7 +82,7 @@ msgstr ""
 msgid "export gameDragAndDrop"
 msgstr ""
 
-#: build/converter/themes/gameDragAndDrop/hook.py:40
+#: build/converter/themes/gameDragAndDrop/hook.py:41
 msgid "This game is not properly configured"
 msgstr ""
 

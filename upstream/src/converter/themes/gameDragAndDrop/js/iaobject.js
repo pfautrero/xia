@@ -53,6 +53,7 @@ function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     this.idText = idText;
     this.myhooks = myhooks;
     this.match = false;
+    this.collisions = "on";
     // Create kineticElements and include them in a group
    
     that.group = new Kinetic.Group();
@@ -90,6 +91,7 @@ function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
  * @returns {undefined}
  */
 IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, idText) {
+
     that.defineImageBoxSize(detail, that);
     var rasterObj = new Image();
     rasterObj.src = detail.image;       
@@ -102,9 +104,82 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
         width: detail.width,
         height: detail.height,
-        //scale: {x:iaScene.coeff,y:iaScene.coeff},
         draggable: true
+     
     });
+    
+    
+    var collision_state = $("#" + idText).data("collisions");
+    that.collisions = collision_state;
+    var global_collision_state = $("#message_success").data("collisions");
+    if (global_collision_state == "on" && collision_state != "off") {
+        that.kineticElement[i].dragBoundFunc(function(pos) {
+            var x_value = pos.x;
+            var y_value = pos.y;
+            var len = iaScene.shapes.length;
+                
+            for(var i=0; i< len; i++) {
+                if (that != iaScene.shapes[i] && iaScene.shapes[i].collisions == "on") {
+                    var pos_y = (this.getAbsolutePosition().y < iaScene.shapes[i].maxY - 10) &&
+                          (this.getAbsolutePosition().y > iaScene.shapes[i].minY - (that.maxY - that.minY) + 10);
+                    var pos_x = (this.getAbsolutePosition().x < iaScene.shapes[i].maxX - 10) &&
+                          (this.getAbsolutePosition().x > iaScene.shapes[i].minX - (that.maxX - that.minX) + 10);
+
+                    if (pos.x <= iaScene.shapes[i].maxX && 
+                            pos_y && 
+                            this.getAbsolutePosition().x >= iaScene.shapes[i].maxX - 10) {
+                        if (x_value == pos.x) {
+                            x_value = iaScene.shapes[i].maxX;
+                        }
+                        else {
+                            x_value = Math.max(iaScene.shapes[i].maxX, x_value);
+                        }
+                    }
+
+                    if (pos.x >= iaScene.shapes[i].minX - (that.maxX - that.minX) && 
+                            pos_y && 
+                            this.getAbsolutePosition().x <= iaScene.shapes[i].minX - (that.maxX - that.minX) + 10) {
+                        if (x_value == pos.x) {
+                            x_value = iaScene.shapes[i].minX - (that.maxX - that.minX);
+                        }
+                        else {
+                            x_value = Math.min(iaScene.shapes[i].minX - (that.maxX - that.minX), x_value);
+                        }
+                    }
+                    if (pos.y <= iaScene.shapes[i].maxY && 
+                            pos_x && 
+                            this.getAbsolutePosition().y >= iaScene.shapes[i].maxY -10) {
+                        if (y_value == pos.y) {
+                            y_value = iaScene.shapes[i].maxY;
+                        }
+                        else {
+                            y_value = Math.max(iaScene.shapes[i].maxY, y_value);
+                        }
+                    }                    
+
+                    if (pos.y >= iaScene.shapes[i].minY - (that.maxY - that.minY) && 
+                            pos_x && 
+                            this.getAbsolutePosition().y <= 10 + iaScene.shapes[i].minY - (that.maxY - that.minY)) {
+                        if (y_value == pos.y) {
+                            y_value = iaScene.shapes[i].minY - (that.maxY - that.minY);
+                        }
+                        else {
+                            y_value = Math.min(iaScene.shapes[i].minY - (that.maxY - that.minY), y_value);
+                        }
+                    }
+                }
+            }
+
+            return {
+              x: x_value,
+              y: y_value
+            };
+        
+        });
+       
+    }
+    
+    
     that.kineticElement[i].setIaObject(that);
 
     rasterObj.onload = function() {
@@ -168,6 +243,80 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         fill: 'rgba(0, 0, 0, 0)',
         draggable : true
     });
+    
+    var collision_state = $("#" + idText).data("collisions");
+    that.collisions = collision_state;    
+    var global_collision_state = $("#message_success").data("collisions");
+    if (global_collision_state == "on" && collision_state != "off") {
+
+        that.kineticElement[i].dragBoundFunc(function(pos) {
+            var x_value = pos.x;
+            var y_value = pos.y;
+            var len = iaScene.shapes.length;
+                
+            for(var i=0; i< len; i++) {
+                if (that != iaScene.shapes[i] && iaScene.shapes[i].collisions == "on") {
+                    var pos_y = (this.getAbsolutePosition().y < iaScene.shapes[i].maxY - 10) &&
+                          (this.getAbsolutePosition().y > iaScene.shapes[i].minY - (that.maxY - that.minY) + 10);
+                    var pos_x = (this.getAbsolutePosition().x < iaScene.shapes[i].maxX - 10) &&
+                          (this.getAbsolutePosition().x > iaScene.shapes[i].minX - (that.maxX - that.minX) + 10);
+
+                    if (pos.x <= iaScene.shapes[i].maxX && 
+                            pos_y && 
+                            this.getAbsolutePosition().x >= iaScene.shapes[i].maxX - 10) {
+                        if (x_value == pos.x) {
+                            x_value = iaScene.shapes[i].maxX;
+                        }
+                        else {
+                            x_value = Math.max(iaScene.shapes[i].maxX, x_value);
+                        }
+                    }
+
+                    if (pos.x >= iaScene.shapes[i].minX - (that.maxX - that.minX) && 
+                            pos_y && 
+                            this.getAbsolutePosition().x <= iaScene.shapes[i].minX - (that.maxX - that.minX) + 10) {
+                        if (x_value == pos.x) {
+                            x_value = iaScene.shapes[i].minX - (that.maxX - that.minX);
+                        }
+                        else {
+                            x_value = Math.min(iaScene.shapes[i].minX - (that.maxX - that.minX), x_value);
+                        }
+                    }
+                    if (pos.y <= iaScene.shapes[i].maxY && 
+                            pos_x && 
+                            this.getAbsolutePosition().y >= iaScene.shapes[i].maxY -10) {
+                        if (y_value == pos.y) {
+                            y_value = iaScene.shapes[i].maxY;
+                        }
+                        else {
+                            y_value = Math.max(iaScene.shapes[i].maxY, y_value);
+                        }
+                    }                    
+
+                    if (pos.y >= iaScene.shapes[i].minY - (that.maxY - that.minY) && 
+                            pos_x && 
+                            this.getAbsolutePosition().y <= 10 + iaScene.shapes[i].minY - (that.maxY - that.minY)) {
+                        if (y_value == pos.y) {
+                            y_value = iaScene.shapes[i].minY - (that.maxY - that.minY);
+                        }
+                        else {
+                            y_value = Math.min(iaScene.shapes[i].minY - (that.maxY - that.minY), y_value);
+                        }
+                    }
+                }
+            }
+
+            return {
+              x: x_value,
+              y: y_value
+            };
+        
+        });
+        
+        
+        
+    }
+
     that.kineticElement[i].setIaObject(that);
     that.definePathBoxSize(detail, that);
     // crop background image to suit shape box
@@ -327,6 +476,15 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             that.layer.moveToTop();
             Kinetic.draggedshape = this;
         });
+        that.kineticElement[i].on('dragmove', function(e) {
+            
+           
+            
+            
+
+
+        });
+        
         that.kineticElement[i].on('dragend', function(e) {
             iaScene.element = that;
             Kinetic.draggedshape = null;
