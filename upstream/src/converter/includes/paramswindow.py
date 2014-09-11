@@ -21,17 +21,19 @@ from tooltip import ToolTip
 
 import gettext
 import locale
-try:
-    t = gettext.translation("messages", "i18n", languages=[locale.getdefaultlocale()[0]])
-except:
-    t = gettext.translation("messages", "i18n", languages=['en'])
-translate = t.ugettext
+
 
 class IAParams(Tkinter.Frame):
 
     def __init__(self, root, parent, localdir="."):
 
         Tkinter.Frame.__init__(self, root)
+
+        try:
+            t = gettext.translation("messages", localdir + "/i18n", languages=[locale.getdefaultlocale()[0]])
+        except:
+            t = gettext.translation("messages", localdir + "/i18n", languages=['en'])
+        translate = t.ugettext
 
         self.root = root
         self.localdir = localdir

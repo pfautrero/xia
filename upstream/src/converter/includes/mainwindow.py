@@ -30,17 +30,20 @@ from paramswindow import IAParams
 
 import gettext
 import locale
-try:
-    t = gettext.translation("messages", "i18n", languages=[locale.getdefaultlocale()[0]])
-except:
-    t = gettext.translation("messages", "i18n", languages=['en'])
-translate = t.ugettext
+
 
 class IADialog(Tkinter.Frame):
 
     def __init__(self, root, localdir=".", svgfile=""):
 
         Tkinter.Frame.__init__(self, root)
+
+        try:
+            t = gettext.translation("messages", localdir + "/i18n", languages=[locale.getdefaultlocale()[0]])
+        except:
+            t = gettext.translation("messages", localdir + "/i18n", languages=['en'])
+        translate = t.ugettext
+
 
         self.filename = ""
         self.localdir = localdir
@@ -116,7 +119,7 @@ class IADialog(Tkinter.Frame):
                     "/hook.py")
                 imported_class = __import__(filename)
                 theme['object'] = imported_class.hook(self.imageActive, \
-                    PageFormatter)
+                    PageFormatter, localdir)
                 self.themes.append(theme)
 
                 img_button = Tkinter.PhotoImage(file= rel_path + "/themes/" + \

@@ -6,9 +6,9 @@ Thanks to it, you can generate three kinds of resources :
 - second ones : games using what we call the "1 click with scoring".
 - third ones : games using what we call the "drag and drop with scoring" and "drag and drop without scoring" 
 
-# Inkscape extension :
+# Installation :
 
-To install the inkscape extension, just copy imageactive.py, imageactive.inx and the folder iaConvert in the inkscape extensions directory.
+In the zip archive, just start "install.sh"
 
 # Compile application
 

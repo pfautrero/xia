@@ -17,17 +17,18 @@
 
 import gettext
 import locale
-try:
-    t = gettext.translation("messages", "i18n", languages=[locale.getdefaultlocale()[0]])
-except:
-    t = gettext.translation("messages", "i18n", languages=['en'])
-translate = t.ugettext
 
 class hook:
     """do some stuff during image active generations"""
 
-    def __init__(self, iaobject, PageFormatter):
+    def __init__(self, iaobject, PageFormatter, localdir):
         """Init"""
+        try:
+            t = gettext.translation("messages", localdir + "/i18n", languages=[locale.getdefaultlocale()[0]])
+        except:
+            t = gettext.translation("messages", localdir + "/i18n", languages=['en'])
+        translate = t.ugettext
+        
         self.iaobject = iaobject
         self.PageFormatter = PageFormatter
         self.tooltip = translate("export audioBrown")        
