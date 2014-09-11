@@ -21,12 +21,11 @@ import re
 
 import gettext
 import locale
-locale.setlocale(locale.LC_ALL,'')
 try:
     t = gettext.translation("messages", "i18n", languages=[locale.getdefaultlocale()[0]])
 except:
     t = gettext.translation("messages", "i18n", languages=['en'])
-_ = t.ugettext
+translate = t.ugettext
 
 class hook:
     """do some stuff during image active generations"""
@@ -35,10 +34,10 @@ class hook:
         """Init"""
         self.iaobject = iaobject
         self.PageFormatter = PageFormatter
-        self.tooltip = _("export gameDragAndDrop")        
+        self.tooltip = translate("export gameDragAndDrop")        
         self.score = "0"
         self.collisions = "off"
-        self.message = _("This game is not properly configured")
+        self.message = translate("This game is not properly configured")
 
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""

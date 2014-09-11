@@ -21,12 +21,11 @@ from tooltip import ToolTip
 
 import gettext
 import locale
-locale.setlocale(locale.LC_ALL,'')
 try:
     t = gettext.translation("messages", "i18n", languages=[locale.getdefaultlocale()[0]])
 except:
     t = gettext.translation("messages", "i18n", languages=['en'])
-_ = t.ugettext
+translate = t.ugettext
 
 class IAParams(Tkinter.Frame):
 
@@ -61,7 +60,7 @@ class IAParams(Tkinter.Frame):
           command=self.resize)
         self.button_resize.image = self.resize_img[self.resizeCoeff % 4]
         self.button_resize.grid(row=0,column=0, columnspan=1,sticky='W')
-        tooltip2 = ToolTip(self.button_resize,_("modify image resolution"), None, 0.1)
+        tooltip2 = ToolTip(self.button_resize,translate("modify image resolution"), None, 0.1)
 
         
 

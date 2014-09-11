@@ -19,12 +19,11 @@
 
 import gettext
 import locale
-locale.setlocale(locale.LC_ALL,'')
 try:
     t = gettext.translation("messages", "i18n", languages=[locale.getdefaultlocale()[0]])
 except:
     t = gettext.translation("messages", "i18n", languages=['en'])
-_ = t.ugettext
+translate = t.ugettext
 
 
 class hook:
@@ -34,7 +33,7 @@ class hook:
         """Init"""
         self.iaobject = iaobject
         self.PageFormatter = PageFormatter
-        self.tooltip = _("export accordionBlack !")
+        self.tooltip = translate("export accordionBlack !")
 
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""

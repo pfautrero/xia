@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: activit 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-09 20:36+0200\n"
+"POT-Creation-Date: 2014-09-11 23:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,75 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: build/converter/includes/mainwindow.py:84
-msgid "select svg file"
-msgstr ""
-
-#: build/converter/includes/mainwindow.py:97
-msgid "ajust parameters"
-msgstr ""
-
-#: build/converter/includes/mainwindow.py:166
-msgid "myfile.svg"
-msgstr ""
-
-#: build/converter/includes/mainwindow.py:168
-msgid "Select a svg file"
-msgstr ""
-
-#: build/converter/includes/mainwindow.py:175
-msgid "Select target folder"
-msgstr ""
-
-#: build/converter/includes/mainwindow.py:187
-#, python-brace-format
-msgid "Sorry, impossible to create the {0} directory"
-msgstr ""
-
-#: build/converter/includes/mainwindow.py:223
-msgid "Parameters"
-msgstr ""
-
-#: build/converter/includes/paramswindow.py:64
-msgid "modify image resolution"
-msgstr ""
-
-#: build/converter/themes/accordionBlack/hook.py:37
-msgid "export accordionBlack !"
-msgstr ""
-
-#: build/converter/themes/accordionCloud/hook.py:34
-msgid "export accordionCloud"
-msgstr ""
-
-#: build/converter/themes/audioBrown/hook.py:34
-msgid "export audioBrown"
-msgstr ""
-
-#: build/converter/themes/buttonBlue/hook.py:34
-msgid "export buttonBlue"
-msgstr ""
-
-#: build/converter/themes/game1clic/hook.py:38
-msgid "export game1clic"
-msgstr ""
-
-#: build/converter/themes/game1clic/hook.py:40
-msgid "this game is not properly configured"
-msgstr ""
-
-#: build/converter/themes/gameDragAndDrop/hook.py:38
-msgid "export gameDragAndDrop"
-msgstr ""
-
-#: build/converter/themes/gameDragAndDrop/hook.py:41
-msgid "This game is not properly configured"
-msgstr ""
-
-#: build/converter/themes/popBlue/hook.py:34
+#: build/converter/themes/popBlue/hook.py:33
 msgid "export popBlue"
-msgstr ""
-
-#: build/converter/themes/popYellow/hook.py:34
-msgid "export popYellow"
 msgstr ""

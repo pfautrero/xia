@@ -17,15 +17,15 @@
 
 # dom manipulation
 from xml.dom import minidom
+import re
 
 import gettext
 import locale
-locale.setlocale(locale.LC_ALL,'')
 try:
     t = gettext.translation("messages", "i18n", languages=[locale.getdefaultlocale()[0]])
 except:
     t = gettext.translation("messages", "i18n", languages=['en'])
-_ = t.ugettext
+translate = t.ugettext
 
 
 class hook:
@@ -35,9 +35,9 @@ class hook:
         """Init"""
         self.iaobject = iaobject
         self.PageFormatter = PageFormatter
-        self.tooltip = _("export game1clic")
+        self.tooltip = translate("export game1clic")
         self.score = 0
-        self.message = _("this game is not properly configured")
+        self.message = translate("this game is not properly configured")
 
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""

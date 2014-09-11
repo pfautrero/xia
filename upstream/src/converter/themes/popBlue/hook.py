@@ -17,7 +17,6 @@
 
 import gettext
 import locale
-locale.setlocale(locale.LC_ALL,'')
 try:
     t = gettext.translation("messages", "i18n", languages=[locale.getdefaultlocale()[0]])
 except:

@@ -17,12 +17,11 @@
 
 import gettext
 import locale
-locale.setlocale(locale.LC_ALL,'')
 try:
     t = gettext.translation("messages", "i18n", languages=[locale.getdefaultlocale()[0]])
 except:
     t = gettext.translation("messages", "i18n", languages=['en'])
-_ = t.ugettext
+translate = t.ugettext
 
 class hook:
     """do some stuff during image active generations"""
@@ -31,7 +30,7 @@ class hook:
         """Init"""
         self.iaobject = iaobject
         self.PageFormatter = PageFormatter
-        self.tooltip = _("export accordionCloud")
+        self.tooltip = translate("export accordionCloud")
 
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""

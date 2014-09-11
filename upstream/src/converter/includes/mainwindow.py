@@ -30,12 +30,11 @@ from paramswindow import IAParams
 
 import gettext
 import locale
-locale.setlocale(locale.LC_ALL,'')
 try:
     t = gettext.translation("messages", "i18n", languages=[locale.getdefaultlocale()[0]])
 except:
     t = gettext.translation("messages", "i18n", languages=['en'])
-_ = t.ugettext
+translate = t.ugettext
 
 class IADialog(Tkinter.Frame):
 
@@ -81,7 +80,7 @@ class IADialog(Tkinter.Frame):
                 command=self.askopenfilename)
             button1.image = import_img
             button1.grid(row=0,column=0, columnspan=1,sticky='W')
-            tooltip = ToolTip(button1,_("select svg file"), None, 0.1)
+            tooltip = ToolTip(button1,translate("select svg file"), None, 0.1)
             self.keep_alive = "yes"
         else:
             label1 = Tkinter.Label(self, image=inkscape)
@@ -94,7 +93,7 @@ class IADialog(Tkinter.Frame):
             command=self.openparams)
         button2.image = params_img
         button2.grid(row=0,column=1, columnspan=1,sticky='W')
-        tooltip2 = ToolTip(button2,_("ajust parameters"), None, 0.1)
+        tooltip2 = ToolTip(button2,translate("ajust parameters"), None, 0.1)
 
 
         # Automatic import of themes
@@ -163,16 +162,16 @@ class IADialog(Tkinter.Frame):
         options['filetypes'] = [('svg files', '.svg')]
 
         options['initialdir'] = os.path.expanduser('~')
-        options['initialfile'] = _('myfile.svg')
+        options['initialfile'] = translate('myfile.svg')
         options['parent'] = root
-        options['title'] = _('Select a svg file')
+        options['title'] = translate('Select a svg file')
 
         self.dir_opt = options = {}
 
         options['initialdir'] = os.path.expanduser('~')
         options['mustexist'] = False
         options['parent'] = root
-        options['title'] = _('Select target folder')
+        options['title'] = translate('Select target folder')
 
         # retrieves source and target directories from config file
 
@@ -184,7 +183,7 @@ class IADialog(Tkinter.Frame):
             try:
                 os.mkdir(self.config_dir, 0755)
             except Exception as e:
-                print(_("Sorry, impossible to create the {0} directory") . \
+                print(translate("Sorry, impossible to create the {0} directory") . \
                     format(self.config_dir))
                 print("Error({0}): {1}".format(e.errno, e.strerror))
                 sys.exit(1)
@@ -220,7 +219,7 @@ class IADialog(Tkinter.Frame):
             self.params.lift()
         except:
             self.params = Tkinter.Toplevel()
-            self.params.title(_("Parameters"))
+            self.params.title(translate("Parameters"))
             self.params.geometry("310x310")
             self.params.resizable(0,0)
             img = Tkinter.PhotoImage(file='images/image-active64.gif')
