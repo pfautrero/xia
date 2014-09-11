@@ -21,7 +21,7 @@ try:
     t = gettext.translation("messages", "i18n", languages=[locale.getdefaultlocale()[0]])
 except:
     t = gettext.translation("messages", "i18n", languages=['en'])
-_ = t.ugettext
+translate = t.ugettext
 
 class hook:
     """do some stuff during image active generations"""
@@ -30,7 +30,7 @@ class hook:
         """Init"""
         self.iaobject = iaobject
         self.PageFormatter = PageFormatter
-        self.tooltip = _("export popBlue")
+        self.tooltip = translate("export popBlue")
 
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""

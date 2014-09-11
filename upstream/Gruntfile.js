@@ -34,7 +34,7 @@ module.exports = function(grunt) {
       options:{
       text_domain: 'messages', // Produces messages.pot
       dest: 'build/converter/i18n/', // directory to place the pot file
-      keywords: ['gettext', '__'], // functions to look for
+      keywords: ['gettext', '__', 'translate'], // functions to look for
       encoding: 'UTF-8'
     },
     files:{
