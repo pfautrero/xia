@@ -92,6 +92,14 @@ function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
  */
 IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, idText) {
 
+    var that = this;
+    if ((typeof(detail.options) !== 'undefined')) {
+        that.options[i] = detail.options;
+    }   
+    var draggable_object = true;
+    if (that.options[i].indexOf("disable-click") != -1) {
+        var draggable_object = false;
+    };    
     that.defineImageBoxSize(detail, that);
     var rasterObj = new Image();
     rasterObj.src = detail.image;       
@@ -104,7 +112,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
         width: detail.width,
         height: detail.height,
-        draggable: true
+        draggable: draggable_object
      
     });
     
@@ -198,10 +206,6 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         that.backgroundImageOwnScaleY[i] = iaScene.scale * detail.height / this.height;
         var zoomable = true;
 
-        if ((typeof(detail.options) !== 'undefined')) {
-            that.options[i] = detail.options;
-        }
-
         if ((typeof(detail.fill) !== 'undefined') && 
             (detail.fill === "#000000")) {
             zoomable = false;
@@ -242,6 +246,15 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
  * @returns {undefined}
  */
 IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, idText) {
+    var that = this;
+
+    if ((typeof(detail.options) !== 'undefined')) {
+        that.options[i] = detail.options;
+    }   
+    var draggable_object = true;
+    if (that.options[i].indexOf("disable-click") != -1) {
+        var draggable_object = false;
+    };
     that.path[i] = detail.path;
     that.title[i] = detail.title;
     that.kineticElement[i] = new Kinetic.Path({
@@ -252,7 +265,7 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
         scale: {x:iaScene.coeff,y:iaScene.coeff},
         fill: 'rgba(0, 0, 0, 0)',
-        draggable : true
+        draggable : draggable_object
     });
     
     var collision_state = $("#" + idText).data("collisions");
@@ -344,9 +357,7 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     that.definePathBoxSize(detail, that);
     // crop background image to suit shape box
 
-    if ((typeof(detail.options) !== 'undefined')) {
-        that.options[i] = detail.options;
-    }
+
     
     if (that.options[i].indexOf("disable-click") == -1) {
         that.cropCanvas = document.createElement('canvas');
@@ -496,9 +507,10 @@ IaObject.prototype.defineTweens = function(that, iaScene) {
    
 IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, baseImage, idText) {
 
-    if (that.options[i].indexOf("disable-click") !== -1) return;
+    var that=this;
+    if (that.options[i].indexOf("disable-click") != -1) return;
 
-    if (that.options[i].indexOf("direct-link") !== -1) {
+    if (that.options[i].indexOf("direct-link") != -1) {
         that.kineticElement[i].on('click touchstart', function(e) {
             location.href = that.title[i];
         });

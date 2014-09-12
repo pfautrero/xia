@@ -67,7 +67,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
     var viewportHeight = $(window).height();
 
     mainScene.score = $("#message_success").data("score");
-    if (mainScene.score == mainScene.currentScore) {
+    if ((mainScene.score == mainScene.currentScore) && (mainScene.score != "0")) {
         $("#content").show();
         $("#message_success").show();
         var general_border = $("#message_success").css("border-top-width").substr(0,$("#message_success").css("border-top-width").length - 2);

@@ -37,7 +37,7 @@ class hook:
         self.iaobject = iaobject
         self.PageFormatter = PageFormatter
         self.tooltip = translate("export game1clic")
-        self.score = 0
+        self.score = "0"
         self.message = translate("this game is not properly configured")
 
     def generateIndex(self,filePath, templatePath):

@@ -146,6 +146,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
  * @returns {undefined}
  */
 IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, idText) {
+    
     that.path[i] = detail.path;
     that.title[i] = detail.title;
     that.kineticElement[i] = new Kinetic.Path({
@@ -198,6 +199,7 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     };
 
     if ((typeof(detail.options) !== 'undefined')) {
+
         that.options[i] = detail.options;
     }
 
