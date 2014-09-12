@@ -116,7 +116,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         if ((typeof(detail.options) !== 'undefined')) {
             that.options[i] = detail.options;
         }
-        
+
         that.persistent[i] = "off";
         if ((typeof(detail.fill) !== 'undefined') && 
             (detail.fill == "#ffffff")) {
@@ -132,6 +132,11 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         that.group.add(that.kineticElement[i]);
         that.addEventsManagement(i,zoomable, that, iaScene, baseImage, idText);
 
+
+        //that.kineticElement[i].cache();
+        //that.kineticElement[i].scale({x:iaScene.coeff,y:iaScene.coeff});
+        //that.kineticElement[i].drawHitFromCache();
+        //that.kineticElement[i].draw();
         // define hit area excluding transparent pixels
         // =============================================================
 

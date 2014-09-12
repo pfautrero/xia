@@ -195,25 +195,25 @@ class IADialog(Tkinter.Frame):
             self.config = ConfigParser.ConfigParser()
             self.config.read(self.config_ini)
             try:
-                self.file_opt['initialdir'] = self.config.get("paths", "source_dir")
+                self.file_opt['initialdir'] = self.config.get("paths", "source_dir").decode("base64")
             except:
                 self.config.set("paths", "source_dir", \
-                    self.file_opt['initialdir'])
+                    self.file_opt['initialdir'].encode("utf8").encode("base64"))
                 self.config.write(config_ini)
             try:
-                self.dir_opt['initialdir'] = self.config.get("paths", "target_dir")
+                self.dir_opt['initialdir'] = self.config.get("paths", "target_dir").decode("base64")
             except:
                 self.config.set("paths", "target_dir", \
-                    self.dir_opt['initialdir'])
+                    self.dir_opt['initialdir'].encode("utf8").encode("base64"))
                 self.config.write(config_ini)
         else:
             with open(self.config_ini, "w") as config_file:
                 self.config = ConfigParser.ConfigParser()
                 self.config.add_section('paths')
                 self.config.set("paths", "source_dir", \
-                    self.file_opt['initialdir'])
+                    self.file_opt['initialdir'].encode("utf8").encode("base64"))
                 self.config.set("paths", "target_dir", \
-                    self.dir_opt['initialdir'])
+                    self.dir_opt['initialdir'].encode("utf8").encode("base64"))
                 self.config.write(config_file)
 
         self.paramsTitle = translate("Parameters")
@@ -235,7 +235,7 @@ class IADialog(Tkinter.Frame):
         if self.filename:
             head, tail = os.path.split(self.filename)
             self.file_opt['initialdir'] = head
-            self.config.set("paths", "source_dir", head)
+            self.config.set("paths", "source_dir", head.encode("utf8").encode("base64"))
             with open(self.config_ini, "w") as config_file:
                 self.config.write(config_file)
 
@@ -243,7 +243,7 @@ class IADialog(Tkinter.Frame):
         if self.filename:
             self.dirname = tkFileDialog.askdirectory(**self.dir_opt)
             if self.dirname:
-                self.config.set("paths", "target_dir", self.dirname)
+                self.config.set("paths", "target_dir", self.dirname.encode("utf8").encode("base64"))
                 with open(self.config_ini, "w") as config_file:
                   self.config.write(config_file)
 
