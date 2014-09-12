@@ -160,6 +160,12 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     var cropY = Math.max(parseFloat(detail.minY), 0);
     var cropWidth = (Math.min((parseFloat(detail.maxX) - parseFloat(detail.minX)) * iaScene.scale, Math.floor(parseFloat(iaScene.originalWidth) * iaScene.scale)));
     var cropHeight = (Math.min((parseFloat(detail.maxY) - parseFloat(detail.minY)) * iaScene.scale, Math.floor(parseFloat(iaScene.originalHeight) * iaScene.scale)));
+    if (cropX * iaScene.scale + cropWidth > iaScene.originalWidth * iaScene.scale) {
+	cropWidth = iaScene.originalWidth * iaScene.scale - cropX * iaScene.scale;
+    }
+    if (cropY * iaScene.scale + cropHeight > iaScene.originalHeight * iaScene.scale) {
+	cropHeight = iaScene.originalHeight * iaScene.scale - cropY * iaScene.scale;
+    }
 
     cropCtx.drawImage(
         that.imageObj,
