@@ -216,13 +216,14 @@ class IADialog(Tkinter.Frame):
                     self.dir_opt['initialdir'])
                 self.config.write(config_file)
 
+        self.paramsTitle = translate("Parameters")
     def openparams(self):
         try:
             self.params.focus()
             self.params.lift()
         except:
             self.params = Tkinter.Toplevel()
-            self.params.title(translate("Parameters"))
+            self.params.title(self.paramsTitle)
             self.params.geometry("310x310")
             self.params.resizable(0,0)
             img = Tkinter.PhotoImage(file='images/image-active64.gif')

@@ -33,6 +33,7 @@ import re
 import tempfile
 import sys
 import shutil
+import commands
 
 # import PIL for windows and Linux
 # For MAC OS X, use internal tool called "sips"
@@ -652,7 +653,25 @@ class iaObject:
             if self.ratio != 1:
                 # Background image is too big to be used on mobiles
                 if sys.platform.startswith('darwin'):
-                    print "Platform MAC OS X : resizing using sips"
+                    #print "Platform MAC OS X : resizing using sips"
+                    oldwidth = int(float(rasterWidth))
+                    oldheight = int(float(rasterHeight))
+                    newwidth = int( oldwidth * self.ratio)
+                    newheight = int( oldheight * self.ratio)
+                    shutil.copyfile(imageFile, imageFileSmall)
+                    commands.getstatusoutput('sips -z {0} {1} {2}' . \
+                      format(newheight, newwidth, imageFileSmall))                    
+                    
+                    with open(imageFileSmall, 'rb') as bgSmallImage:
+                        rasterSmallEncoded = bgSmallImage.read().\
+                          encode("base64")
+                        newraster = rasterPrefix + \
+                          rasterSmallEncoded
+                    
+                    newrasterWidth = newwidth.__str__()
+                    newrasterHeight = newheight.__str__()                    
+                    
+                    
                 else:
                     # "Platform Linux or Windows : resizing using PIL"
                     currentBg = Image.open(imageFile)
