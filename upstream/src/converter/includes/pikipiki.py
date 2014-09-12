@@ -87,7 +87,7 @@ class PageFormatter:
             if (ratio == 9):
                 videoClass = 'videoWrapper16_9'
         return u'<div class="' + videoClass + \
-          '"><iframe src="%s"></iframe></div>\n' % (word_url)
+          '" data-iframe="%s"></div>\n' % (word_url)
 
     def _iframe2_repl(self, word):
         word_url = word.split('src="')[1].split('"')[0]
@@ -101,7 +101,7 @@ class PageFormatter:
             if (ratio == 9):
                 videoClass = 'videoWrapper16_9'
         return u'<div class="' + videoClass + \
-          '"><iframe src="%s"></iframe></div>\n' % (word_url)
+          '" data-iframe="%s"></div>\n' % (word_url)
     
     def _audiostart_repl(self, word):
         return u'<audio controls data-state="autostart">\n\t\
