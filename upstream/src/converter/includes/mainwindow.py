@@ -226,9 +226,9 @@ class IADialog(Tkinter.Frame):
             self.params.title(self.paramsTitle)
             self.params.geometry("310x310")
             self.params.resizable(0,0)
-            img = Tkinter.PhotoImage(file='images/image-active64.gif')
+            img = Tkinter.PhotoImage(file=self.localdir + '/images/image-active64.gif')
             self.params.tk.call('wm', 'iconphoto', self.params._w, img)    
-            IAParams(self.params, self).pack(side="left")
+            IAParams(self.params, self, self.localdir).pack(side="left")
         
     def askopenfilename(self):
         self.filename = tkFileDialog.askopenfilename(**self.file_opt)
