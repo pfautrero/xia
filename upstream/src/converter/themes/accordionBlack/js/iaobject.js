@@ -405,6 +405,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
         that.kineticElement[i].on('click touchstart', function() {
             // let's zoom
             var i = 0;
+            iaScene.noPropagation = true;
             if ((iaScene.cursorState.indexOf("ZoomIn.cur") !== -1) && 
                 (iaScene.element === that)) {
 

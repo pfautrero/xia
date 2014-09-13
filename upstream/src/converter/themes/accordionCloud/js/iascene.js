@@ -57,7 +57,7 @@ function IaScene(originalWidth, originalHeight) {
     this.originalHeight = originalHeight;
     this.coeff = (this.width * this.ratio) / parseFloat(originalWidth);
     this.cursorState="";
-
+    this.noPropagation = false;
 }
 
 /*

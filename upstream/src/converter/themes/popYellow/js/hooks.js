@@ -106,7 +106,6 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
             if (mainScene.zoomActive === 1) {
                 if ((mainScene.element !== 0) && 
                 (typeof(mainScene.element) !== 'undefined')) {
-                    console.log("yo");
                     mainScene.element.kineticElement[0].fire("click");
                 }
             }
