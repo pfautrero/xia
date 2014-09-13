@@ -114,7 +114,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         if ((typeof(detail.options) !== 'undefined')) {
             that.options[i] = detail.options;
         }
-        that.persistent[i] = "off";
+        that.persistent[i] = "off-image";
         if ((typeof(detail.fill) !== 'undefined') && 
             (detail.fill === "#ffffff")) {
             that.persistent[i] = "onImage";
@@ -127,6 +127,57 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         
         that.group.add(that.kineticElement[i]);
         that.addEventsManagement(i,zoomable, that, iaScene, baseImage, idText);
+
+        // define hit area excluding transparent pixels
+        // =============================================================
+
+        var cropX = Math.max(parseFloat(detail.minX), 0);
+        var cropY = Math.max(parseFloat(detail.minY), 0);
+        var cropWidth = (Math.min(parseFloat(detail.maxX) - parseFloat(detail.minX), Math.floor(parseFloat(iaScene.originalWidth) * 1)));
+        var cropHeight = (Math.min(parseFloat(detail.maxY) - parseFloat(detail.minY), Math.floor(parseFloat(iaScene.originalHeight) * 1)));
+        if (cropX + cropWidth > iaScene.originalWidth * 1) {
+            cropWidth = iaScene.originalWidth * 1 - cropX * 1;
+        }
+        if (cropY * 1 + cropHeight > iaScene.originalHeight * 1) {
+            cropHeight = iaScene.originalHeight * 1 - cropY * 1;
+        }
+
+        var canvas_source = document.createElement('canvas');
+        canvas_source.setAttribute('width', cropWidth * iaScene.coeff);
+        canvas_source.setAttribute('height', cropHeight * iaScene.coeff);
+        var context_source = canvas_source.getContext('2d');
+        context_source.drawImage(rasterObj,0,0, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);
+        imageDataSource = context_source.getImageData(0, 0, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);            
+        len = imageDataSource.data.length;
+        that.group.zoomActive = 0;
+      
+        (function(len, imageDataSource){
+        that.kineticElement[i].hitFunc(function(context) {
+            if (that.group.zoomActive == 0) {
+                rgbColorKey = Kinetic.Util._hexToRgb(this.colorKey);
+                // just replace scene colors by hit colors - alpha remains unchanged
+                for(j = 0; j < len; j += 4) {
+                    imageDataSource.data[j + 0] = rgbColorKey.r;
+                    imageDataSource.data[j + 1] = rgbColorKey.g;
+                    imageDataSource.data[j + 2] = rgbColorKey.b;
+                   // imageDataSource.data[j + 3] = imageDataSource.data[j + 3];
+                }  
+                context.putImageData(imageDataSource, cropX * iaScene.coeff, cropY * iaScene.coeff);     
+            }
+            else {
+                context.beginPath();
+                context.rect(0,0,this.width(),this.height());
+                context.closePath();
+                context.fillStrokeShape(this);					
+            }
+        });        
+        })(len, imageDataSource);
+        /*that.kineticElement[i].sceneFunc(function(context) {
+            var yo = that.layer.getHitCanvas().getContext().getImageData(0,0,iaScene.width, iaScene.height);
+            context.putImageData(yo, 0,0);  
+        });*/
+
+        // =============================================================        
         that.group.draw();        
     };
 
@@ -323,7 +374,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     that.kineticElement[i].fillPriority('color');
                     that.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');                       
                 }
-                else if (that.persistent[i] == "onImage") {
+                else if ((that.persistent[i] == "onImage") || (that.persistent[i] == "off-image")) {
                     that.kineticElement[i].fillPriority('pattern');
                     that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
                     that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale); 
@@ -471,7 +522,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             if ((that.layer.getStage().getIntersection(mouseXY) != this)) {
                 that.backgroundCache_layer.moveToBottom();
                 for (var i in that.kineticElement) {
-                    if (that.persistent[i] == "off") {
+                    if ((that.persistent[i] == "off") || (that.persistent[i] == "off-image")) {
                         that.kineticElement[i].fillPriority('color');
                         that.kineticElement[i].fill('rgba(0, 0, 0, 0)');
                         that.kineticElement[i].stroke('rgba(0, 0, 0, 0)');

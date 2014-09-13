@@ -181,7 +181,7 @@ class IADialog(Tkinter.Frame):
         # Creation of config_dir if not exists.
         self.home_dir = os.path.expanduser('~')
         self.config_dir = os.path.join(self.home_dir, '.activit')
-        self.config_ini = os.path.join(self.config_dir, 'config.ini')
+        self.config_ini = os.path.join(self.config_dir, 'config_base64.ini')
         if not os.path.isdir(self.config_dir):
             try:
                 os.mkdir(self.config_dir, 0755)

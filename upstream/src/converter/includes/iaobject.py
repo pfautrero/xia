@@ -644,54 +644,55 @@ class iaObject:
         rasterEncoded = raster[rasterStartPosition:]
         rasterPrefix = raster[0:rasterStartPosition]
         extension = re.search('image/(.*);base64', rasterPrefix)
-        if extension.group(1):
-            imageFile = dirname + os.path.sep + "image." + extension.group(1)
-            imageFileSmall = dirname + \
-              os.path.sep + "image_small." + extension.group(1)
-            with open(imageFile, "wb") as bgImage:
-                bgImage.write(rasterEncoded.decode("base64"))
-            if self.ratio != 1:
-                # Background image is too big to be used on mobiles
-                if sys.platform.startswith('darwin'):
-                    #print "Platform MAC OS X : resizing using sips"
-                    oldwidth = int(float(rasterWidth))
-                    oldheight = int(float(rasterHeight))
-                    newwidth = int( oldwidth * self.ratio)
-                    newheight = int( oldheight * self.ratio)
-                    shutil.copyfile(imageFile, imageFileSmall)
-                    commands.getstatusoutput('sips -z {0} {1} {2}' . \
-                      format(newheight, newwidth, imageFileSmall))                    
-                    
-                    with open(imageFileSmall, 'rb') as bgSmallImage:
-                        rasterSmallEncoded = bgSmallImage.read().\
-                          encode("base64")
-                        newraster = rasterPrefix + \
-                          rasterSmallEncoded
-                    
-                    newrasterWidth = newwidth.__str__()
-                    newrasterHeight = newheight.__str__()                    
-                    
-                    
-                else:
-                    # "Platform Linux or Windows : resizing using PIL"
-                    currentBg = Image.open(imageFile)
-                    oldwidth = int(float(rasterWidth))
-                    oldheight = int(float(rasterHeight))
-                    newwidth = int( oldwidth * self.ratio)
-                    newheight = int( oldheight * self.ratio)
-                    resizedBg = currentBg.resize( \
-                        (newwidth,newheight), \
-                        Image.ANTIALIAS)
-                    resizedBg.save(imageFileSmall) 
-                    
-                    with open(imageFileSmall, 'rb') as bgSmallImage:
-                        rasterSmallEncoded = bgSmallImage.read().\
-                          encode("base64")
-                        newraster = rasterPrefix + \
-                          rasterSmallEncoded
-                    
-                    newrasterWidth = newwidth.__str__()
-                    newrasterHeight = newheight.__str__()
+        if extension is not None:
+            if extension.group(1):
+                imageFile = dirname + os.path.sep + "image." + extension.group(1)
+                imageFileSmall = dirname + \
+                  os.path.sep + "image_small." + extension.group(1)
+                with open(imageFile, "wb") as bgImage:
+                    bgImage.write(rasterEncoded.decode("base64"))
+                if self.ratio != 1:
+                    # Background image is too big to be used on mobiles
+                    if sys.platform.startswith('darwin'):
+                        #print "Platform MAC OS X : resizing using sips"
+                        oldwidth = int(float(rasterWidth))
+                        oldheight = int(float(rasterHeight))
+                        newwidth = int( oldwidth * self.ratio)
+                        newheight = int( oldheight * self.ratio)
+                        shutil.copyfile(imageFile, imageFileSmall)
+                        commands.getstatusoutput('sips -z {0} {1} {2}' . \
+                          format(newheight, newwidth, imageFileSmall))                    
+
+                        with open(imageFileSmall, 'rb') as bgSmallImage:
+                            rasterSmallEncoded = bgSmallImage.read().\
+                              encode("base64")
+                            newraster = rasterPrefix + \
+                              rasterSmallEncoded
+
+                        newrasterWidth = newwidth.__str__()
+                        newrasterHeight = newheight.__str__()                    
+
+
+                    else:
+                        # "Platform Linux or Windows : resizing using PIL"
+                        currentBg = Image.open(imageFile)
+                        oldwidth = int(float(rasterWidth))
+                        oldheight = int(float(rasterHeight))
+                        newwidth = int( oldwidth * self.ratio)
+                        newheight = int( oldheight * self.ratio)
+                        resizedBg = currentBg.resize( \
+                            (newwidth,newheight), \
+                            Image.ANTIALIAS)
+                        resizedBg.save(imageFileSmall) 
+
+                        with open(imageFileSmall, 'rb') as bgSmallImage:
+                            rasterSmallEncoded = bgSmallImage.read().\
+                              encode("base64")
+                            newraster = rasterPrefix + \
+                              rasterSmallEncoded
+
+                        newrasterWidth = newwidth.__str__()
+                        newrasterHeight = newheight.__str__()
         else:
             print('ERROR : image is not embedded')
         shutil.rmtree(dirname)
