@@ -125,7 +125,13 @@ hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaO
      *  manage accordion events related to this element
      */
     $("#" + idText + "-heading").on('click touchstart',function(){
-        iaObject.kineticElement[0].fire("click");
+        
+        if ($('#' + idText).css("height") == "0px") {
+            iaObject.kineticElement[0].fire("click");
+        }
+        else {
+            iaObject.kineticElement[0].fire("mouseleave");
+        }
     });
 };
 /*

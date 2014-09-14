@@ -128,7 +128,9 @@ function main(myhooks) {
             var iaObj = new IaObject(that.imageObj, details[i], layers[indice], "collapse" + i, baseImage, mainScene, layers[1], layers[0], myhooks);
         }
 
-        $("#loader").hide();
+        $("#splash").fadeOut("slow", function(){
+                $("#loader").hide();	
+        });
 
         myhooks.afterMainConstructor(that.mainScene, that.layers);
 

@@ -122,7 +122,9 @@ function main(myhooks) {
         }
         myhooks.afterMainConstructor(mainScene, that.layers);            
 
-        $("#loader").hide();
+        $("#splash").fadeOut("slow", function(){
+                $("#loader").hide();	
+        });
         // FullScreen ability
         // source code from http://blogs.sitepointstatic.com/examples/tech/full-screen/index.html
         var e = document.getElementById("title");

@@ -118,7 +118,9 @@ function main(myhooks) {
             var iaObj = new IaObject(that.imageObj, details[i], layers[indice], "article-" + i, baseImage, mainScene, layers[1], layers[0], myhooks);
         }
         myhooks.afterMainConstructor(mainScene, that.layers); 
-        $("#loader").hide();
+        $("#splash").fadeOut("slow", function(){
+                $("#loader").hide();	
+        });
         // FullScreen ability
         // source code from http://blogs.sitepointstatic.com/examples/tech/full-screen/index.html
         var e = document.getElementById("title");

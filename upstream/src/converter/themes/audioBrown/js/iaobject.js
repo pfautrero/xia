@@ -524,6 +524,9 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
         }
         else {
             var mouseXY = that.layer.getStage().getPointerPosition();
+            if (typeof(mouseXY) == "undefined") {
+		mouseXY = {x:0,y:0};
+            }            
             if ((that.layer.getStage().getIntersection(mouseXY) != this)) {
                 that.backgroundCache_layer.moveToBottom();
                 for (var i in that.kineticElement) {
