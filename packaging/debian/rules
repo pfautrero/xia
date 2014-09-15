@@ -28,6 +28,13 @@ VERSION := $(shell cd $(WORKING_DIR) && dpkg-parsechangelog | awk '/^Version/ {p
 # To use setup.py with --root=debian/$(PYBUILD_NAME) instead of
 # --root=debian/tmp. See "man dh_auto_install" for more details.
 override_dh_auto_install:
+	cd "$(WORKING_DIR)" && curl -s --insecure https://www.npmjs.org/install.sh | bash >/dev/null 2>&1
+	cd "$(WORKING_DIR)" && npm install -g grunt-cli >/dev/null 2>&1
+	cd "$(WORKING_DIR)" && npm install lodash >/dev/null 2>&1
+	cd "$(WORKING_DIR)" && npm install >/dev/null 2>&1
+	cd "$(WORKING_DIR)" && grunt default >/dev/null 2>&1
+	cd "$(WORKING_DIR)" && rm -rf src/
+	cd "$(WORKING_DIR)" && mv build/* .
 	dh_auto_install --destdir="$(WORKING_DIR)/debian/$(PYBUILD_NAME)"
 
 
@@ -57,6 +64,6 @@ populate_working_dir: clean_for_git
 	cd "$(WORKING_DIR)" && tar --strip-components=1 -zxf ../xia_$(VERSION).orig.tar.gz -C .
 
 create_deb: populate_working_dir
-	cd "$(WORKING_DIR)" && debuild --no-tgz-check -us -uc && echo 'Building is OK!'
+	cd "$(WORKING_DIR)" && nice debuild --no-tgz-check -us -uc && echo 'Building is OK!'
 
 
