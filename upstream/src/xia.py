@@ -40,7 +40,7 @@ class ImageActive(inkex.Effect):
                 self.document.write(filePath)
 
             root = Tkinter.Tk()
-            root.title("Activ'it - alpha 3")
+            root.title("Xia - alpha 4")
             root.geometry("465x310")
             root.resizable(0,0)
             root.attributes('-topmost', 1)

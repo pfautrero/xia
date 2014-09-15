@@ -19,7 +19,7 @@ module.exports = function(grunt) {
       },
       yourTarget1: {
         // Target-specific file/dir lists and/or options go here.
-        src: ['build/converter/activit.py']
+        src: ['build/converter/xia.py']
       }
     },
     copy: {

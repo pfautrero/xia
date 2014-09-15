@@ -162,9 +162,9 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
                 rgbColorKey = Kinetic.Util._hexToRgb(this.colorKey);
                 // just replace scene colors by hit colors - alpha remains unchanged
                 for(j = 0; j < len; j += 4) {
-                    imageDataSource.data[j + 0] = rgbColorKey.r;
-                    imageDataSource.data[j + 1] = rgbColorKey.g;
-                    imageDataSource.data[j + 2] = rgbColorKey.b;
+                   imageDataSource.data[j + 0] = rgbColorKey.r;
+                   imageDataSource.data[j + 1] = rgbColorKey.g;
+                   imageDataSource.data[j + 2] = rgbColorKey.b;
                    // imageDataSource.data[j + 3] = imageDataSource.data[j + 3];
                 } 
                 

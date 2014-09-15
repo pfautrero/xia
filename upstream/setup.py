@@ -20,8 +20,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='ia-converter',
-    version='2.0',
+    name='xia-converter',
+    version='1.0',
     packages=find_packages(),
     author='Pascal Fautrero',
     author_email='pascal.fautrero@ac-versailles.fr',

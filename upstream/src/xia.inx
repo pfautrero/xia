@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension" -->
 <inkscape-extension>
-  <_name>Activ'it</_name>
+  <_name>Xia édu</_name>
   <id>http://www.tice.ac-versailles.fr/logicielslibres/</id>
-  <dependency type="executable" location="extensions">activit.py</dependency>
+  <dependency type="executable" location="extensions">xia.py</dependency>
   <effect>
     <object-type>all</object-type>
     <effects-menu>
@@ -11,7 +11,7 @@
     </effects-menu>
   </effect>
   <script>
-      <command reldir="extensions" interpreter="python">activit.py</command>
+      <command reldir="extensions" interpreter="python">xia.py</command>
   </script>
 
 </inkscape-extension>
