@@ -1,4 +1,4 @@
 include *.md
-recursive-include iaConvert *.*
+recursive-include converter *.*
 
 

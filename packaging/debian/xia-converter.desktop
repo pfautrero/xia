@@ -1,15 +1,14 @@
 [Desktop Entry]
-Version=2.0
-Name=IA converter
-GenericName=IA converter
-X-GNOME-FullName=IA converter
+Name=XIA converter
+GenericName=XIA converter
+X-GNOME-FullName=XIA converter
 Comment=Convert svg to html5 interactive pictures
 Comment[fr]=Convertit le svg en des images interactives html5
 Type=Application
 Categories=Graphics;
 MimeType=image/svg+xml;application/illustrator;
-Exec=ia-converter
+Exec=xia-converter
 Terminal=false
-Icon=/usr/share/pyshared/iaConvert/images/image-active.gif
+Icon=/usr/share/pyshared/converter/images/image-active.gif
 
 

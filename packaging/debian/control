@@ -1,4 +1,4 @@
-Source: images-actives
+Source: xia
 Section: misc
 Priority: extra
 Maintainer: François Lafont <francois.lafont@crdp.ac-versailles.fr>
@@ -7,20 +7,21 @@ Build-Depends: devscripts,
  debhelper (>= 8.0.0),
  quilt,
  python,
- python-setuptools
+ python-setuptools,
+ nodejs, nodejs-legacy, curl, gettext
 Standards-Version: 3.9.3
 Homepage: http://images-actives.crdp-versailles.fr
 X-Python-Version: >= 2.7, << 3.0
 
 
-Package: ia-converter
+Package: xia-converter
 Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}, python-tk
+Depends: ${misc:Depends}, ${python:Depends}, python-tk, python-pil | python-imaging
 Description: Convert svg to html5 interactive pictures
  Tool to convert svg to html5 interactive pictures.
 
-Package: images-actives
+Package: xia
 Architecture: all
-Depends: ${misc:Depends}, ia-converter, python, python-lxml, inkscape
+Depends: ${misc:Depends}, xia-converter, python, python-lxml, inkscape
 Description: Inkscape plugin to create html5 interactive pictures
  Inkscape plugin to create full html5 interactive pictures.

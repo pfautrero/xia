@@ -21,7 +21,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='xia-converter',
-    version='1.0',
+    version='0.alpha4',
     packages=find_packages(),
     author='Pascal Fautrero',
     author_email='pascal.fautrero@ac-versailles.fr',

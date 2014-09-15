@@ -1,12 +1,12 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: images-actives
+Upstream-Name: xia
 Source: http://images-actives.crdp-versailles.fr
 
 Files: *
 Copyright: 2014 Pascal Fautrero
 License: GPL-3.0+
 
-Files: setup.py MANIFEST.in debian/*
+Files:  debian/*
 Copyright: 2014 François Lafont <francois.lafont@crdp.ac-versailles.fr>
 License: GPL-3.0+
 

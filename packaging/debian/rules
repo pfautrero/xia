@@ -4,7 +4,7 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-PYBUILD_NAME := "ia-converter"
+PYBUILD_NAME := "xia-converter"
 
 # The absolute path of the rules file.
 RULES_PATH := $(realpath $(firstword $(MAKEFILE_LIST)))
@@ -53,8 +53,8 @@ clean_for_git:
 	cd "$(WORKING_DIR)" && rm -f ../*.build
 
 populate_working_dir: clean_for_git
-	cd "$(WORKING_DIR)/.." && tar --exclude-vcs -zcf images-actives_$(VERSION).orig.tar.gz upstream
-	cd "$(WORKING_DIR)" && tar --strip-components=1 -zxf ../images-actives_$(VERSION).orig.tar.gz -C .
+	cd "$(WORKING_DIR)/.." && tar --exclude-vcs -zcf xia_$(VERSION).orig.tar.gz upstream
+	cd "$(WORKING_DIR)" && tar --strip-components=1 -zxf ../xia_$(VERSION).orig.tar.gz -C .
 
 create_deb: populate_working_dir
 	cd "$(WORKING_DIR)" && debuild --no-tgz-check -us -uc && echo 'Building is OK!'
