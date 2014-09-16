@@ -9,6 +9,6 @@ Categories=Graphics;
 MimeType=image/svg+xml;application/illustrator;
 Exec=xia-converter
 Terminal=false
-Icon=/usr/share/pyshared/converter/images/image-active.gif
+Icon=/usr/lib/python2.7/dist-packages/converter/images/image-active.gif
 
 
