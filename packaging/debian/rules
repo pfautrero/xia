@@ -55,6 +55,7 @@ clean_for_git:
 	cd "$(WORKING_DIR)" && rm -f ../*.dsc
 	cd "$(WORKING_DIR)" && rm -f ../*.changes
 	cd "$(WORKING_DIR)" && rm -f ../*.debian.tar.gz
+	cd "$(WORKING_DIR)" && rm -f ../*.debian.tar.xz
 	cd "$(WORKING_DIR)" && rm -f ../*.orig.tar.gz
 	cd "$(WORKING_DIR)" && rm -f ../*.build
 
