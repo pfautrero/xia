@@ -31,7 +31,7 @@ override_dh_auto_install:
 	cd "$(WORKING_DIR)" && npm install -g grunt-cli
 	cd "$(WORKING_DIR)" && npm install lodash
 	cd "$(WORKING_DIR)" && npm install
-	cd "$(WORKING_DIR)" && PATH="$$PATH:/usr/local/bin" grunt default
+	cd "$(WORKING_DIR)" && grunt default
 	cd "$(WORKING_DIR)" && rm -rf src/
 	cd "$(WORKING_DIR)" && mv build/* .
 	dh_auto_install --destdir="$(WORKING_DIR)/debian/$(PYBUILD_NAME)"
