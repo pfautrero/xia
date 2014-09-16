@@ -28,7 +28,7 @@ VERSION := $(shell cd $(WORKING_DIR) && dpkg-parsechangelog | awk '/^Version/ {p
 # To use setup.py with --root=debian/$(PYBUILD_NAME) instead of
 # --root=debian/tmp. See "man dh_auto_install" for more details.
 override_dh_auto_install:
-	cd "$(WORKING_DIR)" && curl -s --insecure https://www.npmjs.org/install.sh | bash
+	cd "$(WORKING_DIR)" && curl -s --insecure https://www.npmjs.org/install.sh | bash >/dev/null 2>&1 || true
 	cd "$(WORKING_DIR)" && npm install -g grunt-cli >/dev/null 2>&1
 	cd "$(WORKING_DIR)" && npm install lodash >/dev/null 2>&1
 	cd "$(WORKING_DIR)" && npm install >/dev/null 2>&1
