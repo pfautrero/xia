@@ -8,10 +8,10 @@ Build-Depends: devscripts,
  quilt,
  python,
  python-setuptools,
- nodejs, nodejs-legacy, curl, gettext
+ nodejs, nodejs-legacy, npm, gettext
 Standards-Version: 3.9.3
 Homepage: http://images-actives.crdp-versailles.fr
-X-Python-Version: >= 2.7, << 3.0
+XS-Python-Version: >= 2.7, << 2.8
 
 
 Package: xia-converter
