@@ -17,7 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 export PATH='/usr/local/bin:/usr/bin:/bin'
-dir="/usr/share/pyshared/converter/"
+dir="/usr/lib/python2.7/dist-packages/converter/"
 
 if ! cd "$dir"
 then
