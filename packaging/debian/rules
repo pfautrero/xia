@@ -4,7 +4,7 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-PYBUILD_NAME := "ia-converter"
+PYBUILD_NAME := "xia-converter"
 
 # The absolute path of the rules file.
 RULES_PATH := $(realpath $(firstword $(MAKEFILE_LIST)))
@@ -28,6 +28,12 @@ VERSION := $(shell cd $(WORKING_DIR) && dpkg-parsechangelog | awk '/^Version/ {p
 # To use setup.py with --root=debian/$(PYBUILD_NAME) instead of
 # --root=debian/tmp. See "man dh_auto_install" for more details.
 override_dh_auto_install:
+	cd "$(WORKING_DIR)" && npm install -g grunt-cli
+	cd "$(WORKING_DIR)" && npm install lodash
+	cd "$(WORKING_DIR)" && npm install
+	cd "$(WORKING_DIR)" && PATH="$$PATH:/usr/local/bin" grunt default
+	cd "$(WORKING_DIR)" && rm -rf src/
+	cd "$(WORKING_DIR)" && mv build/* .
 	dh_auto_install --destdir="$(WORKING_DIR)/debian/$(PYBUILD_NAME)"
 
 
@@ -49,12 +55,13 @@ clean_for_git:
 	cd "$(WORKING_DIR)" && rm -f ../*.dsc
 	cd "$(WORKING_DIR)" && rm -f ../*.changes
 	cd "$(WORKING_DIR)" && rm -f ../*.debian.tar.gz
+	cd "$(WORKING_DIR)" && rm -f ../*.debian.tar.xz
 	cd "$(WORKING_DIR)" && rm -f ../*.orig.tar.gz
 	cd "$(WORKING_DIR)" && rm -f ../*.build
 
 populate_working_dir: clean_for_git
-	cd "$(WORKING_DIR)/.." && tar --exclude-vcs -zcf images-actives_$(VERSION).orig.tar.gz upstream
-	cd "$(WORKING_DIR)" && tar --strip-components=1 -zxf ../images-actives_$(VERSION).orig.tar.gz -C .
+	cd "$(WORKING_DIR)/.." && tar --exclude-vcs -zcf xia_$(VERSION).orig.tar.gz upstream
+	cd "$(WORKING_DIR)" && tar --strip-components=1 -zxf ../xia_$(VERSION).orig.tar.gz -C .
 
 create_deb: populate_working_dir
 	cd "$(WORKING_DIR)" && debuild --no-tgz-check -us -uc && echo 'Building is OK!'

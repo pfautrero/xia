@@ -1,4 +1,0 @@
-include *.md
-recursive-include iaConvert *.*
-
-

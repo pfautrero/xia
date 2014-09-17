@@ -17,14 +17,15 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 export PATH='/usr/local/bin:/usr/bin:/bin'
+dir="/usr/lib/python2.7/dist-packages/converter/"
 
-if ! cd '/usr/share/pyshared/iaConvert/'
+if ! cd "$dir"
 then
-    echo "Sorry, 'cd /usr/share/pyshared/iaConvert/' failed."
+    echo "Sorry, 'cd $dir' failed."
     echo "There is something wrong with the installation of the ia-converter package."
     exit 1
 fi
 
-exec python ./imageactive2.py
+exec python ./xia.py
 
 
