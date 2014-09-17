@@ -167,7 +167,7 @@ hooks.prototype.afterIaObjectDragEnd = function(iaScene, idText, iaObject, event
             }            
         }
         var viewportHeight = $(window).height();
-        if (iaScene.score == iaScene.currentScore) {
+        if ((iaScene.score == iaScene.currentScore) && (iaScene.score != 0)) {
             $("#content").show();
             $("#message_success").show();
             var general_border = $("#message_success").css("border-top-width").substr(0,$("#message_success").css("border-top-width").length - 2);

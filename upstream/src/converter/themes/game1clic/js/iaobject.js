@@ -99,8 +99,8 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         x: parseFloat(detail.x) * iaScene.coeff,
         y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
         width: detail.width,
-        height: detail.height
-        //scale: {x:iaScene.coeff,y:iaScene.coeff}
+        height: detail.height,
+        scale: {x:iaScene.coeff,y:iaScene.coeff}
     });
 
     rasterObj.onload = function() {
@@ -110,6 +110,9 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
 
         if ((typeof(detail.options) !== 'undefined')) {
             that.options[i] = detail.options;
+        }
+        else {
+            that.options[i] = "";
         }
 
         if ((typeof(detail.fill) !== 'undefined') && 
@@ -127,11 +130,58 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
             that.kineticElement[i].fillPatternImage(that.backgroundImage[i]); 
             zoomable = false;
         }
-        that.kineticElement[i].cache();
-        that.kineticElement[i].scale({x:iaScene.coeff,y:iaScene.coeff});
-        that.kineticElement[i].drawHitFromCache();
-        
         that.group.add(that.kineticElement[i]);
+       // that.kineticElement[i].cache();
+
+        //that.kineticElement[i].scale({x:iaScene.coeff,y:iaScene.coeff});
+        //that.kineticElement[i].drawHitFromCache();
+        // define hit area excluding transparent pixels
+
+        var cropX = Math.max(parseFloat(detail.minX), 0);
+        var cropY = Math.max(parseFloat(detail.minY), 0);
+        var cropWidth = (Math.min(parseFloat(detail.maxX) - parseFloat(detail.minX), Math.floor(parseFloat(iaScene.originalWidth) * 1)));
+        var cropHeight = (Math.min(parseFloat(detail.maxY) - parseFloat(detail.minY), Math.floor(parseFloat(iaScene.originalHeight) * 1)));
+        if (cropX + cropWidth > iaScene.originalWidth * 1) {
+            cropWidth = iaScene.originalWidth * 1 - cropX * 1;
+        }
+        if (cropY * 1 + cropHeight > iaScene.originalHeight * 1) {
+            cropHeight = iaScene.originalHeight * 1 - cropY * 1;
+        }
+
+        var canvas_source = document.createElement('canvas');
+        canvas_source.setAttribute('width', cropWidth * iaScene.coeff);
+        canvas_source.setAttribute('height', cropHeight * iaScene.coeff);
+        var context_source = canvas_source.getContext('2d');
+        context_source.drawImage(rasterObj,0,0, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);
+        imageDataSource = context_source.getImageData(0, 0, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);            
+        len = imageDataSource.data.length;
+        that.group.zoomActive = 0;
+       
+        (function(len, imageDataSource){
+        that.kineticElement[i].hitFunc(function(context) {
+            if (that.group.zoomActive == 0) {
+                rgbColorKey = Kinetic.Util._hexToRgb(this.colorKey);
+                // just replace scene colors by hit colors - alpha remains unchanged
+                for(j = 0; j < len; j += 4) {
+                    imageDataSource.data[j + 0] = rgbColorKey.r;
+                    imageDataSource.data[j + 1] = rgbColorKey.g;
+                    imageDataSource.data[j + 2] = rgbColorKey.b;
+                   // imageDataSource.data[j + 3] = imageDataSource.data[j + 3];
+                } 
+                context.putImageData(imageDataSource, cropX * iaScene.coeff, cropY * iaScene.coeff);     
+            }
+            else {
+                context.beginPath();
+                context.rect(0,0,this.width(),this.height());
+                context.closePath();
+                context.fillStrokeShape(this);					
+            }
+        });        
+        })(len, imageDataSource);
+        /*that.kineticElement[i].sceneFunc(function(context) {
+            var yo = that.layer.getHitCanvas().getContext().getImageData(0,0,iaScene.width, iaScene.height);
+            context.putImageData(yo, 0,0);  
+        });*/
         that.addEventsManagement(i,zoomable, that, iaScene, baseImage, idText);
         that.group.draw();        
     };
@@ -202,6 +252,9 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
 
         that.options[i] = detail.options;
     }
+    else {
+        that.options[i] = "";
+    }
 
     var zoomable = true;
     if ((typeof(detail.fill) !== 'undefined') && 
@@ -215,6 +268,8 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         that.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');
     }    
     that.addEventsManagement(i, zoomable, that, iaScene, baseImage, idText);
+
+
 
     that.group.add(that.kineticElement[i]);
     that.group.draw();
@@ -482,6 +537,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                             that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale); 
                             that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);                        
                         }                
+                        that.kineticElement[i].moveToTop();
                     }                
 
 

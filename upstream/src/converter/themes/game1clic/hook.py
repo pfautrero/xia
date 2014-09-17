@@ -38,7 +38,8 @@ class hook:
         self.PageFormatter = PageFormatter
         self.tooltip = translate("export game1clic")
         self.score = "0"
-        self.message = translate("this game is not properly configured")
+        self.game_not_configured = translate("this game is not properly configured")
+        self.message = self.game_not_configured
 
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""
@@ -51,6 +52,10 @@ class hook:
         #message = xml.getElementsByTagName('message')
         #if message.item(0) is not None:
         #    self.message = message.item(0).childNodes[0].nodeValue
+        
+        self.score = "0"
+        self.message = self.game_not_configured
+        
         
         score = re.search('<score>(.*)</score>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
         if score:
@@ -65,19 +70,19 @@ class hook:
         final_str += u'  <p>' + self.PageFormatter(self.message).print_html() + u'</p>\n'
         final_str += u'</article>\n'
         for i, detail in enumerate(self.iaobject.details):
-            if detail['options'].find(u"direct-link") == -1:
-                if detail['detail'].find(u"Réponse:") != -1:
-                    question = detail['detail'][0:detail['detail'].find(u"Réponse:")]
-                    answer = detail['detail'][detail['detail'].find(u"Réponse:") + 9:]
-                    final_str += u'<article class="detail_content" data-options="' + detail['options'] + u'" id="article-'+unicode(str(i), "utf8") + u'">\n'
-                    final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
-                    final_str += u'  <p>' + self.PageFormatter(question).print_html() + u'<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#response_' + unicode(str(i), "utf8") + u'">Réponse</a></div>' + u'<div class="response" id="response_'+ unicode(str(i), "utf8") + u'">' + self.PageFormatter(answer).print_html() + u'</p>' + u'\n'
-                    final_str += u'</article>\n'
-                else:
-                    final_str += u'<article class="detail_content" data-options="' + detail['options'] + u'" id="article-'+unicode(str(i), "utf8") + u'">\n'
-                    final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
-                    final_str += u'  <p>' + self.PageFormatter(detail["detail"]).print_html() + u'<p>\n'
-                    final_str += u'</article>\n'
+            #if detail['options'].find(u"direct-link") == -1:
+            if detail['detail'].find(u"Réponse:") != -1:
+                question = detail['detail'][0:detail['detail'].find(u"Réponse:")]
+                answer = detail['detail'][detail['detail'].find(u"Réponse:") + 9:]
+                final_str += u'<article class="detail_content" data-options="' + detail['options'] + u'" id="article-'+unicode(str(i), "utf8") + u'">\n'
+                final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
+                final_str += u'  <p>' + self.PageFormatter(question).print_html() + u'<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#response_' + unicode(str(i), "utf8") + u'">Réponse</a></div>' + u'<div class="response" id="response_'+ unicode(str(i), "utf8") + u'">' + self.PageFormatter(answer).print_html() + u'</p>' + u'\n'
+                final_str += u'</article>\n'
+            else:
+                final_str += u'<article class="detail_content" data-options="' + detail['options'] + u'" id="article-'+unicode(str(i), "utf8") + u'">\n'
+                final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
+                final_str += u'  <p>' + self.PageFormatter(detail["detail"]).print_html() + u'<p>\n'
+                final_str += u'</article>\n'
 
         with open(templatePath,"r") as template:
             final_index = template.read().decode("utf-8")

@@ -537,6 +537,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
                         that.kineticElement[i].stroke(iaScene.overColorStroke);
                         that.kineticElement[i].strokeWidth(2);
+                        that.kineticElement[i].moveToTop();
                     }
                     if (cacheBackground === true) that.backgroundCache_layer.moveToTop();
                     that.layer.moveToTop();

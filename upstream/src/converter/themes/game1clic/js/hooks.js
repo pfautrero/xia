@@ -127,12 +127,6 @@ hooks.prototype.afterIaObjectZoom = function(iaScene, idText, iaObject) {
  */
 hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
     var viewportHeight = $(window).height();
-    //$("#content").show();
-    //$(".detail_content").hide();
-    //$('#' + idText).show();
-    //$('.article_close').show();
-    //$('.article_close').css({"top":$('#' + idText).offset().top - 20});
-    //$('.article_close').css({"left":($('#content').width() - 40) / 2});
     $('#' + idText + " audio").each(function(){
         if ($(this).data("state") === "autostart") {
             $(this)[0].play();
@@ -140,11 +134,12 @@ hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
     }); 
     
     var options = $('#' + idText).data("options");
-    if (options.indexOf("disable-score") == -1) {
-        iaScene.currentScore += 1;        
+    if (typeof(options) != "undefined") { 
+        if (options.indexOf("disable-score") == -1) {
+            iaScene.currentScore += 1;        
+        }
     }
-
-    if (iaScene.score == iaScene.currentScore) {
+    if ((iaScene.score == iaScene.currentScore) && (iaScene.score != 0)) {
         $("#content").show();
         $("#message_success").show();
         var general_border = $("#message_success").css("border-top-width").substr(0,$("#message_success").css("border-top-width").length - 2);
@@ -152,16 +147,10 @@ hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
         var content_offset = $("#content").offset();
         $("#message_success").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});        
     }
-    
-    for (var i in iaObject.kineticElement) {    
-        iaObject.kineticElement[i].off("click");
+    if (iaScene.score != 0) {
+        for (var i in iaObject.kineticElement) {    
+            iaObject.kineticElement[i].off("click");
+        }
     }
-
-
-
-    //var article_border = $('#' + idText).css("border-top-width").substr(0,$('#' + idText).css("border-top-width").length - 2);
-    //var article_offset = $('#' + idText).offset();
-    //var content_offset = $("#content").offset();
-    //$('#' + idText).css({'max-height':(viewportHeight - article_offset.top - content_offset.top - 2 * article_border)});
                 
 };

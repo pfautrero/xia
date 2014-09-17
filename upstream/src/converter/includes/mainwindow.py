@@ -289,7 +289,8 @@ class IADialog(Tkinter.Frame):
                 mysplash.exit()
 
                 if self.keep_alive == "no":
-                    self.root.destroy()
+                    # destroy method generates error in inkscape
+                    sys.exit()
 
     def defineMaxPixels(self, resizeCoeff):
         if resizeCoeff == 0:

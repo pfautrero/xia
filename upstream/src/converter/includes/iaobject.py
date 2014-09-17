@@ -137,7 +137,7 @@ class iaObject:
 
     def analyzeSVG(self,filePath, maxNumPixels):
         """analyze svg file and fill self.details and self.scene"""
-        self.details[:] = []
+        self.details = []
         self.scene.clear()
         
         self.xml = minidom.parse(filePath)
