@@ -1,25 +1,5 @@
 /*fonts*/
 @font-face {
-    font-family: 'yanone_bold';
-    src: url('../font/yanonekaffeesatz-bold-webfont.eot');
-    src: url('../font/yanonekaffeesatz-bold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../font/yanonekaffeesatz-bold-webfont.woff') format('woff'),
-         url('../font/yanonekaffeesatz-bold-webfont.ttf') format('truetype'),
-         url('../font/yanonekaffeesatz-bold-webfont.svg#yanone_kaffeesatzbold') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'yanone_light';
-    src: url('../font/yanonekaffeesatz-light-webfont.eot');
-    src: url('../font/yanonekaffeesatz-light-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../font/yanonekaffeesatz-light-webfont.woff') format('woff'),
-         url('../font/yanonekaffeesatz-light-webfont.ttf') format('truetype'),
-         url('../font/yanonekaffeesatz-light-webfont.svg#yanone_kaffeesatzlight') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
     font-family: 'yanone_regular';
     src: url('../font/yanonekaffeesatz-regular-webfont.eot');
     src: url('../font/yanonekaffeesatz-regular-webfont.eot?#iefix') format('embedded-opentype'),

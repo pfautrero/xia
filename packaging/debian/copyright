@@ -3,28 +3,177 @@ Upstream-Name: xia
 Source: http://images-actives.crdp-versailles.fr
 
 Files: *
-Copyright: 2014 Pascal Fautrero
+Copyright: 2014 Pascal Fautrero <pascal.fautrero@ac-versailles.fr>
 License: GPL-3.0+
 
 Files:  debian/*
-Copyright: 2014 François Lafont <francois.lafont@crdp.ac-versailles.fr>
+Copyright: 2014 François Lafont <francois.lafont@ac-versailles.fr>
 License: GPL-3.0+
 
-License: GPL-3.0+
- This program is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
- .
- This package is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
- .
- You should have received a copy of the GNU General Public License
- along with this program. If not, see <http://www.gnu.org/licenses/>.
- .
- On Debian systems, the complete text of the GNU General
- Public License version 3 can be found in "/usr/share/common-licenses/GPL-3".
+Files: src/converter/themes/accordionBlack/js/LAB.min.js
+Copyright: 2012 Kyle Simpson
+License : MIT
 
+Files: src/converter/themes/accordionBlack/js/bootstrap.min.js
+Copyright: 2011-2014 Twitter, Inc
+License : MIT
 
+Files: src/converter/themes/accordionBlack/js/jquery-1.11.1.js
+Copyright: 2005, 2014 jQuery Foundation, Inc.
+License : MIT
+
+Files: src/converter/themes/accordionBlack/js/kinetic.js
+Copyright: 2014-03-27 http://www.kineticjs.com by Eric Rowell
+License : MIT
+
+Files: src/converter/themes/accordionBlack/font/*
+Copyright: 2010 Yanone
+License : OFL-1.1
+
+Files: src/converter/themes/accordionBlack/img/*
+Copyright: 2014 Wahid Mendil
+License : CC-BY-SA-3.0
+
+Files: src/converter/themes/accordionCloud/js/LAB.min.js
+Copyright: 2012 Kyle Simpson
+License : MIT
+
+Files: src/converter/themes/accordionCloud/js/bootstrap.min.js
+Copyright: 2012 Twitter, Inc
+License : MIT
+
+Files: src/converter/themes/accordionCloud/js/jquery-1.11.1.js
+Copyright: 2005, 2014 jQuery Foundation, Inc.
+License : MIT
+
+Files: src/converter/themes/accordionCloud/js/kinetic.js
+Copyright: 2014-03-27 http://www.kineticjs.com by Eric Rowell
+License : MIT
+
+Files: src/converter/themes/accordionCloud/font/*
+Copyright: 2010 Yanone
+License : OFL-1.1
+
+Files: src/converter/themes/accordionCloud/img/*
+Copyright: 2014 Wahid Mendil
+License : CC-BY-SA-3.0
+
+Files: src/converter/themes/audioBrown/js/LAB.min.js
+Copyright: 2012 Kyle Simpson
+License : MIT
+
+Files: src/converter/themes/audioBrown/js/jquery-1.11.1.js
+Copyright: 2005, 2014 jQuery Foundation, Inc.
+License : MIT
+
+Files: src/converter/themes/audioBrown/js/kinetic.js
+Copyright: 2014-03-27 http://www.kineticjs.com by Eric Rowell
+License : MIT
+
+Files: src/converter/themes/audioBrown/font/*
+Copyright: 2010 Yanone
+License : OFL-1.1
+
+Files: src/converter/themes/audioBrown/img/*
+Copyright: 2014 Wahid Mendil
+License : CC-BY-SA-3.0
+
+Files: src/converter/themes/buttonBlue/js/LAB.min.js
+Copyright: 2012 Kyle Simpson
+License : MIT
+
+Files: src/converter/themes/buttonBlue/js/jquery-1.11.1.js
+Copyright: 2005, 2014 jQuery Foundation, Inc.
+License : MIT
+
+Files: src/converter/themes/buttonBlue/js/kinetic.js
+Copyright: 2014-03-27 http://www.kineticjs.com by Eric Rowell
+License : MIT
+
+Files: src/converter/themes/buttonBlue/font/*
+Copyright: 2010 Yanone
+License : OFL-1.1
+
+Files: src/converter/themes/buttonBlue/img/*
+Copyright: 2014 Wahid Mendil
+License : CC-BY-SA-3.0
+
+Files: src/converter/themes/game1clic/js/LAB.min.js
+Copyright: 2012 Kyle Simpson
+License : MIT
+
+Files: src/converter/themes/game1clic/js/jquery-1.11.1.js
+Copyright: 2005, 2014 jQuery Foundation, Inc.
+License : MIT
+
+Files: src/converter/themes/game1clic/js/kinetic.js
+Copyright: 2014-03-27 http://www.kineticjs.com by Eric Rowell
+License : MIT
+
+Files: src/converter/themes/game1clic/font/*
+Copyright: 2010 Yanone
+License : OFL-1.1
+
+Files: src/converter/themes/game1clic/img/*
+Copyright: 2014 Wahid Mendil
+License : CC-BY-SA-3.0
+
+Files: src/converter/themes/gameDragAndDrop/js/LAB.min.js
+Copyright: 2012 Kyle Simpson
+License : MIT
+
+Files: src/converter/themes/gameDragAndDrop/js/jquery-1.11.1.js
+Copyright: 2005, 2014 jQuery Foundation, Inc.
+License : MIT
+
+Files: src/converter/themes/gameDragAndDrop/js/kinetic.js
+Copyright: 2014-03-27 http://www.kineticjs.com by Eric Rowell
+License : MIT
+
+Files: src/converter/themes/gameDragAndDrop/font/*
+Copyright: 2010 Yanone
+License : OFL-1.1
+
+Files: src/converter/themes/gameDragAndDrop/img/*
+Copyright: 2014 Wahid Mendil
+License : CC-BY-SA-3.0
+
+Files: src/converter/themes/popBlue/js/LAB.min.js
+Copyright: 2012 Kyle Simpson
+License : MIT
+
+Files: src/converter/themes/popBlue/js/jquery-1.11.1.js
+Copyright: 2005, 2014 jQuery Foundation, Inc.
+License : MIT
+
+Files: src/converter/themes/popBlue/js/kinetic.js
+Copyright: 2014-03-27 http://www.kineticjs.com by Eric Rowell
+License : MIT
+
+Files: src/converter/themes/popBlue/font/*
+Copyright: 2010 Yanone
+License : OFL-1.1
+
+Files: src/converter/themes/popBlue/img/*
+Copyright: 2014 Wahid Mendil
+License : CC-BY-SA-3.0
+
+Files: src/converter/themes/popYellow/js/LAB.min.js
+Copyright: 2012 Kyle Simpson
+License : MIT
+
+Files: src/converter/themes/popYellow/js/jquery-1.11.1.js
+Copyright: 2005, 2014 jQuery Foundation, Inc.
+License : MIT
+
+Files: src/converter/themes/popYellow/js/kinetic.js
+Copyright: 2014-03-27 http://www.kineticjs.com by Eric Rowell
+License : MIT
+
+Files: src/converter/themes/popYellow/font/*
+Copyright: 2010 Yanone
+License : OFL-1.1
+
+Files: src/converter/themes/popYellow/img/*
+Copyright: 2014 Wahid Mendil
+License : CC-BY-SA-3.0
