@@ -1,7 +1,7 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: xia
 Upstream-Contact: Pascal Fautrero <pascal.fautrero@ac-versailles.fr>
-Source: https://gitlab.crdp.ac-versailles.fr/pascal.fautrero/images-actives-html5/tree/master/upstream
+Source: https://gitlab.crdp.ac-versailles.fr/pascal.fautrero/images-actives-html5/tree/master/
 
 Files: *
 Copyright: 2014 Pascal Fautrero <pascal.fautrero@ac-versailles.fr>
