@@ -1,0 +1,313 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,textcomp}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{fancybox}
+\usepackage[pdftex]{hyperref}
+\usepackage[usenames,dvipsnames]{pstricks}
+\usepackage{epsfig}
+\usepackage{fancyvrb}
+\usepackage{alltt}
+
+\hypersetup{%
+  colorlinks= true,
+  linkcolor = blue
+  }
+\hypersetup{
+  pdftitle={Xia},
+  pdfauthor={Énuma Logiciel Libre},
+  pdfsubject={Xia},
+  pdfkeywords={Xia, logiciel libre, html5, Inkscape}
+}
+
+\renewcommand{\thechapter}{\arabic{chapter}}
+\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\thesubsection}{\alph{subsection}}
+
+\newcommand{\chemin}[1]{\textcolor{red}{#1}}
+
+\begin{document}
+ 
+\section{Présentation de Xia}
+
+\subsection{Qu'est-ce que Xia?}
+
+Xia est un logiciel libre développé par la délégation académique pour le numérique éducatif de l'académie de Versailles.
+Distribué sous licence \href{http://www.gnu.org/copyleft/gpl.html}{GPLv3}, il est le successeur du logiciel «~ImagesActives~».
+Xia est un convertisseur qui prend en entrée un fichier svg et fournit en sortie une image active en html5.
+Au-delà des templates d'export déjà connus des utilisateurs du logiciel ImagesActives
+(\href{http://images-actives.crdp-versailles.fr/spip.php?article11&lang=fr}{accordéon, boutons, etc.}),
+Xia permet en outre de générer des activités interactives: jeux de glisser-déposer, discrimination, sélection, etc.
+
+Cette documentation est un guide «~pas à pas~» pour la réalisation d'images actives.
+Partant de la réalisation d'une image active simple (détourage et commentaires sans enrichissements particuliers)
+elle guide l'utilisateur vers la réalisation d'images plus complexes (enrichissements multimédias, jeux, etc.)
+Les exemples sont visibles en ligne (le lien est signalé en début de section), les fichiers sources (au format svg) sont également téléchargeables.
+
+\subsection{Processus général}
+
+Contrairement à ImagesActives, Xia n'intervient qu'en toute fin de processus de création de la ressource.
+Comme on peut le constater sur la figure \ref{workflow_xia}, l'essentiel du travail est à effectuer
+dans un logiciel de dessin vectoriel.
+Nous recommandons fortement l'utilisation d'\href{http://www.inkscape.org/}{Inkscape}, logiciel libre
+multi-plateforme, très aisé à prendre en main.
+
+\begin{figure}[htp]
+ \centering
+ \caption{Processus de création d'une image active avec Xia}
+ \includegraphics[width=1\textwidth]{images/workflow_xia}
+ \label{workflow_xia}
+\end{figure}
+
+\section{Réalisation d'une première image active avec Inkscape et Xia: fonctionnalités de base}
+
+\subsection{Installation d'Inkscape et de Xia}
+
+L'installation d'Inkscape et de Xia est le seul pré-requis à la suite de la lecture de cette documentation.
+Les informations nécessaires à ces manipulations se trouvent sur les sites respectifs des projets\footnote{Voir les sites d'\href{http://www.inkscape.org/}{Inkscape} et de \href{http://images-actives.crdp-versailles.fr/beta/}{Xia}.}.
+
+\subsection{Préparation du fichier svg en vue de la génération de l'image active}
+
+Les quelques manipulations décrites dans cette section sont suffisantes
+pour réaliser une \href{http://geoffrey-gekiere.ac-versailles.fr/xia1}{image active «~de base~»}\footnote{Le \href{http://geoffrey-gekiere.ac-versailles.fr/xia1/svg/xia1.svg}{fichier svg correspondant est téléchargeable}.}, ayant les caractéristiques suivantes:
+\begin{enumerate}
+ \item Détails zoomables
+ \item Commentaires des détails constitués uniquement de texte non mis en forme
+\end{enumerate}
+
+
+Une fois l'image à travailler choisie, on l'ouvre dans Inkscape (menu \chemin{Fichier} puis \chemin{Ouvrir}).
+À la question posée par le logiciel («~\chemin{Lier ou incorporer l'image}~»), on choisira «~\chemin{Incorporer}~».
+
+Parmi les nombreuses informations que l'on peut renseigner en accédant à la fenêtre de dialogue des 
+\chemin{Métadonnées du document} (menu \chemin{Fichier}), trois seront prises en compte dans l'image active
+une fois générée: le titre, le créateur, les droits.
+Il est donc fortement recommandé de les renseigner.
+Dans l'exemple suivant (voir figure \ref{titre_ia}), on voit l'importance d'un titre correctement
+renseigné dans les métadonnées: il s'agit en réalité du titre de l'image active\footnote{Les champs «~auteur~» et «~droits~» apparaissent pour leur part dans la fenêtre «~À propos~», symbolisé par un bouton clicable en forme de lettre «~i~».}.
+
+\begin{figure}[htp]
+ \centering
+ \caption{Le titre renseigné dans les métadonnées du document apparaît au-dessus de l'image active et donne son nom à la page web de celle-ci}
+ \includegraphics[width=0.7\textwidth]{images/titre_ia}
+ \label{titre_ia}
+\end{figure}
+
+On peut enregistrer l'image au format svg dès le début du travail:
+\begin{enumerate}
+ \item menu \chemin{Fichier} puis \chemin{Enregistrer sous...}
+ \item pour davantage de lisibilité, on supprimera l'extension actuelle de l'image dans le champs \chemin{Nom} de la fenêtre de dialogue
+ \item dans le menu déroulant permettant de choisir le format de fichier: format \chemin{SVG Inkscape (*.svg)}.
+\end{enumerate}
+
+Plusieurs outils d'Inkscape sont utilisables pour détourer les détails qui deviendront actifs dans l'image générée par Xia. Parmi ceux-ci:
+\begin{enumerate}
+ \item \includegraphics[scale=0.5]{./images/rec_carre} L'outil \chemin{Créer des rectangles et des carrés}
+ \item \includegraphics[scale=0.5]{./images/cercles} L'outil \chemin{Créer des cercles, des ellipses et des arcs}
+ \item \includegraphics[scale=0.5]{./images/lignes} L'outil \chemin{Dessiner des lignes à main levée}
+ \item \includegraphics[scale=0.5]{./images/bezier} L'outil \chemin{Tracer des courbes de Bézier et des segments de droite}
+\end{enumerate}
+
+Sans rentrer dans le détail du fonctionnement de ces outils\footnote{Pour cela, 
+se référer au \href{http://inkscape.org/doc/shapes/tutorial-shapes.fr.html}{manuel d'Inkscape}.}, on notera cependant que
+les outils «~\chemin{Créer des rectangles et des carrés}~» et «~\chemin{Créer des cercles, des ellipses et des arcs}~»
+ peuvent se manipuler uniquement à la souris ou en lien avec le clavier: en appuyant sur la touche Ctrl, on 
+ dessine un carré, rectangle ou cercle de rapport de dimensions entier (2:1, 3:1, etc.),
+ et en appuyant sur la touche Maj, on dessine autour du point de départ.
+
+L'outil «~\chemin{Tracer des courbes de Bézier et des segments de droite}~» permet de détourer «~clic par clic~»
+(on appelle les points de construction des «~nœuds~»).
+On referme la figure en cliquant sur le nœud de départ.
+L'outil «~courbe de bézier~» est appelé en gardant le clic de souris appuyé après avoir créé un nœud, 
+puis en déplaçant le pointeur pour faire apparaitre les poignées de contrôle permettant de modeler
+le segment de courbe à volonté.
+
+À noter:
+\begin{enumerate}
+ \item si l'utilisateur définit dans Inkscape une forme laissée ouverte (par exemple: une ligne),
+Xia la «~refermera~» automatiquement en reliant par une droite le début et la fin de celle-ci.
+ \item l'ordre de création des détails correspond dans l'image générée à l'ordre d'affichage des détails
+ (par exemple, le détail créé en premier dans Inkscape apparaîtra en haut dans l'image active)
+\end{enumerate}
+
+Une fois un détail détouré, on le sélectionne avec l'outil \includegraphics[scale=0.5]{./images/selection}
+\chemin{Sélectionner et transformer des objets} afin de le redimensionner, le déplacer, etc.
+
+C'est par un clic droit sur le détail détouré que l'on accède aux \chemin{Propriétés de l'objet} (voir figure \ref{proprietes_objet}),
+et ainsi à la fenêtre de dialogue dans laquelle on renseigne le texte qui sera associé au détail dans l'image active
+une fois générée.
+
+\begin{figure}[htp]
+ \centering
+ \caption{Accès aux «~Propriétés de l'objet~», permettant de renseigner le texte 
+ qui servira de commentaire au détail dans l'image active générée}
+ \includegraphics[width=0.3\textwidth]{./images/proprietes_objet}
+ \label{proprietes_objet}
+\end{figure}
+
+Les deux champs à renseigner dans cette fenêtre sont \chemin{Titre} et \chemin{Description}.
+Le titre renseigné ici sera celui du détail, la description en sera son commentaire.
+
+Le processus décrit ci-dessus doit également être réalisé avec l'image de fond: le titre et la description renseignées
+serviront d'introduction à l'image active (titre et commentaire non reliée à un détail particulier).
+
+\subsection{Génération de l'image active dans Xia}
+
+Quand tous les détails sont détourés et leurs métadonnées renseignées, on peut lancer le logiciel Xia.
+La première icône, en haut à gauche, permet de choisir le fichier svg à générer:
+\begin{center}
+\includegraphics[scale=0.4]{./images/xia_open} 
+\end{center}
+
+Un clic sur l'une des icônes d'export génère une série de fichiers, dont un index.html\footnote{Attention: ce fichier seul est inexploitable. Tous les autres fichiers et répertoires générés lors de l'export sont indispensables au bon fonctionnement de l'animation. Il est donc recommandé de dédier un répertoire spécifique à chaque image exportée, afin d'éviter des déconvenues.}, qui, ouvert dans un navigateur
+web, affichera l'image active.
+
+Les templates d'images actives «~simples~» sont les suivants:
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+Nom du thème & Icône & Exemple\\
+\hline
+accordionBlack\  & \includegraphics[scale=0.5]{./images/accordionBlack} & \href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionBlack}{Paysage ligérien, export accordionBlack}\\
+\hline
+accordionCloud &  \includegraphics[scale=0.5]{./images/accordionCloud} & \href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionCloud}{Paysage ligérien, export accordionCloud}\\
+\hline
+buttonBlue &  \includegraphics[scale=0.5]{./images/buttonBlue} & \href{http://geoffrey-gekiere.ac-versailles.fr/xia1/buttonBlue}{Paysage ligérien, export buttonBlue}\\
+\hline
+popBlue &  \includegraphics[scale=0.5]{./images/popBlue} & \href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{Paysage ligérien, export popBlue}\\
+\hline
+popYellow &  \includegraphics[scale=0.5]{./images/popYellow} & \href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popYellow}{Paysage ligérien, export popYellow}\\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Image active enrichie}
+
+Dans cette section, nous réalisons toujours une image active classique (un détail = un commentaire),
+mais nous enrichissons le contenu de celle-ci par divers moyens, comme une mise en forme avancée du texte ou des contenus 
+multimédias directement insérés dans les commentaires.
+
+L'image illustrant les manipulations décrites dans cette section est \href{http://geoffrey-gekiere.ac-versailles.fr/xia2/}{visible en ligne}, et le \href{http://geoffrey-gekiere.ac-versailles.fr/xia2/svg/xia2.svg}{svg créé dans Inkscape est téléchargeable}.
+
+\subsection{Mise en forme du texte}
+
+Pour mettre en forme le texte des commentaires, on insérera les balises suivantes:
+
+\begin{center}
+ \begin{tabular}{|l|l|}
+ \hline
+  Balises & Résultat\\
+  \hline
+  \hline
+  ***gras*** & \textbf{gras}\\
+  \hline
+  **italique** & \textit{italique}\\
+  \hline
+  [http://dane.ac-versailles.fr Le site de la Dane] & \href{http://dane.ac-versailles/fr}{Le site de la Dane}\\
+  \hline
+  \{\{\{Texte brut\}\}\} & \includegraphics[scale=0.7]{./images/texte_brut}\\
+  \hline
+  ~* une liste\\
+  ~* de puces\\
+  ~~* sur 2\\
+  ~~* niveaux\\ & \includegraphics[scale=0.7]{./images/liste_puce}\\
+  \hline
+  tracer\\
+  \verb|----|\\
+  une ligne\\ & \includegraphics[scale=0.7]{./images/ligne_commentaire}
+  \end{tabular}
+\end{center}
+
+\subsection{Enrichissement multimédia des détails}\label{details_multimedia}
+
+L'insertion de contenus multimédias dans les commentaires des détails est extrêmement aisé:
+il suffit à l'utilisateur d'indiquer l'url (relative ou absolue) de la ressource, ou d'insérer le code iframe
+fourni par le service hébergeant le contenu (par exemple, la \href{https://scolawebtv.crdp-versailles.fr/}{Scolawebtv}).
+
+Nativement, Xia génère un lecteur multimédia dans le commentaire à partir du moment où la ressource (image, son ou vidéo)
+correspond à un des formats suivants:
+\begin{description}
+ \item [Images] jpg, jpeg, png, gif
+ \item [Son] ogg, mp3
+ \item [Vidéo] ogv, webm, mp4
+\end{description}
+
+Il suffira donc d'indiquer le lien relatif ou absolu vers la ressource pour que le lecteur apparaisse une fois l'image générée:
+\begin{description}
+ \item [Lien absolu] Si la ressource se trouve à l'adresse\\
+ \verb|http://web.crdp.ac-versailles.fr/proftv/5/4/6/02546.ogg|\\
+ il suffira d'indiquer cette adresse dans le champs description des propriétés de l'objet, dans Inkscape
+ \item [Lien relatif] Si la ressource se trouve dans le dossier d'export ou dans un dossier situé dans le dossier d'export, on en indiquera
+ l'emplacement en considérant le dossier d'export comme la racine
+ (par exemple, si \verb|video.ogv| se trouve dans un répertoire \verb|videos| lui-même situé dans le dossier d'export, on indiquera dans
+ le commentaire \verb|videos/video.ogv| pour que le lecteur soit créé)
+\end{description}
+
+Pour que la lecture de la ressource commence automatiquement, l'ajout de l'argument \verb|autostart| après l'url de la ressource est requis:\\
+\verb|http://web.crdp.ac-versailles.fr/proftv/5/4/6/02546.ogg autostart|.
+
+Les différents formats vidéos gérés par Xia ne sont pas nativement reconnus par tous les navigateurs.
+Une méthode pour contourner ce problème peut consister à exporter dans les trois formats la ressource,
+et à déposer les trois fichiers ainsi obtenus dans un répertoire identique, avec le même nom (seule l'extension
+en .ogv, .mp4 et .webm les différencie alors):\\
+
+\parbox{0.40\textwidth}
+{
+\begin{alltt}
+ -\textcolor{blue}{repertoire\_export}\\
+ ---index.html\\
+ ---[ensemble des fichiers et répertoires générés par Xia]\\
+ ---\textcolor{blue}{repertoire\_videos}\\
+ -----video.mp4\\
+ -----video.ogv\\
+ -----video.webm\\
+\end{alltt}
+}
+\fbox{\begin{minipage}{0.50\textwidth}
+	Dans l'exemple ci-contre, les répertoires, en bleu, ont été créés par l'utilisateur. Dans le répertoire \textcolor{blue}{repertoire\_export}
+	se trouvent les répertoires et fichiers générés par Xia, dont le fichier index.html.
+	On crée également dans ce répertoire un répertoire \textcolor{blue}{repertoire\_videos} qui a pour fonction
+	de stocker les vidéos qui seront appelées dans les commentaires de l'image active grâce à un lien relatif.
+      \end{minipage}}
+
+
+Ainsi, même si un format particulier est indiqué dans la description (en suivant l'exemple précédent: \verb|repertoire_videos/video.ogv|),
+si le navigateur ne parvient pas à lire la ressource, il tentera automatiquement de lire les fichiers du même nom 
+possèdant une extension différente (soit, ici, \verb|video.mp4| puis \verb|video.webm|).
+
+Enfin, la dernière possibilité consiste à insérer dans le commentaire le code iframe d'un service d'hébergement de ressources.
+Celui-ci sera interprêté et le lecteur du service s'affichera dans le commentaire, donnant accès à la ressource.
+
+\subsection{Insertion d'images dans l'image active}
+
+On peut ajouter à l'image active des images (logo, puces, etc.) au format png.
+Pour ce faire, dans Inkscape, retourner dans le menu \chemin{Fichier}, et choisir \chemin{Importer}
+afin d'incorporer votre nouvelle image.
+
+Cette nouvelle image ne sera visible automatiquement dans l'image active générée
+que si on lui applique un fond blanc (après l'avoir sélectionnée, on choisit cette couleur dans la palette
+horizontale située en bas de l'interface d'Inkscape (voir figure \ref{remplissage_blanc}).
+
+\begin{figure}[htp]
+ \centering
+ \caption{Dans Inkscape, on sélectionne le png incorporé puis on lui applique un fond blanc en sélectionnant cette couleur dans la palette horizontale afin de le rendre visible automatiquement}
+ \includegraphics[width=0.6\textwidth]{images/remplissage_blanc}
+ \label{remplissage_blanc}
+\end{figure}
+
+En indiquant une url dans le champs \chemin{Titre} des \chemin{Propriétés de l'objet}, l'image incorporée
+devient une icône clicable renvoyant vers la page web en question.
+
+\subsection{Afficher une question et accéder à une réponse}
+
+Pour insérer dans un détail un bouton «~\textit{Réponse}~» clicable bloquant momentanément l'accès à la suite du commentaire,
+rien de plus simple!
+
+Il suffit en effet d'insérer dans la description, à l'endroit souhaité, la ligne\\
+\verb|Réponse:| ou \verb|réponse:| et de rédiger en-dessous le texte que l'on souhaite voir apparaître.
+
+\end{document}
