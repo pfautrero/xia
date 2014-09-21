@@ -64,6 +64,6 @@ populate_working_dir: clean_for_git
 	cd "$(WORKING_DIR)" && tar --strip-components=1 -zxf ../xia_$(VERSION).orig.tar.gz -C .
 
 create_deb: populate_working_dir
-	cd "$(WORKING_DIR)" && debuild --no-tgz-check -us -uc && echo 'Building is OK!'
+	cd "$(WORKING_DIR)" && debuild -us -uc && echo 'Building is OK!'
 
 
