@@ -46,7 +46,8 @@ Xia permet en outre de générer des activités interactives: jeux de glisser-d�
 Cette documentation est un guide «~pas à pas~» pour la réalisation d'images actives.
 Partant de la réalisation d'une image active simple (détourage et commentaires sans enrichissements particuliers)
 elle guide l'utilisateur vers la réalisation d'images plus complexes (enrichissements multimédias, jeux, etc.)
-Les exemples sont visibles en ligne (le lien est signalé en début de section), les fichiers sources (au format svg) sont également téléchargeables.
+Les exemples sont visibles en ligne (le lien est signalé en début de section), les fichiers sources (au format svg) 
+sont également téléchargeables.
 
 \subsection{Processus général}
 
@@ -70,10 +71,12 @@ multi-plateforme, très aisé à prendre en main.
 L'installation d'Inkscape et de Xia est le seul pré-requis à la suite de la lecture de cette documentation.
 Les informations nécessaires à ces manipulations se trouvent sur les sites respectifs des projets\footnote{Voir les sites d'\href{http://www.inkscape.org/}{Inkscape} et de \href{http://images-actives.crdp-versailles.fr/beta/}{Xia}.}.
 
-\subsection{Préparation du fichier svg en vue de la génération de l'image active}
+\subsection{Préparation du fichier svg en vue de la génération de l'image active}\label{preparation_svg}
 
 Les quelques manipulations décrites dans cette section sont suffisantes
-pour réaliser une \href{http://geoffrey-gekiere.ac-versailles.fr/xia1}{image active «~de base~»}\footnote{Le \href{http://geoffrey-gekiere.ac-versailles.fr/xia1/svg/xia1.svg}{fichier svg correspondant est téléchargeable}.}, ayant les caractéristiques suivantes:
+pour réaliser une \href{http://geoffrey-gekiere.ac-versailles.fr/xia1}{image active «~de base~»}\footnote{Le 
+\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/svg/xia1.svg}{fichier svg correspondant est téléchargeable}.}, 
+ayant les caractéristiques suivantes:
 \begin{enumerate}
  \item Détails zoomables
  \item Commentaires des détails constitués uniquement de texte non mis en forme
@@ -88,11 +91,14 @@ Parmi les nombreuses informations que l'on peut renseigner en accédant à la fe
 une fois générée: le titre, le créateur, les droits.
 Il est donc fortement recommandé de les renseigner.
 Dans l'exemple suivant (voir figure \ref{titre_ia}), on voit l'importance d'un titre correctement
-renseigné dans les métadonnées: il s'agit en réalité du titre de l'image active\footnote{Les champs «~auteur~» et «~droits~» apparaissent pour leur part dans la fenêtre «~À propos~», symbolisé par un bouton clicable en forme de lettre «~i~».}.
+renseigné dans les métadonnées: il s'agit en réalité du titre de l'image active\footnote{Les champs 
+«~auteur~» et «~droits~» apparaissent pour leur part dans la fenêtre «~À propos~», symbolisé par 
+un bouton clicable en forme de lettre «~i~».}.
 
 \begin{figure}[htp]
  \centering
- \caption{Le titre renseigné dans les métadonnées du document apparaît au-dessus de l'image active et donne son nom à la page web de celle-ci}
+ \caption{Le titre renseigné dans les métadonnées du document apparaît au-dessus de l'image active 
+ et donne son nom à la page web de celle-ci}
  \includegraphics[width=0.7\textwidth]{images/titre_ia}
  \label{titre_ia}
 \end{figure}
@@ -100,11 +106,13 @@ renseigné dans les métadonnées: il s'agit en réalité du titre de l'image ac
 On peut enregistrer l'image au format svg dès le début du travail:
 \begin{enumerate}
  \item menu \chemin{Fichier} puis \chemin{Enregistrer sous...}
- \item pour davantage de lisibilité, on supprimera l'extension actuelle de l'image dans le champs \chemin{Nom} de la fenêtre de dialogue
+ \item pour davantage de lisibilité, on supprimera l'extension actuelle de l'image dans le champs \chemin{Nom} 
+ de la fenêtre de dialogue
  \item dans le menu déroulant permettant de choisir le format de fichier: format \chemin{SVG Inkscape (*.svg)}.
 \end{enumerate}
 
-Plusieurs outils d'Inkscape sont utilisables pour détourer les détails qui deviendront actifs dans l'image générée par Xia. Parmi ceux-ci:
+Plusieurs outils d'Inkscape sont utilisables pour détourer les détails qui deviendront actifs dans l'image générée 
+par Xia. Parmi ceux-ci:
 \begin{enumerate}
  \item \includegraphics[scale=0.5]{./images/rec_carre} L'outil \chemin{Créer des rectangles et des carrés}
  \item \includegraphics[scale=0.5]{./images/cercles} L'outil \chemin{Créer des cercles, des ellipses et des arcs}
@@ -163,7 +171,10 @@ La première icône, en haut à gauche, permet de choisir le fichier svg à gén
 \includegraphics[scale=0.4]{./images/xia_open} 
 \end{center}
 
-Un clic sur l'une des icônes d'export génère une série de fichiers, dont un index.html\footnote{Attention: ce fichier seul est inexploitable. Tous les autres fichiers et répertoires générés lors de l'export sont indispensables au bon fonctionnement de l'animation. Il est donc recommandé de dédier un répertoire spécifique à chaque image exportée, afin d'éviter des déconvenues.}, qui, ouvert dans un navigateur
+Un clic sur l'une des icônes d'export génère une série de fichiers, dont un index.html\footnote{Attention: 
+ce fichier seul est inexploitable. Tous les autres fichiers et répertoires générés lors de l'export 
+sont indispensables au bon fonctionnement de l'animation. Il est donc recommandé de dédier un répertoire 
+spécifique à chaque image exportée, afin d'éviter des déconvenues.}, qui, ouvert dans un navigateur
 web, affichera l'image active.
 
 Les templates d'images actives «~simples~» sont les suivants:
@@ -172,15 +183,20 @@ Les templates d'images actives «~simples~» sont les suivants:
 \hline
 Nom du thème & Icône & Exemple\\
 \hline
-accordionBlack\  & \includegraphics[scale=0.5]{./images/accordionBlack} & \href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionBlack}{Paysage ligérien, export accordionBlack}\\
+accordionBlack\  & \includegraphics[scale=0.5]{./images/accordionBlack} & 
+\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionBlack}{Paysage ligérien, export accordionBlack}\\
 \hline
-accordionCloud &  \includegraphics[scale=0.5]{./images/accordionCloud} & \href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionCloud}{Paysage ligérien, export accordionCloud}\\
+accordionCloud &  \includegraphics[scale=0.5]{./images/accordionCloud} & 
+\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionCloud}{Paysage ligérien, export accordionCloud}\\
 \hline
-buttonBlue &  \includegraphics[scale=0.5]{./images/buttonBlue} & \href{http://geoffrey-gekiere.ac-versailles.fr/xia1/buttonBlue}{Paysage ligérien, export buttonBlue}\\
+buttonBlue &  \includegraphics[scale=0.5]{./images/buttonBlue} & 
+\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/buttonBlue}{Paysage ligérien, export buttonBlue}\\
 \hline
-popBlue &  \includegraphics[scale=0.5]{./images/popBlue} & \href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{Paysage ligérien, export popBlue}\\
+popBlue &  \includegraphics[scale=0.5]{./images/popBlue} & 
+\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{Paysage ligérien, export popBlue}\\
 \hline
-popYellow &  \includegraphics[scale=0.5]{./images/popYellow} & \href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popYellow}{Paysage ligérien, export popYellow}\\
+popYellow &  \includegraphics[scale=0.5]{./images/popYellow} & 
+\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popYellow}{Paysage ligérien, export popYellow}\\
 \hline
 \end{tabular}
 \end{center}
@@ -191,12 +207,14 @@ Dans cette section, nous réalisons toujours une image active classique (un dét
 mais nous enrichissons le contenu de celle-ci par divers moyens, comme une mise en forme avancée du texte ou des contenus 
 multimédias directement insérés dans les commentaires.
 
-L'image illustrant les manipulations décrites dans cette section est \href{http://geoffrey-gekiere.ac-versailles.fr/xia2/}{visible en ligne}, et le \href{http://geoffrey-gekiere.ac-versailles.fr/xia2/svg/xia2.svg}{svg créé dans Inkscape est téléchargeable}.
+L'image illustrant les manipulations décrites dans cette section est \href{http://geoffrey-gekiere.ac-versailles.fr/xia2/}
+{visible en ligne}, et le \href{http://geoffrey-gekiere.ac-versailles.fr/xia2/svg/xia2.svg}{svg créé dans Inkscape est téléchargeable}.
 
 \subsection{Mise en forme du texte}
 
 Pour mettre en forme le texte des commentaires, on insérera les balises suivantes:
 
+%problème d'alignement du contenu des cellules sur "<liste de puces"> et "<tracer une ligne">
 \begin{center}
  \begin{tabular}{|l|l|}
  \hline
@@ -222,7 +240,7 @@ Pour mettre en forme le texte des commentaires, on insérera les balises suivant
   \end{tabular}
 \end{center}
 
-\subsection{Enrichissement multimédia des détails}\label{details_multimedia}
+\subsection{Enrichissement multimédia des détails}
 
 L'insertion de contenus multimédias dans les commentaires des détails est extrêmement aisé:
 il suffit à l'utilisateur d'indiquer l'url (relative ou absolue) de la ressource, ou d'insérer le code iframe
@@ -247,7 +265,8 @@ Il suffira donc d'indiquer le lien relatif ou absolu vers la ressource pour que 
  le commentaire \verb|videos/video.ogv| pour que le lecteur soit créé)
 \end{description}
 
-Pour que la lecture de la ressource commence automatiquement, l'ajout de l'argument \verb|autostart| après l'url de la ressource est requis:\\
+Pour que la lecture de la ressource commence automatiquement, l'ajout de l'argument \verb|autostart| 
+après l'url de la ressource est requis:\\
 \verb|http://web.crdp.ac-versailles.fr/proftv/5/4/6/02546.ogg autostart|.
 
 Les différents formats vidéos gérés par Xia ne sont pas nativement reconnus par tous les navigateurs.
@@ -255,6 +274,7 @@ Une méthode pour contourner ce problème peut consister à exporter dans les tr
 et à déposer les trois fichiers ainsi obtenus dans un répertoire identique, avec le même nom (seule l'extension
 en .ogv, .mp4 et .webm les différencie alors):\\
 
+%je pense qu'il y a moyen de faire vachement plus joli pour représenter l'arborescence
 \parbox{0.40\textwidth}
 {
 \begin{alltt}
@@ -268,7 +288,8 @@ en .ogv, .mp4 et .webm les différencie alors):\\
 \end{alltt}
 }
 \fbox{\begin{minipage}{0.50\textwidth}
-	Dans l'exemple ci-contre, les répertoires, en bleu, ont été créés par l'utilisateur. Dans le répertoire \textcolor{blue}{repertoire\_export}
+	Dans l'exemple ci-contre, les répertoires, en bleu, ont été créés par l'utilisateur. 
+	Dans le répertoire \textcolor{blue}{repertoire\_export}
 	se trouvent les répertoires et fichiers générés par Xia, dont le fichier index.html.
 	On crée également dans ce répertoire un répertoire \textcolor{blue}{repertoire\_videos} qui a pour fonction
 	de stocker les vidéos qui seront appelées dans les commentaires de l'image active grâce à un lien relatif.
@@ -282,7 +303,7 @@ possèdant une extension différente (soit, ici, \verb|video.mp4| puis \verb|vid
 Enfin, la dernière possibilité consiste à insérer dans le commentaire le code iframe d'un service d'hébergement de ressources.
 Celui-ci sera interprêté et le lecteur du service s'affichera dans le commentaire, donnant accès à la ressource.
 
-\subsection{Insertion d'images dans l'image active}
+\subsection{Insertion d'images dans l'image active}\label{insertion_images}
 
 On peut ajouter à l'image active des images (logo, puces, etc.) au format png.
 Pour ce faire, dans Inkscape, retourner dans le menu \chemin{Fichier}, et choisir \chemin{Importer}
@@ -294,7 +315,8 @@ horizontale située en bas de l'interface d'Inkscape (voir figure \ref{remplissa
 
 \begin{figure}[htp]
  \centering
- \caption{Dans Inkscape, on sélectionne le png incorporé puis on lui applique un fond blanc en sélectionnant cette couleur dans la palette horizontale afin de le rendre visible automatiquement}
+ \caption{Dans Inkscape, on sélectionne le png incorporé puis on lui applique un fond blanc en sélectionnant 
+ cette couleur dans la palette horizontale afin de le rendre visible automatiquement}
  \includegraphics[width=0.6\textwidth]{images/remplissage_blanc}
  \label{remplissage_blanc}
 \end{figure}
@@ -309,5 +331,127 @@ rien de plus simple!
 
 Il suffit en effet d'insérer dans la description, à l'endroit souhaité, la ligne\\
 \verb|Réponse:| ou \verb|réponse:| et de rédiger en-dessous le texte que l'on souhaite voir apparaître.
+
+\subsection{Contrôler le comportement des détails: affichage immédiat et désactivation
+de l'effet «~zoom~»}
+
+Par défaut, le comportement d'un détail dans l'image active générée est le suivant:
+\begin{enumerate}
+ \item Le détail ne se révêle qu'au survol de la souris ou qu'à la sélection du titre du commentaire
+ qui lui est associé
+ \item Un second clic sur un détail déjà sélectionné effectue un zoom sur celui-ci
+\end{enumerate}
+
+Ces deux comportements sont modifiables par l'application, dans Inkscape, d'un fond de couleur blanche ou noire
+aux détails détourés (voir section \ref{insertion_images} et figure \ref{remplissage_blanc}):
+\begin{description}
+ \item [Détail auquel est appliqué un fond de couleur blanche] Une fois l'image générée, 
+ le détail sera immédiatement visible, sous la forme d'un aplat de couleur opaque (masquant
+ logiquement l'image de fond). Une fois sélectionnée, l'image de fond est révêlée et le détail demeure zoomable
+ \item [Détail auquel est appliqué un fond de couleur noire] Le détail n'est visible qu'en étant sélectionné, mais
+ n'est pas zoomable.
+\end{description}
+
+Conséquence logique: un détail ne pouvant se voir appliquer à la fois un fond blanc et noir, il ne peut être à la
+fois immédiatement visible \textit{et} non-zoomable.
+
+À noter: Xia ne prend pas en compte le degré d'opacité du fond appliqué au détail, mais uniquement la couleur.
+
+
+\section{De l'interactivité à l'activité: réaliser des jeux avec Xia}
+
+Jusqu'à présent, cette documentation a uniquement abordé la réalisation d'images actives au sens «~traditionnel~»:
+une image de fond dont des détails détourés sont associés à des commentaires plus ou moins enrichis.
+
+Ce type d'image permet de mettre en œuvre des scénarios pédagogiques ne manquant pas d'intérêt 
+(découverte progressive de documents, fabrication collaborative par les élèves d'images actives), 
+mais Xia va beaucoup plus loin en permettant la réalisation de jeux et d'activités variées, dans lesquelles
+l'utilisateur est amené à réaliser infiniment plus d'actions que de simples clics sur des détails ou des commentaires.
+
+\subsection{Réalisation d'un premier jeu: sélectionner}
+
+Le principe ludique est le suivant: on propose une image dans laquelle l'utilisateur 
+doit sélectionner un certain nombre de détails en fonction d'une consigne. 
+La réalisation de l'objectif énoncé déclenche l'affichage d'un message.
+
+Afin de rendre le jeu plus vivant, le concepteur de l'image prévoit que l'image 
+active affiche la progression du joueur dans l'exercice.
+
+\subsection{Glisser-déposer: classer, légender, hiérarchiser}
+
+Second principe ludique: une image de fond contient des étiquettes qu'il faut déplacer et 
+déposer sur les bons détails. Lorsque tous les éléments ont été remis à leur place, un message 
+confirme la résolution du jeu.
+
+La démarche pour la réalisation d'un jeu de ce type est la suivante:
+\begin{enumerate}
+ \item Dans Inkscape:
+\begin{enumerate}
+ \item Choisir une image de fond
+ \item Préparer les «~étiquettes~» à déplacer (de petites images au format png), 
+ les importer dans Inkscape
+ \item Faire correspondre chaque étiquette à sa zone de dépôt (en réalité, un détail détouré)
+ grâce aux métadonnées renseignées
+\end{enumerate}
+ \item Dans Xia
+ \begin{enumerate}
+  \item Générer le svg ainsi préparé avec le thème «~gameDragAndDrop~»
+ \end{enumerate}
+\end{enumerate}
+
+Une fois les «~étiquettes~» créées (un moyen simple est d'utiliser un utilitaire de capture d'écran 
+capable de produire des images au format png) et importées dans Inkscape, il s'agit de les faire 
+correspondre aux détails censés les accueillir\footnote{Une étiquette ne peut correspondre qu'à un détail.}.
+
+Le tableau suivant résume les métadonnées à renseigner dans les \chemin{Propriétés de l'objet}
+dans l'étiquette et le détail correspondant:
+
+\begin{center}
+\begin{tabular}{|p{1.in}|p{2.5in}|p{1.5in}|}
+\hline
+ & Étiquette (objet à déplacer) & Détail détouré (réceptacle de l'étiquette)\\
+\hline
+Champs ID & \textit{Laisser l'ID créé par Inkscape} & \verb|Titre_Detail|\\
+\hline
+Champs Description & \verb|<target>Titre_Detail</target>| & \textit{Laisser ce champs vide}\\
+\hline
+Champs Interactivité > Onclick & \textit{Laisser ce champs vide}& \verb|off|\\
+\hline
+\end{tabular}
+\end{center}
+
+Pour résumer, le créateur de la ressource fait savoir à Xia quelle étiquette correspond à quel détail en faisant 
+correspondre le champs \chemin{ID} du détail (réceptacle) au champs \chemin{Description} de l'étiquette 
+(objet à déplacer). La seule subtilité consiste à entourer, dans le champs \chemin{Description}
+de l'étiquette, l'ID correspondante d'une balise \verb|<target>| et \verb|</target>|.
+
+Une astuce: si l'image active contient de nombreux détails réceptacles de taille identique, 
+il est recommandé d'en créer une, de lui appliquer la caractéristique \chemin{Interactivité > OnClick} = \verb|off|, 
+puis de copier-coller ce détail autant de fois que nécessaire. Conservant cette option, 
+le créateur de la ressource n'aura pas besoin d'aller l'appliquer à chaque détail créé.
+
+L'utilisateur de la ressource a donc pour objectif de classer correctement les étiquettes afin de déclencher
+un message informant de la réussite de l'exercice. Celui-ci est créé dans la \chemin{Description} des \chemin{Propriétés de l'objet} 
+de l'image de fond\footnote{Quand une image active «~traditionnelle~» est générée, cette manipulation
+permet la création du commentaire introductif à l'image, non relié à un détail particulier (voir section \ref{preparation_svg}).}.
+
+Deux informations sont nécessaires: le nombre de bonnes réponses déclenchant le message, et le message en lui-même.
+
+%dans ce tableau, le multicolumn refuse le \verb... à corriger
+\begin{center}
+ \begin{tabular}{|l|p{2in}|p{2in}|}
+ \hline
+  Objectif & Renseigner le nombre de bonnes réponses & Afficher un message\\
+  \hline
+  Balise & \verb|<score></score>| & \verb|<message></message>|\\
+  \hline
+  Exemple & \multicolumn{2}{|l|}{<score>6</score>}\\
+   & \multicolumn{2}{|l|}{<message>Bravo, vous avez réussi à classer}\\
+    & \multicolumn{2}{|l|}{correctement tous les éléments</message>}\\
+  \hline
+ \end{tabular}
+
+\end{center}
+
 
 \end{document}
