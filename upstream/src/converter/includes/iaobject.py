@@ -464,7 +464,7 @@ class iaObject:
             if str_onclick == "off":
                 record['options'] += " disable-click "
             else:
-                record_image['options'] += " " + str_onclick + " "
+                record['options'] += " " + str_onclick + " "
                 
         if record['title'].startswith("http://") or \
           record['title'].startswith("https://") or \
