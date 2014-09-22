@@ -123,7 +123,30 @@ function main(myhooks) {
         $("#splash").fadeOut("slow", function(){
                 $("#loader").hide();	
         });
-
+        var viewportHeight = $(window).height();
+        var viewportWidth = $(window).width();
+        if (scene.description != "<br> ") {
+            //$("#message_intro").show();
+            //$("#message_intro").show();
+            //var general_border = $("#message_intro").css("border-top-width").substr(0,$("#message_intro").css("border-top-width").length - 2);
+            //var content_width = $("#content").css("width").substr(0,$("#content").css("width").length - 2);
+            //var general_offset = $("#message_intro").offset();
+            //var content_offset = $("#content").offset();
+            //var message_width = $("#message_intro").css('width').substr(0,$("#message_intro").css("width").length - 2);
+            //var message_height = $("#message_intro").css('height').substr(0,$("#message_intro").css("height").length - 2);
+            //$("#message_intro").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)}); 
+            //$("#message_intro").css({'top':(viewportHeight  - message_height)/ 2}); 
+            //$("#message_intro").css({'left':((content_width - message_width) / 2)}); 
+            $("#rights").show();
+            var content_offset = $("#rights").offset();
+            var message_height = $("#popup_intro").css('height').substr(0,$("#popup_intro").css("height").length - 2);
+            $("#popup_intro").css({'top':(viewportHeight - content_offset.top - message_height)/ 2 - 40});
+            $("#popup_intro").show();
+            $("#popup").hide();
+            $("#popup_close_intro").on("click", function(){
+                $("#rights").hide();
+            });            
+        }
         // FullScreen ability
         // source code from http://blogs.sitepointstatic.com/examples/tech/full-screen/index.html
         var e = document.getElementById("title");

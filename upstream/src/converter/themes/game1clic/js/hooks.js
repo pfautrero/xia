@@ -80,6 +80,8 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
 
     $(".infos").on("click", function(){
         $("#rights").show();
+        $("#popup").show();
+        $("#popup_intro").hide();
     });
     $("#popup_close").on("click", function(){
         $("#rights").hide();

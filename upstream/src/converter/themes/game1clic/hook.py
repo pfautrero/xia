@@ -43,15 +43,6 @@ class hook:
 
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""
-        #xml = minidom.parseString(u"<game>"+self.iaobject.scene["intro_detail"]+u"</game>")
-        
-        #score = xml.getElementsByTagName('score')
-        #if score.item(0) is not None:
-        #    self.score = score.item(0).childNodes[0].nodeValue
-
-        #message = xml.getElementsByTagName('message')
-        #if message.item(0) is not None:
-        #    self.message = message.item(0).childNodes[0].nodeValue
         
         self.score = "0"
         self.message = self.game_not_configured
@@ -69,6 +60,7 @@ class hook:
         final_str = u'<article class="message_success" id="message_success" data-score="' + self.score + '">\n'
         final_str += u'  <p>' + self.PageFormatter(self.message).print_html() + u'</p>\n'
         final_str += u'</article>\n'
+            
         for i, detail in enumerate(self.iaobject.details):
             #if detail['options'].find(u"direct-link") == -1:
             if detail['detail'].find(u"Réponse:") != -1:
@@ -87,6 +79,7 @@ class hook:
         with open(templatePath,"r") as template:
             final_index = template.read().decode("utf-8")
             final_index = final_index.replace("{{DESCRIPTION}}", self.iaobject.scene["description"])
+            final_index = final_index.replace("{{INTRODUCTION}}", self.PageFormatter(self.iaobject.scene["description"]).print_html())
             final_index = final_index.replace("{{AUTHOR}}", self.iaobject.scene["creator"])
             final_index = final_index.replace("{{KEYWORDS}}", self.iaobject.scene["keywords"])
             final_index = final_index.replace("{{TITLE}}", self.iaobject.scene["title"])

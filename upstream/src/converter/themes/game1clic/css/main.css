@@ -45,7 +45,7 @@ audio {
 a {
     color:#00c6ff;
 }
-a:active, a:focus, a:hover {color:#FFF;}
+a:active, a:focus, a:hover {color:#ddd;}
 header {
     width:100%; 
     padding:0; 
@@ -163,6 +163,18 @@ header h1 {
     min-height: 100px;
     box-shadow: black 5px 5px 10px;
 }
+#popup_intro {
+    z-index:200;
+    position:relative;
+    border-radius: 20px;
+    border: 20px solid #ddd;
+    width: 40%;
+    margin: 0px auto;
+    background:white;
+    min-height: 100px;
+    box-shadow: black 5px 5px 10px;
+    padding:10px;
+}
 #content article {
     display:none;
     z-index:100;
@@ -202,7 +214,7 @@ header h1 {
     width:20%;
     max-width: 100px;
 }
-#popup_close {
+#popup_close, #popup_close_intro {
     cursor: pointer;
     position:absolute;
     top:-40px;
