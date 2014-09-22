@@ -553,6 +553,15 @@ class iaObject:
                 return self.get_tag_value(text.item(0))
         return ""
 
+    def print_node(self,root, childs):
+        if root.childNodes:
+            for node in root.childNodes:
+               if node.nodeType == node.ELEMENT_NODE:
+                   #print node.tagName,"has value:",  node.nodeValue, "and is child of:", node.parentNode.tagName
+                   childs.append(node)
+                   self.print_node(node, childs)
+
+
     def extract_g(self,group, ctm_group):
         """Analyze a svg group"""
 
@@ -586,13 +595,15 @@ class iaObject:
 
         svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', \
             'polygon', 'path', 'image']
-        for childnode in group.childNodes:
+        group_childs = []
+        self.print_node(group, group_childs)
+        for childnode in group_childs:
             if childnode.nodeName in svgElements:
                 newrecord = getattr(self, 'extract_' + \
                     childnode.nodeName)(childnode, ctm_group)
                 if newrecord is not None:
-                    newrecord["options"] += record["options"]
-                    record["options"] =  newrecord["options"]
+                    #newrecord["options"] += record["options"]
+                    #record["options"] =  newrecord["options"]
                     record["group"].append(newrecord)
                     
                     if record["detail"] == "":
