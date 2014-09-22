@@ -77,17 +77,17 @@ class TestPageFormatter:
         assert_equal(expected_output, output)         
 
         raw = '&lt;iframe src=&quot;http://example.com&quot;&gt;&lt;/iframe&gt;';
-        expected_output = '<div class="videoWrapper4_3"><iframe src="http://example.com"></iframe></div>\n';
+        expected_output = '<div class="videoWrapper4_3" data-iframe="http://example.com"></div>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)         
 
         raw = '&lt;iframe src=&quot;//example.com&quot;&gt;&lt;/iframe&gt;';
-        expected_output = '<div class="videoWrapper4_3"><iframe src="http://example.com"></iframe></div>\n';
+        expected_output = '<div class="videoWrapper4_3" data-iframe="http://example.com"></div>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output) 
 
         raw = '<iframe width="560" height="315" src="//www.youtube.com/embed/ctXwWpMz44M" frameborder="0" allowfullscreen></iframe>';
-        expected_output = '<div class="videoWrapper16_9"><iframe src="http://www.youtube.com/embed/ctXwWpMz44M"></iframe></div>\n';
+        expected_output = '<div class="videoWrapper16_9" data-iframe="http://www.youtube.com/embed/ctXwWpMz44M"></div>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output) 
 
