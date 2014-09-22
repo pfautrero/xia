@@ -28,9 +28,14 @@
 \renewcommand{\thesection}{\Roman{section}}
 \renewcommand{\thesubsection}{\alph{subsection}}
 
+% pour unifier les indications relatives aux manipulation à effectuer dans les logiciels
+% à modifier au besoin
 \newcommand{\chemin}[1]{\textcolor{red}{#1}}
 
 \begin{document}
+ 
+ % il y a, à plusieurs reprises, des paragraphes du style "<à noter"> ou "<astuces">
+ % peut-être faut-il adopter le style utilisé pour ce genre de choses dans la doc se3?
  
 \section{Présentation de Xia}
 
@@ -55,7 +60,7 @@ Contrairement à ImagesActives, Xia n'intervient qu'en toute fin de processus de
 Comme on peut le constater sur la figure \ref{workflow_xia}, l'essentiel du travail est à effectuer
 dans un logiciel de dessin vectoriel.
 Nous recommandons fortement l'utilisation d'\href{http://www.inkscape.org/}{Inkscape}, logiciel libre
-multi-plateforme, très aisé à prendre en main.
+multi-plateforme, très aisé à prendre en main, et qui sera utilisé dans cette documentation.
 
 \begin{figure}[htp]
  \centering
@@ -77,10 +82,10 @@ Les quelques manipulations décrites dans cette section sont suffisantes
 pour réaliser une \href{http://geoffrey-gekiere.ac-versailles.fr/xia1}{image active «~de base~»}\footnote{Le 
 \href{http://geoffrey-gekiere.ac-versailles.fr/xia1/svg/xia1.svg}{fichier svg correspondant est téléchargeable}.}, 
 ayant les caractéristiques suivantes:
-\begin{enumerate}
+\begin{itemize}
  \item Détails zoomables
  \item Commentaires des détails constitués uniquement de texte non mis en forme
-\end{enumerate}
+\end{itemize}
 
 
 Une fois l'image à travailler choisie, on l'ouvre dans Inkscape (menu \chemin{Fichier} puis \chemin{Ouvrir}).
@@ -103,23 +108,23 @@ un bouton clicable en forme de lettre «~i~».}.
  \label{titre_ia}
 \end{figure}
 
-On peut enregistrer l'image au format svg dès le début du travail:
-\begin{enumerate}
- \item menu \chemin{Fichier} puis \chemin{Enregistrer sous...}
- \item pour davantage de lisibilité, on supprimera l'extension actuelle de l'image dans le champs \chemin{Nom} 
- de la fenêtre de dialogue
- \item dans le menu déroulant permettant de choisir le format de fichier: format \chemin{SVG Inkscape (*.svg)}.
-\end{enumerate}
+On peut enregistrer l'image au format svg dès le début du travail, en
+passant par le menu \chemin{Fichier} puis \chemin{Enregistrer sous...}.
+Pour davantage de lisibilité, on supprimera l'extension actuelle de l'image dans le champs \chemin{Nom} 
+ de la fenêtre de dialogue. Enfin, dans le menu déroulant permettant de choisir le format de 
+ fichier: format \chemin{SVG Inkscape (*.svg)}.
 
 Plusieurs outils d'Inkscape sont utilisables pour détourer les détails qui deviendront actifs dans l'image générée 
 par Xia. Parmi ceux-ci:
-\begin{enumerate}
+\begin{itemize}
  \item \includegraphics[scale=0.5]{./images/rec_carre} L'outil \chemin{Créer des rectangles et des carrés}
  \item \includegraphics[scale=0.5]{./images/cercles} L'outil \chemin{Créer des cercles, des ellipses et des arcs}
  \item \includegraphics[scale=0.5]{./images/lignes} L'outil \chemin{Dessiner des lignes à main levée}
  \item \includegraphics[scale=0.5]{./images/bezier} L'outil \chemin{Tracer des courbes de Bézier et des segments de droite}
-\end{enumerate}
+\end{itemize}
 
+% dans ce paragraphe, peut-être insérer une bidouille quelconque pour que l'allusion aux touches
+% Ctrl et Maj soit plus claire (dessiner une touche de clavier?)
 Sans rentrer dans le détail du fonctionnement de ces outils\footnote{Pour cela, 
 se référer au \href{http://inkscape.org/doc/shapes/tutorial-shapes.fr.html}{manuel d'Inkscape}.}, on notera cependant que
 les outils «~\chemin{Créer des rectangles et des carrés}~» et «~\chemin{Créer des cercles, des ellipses et des arcs}~»
@@ -135,12 +140,12 @@ puis en déplaçant le pointeur pour faire apparaitre les poignées de contrôle
 le segment de courbe à volonté.
 
 À noter:
-\begin{enumerate}
+\begin{itemize}
  \item si l'utilisateur définit dans Inkscape une forme laissée ouverte (par exemple: une ligne),
 Xia la «~refermera~» automatiquement en reliant par une droite le début et la fin de celle-ci.
  \item l'ordre de création des détails correspond dans l'image générée à l'ordre d'affichage des détails
  (par exemple, le détail créé en premier dans Inkscape apparaîtra en haut dans l'image active)
-\end{enumerate}
+\end{itemize}
 
 Une fois un détail détouré, on le sélectionne avec l'outil \includegraphics[scale=0.5]{./images/selection}
 \chemin{Sélectionner et transformer des objets} afin de le redimensionner, le déplacer, etc.
@@ -171,13 +176,14 @@ La première icône, en haut à gauche, permet de choisir le fichier svg à gén
 \includegraphics[scale=0.4]{./images/xia_open} 
 \end{center}
 
-Un clic sur l'une des icônes d'export génère une série de fichiers, dont un index.html\footnote{Attention: 
-ce fichier seul est inexploitable. Tous les autres fichiers et répertoires générés lors de l'export 
-sont indispensables au bon fonctionnement de l'animation. Il est donc recommandé de dédier un répertoire 
-spécifique à chaque image exportée, afin d'éviter des déconvenues.}, qui, ouvert dans un navigateur
-web, affichera l'image active.
+Un clic sur l'une des icônes d'export génère une série de fichiers, dont un index.html. 
+Attention: ce fichier seul est inexploitable. Tous les autres fichiers et répertoires générés lors de l'export 
+sont indispensables au bon fonctionnement de l'animation. \textbf{Il est donc indispensable de dédier un répertoire 
+spécifique à chaque image exportée, afin d'éviter des déconvenues}.
+Il suffit d'ouvrir le fichier index.html dans un navigateur pour voir apparaître l'image active.
 
 Les templates d'images actives «~simples~» sont les suivants:
+% pertinence d'ajouter une 4e colonne pour décrire brièvement les caractéristiques de chaque export?
 \begin{center}
 \begin{tabular}{|l|c|c|}
 \hline
@@ -214,7 +220,7 @@ L'image illustrant les manipulations décrites dans cette section est \href{http
 
 Pour mettre en forme le texte des commentaires, on insérera les balises suivantes:
 
-%problème d'alignement du contenu des cellules sur "<liste de puces"> et "<tracer une ligne">
+% problème d'alignement du contenu des cellules sur les lignes "<liste de puces"> et "<tracer une ligne">
 \begin{center}
  \begin{tabular}{|l|l|}
  \hline
@@ -274,7 +280,7 @@ Une méthode pour contourner ce problème peut consister à exporter dans les tr
 et à déposer les trois fichiers ainsi obtenus dans un répertoire identique, avec le même nom (seule l'extension
 en .ogv, .mp4 et .webm les différencie alors):\\
 
-%je pense qu'il y a moyen de faire vachement plus joli pour représenter l'arborescence
+% je pense qu'il y a moyen de faire vachement plus joli pour représenter l'arborescence
 \parbox{0.40\textwidth}
 {
 \begin{alltt}
@@ -336,11 +342,11 @@ Il suffit en effet d'insérer dans la description, à l'endroit souhaité, la li
 de l'effet «~zoom~»}
 
 Par défaut, le comportement d'un détail dans l'image active générée est le suivant:
-\begin{enumerate}
+\begin{itemize}
  \item Le détail ne se révêle qu'au survol de la souris ou qu'à la sélection du titre du commentaire
  qui lui est associé
  \item Un second clic sur un détail déjà sélectionné effectue un zoom sur celui-ci
-\end{enumerate}
+\end{itemize}
 
 Ces deux comportements sont modifiables par l'application, dans Inkscape, d'un fond de couleur blanche ou noire
 aux détails détourés (voir section \ref{insertion_images} et figure \ref{remplissage_blanc}):
@@ -357,6 +363,9 @@ fois immédiatement visible \textit{et} non-zoomable.
 
 À noter: Xia ne prend pas en compte le degré d'opacité du fond appliqué au détail, mais uniquement la couleur.
 
+\subsection{Contrôler l'ordre d'affichage des détails dans l'image active}
+
+% à rédiger
 
 \section{De l'interactivité à l'activité: réaliser des jeux avec Xia}
 
@@ -368,31 +377,78 @@ Ce type d'image permet de mettre en œuvre des scénarios pédagogiques ne manqu
 mais Xia va beaucoup plus loin en permettant la réalisation de jeux et d'activités variées, dans lesquelles
 l'utilisateur est amené à réaliser infiniment plus d'actions que de simples clics sur des détails ou des commentaires.
 
-\subsection{Réalisation d'un premier jeu: sélectionner}
+\subsection{Premier principe ludique: sélectionner, retrouver dans l'image}
 
-Le principe ludique est le suivant: on propose une image dans laquelle l'utilisateur 
+\textit{Le principe ludique est le suivant: on propose une image dans laquelle l'utilisateur 
 doit sélectionner un certain nombre de détails en fonction d'une consigne. 
-La réalisation de l'objectif énoncé déclenche l'affichage d'un message.
+La réalisation de l'objectif énoncé déclenche l'affichage d'un message.}
 
-Afin de rendre le jeu plus vivant, le concepteur de l'image prévoit que l'image 
-active affiche la progression du joueur dans l'exercice.
+C'est en réalité l'activité, voire l'image active la plus simple à réaliser. Il suffit en effet 
+au créateur de la ressource de détourer les éléments que l'utilisateur doit retrouver.
 
-\subsection{Glisser-déposer: classer, légender, hiérarchiser}
+La consigne à destination de l'utilisateur de l'image active est à renseigner 
+dans les métadonnées du document. En effet, au moment de l'export, Xia cherche les informations
+situées dans le champs \chemin{Description} des métadonnées du document 
+(voir section \ref{preparation_svg} et figure \ref{titre_ia}), afin d'en faire une «~pop up~»
+qui s'affichera lors de l'ouverture de l'image générée. L'utilisateur lit alors la consigne et ferme
+la pop up pour jouer.
 
-Second principe ludique: une image de fond contient des étiquettes qu'il faut déplacer et 
+L'utilisateur de la ressource a donc pour objectif de cliquer sur un certain nombre de détails.
+Une fois un certain nombre de ces détails repérés et cliqués, un message informant de la réussite de l'exercice
+apparaît. Celui-ci est créé dans la \chemin{Description} des \chemin{Propriétés de l'objet} de l'image de fond
+\footnote{Quand une image active «~traditionnelle~» est générée, cette manipulation
+permet la création du commentaire introductif à l'image, non relié à un détail particulier
+(voir section \ref{preparation_svg}).}. 
+Deux informations sont nécessaires pour que ce message apparaisse:
+le nombre de bonnes réponses déclenchant le message\footnote{Ce nombre est à la discrétion
+du créateur de la ressource et peut tout à fait être inférieur au nombre total de détails placés sur l'image},
+et le message en lui-même. Ce tableau résume les balises à insérer:
+
+% le multicolumn refuse le \verb... à corriger
+\begin{center}
+ \begin{tabular}{|l|p{2in}|p{2in}|}
+ % \hline
+% \multicolumn{3}{|c|}{Informations à renseigner dans le champs Description des Propriétés de l'objet}\\
+ \hline
+  Objectif & Renseigner le nombre de bonnes réponses & Afficher un message\\
+  \hline
+  Balise & \verb|<score></score>| & \verb|<message></message>|\\
+  \hline
+  Exemple & \multicolumn{2}{|l|}{<score>6</score>}\\
+   & \multicolumn{2}{|l|}{<message>Bravo, vous avez réussi à classer}\\
+    & \multicolumn{2}{|l|}{correctement tous les éléments</message>}\\
+  \hline
+ \end{tabular}
+\end{center}
+
+Astuce: les balises \verb|<message></message>| n'empêchent en rien l'enrichissement du message. 
+On peut imaginer de proposer le visionnage d'une image, d'une vidéo, ou l'affichage d'un lien vers un second exercice, afin 
+de «~chaîner~» les activités par degré de difficultés.
+
+Enfin, la génération d'une l'image active ayant pour principe ludique la sélection de détails
+correspond dans Xia à l'export \chemin{game1clic}:
+
+\begin{center}
+\includegraphics[scale=0.7]{./images/game1clic} 
+\end{center}
+
+
+\subsection{Second principe ludique: classer, légender, hiérarchiser}
+
+\textit{Second principe ludique: une image de fond contient des étiquettes qu'il faut déplacer et 
 déposer sur les bons détails. Lorsque tous les éléments ont été remis à leur place, un message 
-confirme la résolution du jeu.
+confirme la résolution du jeu.}
 
 La démarche pour la réalisation d'un jeu de ce type est la suivante:
 \begin{enumerate}
  \item Dans Inkscape:
-\begin{enumerate}
+\begin{itemize}
  \item Choisir une image de fond
  \item Préparer les «~étiquettes~» à déplacer (de petites images au format png), 
- les importer dans Inkscape
+ et les importer dans Inkscape
  \item Faire correspondre chaque étiquette à sa zone de dépôt (en réalité, un détail détouré)
  grâce aux métadonnées renseignées
-\end{enumerate}
+\end{itemize}
  \item Dans Xia
  \begin{enumerate}
   \item Générer le svg ainsi préparé avec le thème «~gameDragAndDrop~»
@@ -430,28 +486,17 @@ il est recommandé d'en créer une, de lui appliquer la caractéristique \chemin
 puis de copier-coller ce détail autant de fois que nécessaire. Conservant cette option, 
 le créateur de la ressource n'aura pas besoin d'aller l'appliquer à chaque détail créé.
 
-L'utilisateur de la ressource a donc pour objectif de classer correctement les étiquettes afin de déclencher
-un message informant de la réussite de l'exercice. Celui-ci est créé dans la \chemin{Description} des \chemin{Propriétés de l'objet} 
-de l'image de fond\footnote{Quand une image active «~traditionnelle~» est générée, cette manipulation
-permet la création du commentaire introductif à l'image, non relié à un détail particulier (voir section \ref{preparation_svg}).}.
+La génération d'une l'image active ayant pour principe ludique le glisser déposer 
+correspond dans Xia à l'export \chemin{gameDragAndDrop}:
 
-Deux informations sont nécessaires: le nombre de bonnes réponses déclenchant le message, et le message en lui-même.
-
-%dans ce tableau, le multicolumn refuse le \verb... à corriger
 \begin{center}
- \begin{tabular}{|l|p{2in}|p{2in}|}
- \hline
-  Objectif & Renseigner le nombre de bonnes réponses & Afficher un message\\
-  \hline
-  Balise & \verb|<score></score>| & \verb|<message></message>|\\
-  \hline
-  Exemple & \multicolumn{2}{|l|}{<score>6</score>}\\
-   & \multicolumn{2}{|l|}{<message>Bravo, vous avez réussi à classer}\\
-    & \multicolumn{2}{|l|}{correctement tous les éléments</message>}\\
-  \hline
- \end{tabular}
-
+\includegraphics[scale=0.7]{./images/gameDragAndDrop} 
 \end{center}
 
+\subsection{Enrichir ses jeux: quelques astuces...}
+
+Ajouter un son lors de l'action d'un utilisateur.
+Montrer à l'utilisateur sa progression lors de l'utilisation d'un jeu game1clic.
+Ajouter un effet «~magnétisme~» dans le jeu gameDragAndDrop.
 
 \end{document}
