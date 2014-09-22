@@ -4,3 +4,4 @@ upstream/src/converter/.coverage
 upstream/.coverage
 node_modules
 build
+upstream/src/converter/themes/game1clic_next

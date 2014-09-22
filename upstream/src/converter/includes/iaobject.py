@@ -203,8 +203,8 @@ class iaObject:
 
             # calculate ratio to resize background image down to maxNumPixels
             
-            bgNumPixels = float(int(self.scene['width']) * \
-                int(self.scene['height']))
+            bgNumPixels = float(int(float(self.scene['width'])) * \
+                int(float(self.scene['height'])))
             if (bgNumPixels > maxNumPixels):
                 self.ratio = math.sqrt(maxNumPixels / bgNumPixels)
          
