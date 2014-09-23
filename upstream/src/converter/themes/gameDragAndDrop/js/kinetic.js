@@ -9388,8 +9388,9 @@ var Kinetic = {};
                 }
                 else {
                     var shape = this.getIntersection(this.getPointerPosition());
+                    //var shape = null;
                 }
-
+                
                 if(shape && shape.isListening()) {
                     if(!Kinetic.isDragging() && (!this.targetShape || this.targetShape._id !== shape._id)) {
                         if(this.targetShape) {

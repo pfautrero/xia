@@ -144,6 +144,20 @@ function main(myhooks) {
         myhooks.afterMainConstructor(mainScene, that.layers);             
         $("#loader").hide();
 
+        var viewportHeight = $(window).height();
+        if (scene.description != "<br> ") {
+            $("#rights").show();
+            var content_offset = $("#rights").offset();
+            var message_height = $("#popup_intro").css('height').substr(0,$("#popup_intro").css("height").length - 2);
+            $("#popup_intro").css({'top':(viewportHeight - content_offset.top - message_height)/ 2 - 40});
+            $("#popup_intro").show();
+            $("#popup").hide();
+            $("#popup_close_intro").on("click", function(){
+                $("#rights").hide();
+            });            
+        }
+
+
         // FullScreen ability
         // source code from http://blogs.sitepointstatic.com/examples/tech/full-screen/index.html
         var e = document.getElementById("title");

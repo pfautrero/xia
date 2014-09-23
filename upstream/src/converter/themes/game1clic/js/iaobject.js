@@ -161,15 +161,18 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         that.kineticElement[i].hitFunc(function(context) {
             if (that.group.zoomActive == 0) {
                 rgbColorKey = Kinetic.Util._hexToRgb(this.colorKey);
+                //detach from the DOM
+                var imageData = imageDataSource.data;
                 // just replace scene colors by hit colors - alpha remains unchanged
                 for(j = 0; j < len; j += 4) {
-                    if (imageDataSource.data[j + 3] != 0) {
-                        imageDataSource.data[j + 0] = rgbColorKey.r;
-                        imageDataSource.data[j + 1] = rgbColorKey.g;
-                        imageDataSource.data[j + 2] = rgbColorKey.b;
-                    }
-                   // imageDataSource.data[j + 3] = imageDataSource.data[j + 3];
+                   imageData[j + 0] = rgbColorKey.r;
+                   imageData[j + 1] = rgbColorKey.g;
+                   imageData[j + 2] = rgbColorKey.b;
+                   // imageData[j + 3] = imageDataSource.data[j + 3];
                 } 
+                // reatach to the DOM
+                imageDataSource.data = imageData;
+
                 context.putImageData(imageDataSource, cropX * iaScene.coeff, cropY * iaScene.coeff);     
             }
             else {
@@ -376,7 +379,9 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 
         }
         else if (iaScene.cursorState.indexOf("HandPointer.cur") === -1) {
-            //document.body.style.cursor = "url(img/HandPointer.cur),auto";
+            if (that.options[i].indexOf("pointer") !== -1) {
+                document.body.style.cursor = "url(img/HandPointer.cur),auto";
+            }
             iaScene.cursorState = "url(img/HandPointer.cur),auto";
             /*for (var i in that.kineticElement) {
                 if (that.persistent[i] == "off") {

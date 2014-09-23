@@ -96,6 +96,7 @@ class hook:
         with open(templatePath,"r") as template:
             final_index = template.read().decode("utf-8")
             final_index = final_index.replace("{{DESCRIPTION}}", self.iaobject.scene["description"])
+            final_index = final_index.replace("{{INTRODUCTION}}", self.PageFormatter(self.iaobject.scene["description"]).print_html())            
             final_index = final_index.replace("{{AUTHOR}}", self.iaobject.scene["creator"])
             final_index = final_index.replace("{{KEYWORDS}}", self.iaobject.scene["keywords"])
             final_index = final_index.replace("{{TITLE}}", self.iaobject.scene["title"])

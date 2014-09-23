@@ -156,13 +156,18 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         that.kineticElement[i].hitFunc(function(context) {
             if (that.group.zoomActive == 0) {
                 rgbColorKey = Kinetic.Util._hexToRgb(this.colorKey);
+                //detach from the DOM
+                var imageData = imageDataSource.data;
                 // just replace scene colors by hit colors - alpha remains unchanged
                 for(j = 0; j < len; j += 4) {
-                    imageDataSource.data[j + 0] = rgbColorKey.r;
-                    imageDataSource.data[j + 1] = rgbColorKey.g;
-                    imageDataSource.data[j + 2] = rgbColorKey.b;
-                   // imageDataSource.data[j + 3] = imageDataSource.data[j + 3];
+                   imageData[j + 0] = rgbColorKey.r;
+                   imageData[j + 1] = rgbColorKey.g;
+                   imageData[j + 2] = rgbColorKey.b;
+                   // imageData[j + 3] = imageDataSource.data[j + 3];
                 } 
+                // reatach to the DOM
+                imageDataSource.data = imageData;
+
                 context.putImageData(imageDataSource, cropX * iaScene.coeff, cropY * iaScene.coeff);     
             }
             else {

@@ -298,7 +298,11 @@ class iaObject:
                     record_image['options'] += " disable-click "
                 else:
                     record_image['options'] += " " + str_onclick + " "
-            
+
+            if image.hasAttribute("onmouseover"):                            
+                str_onmouseover = image.attributes['onmouseover'].value
+                record_image['options'] += " " + str_onmouseover + " "
+                        
             if image.hasAttribute("transform"):
                 transformation = image.attributes['transform'].value
                 ctm = CurrentTransformation()
@@ -363,6 +367,9 @@ class iaObject:
                 record_rect['options'] += " disable-click "
             else:
                 record_image['options'] += " " + str_onclick + " "
+        if rect.hasAttribute("onmouseover"):                            
+            str_onmouseover = rect.attributes['onmouseover'].value
+            record_rect['options'] += " " + str_onmouseover + " "
 
         if record_rect['title'].startswith("http://") or \
           record_rect['title'].startswith("https://") or \
@@ -465,6 +472,10 @@ class iaObject:
                 record['options'] += " disable-click "
             else:
                 record['options'] += " " + str_onclick + " "
+
+        if path.hasAttribute("onmouseover"):                            
+            str_onmouseover = path.attributes['onmouseover'].value
+            record['options'] += " " + str_onmouseover + " "
                 
         if record['title'].startswith("http://") or \
           record['title'].startswith("https://") or \
