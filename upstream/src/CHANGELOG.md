@@ -1,3 +1,19 @@
+* version alpha 5 - 23/09/2014
+
+- Correctif : Modification de l'internationalisation pour MAC OS X
+- Ergonomie : Suppression de l'oeil sur tous les thèmes
+- Ergonomie : Ajout d'une popup de démarrage sur game1clic et gameDragAndDrop pour 
+permettre l'affichage de consignes (champ description des metadonnées)
+- Correctif : xia ne gérait pas (sic) les groupes de détails imbriqués !
+- Correctif : xia plantait sur des images de taille bien précise.
+- Ergonomie : il est désormais possible d'afficher un pointeur de sélection
+au survol d'un détail dans game1clic (onmouseover=pointer)
+- Optimisation : amélioration du système de détourage automatique
+pour définir la zone de hit de chaque détail
+- Correctif : Les propriétés des détails étaient propagées aux groupes qui les
+contenaient (propagation de off par exemple)...à surveiller, risque de régression.
+
+
 * version alpha 4 - 15/09/2014
 
 - Ajout de l'internationalisation
