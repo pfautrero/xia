@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-  var locales = ["en", "fr"];
+  var locales = ["en_US", "fr_FR"];
   var _ = require('lodash');  
   var mos = _.map(locales, function(locale){
 	  return 'build/converter/i18n/' + locale + '/LC_MESSAGES/messages.mo';

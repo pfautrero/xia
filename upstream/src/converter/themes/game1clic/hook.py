@@ -31,7 +31,7 @@ class hook:
         try:
             t = gettext.translation("messages", localdir + "/i18n", languages=[locale.getdefaultlocale()[0]])
         except:
-            t = gettext.translation("messages", localdir + "/i18n", languages=['en'])
+            t = gettext.translation("messages", localdir + "/i18n", languages=['en_US'])
         translate = t.ugettext
         
         self.iaobject = iaobject
