@@ -22,7 +22,7 @@ dir="/usr/lib/python2.7/dist-packages/converter/"
 if ! cd "$dir"
 then
     echo "Sorry, 'cd $dir' failed."
-    echo "There is something wrong with the installation of the ia-converter package."
+    echo "There is something wrong with the installation of the xia-converter package."
     exit 1
 fi
 
