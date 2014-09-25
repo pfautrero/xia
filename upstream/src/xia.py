@@ -40,7 +40,7 @@ class ImageActive(inkex.Effect):
                 self.document.write(filePath)
 
             root = Tkinter.Tk()
-            root.title("Xia - alpha 5")
+            root.title("Xia - alpha 6")
             root.geometry("465x310")
             root.resizable(0,0)
             img = Tkinter.PhotoImage(file='converter/images/image-active64.gif')
