@@ -65,6 +65,8 @@ function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     else if (typeof(detail.image) !== 'undefined') {
         that.includeImage(detail, 0, that, iaScene, baseImage, idText);
     }
+    // actually, groups are not allowed because of boxsize restriction
+    
     /*else if (typeof(detail.group) !== 'undefined') {
         for (var i in detail.group) {
             if (typeof(detail.group[i].path) !== 'undefined') {
@@ -210,6 +212,8 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
             (detail.fill === "#000000")) {
             zoomable = false;
         }
+
+        detail.fill = '#ffffff';    // force image to be displayed - must refactor if it is a good idea !
 
         that.persistent[i] = "off";
         if ((typeof(detail.fill) !== 'undefined') && 
