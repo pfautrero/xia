@@ -100,8 +100,11 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
     }   
     var draggable_object = true;
     if (that.options[i].indexOf("disable-click") != -1) {
-        var draggable_object = false;
-    };    
+        draggable_object = false;
+    };  
+    if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
+        draggable_object = false;
+    }    
     that.defineImageBoxSize(detail, that);
     var rasterObj = new Image();
     rasterObj.src = detail.image;       
@@ -255,10 +258,17 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     if ((typeof(detail.options) !== 'undefined')) {
         that.options[i] = detail.options;
     }   
+    
     var draggable_object = true;
     if (that.options[i].indexOf("disable-click") != -1) {
-        var draggable_object = false;
+        draggable_object = false;
     };
+
+    if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
+        draggable_object = false;
+    }
+    
+    
     that.path[i] = detail.path;
     that.title[i] = detail.title;
     that.kineticElement[i] = new Kinetic.Path({
@@ -512,6 +522,11 @@ IaObject.prototype.defineTweens = function(that, iaScene) {
 IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, baseImage, idText) {
 
     var that=this;
+
+    if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
+        return;
+    }
+    
     if (that.options[i].indexOf("disable-click") != -1) return;
 
     if (that.options[i].indexOf("direct-link") != -1) {
