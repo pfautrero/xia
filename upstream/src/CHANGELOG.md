@@ -1,3 +1,16 @@
+* version alpha 6 - 25/09/2014
+
+- Doc : mise à jour des docs de prise en main
+- Correctif : reprise du manifest firefox OS
+- Ergonomie : sur gameDragAndDrop, les images n'ont plus besoin d'être sur fond
+blanc
+- Ergonomie : sur popBlue, lors d'une clic sur un détail, le pointeur ne se
+transforme plus en loupe.
+- Ergonomie : sur gameDragAndDrop, les zones de drop sont par défaut insensibles
+au clic
+- Correctif : gameDragAndDrop -> régression sur les popup 
+
+
 * version alpha 5 - 23/09/2014
 
 - Correctif : Modification de l'internationalisation pour MAC OS X
