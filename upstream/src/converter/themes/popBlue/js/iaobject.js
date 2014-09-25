@@ -467,7 +467,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         iaScene.element.layer.draw();
                     }                    
                     //if (zoomable === true) {
-                        document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';
+                        //document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';
                         iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
                     //}
                     $('.collapse.in').each(function (index) {
