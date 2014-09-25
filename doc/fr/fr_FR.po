@@ -1,0 +1,1936 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Louis-Maurice De Sousa <louis.de-sousa@ac-versailles.fr>, 2014.
+#
+msgid ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2014-09-25 15:42+0300\n"
+"PO-Revision-Date: 2014-09-25 15:53+0200\n"
+"Last-Translator: Louis-Maurice De Sousa <louis.de-sousa@ac-versailles.fr>\n"
+"Language-Team: français <>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2014-09-25 15:42+0300\n"
+"PO-Revision-Date: 2014-09-25 15:53+0200\n"
+"Last-Translator: Louis-Maurice De Sousa <louis.de-sousa@ac-versailles.fr>\n"
+"Language-Team: français <>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. type: hypersetup{#1}
+#: contenu.tex:26
+msgid "colorlinks= true, linkcolor = blue"
+msgstr "colorlinks= true, linkcolor = blue"
+
+#. type: hypersetup{#1}
+#: contenu.tex:26
+msgid ""
+"pdftitle={Xia}, pdfauthor={Énuma Logiciel Libre}, pdfsubject={Xia}, "
+"pdfkeywords={Xia, free software, html5, Inkscape}"
+msgstr ""
+"pdftitle={Xia}, pdfauthor={Énuma Logiciel Libre}, pdfsubject={Xia}, "
+"pdfkeywords={Xia, logiciel libre, html5, Inkscape}"
+
+#. type: renewcommand{#4}
+#: contenu.tex:30
+msgid "\\arabic{chapter}"
+msgstr "\\arabic{chapter}"
+
+#. type: renewcommand{#4}
+#: contenu.tex:30
+msgid "\\Roman{section}"
+msgstr "\\Roman{section}"
+
+#. type: renewcommand{#4}
+#: contenu.tex:30
+msgid "\\alph{subsection}"
+msgstr "\\alph{subsection}"
+
+#.  pour unifier les indications relatives aux manipulation à effectuer dans les logiciels
+#.  à modifier au besoin
+#. type: textcolor{#2}
+#: contenu.tex:34
+msgid "#1"
+msgstr "#1"
+
+#. type: section{#2}
+#: contenu.tex:43
+msgid "Presentation of Xia"
+msgstr "Présentation de Xia"
+
+#. type: subsection{#2}
+#: contenu.tex:45
+msgid "What is Xia ?"
+msgstr "Qu'est-ce que Xia ?"
+
+#. type: document
+#: contenu.tex:52
+msgid ""
+"Xia est un logiciel libre développé par la délégation académique pour le "
+"numérique éducatif de l'académie de Versailles.  Distribué sous licence "
+"\\href{http://www.gnu.org/copyleft/gpl.html}{GPLv3}, il est le successeur du "
+"logiciel «~ImagesActives~».  Xia est un convertisseur qui prend en entrée un "
+"fichier svg et fournit en sortie une image active en html5.  Au-delà des "
+"templates d'export déjà connus des utilisateurs du logiciel ImagesActives "
+"(\\href{http://images-actives.crdp-versailles.fr/spip.php?article11&lang=fr}"
+"{accordéon, boutons, etc.}), Xia permet en outre de générer des activités "
+"interactives: jeux de glisser-déposer, discrimination, sélection, etc."
+msgstr ""
+"Xia est un logiciel libre développé par la délégation académique pour le "
+"numérique éducatif de l'académie de Versailles.  Distribué sous licence "
+"\\href{http://www.gnu.org/copyleft/gpl.html}{GPLv3}, il est le successeur du "
+"logiciel «~ImagesActives~».  Xia est un convertisseur qui prend en entrée un "
+"fichier svg et fournit en sortie une image active en html5.  Au-delà des "
+"templates d'export déjà connus des utilisateurs du logiciel ImagesActives "
+"(\\href{http://images-actives.crdp-versailles.fr/spip.php?article11&lang=fr}"
+"{accordéon, boutons, etc.}), Xia permet en outre de générer des activités "
+"interactives: jeux de glisser-déposer, discrimination, sélection, etc."
+
+#. type: document
+#: contenu.tex:59
+msgid ""
+"Cette documentation est un guide «~pas à pas~» pour la réalisation d'images "
+"actives.  Partant de la réalisation d'une image active simple (détourage et "
+"commentaires sans enrichissements particuliers)  elle guide l'utilisateur "
+"vers la réalisation d'images plus complexes (enrichissements multimédias, "
+"jeux, etc.)  Les exemples sont visibles en ligne (le lien est signalé en "
+"début de section), les fichiers sources (au format svg)  sont également "
+"téléchargeables. À la fin de chaque partie, une rubrique «~Pour résumer~» "
+"reprend de manière synthétique les grands principes à retenir pour la "
+"fabrication d'images actives."
+msgstr ""
+"Cette documentation est un guide «~pas à pas~» pour la réalisation d'images "
+"actives.  Partant de la réalisation d'une image active simple (détourage et "
+"commentaires sans enrichissements particuliers)  elle guide l'utilisateur "
+"vers la réalisation d'images plus complexes (enrichissements multimédias, "
+"jeux, etc.)  Les exemples sont visibles en ligne (le lien est signalé en "
+"début de section), les fichiers sources (au format svg)  sont également "
+"téléchargeables. À la fin de chaque partie, une rubrique «~Pour résumer~» "
+"reprend de manière synthétique les grands principes à retenir pour la "
+"fabrication d'images actives."
+
+#. type: subsection{#2}
+#: contenu.tex:61
+msgid "Processus général"
+msgstr "Processus général"
+
+#. type: document
+#: contenu.tex:67
+msgid ""
+"Contrairement à ImagesActives, Xia n'intervient qu'en toute fin de processus "
+"de création de la ressource.  Comme on peut le constater sur la figure \\ref"
+"{workflow_xia}, l'essentiel du travail est à effectuer dans un logiciel de "
+"dessin vectoriel.  Nous recommandons fortement l'utilisation d'\\href{http://"
+"www.inkscape.org/}{Inkscape}, logiciel libre multi-plateforme, très aisé à "
+"prendre en main, et qui sera utilisé dans cette documentation."
+msgstr ""
+"Contrairement à ImagesActives, Xia n'intervient qu'en toute fin de processus "
+"de création de la ressource.  Comme on peut le constater sur la figure \\ref"
+"{workflow_xia}, l'essentiel du travail est à effectuer dans un logiciel de "
+"dessin vectoriel.  Nous recommandons fortement l'utilisation d'\\href{http://"
+"www.inkscape.org/}{Inkscape}, logiciel libre multi-plateforme, très aisé à "
+"prendre en main, et qui sera utilisé dans cette documentation."
+
+#. type: caption{#2}
+#: contenu.tex:74
+msgid "Processus de création d'une image active avec Xia"
+msgstr "Processus de création d'une image active avec Xia"
+
+#. type: section{#2}
+#: contenu.tex:76
+msgid ""
+"Réalisation d'une première image active avec Inkscape et Xia: "
+"fonctionnalités de base"
+msgstr ""
+"Réalisation d'une première image active avec Inkscape et Xia: "
+"fonctionnalités de base"
+
+#. type: subsection{#2}
+#: contenu.tex:78
+msgid "Installation d'Inkscape et de Xia"
+msgstr "Installation d'Inkscape et de Xia"
+
+#. type: document
+#: contenu.tex:81
+msgid ""
+"L'installation d'Inkscape et de Xia est le seul pré-requis à la suite de la "
+"lecture de cette documentation.  Les informations nécessaires à ces "
+"manipulations se trouvent sur les sites respectifs des projets\\footnote"
+"{Voir les sites d'\\href{http://www.inkscape.org/}{Inkscape} et de \\href"
+"{http://images-actives.crdp-versailles.fr/beta/}{Xia}.}."
+msgstr ""
+"L'installation d'Inkscape et de Xia est le seul pré-requis à la suite de la "
+"lecture de cette documentation.  Les informations nécessaires à ces "
+"manipulations se trouvent sur les sites respectifs des projets\\footnote"
+"{Voir les sites d'\\href{http://www.inkscape.org/}{Inkscape} et de \\href"
+"{http://images-actives.crdp-versailles.fr/beta/}{Xia}.}."
+
+#. type: subsection{#2}
+#: contenu.tex:83
+msgid "Préparation du fichier svg en vue de la génération de l'image active"
+msgstr "Préparation du fichier svg en vue de la génération de l'image active"
+
+#.  cette phrase est répétée en début de chaque section: il faudrait trouver un moyen de la mettre en valeur
+#. type: document
+#: contenu.tex:87
+msgid ""
+"Explorez l'\\href{http://geoffrey-gekiere.ac-versailles.fr/xia1}{image "
+"active créée pour cette section de la documentation} et téléchargez le \\href"
+"{http://geoffrey-gekiere.ac-versailles.fr/xia1/svg/xia1.svg}{svg}."
+msgstr ""
+"Explorez l'\\href{http://geoffrey-gekiere.ac-versailles.fr/xia1}{image "
+"active créée pour cette section de la documentation} et téléchargez le \\href"
+"{http://geoffrey-gekiere.ac-versailles.fr/xia1/svg/xia1.svg}{svg}."
+
+#. type: document
+#: contenu.tex:95
+msgid ""
+"Les quelques manipulations décrites dans cette section sont suffisantes pour "
+"réaliser une image active «~de base~» ayant les caractéristiques suivantes:"
+msgstr ""
+"Les quelques manipulations décrites dans cette section sont suffisantes pour "
+"réaliser une image active «~de base~» ayant les caractéristiques suivantes:"
+
+#. type: itemize
+#: contenu.tex:95
+msgid "Détails zoomables"
+msgstr "Détails zoomables"
+
+#. type: itemize
+#: contenu.tex:95
+msgid ""
+"Commentaires des détails constitués uniquement de texte non mis en forme"
+msgstr ""
+"Commentaires des détails constitués uniquement de texte non mis en forme"
+
+#. type: document
+#: contenu.tex:99
+msgid ""
+"Une fois l'image à travailler choisie, on l'ouvre dans Inkscape (menu "
+"\\chemin{Fichier} puis \\chemin{Ouvrir}).  À la question posée par le "
+"logiciel («~\\chemin{Lier ou incorporer l'image}~»), on choisira «~\\chemin"
+"{Incorporer}~»."
+msgstr ""
+"Une fois l'image à travailler choisie, on l'ouvre dans Inkscape (menu "
+"\\chemin{Fichier} puis \\chemin{Ouvrir}).  À la question posée par le "
+"logiciel («~\\chemin{Lier ou incorporer l'image}~»), on choisira «~\\chemin"
+"{Incorporer}~»."
+
+#. type: document
+#: contenu.tex:108
+msgid ""
+"Parmi les nombreuses informations que l'on peut renseigner en accédant à la "
+"fenêtre de dialogue des \\chemin{Métadonnées du document} (menu \\chemin"
+"{Fichier}), trois seront prises en compte dans l'image active une fois "
+"générée: le titre, le créateur, les droits.  Il est donc fortement "
+"recommandé de les renseigner.  Dans l'exemple suivant (voir figure \\ref"
+"{titre_ia}), on voit l'importance d'un titre correctement renseigné dans les "
+"métadonnées: il s'agit en réalité du titre de l'image active\\footnote{Les "
+"champs «~auteur~» et «~droits~» apparaissent pour leur part dans la fenêtre "
+"«~À propos~», symbolisé par un bouton clicable en forme de lettre «~i~».}."
+msgstr ""
+"Parmi les nombreuses informations que l'on peut renseigner en accédant à la "
+"fenêtre de dialogue des \\chemin{Métadonnées du document} (menu \\chemin"
+"{Fichier}), trois seront prises en compte dans l'image active une fois "
+"générée: le titre, le créateur, les droits.  Il est donc fortement "
+"recommandé de les renseigner.  Dans l'exemple suivant (voir figure \\ref"
+"{titre_ia}), on voit l'importance d'un titre correctement renseigné dans les "
+"métadonnées: il s'agit en réalité du titre de l'image active\\footnote{Les "
+"champs «~auteur~» et «~droits~» apparaissent pour leur part dans la fenêtre "
+"«~À propos~», symbolisé par un bouton clicable en forme de lettre «~i~».}."
+
+#. type: caption{#2}
+#: contenu.tex:117
+msgid ""
+"Le titre renseigné dans les métadonnées du document apparaît au-dessus de "
+"l'image active et donne son nom à la page web de celle-ci, le créateur et "
+"les droits associés apparaissent dans la pop up associée au bouton «~i~» "
+"situé à droite du titre de l'image active"
+msgstr ""
+"Le titre renseigné dans les métadonnées du document apparaît au-dessus de "
+"l'image active et donne son nom à la page web de celle-ci, le créateur et "
+"les droits associés apparaissent dans la pop up associée au bouton «~i~» "
+"situé à droite du titre de l'image active"
+
+#. type: document
+#: contenu.tex:123
+msgid ""
+"On peut enregistrer l'image au format svg dès le début du travail, en "
+"passant par le menu \\chemin{Fichier} puis \\chemin{Enregistrer sous...}.  "
+"Pour davantage de lisibilité, on supprimera l'extension actuelle de l'image "
+"dans le champs \\chemin{Nom} de la fenêtre de dialogue. Enfin, dans le menu "
+"déroulant permettant de choisir le format de fichier: format \\chemin{SVG "
+"Inkscape (*.svg)}."
+msgstr ""
+"On peut enregistrer l'image au format svg dès le début du travail, en "
+"passant par le menu \\chemin{Fichier} puis \\chemin{Enregistrer sous...}.  "
+"Pour davantage de lisibilité, on supprimera l'extension actuelle de l'image "
+"dans le champs \\chemin{Nom} de la fenêtre de dialogue. Enfin, dans le menu "
+"déroulant permettant de choisir le format de fichier: format \\chemin{SVG "
+"Inkscape (*.svg)}."
+
+#. type: document
+#: contenu.tex:132
+msgid ""
+"Plusieurs outils d'Inkscape sont utilisables pour détourer les détails qui "
+"deviendront actifs dans l'image générée par Xia. Parmi ceux-ci:"
+msgstr ""
+"Plusieurs outils d'Inkscape sont utilisables pour détourer les détails qui "
+"deviendront actifs dans l'image générée par Xia. Parmi ceux-ci:"
+
+#. type: itemize
+#: contenu.tex:132
+msgid "L'outil \\chemin{Créer des rectangles et des carrés}"
+msgstr "L'outil \\chemin{Créer des rectangles et des carrés}"
+
+#. type: itemize
+#: contenu.tex:132
+msgid "L'outil \\chemin{Créer des cercles, des ellipses et des arcs}"
+msgstr "L'outil \\chemin{Créer des cercles, des ellipses et des arcs}"
+
+#. type: itemize
+#: contenu.tex:132
+msgid "L'outil \\chemin{Dessiner des lignes à main levée}"
+msgstr "L'outil \\chemin{Dessiner des lignes à main levée}"
+
+#. type: itemize
+#: contenu.tex:132
+msgid ""
+"\\includegraphics[scale=0.5]{./images/bezier} L'outil \\chemin{Tracer des "
+"courbes de Bézier et des segments de droite}"
+msgstr ""
+"\\includegraphics[scale=0.5]{./images/bezier} L'outil \\chemin{Tracer des "
+"courbes de Bézier et des segments de droite}"
+
+#.  dans ce paragraphe, peut-être insérer une bidouille quelconque pour que l'allusion aux touches
+#.  Ctrl et Maj soit plus claire (dessiner une touche de clavier?)
+#. type: document
+#: contenu.tex:141
+msgid ""
+"Sans rentrer dans le détail du fonctionnement de ces outils\\footnote{Pour "
+"cela, se référer au \\href{http://inkscape.org/doc/shapes/tutorial-shapes.fr."
+"html}{manuel d'Inkscape}.}, on notera cependant que les outils «~\\chemin"
+"{Créer des rectangles et des carrés}~» et «~\\chemin{Créer des cercles, des "
+"ellipses et des arcs}~» peuvent se manipuler uniquement à la souris ou en "
+"lien avec le clavier: en appuyant sur la touche Ctrl, on dessine un carré, "
+"rectangle ou cercle de rapport de dimensions entier (2:1, 3:1, etc.), et en "
+"appuyant sur la touche Maj, on dessine autour du point de départ."
+msgstr ""
+"Sans rentrer dans le détail du fonctionnement de ces outils\\footnote{Pour "
+"cela, se référer au \\href{http://inkscape.org/doc/shapes/tutorial-shapes.fr."
+"html}{manuel d'Inkscape}.}, on notera cependant que les outils «~\\chemin"
+"{Créer des rectangles et des carrés}~» et «~\\chemin{Créer des cercles, des "
+"ellipses et des arcs}~» peuvent se manipuler uniquement à la souris ou en "
+"lien avec le clavier: en appuyant sur la touche Ctrl, on dessine un carré, "
+"rectangle ou cercle de rapport de dimensions entier (2:1, 3:1, etc.), et en "
+"appuyant sur la touche Maj, on dessine autour du point de départ."
+
+#. type: document
+#: contenu.tex:148
+msgid ""
+"L'outil «~\\chemin{Tracer des courbes de Bézier et des segments de droite}~» "
+"permet de détourer «~clic par clic~» (on appelle les points de construction "
+"des «~nœuds~»).  On referme la figure en cliquant sur le nœud de départ.  "
+"L'outil «~courbe de bézier~» est appelé en gardant le clic de souris appuyé "
+"après avoir créé un nœud, puis en déplaçant le pointeur pour faire "
+"apparaitre les poignées de contrôle permettant de modeler le segment de "
+"courbe à volonté."
+msgstr ""
+"L'outil «~\\chemin{Tracer des courbes de Bézier et des segments de droite}~» "
+"permet de détourer «~clic par clic~» (on appelle les points de construction "
+"des «~nœuds~»).  On referme la figure en cliquant sur le nœud de départ.  "
+"L'outil «~courbe de bézier~» est appelé en gardant le clic de souris appuyé "
+"après avoir créé un nœud, puis en déplaçant le pointeur pour faire "
+"apparaitre les poignées de contrôle permettant de modeler le segment de "
+"courbe à volonté."
+
+#. type: document
+#: contenu.tex:157
+msgid "À noter:"
+msgstr "À noter:"
+
+#. type: itemize
+#: contenu.tex:157
+msgid ""
+"si l'utilisateur définit dans Inkscape une forme laissée ouverte (par "
+"exemple: une ligne), Xia la «~refermera~» automatiquement en reliant par une "
+"droite le début et la fin de celle-ci."
+msgstr ""
+"si l'utilisateur définit dans Inkscape une forme laissée ouverte (par "
+"exemple: une ligne), Xia la «~refermera~» automatiquement en reliant par une "
+"droite le début et la fin de celle-ci."
+
+#. type: itemize
+#: contenu.tex:157
+msgid ""
+"l'ordre de création des détails correspond dans l'image générée à l'ordre "
+"d'affichage des détails (par exemple, le détail créé en premier dans "
+"Inkscape apparaîtra en haut dans l'image active)"
+msgstr ""
+"l'ordre de création des détails correspond dans l'image générée à l'ordre "
+"d'affichage des détails (par exemple, le détail créé en premier dans "
+"Inkscape apparaîtra en haut dans l'image active)"
+
+#. type: footnote{#2}
+#: contenu.tex:157
+msgid ""
+"Pour modifier l'ordre sans avoir à recréer les détails, voir la section \\ref"
+"{couche_XML}."
+msgstr ""
+"Pour modifier l'ordre sans avoir à recréer les détails, voir la section \\ref"
+"{couche_XML}."
+
+#. type: document
+#: contenu.tex:160
+msgid ""
+"Une fois un détail détouré, on le sélectionne avec l'outil \\chemin"
+"{Sélectionner et transformer des objets} afin de le redimensionner, le "
+"déplacer, etc."
+msgstr ""
+"Une fois un détail détouré, on le sélectionne avec l'outil \\chemin"
+"{Sélectionner et transformer des objets} afin de le redimensionner, le "
+"déplacer, etc."
+
+#. type: document
+#: contenu.tex:164
+msgid ""
+"C'est par un clic droit sur le détail détouré que l'on accède aux \\chemin"
+"{Propriétés de l'objet} (voir figure \\ref{proprietes_objet}), et ainsi à la "
+"fenêtre de dialogue dans laquelle on renseigne le texte qui sera associé au "
+"détail dans l'image active une fois générée."
+msgstr ""
+"C'est par un clic droit sur le détail détouré que l'on accède aux \\chemin"
+"{Propriétés de l'objet} (voir figure \\ref{proprietes_objet}), et ainsi à la "
+"fenêtre de dialogue dans laquelle on renseigne le texte qui sera associé au "
+"détail dans l'image active une fois générée."
+
+#. type: caption{#2}
+#: contenu.tex:172
+msgid ""
+"Accès aux «~Propriétés de l'objet~», permettant de renseigner le texte qui "
+"servira de commentaire au détail dans l'image active générée"
+msgstr ""
+"Accès aux «~Propriétés de l'objet~», permettant de renseigner le texte qui "
+"servira de commentaire au détail dans l'image active générée"
+
+#. type: document
+#: contenu.tex:175
+msgid ""
+"Les deux champs à renseigner dans cette fenêtre sont \\chemin{Titre} et "
+"\\chemin{Description}.  Le titre renseigné ici sera celui du détail, la "
+"description en sera son commentaire."
+msgstr ""
+"Les deux champs à renseigner dans cette fenêtre sont \\chemin{Titre} et "
+"\\chemin{Description}.  Le titre renseigné ici sera celui du détail, la "
+"description en sera son commentaire."
+
+#. type: document
+#: contenu.tex:178
+msgid ""
+"Le processus décrit ci-dessus doit également être réalisé avec l'image de "
+"fond: le titre et la description renseignées serviront d'introduction à "
+"l'image active (titre et commentaire non reliée à un détail particulier)."
+msgstr ""
+"Le processus décrit ci-dessus doit également être réalisé avec l'image de "
+"fond: le titre et la description renseignées serviront d'introduction à "
+"l'image active (titre et commentaire non reliée à un détail particulier)."
+
+#. type: subsection{#2}
+#: contenu.tex:180
+msgid "Génération de l'image active dans Xia"
+msgstr "Génération de l'image active dans Xia"
+
+#. type: caption{#2}
+#: contenu.tex:187
+msgid "Vue générale de l'interface du logiciel Xia"
+msgstr "Vue générale de l'interface du logiciel Xia"
+
+#. type: document
+#: contenu.tex:193
+msgid ""
+"Quand tous les détails sont détourés et leurs métadonnées renseignées, on "
+"peut lancer le logiciel Xia (voir la figure \\ref{xia_interface}).  La "
+"première icône, en haut à gauche, permet de choisir le fichier svg à générer:"
+msgstr ""
+"Quand tous les détails sont détourés et leurs métadonnées renseignées, on "
+"peut lancer le logiciel Xia (voir la figure \\ref{xia_interface}).  La "
+"première icône, en haut à gauche, permet de choisir le fichier svg à générer:"
+
+#. type: document
+#: contenu.tex:199
+msgid ""
+"Un clic sur l'une des icônes d'export génère une série de fichiers, dont un "
+"\\verb|index.html|.  Attention: ce fichier seul est inexploitable. Tous les "
+"autres fichiers et répertoires générés lors de l'export sont indispensables "
+"au bon fonctionnement de l'animation. \\textbf{Il est donc indispensable de "
+"dédier un répertoire spécifique à chaque image exportée, afin d'éviter des "
+"déconvenues}.  Il suffit cependant d'ouvrir le fichier \\verb|index.html| "
+"dans un navigateur pour voir apparaître l'image active."
+msgstr ""
+"Un clic sur l'une des icônes d'export génère une série de fichiers, dont un "
+"\\verb|index.html|.  Attention: ce fichier seul est inexploitable. Tous les "
+"autres fichiers et répertoires générés lors de l'export sont indispensables "
+"au bon fonctionnement de l'animation. \\textbf{Il est donc indispensable de "
+"dédier un répertoire spécifique à chaque image exportée, afin d'éviter des "
+"déconvenues}.  Il suffit cependant d'ouvrir le fichier \\verb|index.html| "
+"dans un navigateur pour voir apparaître l'image active."
+
+#.  pertinence d'ajouter une 4e colonne pour décrire brièvement les caractéristiques de chaque export?
+#. type: document
+#: contenu.tex:219
+msgid "Les templates d'images actives «~simples~» sont les suivants:"
+msgstr "Les templates d'images actives «~simples~» sont les suivants:"
+
+#. type: tabular
+#: contenu.tex:219
+msgid "Thème"
+msgstr "Thème"
+
+#. type: tabular
+#: contenu.tex:219
+msgid "Icône"
+msgstr "Icône"
+
+#. type: tabular
+#: contenu.tex:219
+msgid "Caractéristiques à retenir"
+msgstr "Caractéristiques à retenir"
+
+#. type: tabular
+#: contenu.tex:219
+msgid ""
+"\\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionBlack}"
+"{accordionBlack}"
+msgstr ""
+"\\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionBlack}"
+"{accordionBlack}"
+
+#. type: tabular
+#: contenu.tex:219
+msgid ""
+"Zone de commentaire large, utile pour l'insertion de ressources multimédias; "
+"à privilégier pour les images en format portrait"
+msgstr ""
+"Zone de commentaire large, utile pour l'insertion de ressources multimédias; "
+"à privilégier pour les images en format portrait"
+
+#. type: tabular
+#: contenu.tex:219
+msgid ""
+"\\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionCloud}"
+"{accordionCloud}"
+msgstr ""
+"\\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionCloud}"
+"{accordionCloud}"
+
+#. type: tabular
+#: contenu.tex:219
+msgid ""
+"Zone de commentaire étroite, laissant davantage de place à l'image en elle-"
+"même; à privilégier pour les images en format paysage"
+msgstr ""
+"Zone de commentaire étroite, laissant davantage de place à l'image en elle-"
+"même; à privilégier pour les images en format paysage"
+
+#. type: tabular
+#: contenu.tex:219
+msgid ""
+"\\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/buttonBlue}{buttonBlue}"
+msgstr ""
+"\\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/buttonBlue}{buttonBlue}"
+
+#. type: tabular
+#: contenu.tex:219
+msgid ""
+"Image apparaissant en pleine largeur; les commentaires des détails "
+"apparaissent dans une pop up au-dessus de l'image active (utile pour les "
+"commentaires longs); les détails sont accessibles par un bandeau numéroté "
+"situé au-dessus de l'image active"
+msgstr ""
+"Image apparaissant en pleine largeur; les commentaires des détails "
+"apparaissent dans une pop up au-dessus de l'image active (utile pour les "
+"commentaires longs); les détails sont accessibles par un bandeau numéroté "
+"situé au-dessus de l'image active"
+
+#. type: tabular
+#: contenu.tex:219
+msgid "\\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{popBlue}"
+msgstr "\\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{popBlue}"
+
+#. type: tabular
+#: contenu.tex:219
+msgid ""
+"L'image apparaît en pleine largeur; un premier clic fait apparaître le "
+"détail, un second le commentaire au-dessus de l'image active (le zoom est "
+"désactivé)"
+msgstr ""
+"L'image apparaît en pleine largeur; un premier clic fait apparaître le "
+"détail, un second le commentaire au-dessus de l'image active (le zoom est "
+"désactivé)"
+
+#. type: tabular
+#: contenu.tex:219
+msgid ""
+"\\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popYellow}{popYellow}"
+msgstr ""
+"\\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popYellow}{popYellow}"
+
+#. type: tabular
+#: contenu.tex:219
+msgid ""
+"L'image apparaît en pleine largeur; un premier clic fait apparaître le "
+"détail, un second déclenche simultanément l'apparition du commentaire et le "
+"zoom sur le détail"
+msgstr ""
+"L'image apparaît en pleine largeur; un premier clic fait apparaître le "
+"détail, un second déclenche simultanément l'apparition du commentaire et le "
+"zoom sur le détail"
+
+#. type: subsection{#2}
+#: contenu.tex:221 contenu.tex:436 contenu.tex:644
+msgid "Pour résumer"
+msgstr "Pour résumer"
+
+#. type: enumerate
+#: contenu.tex:231
+msgid ""
+"Une image active est conçue dans le logiciel Inkscape, au format .svg, Xia "
+"transforme ce svg en animation au format html5"
+msgstr ""
+"Une image active est conçue dans le logiciel Inkscape, au format .svg, Xia "
+"transforme ce svg en animation au format html5"
+
+#. type: enumerate
+#: contenu.tex:231
+msgid ""
+"Le titre de l'image active est renseigné dans les \\chemin{Métadonnées du "
+"document}"
+msgstr ""
+"Le titre de l'image active est renseigné dans les \\chemin{Métadonnées du "
+"document}"
+
+#. type: enumerate
+#: contenu.tex:231
+msgid ""
+"Le texte des détails est renseigné dans les \\chemin{Propriétés de l'objet}, "
+"champs \\chemin{Titre} et \\chemin{Description}"
+msgstr ""
+"Le texte des détails est renseigné dans les \\chemin{Propriétés de l'objet}, "
+"champs \\chemin{Titre} et \\chemin{Description}"
+
+#. type: enumerate
+#: contenu.tex:231
+msgid ""
+"La description générale de l'image active est renseignée dans les \\chemin"
+"{Propriétés de l'objet} de l'image de fond"
+msgstr ""
+"La description générale de l'image active est renseignée dans les \\chemin"
+"{Propriétés de l'objet} de l'image de fond"
+
+#. type: section{#2}
+#: contenu.tex:233
+msgid "Image active enrichie"
+msgstr "Image active enrichie"
+
+#. type: document
+#: contenu.tex:236
+msgid ""
+"Explorez l'\\href{http://geoffrey-gekiere.ac-versailles.fr/xia2}{image "
+"active créée pour cette section de la documentation} et téléchargez le \\href"
+"{http://geoffrey-gekiere.ac-versailles.fr/xia2/svg/xia2.svg}{svg}."
+msgstr ""
+"Explorez l'\\href{http://geoffrey-gekiere.ac-versailles.fr/xia2}{image "
+"active créée pour cette section de la documentation} et téléchargez le \\href"
+"{http://geoffrey-gekiere.ac-versailles.fr/xia2/svg/xia2.svg}{svg}."
+
+#. type: document
+#: contenu.tex:240
+msgid ""
+"Dans cette section, nous réalisons toujours une image active classique (un "
+"détail = un commentaire), mais nous enrichissons le contenu de celle-ci par "
+"divers moyens, comme une mise en forme avancée du texte ou des contenus "
+"multimédias directement insérés dans les commentaires."
+msgstr ""
+"Dans cette section, nous réalisons toujours une image active classique (un "
+"détail = un commentaire), mais nous enrichissons le contenu de celle-ci par "
+"divers moyens, comme une mise en forme avancée du texte ou des contenus "
+"multimédias directement insérés dans les commentaires."
+
+#. type: subsection{#2}
+#: contenu.tex:242
+msgid "Mise en forme du texte"
+msgstr "Mise en forme du texte"
+
+#. type: document
+#: contenu.tex:244
+msgid ""
+"Pour mettre en forme le texte des commentaires, on insérera les balises "
+"suivantes:"
+msgstr ""
+"Pour mettre en forme le texte des commentaires, on insérera les balises "
+"suivantes:"
+
+#.  problème d'alignement du contenu des cellules sur les lignes "<liste de puces"> et "<tracer une ligne">
+#.  là, faudrait symboliser les espaces simple et double pour les listes de puces
+#. type: tabular
+#: contenu.tex:272
+msgid "Balises"
+msgstr "Balises"
+
+#. type: tabular
+#: contenu.tex:272
+msgid "Résultat"
+msgstr "Résultat"
+
+#. type: tabular
+#: contenu.tex:272
+msgid "***gras***"
+msgstr "***gras***"
+
+#. type: tabular
+#: contenu.tex:272
+msgid "\\textbf{gras}"
+msgstr "\\textbf{gras}"
+
+#. type: tabular
+#: contenu.tex:272
+msgid "**italique**"
+msgstr "**italique**"
+
+#. type: tabular
+#: contenu.tex:272
+msgid "\\textit{italique}"
+msgstr "\\textit{italique}"
+
+#. type: tabular
+#: contenu.tex:272
+msgid "[http://dane.ac-versailles.fr Le site de la Dane]"
+msgstr "[http://dane.ac-versailles.fr Le site de la Dane]"
+
+#. type: tabular
+#: contenu.tex:272
+msgid "\\href{http://dane.ac-versailles/fr}{Le site de la Dane}"
+msgstr "\\href{http://dane.ac-versailles/fr}{Le site de la Dane}"
+
+#. type: tabular
+#: contenu.tex:272
+msgid "\\{\\{\\{Texte brut\\}\\}\\}"
+msgstr "\\{\\{\\{Texte brut\\}\\}\\}"
+
+#. type: tabular
+#: contenu.tex:272
+msgid "~* une liste"
+msgstr "~* une liste"
+
+#. type: tabular
+#: contenu.tex:272
+msgid "~* de puces"
+msgstr "~* de puces"
+
+#. type: tabular
+#: contenu.tex:272
+msgid "~~* sur 2"
+msgstr "~~* sur 2"
+
+#. type: tabular
+#: contenu.tex:272
+msgid "~~* niveaux"
+msgstr "~~* niveaux"
+
+#. type: tabular
+#: contenu.tex:272
+msgid "tracer"
+msgstr "tracer"
+
+#. type: tabular
+#: contenu.tex:272
+msgid "\\verb|----|"
+msgstr "\\verb|----|"
+
+#. type: tabular
+#: contenu.tex:272
+msgid "une ligne"
+msgstr "une ligne"
+
+#. type: subsection{#2}
+#: contenu.tex:274
+msgid "Enrichissement multimédia des détails"
+msgstr "Enrichissement multimédia des détails"
+
+#. type: document
+#: contenu.tex:278
+msgid ""
+"L'insertion de contenus multimédias dans les commentaires des détails est "
+"extrêmement aisée: il suffit à l'utilisateur d'indiquer l'url (relative ou "
+"absolue) de la ressource, ou d'insérer le code iframe fourni par le service "
+"hébergeant le contenu (par exemple, la \\href{https://scolawebtv.crdp-"
+"versailles.fr/}{Scolawebtv})."
+msgstr ""
+"L'insertion de contenus multimédias dans les commentaires des détails est "
+"extrêmement aisée: il suffit à l'utilisateur d'indiquer l'url (relative ou "
+"absolue) de la ressource, ou d'insérer le code iframe fourni par le service "
+"hébergeant le contenu (par exemple, la \\href{https://scolawebtv.crdp-"
+"versailles.fr/}{Scolawebtv})."
+
+#. type: document
+#: contenu.tex:286
+msgid ""
+"Nativement, Xia génère un lecteur multimédia dans le commentaire à partir du "
+"moment où la ressource (image, son ou vidéo)  correspond à un des formats "
+"suivants:"
+msgstr ""
+"Nativement, Xia génère un lecteur multimédia dans le commentaire à partir du "
+"moment où la ressource (image, son ou vidéo)  correspond à un des formats "
+"suivants:"
+
+#. type: item[#1]
+#: contenu.tex:286
+msgid "Images"
+msgstr "Images"
+
+#. type: description
+#: contenu.tex:286
+msgid "jpg, jpeg, png, gif"
+msgstr "jpg, jpeg, png, gif"
+
+#. type: description
+#: contenu.tex:286
+msgid "[Son] ogg, mp3"
+msgstr "[Son] ogg, mp3"
+
+#. type: description
+#: contenu.tex:286
+msgid "[Vidéo] ogv, webm, mp4"
+msgstr "[Vidéo] ogv, webm, mp4"
+
+#. type: document
+#: contenu.tex:302
+msgid "Le lien est simplement inséré dans le fil du commentaire du détail:"
+msgstr "Le lien est simplement inséré dans le fil du commentaire du détail:"
+
+#. type: item[#1]
+#: contenu.tex:302
+msgid "Lien absolu"
+msgstr "Lien absolu"
+
+#. type: description
+#: contenu.tex:302
+msgid "Si la ressource se trouve à l'adresse\\\\"
+msgstr "Si la ressource se trouve à l'adresse\\\\"
+
+#. type: center
+#: contenu.tex:302
+msgid "\\verb|http://web.crdp.ac-versailles.fr/02546.ogg|"
+msgstr "\\verb|http://web.crdp.ac-versailles.fr/02546.ogg|"
+
+#. type: description
+#: contenu.tex:302
+msgid ""
+"il suffira d'indiquer cette adresse dans le champs description des "
+"propriétés de l'objet, dans Inkscape"
+msgstr ""
+"il suffira d'indiquer cette adresse dans le champs description des "
+"propriétés de l'objet, dans Inkscape"
+
+#. type: description
+#: contenu.tex:302
+msgid ""
+"[Lien relatif] Si la ressource se trouve dans le dossier d'export ou dans un "
+"dossier situé dans le dossier d'export, on en indiquera l'emplacement en "
+"considérant le dossier d'export comme la racine. Par exemple, si \\verb|"
+"video.ogv| se trouve dans un répertoire \\verb|videos| lui-même situé dans "
+"le dossier d'export, on indiquera dans le commentaire\\\\"
+msgstr ""
+"[Lien relatif] Si la ressource se trouve dans le dossier d'export ou dans un "
+"dossier situé dans le dossier d'export, on en indiquera l'emplacement en "
+"considérant le dossier d'export comme la racine. Par exemple, si \\verb|"
+"video.ogv| se trouve dans un répertoire \\verb|videos| lui-même situé dans "
+"le dossier d'export, on indiquera dans le commentaire\\\\"
+
+#. type: center
+#: contenu.tex:302
+msgid "\\verb|videos/video.ogv|"
+msgstr "\\verb|videos/video.ogv|"
+
+#. type: description
+#: contenu.tex:302
+msgid "pour que le lecteur soit créé"
+msgstr "pour que le lecteur soit créé"
+
+#. type: document
+#: contenu.tex:307
+msgid ""
+"Les différents formats vidéos gérés par Xia ne sont pas nativement reconnus "
+"par tous les navigateurs.  Une méthode pour contourner ce problème peut "
+"consister à exporter dans les trois formats la ressource, et à déposer les "
+"trois fichiers ainsi obtenus dans un répertoire identique, avec le même nom "
+"(seule l'extension en .ogv, .mp4 et .webm les différencie alors):\\\\"
+msgstr ""
+"Les différents formats vidéos gérés par Xia ne sont pas nativement reconnus "
+"par tous les navigateurs.  Une méthode pour contourner ce problème peut "
+"consister à exporter dans les trois formats la ressource, et à déposer les "
+"trois fichiers ainsi obtenus dans un répertoire identique, avec le même nom "
+"(seule l'extension en .ogv, .mp4 et .webm les différencie alors):\\\\"
+
+#.  je pense qu'il y a moyen de faire vachement plus joli pour représenter l'arborescence
+#. type: alltt
+#: contenu.tex:332
+msgid ""
+"-\\textcolor{blue}{repertoire\\_export}\\\\ ---index.html\\\\ ---[ensemble "
+"des fichiers et répertoires générés par Xia]\\\\ ---\\textcolor{blue}"
+"{repertoire\\_videos}\\\\ -----video.mp4\\\\ -----video.ogv\\\\ -----video."
+"webm\\\\"
+msgstr ""
+"-\\textcolor{blue}{repertoire\\_export}\\\\ ---index.html\\\\ ---[ensemble "
+"des fichiers et répertoires générés par Xia]\\\\ ---\\textcolor{blue}"
+"{repertoire\\_videos}\\\\ -----video.mp4\\\\ -----video.ogv\\\\ -----video."
+"webm\\\\"
+
+#. type: minipage
+#: contenu.tex:332
+msgid ""
+"Dans l'exemple ci-contre, les répertoires, en bleu, ont été créés par "
+"l'utilisateur.  Dans le répertoire \\textcolor{blue}{repertoire\\_export} se "
+"trouvent les répertoires et fichiers générés par Xia, dont le fichier index."
+"html.  On crée également dans ce répertoire un répertoire \\textcolor{blue}"
+"{repertoire\\_videos} qui a pour fonction de stocker les vidéos qui seront "
+"appelées dans les commentaires de l'image active grâce à un lien relatif."
+msgstr ""
+"Dans l'exemple ci-contre, les répertoires, en bleu, ont été créés par "
+"l'utilisateur.  Dans le répertoire \\textcolor{blue}{repertoire\\_export} se "
+"trouvent les répertoires et fichiers générés par Xia, dont le fichier index."
+"html.  On crée également dans ce répertoire un répertoire \\textcolor{blue}"
+"{repertoire\\_videos} qui a pour fonction de stocker les vidéos qui seront "
+"appelées dans les commentaires de l'image active grâce à un lien relatif."
+
+#. type: document
+#: contenu.tex:337
+msgid ""
+"Ainsi, même si un format particulier est indiqué dans la description (en "
+"suivant l'exemple précédent: \\verb|repertoire_videos/video.ogv|), si le "
+"navigateur ne parvient pas à lire la ressource, il tentera automatiquement "
+"de lire les fichiers du même nom possèdant une extension différente (soit, "
+"ici, \\verb|video.mp4| puis \\verb|video.webm|)."
+msgstr ""
+"Ainsi, même si un format particulier est indiqué dans la description (en "
+"suivant l'exemple précédent: \\verb|repertoire_videos/video.ogv|), si le "
+"navigateur ne parvient pas à lire la ressource, il tentera automatiquement "
+"de lire les fichiers du même nom possèdant une extension différente (soit, "
+"ici, \\verb|video.mp4| puis \\verb|video.webm|)."
+
+#. type: document
+#: contenu.tex:340
+msgid ""
+"Enfin, la dernière possibilité consiste à insérer dans le commentaire le "
+"code iframe d'un service d'hébergement de ressources.  Celui-ci sera "
+"interprêté et le lecteur du service s'affichera dans le commentaire, donnant "
+"accès à la ressource."
+msgstr ""
+"Enfin, la dernière possibilité consiste à insérer dans le commentaire le "
+"code iframe d'un service d'hébergement de ressources.  Celui-ci sera "
+"interprêté et le lecteur du service s'affichera dans le commentaire, donnant "
+"accès à la ressource."
+
+#. type: subsection{#2}
+#: contenu.tex:342
+msgid "Le cas de l'export «~audioBrown~»: remplacer le texte par du son"
+msgstr "Le cas de l'export «~audioBrown~»: remplacer le texte par du son"
+
+#. type: document
+#: contenu.tex:345
+msgid ""
+"Un modèle d'export, «~audioBrown~», est spécifiquement dédié à la création "
+"d'images actives dans lesquelles les détails sont associés à un son, et pas "
+"à du texte."
+msgstr ""
+"Un modèle d'export, «~audioBrown~», est spécifiquement dédié à la création "
+"d'images actives dans lesquelles les détails sont associés à un son, et pas "
+"à du texte."
+
+#. type: document
+#: contenu.tex:354
+msgid ""
+"L'insertion de ces sons se fait selon la méthode décrite dans la section "
+"\\ref{enrichissement_multimedia}, par un lien relatif ou absolu.  Afin de "
+"lancer automatiquement la lecture du son à la sélection du détail dans "
+"l'image générée, on ajoutera simplement un \\verb|autostart| après le lien "
+"vers la ressource\\footnote{Insérer un autostart après un lien vers une "
+"ressources multimédia audio ou vidéo dans un autre modèle d'export aura le "
+"même effet.}:\\\\"
+msgstr ""
+"L'insertion de ces sons se fait selon la méthode décrite dans la section "
+"\\ref{enrichissement_multimedia}, par un lien relatif ou absolu.  Afin de "
+"lancer automatiquement la lecture du son à la sélection du détail dans "
+"l'image générée, on ajoutera simplement un \\verb|autostart| après le lien "
+"vers la ressource\\footnote{Insérer un autostart après un lien vers une "
+"ressources multimédia audio ou vidéo dans un autre modèle d'export aura le "
+"même effet.}:\\\\"
+
+#. type: center
+#: contenu.tex:354
+msgid "\\verb|sons/son_detail_1.ogg autostart|"
+msgstr "\\verb|sons/son_detail_1.ogg autostart|"
+
+#. type: subsection{#2}
+#: contenu.tex:357
+msgid "Insertion d'images dans l'image active"
+msgstr "Insertion d'images dans l'image active"
+
+#. type: document
+#: contenu.tex:361
+msgid ""
+"On peut ajouter à l'image active des images (logo, puces, etc.) au format "
+"png.  Pour ce faire, dans Inkscape, retourner dans le menu \\chemin"
+"{Fichier}, et choisir \\chemin{Importer} afin d'incorporer votre nouvelle "
+"image."
+msgstr ""
+"On peut ajouter à l'image active des images (logo, puces, etc.) au format "
+"png.  Pour ce faire, dans Inkscape, retourner dans le menu \\chemin"
+"{Fichier}, et choisir \\chemin{Importer} afin d'incorporer votre nouvelle "
+"image."
+
+#. type: document
+#: contenu.tex:365
+msgid ""
+"Cette nouvelle image ne sera visible automatiquement dans l'image active "
+"générée que si on lui applique un fond blanc (après l'avoir sélectionnée, on "
+"choisit cette couleur dans la palette horizontale située en bas de "
+"l'interface d'Inkscape (voir figure \\ref{remplissage_blanc})."
+msgstr ""
+"Cette nouvelle image ne sera visible automatiquement dans l'image active "
+"générée que si on lui applique un fond blanc (après l'avoir sélectionnée, on "
+"choisit cette couleur dans la palette horizontale située en bas de "
+"l'interface d'Inkscape (voir figure \\ref{remplissage_blanc})."
+
+#. type: caption{#2}
+#: contenu.tex:373
+msgid ""
+"Dans Inkscape, on sélectionne le png incorporé puis on lui applique un fond "
+"blanc en sélectionnant cette couleur dans la palette horizontale afin de le "
+"rendre visible automatiquement"
+msgstr ""
+"Dans Inkscape, on sélectionne le png incorporé puis on lui applique un fond "
+"blanc en sélectionnant cette couleur dans la palette horizontale afin de le "
+"rendre visible automatiquement"
+
+#. type: document
+#: contenu.tex:376
+msgid ""
+"En indiquant une url dans le champs \\chemin{Titre} des \\chemin{Propriétés "
+"de l'objet}, l'image incorporée devient une icône clicable renvoyant vers la "
+"page web en question."
+msgstr ""
+"En indiquant une url dans le champs \\chemin{Titre} des \\chemin{Propriétés "
+"de l'objet}, l'image incorporée devient une icône clicable renvoyant vers la "
+"page web en question."
+
+#. type: subsection{#2}
+#: contenu.tex:378
+msgid "Afficher une question et accéder à une réponse"
+msgstr "Afficher une question et accéder à une réponse"
+
+#. type: document
+#: contenu.tex:381
+msgid ""
+"Pour insérer dans un détail un bouton «~\\textit{Réponse}~» clicable "
+"bloquant momentanément l'accès à la suite du commentaire, rien de plus "
+"simple!"
+msgstr ""
+"Pour insérer dans un détail un bouton «~\\textit{Réponse}~» clicable "
+"bloquant momentanément l'accès à la suite du commentaire, rien de plus "
+"simple!"
+
+#. type: document
+#: contenu.tex:384
+msgid ""
+"Il suffit en effet d'insérer dans la description, à l'endroit souhaité, la "
+"ligne\\\\ \\verb|Réponse:| ou \\verb|réponse:| et de rédiger en-dessous le "
+"texte que l'on souhaite voir apparaître."
+msgstr ""
+"Il suffit en effet d'insérer dans la description, à l'endroit souhaité, la "
+"ligne\\\\ \\verb|Réponse:| ou \\verb|réponse:| et de rédiger en-dessous le "
+"texte que l'on souhaite voir apparaître."
+
+#. type: subsection{#2}
+#: contenu.tex:387
+msgid ""
+"Contrôler le comportement des détails: affichage immédiat et désactivation "
+"de l'effet «~zoom~»"
+msgstr ""
+"Contrôler le comportement des détails: affichage immédiat et désactivation "
+"de l'effet «~zoom~»"
+
+#. type: document
+#: contenu.tex:395
+msgid ""
+"Par défaut, le comportement d'un détail dans l'image active générée est le "
+"suivant:"
+msgstr ""
+"Par défaut, le comportement d'un détail dans l'image active générée est le "
+"suivant:"
+
+#. type: itemize
+#: contenu.tex:395
+msgid ""
+"Le détail ne se révêle qu'au survol de la souris ou qu'à la sélection du "
+"titre du commentaire qui lui est associé"
+msgstr ""
+"Le détail ne se révêle qu'au survol de la souris ou qu'à la sélection du "
+"titre du commentaire qui lui est associé"
+
+#. type: itemize
+#: contenu.tex:395
+msgid ""
+"Un second clic sur un détail déjà sélectionné effectue un zoom sur celui-ci"
+msgstr ""
+"Un second clic sur un détail déjà sélectionné effectue un zoom sur celui-ci"
+
+#. type: footnote{#2}
+#: contenu.tex:395
+msgid "À l'exception du modèle d'export popBlue."
+msgstr "À l'exception du modèle d'export popBlue."
+
+#. type: document
+#: contenu.tex:405
+msgid ""
+"Ces deux comportements sont modifiables par l'application, dans Inkscape, "
+"d'un fond de couleur blanche ou noire aux détails détourés (voir section "
+"\\ref{insertion_images} et figure \\ref{remplissage_blanc}):"
+msgstr ""
+"Ces deux comportements sont modifiables par l'application, dans Inkscape, "
+"d'un fond de couleur blanche ou noire aux détails détourés (voir section "
+"\\ref{insertion_images} et figure \\ref{remplissage_blanc}):"
+
+#. type: item[#1]
+#: contenu.tex:405
+msgid "Détail auquel est appliqué un fond de couleur blanche"
+msgstr "Détail auquel est appliqué un fond de couleur blanche"
+
+#. type: description
+#: contenu.tex:405
+msgid ""
+"Dans l'image générée, le détail sera immédiatement visible, sous la forme "
+"d'un aplat de couleur opaque (masquant logiquement l'image de fond), qui une "
+"fois sélectionné, révêle l'image de fond (le détail demeure zoomable)"
+msgstr ""
+"Dans l'image générée, le détail sera immédiatement visible, sous la forme "
+"d'un aplat de couleur opaque (masquant logiquement l'image de fond), qui une "
+"fois sélectionné, révêle l'image de fond (le détail demeure zoomable)"
+
+#. type: description
+#: contenu.tex:405
+msgid ""
+"[Détail auquel est appliqué un fond de couleur noire] Le détail n'est "
+"visible qu'en étant sélectionné, mais n'est pas zoomable."
+msgstr ""
+"[Détail auquel est appliqué un fond de couleur noire] Le détail n'est "
+"visible qu'en étant sélectionné, mais n'est pas zoomable."
+
+#. type: document
+#: contenu.tex:408
+msgid ""
+"Conséquence logique: un détail ne pouvant se voir appliquer à la fois un "
+"fond blanc et noir, il ne peut être à la fois immédiatement visible \\textit"
+"{et} non-zoomable."
+msgstr ""
+"Conséquence logique: un détail ne pouvant se voir appliquer à la fois un "
+"fond blanc et noir, il ne peut être à la fois immédiatement visible \\textit"
+"{et} non-zoomable."
+
+#. type: subsection{#2}
+#: contenu.tex:410
+msgid "Contrôler l'ordre d'affichage des détails dans l'image active"
+msgstr "Contrôler l'ordre d'affichage des détails dans l'image active"
+
+#. type: document
+#: contenu.tex:414
+msgid ""
+"Par défaut, dans l'image active générée, les détails apparaissent "
+"verticalement dans l'ordre dans lequel les détails correspondants ont été "
+"créés (le premier détail créé dans Inkscape correspondant au détail placé en "
+"haut dans la barre latérale de l'image active)."
+msgstr ""
+"Par défaut, dans l'image active générée, les détails apparaissent "
+"verticalement dans l'ordre dans lequel les détails correspondants ont été "
+"créés (le premier détail créé dans Inkscape correspondant au détail placé en "
+"haut dans la barre latérale de l'image active)."
+
+#. type: document
+#: contenu.tex:417
+msgid ""
+"On passera par l'\\chemin{Éditeur XML} dans le menu \\chemin{Édition} pour "
+"modifier cet ordre par défaut."
+msgstr ""
+"On passera par l'\\chemin{Éditeur XML} dans le menu \\chemin{Édition} pour "
+"modifier cet ordre par défaut."
+
+#. type: document
+#: contenu.tex:421
+msgid ""
+"A priori complexe à gérer, cette fenêtre de dialogue se laisse en réalité "
+"apprivoiser aisément: la sélection sur l'image des détails met en évidence "
+"les entrées XML correspondantes, qu'il n'y a donc plus qu'à les glisser-"
+"déposer à l'endroit désiré (voir figure \\ref{ordre_couches})."
+msgstr ""
+"A priori complexe à gérer, cette fenêtre de dialogue se laisse en réalité "
+"apprivoiser aisément: la sélection sur l'image des détails met en évidence "
+"les entrées XML correspondantes, qu'il n'y a donc plus qu'à les glisser-"
+"déposer à l'endroit désiré (voir figure \\ref{ordre_couches})."
+
+#. type: document
+#: contenu.tex:425
+msgid ""
+"De ce fait, l'utilisateur qui modifie fréquemment l'ordre de ses détails "
+"devrait prendre l'habitude de renseigner pour chacun d'eux le champs \\chemin"
+"{ID} de ses propriétés, afin d'être en mesure de le manipuler plus aisément "
+"dans l'\\chemin{Éditeur XML}."
+msgstr ""
+"De ce fait, l'utilisateur qui modifie fréquemment l'ordre de ses détails "
+"devrait prendre l'habitude de renseigner pour chacun d'eux le champs \\chemin"
+"{ID} de ses propriétés, afin d'être en mesure de le manipuler plus aisément "
+"dans l'\\chemin{Éditeur XML}."
+
+#. type: caption{#2}
+#: contenu.tex:434
+msgid ""
+"L'éditeur XML d'Inkscape permettant de contrôler l'ordre d'affichage des "
+"détails dans l'image active générée. On remarquera la mise en évidence d'un "
+"élément dans l'éditeur et sur l'image de fond par simple clic de souris."
+msgstr ""
+"L'éditeur XML d'Inkscape permettant de contrôler l'ordre d'affichage des "
+"détails dans l'image active générée. On remarquera la mise en évidence d'un "
+"élément dans l'éditeur et sur l'image de fond par simple clic de souris."
+
+#. type: enumerate
+#: contenu.tex:446
+msgid "On peut enrichir et mettre en forme le texte en utilisant des balises"
+msgstr "On peut enrichir et mettre en forme le texte en utilisant des balises"
+
+#. type: enumerate
+#: contenu.tex:446
+msgid ""
+"Un enrichissement multimédia est possible par un simple lien relatif ou "
+"absolu vers un fichier dont le format est reconnu par Xia"
+msgstr ""
+"Un enrichissement multimédia est possible par un simple lien relatif ou "
+"absolu vers un fichier dont le format est reconnu par Xia"
+
+#. type: enumerate
+#: contenu.tex:446
+msgid ""
+"L'ajout d'images sur l'image de fond est possible par simple importation de "
+"celles-ci"
+msgstr ""
+"L'ajout d'images sur l'image de fond est possible par simple importation de "
+"celles-ci"
+
+#. type: enumerate
+#: contenu.tex:446
+msgid ""
+"On modifie le comportement par défaut d'un détail en changeant sa couleur de "
+"fond (blanc, noir)"
+msgstr ""
+"On modifie le comportement par défaut d'un détail en changeant sa couleur de "
+"fond (blanc, noir)"
+
+#. type: enumerate
+#: contenu.tex:446
+msgid ""
+"L'ordre des détails dans l'image active générée dépend de l'ordre de "
+"création de ceux-ci, mais reste modifiable via l'éditeur XML d'Inkscape"
+msgstr ""
+"L'ordre des détails dans l'image active générée dépend de l'ordre de "
+"création de ceux-ci, mais reste modifiable via l'éditeur XML d'Inkscape"
+
+#. type: section{#2}
+#: contenu.tex:449
+msgid "De l'interactivité à l'activité: réaliser des jeux avec Xia"
+msgstr "De l'interactivité à l'activité: réaliser des jeux avec Xia"
+
+#. type: document
+#: contenu.tex:452
+msgid ""
+"Jusqu'à présent, cette documentation a uniquement abordé la réalisation "
+"d'images actives au sens «~traditionnel~»: une image de fond dont des "
+"détails détourés sont associés à des commentaires plus ou moins enrichis."
+msgstr ""
+"Jusqu'à présent, cette documentation a uniquement abordé la réalisation "
+"d'images actives au sens «~traditionnel~»: une image de fond dont des "
+"détails détourés sont associés à des commentaires plus ou moins enrichis."
+
+#. type: document
+#: contenu.tex:458
+msgid ""
+"Ce type d'image permet de mettre en œuvre des scénarios pédagogiques ne "
+"manquant pas d'intérêt (découverte progressive de documents, fabrication par "
+"les élèves d'images actives), mais Xia va beaucoup plus loin en permettant "
+"la réalisation de jeux et d'activités variées, dans lesquelles l'utilisateur "
+"est amené à réaliser infiniment plus d'actions que la simple lecture de "
+"commentaires..."
+msgstr ""
+"Ce type d'image permet de mettre en œuvre des scénarios pédagogiques ne "
+"manquant pas d'intérêt (découverte progressive de documents, fabrication par "
+"les élèves d'images actives), mais Xia va beaucoup plus loin en permettant "
+"la réalisation de jeux et d'activités variées, dans lesquelles l'utilisateur "
+"est amené à réaliser infiniment plus d'actions que la simple lecture de "
+"commentaires..."
+
+#. type: subsection{#2}
+#: contenu.tex:460
+msgid "Premier principe ludique: sélectionner, retrouver dans l'image"
+msgstr "Premier principe ludique: sélectionner, retrouver dans l'image"
+
+#. type: document
+#: contenu.tex:463
+msgid ""
+"Explorez l'\\href{http://geoffrey-gekiere.ac-versailles.fr/xia3}{image "
+"active créée pour cette section de la documentation} et téléchargez le \\href"
+"{http://geoffrey-gekiere.ac-versailles.fr/xia3/svg/xia3.svg}{svg}."
+msgstr ""
+"Explorez l'\\href{http://geoffrey-gekiere.ac-versailles.fr/xia3}{image "
+"active créée pour cette section de la documentation} et téléchargez le \\href"
+"{http://geoffrey-gekiere.ac-versailles.fr/xia3/svg/xia3.svg}{svg}."
+
+#. type: document
+#: contenu.tex:467
+msgid ""
+"\\textit{Le principe ludique est le suivant: on propose une image dans "
+"laquelle l'utilisateur doit sélectionner un certain nombre de détails en "
+"fonction d'une consigne.  La réalisation de l'objectif énoncé déclenche "
+"l'affichage d'un message.}"
+msgstr ""
+"\\textit{Le principe ludique est le suivant: on propose une image dans "
+"laquelle l'utilisateur doit sélectionner un certain nombre de détails en "
+"fonction d'une consigne.  La réalisation de l'objectif énoncé déclenche "
+"l'affichage d'un message.}"
+
+#. type: document
+#: contenu.tex:470
+msgid ""
+"C'est en réalité l'activité, voire l'image active la plus simple à réaliser. "
+"Il suffit en effet au créateur de la ressource de détourer les éléments que "
+"l'utilisateur doit retrouver."
+msgstr ""
+"C'est en réalité l'activité, voire l'image active la plus simple à réaliser. "
+"Il suffit en effet au créateur de la ressource de détourer les éléments que "
+"l'utilisateur doit retrouver."
+
+#. type: document
+#: contenu.tex:477
+msgid ""
+"La consigne à destination de l'utilisateur de l'image active est à "
+"renseigner dans les métadonnées du document. En effet, au moment de "
+"l'export, Xia cherche les informations situées dans le champs \\chemin"
+"{Description} des métadonnées du document (voir section \\ref"
+"{preparation_svg} et figure \\ref{titre_ia}), afin d'en faire une «~pop up~» "
+"qui s'affichera lors de l'ouverture de l'image générée. L'utilisateur lit "
+"alors la consigne et ferme la pop up pour jouer."
+msgstr ""
+"La consigne à destination de l'utilisateur de l'image active est à "
+"renseigner dans les métadonnées du document. En effet, au moment de "
+"l'export, Xia cherche les informations situées dans le champs \\chemin"
+"{Description} des métadonnées du document (voir section \\ref"
+"{preparation_svg} et figure \\ref{titre_ia}), afin d'en faire une «~pop up~» "
+"qui s'affichera lors de l'ouverture de l'image générée. L'utilisateur lit "
+"alors la consigne et ferme la pop up pour jouer."
+
+#. type: document
+#: contenu.tex:487
+msgid ""
+"Lorsque l'utilisateur a réussi le jeu, un message apparaît.  Celui-ci est "
+"créé dans la \\chemin{Description} des \\chemin{Propriétés de l'objet} de "
+"l'image de fond \\footnote{Quand une image active «~traditionnelle~» est "
+"générée, cette manipulation permet la création du commentaire introductif à "
+"l'image, non relié à un détail particulier (voir section \\ref"
+"{preparation_svg}).}.  Deux informations sont nécessaires pour que ce "
+"message apparaisse: le nombre de bonnes réponses déclenchant le message"
+"\\footnote{Ce nombre est à la discrétion du créateur de la ressource et peut "
+"tout à fait être inférieur au nombre total de détails placés sur l'image}, "
+"et le message en lui-même. Ce tableau résume les balises à insérer:"
+msgstr ""
+"Lorsque l'utilisateur a réussi le jeu, un message apparaît.  Celui-ci est "
+"créé dans la \\chemin{Description} des \\chemin{Propriétés de l'objet} de "
+"l'image de fond \\footnote{Quand une image active «~traditionnelle~» est "
+"générée, cette manipulation permet la création du commentaire introductif à "
+"l'image, non relié à un détail particulier (voir section \\ref"
+"{preparation_svg}).}.  Deux informations sont nécessaires pour que ce "
+"message apparaisse: le nombre de bonnes réponses déclenchant le message"
+"\\footnote{Ce nombre est à la discrétion du créateur de la ressource et peut "
+"tout à fait être inférieur au nombre total de détails placés sur l'image}, "
+"et le message en lui-même. Ce tableau résume les balises à insérer:"
+
+#.  le multicolumn refuse le \verb... à corriger
+#.  \hline
+#.  \multicolumn{3}{|c|}{Informations à renseigner dans le champs Description des Propriétés de l'objet}\#. type: tabular
+#: contenu.tex:504
+msgid "Objectif"
+msgstr "Objectif"
+
+#. type: tabular
+#: contenu.tex:504
+msgid ""
+"Renseigner le nombre de bonnes réponses nécessaires pour terminer le jeu"
+msgstr ""
+"Renseigner le nombre de bonnes réponses nécessaires pour terminer le jeu"
+
+#. type: tabular
+#: contenu.tex:504
+msgid "Afficher un message"
+msgstr "Afficher un message"
+
+#. type: tabular
+#: contenu.tex:504 contenu.tex:665
+msgid "Balise"
+msgstr "Balise"
+
+#. type: tabular
+#: contenu.tex:504 contenu.tex:665
+msgid "\\verb|<score></score>|"
+msgstr "\\verb|<score></score>|"
+
+#. type: tabular
+#: contenu.tex:504 contenu.tex:665
+msgid "\\verb|<message></message>|"
+msgstr "\\verb|<message></message>|"
+
+#. type: tabular
+#: contenu.tex:504
+msgid "Exemple"
+msgstr "Exemple"
+
+#. type: tabular
+#: contenu.tex:504
+msgid "\\multicolumn{2}{|l|}{<score>6</score>}"
+msgstr "\\multicolumn{2}{|l|}{<score>6</score>}"
+
+#. type: tabular
+#: contenu.tex:504
+msgid "\\multicolumn{2}{|l|}{<message>Bravo, vous avez réussi à sélectionner}"
+msgstr "\\multicolumn{2}{|l|}{<message>Bravo, vous avez réussi à sélectionner}"
+
+#. type: tabular
+#: contenu.tex:504
+msgid ""
+"\\multicolumn{2}{|l|}{correctement tous les éléments demandés</message>}"
+msgstr ""
+"\\multicolumn{2}{|l|}{correctement tous les éléments demandés</message>}"
+
+#. type: document
+#: contenu.tex:509
+msgid ""
+"Astuce: le texte inséré dans la balise \\verb|<message></message>| peut tout "
+"à fait être enrichi.  On peut ainsi imaginer de proposer le visionnage d'une "
+"image, d'une vidéo, ou l'affichage d'un lien vers un second exercice, afin "
+"de «~chaîner~» les activités par degré de difficultés."
+msgstr ""
+"Astuce: le texte inséré dans la balise \\verb|<message></message>| peut tout "
+"à fait être enrichi.  On peut ainsi imaginer de proposer le visionnage d'une "
+"image, d'une vidéo, ou l'affichage d'un lien vers un second exercice, afin "
+"de «~chaîner~» les activités par degré de difficultés."
+
+#. type: document
+#: contenu.tex:512
+msgid ""
+"La génération d'une l'image active ayant pour principe ludique la sélection "
+"de détails correspond dans Xia à l'export \\chemin{game1clic}:"
+msgstr ""
+"La génération d'une l'image active ayant pour principe ludique la sélection "
+"de détails correspond dans Xia à l'export \\chemin{game1clic}:"
+
+#. type: subsubsection{#2}
+#: contenu.tex:518
+msgid ""
+"Pour aller plus loin... Comment montrer à l'utilisateur sa progression lors "
+"de l'utilisation d'un jeu game1clic?"
+msgstr ""
+"Pour aller plus loin... Comment montrer à l'utilisateur sa progression lors "
+"de l'utilisation d'un jeu game1clic?"
+
+#. type: document
+#: contenu.tex:531
+msgid ""
+"On peut programmer l'apparition d'éléments visuels lorsque l'utilisateur "
+"sélectionne une réponse correcte.  Ces éléments peuvent être issus de "
+"l'importation d'images au format png, mais également être directement créées "
+"dans Inkscape.  Cependant, puisque Xia considère comme un détail clicable "
+"tout élément créé à partir des outils d'Inkscape, il faudra, après avoir "
+"dessiné ceux-ci, les transformer en «~copie bitmap~».  Par exemple:"
+msgstr ""
+"On peut programmer l'apparition d'éléments visuels lorsque l'utilisateur "
+"sélectionne une réponse correcte.  Ces éléments peuvent être issus de "
+"l'importation d'images au format png, mais également être directement créées "
+"dans Inkscape.  Cependant, puisque Xia considère comme un détail clicable "
+"tout élément créé à partir des outils d'Inkscape, il faudra, après avoir "
+"dessiné ceux-ci, les transformer en «~copie bitmap~».  Par exemple:"
+
+#. type: enumerate
+#: contenu.tex:531
+msgid ""
+"On dessine une étoile de côtés jaune sur fond jaune avec les outils "
+"d'Inkscape"
+msgstr ""
+"On dessine une étoile de côtés jaune sur fond jaune avec les outils "
+"d'Inkscape"
+
+#. type: enumerate
+#: contenu.tex:531
+msgid ""
+"Après avoir sélectionné cette étoile, on clique, dans le menu \\chemin"
+"{Édition}, sur \\chemin{Faire une copie bitmap}"
+msgstr ""
+"Après avoir sélectionné cette étoile, on clique, dans le menu \\chemin"
+"{Édition}, sur \\chemin{Faire une copie bitmap}"
+
+#. type: enumerate
+#: contenu.tex:531
+msgid ""
+"On supprime l'étoile ayant servi à créer cette copie bitmap, devenue inutile"
+msgstr ""
+"On supprime l'étoile ayant servi à créer cette copie bitmap, devenue inutile"
+
+#. type: document
+#: contenu.tex:539
+msgid ""
+"Une fois les éléments visuels importés (fichiers png) ou créés (copie bitmap "
+"de figures créées à la main), il suffit d'appliquer à ceux-ci la "
+"caractéristique"
+msgstr ""
+"Une fois les éléments visuels importés (fichiers png) ou créés (copie bitmap "
+"de figures créées à la main), il suffit d'appliquer à ceux-ci la "
+"caractéristique"
+
+#. type: center
+#: contenu.tex:539
+msgid "\\chemin{Interactivité > OnClick} = \\verb|off|"
+msgstr "\\chemin{Interactivité > OnClick} = \\verb|off|"
+
+#. type: document
+#: contenu.tex:539
+msgid ""
+"et enfin de grouper le détail clicable à cet élément (en cliquant "
+"successivement sur le détail et l'élément visuel en maintenant la touche Maj "
+"enfoncée, puis en sélectionnant \\chemin{Grouper} dans le menu \\chemin"
+"{Objet} d'Inkscape)."
+msgstr ""
+"et enfin de grouper le détail clicable à cet élément (en cliquant "
+"successivement sur le détail et l'élément visuel en maintenant la touche Maj "
+"enfoncée, puis en sélectionnant \\chemin{Grouper} dans le menu \\chemin"
+"{Objet} d'Inkscape)."
+
+#. type: subsubsection{#2}
+#: contenu.tex:541
+msgid ""
+"Pour aller plus loin... Comment mettre en évidence les erreurs de "
+"l'utilisateur dans un jeu game1clic?"
+msgstr ""
+"Pour aller plus loin... Comment mettre en évidence les erreurs de "
+"l'utilisateur dans un jeu game1clic?"
+
+#. type: document
+#: contenu.tex:545
+msgid ""
+"Le principe ludique de la sélection d'un ensemble de détails dans une image "
+"a un intérêt pédagogique évident...  et des limites qui le sont tout autant "
+"(on imagine aisément un élève tenter de cliquer frénétiquement sur chaque "
+"pixel de l'image active sans réfléchir une seule seconde...)."
+msgstr ""
+"Le principe ludique de la sélection d'un ensemble de détails dans une image "
+"a un intérêt pédagogique évident...  et des limites qui le sont tout autant "
+"(on imagine aisément un élève tenter de cliquer frénétiquement sur chaque "
+"pixel de l'image active sans réfléchir une seule seconde...)."
+
+#. type: document
+#: contenu.tex:548
+msgid ""
+"C'est la raison pour laquelle il peut être intéressant d'être en mesure de "
+"mettre en évidence dans le jeu les erreurs commises par les utilisateurs."
+msgstr ""
+"C'est la raison pour laquelle il peut être intéressant d'être en mesure de "
+"mettre en évidence dans le jeu les erreurs commises par les utilisateurs."
+
+#. type: document
+#: contenu.tex:560
+msgid ""
+"Pour cela, le créateur de la ressource prévoiera de déposer aux endroits "
+"stratégiques de son image de fond, dans Inkscape, un élément visuel assez "
+"explicite pour symboliser l'erreur. Cet élément visuel peut être une image "
+"au format png ou une forme créée directement avec les outils de dessins "
+"d'Inkscape, puis transformée en bitmap (voir la méthode décrite à la section "
+"\\ref{detail_progression}).  On appliquera à celui-ci la caractéristique"
+msgstr ""
+"Pour cela, le créateur de la ressource prévoiera de déposer aux endroits "
+"stratégiques de son image de fond, dans Inkscape, un élément visuel assez "
+"explicite pour symboliser l'erreur. Cet élément visuel peut être une image "
+"au format png ou une forme créée directement avec les outils de dessins "
+"d'Inkscape, puis transformée en bitmap (voir la méthode décrite à la section "
+"\\ref{detail_progression}).  On appliquera à celui-ci la caractéristique"
+
+#. type: center
+#: contenu.tex:560
+msgid "\\chemin{Interactivité > OnClick} = \\verb|disable-score|"
+msgstr "\\chemin{Interactivité > OnClick} = \\verb|disable-score|"
+
+#. type: document
+#: contenu.tex:560
+msgid ""
+"De cette manière, le détail demeure clicable, mais son activation n'ajoute "
+"pas un point au compteur permettant au final de déclencher le message de "
+"victoire."
+msgstr ""
+"De cette manière, le détail demeure clicable, mais son activation n'ajoute "
+"pas un point au compteur permettant au final de déclencher le message de "
+"victoire."
+
+#. type: subsection{#2}
+#: contenu.tex:562
+msgid "Second principe ludique: classer, légender, hiérarchiser"
+msgstr "Second principe ludique: classer, légender, hiérarchiser"
+
+#. type: document
+#: contenu.tex:566
+msgid ""
+"\\textit{Second principe ludique: une image de fond contient des étiquettes "
+"qu'il faut déplacer et déposer sur les bons détails. Lorsque tous les "
+"éléments ont été remis à leur place, un message confirme la résolution du "
+"jeu.}"
+msgstr ""
+"\\textit{Second principe ludique: une image de fond contient des étiquettes "
+"qu'il faut déplacer et déposer sur les bons détails. Lorsque tous les "
+"éléments ont été remis à leur place, un message confirme la résolution du "
+"jeu.}"
+
+#. type: document
+#: contenu.tex:569
+msgid ""
+"Explorez l'\\href{http://geoffrey-gekiere.ac-versailles.fr/xia5}{image "
+"active créée pour cette section de la documentation} \\\\ et téléchargez le "
+"\\href{http://geoffrey-gekiere.ac-versailles.fr/xia5/svg/xia5.svg}{svg}."
+msgstr ""
+"Explorez l'\\href{http://geoffrey-gekiere.ac-versailles.fr/xia5}{image "
+"active créée pour cette section de la documentation} \\\\ et téléchargez le "
+"\\href{http://geoffrey-gekiere.ac-versailles.fr/xia5/svg/xia5.svg}{svg}."
+
+#. type: document
+#: contenu.tex:584
+msgid "La démarche pour la réalisation d'un jeu de ce type est la suivante:"
+msgstr "La démarche pour la réalisation d'un jeu de ce type est la suivante:"
+
+#. type: enumerate
+#: contenu.tex:584
+msgid "Dans Inkscape:"
+msgstr "Dans Inkscape:"
+
+#. type: itemize
+#: contenu.tex:584
+msgid "Choisir une image de fond"
+msgstr "Choisir une image de fond"
+
+#. type: itemize
+#: contenu.tex:584
+msgid "Préparer les «~étiquettes~» à déplacer (petites images ou texte)"
+msgstr "Préparer les «~étiquettes~» à déplacer (petites images ou texte)"
+
+#. type: itemize
+#: contenu.tex:584
+msgid ""
+"Faire correspondre chaque étiquette à sa zone de dépôt (en réalité, un "
+"détail détouré)  grâce aux métadonnées renseignées"
+msgstr ""
+"Faire correspondre chaque étiquette à sa zone de dépôt (en réalité, un "
+"détail détouré)  grâce aux métadonnées renseignées"
+
+#. type: enumerate
+#: contenu.tex:584
+msgid "Dans Xia"
+msgstr "Dans Xia"
+
+#. type: itemize
+#: contenu.tex:584
+msgid "Exporter le svg ainsi préparé avec le thème «~gameDragAndDrop~»"
+msgstr "Exporter le svg ainsi préparé avec le thème «~gameDragAndDrop~»"
+
+#. type: document
+#: contenu.tex:593
+msgid ""
+"Deux méthodes sont envisageables pour disposer des «~étiquettes~» à "
+"déplacer.  Un moyen simple est d'utiliser un utilitaire de capture d'écran "
+"capable de produire des images au format png puis d'importer celles-ci dans "
+"Inkscape.  On peut également produire des étiquettes de type texte "
+"directement dans Inkscape en regroupant un cadre (outil \\chemin{Créer des "
+"rectangles et des carrés}) et un élément textuel puis en faisant une copie "
+"bitmap de cet ensemble (voir section \\ref{detail_progression})\\footnote"
+"{... sans oublier, après avoir fait la copie bitmap, de supprimer le "
+"regroupement devenu inutile.}.  On fait ensuite correspondre aux détails "
+"censés les accueillir\\footnote{\\textbf{Une} étiquette ne pouvant "
+"correspondre qu'à \\textbf{un} détail.}."
+msgstr ""
+"Deux méthodes sont envisageables pour disposer des «~étiquettes~» à "
+"déplacer.  Un moyen simple est d'utiliser un utilitaire de capture d'écran "
+"capable de produire des images au format png puis d'importer celles-ci dans "
+"Inkscape.  On peut également produire des étiquettes de type texte "
+"directement dans Inkscape en regroupant un cadre (outil \\chemin{Créer des "
+"rectangles et des carrés}) et un élément textuel puis en faisant une copie "
+"bitmap de cet ensemble (voir section \\ref{detail_progression})\\footnote"
+"{... sans oublier, après avoir fait la copie bitmap, de supprimer le "
+"regroupement devenu inutile.}.  On fait ensuite correspondre aux détails "
+"censés les accueillir\\footnote{\\textbf{Une} étiquette ne pouvant "
+"correspondre qu'à \\textbf{un} détail.}."
+
+#. type: document
+#: contenu.tex:596
+msgid ""
+"Le tableau suivant résume les métadonnées à renseigner dans les \\chemin"
+"{Propriétés de l'objet} dans l'étiquette et le détail correspondant afin de "
+"les «~jumeler~»:"
+msgstr ""
+"Le tableau suivant résume les métadonnées à renseigner dans les \\chemin"
+"{Propriétés de l'objet} dans l'étiquette et le détail correspondant afin de "
+"les «~jumeler~»:"
+
+#. type: tabular
+#: contenu.tex:610
+msgid "Étiquette (objet à déplacer)"
+msgstr "Étiquette (objet à déplacer)"
+
+#. type: tabular
+#: contenu.tex:610
+msgid "Détail détouré (réceptacle de l'étiquette)"
+msgstr "Détail détouré (réceptacle de l'étiquette)"
+
+#. type: tabular
+#: contenu.tex:610
+msgid "Champs ID"
+msgstr "Champs ID"
+
+#. type: tabular
+#: contenu.tex:610
+msgid "\\verb|Titre_Detail|"
+msgstr "\\verb|Titre_Detail|"
+
+#. type: tabular
+#: contenu.tex:610
+msgid "Champs Description"
+msgstr "Champs Description"
+
+#. type: tabular
+#: contenu.tex:610
+msgid "\\verb|<target>Titre_Detail</target>|"
+msgstr "\\verb|<target>Titre_Detail</target>|"
+
+#. type: tabular
+#: contenu.tex:610
+msgid "Champs Interactivité > Onclick"
+msgstr "Champs Interactivité > Onclick"
+
+#. type: tabular
+#: contenu.tex:610 contenu.tex:665
+msgid "\\verb|off|"
+msgstr "\\verb|off|"
+
+#. type: document
+#: contenu.tex:615
+msgid ""
+"Pour résumer, le créateur de la ressource fait savoir à Xia quelle étiquette "
+"correspond à quel détail en faisant correspondre le champs \\chemin{ID} du "
+"détail (réceptacle) au champs \\chemin{Description} de l'étiquette (objet à "
+"déplacer). La seule subtilité consiste à entourer, dans le champs \\chemin"
+"{Description} de l'étiquette, l'ID correspondante d'une balise \\verb|"
+"<target></target>|."
+msgstr ""
+"Pour résumer, le créateur de la ressource fait savoir à Xia quelle étiquette "
+"correspond à quel détail en faisant correspondre le champs \\chemin{ID} du "
+"détail (réceptacle) au champs \\chemin{Description} de l'étiquette (objet à "
+"déplacer). La seule subtilité consiste à entourer, dans le champs \\chemin"
+"{Description} de l'étiquette, l'ID correspondante d'une balise \\verb|"
+"<target></target>|."
+
+#. type: document
+#: contenu.tex:621
+msgid ""
+"Une astuce: si l'image active contient de nombreux détails réceptacles de "
+"taille identique, on peut en créer une, lui appliquer la caractéristique "
+"\\chemin{Interactivité > OnClick} = \\verb|off|, puis copier-coller ce "
+"détail autant de fois que nécessaire. Conservant cette option, le créateur "
+"de la ressource n'aura pas besoin d'aller l'appliquer à chaque détail créé, "
+"et aura uniquement à modifier les champs \\chemin{ID}."
+msgstr ""
+"Une astuce: si l'image active contient de nombreux détails réceptacles de "
+"taille identique, on peut en créer une, lui appliquer la caractéristique "
+"\\chemin{Interactivité > OnClick} = \\verb|off|, puis copier-coller ce "
+"détail autant de fois que nécessaire. Conservant cette option, le créateur "
+"de la ressource n'aura pas besoin d'aller l'appliquer à chaque détail créé, "
+"et aura uniquement à modifier les champs \\chemin{ID}."
+
+#. type: document
+#: contenu.tex:624
+msgid ""
+"La génération d'une l'image active ayant pour principe ludique le glisser "
+"déposer correspond dans Xia à l'export \\chemin{gameDragAndDrop}:"
+msgstr ""
+"La génération d'une l'image active ayant pour principe ludique le glisser "
+"déposer correspond dans Xia à l'export \\chemin{gameDragAndDrop}:"
+
+#. type: subsubsection{#2}
+#: contenu.tex:630
+msgid "Comment ajouter un effet «~magnétisme~» dans le jeu gameDragAndDrop"
+msgstr "Comment ajouter un effet «~magnétisme~» dans le jeu gameDragAndDrop"
+
+#. type: document
+#: contenu.tex:638
+msgid "En indiquant\\\\"
+msgstr "En indiquant\\\\"
+
+#. type: tabular
+#: contenu.tex:638 contenu.tex:665
+msgid "\\verb|<magnet>on</magnet>|"
+msgstr "\\verb|<magnet>on</magnet>|"
+
+#. type: document
+#: contenu.tex:638
+msgid ""
+"dans le champs \\chemin{Description} du détail réceptacle de l'étiquette, un "
+"effet «~aimant~» sera effectif au moment où l'utilisateur approche son "
+"étiquette de la cible."
+msgstr ""
+"dans le champs \\chemin{Description} du détail réceptacle de l'étiquette, un "
+"effet «~aimant~» sera effectif au moment où l'utilisateur approche son "
+"étiquette de la cible."
+
+#. type: document
+#: contenu.tex:642
+msgid ""
+"L'avantage de cette option est qu'elle permet à l'utilisateur d'être sûr que "
+"la non-résolution du jeu provient d'une erreur de correspondance de ses "
+"étiquettes, et pas d'un léger décalage entre l'étiquette et la zone de dépôt."
+msgstr ""
+"L'avantage de cette option est qu'elle permet à l'utilisateur d'être sûr que "
+"la non-résolution du jeu provient d'une erreur de correspondance de ses "
+"étiquettes, et pas d'un léger décalage entre l'étiquette et la zone de dépôt."
+
+#. type: document
+#: contenu.tex:647
+msgid ""
+"Aperçu synthétique des principales balises à insérer dans le cadre de la "
+"création d'un jeu (export game1clic ou gameDragAndDrop):"
+msgstr ""
+"Aperçu synthétique des principales balises à insérer dans le cadre de la "
+"création d'un jeu (export game1clic ou gameDragAndDrop):"
+
+#. type: tabular
+#: contenu.tex:665
+msgid "Quel rôle?"
+msgstr "Quel rôle?"
+
+#. type: tabular
+#: contenu.tex:665
+msgid "Sur quel objet?"
+msgstr "Sur quel objet?"
+
+#. type: tabular
+#: contenu.tex:665
+msgid "À insérer dans..."
+msgstr "À insérer dans..."
+
+#. type: tabular
+#: contenu.tex:665
+msgid "Qu'y insérer?"
+msgstr "Qu'y insérer?"
+
+#. type: tabular
+#: contenu.tex:665
+msgid "Indiquer le nombre de bonnes réponses déclenchant le message de fin"
+msgstr "Indiquer le nombre de bonnes réponses déclenchant le message de fi"
+
+#. type: tabular
+#: contenu.tex:665
+msgid "Image de fond"
+msgstr "Image de fond"
+
+#. type: tabular
+#: contenu.tex:665
+msgid "Propriétés de l'objet > Description"
+msgstr "Propriétés de l'objet > Description"
+
+#. type: tabular
+#: contenu.tex:665
+msgid "Le chiffre correspondant au score demandé"
+msgstr "Le chiffre correspondant au score demandé"
+
+#. type: tabular
+#: contenu.tex:665
+msgid "Afficher le message de fin du jeu"
+msgstr "Afficher le message de fin du jeu"
+
+#. type: tabular
+#: contenu.tex:665
+msgid "Un message personnalisé, si besoin enrichi"
+msgstr "Un message personnalisé, si besoin enrichi"
+
+#. type: tabular
+#: contenu.tex:665
+msgid "Rendre insensible au clic un détail"
+msgstr "Rendre insensible au clic un détail"
+
+#. type: tabular
+#: contenu.tex:665
+msgid "Détail"
+msgstr "Détail"
+
+#. type: tabular
+#: contenu.tex:665
+msgid "Propriétés de l'objet > Interactivité > Onclick"
+msgstr "Propriétés de l'objet > Interactivité > Onclick"
+
+#. type: tabular
+#: contenu.tex:665
+msgid "\\verb|disable-score|"
+msgstr "\\verb|disable-score|"
+
+#. type: tabular
+#: contenu.tex:665
+msgid ""
+"Conserve la sensibilité au clic mais n'ajoute pas de point au compteur de "
+"résultat quand sélectionné"
+msgstr ""
+"Conserve la sensibilité au clic mais n'ajoute pas de point au compteur de "
+"résultat quand sélectionné"
+
+#. type: tabular
+#: contenu.tex:665
+msgid "\\verb|<target></target>|"
+msgstr "\\verb|<target></target>|"
+
+#. type: tabular
+#: contenu.tex:665
+msgid "Indique au détail déplaçable son détail fixe correspondant"
+msgstr "Indique au détail déplaçable son détail fixe correspondant"
+
+#. type: tabular
+#: contenu.tex:665
+msgid "Détail à déplacer"
+msgstr "Détail à déplacer"
+
+#. type: tabular
+#: contenu.tex:665
+msgid "Faire correspondre au champs ID de la cible"
+msgstr "Faire correspondre au champs ID de la cible"
+
+#. type: tabular
+#: contenu.tex:665
+msgid "Ajoute un effet «~aimant~»"
+msgstr "Ajoute un effet «~aimant~»"
+
+#. type: tabular
+#: contenu.tex:665
+msgid "Détail réceptacle"
+msgstr "Détail réceptacle"
