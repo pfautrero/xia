@@ -215,7 +215,11 @@ header h1 {
     width:20%;
     max-width: 100px;
 }
-#popup_close, #popup_close_intro {
+#content #message_success {
+    overflow-x:visible;
+    overflow-y:visible;
+}
+#popup_close, #popup_close_intro, #popup_toggle {
     cursor: pointer;
     position:absolute;
     top:-40px;

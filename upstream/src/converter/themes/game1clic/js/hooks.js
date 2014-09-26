@@ -86,6 +86,16 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
     $("#popup_close").on("click", function(){
         $("#rights").hide();
     });
+
+    $("#popup_toggle").on("click", function(){
+        $("#message_success_content").toggle();
+        if ($(this).attr('src') == 'img/hide.png') {
+            $(this).attr('src', 'img/show.png');
+        }
+        else {
+            $(this).attr('src', 'img/hide.png');
+        }
+    });
     
     document.addEventListener("click", function(ev){
         if (mainScene.noPropagation) {

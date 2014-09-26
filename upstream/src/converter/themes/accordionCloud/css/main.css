@@ -222,7 +222,11 @@ a.accordion-toggle {
     float:left;
     width:100px;
 }
-#popup_close {
+#content #message_success {
+    overflow-x:visible;
+    overflow-y:visible;
+}
+#popup_close, #popup_toggle {
     cursor: pointer;
     position:absolute;
     top:-40px;
