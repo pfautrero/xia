@@ -1,0 +1,8 @@
+# Reminder and TODO list
+
+# Generate .pot file from text
+po4a-gettextize -f latex -m contenu.tex -M UTF8 -p fr_FR.po
+
+# Script to generate docs from po files
+
+
