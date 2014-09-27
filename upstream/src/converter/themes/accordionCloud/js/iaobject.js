@@ -199,6 +199,9 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     that.path[i] = detail.path;
     //that.backgroundImage[i] = imageObj;
     that.title[i] = detail.title;
+    // if detail is out of background, hack maxX and maxY
+    if (parseFloat(detail.maxX) < 0) detail.maxX = 1;
+    if (parseFloat(detail.maxY) < 0) detail.maxY = 1;        
     that.kineticElement[i] = new Kinetic.Path({
         name: detail.title,
         data: detail.path,
