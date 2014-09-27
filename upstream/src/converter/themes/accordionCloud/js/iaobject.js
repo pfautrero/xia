@@ -215,23 +215,26 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     var cropCtx = that.cropCanvas.getContext('2d');
     var cropX = Math.max(parseFloat(detail.minX), 0);
     var cropY = Math.max(parseFloat(detail.minY), 0);
-    var cropWidth = (Math.min((parseFloat(detail.maxX) - parseFloat(detail.minX)) * iaScene.scale, Math.floor(parseFloat(iaScene.originalWidth) * iaScene.scale)));
-    var cropHeight = (Math.min((parseFloat(detail.maxY) - parseFloat(detail.minY)) * iaScene.scale, Math.floor(parseFloat(iaScene.originalHeight) * iaScene.scale)));
+    var cropWidth = (Math.min((parseFloat(detail.maxX) - cropX) * iaScene.scale, Math.floor(parseFloat(iaScene.originalWidth) * iaScene.scale)));
+    var cropHeight = (Math.min((parseFloat(detail.maxY) - cropY) * iaScene.scale, Math.floor(parseFloat(iaScene.originalHeight) * iaScene.scale)));
     if (cropX * iaScene.scale + cropWidth > iaScene.originalWidth * iaScene.scale) {
 	cropWidth = iaScene.originalWidth * iaScene.scale - cropX * iaScene.scale;
     }
     if (cropY * iaScene.scale + cropHeight > iaScene.originalHeight * iaScene.scale) {
 	cropHeight = iaScene.originalHeight * iaScene.scale - cropY * iaScene.scale;
     }
-    
+    var posX = 0;
+    var posY = 0;
+    if (parseFloat(detail.minX) < 0) posX = parseFloat(detail.minX) * (-1);
+    if (parseFloat(detail.minY) < 0) posY = parseFloat(detail.minY) * (-1);
     cropCtx.drawImage(
         that.imageObj,
         cropX * iaScene.scale,
         cropY * iaScene.scale,
         cropWidth,
         cropHeight,
-        0,
-        0,
+        posX,
+        posY,
         cropWidth,
         cropHeight
     );
