@@ -169,6 +169,9 @@ header h1 {
     min-height: 100px;
     box-shadow: black 5px 5px 10px;
     padding:10px;
+    font-family: yanone_thin;
+    font-size: 2em;
+    text-align:center;    
 }
 #content article {
     display:none;
