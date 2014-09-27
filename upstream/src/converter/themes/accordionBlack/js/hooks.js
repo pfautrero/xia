@@ -109,7 +109,9 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
             else if (mainScene.cursorState.indexOf("ZoomIn.cur") !== -1) {
                 document.body.style.cursor = "default";
                 mainScene.cursorState = "default";
-                mainScene.element.kineticElement[0].fire("mouseleave");
+                if (typeof(mainScene.element.kineticElement) != "undefined") {
+                    mainScene.element.kineticElement[0].fire("mouseleave");
+                }
             }
         }
     });    
