@@ -53,7 +53,7 @@ msgid "modify image resolution"
 msgstr ""
 "modifier la résolution de l'image.\n"
 "1 = basse résolution (adapté pour le web et les tablettes)\n"
-"4 = haute résolution(utilisé en local)"
+"4 = haute résolution (utilisé en local)"
 
 #: build/converter/themes/accordionBlack/hook.py:38
 msgid "export accordionBlack !"
