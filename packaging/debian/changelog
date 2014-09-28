@@ -1,8 +1,8 @@
-xia (0.alpha7-1) UNRELEASED; urgency=low
+xia (0.alpha7-1) unstable; urgency=low
 
   * New upstream release.
 
- -- François Lafont <francois.lafont@crdp.ac-versailles.fr>  Sun, 28 Sep 2014 20:38:37 +0200
+ -- François Lafont <francois.lafont@crdp.ac-versailles.fr>  Sun, 28 Sep 2014 20:41:10 +0200
 
 xia (0.alpha6-1) unstable; urgency=low
 
