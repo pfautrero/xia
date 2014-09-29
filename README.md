@@ -20,12 +20,12 @@ Finally, install grunt and lodash (used in this project):
 
 App pre-install (launch just once):
 
-    cd project/upstream
+    cd project
     npm install
 
 App install : (must be used each time we want a new release)
 
-    cd project/upstream
+    cd project
     grunt default
 
 Application is then built in project/upstream/build

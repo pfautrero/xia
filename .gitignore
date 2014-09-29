@@ -1,7 +1,7 @@
 nbproject/
 *.pyc
-upstream/src/converter/.coverage
-upstream/.coverage
+src/converter/.coverage
+.coverage
 node_modules
 build
 doc/**.log
@@ -9,3 +9,4 @@ doc/**.log
 *.out
 *.pdf
 *.toc
+
