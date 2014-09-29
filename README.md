@@ -31,15 +31,3 @@ App install : (must be used each time we want a new release)
 Application is then built in project/upstream/build
 
 
-# Build the debian package in Debian Jessie
-
-    apt-get install --no-install-recommends --yes git openssl ca-certificates devscripts equivs lsb-release
-    git clone 'http://gitlab.crdp.ac-versailles.fr:80/pascal.fautrero/images-actives-html5.git'
-    cd images-actives-html5/packaging/
-    mk-build-deps --install --tool 'apt-get --yes --no-install-recommends' --remove ./debian/control
-    ./debian/rules populate_working_dir
-    debuild -us -uc
-
-
-
-
