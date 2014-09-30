@@ -78,6 +78,11 @@ class hook:
                 if collision:
                     collision_state = collision.group(1)
 
+                tooltip_state = ""
+                tooltip = re.search('<tooltip>(.*)</tooltip>', detail["detail"], re.IGNORECASE|re.DOTALL)
+                if tooltip:
+                    tooltip_state = tooltip.group(1)
+                    
                 #target = xml.getElementsByTagName("target");
                 #target_id = ""
                 #if target.item(0) is not None:
@@ -89,7 +94,7 @@ class hook:
                 #    magnet_state = magnet.item(0).childNodes[0].nodeValue   
                     
 
-                final_str += u'<article class="detail_content" data-collisions="'+ collision_state +'" data-magnet="'+ magnet_state +'" data-kinetic_id="'+detail["id"]+'" data-target="'+target_id+'" id="article-'+unicode(str(i), "utf8") + u'">\n'
+                final_str += u'<article class="detail_content" data-tooltip="'+ tooltip_state +'" data-collisions="'+ collision_state +'" data-magnet="'+ magnet_state +'" data-kinetic_id="'+detail["id"]+'" data-target="'+target_id+'" id="article-'+unicode(str(i), "utf8") + u'">\n'
                 final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
                 final_str += u'  <p>' + self.PageFormatter(detail["detail"]).print_html() + u'<p>\n'
                 final_str += u'</article>\n'
