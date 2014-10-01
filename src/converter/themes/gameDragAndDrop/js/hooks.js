@@ -96,7 +96,6 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         }
     });
     
-    
     document.addEventListener("click", function(ev){
         if (mainScene.noPropagation) {
             mainScene.noPropagation = false;
@@ -192,9 +191,6 @@ hooks.prototype.afterIaObjectDragEnd = function(iaScene, idText, iaObject, event
                 $(this)[0].play();
             }
         });         
-        
-        
     }
-
 };
 

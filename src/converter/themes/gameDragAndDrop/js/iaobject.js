@@ -109,7 +109,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
     var rasterObj = new Image();
     rasterObj.src = detail.image;       
     that.title[i] = detail.title;
-    that.backgroundImage[i] = rasterObj;
+    //that.backgroundImage[i] = rasterObj;
     that.kineticElement[i] = new Kinetic.Image({
         id: detail.id,
         name: detail.title,
@@ -120,7 +120,8 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         draggable: draggable_object
      
     });
-    
+    that.kineticElement[i].backgroundImage = rasterObj;
+    that.kineticElement[i].tooltip = "";
     
     var collision_state = $("#" + idText).data("collisions");
     that.collisions = collision_state;
@@ -207,8 +208,12 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
     that.kineticElement[i].setIaObject(that);
 
     rasterObj.onload = function() {
-        that.backgroundImageOwnScaleX[i] = iaScene.scale * detail.width / this.width;
-        that.backgroundImageOwnScaleY[i] = iaScene.scale * detail.height / this.height;
+        
+        // @TODO : remove all backgroundImageOwnScaleX array
+        //that.backgroundImageOwnScaleX[i] = iaScene.scale * detail.width / this.width;
+        //that.backgroundImageOwnScaleY[i] = iaScene.scale * detail.height / this.height;
+        that.kineticElement[i].backgroundImageOwnScaleX = iaScene.scale * detail.width / this.width;
+        that.kineticElement[i].backgroundImageOwnScaleY = iaScene.scale * detail.height / this.height;        
         var zoomable = true;
 
         if ((typeof(detail.fill) !== 'undefined') && 
@@ -216,16 +221,17 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
             zoomable = false;
         }
 
-        detail.fill = '#ffffff';    // force image to be displayed - must refactor if it is a good idea !
-
+        if ($('article[data-tooltip="' + $("#" + idText).data("kinetic_id") + '"]').length == 0) {
+            detail.fill = '#ffffff';    // force image to be displayed - must refactor if it is a good idea !
+        }
         that.persistent[i] = "off";
         if ((typeof(detail.fill) !== 'undefined') && 
             (detail.fill === "#ffffff")) {
             that.persistent[i] = "onImage";
             that.kineticElement[i].fillPriority('pattern');
-            that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
-            that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);                
-            that.kineticElement[i].fillPatternImage(that.backgroundImage[i]); 
+            that.kineticElement[i].fillPatternScaleX(that.kineticElement[i].backgroundImageOwnScaleX * 1/iaScene.scale);
+            that.kineticElement[i].fillPatternScaleY(that.kineticElement[i].backgroundImageOwnScaleY * 1/iaScene.scale);                
+            that.kineticElement[i].fillPatternImage(that.kineticElement[i].backgroundImage); 
             zoomable = false;
         }
         
@@ -362,20 +368,15 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
               x: x_value,
               y: y_value
             };
-              
-        
+
         });
-        
-        
-        
+
     }
 
     that.kineticElement[i].setIaObject(that);
     that.definePathBoxSize(detail, that);
     // crop background image to suit shape box
-
-
-    
+    that.kineticElement[i].tooltip = "";
     if (that.options[i].indexOf("disable-click") == -1) {
         that.cropCanvas = document.createElement('canvas');
         that.cropCanvas.setAttribute('width', parseFloat(detail.maxX) - parseFloat(detail.minX));
@@ -408,9 +409,13 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         var cropedImage = new Image();
         cropedImage.src = dataUrl;
         cropedImage.onload = function() {
-            that.backgroundImage[i] = cropedImage;
-            that.backgroundImageOwnScaleX[i] = 1;
-            that.backgroundImageOwnScaleY[i] = 1;
+            that.kineticElement[i].backgroundImage = cropedImage;
+            //that.backgroundImage[i] = cropedImage;
+            //that.backgroundImageOwnScaleX[i] = 1;
+            //that.backgroundImageOwnScaleY[i] = 1;
+            that.kineticElement[i].backgroundImage = cropedImage;
+            that.kineticElement[i].backgroundImageOwnScaleX = 1;
+            that.kineticElement[i].backgroundImageOwnScaleY = 1;            
             that.kineticElement[i].fillPatternRepeat('no-repeat');
             that.kineticElement[i].fillPatternX(detail.minX);
             that.kineticElement[i].fillPatternY(detail.minY);
@@ -485,8 +490,6 @@ IaObject.prototype.definePathBoxSize = function(detail, that) {
     }
 };
 
-
-
 /*
  * Define zoom rate and define tween effect for each group
  * @returns {undefined}
@@ -526,31 +529,10 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 
     var that=this;
 
+    that.kineticElement[i].droparea = false;
+    // if current detail is a drop area, disable drag and drop
     if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
-        return;
-    }
-    
-    if (that.options[i].indexOf("disable-click") != -1) return;
-
-    if (that.options[i].indexOf("direct-link") != -1) {
-        that.kineticElement[i].on('click touchstart', function(e) {
-            location.href = that.title[i];
-        });
-    }
-    else {
-        that.kineticElement[i].on('dragstart', function(e) {
-            iaScene.element = that;
-            that.myhooks.afterIaObjectDragStart(iaScene, idText, that);
-            that.layer.moveToTop();
-            Kinetic.draggedshape = this;
-        });
-        
-        that.kineticElement[i].on('dragend', function(e) {
-            iaScene.element = that;
-            Kinetic.draggedshape = null;
-            that.myhooks.afterIaObjectDragEnd(iaScene, idText, that, e);
-            that.layer.draw();
-        });    
+        that.kineticElement[i].droparea = true;
     }
 
     that.kineticElement[i].on('mouseover', function() {
@@ -561,8 +543,31 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 
         }
         else if (iaScene.cursorState.indexOf("HandPointer.cur") === -1) {
-            document.body.style.cursor = "url(img/HandPointer.cur),auto";
+            if (!this.droparea) {
+                document.body.style.cursor = "url(img/HandPointer.cur),auto";
+            }
             iaScene.cursorState = "url(img/HandPointer.cur),auto";
+            // manage tooltips if present
+            var tooltip = false;
+            if (this.tooltip != "") {
+                tooltip = true;
+            }
+            else if ($("#" + idText).data("tooltip") != "") {
+                var tooltip_id = $("#" + idText).data("tooltip");
+                this.tooltip = this.getStage().find("#" + tooltip_id)[0];
+                tooltip = true;
+            }
+            if (tooltip) {
+                this.tooltip.clearCache();
+                this.tooltip.fillPriority('pattern');
+                if ((this.tooltip.backgroundImageOwnScaleX != "undefined") && 
+                        (this.tooltip.backgroundImageOwnScaleY != "undefined")) {
+                    this.tooltip.fillPatternScaleX(this.tooltip.backgroundImageOwnScaleX * 1/iaScene.scale);
+                    this.tooltip.fillPatternScaleY(this.tooltip.backgroundImageOwnScaleY * 1/iaScene.scale);
+                }
+                this.tooltip.fillPatternImage(this.tooltip.backgroundImage); 
+                this.tooltip.draw();
+            }
         }
     });
 
@@ -577,6 +582,21 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
         else {
             var mouseXY = that.layer.getStage().getPointerPosition();
             if ((that.layer.getStage().getIntersection(mouseXY) != this)) {
+                // manage tooltips if present
+                var tooltip = false;
+                if (this.tooltip != "") {
+                    tooltip = true;
+                }
+                else if ($("#" + idText).data("tooltip") != "") {
+                    var tooltip_id = $("#" + idText).data("tooltip");
+                    this.tooltip = this.getStage().find("#" + tooltip_id)[0];
+                    tooltip = true;
+                }                
+                if (tooltip) {
+                    this.tooltip.fillPriority('color');
+                    this.tooltip.fill('rgba(0, 0, 0, 0)');
+                    this.tooltip.getLayer().draw();
+                }                
                 document.body.style.cursor = "default";
                 iaScene.cursorState = "default";
                 that.layer.draw();						
@@ -584,6 +604,29 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
         }
     });       
     
-      
+    if (that.options[i].indexOf("disable-click") != -1) return;
+
+    if (that.options[i].indexOf("direct-link") != -1) {
+        that.kineticElement[i].on('click touchstart', function(e) {
+            location.href = that.title[i];
+        });
+    }
+    else {
+        if (!that.kineticElement[i].droparea) {
+            that.kineticElement[i].on('dragstart', function(e) {
+                iaScene.element = that;
+                that.myhooks.afterIaObjectDragStart(iaScene, idText, that);
+                that.layer.moveToTop();
+                Kinetic.draggedshape = this;
+            });
+
+            that.kineticElement[i].on('dragend', function(e) {
+                iaScene.element = that;
+                Kinetic.draggedshape = null;
+                that.myhooks.afterIaObjectDragEnd(iaScene, idText, that, e);
+                that.layer.draw();
+            });    
+        }
+    }
 };
 
