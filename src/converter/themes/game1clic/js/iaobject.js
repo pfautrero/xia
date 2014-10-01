@@ -103,9 +103,16 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         scale: {x:iaScene.coeff,y:iaScene.coeff}
     });
 
+    that.kineticElement[i].backgroundImage = rasterObj;
+    that.kineticElement[i].tooltip = "";
+    
     rasterObj.onload = function() {
+        
+        // @TODO : remove all backgroundImageOwnScaleX array        
         that.backgroundImageOwnScaleX[i] = iaScene.scale * detail.width / this.width;
         that.backgroundImageOwnScaleY[i] = iaScene.scale * detail.height / this.height;
+        that.kineticElement[i].backgroundImageOwnScaleX = iaScene.scale * detail.width / this.width;
+        that.kineticElement[i].backgroundImageOwnScaleY = iaScene.scale * detail.height / this.height;           
         var zoomable = true;
 
         if ((typeof(detail.options) !== 'undefined')) {
@@ -248,6 +255,8 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     var cropedImage = new Image();
     cropedImage.src = dataUrl;
     cropedImage.onload = function() {
+        that.kineticElement[i].backgroundImage = cropedImage;
+        that.kineticElement[i].tooltip = "";        
         that.backgroundImage[i] = cropedImage;
         that.backgroundImageOwnScaleX[i] = 1;
         that.backgroundImageOwnScaleY[i] = 1;
@@ -369,7 +378,11 @@ IaObject.prototype.defineTweens = function(that, iaScene) {
    
 IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, baseImage, idText) {
 
-    if (that.options[i].indexOf("disable-click") !== -1) return;
+    var that=this;
+
+    that.kineticElement[i].droparea = false;
+
+
     /*
      * if mouse is over element, fill the element with semi-transparency
      */
@@ -382,10 +395,33 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 
         }
         else if (iaScene.cursorState.indexOf("HandPointer.cur") === -1) {
-            if (that.options[i].indexOf("pointer") !== -1) {
+            if ((that.options[i].indexOf("pointer") !== -1) || (!this.droparea)) {
                 document.body.style.cursor = "url(img/HandPointer.cur),auto";
             }
             iaScene.cursorState = "url(img/HandPointer.cur),auto";
+            
+            // manage tooltips if present
+            var tooltip = false;
+            if (this.tooltip != "") {
+                tooltip = true;
+            }
+            else if ($("#" + idText).data("tooltip") != "") {
+                var tooltip_id = $("#" + idText).data("tooltip");
+                this.tooltip = this.getStage().find("#" + tooltip_id)[0];
+                tooltip = true;
+            }
+            if (tooltip) {
+                this.tooltip.clearCache();
+                this.tooltip.fillPriority('pattern');
+                if ((this.tooltip.backgroundImageOwnScaleX != "undefined") && 
+                        (this.tooltip.backgroundImageOwnScaleY != "undefined")) {
+                    this.tooltip.fillPatternScaleX(this.tooltip.backgroundImageOwnScaleX * 1/iaScene.scale);
+                    this.tooltip.fillPatternScaleY(this.tooltip.backgroundImageOwnScaleY * 1/iaScene.scale);
+                }
+                this.tooltip.fillPatternImage(this.tooltip.backgroundImage); 
+                this.tooltip.draw();
+            }            
+            
             /*for (var i in that.kineticElement) {
                 if (that.persistent[i] == "off") {
                     that.kineticElement[i].fillPriority('color');
@@ -408,6 +444,50 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             that.layer.batchDraw();
         }
     });
+
+    /*
+     * if we leave this element, just clear the scene
+     */
+    that.kineticElement[i].on('mouseleave', function() {
+        //iaScene.noPropagation = true;
+        if ((iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) ||
+                (iaScene.cursorState.indexOf("ZoomIn.cur") !== -1)){
+
+        }
+        else {
+            var mouseXY = that.layer.getStage().getPointerPosition();
+            if (typeof(mouseXY) == "undefined") {
+		mouseXY = {x:0,y:0};
+            }            
+            if ((that.layer.getStage().getIntersection(mouseXY) != this)) {
+                that.backgroundCache_layer.moveToBottom();
+
+                // manage tooltips if present
+                var tooltip = false;
+                if (this.tooltip != "") {
+                    tooltip = true;
+                }
+                else if ($("#" + idText).data("tooltip") != "") {
+                    var tooltip_id = $("#" + idText).data("tooltip");
+                    this.tooltip = this.getStage().find("#" + tooltip_id)[0];
+                    tooltip = true;
+                }                
+                if (tooltip) {
+                    this.tooltip.fillPriority('color');
+                    this.tooltip.fill('rgba(0, 0, 0, 0)');
+                    this.tooltip.getLayer().draw();
+                }                     
+
+                document.body.style.cursor = "default";
+                iaScene.cursorState = "default";
+                that.layer.draw();						
+            }
+        }
+    }); 
+
+
+    if (that.options[i].indexOf("disable-click") !== -1) return;
+    
     /*
      * if we click in this element, manage zoom-in, zoom-out
      */
@@ -563,51 +643,6 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 
         });
     }
-    /*
-     * if we leave this element, just clear the scene
-     */
-    that.kineticElement[i].on('mouseleave', function() {
-        //iaScene.noPropagation = true;
-        if ((iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) ||
-                (iaScene.cursorState.indexOf("ZoomIn.cur") !== -1)){
-
-        }
-        else {
-            var mouseXY = that.layer.getStage().getPointerPosition();
-            if (typeof(mouseXY) == "undefined") {
-		mouseXY = {x:0,y:0};
-            }            
-            if ((that.layer.getStage().getIntersection(mouseXY) != this)) {
-                that.backgroundCache_layer.moveToBottom();
-/*                for (var i in that.kineticElement) {
-                    if (that.persistent[i] == "off") {
-                        that.kineticElement[i].fillPriority('color');
-                        that.kineticElement[i].fill('rgba(0, 0, 0, 0)');
-                        that.kineticElement[i].stroke('rgba(0, 0, 0, 0)');
-                        that.kineticElement[i].strokeWidth(0);                         
-                    }
-                    else if (that.persistent[i] == "onPath") {
-                        that.kineticElement[i].fillPriority('color');
-                        that.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');                       
-                        that.kineticElement[i].stroke('rgba(0, 0, 0, 0)');
-                        that.kineticElement[i].strokeWidth(0);                        
-
-                    }
-                    else if (that.persistent[i] == "onImage") {
-                        that.kineticElement[i].fillPriority('pattern');
-                        that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
-                        that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale); 
-                        that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);                        
-                        that.kineticElement[i].stroke('rgba(0, 0, 0, 0)');
-                        that.kineticElement[i].strokeWidth(0);                        
-
-                    }                    
-                }*/
-                document.body.style.cursor = "default";
-                iaScene.cursorState = "default";
-                that.layer.draw();						
-            }
-        }
-    });        
+       
 };
 

@@ -376,7 +376,7 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     that.kineticElement[i].setIaObject(that);
     that.definePathBoxSize(detail, that);
     // crop background image to suit shape box
-
+    that.kineticElement[i].tooltip = "";
     if (that.options[i].indexOf("disable-click") == -1) {
         that.cropCanvas = document.createElement('canvas');
         that.cropCanvas.setAttribute('width', parseFloat(detail.maxX) - parseFloat(detail.minX));
@@ -410,7 +410,6 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         cropedImage.src = dataUrl;
         cropedImage.onload = function() {
             that.kineticElement[i].backgroundImage = cropedImage;
-            that.kineticElement[i].tooltip = "";
             that.backgroundImage[i] = cropedImage;
             that.backgroundImageOwnScaleX[i] = 1;
             that.backgroundImageOwnScaleY[i] = 1;
@@ -543,11 +542,10 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 
         }
         else if (iaScene.cursorState.indexOf("HandPointer.cur") === -1) {
-            if (!that.kineticElement[i].droparea) {
+            if (!this.droparea) {
                 document.body.style.cursor = "url(img/HandPointer.cur),auto";
             }
             iaScene.cursorState = "url(img/HandPointer.cur),auto";
-            
             // manage tooltips if present
             var tooltip = false;
             if (this.tooltip != "") {

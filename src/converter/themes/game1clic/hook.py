@@ -55,27 +55,23 @@ class hook:
         message = re.search('<message>(.*)</message>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
         if message:
             self.message = message.group(1)
-        
-        
+       
         final_str = u'<article class="message_success" id="message_success" data-score="' + self.score + '">\n'
         final_str += '<img id="popup_toggle" src="img/hide.png" alt="toggle"/>\n'        
         final_str += u'  <p id="message_success_content">' + self.PageFormatter(self.message).print_html() + u'</p>\n'
         final_str += u'</article>\n'
             
         for i, detail in enumerate(self.iaobject.details):
-            #if detail['options'].find(u"direct-link") == -1:
-            if detail['detail'].find(u"Réponse:") != -1:
-                question = detail['detail'][0:detail['detail'].find(u"Réponse:")]
-                answer = detail['detail'][detail['detail'].find(u"Réponse:") + 9:]
-                final_str += u'<article class="detail_content" data-options="' + detail['options'] + u'" id="article-'+unicode(str(i), "utf8") + u'">\n'
-                final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
-                final_str += u'  <p>' + self.PageFormatter(question).print_html() + u'<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#response_' + unicode(str(i), "utf8") + u'">Réponse</a></div>' + u'<div class="response" id="response_'+ unicode(str(i), "utf8") + u'">' + self.PageFormatter(answer).print_html() + u'</p>' + u'\n'
-                final_str += u'</article>\n'
-            else:
-                final_str += u'<article class="detail_content" data-options="' + detail['options'] + u'" id="article-'+unicode(str(i), "utf8") + u'">\n'
-                final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
-                final_str += u'  <p>' + self.PageFormatter(detail["detail"]).print_html() + u'<p>\n'
-                final_str += u'</article>\n'
+
+            tooltip_state = ""
+            tooltip = re.search('<tooltip>(.*)</tooltip>', detail["detail"], re.IGNORECASE|re.DOTALL)
+            if tooltip:
+                tooltip_state = tooltip.group(1)            
+
+            final_str += u'<article class="detail_content" data-tooltip="' + tooltip_state + '" data-options="' + detail['options'] + u'" id="article-'+unicode(str(i), "utf8") + u'">\n'
+            final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
+            final_str += u'  <p>' + self.PageFormatter(detail["detail"]).print_html() + u'<p>\n'
+            final_str += u'</article>\n'
 
         with open(templatePath,"r") as template:
             final_index = template.read().decode("utf-8")
