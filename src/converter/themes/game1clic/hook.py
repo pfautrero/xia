@@ -68,7 +68,7 @@ class hook:
             if tooltip:
                 tooltip_state = tooltip.group(1)            
 
-            final_str += u'<article class="detail_content" data-tooltip="' + tooltip_state + '" data-options="' + detail['options'] + u'" id="article-'+unicode(str(i), "utf8") + u'">\n'
+            final_str += u'<article class="detail_content" data-kinetic_id="'+detail["id"]+'" data-tooltip="' + tooltip_state + '" data-options="' + detail['options'] + u'" id="article-'+unicode(str(i), "utf8") + u'">\n'
             final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
             final_str += u'  <p>' + self.PageFormatter(detail["detail"]).print_html() + u'<p>\n'
             final_str += u'</article>\n'

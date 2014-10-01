@@ -95,6 +95,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
     that.title[i] = detail.title;    
     //that.backgroundImage[i] = rasterObj;
     that.kineticElement[i] = new Kinetic.Image({
+        id: detail.id,
         name: detail.title,
         x: parseFloat(detail.x) * iaScene.coeff,
         y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
@@ -209,12 +210,15 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
  */
 IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, idText) {
     
+    var that=this;
+    
     that.path[i] = detail.path;
     that.title[i] = detail.title;
     // if detail is out of background, hack maxX and maxY
     if (parseFloat(detail.maxX) < 0) detail.maxX = 1;
     if (parseFloat(detail.maxY) < 0) detail.maxY = 1;        
     that.kineticElement[i] = new Kinetic.Path({
+        id: detail.id,        
         name: detail.title,
         data: detail.path,
         x: parseFloat(detail.x) * iaScene.coeff,
@@ -254,9 +258,10 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     delete that.cropCanvas;
     var cropedImage = new Image();
     cropedImage.src = dataUrl;
+    that.kineticElement[i].tooltip = "";
     cropedImage.onload = function() {
         that.kineticElement[i].backgroundImage = cropedImage;
-        that.kineticElement[i].tooltip = "";        
+     
         //that.backgroundImage[i] = cropedImage;
         //that.backgroundImageOwnScaleX[i] = 1;
         //that.backgroundImageOwnScaleY[i] = 1;
@@ -302,7 +307,7 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
  */
 IaObject.prototype.defineImageBoxSize = function(detail, that) {
     "use strict";
-
+    var that = this;
     if (that.minX === -1)
         that.minX = (parseFloat(detail.x));
     if (that.maxY === 10000)
@@ -384,7 +389,10 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
     var that=this;
 
     that.kineticElement[i].droparea = false;
-
+    // if current detail is a drop area, disable drag and drop
+    if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
+        that.kineticElement[i].droparea = true;
+    }
 
     /*
      * if mouse is over element, fill the element with semi-transparency
@@ -398,7 +406,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 
         }
         else if (iaScene.cursorState.indexOf("HandPointer.cur") === -1) {
-            if ((that.options[i].indexOf("pointer") !== -1) || (!this.droparea)) {
+            if (that.options[i].indexOf("pointer") !== -1) {
                 document.body.style.cursor = "url(img/HandPointer.cur),auto";
             }
             iaScene.cursorState = "url(img/HandPointer.cur),auto";
@@ -485,6 +493,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 iaScene.cursorState = "default";
                 that.layer.draw();						
             }
+            document.body.style.cursor = "default";
         }
     }); 
 
