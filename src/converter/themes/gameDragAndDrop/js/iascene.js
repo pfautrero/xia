@@ -72,6 +72,8 @@ IaScene.prototype.scaleScene = function(mainScene){
     var viewportWidth = $(window).width();
     var viewportHeight = $(window).height();
 
+    if (viewportWidth > 1000) viewportWidth = 1000;
+    
     var coeff_width = (viewportWidth * mainScene.ratio) / parseFloat(mainScene.originalWidth);
     var coeff_height = (viewportHeight) / (parseFloat(mainScene.originalHeight) + $('#canvas').offset().top + $('#container').offset().top);
 

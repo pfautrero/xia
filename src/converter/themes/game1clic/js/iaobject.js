@@ -349,7 +349,6 @@ IaObject.prototype.definePathBoxSize = function(detail, that) {
 };
 
 
-
 /*
  * Define zoom rate and define tween effect for each group
  * @returns {undefined}

@@ -1,3 +1,13 @@
+* version alpha 8 - 01/10/2014
+
+- Séparation du package debian et du code source
+- Ajout de la fonctionnalité info-bulles sur les 2 thèmes de jeu
+- Les zones de drop dans gameDragAndDrop sont cliquables si leur 
+titre est une url
+- soumis à évaluation : limitation de la largeur des jeux gameDragAndDrop à 
+1000 pixels de large max pour éviter des problèmes de performance sur des grands écrans.
+- Refactorisation du code des thèmes de jeu.
+
 * version alpha 7 - 29/09/2014
 
 - Doc : mise à jour des docs de prise en main

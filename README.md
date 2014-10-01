@@ -28,6 +28,6 @@ App install : (must be used each time we want a new release)
     cd project
     grunt default
 
-Application is then built in project/upstream/build
+Application is then built in project/build
 
 
