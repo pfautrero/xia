@@ -1,5 +1,5 @@
 {
-  "name": "activit",
+  "name": "xia",
   "version": "1.0.0",
   "description": "tools to create images actives and games",
   "main": "src/converter/xia.py",
@@ -20,6 +20,7 @@
     "grunt-nose": "^0.4.0",
     "grunt-pot": "^0.1.2",
     "grunt-potomo": "^2.1.0",
-    "grunt-shell": "^1.1.1"
+    "grunt-shell": "^1.1.1",
+    "grunt-contrib-uglify": "^0.6.0"
   }
 }

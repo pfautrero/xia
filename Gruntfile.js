@@ -76,7 +76,7 @@ module.exports = function(grunt) {
         }
     },
     jshint: {
-      all: ['Gruntfile.js', 'src/**/*.js', '!src/**/jquery-1.11.1.js', '!src/**/LAB.min.js', '!src/**/kinetic.js', '!src/**/bootstrap.min.js']
+      all: ['Gruntfile.js', 'src/**/*.js', '!src/**/jquery-1.11.1.js', '!src/**/LAB.js', '!src/**/kinetic.js', '!src/**/bootstrap.min.js']
     },
     nose: {
      options: {
@@ -84,9 +84,49 @@ module.exports = function(grunt) {
       with_coverage: true
      },
      src: ['tests']
-    }    
+    },
+    uglify: {
+      jquery: {
+        files: {
+          'build/converter/themes/accordionBlack/js/jquery-1.11.1.js': ['src/converter/themes/accordionBlack/js/jquery-1.11.1.js'],
+          'build/converter/themes/accordionCloud/js/jquery-1.11.1.js': ['src/converter/themes/accordionCloud/js/jquery-1.11.1.js'],
+          'build/converter/themes/audioBrown/js/jquery-1.11.1.js': ['src/converter/themes/audioBrown/js/jquery-1.11.1.js'],
+          'build/converter/themes/buttonBlue/js/jquery-1.11.1.js': ['src/converter/themes/buttonBlue/js/jquery-1.11.1.js'],
+          'build/converter/themes/game1clic/js/jquery-1.11.1.js': ['src/converter/themes/game1clic/js/jquery-1.11.1.js'],          
+          'build/converter/themes/gameDragAndDrop/js/jquery-1.11.1.js': ['src/converter/themes/gameDragAndDrop/js/jquery-1.11.1.js'],
+          'build/converter/themes/popBlue/js/jquery-1.11.1.js': ['src/converter/themes/popBlue/js/jquery-1.11.1.js'],
+          'build/converter/themes/popYellow/js/jquery-1.11.1.js': ['src/converter/themes/popYellow/js/jquery-1.11.1.js']
+        }
+      },
+      kinetic: {
+        files: {
+          'build/converter/themes/accordionBlack/js/kinetic.js': ['src/converter/themes/accordionBlack/js/kinetic.js'],
+          'build/converter/themes/accordionCloud/js/kinetic.js': ['src/converter/themes/accordionCloud/js/kinetic.js'],
+          'build/converter/themes/audioBrown/js/kinetic.js': ['src/converter/themes/audioBrown/js/kinetic.js'],
+          'build/converter/themes/buttonBlue/js/kinetic.js': ['src/converter/themes/buttonBlue/js/kinetic.js'],
+          'build/converter/themes/game1clic/js/kinetic.js': ['src/converter/themes/game1clic/js/kinetic.js'],          
+          'build/converter/themes/gameDragAndDrop/js/kinetic.js': ['src/converter/themes/gameDragAndDrop/js/kinetic.js'],
+          'build/converter/themes/popBlue/js/kinetic.js': ['src/converter/themes/popBlue/js/kinetic.js'],
+          'build/converter/themes/popYellow/js/kinetic.js': ['src/converter/themes/popYellow/js/kinetic.js']
+        }
+       },
+
+       labjs: {
+        files: {
+          'build/converter/themes/accordionBlack/js/LAB.js': ['src/converter/themes/accordionBlack/js/LAB.js'],
+          'build/converter/themes/accordionCloud/js/LAB.js': ['src/converter/themes/accordionCloud/js/LAB.js'],
+          'build/converter/themes/audioBrown/js/LAB.js': ['src/converter/themes/audioBrown/js/LAB.js'],
+          'build/converter/themes/buttonBlue/js/LAB.js': ['src/converter/themes/buttonBlue/js/LAB.js'],
+          'build/converter/themes/game1clic/js/LAB.js': ['src/converter/themes/game1clic/js/LAB.js'],          
+          'build/converter/themes/gameDragAndDrop/js/LAB.js': ['src/converter/themes/gameDragAndDrop/js/LAB.js'],
+          'build/converter/themes/popBlue/js/LAB.js': ['src/converter/themes/popBlue/js/LAB.js'],
+          'build/converter/themes/popYellow/js/LAB.js': ['src/converter/themes/popYellow/js/LAB.js']
+        }        
+      }      
+    }
   });
 
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-potomo');
@@ -95,6 +135,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-chmod');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-nose');
-  grunt.registerTask('default', ['clean', 'copy', 'pot',  'shell:msgmerge', 'potomo', 'chmod']);
+  grunt.registerTask('default', ['clean', 'copy', 'pot',  'shell:msgmerge', 'potomo', 'chmod', 'uglify:jquery', 'uglify:kinetic', 'uglify:labjs']);
   grunt.registerTask('dev', ['jshint']);
 };
