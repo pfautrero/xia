@@ -30,9 +30,9 @@ function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     this.path = [];
     this.title = [];      
     this.kineticElement = [];
-    this.backgroundImage = [];
-    this.backgroundImageOwnScaleX = [];
-    this.backgroundImageOwnScaleY = [];
+    //this.backgroundImage = [];
+    //this.backgroundImageOwnScaleX = [];
+    //this.backgroundImageOwnScaleY = [];
     this.persistent = [];
     this.originalX = [];
     this.originalY = [];
@@ -93,7 +93,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
     var rasterObj = new Image();
     rasterObj.src = detail.image;    
     that.title[i] = detail.title;    
-    that.backgroundImage[i] = rasterObj;
+    //that.backgroundImage[i] = rasterObj;
     that.kineticElement[i] = new Kinetic.Image({
         name: detail.title,
         x: parseFloat(detail.x) * iaScene.coeff,
@@ -109,8 +109,8 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
     rasterObj.onload = function() {
         
         // @TODO : remove all backgroundImageOwnScaleX array        
-        that.backgroundImageOwnScaleX[i] = iaScene.scale * detail.width / this.width;
-        that.backgroundImageOwnScaleY[i] = iaScene.scale * detail.height / this.height;
+        //that.backgroundImageOwnScaleX[i] = iaScene.scale * detail.width / this.width;
+        //that.backgroundImageOwnScaleY[i] = iaScene.scale * detail.height / this.height;
         that.kineticElement[i].backgroundImageOwnScaleX = iaScene.scale * detail.width / this.width;
         that.kineticElement[i].backgroundImageOwnScaleY = iaScene.scale * detail.height / this.height;           
         var zoomable = true;
@@ -132,9 +132,9 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
             (detail.fill === "#ffffff")) {
             that.persistent[i] = "onImage";
             that.kineticElement[i].fillPriority('pattern');
-            that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
-            that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);                
-            that.kineticElement[i].fillPatternImage(that.backgroundImage[i]); 
+            that.kineticElement[i].fillPatternScaleX(that.kineticElement[i].backgroundImageOwnScaleX * 1/iaScene.scale);
+            that.kineticElement[i].fillPatternScaleY(that.kineticElement[i].backgroundImageOwnScaleY * 1/iaScene.scale);                
+            that.kineticElement[i].fillPatternImage(that.kineticElement[i].backgroundImage); 
             zoomable = false;
         }
         that.group.add(that.kineticElement[i]);
@@ -257,9 +257,12 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     cropedImage.onload = function() {
         that.kineticElement[i].backgroundImage = cropedImage;
         that.kineticElement[i].tooltip = "";        
-        that.backgroundImage[i] = cropedImage;
-        that.backgroundImageOwnScaleX[i] = 1;
-        that.backgroundImageOwnScaleY[i] = 1;
+        //that.backgroundImage[i] = cropedImage;
+        //that.backgroundImageOwnScaleX[i] = 1;
+        //that.backgroundImageOwnScaleY[i] = 1;
+        that.kineticElement[i].backgroundImage = cropedImage;
+        that.kineticElement[i].backgroundImageOwnScaleX = 1;
+        that.kineticElement[i].backgroundImageOwnScaleY = 1;
         that.kineticElement[i].fillPatternRepeat('no-repeat');
         that.kineticElement[i].fillPatternX(detail.minX);
         that.kineticElement[i].fillPatternY(detail.minY);
@@ -604,9 +607,9 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         if (that.persistent[i] == "off") {
                             if (that.kineticElement[i] instanceof Kinetic.Image) {
                                 that.kineticElement[i].fillPriority('pattern');
-                                that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
-                                that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale); 
-                                that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);                        
+                                that.kineticElement[i].fillPatternScaleX(that.kineticElement[i].backgroundImageOwnScaleX * 1/iaScene.scale);
+                                that.kineticElement[i].fillPatternScaleY(that.kineticElement[i].backgroundImageOwnScaleY * 1/iaScene.scale); 
+                                that.kineticElement[i].fillPatternImage(that.kineticElement[i].backgroundImage);                        
                             }
                             else {
                                 that.kineticElement[i].fillPriority('color');
@@ -623,9 +626,9 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         }
                         else if (that.persistent[i] == "onImage") {
                             that.kineticElement[i].fillPriority('pattern');
-                            that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
-                            that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale); 
-                            that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);                        
+                            that.kineticElement[i].fillPatternScaleX(that.kineticElement[i].backgroundImageOwnScaleX * 1/iaScene.scale);
+                            that.kineticElement[i].fillPatternScaleY(that.kineticElement[i].backgroundImageOwnScaleY * 1/iaScene.scale); 
+                            that.kineticElement[i].fillPatternImage(that.kineticElement[i].backgroundImage);                        
                         }                
                         that.kineticElement[i].moveToTop();
                     }                
