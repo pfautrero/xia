@@ -392,7 +392,10 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
     if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
         that.kineticElement[i].droparea = true;
     }
-
+    // tooltip must be at the bottom
+    if ($('article[data-tooltip="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
+        that.kineticElement[i].getLayer().moveToBottom();
+    }
     /*
      * if mouse is over element, fill the element with semi-transparency
      */
@@ -408,7 +411,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             if (that.options[i].indexOf("pointer") !== -1) {
                 document.body.style.cursor = "url(img/HandPointer.cur),auto";
             }
-            iaScene.cursorState = "url(img/HandPointer.cur),auto";
+            iaScene.cursorState = "url(img/HandPointer.cur),auto";   
             
             // manage tooltips if present
             var tooltip = false;
@@ -428,10 +431,13 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     this.tooltip.fillPatternScaleX(this.tooltip.backgroundImageOwnScaleX * 1/iaScene.scale);
                     this.tooltip.fillPatternScaleY(this.tooltip.backgroundImageOwnScaleY * 1/iaScene.scale);
                 }
-                this.tooltip.fillPatternImage(this.tooltip.backgroundImage); 
+                this.tooltip.fillPatternImage(this.tooltip.backgroundImage);
+                this.tooltip.getLayer().moveToTop();
+                this.getLayer().moveToTop();
                 this.tooltip.draw();
             }            
-            
+
+         
             /*for (var i in that.kineticElement) {
                 if (that.persistent[i] == "off") {
                     that.kineticElement[i].fillPriority('color');
@@ -485,6 +491,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 if (tooltip) {
                     this.tooltip.fillPriority('color');
                     this.tooltip.fill('rgba(0, 0, 0, 0)');
+                    this.tooltip.getLayer().moveToBottom();
                     this.tooltip.getLayer().draw();
                 }                     
 

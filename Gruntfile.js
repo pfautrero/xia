@@ -136,5 +136,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-nose');
   grunt.registerTask('default', ['clean', 'copy', 'pot',  'shell:msgmerge', 'potomo', 'chmod', 'uglify:jquery', 'uglify:kinetic', 'uglify:labjs']);
-  grunt.registerTask('dev', ['jshint']);
+  grunt.registerTask('tests', ['jshint']);
+  grunt.registerTask('dev', ['clean', 'copy', 'pot',  'shell:msgmerge', 'potomo', 'chmod']);
 };

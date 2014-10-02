@@ -534,7 +534,10 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
     if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
         that.kineticElement[i].droparea = true;
     }
-
+    // tooltip must be at the bottom
+    if ($('article[data-tooltip="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
+        that.kineticElement[i].getLayer().moveToBottom();
+    }
     that.kineticElement[i].on('mouseover', function() {
         if (iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) {
 
@@ -566,6 +569,8 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     this.tooltip.fillPatternScaleY(this.tooltip.backgroundImageOwnScaleY * 1/iaScene.scale);
                 }
                 this.tooltip.fillPatternImage(this.tooltip.backgroundImage); 
+                this.tooltip.getLayer().moveToTop();
+                this.getLayer().moveToTop();                
                 this.tooltip.draw();
             }
         }
@@ -595,6 +600,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 if (tooltip) {
                     this.tooltip.fillPriority('color');
                     this.tooltip.fill('rgba(0, 0, 0, 0)');
+                    this.tooltip.getLayer().moveToBottom();
                     this.tooltip.getLayer().draw();
                 }                
                 document.body.style.cursor = "default";
