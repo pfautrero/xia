@@ -3,6 +3,7 @@ nbproject/
 src/converter/.coverage
 .coverage
 node_modules
+bower_components
 build
 doc/**.log
 *.aux

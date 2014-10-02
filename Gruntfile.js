@@ -29,6 +29,40 @@ module.exports = function(grunt) {
         dest: 'build/',
         cwd    : 'src',
       },
+      jquery: {
+        files: [
+            {dest: 'build/share/themes/accordionBlack/js/jquery.min.js', src:'bower_components/jquery/dist/jquery.min.js'},
+            {dest: 'build/share/themes/accordionCloud/js/jquery.min.js', src:'bower_components/jquery/dist/jquery.min.js'},
+            {dest: 'build/share/themes/audioBrown/js/jquery.min.js', src:'bower_components/jquery/dist/jquery.min.js'},
+            {dest: 'build/share/themes/buttonBlue/js/jquery.min.js', src:'bower_components/jquery/dist/jquery.min.js'},
+            {dest: 'build/share/themes/game1clic/js/jquery.min.js', src:'bower_components/jquery/dist/jquery.min.js'},
+            {dest: 'build/share/themes/gameDragAndDrop/js/jquery.min.js', src:'bower_components/jquery/dist/jquery.min.js'},
+            {dest: 'build/share/themes/popBlue/js/jquery.min.js', src:'bower_components/jquery/dist/jquery.min.js'},
+            {dest: 'build/share/themes/popYellow/js/jquery.min.js', src:'bower_components/jquery/dist/jquery.min.js'}
+        ]
+      },      
+      labjs: {
+        files: [
+            {dest: 'build/share/themes/accordionBlack/js/LAB.min.js', src:'bower_components/labjs/LAB.min.js'},
+            {dest: 'build/share/themes/accordionCloud/js/LAB.min.js', src:'bower_components/labjs/LAB.min.js'},
+            {dest: 'build/share/themes/audioBrown/js/LAB.min.js', src:'bower_components/labjs/LAB.min.js'},
+            {dest: 'build/share/themes/buttonBlue/js/LAB.min.js', src:'bower_components/labjs/LAB.min.js'},
+            {dest: 'build/share/themes/game1clic/js/LAB.min.js', src:'bower_components/labjs/LAB.min.js'},
+            {dest: 'build/share/themes/gameDragAndDrop/js/LAB.min.js', src:'bower_components/labjs/LAB.min.js'},
+            {dest: 'build/share/themes/popBlue/js/LAB.min.js', src:'bower_components/labjs/LAB.min.js'},
+            {dest: 'build/share/themes/popYellow/js/LAB.min.js', src:'bower_components/labjs/LAB.min.js'}
+        ]
+      },
+      kinetic: {
+        files: [
+            {dest: 'build/share/themes/accordionBlack/js/kinetic.js', src:'bower_components/kineticjs/kinetic.min.js'},
+            {dest: 'build/share/themes/accordionCloud/js/kinetic.js', src:'bower_components/kineticjs/kinetic.min.js'},
+            {dest: 'build/share/themes/audioBrown/js/kinetic.js', src:'bower_components/kineticjs/kinetic.min.js'},
+            {dest: 'build/share/themes/buttonBlue/js/kinetic.js', src:'bower_components/kineticjs/kinetic.min.js'},
+            {dest: 'build/share/themes/popBlue/js/kinetic.js', src:'bower_components/kineticjs/kinetic.min.js'},
+            {dest: 'build/share/themes/popYellow/js/kinetic.js', src:'bower_components/kineticjs/kinetic.min.js'}
+        ]
+      }
     },
     pot: {
       options:{
@@ -86,18 +120,7 @@ module.exports = function(grunt) {
      src: ['tests']
     },
     uglify: {
-      jquery: {
-        files: {
-          'build/share/themes/accordionBlack/js/jquery-1.11.1.js': ['src/share/themes/accordionBlack/js/jquery-1.11.1.js'],
-          'build/share/themes/accordionCloud/js/jquery-1.11.1.js': ['src/share/themes/accordionCloud/js/jquery-1.11.1.js'],
-          'build/share/themes/audioBrown/js/jquery-1.11.1.js': ['src/share/themes/audioBrown/js/jquery-1.11.1.js'],
-          'build/share/themes/buttonBlue/js/jquery-1.11.1.js': ['src/share/themes/buttonBlue/js/jquery-1.11.1.js'],
-          'build/share/themes/game1clic/js/jquery-1.11.1.js': ['src/share/themes/game1clic/js/jquery-1.11.1.js'],          
-          'build/share/themes/gameDragAndDrop/js/jquery-1.11.1.js': ['src/share/themes/gameDragAndDrop/js/jquery-1.11.1.js'],
-          'build/share/themes/popBlue/js/jquery-1.11.1.js': ['src/share/themes/popBlue/js/jquery-1.11.1.js'],
-          'build/share/themes/popYellow/js/jquery-1.11.1.js': ['src/share/themes/popYellow/js/jquery-1.11.1.js']
-        }
-      },
+
       kinetic: {
         files: {
           'build/share/themes/accordionBlack/js/kinetic.js': ['src/share/themes/accordionBlack/js/kinetic.js'],
@@ -109,20 +132,7 @@ module.exports = function(grunt) {
           'build/share/themes/popBlue/js/kinetic.js': ['src/share/themes/popBlue/js/kinetic.js'],
           'build/share/themes/popYellow/js/kinetic.js': ['src/share/themes/popYellow/js/kinetic.js']
         }
-       },
-
-       labjs: {
-        files: {
-          'build/share/themes/accordionBlack/js/LAB.js': ['src/share/themes/accordionBlack/js/LAB.js'],
-          'build/share/themes/accordionCloud/js/LAB.js': ['src/share/themes/accordionCloud/js/LAB.js'],
-          'build/share/themes/audioBrown/js/LAB.js': ['src/share/themes/audioBrown/js/LAB.js'],
-          'build/share/themes/buttonBlue/js/LAB.js': ['src/share/themes/buttonBlue/js/LAB.js'],
-          'build/share/themes/game1clic/js/LAB.js': ['src/share/themes/game1clic/js/LAB.js'],          
-          'build/share/themes/gameDragAndDrop/js/LAB.js': ['src/share/themes/gameDragAndDrop/js/LAB.js'],
-          'build/share/themes/popBlue/js/LAB.js': ['src/share/themes/popBlue/js/LAB.js'],
-          'build/share/themes/popYellow/js/LAB.js': ['src/share/themes/popYellow/js/LAB.js']
-        }        
-      }      
+       }      
     }
   });
 
@@ -135,7 +145,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-chmod');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-nose');
-  grunt.registerTask('default', ['clean', 'copy', 'pot',  'shell:msgmerge', 'potomo', 'chmod', 'uglify:jquery', 'uglify:kinetic', 'uglify:labjs']);
+  grunt.registerTask('default', ['clean', 'copy:main' , 'copy:jquery' , 'copy:kinetic', 'copy:labjs','pot',  'shell:msgmerge', 'potomo', 'chmod']);
   grunt.registerTask('tests', ['jshint']);
-  grunt.registerTask('dev', ['clean', 'copy', 'pot',  'shell:msgmerge', 'potomo', 'chmod']);
+  grunt.registerTask('dev', ['clean', 'copy:main' , 'copy:jquery' , 'copy:kinetic', 'copy:labjs', 'pot',  'shell:msgmerge', 'potomo', 'chmod']);
 };

@@ -13,7 +13,7 @@
     <title>{{TITLE}}</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-combined.no-icons.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
-    <script src="js/LAB.js"></script>        
+    <script src="js/LAB.min.js"></script>        
 </head>
 <body id="image-active">
     <div id="loader">
@@ -46,9 +46,9 @@
         document.body.onload = function() {
             $LAB.setGlobalDefaults({CacheBust:true});
             $LAB
-             .script("js/jquery-1.11.1.js")
+             .script("js/jquery.min.js")
              .script("js/bootstrap.min.js")
-             .script("js/kinetic.js")
+             .script("js/kinetic.min.js")
              .script("datas/data.js")
              .script("js/iascene.js").wait()
              .script("js/iaobject.js").wait()

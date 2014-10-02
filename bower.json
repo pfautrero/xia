@@ -1,0 +1,23 @@
+{
+  "name": "XIA",
+  "version": "1.0",
+  "authors": [
+    "Pascal Fautrero <pascal.fautrero@crdp.ac-versailles.fr>"
+  ],
+  "description": "XIA is a svg to html5 converter to generate interactives resources",
+  "license": "GPL3.0",
+  "homepage": "http://images-actives.crdp-versailles.fr/beta",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "bootstrap": "~3.2.0",
+    "labjs": "*",
+    "kineticjs": "~5.1.0"
+  }
+}

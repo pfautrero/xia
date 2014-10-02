@@ -17,11 +17,13 @@ Finally, install grunt and lodash (used in this project):
 
     npm install -g grunt-cli
     npm install lodash
+    npm install -g bower
 
 App pre-install (launch just once):
 
     cd project
     npm install
+    bower install
 
 App install : (must be used each time we want a new release)
 
