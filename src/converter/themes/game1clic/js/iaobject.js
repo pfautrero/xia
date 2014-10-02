@@ -395,6 +395,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
     // tooltip must be at the bottom
     if ($('article[data-tooltip="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
         that.kineticElement[i].getLayer().moveToBottom();
+        that.options[i] += " disable-click ";
     }
     /*
      * if mouse is over element, fill the element with semi-transparency

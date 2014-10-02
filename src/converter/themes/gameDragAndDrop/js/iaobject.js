@@ -124,6 +124,9 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
     that.kineticElement[i].tooltip = "";
     
     var collision_state = $("#" + idText).data("collisions");
+    if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
+        collision_state = "off";
+    }    
     that.collisions = collision_state;
     var global_collision_state = $("#message_success").data("collisions");
     if (global_collision_state == "on" && collision_state != "off") {
@@ -292,9 +295,15 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     });
     
     var collision_state = $("#" + idText).data("collisions");
-    that.collisions = collision_state;    
+    if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
+        collision_state = "off";
+    }
+    that.collisions = collision_state;
+
     var global_collision_state = $("#message_success").data("collisions");
+
     if (global_collision_state == "on" && collision_state != "off") {
+
 
         that.kineticElement[i].dragBoundFunc(function(pos) {
             var x_value = pos.x;
@@ -530,13 +539,16 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
     var that=this;
 
     that.kineticElement[i].droparea = false;
+    
     // if current detail is a drop area, disable drag and drop
     if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
         that.kineticElement[i].droparea = true;
+        
     }
     // tooltip must be at the bottom
     if ($('article[data-tooltip="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
         that.kineticElement[i].getLayer().moveToBottom();
+        that.options[i] += " disable-click ";
     }
     that.kineticElement[i].on('mouseover', function() {
         if (iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) {
