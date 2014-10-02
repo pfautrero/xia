@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: activit 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-02 17:48+0200\n"
+"POT-Creation-Date: 2014-10-02 19:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,80 +19,73 @@ msgstr ""
 
 #: build/converter/includes/mainwindow.py:86
 msgid "select svg file"
-msgstr "sélectionner un fichier svg"
+msgstr ""
 
 #: build/converter/includes/mainwindow.py:99
 msgid "ajust parameters"
-msgstr "Réglages"
+msgstr ""
 
 #: build/converter/includes/mainwindow.py:168
 msgid "myfile.svg"
-msgstr "monfichier.svg"
+msgstr ""
 
 #: build/converter/includes/mainwindow.py:170
-#, fuzzy
 msgid "Select a svg file"
-msgstr "sélectionner un fichier svg"
+msgstr ""
 
 #: build/converter/includes/mainwindow.py:177
-#, fuzzy
 msgid "Select target folder"
-msgstr "sélectionner un fichier svg"
+msgstr ""
 
 #: build/converter/includes/mainwindow.py:189
 #, python-brace-format
 msgid "Sorry, impossible to create the {0} directory"
-msgstr "Désolé, impossible de créer le répertoire {0}"
+msgstr ""
 
 #: build/converter/includes/mainwindow.py:219
 msgid "Parameters"
-msgstr "Paramètres"
+msgstr "Parameters"
 
 #: build/converter/includes/paramswindow.py:65
 msgid "modify image resolution"
 msgstr ""
-"modifier la résolution de l'image.\n"
-"1 = basse résolution (adapté pour le web et les tablettes)\n"
-"4 = haute résolution (utilisé en local)"
 
-#: build/converter/themes/accordionBlack/hook.py:38
+#: build/share/themes/accordionBlack/hook.py:38
 msgid "export accordionBlack !"
-msgstr "exporter en accordionBlack"
+msgstr "export in accordionBlack"
 
-#: build/converter/themes/accordionCloud/hook.py:34
+#: build/share/themes/accordionCloud/hook.py:34
 msgid "export accordionCloud"
-msgstr "exporter en accordionCloud"
+msgstr "export in accordionCloud"
 
-#: build/converter/themes/audioBrown/hook.py:34
+#: build/share/themes/audioBrown/hook.py:34
 msgid "export audioBrown"
-msgstr ""
-"exporter en audioBrown\n"
-"(adapté pour les bandes audio auto-démarrées)"
+msgstr "export in audioBrown"
 
-#: build/converter/themes/buttonBlue/hook.py:34
+#: build/share/themes/buttonBlue/hook.py:34
 msgid "export buttonBlue"
-msgstr "exporter en buttonBlue"
+msgstr ""
 
-#: build/converter/themes/game1clic/hook.py:39
+#: build/share/themes/game1clic/hook.py:39
 msgid "export game1clic"
-msgstr "exporter en game1clic"
+msgstr ""
 
-#: build/converter/themes/game1clic/hook.py:41
+#: build/share/themes/game1clic/hook.py:41
 msgid "this game is not properly configured"
-msgstr "Ce jeu n'est pas correctement configuré"
+msgstr ""
 
-#: build/converter/themes/gameDragAndDrop/hook.py:38
+#: build/share/themes/gameDragAndDrop/hook.py:38
 msgid "export gameDragAndDrop"
-msgstr "exporter en gameDragAndDrop"
+msgstr ""
 
-#: build/converter/themes/gameDragAndDrop/hook.py:41
+#: build/share/themes/gameDragAndDrop/hook.py:41
 msgid "This game is not properly configured"
-msgstr "Ce jeu n'est pas correctement configuré"
+msgstr ""
 
-#: build/converter/themes/popBlue/hook.py:34
+#: build/share/themes/popBlue/hook.py:34
 msgid "export popBlue"
-msgstr "exporter en popBlue"
+msgstr ""
 
-#: build/converter/themes/popYellow/hook.py:35
+#: build/share/themes/popYellow/hook.py:35
 msgid "export popYellow"
-msgstr "exporter en popYellow"
+msgstr ""

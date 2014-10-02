@@ -2,10 +2,10 @@ module.exports = function(grunt) {
   var locales = ["en_US", "fr_FR"];
   var _ = require('lodash');  
   var mos = _.map(locales, function(locale){
-	  return 'build/converter/i18n/' + locale + '/LC_MESSAGES/messages.mo';
+	  return 'build/share/i18n/' + locale + '/LC_MESSAGES/messages.mo';
   });
   var pos = _.map(locales, function(locale){
-	  return 'build/converter/i18n/' + locale + '/LC_MESSAGES/messages.po';
+	  return 'build/share/i18n/' + locale + '/LC_MESSAGES/messages.po';
   });
 
 
@@ -33,7 +33,7 @@ module.exports = function(grunt) {
     pot: {
       options:{
       text_domain: 'messages', // Produces messages.pot
-      dest: 'build/converter/i18n/', // directory to place the pot file
+      dest: 'build/share/i18n/', // directory to place the pot file
       keywords: ['gettext', '__', 'translate'], // functions to look for
       encoding: 'UTF-8'
     },
@@ -43,7 +43,7 @@ module.exports = function(grunt) {
        }
     },
     dirs: {
-        lang: 'build/converter/i18n',
+        lang: 'build/share/i18n',
     },
     potomo: {
         dist: {
@@ -56,11 +56,11 @@ module.exports = function(grunt) {
         },	
         msgmerge: {
           command: _.map(locales, function(locale) {
-            var po = "build/converter/i18n/" + locale + "/LC_MESSAGES/messages.po";
-            var po_src = "src/converter/i18n/" + locale + "/LC_MESSAGES/messages.po";
+            var po = "build/share/i18n/" + locale + "/LC_MESSAGES/messages.po";
+            var po_src = "src/share/i18n/" + locale + "/LC_MESSAGES/messages.po";
             return "if [ -f \"" + po + "\" ]; then\n" +
                        "    echo \"Updating " + po + "\"\n" +
-                       "    msgmerge " + po + " build/converter/i18n/messages.pot > .new.po.tmp\n" +
+                       "    msgmerge " + po + " build/share/i18n/messages.pot > .new.po.tmp\n" +
                        "    exitCode=$?\n" +
                        "    if [ $exitCode -ne 0 ]; then\n" +
                        "        echo \"Msgmerge failed with exit code $?\"\n" +
@@ -69,8 +69,8 @@ module.exports = function(grunt) {
                        "    cp .new.po.tmp " + po + "\n" +
                        "    mv .new.po.tmp " + po_src + "\n" +                       
                        "else \n" + 
-                       "    cp build/converter/i18n/messages.pot " + po + "\n" + 
-                       "    cp build/converter/i18n/messages.pot " + po_src + "\n" +                        
+                       "    cp build/share/i18n/messages.pot " + po + "\n" + 
+                       "    cp build/share/i18n/messages.pot " + po_src + "\n" +                        
                        "fi\n";
           }).join("")
         }
@@ -88,39 +88,39 @@ module.exports = function(grunt) {
     uglify: {
       jquery: {
         files: {
-          'build/converter/themes/accordionBlack/js/jquery-1.11.1.js': ['src/converter/themes/accordionBlack/js/jquery-1.11.1.js'],
-          'build/converter/themes/accordionCloud/js/jquery-1.11.1.js': ['src/converter/themes/accordionCloud/js/jquery-1.11.1.js'],
-          'build/converter/themes/audioBrown/js/jquery-1.11.1.js': ['src/converter/themes/audioBrown/js/jquery-1.11.1.js'],
-          'build/converter/themes/buttonBlue/js/jquery-1.11.1.js': ['src/converter/themes/buttonBlue/js/jquery-1.11.1.js'],
-          'build/converter/themes/game1clic/js/jquery-1.11.1.js': ['src/converter/themes/game1clic/js/jquery-1.11.1.js'],          
-          'build/converter/themes/gameDragAndDrop/js/jquery-1.11.1.js': ['src/converter/themes/gameDragAndDrop/js/jquery-1.11.1.js'],
-          'build/converter/themes/popBlue/js/jquery-1.11.1.js': ['src/converter/themes/popBlue/js/jquery-1.11.1.js'],
-          'build/converter/themes/popYellow/js/jquery-1.11.1.js': ['src/converter/themes/popYellow/js/jquery-1.11.1.js']
+          'build/share/themes/accordionBlack/js/jquery-1.11.1.js': ['src/share/themes/accordionBlack/js/jquery-1.11.1.js'],
+          'build/share/themes/accordionCloud/js/jquery-1.11.1.js': ['src/share/themes/accordionCloud/js/jquery-1.11.1.js'],
+          'build/share/themes/audioBrown/js/jquery-1.11.1.js': ['src/share/themes/audioBrown/js/jquery-1.11.1.js'],
+          'build/share/themes/buttonBlue/js/jquery-1.11.1.js': ['src/share/themes/buttonBlue/js/jquery-1.11.1.js'],
+          'build/share/themes/game1clic/js/jquery-1.11.1.js': ['src/share/themes/game1clic/js/jquery-1.11.1.js'],          
+          'build/share/themes/gameDragAndDrop/js/jquery-1.11.1.js': ['src/share/themes/gameDragAndDrop/js/jquery-1.11.1.js'],
+          'build/share/themes/popBlue/js/jquery-1.11.1.js': ['src/share/themes/popBlue/js/jquery-1.11.1.js'],
+          'build/share/themes/popYellow/js/jquery-1.11.1.js': ['src/share/themes/popYellow/js/jquery-1.11.1.js']
         }
       },
       kinetic: {
         files: {
-          'build/converter/themes/accordionBlack/js/kinetic.js': ['src/converter/themes/accordionBlack/js/kinetic.js'],
-          'build/converter/themes/accordionCloud/js/kinetic.js': ['src/converter/themes/accordionCloud/js/kinetic.js'],
-          'build/converter/themes/audioBrown/js/kinetic.js': ['src/converter/themes/audioBrown/js/kinetic.js'],
-          'build/converter/themes/buttonBlue/js/kinetic.js': ['src/converter/themes/buttonBlue/js/kinetic.js'],
-          'build/converter/themes/game1clic/js/kinetic.js': ['src/converter/themes/game1clic/js/kinetic.js'],          
-          'build/converter/themes/gameDragAndDrop/js/kinetic.js': ['src/converter/themes/gameDragAndDrop/js/kinetic.js'],
-          'build/converter/themes/popBlue/js/kinetic.js': ['src/converter/themes/popBlue/js/kinetic.js'],
-          'build/converter/themes/popYellow/js/kinetic.js': ['src/converter/themes/popYellow/js/kinetic.js']
+          'build/share/themes/accordionBlack/js/kinetic.js': ['src/share/themes/accordionBlack/js/kinetic.js'],
+          'build/share/themes/accordionCloud/js/kinetic.js': ['src/share/themes/accordionCloud/js/kinetic.js'],
+          'build/share/themes/audioBrown/js/kinetic.js': ['src/share/themes/audioBrown/js/kinetic.js'],
+          'build/share/themes/buttonBlue/js/kinetic.js': ['src/share/themes/buttonBlue/js/kinetic.js'],
+          'build/share/themes/game1clic/js/kinetic.js': ['src/share/themes/game1clic/js/kinetic.js'],          
+          'build/share/themes/gameDragAndDrop/js/kinetic.js': ['src/share/themes/gameDragAndDrop/js/kinetic.js'],
+          'build/share/themes/popBlue/js/kinetic.js': ['src/share/themes/popBlue/js/kinetic.js'],
+          'build/share/themes/popYellow/js/kinetic.js': ['src/share/themes/popYellow/js/kinetic.js']
         }
        },
 
        labjs: {
         files: {
-          'build/converter/themes/accordionBlack/js/LAB.js': ['src/converter/themes/accordionBlack/js/LAB.js'],
-          'build/converter/themes/accordionCloud/js/LAB.js': ['src/converter/themes/accordionCloud/js/LAB.js'],
-          'build/converter/themes/audioBrown/js/LAB.js': ['src/converter/themes/audioBrown/js/LAB.js'],
-          'build/converter/themes/buttonBlue/js/LAB.js': ['src/converter/themes/buttonBlue/js/LAB.js'],
-          'build/converter/themes/game1clic/js/LAB.js': ['src/converter/themes/game1clic/js/LAB.js'],          
-          'build/converter/themes/gameDragAndDrop/js/LAB.js': ['src/converter/themes/gameDragAndDrop/js/LAB.js'],
-          'build/converter/themes/popBlue/js/LAB.js': ['src/converter/themes/popBlue/js/LAB.js'],
-          'build/converter/themes/popYellow/js/LAB.js': ['src/converter/themes/popYellow/js/LAB.js']
+          'build/share/themes/accordionBlack/js/LAB.js': ['src/share/themes/accordionBlack/js/LAB.js'],
+          'build/share/themes/accordionCloud/js/LAB.js': ['src/share/themes/accordionCloud/js/LAB.js'],
+          'build/share/themes/audioBrown/js/LAB.js': ['src/share/themes/audioBrown/js/LAB.js'],
+          'build/share/themes/buttonBlue/js/LAB.js': ['src/share/themes/buttonBlue/js/LAB.js'],
+          'build/share/themes/game1clic/js/LAB.js': ['src/share/themes/game1clic/js/LAB.js'],          
+          'build/share/themes/gameDragAndDrop/js/LAB.js': ['src/share/themes/gameDragAndDrop/js/LAB.js'],
+          'build/share/themes/popBlue/js/LAB.js': ['src/share/themes/popBlue/js/LAB.js'],
+          'build/share/themes/popYellow/js/LAB.js': ['src/share/themes/popYellow/js/LAB.js']
         }        
       }      
     }

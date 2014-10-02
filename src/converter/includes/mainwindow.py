@@ -34,7 +34,7 @@ import locale
 
 class IADialog(Tkinter.Frame):
 
-    def __init__(self, root, localdir=".", svgfile=""):
+    def __init__(self, root, localdir="../share", svgfile=""):
 
         Tkinter.Frame.__init__(self, root)
 
@@ -103,7 +103,7 @@ class IADialog(Tkinter.Frame):
 
         tab_path = os.path.dirname(os.path.relpath(__file__)).split("/")
         tab_path.pop()
-        rel_path = "."
+        rel_path = "../share"
         for folder in tab_path:
             rel_path = rel_path + "/" + folder
 
