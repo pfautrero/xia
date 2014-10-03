@@ -42,6 +42,9 @@ class hook:
 
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""
+
+        self.score = "0"
+        self.collisions = "off"
         
         score = re.search('<score>(.*)</score>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
         if score:
