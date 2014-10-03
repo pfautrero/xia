@@ -36,7 +36,7 @@ class ImageActive(inkex.Effect):
         pathNodes[0].set('id','base')        
 
         config = ConfigParser.ConfigParser()
-        config.read("xia.cnf")
+        config.read("inkscape.cnf")
         imagesPath = config.get('paths', 'imagesPath')
         langPath = config.get('paths', 'langPath')
         fontsPath = config.get('paths', 'fontsPath')

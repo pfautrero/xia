@@ -7,6 +7,7 @@ titre est une url
 - soumis à évaluation : limitation de la largeur des jeux gameDragAndDrop à 
 1000 pixels de large max pour éviter des problèmes de performance sur des grands écrans.
 - Refactorisation du code des thèmes de jeu.
+- Refactorisation du code pour respecter la "debian policy"
 
 * version alpha 7 - 29/09/2014
 
