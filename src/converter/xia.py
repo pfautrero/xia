@@ -24,10 +24,21 @@ except ImportError:
     sys.exit(1)
 
 from includes.mainwindow import IADialog
-
+import ConfigParser
 
 if __name__=='__main__':
 
+    config = ConfigParser.ConfigParser()
+    config.read("xia.cnf")
+    imagesPath = config.get('paths', 'imagesPath')
+    langPath = config.get('paths', 'langPath')
+    fontsPath = config.get('paths', 'fontsPath')
+    themesPath = config.get('paths', 'themesPath')
+    labjsLib = config.get('paths', 'labjsLib')
+    jqueryLib = config.get('paths', 'jqueryLib')
+    kineticLib = config.get('paths', 'kineticLib')
+    bootstrapLib = config.get('paths', 'bootstrapLib')
+    
     root = Tkinter.Tk()
 
     root.title("Xia - 1.0-alpha8")
@@ -35,5 +46,5 @@ if __name__=='__main__':
     root.resizable(0,0)
     img = Tkinter.PhotoImage(file='../share/images/image-active64.gif')
     root.tk.call('wm', 'iconphoto', root._w, img)    
-    IADialog(root).pack(side="left")
+    IADialog(root,langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, bootstrapLib, "").pack(side="left")
     root.mainloop()

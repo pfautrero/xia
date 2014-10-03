@@ -34,19 +34,26 @@ import locale
 
 class IADialog(Tkinter.Frame):
 
-    def __init__(self, root, localdir="../share", svgfile=""):
+    def __init__(self, root, langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, bootstrapLib, svgfile=""):
 
         Tkinter.Frame.__init__(self, root)
 
         try:
-            t = gettext.translation("messages", localdir + "/i18n", languages=[locale.getdefaultlocale()[0]])
+            t = gettext.translation("messages", langPath, languages=[locale.getdefaultlocale()[0]])
         except:
-            t = gettext.translation("messages", localdir + "/i18n", languages=['en_US'])
+            t = gettext.translation("messages", langPath, languages=['en_US'])
         translate = t.ugettext
 
 
         self.filename = ""
-        self.localdir = localdir
+        self.imagesPath = imagesPath
+        self.themesPath = themesPath
+        self.fontsPath = fontsPath
+        self.langPath = langPath
+        self.labjsLib = labjsLib
+        self.kineticLib = kineticLib
+        self.jqueryLib = jqueryLib
+        self.bootstrapLib = bootstrapLib
         self.root = root
         self.resize = 3
 
@@ -58,16 +65,11 @@ class IADialog(Tkinter.Frame):
 
         # define images
 
-        import_img= Tkinter.PhotoImage(file=self.localdir + \
-            "/images/open.gif")
-        ia_img= Tkinter.PhotoImage(file=self.localdir + \
-            "/images/ia.gif")    
-        inkscape= Tkinter.PhotoImage(file=self.localdir + \
-            "/images/inkscape.gif")    
-        void_img= Tkinter.PhotoImage(file=self.localdir + \
-            "/images/void.gif")
-        params_img= Tkinter.PhotoImage(file=self.localdir + \
-            "/images/params.gif")            
+        import_img= Tkinter.PhotoImage(file=self.imagesPath + "/open.gif")
+        ia_img= Tkinter.PhotoImage(file=self.imagesPath + "/ia.gif")    
+        inkscape= Tkinter.PhotoImage(file=self.imagesPath + "/inkscape.gif")    
+        void_img= Tkinter.PhotoImage(file=self.imagesPath + "/void.gif")
+        params_img= Tkinter.PhotoImage(file=self.imagesPath + "/params.gif")            
 
         self.filename = svgfile
 
@@ -101,28 +103,29 @@ class IADialog(Tkinter.Frame):
 
         # Automatic import of themes
 
-        tab_path = os.path.dirname(os.path.relpath(__file__)).split("/")
-        tab_path.pop()
-        rel_path = "../share"
-        for folder in tab_path:
-            rel_path = rel_path + "/" + folder
+        #tab_path = os.path.dirname(os.path.relpath(__file__)).split("/")
+        #tab_path.pop()
+        #rel_path = "../share"
+        #for folder in tab_path:
+        #    rel_path = rel_path + "/" + folder
 
+        
         self.themes = []
 
-        if os.path.isdir(rel_path + "/themes"):
+        if os.path.isdir(themesPath):
             theme_index = 2
-            themes_folders = sorted(os.listdir(rel_path + "/themes"))
+            themes_folders = sorted(os.listdir(themesPath))
             for filename in themes_folders:
                 theme = {}
                 theme['name'] = filename
-                imp.load_source(filename, rel_path + "/themes/" + filename + \
+                imp.load_source(filename, themesPath + "/" + filename + \
                     "/hook.py")
                 imported_class = __import__(filename)
                 theme['object'] = imported_class.hook(self.imageActive, \
-                    PageFormatter, localdir)
+                    PageFormatter, self.langPath)
                 self.themes.append(theme)
 
-                img_button = Tkinter.PhotoImage(file= rel_path + "/themes/" + \
+                img_button = Tkinter.PhotoImage(file= themesPath + "/" + \
                     filename + "/" + "icon.gif")    
                 button = Tkinter.Button(self, image=img_button, \
                     relief=Tkinter.FLAT,bd=0, height=150, width=150)
@@ -226,9 +229,9 @@ class IADialog(Tkinter.Frame):
             self.params.title(self.paramsTitle)
             self.params.geometry("310x310")
             self.params.resizable(0,0)
-            img = Tkinter.PhotoImage(file=self.localdir + '/images/image-active64.gif')
+            img = Tkinter.PhotoImage(file=self.imagesPath + '/image-active64.gif')
             self.params.tk.call('wm', 'iconphoto', self.params._w, img)    
-            IAParams(self.params, self, self.localdir).pack(side="left")
+            IAParams(self.params, self, self.langPath, self.imagesPath).pack(side="left")
         
     def askopenfilename(self):
         self.filename = tkFileDialog.askopenfilename(**self.file_opt)
@@ -247,8 +250,8 @@ class IADialog(Tkinter.Frame):
                 with open(self.config_ini, "w") as config_file:
                   self.config.write(config_file)
 
-                mysplash = Splash(self.root , self.localdir + \
-                  '/images/processing.gif', 0)
+                mysplash = Splash(self.root , self.imagesPath + \
+                  '/processing.gif', 0)
                 mysplash.enter()              
 
                 self.dir_opt['initialdir'] = self.dirname
@@ -263,19 +266,22 @@ class IADialog(Tkinter.Frame):
                 if os.path.isdir(self.dirname + '/datas'):
                     shutil.rmtree(self.dirname + '/datas')
                 os.mkdir(self.dirname + '/datas')
-                shutil.copytree(self.localdir + '/themes/' + theme['name'] + \
-                    '/font/', self.dirname + '/font/')              
-                shutil.copytree(self.localdir + '/themes/' + theme['name'] + \
+                shutil.copytree(self.fontsPath , self.dirname + '/font/')              
+                shutil.copytree(self.themesPath + '/' + theme['name'] + \
                     '/css/', self.dirname + '/css/')
-                shutil.copytree(self.localdir + '/themes/' + theme['name'] + \
+                shutil.copytree(self.themesPath + '/' + theme['name'] + \
                     '/img/', self.dirname + '/img/')
-                shutil.copytree(self.localdir + '/themes/' + theme['name'] + \
+                shutil.copytree(self.themesPath + '/' + theme['name'] + \
                     '/js/', self.dirname + '/js/')
+                shutil.copy(self.labjsLib , self.dirname + '/js')
+                shutil.copy(self.jqueryLib , self.dirname + '/js')
+                shutil.copy(self.kineticLib , self.dirname + '/js')
+                shutil.copy(self.bootstrapLib , self.dirname + '/js')
 
-                shutil.copyfile(self.localdir + '/themes/' + theme['name'] + \
+                shutil.copyfile(self.themesPath + '/' + theme['name'] + \
                     '/manifest.webapp', self.dirname + '/manifest.webapp')
 
-                shutil.copyfile(self.localdir + '/themes/' + theme['name'] + \
+                shutil.copyfile(self.themesPath + '/' + theme['name'] + \
                     '/deploy.html', self.dirname + '/deploy.html')
                     
                 maxNumPixels = self.defineMaxPixels(self.resize)
@@ -284,7 +290,7 @@ class IADialog(Tkinter.Frame):
                 self.imageActive.generateJSON(self.dirname + '/datas/data.js')
 
                 theme['object'].generateIndex(self.dirname + "/index.html", \
-                    self.localdir + '/themes/' + theme['name'] + '/index.html')
+                    self.themesPath + '/' + theme['name'] + '/index.html')
 
                 mysplash.exit()
 

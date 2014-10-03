@@ -25,12 +25,12 @@ import locale
 class hook:
     """do some stuff during image active generations"""
 
-    def __init__(self, iaobject, PageFormatter, localdir):
+    def __init__(self, iaobject, PageFormatter, langPath):
         """Init"""
         try:
-            t = gettext.translation("messages", localdir + "/i18n", languages=[locale.getdefaultlocale()[0]])
+            t = gettext.translation("messages", langPath, languages=[locale.getdefaultlocale()[0]])
         except:
-            t = gettext.translation("messages", localdir + "/i18n", languages=['en_US'])
+            t = gettext.translation("messages", langPath, languages=['en_US'])
         translate = t.ugettext
         
         self.iaobject = iaobject

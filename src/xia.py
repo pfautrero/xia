@@ -20,6 +20,7 @@
 import inkex
 import tempfile
 import Tkinter
+import ConfigParser
 #from iaConvert.ia2.iaobject import iaObject
 from converter.includes.mainwindow import IADialog
 
@@ -33,6 +34,17 @@ class ImageActive(inkex.Effect):
         # https://bugs.launchpad.net/ubuntu/+source/inkscape/+bug/944077/comments/11
         pathNodes = self.document.xpath('//sodipodi:namedview',namespaces=inkex.NSS)
         pathNodes[0].set('id','base')        
+
+        config = ConfigParser.ConfigParser()
+        config.read("xia.cnf")
+        imagesPath = config.get('paths', 'imagesPath')
+        langPath = config.get('paths', 'langPath')
+        fontsPath = config.get('paths', 'fontsPath')
+        themesPath = config.get('paths', 'themesPath')        
+        labjsLib = config.get('paths', 'labjsLib')
+        jqueryLib = config.get('paths', 'jqueryLib')
+        kineticLib = config.get('paths', 'kineticLib')
+        bootstrapLib = config.get('paths', 'bootstrapLib')        
        
         try:
             filePath = tempfile.mkdtemp() + "/" + "temp.svg"
@@ -43,9 +55,9 @@ class ImageActive(inkex.Effect):
             root.title("Xia - 1.0-alpha8")
             root.geometry("465x310")
             root.resizable(0,0)
-            img = Tkinter.PhotoImage(file='share/images/image-active64.gif')
+            img = Tkinter.PhotoImage(file= imagesPath + '/image-active64.gif')
             root.tk.call('wm', 'iconphoto', root._w, img)  
-            maindialog = IADialog(root, "share", filePath)
+            maindialog = IADialog(root,langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, bootstrapLib, filePath)
             maindialog.pack(side="left")
             root.mainloop()
 

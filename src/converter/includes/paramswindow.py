@@ -25,34 +25,33 @@ import locale
 
 class IAParams(Tkinter.Frame):
 
-    def __init__(self, root, parent, localdir="."):
+    def __init__(self, root, parent, langPath, imagesPath):
 
         Tkinter.Frame.__init__(self, root)
 
         try:
-            t = gettext.translation("messages", localdir + "/i18n", languages=[locale.getdefaultlocale()[0]])
+            t = gettext.translation("messages", langPath, languages=[locale.getdefaultlocale()[0]])
         except:
-            t = gettext.translation("messages", localdir + "/i18n", languages=['en_US'])
+            t = gettext.translation("messages", langPath, languages=['en_US'])
         translate = t.ugettext
 
         self.root = root
-        self.localdir = localdir
         self.parent = parent
         self.resizeCoeff = parent.resize
         
         # define images
         self.resize_img = {}
-        self.resize_img[0]= Tkinter.PhotoImage(file=self.localdir + \
-            "/images/resize1.gif")            
-        self.resize_img[1]= Tkinter.PhotoImage(file=self.localdir + \
-            "/images/resize2.gif")            
-        self.resize_img[2]= Tkinter.PhotoImage(file=self.localdir + \
-            "/images/resize3.gif")            
-        self.resize_img[3]= Tkinter.PhotoImage(file=self.localdir + \
-            "/images/resize4.gif")            
+        self.resize_img[0]= Tkinter.PhotoImage(file=imagesPath + \
+            "/resize1.gif")            
+        self.resize_img[1]= Tkinter.PhotoImage(file=imagesPath + \
+            "/resize2.gif")            
+        self.resize_img[2]= Tkinter.PhotoImage(file=imagesPath + \
+            "/resize3.gif")            
+        self.resize_img[3]= Tkinter.PhotoImage(file=imagesPath + \
+            "/resize4.gif")            
             
-        params_img= Tkinter.PhotoImage(file=self.localdir + \
-            "/images/params2.gif")            
+        params_img= Tkinter.PhotoImage(file=imagesPath + \
+            "/params2.gif")            
 
         # define buttons
 

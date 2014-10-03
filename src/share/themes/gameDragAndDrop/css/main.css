@@ -4,7 +4,6 @@
     src: url('../font/yanonekaffeesatz-regular-webfont.eot');
     src: url('../font/yanonekaffeesatz-regular-webfont.eot?#iefix') format('embedded-opentype'),
          url('../font/yanonekaffeesatz-regular-webfont.woff') format('woff'),
-         url('../font/yanonekaffeesatz-regular-webfont.ttf') format('truetype'),
          url('../font/yanonekaffeesatz-regular-webfont.svg#yanone_kaffeesatzregular') format('svg');
     font-weight: normal;
     font-style: normal;
@@ -14,7 +13,6 @@
     src: url('../font/yanonekaffeesatz-thin-webfont.eot');
     src: url('../font/yanonekaffeesatz-thin-webfont.eot?#iefix') format('embedded-opentype'),
          url('../font/yanonekaffeesatz-thin-webfont.woff') format('woff'),
-         url('../font/yanonekaffeesatz-thin-webfont.ttf') format('truetype'),
          url('../font/yanonekaffeesatz-thin-webfont.svg#yanone_kaffeesatzthin') format('svg');
     font-weight: normal;
     font-style: normal;

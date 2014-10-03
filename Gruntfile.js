@@ -1,4 +1,11 @@
 module.exports = function(grunt) {
+    
+  var vendorsPath = 'build/share/vendors';
+  var jqueryPath = 'bower_components/jquery/dist/jquery.min.js';    
+  var labjsPath = 'bower_components/labjs/LAB.min.js';
+  var kineticPath = 'bower_components/kineticjs/kinetic.min.js';
+  var bootstrapPath = 'bower_components/bootstrap/dist/js/bootstrap.min.js';
+  
   var locales = ["en_US", "fr_FR"];
   var _ = require('lodash');  
   var mos = _.map(locales, function(locale){
@@ -8,7 +15,7 @@ module.exports = function(grunt) {
 	  return 'build/share/i18n/' + locale + '/LC_MESSAGES/messages.po';
   });
 
-
+  
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -31,38 +38,24 @@ module.exports = function(grunt) {
       },
       jquery: {
         files: [
-            {dest: 'build/share/themes/accordionBlack/js/jquery.min.js', src:'bower_components/jquery/dist/jquery.min.js'},
-            {dest: 'build/share/themes/accordionCloud/js/jquery.min.js', src:'bower_components/jquery/dist/jquery.min.js'},
-            {dest: 'build/share/themes/audioBrown/js/jquery.min.js', src:'bower_components/jquery/dist/jquery.min.js'},
-            {dest: 'build/share/themes/buttonBlue/js/jquery.min.js', src:'bower_components/jquery/dist/jquery.min.js'},
-            {dest: 'build/share/themes/game1clic/js/jquery.min.js', src:'bower_components/jquery/dist/jquery.min.js'},
-            {dest: 'build/share/themes/gameDragAndDrop/js/jquery.min.js', src:'bower_components/jquery/dist/jquery.min.js'},
-            {dest: 'build/share/themes/popBlue/js/jquery.min.js', src:'bower_components/jquery/dist/jquery.min.js'},
-            {dest: 'build/share/themes/popYellow/js/jquery.min.js', src:'bower_components/jquery/dist/jquery.min.js'}
+            {dest: vendorsPath + "/jquery.min.js", src: jqueryPath}
         ]
       },      
       labjs: {
         files: [
-            {dest: 'build/share/themes/accordionBlack/js/LAB.min.js', src:'bower_components/labjs/LAB.min.js'},
-            {dest: 'build/share/themes/accordionCloud/js/LAB.min.js', src:'bower_components/labjs/LAB.min.js'},
-            {dest: 'build/share/themes/audioBrown/js/LAB.min.js', src:'bower_components/labjs/LAB.min.js'},
-            {dest: 'build/share/themes/buttonBlue/js/LAB.min.js', src:'bower_components/labjs/LAB.min.js'},
-            {dest: 'build/share/themes/game1clic/js/LAB.min.js', src:'bower_components/labjs/LAB.min.js'},
-            {dest: 'build/share/themes/gameDragAndDrop/js/LAB.min.js', src:'bower_components/labjs/LAB.min.js'},
-            {dest: 'build/share/themes/popBlue/js/LAB.min.js', src:'bower_components/labjs/LAB.min.js'},
-            {dest: 'build/share/themes/popYellow/js/LAB.min.js', src:'bower_components/labjs/LAB.min.js'}
+            {dest: vendorsPath + '/LAB.min.js', src:labjsPath}
         ]
       },
       kinetic: {
         files: [
-            {dest: 'build/share/themes/accordionBlack/js/kinetic.js', src:'bower_components/kineticjs/kinetic.min.js'},
-            {dest: 'build/share/themes/accordionCloud/js/kinetic.js', src:'bower_components/kineticjs/kinetic.min.js'},
-            {dest: 'build/share/themes/audioBrown/js/kinetic.js', src:'bower_components/kineticjs/kinetic.min.js'},
-            {dest: 'build/share/themes/buttonBlue/js/kinetic.js', src:'bower_components/kineticjs/kinetic.min.js'},
-            {dest: 'build/share/themes/popBlue/js/kinetic.js', src:'bower_components/kineticjs/kinetic.min.js'},
-            {dest: 'build/share/themes/popYellow/js/kinetic.js', src:'bower_components/kineticjs/kinetic.min.js'}
+            {dest: vendorsPath + '/kinetic.min.js', src:kineticPath}
         ]
-      }
+      },
+      bootstrap: {
+        files: [
+            {dest: vendorsPath + '/bootstrap.min.js', src:bootstrapPath}
+        ]
+      }      
     },
     pot: {
       options:{
@@ -145,7 +138,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-chmod');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-nose');
-  grunt.registerTask('default', ['clean', 'copy:main' , 'copy:jquery' , 'copy:kinetic', 'copy:labjs','pot',  'shell:msgmerge', 'potomo', 'chmod']);
+  grunt.registerTask('default', ['clean', 'copy:main' , 'copy:jquery' , 'copy:kinetic', 'copy:labjs', 'copy:bootstrap','pot',  'shell:msgmerge', 'potomo', 'chmod']);
   grunt.registerTask('tests', ['jshint']);
-  grunt.registerTask('dev', ['clean', 'copy:main' , 'copy:jquery' , 'copy:kinetic', 'copy:labjs', 'pot',  'shell:msgmerge', 'potomo', 'chmod']);
+  grunt.registerTask('dev', ['clean', 'copy:main' , 'copy:jquery' , 'copy:kinetic', 'copy:labjs', 'copy:bootstrap', 'pot',  'shell:msgmerge', 'potomo', 'chmod']);
 };
