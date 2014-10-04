@@ -1,4 +1,5 @@
-* version alpha 8 - 01/10/2014
+Version 1.0-alpha8 - 01/10/2014
+-------------------------------
 
 - Séparation du package debian et du code source
 - Ajout de la fonctionnalité info-bulles sur les 2 thèmes de jeu
@@ -9,7 +10,8 @@ titre est une url
 - Refactorisation du code des thèmes de jeu.
 - Refactorisation du code pour respecter la "debian policy"
 
-* version alpha 7 - 29/09/2014
+Version 1.0-alpha7 - 29/09/2014
+-------------------------------
 
 - Doc : mise à jour des docs de prise en main
 - Bouton de bascule ajouté sur les messages de succès dans les thèmes game\*
@@ -17,8 +19,8 @@ titre est une url
 - hotfix : les détails "chemin" hors image de fond crashaient l'application html5
 - Ergonomie : amélioration du visuel de la popup d'introduction
 
-
-* version alpha 6 - 25/09/2014
+Version 1.0-alpha6 - 25/09/2014
+-------------------------------
 
 - Doc : mise à jour des docs de prise en main
 - Correctif : reprise du manifest firefox OS
@@ -30,8 +32,8 @@ transforme plus en loupe.
 au clic
 - Correctif : gameDragAndDrop -> régression sur les popup 
 
-
-* version alpha 5 - 23/09/2014
+Version 1.0-alpha5 - 23/09/2014
+-------------------------------
 
 - Correctif : Modification de l'internationalisation pour MAC OS X
 - Ergonomie : Suppression de l'oeil sur tous les thèmes
@@ -46,8 +48,8 @@ pour définir la zone de hit de chaque détail
 - Correctif : Les propriétés des détails étaient propagées aux groupes qui les
 contenaient (propagation de off par exemple)...à surveiller, risque de régression.
 
-
-* version alpha 4 - 15/09/2014
+Version 1.0-alpha4 - 15/09/2014
+-------------------------------
 
 - Ajout de l'internationalisation
 - Changement de nom de l'application
@@ -74,7 +76,8 @@ dans les réseaux sociaux (Facebook, twitter...)
 game1clic
 - ajout d'un lanceur executable pour Windows
 
-* version alpha 3 - 02/07/2014
+Version 1.0-alpha3 - 02/07/2014
+-------------------------------
 
 - Ajout d'une popup durant la génération d'une image active
 - L'image de fond n'est plus estompée durant la lecture de la description 
@@ -94,7 +97,8 @@ le filesystem
 - Ajout des thèmes popBlue, popYellow, audioBlue, buttonBlue
 - Ajout des bordures sur les détourages
 
-* version alpha 2 - 30/04/2014
+Version 1.0-alpha2 - 30/04/2014
+-------------------------------
 
 - L'outil standalone est packagé pour debian (François Lafont)
 - Grosse optimisation du moteur html5 pour qu'il gère les images actives de 
