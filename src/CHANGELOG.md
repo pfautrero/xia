@@ -12,7 +12,7 @@ titre est une url
 * version alpha 7 - 29/09/2014
 
 - Doc : mise à jour des docs de prise en main
-- Bouton de bascule ajouté sur les messages de succès dans les thèmes game*
+- Bouton de bascule ajouté sur les messages de succès dans les thèmes game\*
 - hotfix : les balises vidéos plantaient les zooms
 - hotfix : les détails "chemin" hors image de fond crashaient l'application html5
 - Ergonomie : amélioration du visuel de la popup d'introduction
