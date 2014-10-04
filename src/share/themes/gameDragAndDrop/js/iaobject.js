@@ -631,7 +631,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             that.kineticElement[i].on('dragstart', function(e) {
                 iaScene.element = that;
                 that.myhooks.afterIaObjectDragStart(iaScene, idText, that);
-                that.layer.moveToTop();
+                //that.layer.moveToTop();
                 Kinetic.draggedshape = this;
             });
 

@@ -134,7 +134,10 @@ function main(myhooks) {
         stage.add(layers[2]);
         myhooks.beforeMainConstructor(mainScene, that.layers);
         for (var i in details) {
-            var indice = parseInt(i+3);
+            // use the same layer for all kineticElements
+            // seems to improve performances
+            //var indice = parseInt(i+3);
+            var indice = parseInt(0+3);
             layers[indice] = new Kinetic.Layer();
             stage.add(layers[indice]);
             var iaObj = new IaObject(that.imageObj, details[i], layers[indice], "article-" + i, baseImage, mainScene, layers[1], layers[0], myhooks);
