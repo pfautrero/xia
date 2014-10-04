@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Copyright: 2014 Francois Lafont <francois.lafont@crdp.ac-versailles.fr>
+# Copyright: 2014 Francois Lafont <francois.lafont@ac-versailles.fr>
 #
 # License: GPL-3.0+
 # This program is free software: you can redistribute it and/or modify
