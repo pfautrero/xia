@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Copyright: 2014 Francois Lafont <francois.lafont@crdp.ac-versailles.fr>
+# Copyright: 2014 Francois Lafont <francois.lafont@ac-versailles.fr>
 #
 # License: GPL-3.0+
 # This program is free software: you can redistribute it and/or modify
@@ -19,16 +19,22 @@
 
 from setuptools import setup, find_packages
 
+# Get the version of the application.
+with open('CHANGELOG.md', 'r') as f:
+  line1 = f.readline()
+words = line1.split()
+version = words[1]
+
 setup(
     name='xia-converter',
-    version='0.alpha4',
+    version=version,
     packages=find_packages(),
     author='Pascal Fautrero',
     author_email='pascal.fautrero@ac-versailles.fr',
     description='Convert svg to full html5 interactive pictures',
     long_description=open('README.md').read(),
     include_package_data=True,
-    url='http://images-actives.crdp-versailles.fr',
+    url='http://images-actives.crdp-versailles.fr/beta/',
     license='GPL-3',
 )
 
