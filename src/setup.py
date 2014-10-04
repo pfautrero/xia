@@ -19,9 +19,15 @@
 
 from setuptools import setup, find_packages
 
+# Get the version of the application.
+with open('CHANGELOG.md', 'r') as f:
+  line1 = f.readline()
+words = line1.split()
+version = words[1]
+
 setup(
     name='xia-converter',
-    version='0.alpha4',
+    version=version,
     packages=find_packages(),
     author='Pascal Fautrero',
     author_email='pascal.fautrero@ac-versailles.fr',
