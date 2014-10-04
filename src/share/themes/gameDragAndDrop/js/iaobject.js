@@ -30,9 +30,9 @@ function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     this.title = [];
     this.path = [];
     this.kineticElement = [];
-    this.backgroundImage = [];
-    this.backgroundImageOwnScaleX = [];
-    this.backgroundImageOwnScaleY = [];
+    //this.backgroundImage = [];
+    //this.backgroundImageOwnScaleX = [];
+    //this.backgroundImageOwnScaleY = [];
     this.persistent = [];
     this.originalX = [];
     this.originalY = [];
@@ -212,9 +212,6 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
 
     rasterObj.onload = function() {
         
-        // @TODO : remove all backgroundImageOwnScaleX array
-        //that.backgroundImageOwnScaleX[i] = iaScene.scale * detail.width / this.width;
-        //that.backgroundImageOwnScaleY[i] = iaScene.scale * detail.height / this.height;
         that.kineticElement[i].backgroundImageOwnScaleX = iaScene.scale * detail.width / this.width;
         that.kineticElement[i].backgroundImageOwnScaleY = iaScene.scale * detail.height / this.height;        
         var zoomable = true;
@@ -419,9 +416,6 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         cropedImage.src = dataUrl;
         cropedImage.onload = function() {
             that.kineticElement[i].backgroundImage = cropedImage;
-            //that.backgroundImage[i] = cropedImage;
-            //that.backgroundImageOwnScaleX[i] = 1;
-            //that.backgroundImageOwnScaleY[i] = 1;
             that.kineticElement[i].backgroundImage = cropedImage;
             that.kineticElement[i].backgroundImageOwnScaleX = 1;
             that.kineticElement[i].backgroundImageOwnScaleY = 1;            
@@ -550,7 +544,8 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
         that.kineticElement[i].getLayer().moveToBottom();
         that.options[i] += " disable-click ";
     }
-    that.kineticElement[i].on('mouseover', function() {
+
+    that.kineticElement[i].on('mouseenter', function() {
         if (iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) {
 
         }
@@ -559,7 +554,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
         }
         else if (iaScene.cursorState.indexOf("HandPointer.cur") === -1) {
             if (!this.droparea) {
-                document.body.style.cursor = "url(img/HandPointer.cur),auto";
+                document.body.style.cursor = "pointer";
             }
             iaScene.cursorState = "url(img/HandPointer.cur),auto";
             // manage tooltips if present
@@ -587,11 +582,13 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             }
         }
     });
-
+ 
     /*
      * if we leave this element, just clear the scene
      */
-    that.kineticElement[i].on('mouseleave', function() {
+    that.kineticElement[i].on('mouseout', function() {
+    
+        
         if ((iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) ||
                 (iaScene.cursorState.indexOf("ZoomIn.cur") !== -1)){
 

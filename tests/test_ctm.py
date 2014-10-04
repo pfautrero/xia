@@ -15,11 +15,11 @@
 #   
 # @author : pascal.fautrero@ac-versailles.fr
 
-from src.converter.includes.ctm import CurrentTransformation
+from src.xiaconverter.includes.ctm import CurrentTransformation
 from nose.tools import *
 import math
 
-import converter.includes.cubicsuperpath
+import xiaconverter.includes.cubicsuperpath
 
 class TestCurrentTransformation:
 

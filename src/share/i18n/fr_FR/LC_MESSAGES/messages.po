@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: activit 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-03 23:13+0200\n"
+"POT-Creation-Date: 2014-10-04 21:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,44 +16,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: build/converter/includes/mainwindow.py:88
-msgid "select svg file"
-msgstr "sélectionner un fichier svg"
-
-#: build/converter/includes/mainwindow.py:101
-msgid "ajust parameters"
-msgstr "Réglages"
-
-#: build/converter/includes/mainwindow.py:171
-msgid "myfile.svg"
-msgstr "monfichier.svg"
-
-#: build/converter/includes/mainwindow.py:173
-#, fuzzy
-msgid "Select a svg file"
-msgstr "sélectionner un fichier svg"
-
-#: build/converter/includes/mainwindow.py:180
-#, fuzzy
-msgid "Select target folder"
-msgstr "sélectionner un fichier svg"
-
-#: build/converter/includes/mainwindow.py:192
-#, python-brace-format
-msgid "Sorry, impossible to create the {0} directory"
-msgstr "Désolé, impossible de créer le répertoire {0}"
-
-#: build/converter/includes/mainwindow.py:222
-msgid "Parameters"
-msgstr "Paramètres"
-
-#: build/converter/includes/paramswindow.py:64
-msgid "modify image resolution"
-msgstr ""
-"modifier la résolution de l'image.\n"
-"1 = basse résolution (adapté pour le web et les tablettes)\n"
-"4 = haute résolution (utilisé en local)"
 
 #: build/share/themes/accordionBlack/hook.py:38
 msgid "export accordionBlack !"
@@ -96,3 +58,41 @@ msgstr "exporter en popBlue"
 #: build/share/themes/popYellow/hook.py:35
 msgid "export popYellow"
 msgstr "exporter en popYellow"
+
+#: build/xiaconverter/includes/mainwindow.py:88
+msgid "select svg file"
+msgstr "sélectionner un fichier svg"
+
+#: build/xiaconverter/includes/mainwindow.py:101
+msgid "ajust parameters"
+msgstr "Réglages"
+
+#: build/xiaconverter/includes/mainwindow.py:171
+msgid "myfile.svg"
+msgstr "monfichier.svg"
+
+#: build/xiaconverter/includes/mainwindow.py:173
+#, fuzzy
+msgid "Select a svg file"
+msgstr "sélectionner un fichier svg"
+
+#: build/xiaconverter/includes/mainwindow.py:180
+#, fuzzy
+msgid "Select target folder"
+msgstr "sélectionner un fichier svg"
+
+#: build/xiaconverter/includes/mainwindow.py:192
+#, python-brace-format
+msgid "Sorry, impossible to create the {0} directory"
+msgstr "Désolé, impossible de créer le répertoire {0}"
+
+#: build/xiaconverter/includes/mainwindow.py:222
+msgid "Parameters"
+msgstr "Paramètres"
+
+#: build/xiaconverter/includes/paramswindow.py:64
+msgid "modify image resolution"
+msgstr ""
+"modifier la résolution de l'image.\n"
+"1 = basse résolution (adapté pour le web et les tablettes)\n"
+"4 = haute résolution (utilisé en local)"

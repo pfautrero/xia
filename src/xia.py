@@ -21,8 +21,7 @@ import inkex
 import tempfile
 import Tkinter
 import ConfigParser
-#from iaConvert.ia2.iaobject import iaObject
-from converter.includes.mainwindow import IADialog
+from xiaconverter.includes.mainwindow import IADialog
 
 class ImageActive(inkex.Effect):
     def __init__(self):

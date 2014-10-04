@@ -9955,7 +9955,9 @@ var Kinetic = {};
             }
         },
         _getIntersection: function(pos) {
-            var p = this.hitCanvas.context._context.getImageData(pos.x, pos.y, 1, 1).data,
+            //@FAUTRERO
+            var test = this.hitCanvas.context._context;
+            var p = test.getImageData(pos.x, pos.y, 1, 1).data,
                 p3 = p[3],
                 colorKey, shape;
 

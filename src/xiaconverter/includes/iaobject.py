@@ -704,7 +704,7 @@ class iaObject:
                         newheight = int( oldheight * self.ratio)
                         resizedBg = currentBg.resize( \
                             (newwidth,newheight), \
-                            Image.ANTIALIAS)
+                            Image.BICUBIC)
                         resizedBg.save(imageFileSmall) 
 
                         with open(imageFileSmall, 'rb') as bgSmallImage:
