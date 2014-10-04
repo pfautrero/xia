@@ -28,7 +28,7 @@ setup(
     description='Convert svg to full html5 interactive pictures',
     long_description=open('README.md').read(),
     include_package_data=True,
-    url='http://images-actives.crdp-versailles.fr',
+    url='http://images-actives.crdp-versailles.fr/beta/',
     license='GPL-3',
 )
 
