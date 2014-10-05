@@ -1,0 +1,33 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,textcomp}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{fancybox}
+\usepackage[pdftex]{hyperref}
+\usepackage[usenames,dvipsnames]{pstricks}
+\usepackage{epsfig}
+\usepackage{fancyvrb}
+\usepackage{alltt}
+
+\hypersetup{%
+  colorlinks= true,
+  linkcolor = blue
+  }
+\hypersetup{
+  pdftitle={Xia},
+  pdfauthor={Énuma Logiciel Libre},
+  pdfsubject={Xia},
+  pdfkeywords={Xia, logiciel libre, html5, Inkscape}
+}
+
+\renewcommand{\thechapter}{\arabic{chapter}}
+\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\thesubsection}{\alph{subsection}}
+
+% pour unifier les indications relatives aux manipulation à effectuer dans les logiciels
+% à modifier au besoin
+\newcommand{\chemin}[1]{\textcolor{red}{#1}}
