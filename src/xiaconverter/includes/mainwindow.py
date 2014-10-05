@@ -39,9 +39,9 @@ class IADialog(Tkinter.Frame):
         Tkinter.Frame.__init__(self, root)
 
         try:
-            t = gettext.translation("messages", langPath, languages=[locale.getdefaultlocale()[0]])
+            t = gettext.translation("xia-converter", langPath, languages=[locale.getdefaultlocale()[0]])
         except:
-            t = gettext.translation("messages", langPath, languages=['en_US'])
+            t = gettext.translation("xia-converter", langPath, languages=['en_US'])
         translate = t.ugettext
 
 

@@ -24,9 +24,9 @@ class hook:
     def __init__(self, iaobject, PageFormatter, langPath):
         """Init"""
         try:
-            t = gettext.translation("messages", langPath, languages=[locale.getdefaultlocale()[0]])
+            t = gettext.translation("xia-converter", langPath, languages=[locale.getdefaultlocale()[0]])
         except:
-            t = gettext.translation("messages", langPath, languages=['en_US'])
+            t = gettext.translation("xia-converter", langPath, languages=['en_US'])
         translate = t.ugettext
         
         self.iaobject = iaobject

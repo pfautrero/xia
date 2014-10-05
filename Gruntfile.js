@@ -9,10 +9,10 @@ module.exports = function(grunt) {
   var locales = ["en_US", "fr_FR"];
   var _ = require('lodash');  
   var mos = _.map(locales, function(locale){
-	  return 'build/share/i18n/' + locale + '/LC_MESSAGES/messages.mo';
+	  return 'build/share/i18n/' + locale + '/LC_MESSAGES/xia-converter.mo';
   });
   var pos = _.map(locales, function(locale){
-	  return 'build/share/i18n/' + locale + '/LC_MESSAGES/messages.po';
+	  return 'build/share/i18n/' + locale + '/LC_MESSAGES/xia-converter.po';
   });
 
   
@@ -59,7 +59,7 @@ module.exports = function(grunt) {
     },
     pot: {
       options:{
-      text_domain: 'messages', // Produces messages.pot
+      text_domain: 'xia-converter', // Produces messages.pot
       dest: 'build/share/i18n/', // directory to place the pot file
       keywords: ['gettext', '__', 'translate'], // functions to look for
       encoding: 'UTF-8'
@@ -83,11 +83,11 @@ module.exports = function(grunt) {
         },	
         msgmerge: {
           command: _.map(locales, function(locale) {
-            var po = "build/share/i18n/" + locale + "/LC_MESSAGES/messages.po";
-            var po_src = "src/share/i18n/" + locale + "/LC_MESSAGES/messages.po";
+            var po = "build/share/i18n/" + locale + "/LC_MESSAGES/xia-converter.po";
+            var po_src = "src/share/i18n/" + locale + "/LC_MESSAGES/xia-converter.po";
             return "if [ -f \"" + po + "\" ]; then\n" +
                        "    echo \"Updating " + po + "\"\n" +
-                       "    msgmerge " + po + " build/share/i18n/messages.pot > .new.po.tmp\n" +
+                       "    msgmerge " + po + " build/share/i18n/xia-converter.pot > .new.po.tmp\n" +
                        "    exitCode=$?\n" +
                        "    if [ $exitCode -ne 0 ]; then\n" +
                        "        echo \"Msgmerge failed with exit code $?\"\n" +
@@ -96,8 +96,8 @@ module.exports = function(grunt) {
                        "    cp .new.po.tmp " + po + "\n" +
                        "    mv .new.po.tmp " + po_src + "\n" +                       
                        "else \n" + 
-                       "    cp build/share/i18n/messages.pot " + po + "\n" + 
-                       "    cp build/share/i18n/messages.pot " + po_src + "\n" +                        
+                       "    cp build/share/i18n/xia-converter.pot " + po + "\n" + 
+                       "    cp build/share/i18n/xia-converter.pot " + po_src + "\n" +                        
                        "fi\n";
           }).join("")
         }
