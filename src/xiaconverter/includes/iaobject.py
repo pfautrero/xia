@@ -218,8 +218,19 @@ class iaObject:
             'polygon', 'path', 'image', 'g']
         mainSVG = self.xml.getElementsByTagName('svg')
         if mainSVG[0]:
+            # if there is only one root group
+            # just remove it
+            nb_root_groups = 0
             for childnode in mainSVG[0].childNodes:
-                if childnode.parentNode.nodeName == "svg":
+                if childnode.nodeName == "g":
+                    nb_root_groups+=1
+                    last_group = childnode
+            
+            if nb_root_groups == 1:
+                mainSVG[0] = last_group
+                
+            for childnode in mainSVG[0].childNodes:
+                if childnode.parentNode.nodeName == mainSVG[0].nodeName:
                     if childnode.nodeName in svgElements:
                         newrecord = getattr(self, 'extract_' + \
                             childnode.nodeName)(childnode, 0)
