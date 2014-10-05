@@ -631,13 +631,15 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             that.kineticElement[i].on('dragstart', function(e) {
                 iaScene.element = that;
                 that.myhooks.afterIaObjectDragStart(iaScene, idText, that);
-                //that.layer.moveToTop();
+                that.layer.moveToTop();
                 Kinetic.draggedshape = this;
             });
 
             that.kineticElement[i].on('dragend', function(e) {
                 iaScene.element = that;
                 Kinetic.draggedshape = null;
+                // Kinetic hacking - speed up _getIntersection
+                this.getStage().completeImage = "redefine";
                 that.myhooks.afterIaObjectDragEnd(iaScene, idText, that, e);
                 that.layer.draw();
             });    

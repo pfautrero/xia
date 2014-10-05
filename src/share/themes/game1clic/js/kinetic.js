@@ -9944,8 +9944,24 @@ var Kinetic = {};
             }
         },
         _getIntersection: function(pos) {
-            var p = this.hitCanvas.context._context.getImageData(pos.x, pos.y, 1, 1).data,
-                p3 = p[3],
+            
+            //@FAUTRERO hacking - speed up _getIntersection
+            // stage.completeImage is set in dragEnd method in iaobject.js
+            if ((typeof(this.completeImage) == "undefined") || (this.getParent().completeImage == "redefine")) {
+		this.getParent().completeImage = "done";
+		this.completeImage = new Uint32Array(this.hitCanvas.context._context.getImageData(0,0,Math.floor(this.hitCanvas.width),Math.floor(this.hitCanvas.height)).data);
+            }
+            var p = new Array();
+            //console.log(this);
+            var startingPos = 4 * (pos.y * Math.floor(this.hitCanvas.width) + pos.x);
+            p[0] = this.completeImage[startingPos];
+            p[1] = this.completeImage[startingPos + 1];
+            p[2] = this.completeImage[startingPos + 2];
+            p[3] = this.completeImage[startingPos + 3];
+            
+            // getImageData too slow
+            //var p = this.hitCanvas.context._context.getImageData(pos.x, pos.y, 1, 1).data;
+            var  p3 = p[3],
                 colorKey, shape;
 
             // fully opaque pixel

@@ -410,7 +410,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
         }
         else if (iaScene.cursorState.indexOf("HandPointer.cur") === -1) {
             if (that.options[i].indexOf("pointer") !== -1) {
-                document.body.style.cursor = "url(img/HandPointer.cur),auto";
+                document.body.style.cursor = "pointer";
             }
             iaScene.cursorState = "url(img/HandPointer.cur),auto";   
             
