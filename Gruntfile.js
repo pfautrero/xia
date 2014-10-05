@@ -141,4 +141,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['clean', 'copy:main' , 'copy:jquery' , 'copy:kinetic', 'copy:labjs', 'copy:bootstrap','pot',  'shell:msgmerge', 'potomo', 'chmod']);
   grunt.registerTask('tests', ['jshint']);
   grunt.registerTask('dev', ['clean', 'copy:main' , 'copy:jquery' , 'copy:kinetic', 'copy:labjs', 'copy:bootstrap', 'pot',  'shell:msgmerge', 'potomo', 'chmod']);
+  grunt.registerTask('debianbuild', ['clean', 'copy:main' , 'pot',  'shell:msgmerge', 'potomo', 'chmod']);
 };
+
+
