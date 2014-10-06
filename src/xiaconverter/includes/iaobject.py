@@ -221,12 +221,16 @@ class iaObject:
             # if there is only one root group
             # just remove it
             nb_root_groups = 0
+            nb_root_elements = 0
             for childnode in mainSVG[0].childNodes:
                 if childnode.nodeName == "g":
                     nb_root_groups+=1
+                    nb_root_elements+=1
                     last_group = childnode
+                elif childnode.nodeName in svgElements:
+                    nb_root_elements+=1
             
-            if nb_root_groups == 1:
+            if (nb_root_groups == 1) and (nb_root_elements == 1):
                 mainSVG[0] = last_group
                 
             for childnode in mainSVG[0].childNodes:
