@@ -26,7 +26,7 @@ module.exports = function(grunt) {
       },
       yourTarget1: {
         // Target-specific file/dir lists and/or options go here.
-        src: ['build/xiaconverter/xia.py']
+        src: ['build/xia.py']
       }
     },
     copy: {

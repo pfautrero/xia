@@ -1,5 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
+
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
@@ -15,55 +16,35 @@
 #   
 # @author : pascal.fautrero@ac-versailles.fr
 
+try:
+    import Tkinter, Tkconstants, tkFileDialog
+except ImportError:
+    import sys
+    print "Requirement : Please, install python-tk package"
+    sys.exit(1)
 
-#import os, shutil
-import inkex
-import tempfile
-import Tkinter
+from xiaconverter.mainwindow import IADialog
 import ConfigParser
-from xiaconverter.includes.mainwindow import IADialog
 
-class ImageActive(inkex.Effect):
-    def __init__(self):
-        inkex.Effect.__init__(self)
+if __name__=='__main__':
 
-    def effect(self):
+    config = ConfigParser.ConfigParser()
+    config.read("xia.cnf")
+    imagesPath = config.get('paths', 'imagesPath')
+    langPath = config.get('paths', 'langPath')
+    fontsPath = config.get('paths', 'fontsPath')
+    themesPath = config.get('paths', 'themesPath')
+    labjsLib = config.get('paths', 'labjsLib')
+    jqueryLib = config.get('paths', 'jqueryLib')
+    kineticLib = config.get('paths', 'kineticLib')
+    bootstrapLib = config.get('paths', 'bootstrapLib')
+    
+    root = Tkinter.Tk()
 
-        # fix inkscape bug 
-        # https://bugs.launchpad.net/ubuntu/+source/inkscape/+bug/944077/comments/11
-        pathNodes = self.document.xpath('//sodipodi:namedview',namespaces=inkex.NSS)
-        pathNodes[0].set('id','base')        
-
-        config = ConfigParser.ConfigParser()
-        config.read("xia.cnf")
-        imagesPath = config.get('paths', 'imagesPath')
-        langPath = config.get('paths', 'langPath')
-        fontsPath = config.get('paths', 'fontsPath')
-        themesPath = config.get('paths', 'themesPath')        
-        labjsLib = config.get('paths', 'labjsLib')
-        jqueryLib = config.get('paths', 'jqueryLib')
-        kineticLib = config.get('paths', 'kineticLib')
-        bootstrapLib = config.get('paths', 'bootstrapLib')        
-       
-        try:
-            filePath = tempfile.mkdtemp() + "/" + "temp.svg"
-            with open(filePath,"w") as file:
-                self.document.write(filePath)
-
-            root = Tkinter.Tk()
-            root.title("Xia - 1.0-alpha8")
-            root.geometry("465x310")
-            root.resizable(0,0)
-            img = Tkinter.PhotoImage(file= imagesPath + '/image-active64.gif')
-            root.tk.call('wm', 'iconphoto', root._w, img)  
-            maindialog = IADialog(root,langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, bootstrapLib, filePath)
-            maindialog.pack(side="left")
-            root.mainloop()
-
-        except ValueError:
-           #print(ValueError)
-           pass
-                              
-ia = ImageActive()
-ia.affect()
-          			
+    root.title("Xia - 1.0-alpha8")
+    root.geometry("465x310")
+    root.resizable(0,0)
+    img = Tkinter.PhotoImage(file=imagesPath + '/image-active64.gif')
+    root.tk.call('wm', 'iconphoto', root._w, img)    
+    IADialog(root,langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, bootstrapLib, "").pack(side="left")
+    root.mainloop()

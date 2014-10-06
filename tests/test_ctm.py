@@ -15,11 +15,11 @@
 #   
 # @author : pascal.fautrero@ac-versailles.fr
 
-from src.xiaconverter.includes.ctm import CurrentTransformation
+from src.xiaconverter.ctm import CurrentTransformation
 from nose.tools import *
 import math
 
-import xiaconverter.includes.cubicsuperpath
+import xiaconverter.cubicsuperpath
 
 class TestCurrentTransformation:
 
@@ -147,7 +147,7 @@ class TestCurrentTransformation:
         ctm = CurrentTransformation()
         path = "M 10,20 L 60,20 L 60,50 L 10,50 L 10,20"
         path_modified = "M53.0 146.0C53.0 146.0 103.0 346.0 103.0 346.0C103.0 346.0 163.0 496.0 163.0 496.0C163.0 496.0 113.0 296.0 113.0 296.0C113.0 296.0 53.0 146.0 53.0 146.0"
-        p = xiaconverter.includes.cubicsuperpath.parsePath(path)
+        p = xiaconverter.cubicsuperpath.parsePath(path)
         ctm.applyTransformToPath(matrix,p)
-        path_calculated = xiaconverter.includes.cubicsuperpath.formatPath(p)
+        path_calculated = xiaconverter.cubicsuperpath.formatPath(p)
         assert_equal(path_calculated,path_modified)
