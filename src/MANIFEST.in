@@ -1,4 +1,4 @@
 include *.md
 recursive-include share *
-include xiaconverter/*.cnf
+
 
