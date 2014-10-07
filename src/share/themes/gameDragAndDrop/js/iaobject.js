@@ -528,7 +528,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
     var that=this;
 
     that.kineticElement[i].droparea = false;
-    
+    that.kineticElement[i].tooltip_area = false;
     // if current detail is a drop area, disable drag and drop
     if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
         that.kineticElement[i].droparea = true;
