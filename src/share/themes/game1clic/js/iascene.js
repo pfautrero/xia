@@ -41,15 +41,11 @@ function IaScene(originalWidth, originalHeight) {
     
     // padding-top in the canvas
     this.y = 0;
-
-    // color used over background image during focus
-    var _colorCache = {red:0, green:0, blue:0, opacity:0.6};
  
     // internal
     this.score = 0;
     this.currentScore = 0;
     this.fullScreen = "off";
-    this.backgroundCacheColor = 'rgba(' + _colorCache.red + ',' + _colorCache.green + ',' + _colorCache.blue + ',' + _colorCache.opacity + ')';
     this.overColor = 'rgba(' + _colorOver.red + ',' + _colorOver.green + ',' + _colorOver.blue + ',' + _colorOver.opacity + ')';   
     this.overColorStroke = 'rgba(' + _colorOverStroke.red + ',' + _colorOverStroke.green + ',' + _colorOverStroke.blue + ',' + _colorOverStroke.opacity + ')';
     this.scale = 1;

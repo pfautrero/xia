@@ -21,25 +21,20 @@
  * @param {type} idText
  * @param {type} baseImage
  * @param {type} iaScene
- * @param {type} backgroundCache_layer
  * @constructor create image active object
  */
-function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, background_layer, backgroundCache_layer, myhooks) {
+function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, background_layer, myhooks) {
     "use strict";
     var that = this;
     this.path = [];
     this.title = [];      
     this.kineticElement = [];
-    //this.backgroundImage = [];
-    //this.backgroundImageOwnScaleX = [];
-    //this.backgroundImageOwnScaleY = [];
     this.persistent = [];
     this.originalX = [];
     this.originalY = [];
     this.options = [];
     this.layer = layer;
     this.background_layer = background_layer;
-    this.backgroundCache_layer = backgroundCache_layer;
     this.imageObj = imageObj;
     this.agrandissement = 0;
     this.zoomActive = 0;
@@ -109,9 +104,6 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
     
     rasterObj.onload = function() {
         
-        // @TODO : remove all backgroundImageOwnScaleX array        
-        //that.backgroundImageOwnScaleX[i] = iaScene.scale * detail.width / this.width;
-        //that.backgroundImageOwnScaleY[i] = iaScene.scale * detail.height / this.height;
         that.kineticElement[i].backgroundImageOwnScaleX = iaScene.scale * detail.width / this.width;
         that.kineticElement[i].backgroundImageOwnScaleY = iaScene.scale * detail.height / this.height;           
         var zoomable = true;
@@ -139,10 +131,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
             zoomable = false;
         }
         that.group.add(that.kineticElement[i]);
-       // that.kineticElement[i].cache();
 
-        //that.kineticElement[i].scale({x:iaScene.coeff,y:iaScene.coeff});
-        //that.kineticElement[i].drawHitFromCache();
         // define hit area excluding transparent pixels
 
         var cropX = Math.max(parseFloat(detail.minX), 0);
@@ -176,7 +165,6 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
                    imageData[j + 0] = rgbColorKey.r;
                    imageData[j + 1] = rgbColorKey.g;
                    imageData[j + 2] = rgbColorKey.b;
-                   // imageData[j + 3] = imageDataSource.data[j + 3];
                 } 
                 // reatach to the DOM
                 imageDataSource.data = imageData;
@@ -261,10 +249,7 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     that.kineticElement[i].tooltip = "";
     cropedImage.onload = function() {
         that.kineticElement[i].backgroundImage = cropedImage;
-     
-        //that.backgroundImage[i] = cropedImage;
-        //that.backgroundImageOwnScaleX[i] = 1;
-        //that.backgroundImageOwnScaleY[i] = 1;
+
         that.kineticElement[i].backgroundImage = cropedImage;
         that.kineticElement[i].backgroundImageOwnScaleX = 1;
         that.kineticElement[i].backgroundImageOwnScaleY = 1;
@@ -394,7 +379,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
     }
     // tooltip must be at the bottom
     if ($('article[data-tooltip="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
-        that.kineticElement[i].getLayer().moveToBottom();
+        that.kineticElement[i].moveToBottom();
         that.options[i] += " disable-click ";
     }
     /*
@@ -433,31 +418,10 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     this.tooltip.fillPatternScaleY(this.tooltip.backgroundImageOwnScaleY * 1/iaScene.scale);
                 }
                 this.tooltip.fillPatternImage(this.tooltip.backgroundImage);
-                this.tooltip.getLayer().moveToTop();
-                this.getLayer().moveToTop();
+                this.tooltip.moveToTop();
                 this.tooltip.draw();
             }            
 
-         
-            /*for (var i in that.kineticElement) {
-                if (that.persistent[i] == "off") {
-                    that.kineticElement[i].fillPriority('color');
-                    that.kineticElement[i].fill(iaScene.overColor);
-                    that.kineticElement[i].scale(iaScene.coeff);
-                    that.kineticElement[i].stroke(iaScene.overColorStroke);
-                    that.kineticElement[i].strokeWidth(2);                    
-                }
-                else if (that.persistent[i] == "onPath") {
-                    that.kineticElement[i].fillPriority('color');
-                    that.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');                       
-                }
-                else if (that.persistent[i] == "onImage") {
-                    that.kineticElement[i].fillPriority('pattern');
-                    that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
-                    that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale); 
-                    that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);                        
-                }                
-            }*/
             that.layer.batchDraw();
         }
     });
@@ -477,7 +441,6 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 		mouseXY = {x:0,y:0};
             }            
             if ((that.layer.getStage().getIntersection(mouseXY) != this)) {
-                that.backgroundCache_layer.moveToBottom();
 
                 // manage tooltips if present
                 var tooltip = false;
@@ -492,8 +455,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 if (tooltip) {
                     this.tooltip.fillPriority('color');
                     this.tooltip.fill('rgba(0, 0, 0, 0)');
-                    this.tooltip.getLayer().moveToBottom();
-                    this.tooltip.getLayer().draw();
+                    this.tooltip.draw();
                 }                     
 
                 document.body.style.cursor = "default";
@@ -519,106 +481,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
         that.kineticElement[i].on('click touchstart', function(evt) {
 
             iaScene.noPropagation = true;
-            // let's zoom
-            /*if ((iaScene.cursorState.indexOf("ZoomIn.cur") !== -1) && 
-                (iaScene.element === that)) {
-
-               iaScene.zoomActive = 1;
-                document.body.style.cursor = "url(img/ZoomOut.cur),auto";
-                iaScene.cursorState = "url(img/ZoomOut.cur),auto";
-                that.layer.moveToTop();
-                that.group.zoomActive = 1;
-                that.originalX[0] = that.group.x();
-                that.originalY[0] = that.group.y();
-
-                that.alpha = 0;
-                that.step = 0.1;
-                var personalTween = function() {
-                    // linear
-                    var tempX = that.originalX[0] + that.alpha.toFixed(2) * (that.tweenX - that.originalX[0]);
-                    var tempY = that.originalY[0] + that.alpha.toFixed(2) * (that.tweenY - that.originalY[0]);
-                    var tempScale = 1 + that.alpha.toFixed(2) * (that.agrandissement - 1);
-                    if (that.alpha.toFixed(2) <= 1) {
-                        that.alpha = that.alpha + that.step;
-                        that.group.x(tempX);
-                        that.group.y(tempY);
-                        that.group.scaleX(tempScale);
-                        that.group.scaleY(tempScale);
-                        that.layer.draw();
-                        var t = setTimeout(personalTween, 30);
-                    }
-                    else {
-                        clearTimeout(t);
-                    }
-                };
-                var t = setTimeout(personalTween, 30);
-                that.myhooks.afterIaObjectZoom(iaScene, idText, that);
-            }
-            // let's unzoom
-            else if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
-
-                if ((that.group.zoomActive == 1)) {
-                    iaScene.zoomActive = 0;
-                    that.group.zoomActive = 0;
-                    that.group.scaleX(1);
-                    that.group.scaleY(1);
-                    that.group.x(that.originalX[0]);
-                    that.group.y(that.originalY[0]);
-
-                    that.backgroundCache_layer.moveToBottom();
-                    document.body.style.cursor = "default";
-                    iaScene.cursorState = "default";
-
-                    for (var i in that.kineticElement) {
-                        if (that.persistent[i] == "off") {
-                            that.kineticElement[i].fillPriority('color');
-                            that.kineticElement[i].fill('rgba(0, 0, 0, 0)');
-                        }
-                        else if (that.persistent[i] == "onPath") {
-                            that.kineticElement[i].fillPriority('color');
-                            that.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');                       
-                        }
-                        else if (that.persistent[i] == "onImage") {
-                            that.kineticElement[i].fillPriority('pattern');
-                            that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
-                            that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale); 
-                            that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);                        
-                        }
-                    }                    
-                    that.layer.draw();
-                    that.backgroundCache_layer.draw();
-                }
-            }
-            // let's focus
-            else {*/
                 if (iaScene.zoomActive === 0) {
-                    /*if ((iaScene.element !== 0) && 
-                        (typeof(iaScene.element) !== 'undefined')) {
-
-                        for (var i in iaScene.element.kineticElement) {
-                            iaScene.element.kineticElement[i].fillPriority('color');
-                            iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
-                            iaScene.element.kineticElement[i].setStroke('rgba(0, 0, 0, 0)');
-                            iaScene.element.kineticElement[i].setStrokeWidth(0);                         
-                        }
-                        iaScene.element.layer.draw();
-                    }                    
-                    if (zoomable === true) {
-                        document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';
-                        iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
-                    }*/
-
-                    //var cacheBackground = true;
-                /*    for (var i in that.kineticElement) {
-                        if (that.persistent[i] === "onImage") cacheBackground = false;
-                        that.kineticElement[i].fillPriority('pattern');
-                        that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
-                        that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale); 
-                        that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
-                        that.kineticElement[i].stroke(iaScene.overColorStroke);
-                        that.kineticElement[i].strokeWidth(2);                    
-                    }*/
-
                     for (var i in that.kineticElement) {
                         if (that.persistent[i] == "off") {
                             if (that.kineticElement[i] instanceof Kinetic.Image) {
@@ -649,9 +512,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         that.kineticElement[i].moveToTop();
                     }                
 
-
-                    //if (cacheBackground === true) that.backgroundCache_layer.moveToTop();
-                    that.layer.moveToTop();
+                    that.group.moveToTop();
                     that.layer.draw(); 
                     iaScene.element = that;
                     that.myhooks.afterIaObjectFocus(iaScene, idText, that);

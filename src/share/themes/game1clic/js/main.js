@@ -27,32 +27,6 @@ function main(myhooks) {
     var that=window;
     that.canvas = document.getElementById("canvas");
 
-    // area located under the canvas. If mouse over is detected, 
-    // we must re-activate mouse events on canvas
-    var detect = document.getElementById("detect");
-    detect.addEventListener("mouseover", function()
-        {
-            that.canvas.style.pointerEvents="auto";
-            if ((IaScene.element !== 0) && (typeof(IaScene.element) !== 'undefined')) {
-                for (var i in IaScene.element.kineticElement) {
-                    IaScene.element.kineticElement[i].fillPriority('color');
-                    IaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
-                }
-            }
-        }, false);			
-    detect.addEventListener("touchstart", function()
-        {   
-            that.canvas.style.pointerEvents="auto";
-            if ((IaScene.element !== 0) && (typeof(IaScene.element) !== 'undefined')) {
-                for (var i in IaScene.element.kineticElement) {
-                    IaScene.element.kineticElement[i].fillPriority('color');
-                    IaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
-                }
-            }
-        }, false);	
-
-
-
     // Load background image
 
     that.imageObj = new Image();
@@ -79,45 +53,19 @@ function main(myhooks) {
             image: that.imageObj
         });
 
-        // cache used over background image
-        var baseCache = new Kinetic.Rect({
-            x: 0,
-            y: mainScene.y,
-            width: scene.width,
-            height: scene.height,
-            scale: {x:mainScene.coeff,y:mainScene.coeff},
-            fill: mainScene.backgroundCacheColor
-        });
 
-        // define area to disable canvas events management when
-        // mouse is over. Thus, we can reach div located under canvas 
-        var disableArea = new Kinetic.Rect({
-            x: mainScene.width  * mainScene.ratio,
-            y: mainScene.y,
-            width: mainScene.width * (1 - mainScene.ratio),
-            height: mainScene.height
-        });		
-        disableArea.on('mouseover touchstart', function() {
-            canvas.style.pointerEvents="none";
-        });
         var layers = [];
         that.layers = layers;
         layers[0] = new Kinetic.FastLayer();	
-        layers[1] = new Kinetic.FastLayer();	
-        layers[2] = new Kinetic.Layer();
-
-        layers[0].add(baseCache);
-        layers[1].add(baseImage);
-        layers[2].add(disableArea);	
+        layers[0].add(baseImage);
         stage.add(layers[0]);
-        stage.add(layers[1]);
-        stage.add(layers[2]);
         myhooks.beforeMainConstructor(mainScene, that.layers);
+        var indice = 1;
+        layers[indice] = new Kinetic.Layer();
+        stage.add(layers[indice]);
+
         for (var i in details) {
-            var indice = parseInt(i+3);
-            layers[indice] = new Kinetic.Layer();
-            stage.add(layers[indice]);
-            var iaObj = new IaObject(that.imageObj, details[i], layers[indice], "article-" + i, baseImage, mainScene, layers[1], layers[0], myhooks);
+            var iaObj = new IaObject(that.imageObj, details[i], layers[indice], "article-" + i, baseImage, mainScene, layers[0], myhooks);
         }
         myhooks.afterMainConstructor(mainScene, that.layers);             
         $("#splash").fadeOut("slow", function(){
