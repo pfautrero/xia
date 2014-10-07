@@ -232,6 +232,9 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     var posY = 0;
     if (parseFloat(detail.minX) < 0) posX = parseFloat(detail.minX) * (-1);
     if (parseFloat(detail.minY) < 0) posY = parseFloat(detail.minY) * (-1);
+    // bad workaround to avoid null dimensions
+    if (cropWidth == 0) cropWidth = 1;
+    if (cropHeight == 0) cropHeight = 1;    
     cropCtx.drawImage(
         that.imageObj,
         cropX * iaScene.scale,

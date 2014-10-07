@@ -395,7 +395,9 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         if (cropY * iaScene.scale + cropHeight > iaScene.originalHeight * iaScene.scale) {
             cropHeight = iaScene.originalHeight * iaScene.scale - cropY * iaScene.scale;
         }
-
+        // bad workaround to avoid null dimensions
+        if (cropWidth == 0) cropWidth = 1;
+        if (cropHeight == 0) cropHeight = 1;
         cropCtx.drawImage(
             that.imageObj,
             cropX * iaScene.scale,
