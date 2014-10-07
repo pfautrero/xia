@@ -116,14 +116,8 @@ module.exports = function(grunt) {
 
       kinetic: {
         files: {
-          'build/share/themes/accordionBlack/js/kinetic.js': ['src/share/themes/accordionBlack/js/kinetic.js'],
-          'build/share/themes/accordionCloud/js/kinetic.js': ['src/share/themes/accordionCloud/js/kinetic.js'],
-          'build/share/themes/audioBrown/js/kinetic.js': ['src/share/themes/audioBrown/js/kinetic.js'],
-          'build/share/themes/buttonBlue/js/kinetic.js': ['src/share/themes/buttonBlue/js/kinetic.js'],
           'build/share/themes/game1clic/js/kinetic.js': ['src/share/themes/game1clic/js/kinetic.js'],          
           'build/share/themes/gameDragAndDrop/js/kinetic.js': ['src/share/themes/gameDragAndDrop/js/kinetic.js'],
-          'build/share/themes/popBlue/js/kinetic.js': ['src/share/themes/popBlue/js/kinetic.js'],
-          'build/share/themes/popYellow/js/kinetic.js': ['src/share/themes/popYellow/js/kinetic.js']
         }
        }      
     }
@@ -138,7 +132,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-chmod');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-nose');
-  grunt.registerTask('default', ['clean', 'copy:main' , 'copy:jquery' , 'copy:kinetic', 'copy:labjs', 'copy:bootstrap','pot',  'shell:msgmerge', 'potomo', 'chmod']);
+  grunt.registerTask('default', ['clean', 'copy:main' , 'copy:jquery' , 'copy:kinetic', 'copy:labjs', 'copy:bootstrap','pot',  'shell:msgmerge', 'potomo', 'chmod', 'uglify:kinetic']);
   grunt.registerTask('tests', ['jshint']);
   grunt.registerTask('dev', ['clean', 'copy:main' , 'copy:jquery' , 'copy:kinetic', 'copy:labjs', 'copy:bootstrap', 'pot',  'shell:msgmerge', 'potomo', 'chmod']);
   grunt.registerTask('debianbuild', ['clean', 'copy:main' , 'pot',  'shell:msgmerge', 'potomo', 'chmod']);

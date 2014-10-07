@@ -21,25 +21,20 @@
  * @param {type} idText
  * @param {type} baseImage
  * @param {type} iaScene
- * @param {type} backgroundCache_layer
  * @constructor create image active object
  */
-function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, background_layer, backgroundCache_layer, myhooks) {
+function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, background_layer, myhooks) {
     "use strict";
     var that = this;
     this.title = [];
     this.path = [];
     this.kineticElement = [];
-    //this.backgroundImage = [];
-    //this.backgroundImageOwnScaleX = [];
-    //this.backgroundImageOwnScaleY = [];
     this.persistent = [];
     this.originalX = [];
     this.originalY = [];
     this.options = [];
     this.layer = layer;
     this.background_layer = background_layer;
-    this.backgroundCache_layer = backgroundCache_layer;
     this.imageObj = imageObj;
     this.agrandissement = 0;
     this.zoomActive = 0;
@@ -81,7 +76,6 @@ function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     else {
         console.log(detail);
     }
-
     this.defineTweens(this, iaScene);
     this.myhooks.afterIaObjectConstructor(iaScene, idText, detail, this);
 }
@@ -105,11 +99,13 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
     if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
         draggable_object = false;
     }    
+    if ($('article[data-tooltip="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
+        draggable_object = false;
+    }  
     that.defineImageBoxSize(detail, that);
     var rasterObj = new Image();
     rasterObj.src = detail.image;       
     that.title[i] = detail.title;
-    //that.backgroundImage[i] = rasterObj;
     that.kineticElement[i] = new Kinetic.Image({
         id: detail.id,
         name: detail.title,
@@ -235,7 +231,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
             zoomable = false;
         }
         
-        that.group.add(that.kineticElement[i]);
+        that.layer.add(that.kineticElement[i]);
         that.addEventsManagement(i,zoomable, that, iaScene, baseImage, idText);
         
         // define hit area excluding transparent pixels
@@ -246,7 +242,6 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         that.kineticElement[i].scale({x:iaScene.coeff,y:iaScene.coeff});
         that.kineticElement[i].drawHitFromCache();
         that.kineticElement[i].draw();
-
     };
 
 };    
@@ -273,7 +268,9 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
         draggable_object = false;
     }
-    
+    if ($('article[data-tooltip="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
+        draggable_object = false;
+    }      
     
     that.path[i] = detail.path;
     that.title[i] = detail.title;
@@ -384,10 +381,10 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     // crop background image to suit shape box
     that.kineticElement[i].tooltip = "";
     if (that.options[i].indexOf("disable-click") == -1) {
-        that.cropCanvas = document.createElement('canvas');
-        that.cropCanvas.setAttribute('width', parseFloat(detail.maxX) - parseFloat(detail.minX));
-        that.cropCanvas.setAttribute('height', parseFloat(detail.maxY) - parseFloat(detail.minY));
-        var cropCtx = that.cropCanvas.getContext('2d');
+        var cropCanvas = document.createElement('canvas');
+        cropCanvas.setAttribute('width', parseFloat(detail.maxX) - parseFloat(detail.minX));
+        cropCanvas.setAttribute('height', parseFloat(detail.maxY) - parseFloat(detail.minY));
+        var cropCtx = cropCanvas.getContext('2d');
         var cropX = Math.max(parseFloat(detail.minX), 0);
         var cropY = Math.max(parseFloat(detail.minY), 0);
         var cropWidth = (Math.min((parseFloat(detail.maxX) - parseFloat(detail.minX)) * iaScene.scale, Math.floor(parseFloat(iaScene.originalWidth) * iaScene.scale)));
@@ -410,8 +407,7 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
             cropWidth,
             cropHeight
         );
-        var dataUrl = that.cropCanvas.toDataURL();
-        delete that.cropCanvas;
+        var dataUrl = cropCanvas.toDataURL();
         var cropedImage = new Image();
         cropedImage.src = dataUrl;
         cropedImage.onload = function() {
@@ -440,8 +436,7 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     }    
     that.addEventsManagement(i, zoomable, that, iaScene, baseImage, idText);
 
-    that.group.add(that.kineticElement[i]);
-    that.group.draw();
+    that.layer.add(that.kineticElement[i]);
     that.layer.draw();
 };
 
@@ -541,7 +536,8 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
     }
     // tooltip must be at the bottom
     if ($('article[data-tooltip="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
-        that.kineticElement[i].getLayer().moveToBottom();
+        that.kineticElement[i].moveToBottom();
+        that.kineticElement[i].tooltip_area = true;
         that.options[i] += " disable-click ";
     }
 
@@ -553,7 +549,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 
         }
         else if (iaScene.cursorState.indexOf("HandPointer.cur") === -1) {
-            if (!this.droparea) {
+            if ((!this.droparea) && (!this.tooltip_area)) {
                 document.body.style.cursor = "pointer";
             }
             iaScene.cursorState = "url(img/HandPointer.cur),auto";
@@ -576,10 +572,12 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     this.tooltip.fillPatternScaleY(this.tooltip.backgroundImageOwnScaleY * 1/iaScene.scale);
                 }
                 this.tooltip.fillPatternImage(this.tooltip.backgroundImage); 
-                this.tooltip.getLayer().moveToTop();
-                this.getLayer().moveToTop();                
+
+                this.tooltip.moveToTop();
                 this.tooltip.draw();
+                that.layer.draw();
             }
+            
         }
     });
  
@@ -609,8 +607,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 if (tooltip) {
                     this.tooltip.fillPriority('color');
                     this.tooltip.fill('rgba(0, 0, 0, 0)');
-                    this.tooltip.getLayer().moveToBottom();
-                    this.tooltip.getLayer().draw();
+                    this.tooltip.draw();
                 }                
                 document.body.style.cursor = "default";
                 iaScene.cursorState = "default";
@@ -631,14 +628,14 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             that.kineticElement[i].on('dragstart', function(e) {
                 iaScene.element = that;
                 that.myhooks.afterIaObjectDragStart(iaScene, idText, that);
-                that.layer.moveToTop();
+                this.moveToTop();
                 Kinetic.draggedshape = this;
             });
 
             that.kineticElement[i].on('dragend', function(e) {
                 iaScene.element = that;
                 Kinetic.draggedshape = null;
-                // Kinetic hacking - speed up _getIntersection
+                // Kinetic hacking - speed up _getIntersection (for linux)
                 this.getStage().completeImage = "redefine";
                 that.myhooks.afterIaObjectDragEnd(iaScene, idText, that, e);
                 that.layer.draw();

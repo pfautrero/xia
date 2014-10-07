@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: activit 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-06 18:19+0200\n"
+"POT-Creation-Date: 2014-10-07 10:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,38 +59,38 @@ msgstr "exporter en popBlue"
 msgid "export popYellow"
 msgstr "exporter en popYellow"
 
-#: build/xiaconverter/includes/mainwindow.py:88
+#: build/xiaconverter/mainwindow.py:88
 msgid "select svg file"
 msgstr "sélectionner un fichier svg"
 
-#: build/xiaconverter/includes/mainwindow.py:101
+#: build/xiaconverter/mainwindow.py:101
 msgid "ajust parameters"
 msgstr "Réglages"
 
-#: build/xiaconverter/includes/mainwindow.py:171
+#: build/xiaconverter/mainwindow.py:171
 msgid "myfile.svg"
 msgstr "monfichier.svg"
 
-#: build/xiaconverter/includes/mainwindow.py:173
+#: build/xiaconverter/mainwindow.py:173
 #, fuzzy
 msgid "Select a svg file"
 msgstr "sélectionner un fichier svg"
 
-#: build/xiaconverter/includes/mainwindow.py:180
+#: build/xiaconverter/mainwindow.py:180
 #, fuzzy
 msgid "Select target folder"
 msgstr "sélectionner un fichier svg"
 
-#: build/xiaconverter/includes/mainwindow.py:192
+#: build/xiaconverter/mainwindow.py:192
 #, python-brace-format
 msgid "Sorry, impossible to create the {0} directory"
 msgstr "Désolé, impossible de créer le répertoire {0}"
 
-#: build/xiaconverter/includes/mainwindow.py:222
+#: build/xiaconverter/mainwindow.py:222
 msgid "Parameters"
 msgstr "Paramètres"
 
-#: build/xiaconverter/includes/paramswindow.py:64
+#: build/xiaconverter/paramswindow.py:64
 msgid "modify image resolution"
 msgstr ""
 "modifier la résolution de l'image.\n"

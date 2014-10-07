@@ -96,24 +96,6 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         }
     });
     
-    document.addEventListener("click", function(ev){
-        if (mainScene.noPropagation) {
-            mainScene.noPropagation = false;
-        }
-        else {
-            if (mainScene.zoomActive === 1) {
-                if ((mainScene.element !== 0) && 
-                (typeof(mainScene.element) !== 'undefined')) {
-                    mainScene.element.kineticElement[0].fire("click");
-                }
-            }
-            else if (mainScene.cursorState.indexOf("ZoomIn.cur") !== -1) {
-                document.body.style.cursor = "default";
-                mainScene.cursorState = "default";
-                mainScene.element.kineticElement[0].fire("mouseleave");
-            }
-        }
-    });
 };
 /*
  *
