@@ -804,7 +804,7 @@ class iaObject:
                             replace("\t"," ").\
                             replace("\r"," ") + u'",\n'
                 else:
-                    final_str += u'  "' + entry + u'":"' + detail[entry] + u'",\n'
+                    final_str += u'  "' + entry + u'":"' + detail[entry].replace('"', "'") + u'",\n'
             final_str += u'},\n'
         final_str += u'];\n'
         #final_str += u'lazyload("/js/iascene.js");'
