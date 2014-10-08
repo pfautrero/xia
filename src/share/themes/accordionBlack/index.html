@@ -46,7 +46,7 @@
         document.body.onload = function() {
             $LAB.setGlobalDefaults({CacheBust:true});
             $LAB
-             .script("js/jquery.min.js")
+             .script("js/jquery.min.js").wait()
              .script("js/bootstrap.min.js")
              .script("js/kinetic.min.js").wait()
              .script("datas/data.js").wait()
