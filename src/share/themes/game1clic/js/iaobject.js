@@ -155,43 +155,43 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         context_source.drawImage(rasterObj,0,0, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);
 
 	imageDataSource = context_source.getImageData(0, 0, Math.floor(cropWidth * iaScene.coeff), Math.floor(cropHeight * iaScene.coeff));            
-        len = imageDataSource.data.length;
 
-        // just replace scene colors by hit colors - alpha remains unchanged
-        //context_source.putImageData(imageDataSource, 0, 0);  
-
-        (function(len, imageDataSource){
+        (function(imageDataSource){
         that.kineticElement[i].hitFunc(function(context) {
 
             if (that.group.zoomActive == 0) {
-                    var imageData = imageDataSource.data;
-                    var imageDest = iaScene.completeImage.data;
-                    var position1 = 0;
-                    var position2 = 0;
-
-                    var rgbColorKey = Kinetic.Util._hexToRgb(this.colorKey);
-                    for(var varx = 0; varx < Math.floor(cropWidth * iaScene.coeff); varx +=1) {
-                        for(var vary = 0; vary < Math.floor(cropHeight * iaScene.coeff); vary +=1) {
-                                position1 = 4 * (vary * Math.floor(cropWidth * iaScene.coeff) + varx);
-                                position2 = 4 * ((vary + Math.floor(cropY * iaScene.coeff)) * Math.floor(that.layer.getHitCanvas().width) + varx + Math.floor(cropX * iaScene.coeff));
-                                if (imageData[position1 + 3] > 200) {
-                                   imageDest[position2 + 0] = rgbColorKey.r;
-                                   imageDest[position2 + 1] = rgbColorKey.g;
-                                   imageDest[position2 + 2] = rgbColorKey.b;
-                                   imageDest[position2 + 3] = 255;
-                                }
+                var imageData = imageDataSource.data;
+                var imageDest = iaScene.completeImage.data;
+                var position1 = 0;
+                var position2 = 0;
+                var maxWidth = Math.floor(cropWidth * iaScene.coeff);
+                var maxHeight = Math.floor(cropHeight * iaScene.coeff);
+                var startY = Math.floor(cropY * iaScene.coeff);
+                var startX = Math.floor(cropX * iaScene.coeff);
+                var hitCanvasWidth = Math.floor(that.layer.getHitCanvas().width);
+                var rgbColorKey = Kinetic.Util._hexToRgb(this.colorKey);
+                for(var varx = 0; varx < maxWidth; varx +=1) {
+                    for(var vary = 0; vary < maxHeight; vary +=1) {
+                        position1 = 4 * (vary * maxWidth + varx);
+                        position2 = 4 * ((vary + startY) * hitCanvasWidth + varx + startX);
+                        if (imageData[position1 + 3] > 200) {
+                           imageDest[position2 + 0] = rgbColorKey.r;
+                           imageDest[position2 + 1] = rgbColorKey.g;
+                           imageDest[position2 + 2] = rgbColorKey.b;
+                           imageDest[position2 + 3] = 255;
                         }
-                    } 
-                    context.putImageData(iaScene.completeImage, 0, 0);     
+                    }
+                } 
+                context.putImageData(iaScene.completeImage, 0, 0);     
             }
             else {
-                    context.beginPath();
-                    context.rect(0,0,this.width(),this.height());
-                    context.closePath();
-                    context.fillStrokeShape(this);					
+                context.beginPath();
+                context.rect(0,0,this.width(),this.height());
+                context.closePath();
+                context.fillStrokeShape(this);					
             }
         });        
-        })(len, imageDataSource);    
+        })(imageDataSource);    
         
         
         /*that.kineticElement[i].sceneFunc(function(context) {
