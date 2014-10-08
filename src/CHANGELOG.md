@@ -1,3 +1,8 @@
+Version 1.0-alpha9 - xx/xx/2014
+-------------------------------
+
+- Correction d'une regression sur les détourages dans game1clic
+
 Version 1.0-alpha8 - 01/10/2014
 -------------------------------
 

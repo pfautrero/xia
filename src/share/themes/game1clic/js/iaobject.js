@@ -144,45 +144,61 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         if (cropY * 1 + cropHeight > iaScene.originalHeight * 1) {
             cropHeight = iaScene.originalHeight * 1 - cropY * 1;
         }
+        
+	var hitCanvas = that.layer.getHitCanvas();
+        iaScene.completeImage = hitCanvas.getContext().getImageData(0,0,Math.floor(hitCanvas.width),Math.floor(hitCanvas.height));
 
         var canvas_source = document.createElement('canvas');
         canvas_source.setAttribute('width', cropWidth * iaScene.coeff);
         canvas_source.setAttribute('height', cropHeight * iaScene.coeff);
         var context_source = canvas_source.getContext('2d');
         context_source.drawImage(rasterObj,0,0, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);
-        imageDataSource = context_source.getImageData(0, 0, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);            
+
+	imageDataSource = context_source.getImageData(0, 0, Math.floor(cropWidth * iaScene.coeff), Math.floor(cropHeight * iaScene.coeff));            
         len = imageDataSource.data.length;
-        that.group.zoomActive = 0;
-       
+
+        // just replace scene colors by hit colors - alpha remains unchanged
+        //context_source.putImageData(imageDataSource, 0, 0);  
+
         (function(len, imageDataSource){
         that.kineticElement[i].hitFunc(function(context) {
-            if (that.group.zoomActive == 0) {
-                rgbColorKey = Kinetic.Util._hexToRgb(this.colorKey);
-                //detach from the DOM
-                var imageData = imageDataSource.data;
-                // just replace scene colors by hit colors - alpha remains unchanged
-                for(j = 0; j < len; j += 4) {
-                   imageData[j + 0] = rgbColorKey.r;
-                   imageData[j + 1] = rgbColorKey.g;
-                   imageData[j + 2] = rgbColorKey.b;
-                } 
-                // reatach to the DOM
-                imageDataSource.data = imageData;
 
-                context.putImageData(imageDataSource, cropX * iaScene.coeff, cropY * iaScene.coeff);     
+            if (that.group.zoomActive == 0) {
+                    var imageData = imageDataSource.data;
+                    var imageDest = iaScene.completeImage.data;
+                    var position1 = 0;
+                    var position2 = 0;
+
+                    var rgbColorKey = Kinetic.Util._hexToRgb(this.colorKey);
+                    for(var varx = 0; varx < Math.floor(cropWidth * iaScene.coeff); varx +=1) {
+                        for(var vary = 0; vary < Math.floor(cropHeight * iaScene.coeff); vary +=1) {
+                                position1 = 4 * (vary * Math.floor(cropWidth * iaScene.coeff) + varx);
+                                position2 = 4 * ((vary + Math.floor(cropY * iaScene.coeff)) * Math.floor(that.layer.getHitCanvas().width) + varx + Math.floor(cropX * iaScene.coeff));
+                                if (imageData[position1 + 3] > 200) {
+                                   imageDest[position2 + 0] = rgbColorKey.r;
+                                   imageDest[position2 + 1] = rgbColorKey.g;
+                                   imageDest[position2 + 2] = rgbColorKey.b;
+                                   imageDest[position2 + 3] = 255;
+                                }
+                        }
+                    } 
+                    context.putImageData(iaScene.completeImage, 0, 0);     
             }
             else {
-                context.beginPath();
-                context.rect(0,0,this.width(),this.height());
-                context.closePath();
-                context.fillStrokeShape(this);					
+                    context.beginPath();
+                    context.rect(0,0,this.width(),this.height());
+                    context.closePath();
+                    context.fillStrokeShape(this);					
             }
         });        
-        })(len, imageDataSource);
+        })(len, imageDataSource);    
+        
+        
         /*that.kineticElement[i].sceneFunc(function(context) {
             var yo = that.layer.getHitCanvas().getContext().getImageData(0,0,iaScene.width, iaScene.height);
             context.putImageData(yo, 0,0);  
         });*/
+        that.group.zoomActive = 0;
         that.addEventsManagement(i,zoomable, that, iaScene, baseImage, idText);
         that.group.draw();        
     };
@@ -528,7 +544,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     that.layer.draw(); 
                     iaScene.element = that;
                     that.myhooks.afterIaObjectFocus(iaScene, idText, that);
-
+                    this.getStage().completeImage = "redefine";
 
                 }
             //}
