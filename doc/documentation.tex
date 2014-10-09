@@ -38,7 +38,19 @@ really easy to use (Inkscape will be used in this document).
 \begin{figure}[htp]
  \centering
  \caption{Creation process of an image-active with  Xia}
+ \tikzstyle{box} = [draw, text width=.6\textwidth, align=center]
+ \tikzstyle{ia} = [draw, text width=.8\textwidth, fill=reddebian, rounded corners, inner ysep=4mm]
+  % po4a: environement tikzpicture {} 
  \begin{tikzpicture}
+   \node[box] (open) {Openimg an Image in Inkscape};
+   \node[box,below of=open] (create)  {Create details in image};
+   \node[box,below of=create] (meta) {For each detail, edit metadata};
+   \node[box,below of=meta] (save) {Save project};
+   \node[left of=create,xshift=-.37\textwidth, rotate=90] (scape) {\textbf{Inkscape}};
+   \begin{scope}[on background layer]
+    \node[fit = (open)(meta)(save)(scape), ia] (ink) {};
+  \end{scope}
+   
  \end{tikzpicture}
  \label{workflowxia}
 \end{figure}
@@ -321,7 +333,6 @@ and to upload them into a single folder (from there, the only difference
 between those files is their extension (ie. .ogv or .mp4 or .webm):\\
 
 % je pense qu'il y a moyen de faire vachement plus joli pour représenter l'arborescence
- % po4a: environement tikzpicture {} 
 \begin{tikzpicture}
 \end{tikzpicture}
  % po4a: environment alltt {} 
@@ -519,17 +530,20 @@ and the message itself.} This table sums up the tags that have to be used:
  \end{tabular}
 \end{center}
 
-A little tip: text inserted inside the \\verb|<message></message>| tag can be 
+\begin{wrapfigure}{r}{45mm}
+  \centering
+  \includegraphics[scale=0.7]{./images/game1clic} 
+\end{wrapfigure}
+
+A little tip: text inserted inside the \verb|<message></message>| tag can be 
 enriched. Images, videos or sounds can be inserted inside this message.
 It is also possible to insert a link, allowing users to play another game.
-in order to «~chain~» activities up by degree of difficulty.
+in order to "chain" activities up by degree of difficulty.
 
-The template \\chemin{game1clic} should be chosen for any image-active matching 
+The template \chemin{game1clic} should be chosen for any image-active matching 
 the click to select game principle.
 
-\begin{center}
-\includegraphics[scale=0.7]{./images/game1clic} 
-\end{center}
+
 
 \subsubsection{Advanced image-active creation tips... How to show the user's progress in the use of a game game1clic ?}
 
@@ -537,7 +551,7 @@ It is possible to automatically display graphical elements when users correctly
 select a correct answer.Those graphical elements being png imported images or 
 shapes directly designed in Inkscape. But as Xia considers as a clickable 
 detail any shapes designed using Inkscape tools, designer of the image-active 
-will have to transform thoses shapes in bitmap, using the «~bitmap copy ~» Inkscape tool. 
+will have to transform thoses shapes in bitmap, using the "bitmap copy" Inkscape tool. 
 For example :
 \begin{enumerate}
  \item Draw  a star of yellow sides on a yellow background with the  Inkscape tools 
@@ -548,7 +562,7 @@ the {Edition} menu, then on \chemin{Make a bitmap copy}
 \end{enumerate}
 
 When the graphical elements are imported (png files) or created (bitmap copy 
-of figures created by hand),just apply to those elements the following 
+of figures created by hand), just apply to those elements the following 
 charasteristic :
 \begin{center}
 \chemin{Interactivity > OnClick} = \verb|off|
@@ -560,7 +574,7 @@ then selecting \chemin{Group} in the Inkscape menu \chemin{Object}.
 \subsubsection{Advanced image-active creation tips... How to highlight the user errors in a game1clic image-active?}
 
 Games based on the details selection principle are obviously very
-interesting educational games... but it is also quite obvious to guess how some students may be tempted to cheat to achieve such games (for example, by 
+interesting educational games\ldots but it is also quite obvious to guess how some students may be tempted to cheat to achieve such games (for example, by 
 frenetically clicking anywhere possible on the image, until the final message pops up).
 
 This is why it may be interesting to be able to 
@@ -575,7 +589,7 @@ then converted into bitmap (see how to do that in the section
 \begin{center}
 \chemin{Interactivity > OnClick} = \verb|disable-score| 
 \end{center}
-When applied with a \\verb|disable-score| tag, a detail still remains clickable, but does not 
+When applied with a \verb|disable-score| tag, a detail still remains clickable, but does not 
 add a score to the counter that delivers the final success message pop up.
 
 \subsection{Second game principle: classyfying, ordering, ranking}
@@ -596,22 +610,22 @@ Here's how to create a game based on the drag and drop principle :
  \item Create the graphical elements users of the image-active will have to drag and drop (ie. images or group of words)
  \item Using metadatas indicated, make each label matches its drop zone (actually being cropped details)
 \end{itemize}
- \item Dans Xia
+ \item In Xia
  \begin{itemize}
   \item Export the svg source file using the «~jeu-DragAndDrop~» template
  \end{itemize}
 \end{enumerate}
 
-Two methods can be used to create the drag and drop «~graphical-elements~».
+Two methods can be used to create the drag and drop "graphical-elements".
 A very simple way is to use a screenshot tool, in order to create png files, and then import them in Inkscape.
 It is also possible to create those elements directly in Inkscape, by creating a text, grouping it with a shape,
 and finally making a bitmap copy of this group 
-(see section \ref{détail_progression})\footnote{... do not forget to delete
+(see section \ref{détail_progression})\footnote{\ldots do not forget to delete
 the original text and shape group once the bitmap copy has been created.}.
 The graphical elements then have to be associated with their drop zone \footnote{\textbf{One} object can match only \textbf{one} drop zone.}.
 
-You will find in this table the metadatas to be filled in the \\chemin
-{Object Properties} of the drag and drop graphical elements and the corresponding details in order «~to-twin~» them :
+You will find in this table the metadatas to be filled in the \chemin
+{Object Properties} of the drag and drop graphical elements and the corresponding details in order "to-twin" them :
 
 \begin{center}
 \begin{tabular}{|p{1.in}|p{2.5in}|p{1.5in}|}
@@ -625,6 +639,12 @@ Description Field & \verb|<target>Detail_Title</target>| & \\
 \end{tabular}
 \end{center}
 
+\begin{wrapfigure}{r}{45mm}
+  \centering
+  \includegraphics[scale=0.7]{./images/gameDragAndDrop} 
+\end{wrapfigure}
+
+
 The designer let Xia know how the graphical elements match the drop zones by 
 making the \chemin{ID} field of the drop zone 
 with the \chemin{Description} field of the drag and drop graphical element. 
@@ -634,9 +654,7 @@ The only subtlety consists in the  \verb|<target></target>| tags that have to be
 Generating an image-active having the drag and
 drop game principle corresponds in Xia in export \chemin{gameDragAndDrop}:
 
-\begin{center}
-\includegraphics[scale=0.7]{./images/gameDragAndDrop} 
-\end{center}
+
 
 \subsubsection{How to add a «~magnet~» effect in the gameDragAndDrop template}
 
@@ -658,19 +676,20 @@ This table sums up the tags that have to be indicated when a game is created
 
 \begin{center}
  \begin{tabular}{|p{1.5in}|p{1in}|p{1in}|p{1in}|p{1in}|}
- Tags & What role ? & On which element? & Where to write it? & What to write in it?\\
  \hline
- \verb|<score></score>| & Amount of correct answers needed to pop up the end message of the game & Background picture & Object properties > Description & Number corresponding to the required score\\
+ Tags & Role  & Element & Where ? & What ?\\
  \hline
- \verb|<message></message>| & Pops up the end message of the game & Image de fond & Propriétés de l'objet > Description & A personalized message if necessary enriched with multimedia or html links\\
+ \verb|<score></score>| & Amount of correct answers needed to pop up the end message of the game & Background picture & Object properties $\rightarrow$ Description & Number corresponding to the required score\\
  \hline
- \verb|off| & Making a cropped detail unclickable & Detail & Object properties > Interactivty > Onclick & \\
+ \verb|<message></message>| & Pops up the end message of the game & Background picture & Object properties $\rightarrow$ Description & A personalized message if necessary enriched with multimedia or html links\\
  \hline
- \verb|disable-score| & Cropped detail is still clickable, but when clicked, does not add a point to the score game counter & Detail & Object properties > Interactivty > Onclick & \\
+ \verb|off| & Making a cropped detail unclickable & Detail & Object properties $\rightarrow$ Interactivty $\rightarrow$ Onclick & \\
  \hline
- \verb|<target></target>| & Indicates the corresponding drag and drop element and drop zone & Graphical element to move & Object Properties > Description & Make sure to match the ID field of the drop zone\\
+ \verb|disable-score| & Cropped detail is still clickable, but when clicked, does not add a point to the score game counter & Detail & Object properties $\rightarrow$ Interactivty $\rightarrow$ Onclick & \\
  \hline
- \verb|<magnet>on</magnet>| & Add a «~magnet~» effect & Drop zone & Object Properties > Description & \\
+ \verb|<target></target>| & Indicates the corresponding drag and drop element and drop zone & Graphical element to move & Object Properties $\rightarrow$ Description & Make sure to match the ID field of the drop zone\\
+ \hline
+ \verb|<magnet>on</magnet>| & Add a "magnet" effect & Drop zone & Object Properties $\rightarrow$ Description & \\
  \end{tabular}
 \end{center}
 
