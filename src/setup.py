@@ -19,6 +19,7 @@
 
 import os
 import stat
+import shutil
 from distutils.core import setup
 from setuptools import find_packages
 
@@ -69,7 +70,6 @@ setup(
 
 
 # start application building
-#grunt.registerTask('default', ['clean:build', 'copy:main' , 'pot', 'shell:msgmerge', 'potomo', 'chmod', 'concat:jsfiles', 'clean:js']);  
 
 class default():
     def __init__(self):
@@ -96,10 +96,10 @@ class default():
         ]    
 
     def mos(self, locale):
-        return 'build/share/i18n/' + locale + '/LC_MESSAGES/xia-converter.mo'
+        return self.dirbuild + '/share/i18n/' + locale + '/LC_MESSAGES/xia-converter.mo'
 
     def pos(self, locale):
-        return 'build/share/i18n/' + locale + '/LC_MESSAGES/xia-converter.po'
+        return self.dirbuild + '/share/i18n/' + locale + '/LC_MESSAGES/xia-converter.po'
 
     def cleanbuild(self):
         if os.path.isdir(self.dirbuild):
@@ -144,3 +144,14 @@ class default():
                     final_script += ('\n' + f.read())
                 with open(self.map_xiajs(theme), 'w') as f:
                     f.write(final_script)
+
+# default task
+mainbuild = default()
+mainbuild.cleanbuild()
+mainbuild.copy()
+mainbuild.pot()
+mainbuild.msgmerge()
+mainbuild.potomo()
+mainbuild.chmod()
+mainbuild.concatjs()
+mainbuild.cleanjs()
