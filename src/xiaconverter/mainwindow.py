@@ -31,7 +31,6 @@ from paramswindow import IAParams
 import gettext
 import locale
 
-
 class IADialog(Tkinter.Frame):
 
     def __init__(self, root, langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, svgfile=""):
@@ -43,7 +42,6 @@ class IADialog(Tkinter.Frame):
         except:
             t = gettext.translation("xia-converter", langPath, languages=['en_US'])
         translate = t.ugettext
-
 
         self.filename = ""
         self.imagesPath = imagesPath
@@ -99,15 +97,7 @@ class IADialog(Tkinter.Frame):
         button2.grid(row=0,column=1, columnspan=1,sticky='W')
         tooltip2 = ToolTip(button2,translate("ajust parameters"), None, 0.1)
 
-
         # Automatic import of themes
-
-        #tab_path = os.path.dirname(os.path.relpath(__file__)).split("/")
-        #tab_path.pop()
-        #rel_path = "../share"
-        #for folder in tab_path:
-        #    rel_path = rel_path + "/" + folder
-
         
         self.themes = []
 
@@ -158,7 +148,6 @@ class IADialog(Tkinter.Frame):
         label = Tkinter.Label(self, image=ia_img)
         label.photo = ia_img
         label.grid(row=1,column=0,columnspan=2, sticky='W')
-
 
         # define options for opening or saving a file
 

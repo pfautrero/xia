@@ -15,7 +15,7 @@
 #   
 # @author : pascal.fautrero@ac-versailles.fr
 
-from src.xiaconverter.iaobject import iaObject
+from xiaconverter.iaobject import iaObject
 from nose.tools import *
 from xml.dom import minidom
 import tempfile
@@ -24,7 +24,7 @@ class TestiaObject:
     def test_analyzeSVG(self):
         ia = iaObject()
         maxNumPixels = 5 * 1024 * 1024
-        ia.analyzeSVG("tests/fixtures/inkscape1.svg", maxNumPixels)
+        ia.analyzeSVG("fixtures/inkscape1.svg", maxNumPixels)
         assert_equal(ia.scene['width'],'500')
         assert_equal(ia.scene['height'],'500')
         assert_equal(ia.scene['image'],'data:image/png;base64,Q3VyaW9zaXR5IGtpbGxlZCB0aGUgY2F0')
@@ -33,7 +33,7 @@ class TestiaObject:
         assert_equal(ia.scene['title'],'fixture 1')
         
         ia = iaObject()
-        ia.analyzeSVG("tests/fixtures/generic1.svg", maxNumPixels)
+        ia.analyzeSVG("fixtures/generic1.svg", maxNumPixels)
         assert_equal(ia.scene['width'],'10')
         assert_equal(ia.scene['height'],'10')
         assert_equal(ia.details[0]['width'],'152')
@@ -212,10 +212,10 @@ class TestiaObject:
         # check generateJSON
         temp = tempfile.NamedTemporaryFile()
         ia = iaObject()
-        ia.analyzeSVG("tests/fixtures/generic1.svg", maxNumPixels)
+        ia.analyzeSVG("fixtures/generic1.svg", maxNumPixels)
         ia.generateJSON(temp.name)
         temp_content = temp.read()
-        #with open('tests/fixtures/temp.js', 'w') as js:
+        #with open('fixtures/temp.js', 'w') as js:
         #    js.write(temp_content)
-        with open('tests/fixtures/generic1.js') as js:
+        with open('fixtures/generic1.js') as js:
             assert_equal(js.read(),temp_content)

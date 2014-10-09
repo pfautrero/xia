@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: activit 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-09 14:47+0200\n"
+"POT-Creation-Date: 2014-10-09 18:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,32 +57,32 @@ msgstr ""
 msgid "export popYellow"
 msgstr ""
 
-#: build/xiaconverter/mainwindow.py:87
+#: build/xiaconverter/mainwindow.py:85
 msgid "select svg file"
 msgstr ""
 
-#: build/xiaconverter/mainwindow.py:100
+#: build/xiaconverter/mainwindow.py:98
 msgid "ajust parameters"
 msgstr ""
 
-#: build/xiaconverter/mainwindow.py:170
+#: build/xiaconverter/mainwindow.py:159
 msgid "myfile.svg"
 msgstr ""
 
-#: build/xiaconverter/mainwindow.py:172
+#: build/xiaconverter/mainwindow.py:161
 msgid "Select a svg file"
 msgstr ""
 
-#: build/xiaconverter/mainwindow.py:179
+#: build/xiaconverter/mainwindow.py:168
 msgid "Select target folder"
 msgstr ""
 
-#: build/xiaconverter/mainwindow.py:191
+#: build/xiaconverter/mainwindow.py:180
 #, python-brace-format
 msgid "Sorry, impossible to create the {0} directory"
 msgstr ""
 
-#: build/xiaconverter/mainwindow.py:221
+#: build/xiaconverter/mainwindow.py:210
 msgid "Parameters"
 msgstr "Parameters"
 
