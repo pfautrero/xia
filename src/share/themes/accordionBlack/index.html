@@ -11,7 +11,6 @@
     <meta property="og:description" content="{{DESCRIPTION}}"/>
     <meta property="og:image" content="http://images-actives.crdp-versailles.fr/img/logo.jpg"/>
     <title>{{TITLE}}</title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-combined.no-icons.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
     <script src="js/LAB.min.js"></script>        
 </head>
@@ -46,8 +45,7 @@
         document.body.onload = function() {
             $LAB.setGlobalDefaults({CacheBust:true});
             $LAB
-             .script("js/jquery.min.js").wait()
-             .script("js/bootstrap.min.js")
+             .script("js/jquery.min.js")
              .script("js/kinetic.min.js").wait()
              .script("datas/data.js").wait()
              .script("js/xia.js")
