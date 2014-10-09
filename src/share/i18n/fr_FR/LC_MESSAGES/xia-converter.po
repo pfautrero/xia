@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: activit 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-09 14:47+0200\n"
+"POT-Creation-Date: 2014-10-09 18:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,34 +59,34 @@ msgstr "exporter en popBlue"
 msgid "export popYellow"
 msgstr "exporter en popYellow"
 
-#: build/xiaconverter/mainwindow.py:87
+#: build/xiaconverter/mainwindow.py:85
 msgid "select svg file"
 msgstr "sélectionner un fichier svg"
 
-#: build/xiaconverter/mainwindow.py:100
+#: build/xiaconverter/mainwindow.py:98
 msgid "ajust parameters"
 msgstr "Réglages"
 
-#: build/xiaconverter/mainwindow.py:170
+#: build/xiaconverter/mainwindow.py:159
 msgid "myfile.svg"
 msgstr "monfichier.svg"
 
-#: build/xiaconverter/mainwindow.py:172
+#: build/xiaconverter/mainwindow.py:161
 #, fuzzy
 msgid "Select a svg file"
 msgstr "sélectionner un fichier svg"
 
-#: build/xiaconverter/mainwindow.py:179
+#: build/xiaconverter/mainwindow.py:168
 #, fuzzy
 msgid "Select target folder"
 msgstr "sélectionner un fichier svg"
 
-#: build/xiaconverter/mainwindow.py:191
+#: build/xiaconverter/mainwindow.py:180
 #, python-brace-format
 msgid "Sorry, impossible to create the {0} directory"
 msgstr "Désolé, impossible de créer le répertoire {0}"
 
-#: build/xiaconverter/mainwindow.py:221
+#: build/xiaconverter/mainwindow.py:210
 msgid "Parameters"
 msgstr "Paramètres"
 
