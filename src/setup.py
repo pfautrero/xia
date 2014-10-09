@@ -96,10 +96,12 @@ class default():
         ]    
 
     def mos(self, locale):
-        return self.dirbuild + '/share/i18n/' + locale + '/LC_MESSAGES/xia-converter.mo'
+        return self.dirbuild + '/share/i18n/' + locale + \
+            '/LC_MESSAGES/xia-converter.mo'
 
     def pos(self, locale):
-        return self.dirbuild + '/share/i18n/' + locale + '/LC_MESSAGES/xia-converter.po'
+        return self.dirbuild + '/share/i18n/' + locale + \
+            '/LC_MESSAGES/xia-converter.po'
 
     def cleanbuild(self):
         if os.path.isdir(self.dirbuild):
@@ -115,12 +117,15 @@ class default():
         shutil.copytree(self.dirsource, self.dirbuild)
 
     def pot(self):
+        # xgettext --from-code=UTF-8 --keyword=translate -o messages.pot $(find src/ -type f -name "*.py")
         continue
         
     def msgmerge(self):
+        # msgmerge --update da.po messages.pot
         continue
 
     def potomo(self):
+        # msgfmt nl.po --output-file nl.mo
         continue
         
     def chmod(self):
@@ -155,3 +160,4 @@ mainbuild.potomo()
 mainbuild.chmod()
 mainbuild.concatjs()
 mainbuild.cleanjs()
+# copy external js files in vendors directory ?!
