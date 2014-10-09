@@ -11,27 +11,26 @@
 
 \subsection{What is Xia ?}
 
-Xia is a free software developped by teachers of french academy of Versailles
-It is released under "\href{http://www.gnu.org/copyleft/gpl.html}{GPLv3} license.
+Xia is a free software developed by teachers of french academy of Versailles
+It is released under \href{http://www.gnu.org/copyleft/gpl.html}{GPLv3} license.
 Xia converter which takes as input a svg file and outputs an image-active in 
 html5. Beyond the already known templates export user software ImagesActives 
-(\href{http://images-actives.crdp-versailles.fr/spip.php?article11&lang=fr}
+(\href{http://images-actives.crdp-versailles.fr/spip.php?article11\&lang=fr}
 {(accordion, buttons, etc.}), Xia further allows to generate
 Interactive activities : games drag and drop, discrimination, selection, etc.
 
-This document will help you «~step by step~» to create an image-active
+This document will help you ``step by step'' to create an image-active
 Beginning with a simple image-active (crop, comments without particular 
-enlightnings), it brings the user to a more complex image-active (multimedia
+enlightenings), it brings the user to a more complex image-active (multimedia
  enlightenments, games etc.). All examples are on line (each link is written at 
 the beginning of the section), and svg source files are also available. At the end
-on each part, a heading "Abstract" presents the essential guide lines to 
+on each part, a heading ``Abstract'' presents the essential guide lines to 
 remember when creating an image-active.
 
 \subsection{General process}
 
-Unlike "ImagesActives", Xia is only needed at the end of the process.
-As we can see on illustration \
-\ref{workflow_xia}, most of the work is done with 
+Unlike ``ImagesActives'', Xia is only needed at the end of the process.
+As we can see on illustration \ref{workflowxia}, most of the work is done with 
 a  vector graphics editor. We recommend to use the free open-source and 
 muliplatform software \href{http://www.inkscape.org/}{Inkscape}, which is 
 really easy to use (Inkscape will be used in this document).
@@ -39,8 +38,9 @@ really easy to use (Inkscape will be used in this document).
 \begin{figure}[htp]
  \centering
  \caption{Creation process of an image-active with  Xia}
- \includegraphics[width=1\textwidth]{images/workflow_xia}
- \label{workflow_xia}
+ \begin{tikzpicture}
+ \end{tikzpicture}
+ \label{workflowxia}
 \end{figure}
 
 \section{Creating your first image-active using Inkscape and Xia: Basic features}
@@ -96,7 +96,7 @@ on the right of the title of the image-active.}
 We can save the image in svg format in the earlywork, 
 through the way \chemin{File} menu, then \chemin{Save as...}. 
 For more clarity, we will remove the current extension of the image 
-in the fields \chemin{Name) of the dialog window. Finally, in the 
+in the fields \chemin{Name} of the dialog window. Finally, in the 
 dropdown dropdown menu, choose the Inkscape svg file format. \chemin{SVG Inkscape (*.svg)}.
 
 Several Inkscape tools can be used to clip the details that
@@ -321,7 +321,7 @@ and to upload them into a single folder (from there, the only difference
 between those files is their extension (ie. .ogv or .mp4 or .webm):\\
 
 % je pense qu'il y a moyen de faire vachement plus joli pour représenter l'arborescence
- % po4a: environment tikzpicture {} 
+ % po4a: environement tikzpicture {} 
 \begin{tikzpicture}
 \end{tikzpicture}
  % po4a: environment alltt {} 
@@ -421,9 +421,9 @@ Both of these default behaviors can be modified if the designer applies a white
  and illustration 
 \ref{remplissage_blanc}):
 \begin{description}
- \item [Detail whith a white background] In the generated image, details will be immediately visible in the form 
- of a flat area of ​​opaque color (logically hiding the background image) that once selected, reveals the background image (detail remains zoomable)
- \item [Detail whith a black background] Users still have to click on the detail to unveil it, but it is not zoomable.
+ \item [Detail with a white background] In the generated image, details will be
+ immediately visible in the form of a flat area of opaque color (logically hiding the background image) that once selected, reveals the background image (detail remains zoom-able)
+ \item [Detail with a black background] Users still have to click on the detail to unveil it, but it is not zoom-able.
 \end{description}
 
 Logical consequence :The designer can not apply a white and a black
@@ -436,7 +436,7 @@ By default, in the image-active, the details appear vertically in the order in w
 
 We will go through the path \chemin{XML Editor} in the \chemin{Edit} menu in order to change this default order.
 
-A priori complex to manage, this dialog window lets itself actually tame easily : selecting the image detail highlights corresponding XML inputs and the only thing left is to drag the files to the desired location (see figure \ref{ordre_couches}).
+A priori complex to manage, this dialogue window lets itself actually tame easily : selecting the image detail highlights corresponding XML inputs and the only thing left is to drag the files to the desired location (see figure \ref{ordre_couches}).
 
 Thus, the user who frequently changes the order of details should be used to inquire for each the field \chemin{ID} of its properties in in order to be able to more easily handle them in the \chemin{XML Editor}.
 
@@ -489,8 +489,7 @@ The designer only has to crop the details that the final user will have to selec
 The instructions have to be completed in the 
 documents metadatas. Xia will look into 
 the informations  filled in the  \chemin
-{Description} field of the metadatas of the document (see section \\ref
-{preparation_svg} and illustration \ref{titre_ia}), and create an instruction «~pop up~» 
+{Description} field of the metadatas of the document (see section \ref{preparation_svg} and illustration \ref{titre_ia}), and create an instruction «~pop up~» 
 that will show up at the opening of the game. The final user will just have to 
 read the instructions and close the pop up to play the game.
 
@@ -501,7 +500,7 @@ this field creates the introduction text, not related with any detail
 (see section \ref{preparation_svg}).}.  Two informations are needed in order for this message to pop up 
 : exact number of details that have to be selected
 \footnote{This number does not have to match the number of details on the image) 
-and the message itself. This table sums up the tags that have to be used:
+and the message itself.} This table sums up the tags that have to be used:
 
 % le multicolumn refuse le \verb... à corriger
 \begin{center}
