@@ -18,6 +18,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import stat
 from distutils.core import setup
 from setuptools import find_packages
 
@@ -67,3 +68,79 @@ setup(
 )
 
 
+# start application building
+#grunt.registerTask('default', ['clean:build', 'copy:main' , 'pot', 'shell:msgmerge', 'potomo', 'chmod', 'concat:jsfiles', 'clean:js']);  
+
+class default():
+    def __init__(self):
+        self.locales = ['en_US', 'fr_FR']
+        self.dirbuild = 'build'
+        self.dirsource = 'src'
+        self.themes = [ 
+              "accordionBlack", 
+              "accordionCloud", 
+              "audioBrown", 
+              "popBlue", 
+              "popYellow", 
+              "buttonBlue", 
+              "game1clic", 
+              "gameDragAndDrop" 
+        ]
+
+        self.jsfiles = [ 
+            "iaobject.js", 
+            "hooks.js", 
+            "iascene.js", 
+            "iframe.js", 
+            "main.js" 
+        ]    
+
+    def mos(self, locale):
+        return 'build/share/i18n/' + locale + '/LC_MESSAGES/xia-converter.mo'
+
+    def pos(self, locale):
+        return 'build/share/i18n/' + locale + '/LC_MESSAGES/xia-converter.po'
+
+    def cleanbuild(self):
+        if os.path.isdir(self.dirbuild):
+            shutil.rmtree(self.dirbuild)
+        os.mkdir(self.dirbuild)
+        
+    def cleanjs(self):
+        for theme in themes:
+            for script_name in self.jsfiles:
+                os.remove(self.map_jsfiletoremove(theme, script_name))
+        
+    def copy(self):
+        shutil.copytree(self.dirsource, self.dirbuild)
+
+    def pot(self):
+        continue
+        
+    def msgmerge(self):
+        continue
+
+    def potomo(self):
+        continue
+        
+    def chmod(self):
+        os.fchmod(self.dirbuild + "/xia.py", stat.S_IRWXU)
+        continue
+    
+    def map_xiajs(self, theme):
+        return self.dirbuild + '/share/themes/' + theme + '/js/xia.js'
+
+    def map_jsfilestoconcat(self, theme, jsfile):
+        return self.dirsource + '/share/themes/' + theme + '/js/' + jsfile
+
+    def map_jsfilestoremove(self, theme, jsfile):
+        return self.dirbuild + '/share/themes/' + theme + '/js/' + jsfile
+            
+    def concatjs(self):
+        for theme in themes:
+            final_script = ''            
+            for script_name in self.jsfiles:
+                with open(self.map_jsfiletoconcat(theme, script_name), 'r') as f:
+                    final_script += ('\n' + f.read())
+                with open(self.map_xiajs(theme), 'w') as f:
+                    f.write(final_script)
