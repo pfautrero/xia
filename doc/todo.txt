@@ -3,6 +3,9 @@
 # Generate .pot file from text
 po4a-gettextize -f latex -m contenu.tex -M UTF8 -p fr_FR.po
 
+# Generate translation
+po4a-translate -f latex -m contenu.tex -p en-EN.pot -l documentation.tex
+
 # Script to generate docs from po files
 
 
