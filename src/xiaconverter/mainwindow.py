@@ -34,7 +34,7 @@ import locale
 
 class IADialog(Tkinter.Frame):
 
-    def __init__(self, root, langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, bootstrapLib, svgfile=""):
+    def __init__(self, root, langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, svgfile=""):
 
         Tkinter.Frame.__init__(self, root)
 
@@ -53,7 +53,6 @@ class IADialog(Tkinter.Frame):
         self.labjsLib = labjsLib
         self.kineticLib = kineticLib
         self.jqueryLib = jqueryLib
-        self.bootstrapLib = bootstrapLib
         self.root = root
         self.resize = 3
 
@@ -276,7 +275,6 @@ class IADialog(Tkinter.Frame):
                 shutil.copy(self.labjsLib , self.dirname + '/js')
                 shutil.copy(self.jqueryLib , self.dirname + '/js')
                 shutil.copy(self.kineticLib , self.dirname + '/js')
-                shutil.copy(self.bootstrapLib , self.dirname + '/js')
 
                 shutil.copyfile(self.themesPath + '/' + theme['name'] + \
                     '/manifest.webapp', self.dirname + '/manifest.webapp')

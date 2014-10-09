@@ -43,7 +43,7 @@ class ImageActive(inkex.Effect):
         labjsLib = config.get('paths', 'labjsLib')
         jqueryLib = config.get('paths', 'jqueryLib')
         kineticLib = config.get('paths', 'kineticLib')
-        bootstrapLib = config.get('paths', 'bootstrapLib')        
+       
        
         try:
             filePath = tempfile.mkdtemp() + "/" + "temp.svg"
@@ -56,7 +56,7 @@ class ImageActive(inkex.Effect):
             root.resizable(0,0)
             img = Tkinter.PhotoImage(file= imagesPath + '/image-active64.gif')
             root.tk.call('wm', 'iconphoto', root._w, img)  
-            maindialog = IADialog(root,langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, bootstrapLib, filePath)
+            maindialog = IADialog(root,langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, filePath)
             maindialog.pack(side="left")
             root.mainloop()
 

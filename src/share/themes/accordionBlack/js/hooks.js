@@ -77,11 +77,14 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         $("#overlay").hide();
     });
 
+
+    $(".accordion-toggle").on("click touchstart", function(){
+        $('.accordion-body').removeClass("slidedown").addClass("collapse");
+        $(this).parent().children(".accordion-body").removeClass("collapse").addClass("slidedown");              
+    });
+
     $("#collapsecomment-heading").on('click touchstart',function(){
         if (mainScene.zoomActive === 0) {
-            $('.collapse.in').each(function (index) {
-                if ($(this).attr("id") !== "collapsecomment") $(this).collapse("toggle");
-            });
             if ((mainScene.element !== 0) && (typeof(mainScene.element) !== 'undefined')) {
                 for (var i in mainScene.element.kineticElement) {
                     mainScene.element.kineticElement[i].fillPriority('color');
@@ -127,7 +130,7 @@ hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaO
      *  manage accordion events related to this element
      */
     $("#" + idText + "-heading").on('click touchstart',function(){
-        
+      
         if ($('#' + idText).css("height") == "0px") {
             iaObject.kineticElement[0].fire("click");
         }
@@ -149,11 +152,8 @@ hooks.prototype.afterIaObjectZoom = function(iaScene, idText, iaObject) {
  *  
  */
 hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
-    $('.collapse.in').each(function (index) {
-            if ($(this).attr("id") !== idText) 
-                $(this).collapse("toggle");
-    });
-    $('#' + idText).collapse("show");
+    $('.accordion-body').removeClass("slidedown").addClass("collapse");
+    $('#' + idText).parent().children(".accordion-body").removeClass("collapse").addClass("slidedown");
     $('#' + idText + " audio").each(function(){
         if ($(this).data("state") === "autostart") {
             $(this)[0].play();

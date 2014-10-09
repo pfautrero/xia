@@ -90,11 +90,6 @@ module.exports = function(grunt) {
         files: [
             {dest: vendorsPath + '/kinetic.min.js', src:kineticPath}
         ]
-      },
-      bootstrap: {
-        files: [
-            {dest: vendorsPath + '/bootstrap.min.js', src:bootstrapPath}
-        ]
       }      
     },
     pot: {
@@ -143,7 +138,7 @@ module.exports = function(grunt) {
         }
     },
     jshint: {
-      all: ['Gruntfile.js', 'src/**/*.js', '!src/**/jquery-1.11.1.js', '!src/**/LAB.js', '!src/**/kinetic.js', '!src/**/bootstrap.min.js']
+      all: ['Gruntfile.js', 'src/**/*.js', '!src/**/jquery-1.11.1.js', '!src/**/LAB.js', '!src/**/kinetic.js']
     },
     nose: {
      options: {
@@ -182,10 +177,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-nose');
   grunt.loadNpmTasks('grunt-contrib-concat');
 
-    //grunt.registerTask('default', ['clean:build', 'copy:main' , 'copy:jquery' , 'copy:kinetic', 'copy:labjs', 'copy:bootstrap','pot',  'shell:msgmerge', 'potomo', 'chmod', 'uglify:kinetic', 'concat:jsfiles', 'clean:js']);
   grunt.registerTask('default', ['clean:build', 'copy:main' , 'pot', 'shell:msgmerge', 'potomo', 'chmod', 'concat:jsfiles', 'clean:js']);  
   grunt.registerTask('minify', ['uglify:kinetic_xia']);
-  grunt.registerTask('copy_vendors_js', ['copy:jquery' , 'copy:kinetic', 'copy:labjs', 'copy:bootstrap']);  
+  grunt.registerTask('copy_vendors_js', ['copy:jquery' , 'copy:kinetic', 'copy:labjs']);  
   
   grunt.registerTask('full', function(){
       grunt.task.run('default');

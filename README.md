@@ -28,7 +28,7 @@ App pre-install (launch just once):
 App install : (must be used each time we want a new release)
 
     cd project
-    grunt default
+    grunt full
 
 Application is then built in project/build
 
