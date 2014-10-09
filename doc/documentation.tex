@@ -130,158 +130,190 @@ example : a line), Xia will automatically close it  by connecting a
  straight line between the beginning and the end of it.
  \item The order of creation of details in the image is generated in display 
 order of the details (for example, detail first created in
-Inkscape appears at the top in the image-active).)\footnote{if you wish to change that sequence without having to create the details once more, see section \ref{couche_XML}.}
+Inkscape appears at the top in the image-active).)\footnote{if you wish to 
+change that sequence without having to create the details once more, see 
+section \ref{couche_XML}.}
 \end{itemize}
 
-Une fois un détail détouré, on le sélectionne avec l'outil 
-\chemin{Sélectionner et transformer des objets} afin de le redimensionner, le déplacer, etc.
+Once a detail is cutted out, you can select it with the tool  
+\chemin{Select and transform object} to resize it, to" 
+move it, etc.
 
-C'est par un clic droit sur le détail détouré que l'on accède aux \chemin{Propriétés de l'objet} (voir figure \ref{proprietes_objet}),
-et ainsi à la fenêtre de dialogue dans laquelle on renseigne le texte qui sera associé au détail dans l'image active
-une fois générée.
+It is with a right click on the cut out detail that you access to 
+\chemin{Object properties} (see illustration \ref{proprietes_objet}), and 
+thus to the dialog window in which you add the text to be associated with the 
+detail in the image-active.
 
 \begin{figure}[htp]
  \centering
- \caption{Accès aux «~Propriétés de l'objet~», permettant de renseigner le texte 
- qui servira de commentaire au détail dans l'image active générée}
+ \caption{The "Object properties" allows to enter the text that will become a 
+ comment for the detail in the image-active}
  \includegraphics[width=0.5\textwidth]{./images/proprietes_objet}
  \label{proprietes_objet}
 \end{figure}
 
-Les deux champs à renseigner dans cette fenêtre sont \chemin{Titre} et \chemin{Description}.
-Le titre renseigné ici sera celui du détail, la description en sera son commentaire.
+The two fields to be filled in this window are \\chemin{Title} and 
+\chemin{Description}.  The title filled in here will be the one of the detail, 
+description will be its comment.
 
-Le processus décrit ci-dessus doit également être réalisé avec l'image de fond: le titre et la description renseignées
-serviront d'introduction à l'image active (titre et commentaire non reliée à un détail particulier).
+The process described above must also be done with the background image : 
+the title and description indicated here will serve as an introduction to 
+the image-active (title and comment not related to a particular detail).
 
-\subsection{Génération de l'image active dans Xia}
+\subsection{Generating the image-active with Xia}
 
 \begin{figure}[htp]
  \centering
- \caption{Vue générale de l'interface du logiciel Xia}
+ \caption{Xia interface}
  \includegraphics[width=0.8\textwidth]{./images/xia_vue_generale}
  \label{xia_interface}
 \end{figure}
 
-Quand tous les détails sont détourés et leurs métadonnées renseignées, on peut lancer le logiciel Xia (voir la figure \ref{xia_interface}).
-La première icône, en haut à gauche, permet de choisir le fichier svg à générer:
+When all the details are clipped and their metadata indicated, one can launch 
+Xia (see figure  \ref{xia_interface}). The first icon on the top left allows 
+to select the svg source file.
+
 \begin{center}
 \includegraphics[scale=0.4]{./images/xia_open} 
 \end{center}
 
-Un clic sur l'une des icônes d'export génère une série de fichiers, dont un \verb|index.html|. 
-Attention: ce fichier seul est inexploitable. Tous les autres fichiers et répertoires générés lors de l'export 
-sont indispensables au bon fonctionnement de l'animation. \textbf{Il est donc indispensable de dédier un répertoire 
-spécifique à chaque image exportée, afin d'éviter des déconvenues}.
-Il suffit cependant d'ouvrir le fichier \verb|index.html| dans un navigateur pour voir apparaître l'image active.
+Clicking on one of the icons export generates a series of files, including a 
+\verb|index.html|. Warning : this file will not display anything if used 
+alone. All the other files and directories generated during the export process 
+must be stored in  the same folder as the \verb|index.html| file in order to 
+the animation to work properly. \ textbf {It is therefore essential to 
+dedicate a specific directory for each exported image}. Finally, just open 
+the \verb| index.html| file in a web browser to see the image-active.
 
-Les templates d'images actives «~simples~» sont les suivants:
-% pertinence d'ajouter une 4e colonne pour décrire brièvement les caractéristiques de chaque export?
+"Basic" Images actives templates are :
+% pertinence d'ajouter une 4e colonne pour décrire brièvement les 
+% caractéristiques de chaque export?
 \begin{center}
 \begin{tabular}{|c|c|p{3in}|}
 \hline
-Thème & Icône & Caractéristiques à retenir\\
+Template name & Icon look & What you should know\\
 \hline
-\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionBlack}{accordionBlack}  & \includegraphics[scale=0.5]{./images/accordionBlack} & Zone de commentaire large, utile pour l'insertion de ressources multimédias; à privilégier pour les images en format portrait\\
+\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionBlack}
+{accordionBlack}  & \includegraphics[scale=0.5]{./images/accordionBlack} & 
+Large comment zone, suitable for insertion of multimedia resources; to be used 
+with vertical images (portrait)\\
 \hline
-\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionCloud}{accordionCloud} &  \includegraphics[scale=0.5]{./images/accordionCloud}& Zone de commentaire étroite, laissant davantage de place à l'image en elle-même; à privilégier pour les images en format paysage\\
+\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionCloud}
+{accordionCloud} &  \includegraphics[scale=0.5]{./images/accordionCloud}& 
+Narrow comment zone, with more space for the image itself ; to be used with 
+horizontal images (landscape)\\
 \hline
-\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/buttonBlue}{buttonBlue}&  \includegraphics[scale=0.5]{./images/buttonBlue} & Image apparaissant en pleine largeur; les commentaires des détails apparaissent dans une pop up au-dessus de l'image active (utile pour les commentaires longs); les détails sont accessibles par un bandeau numéroté situé au-dessus de l'image active\\
+\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/buttonBlue}{buttonBlue}&  
+\includegraphics[scale=0.5]{./images/buttonBlue} & No lateral comment zone ; 
+comments appear above the image (suitable for long comments) ; users access  
+comments through icons placed above the image-active \\
 \hline
-\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{popBlue} &  \includegraphics[scale=0.5]{./images/popBlue} & L'image apparaît en pleine largeur; un premier clic fait apparaître le détail, un second le commentaire au-dessus de l'image active (le zoom est désactivé)\\
+\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{popBlue} & 
+\includegraphics[scale=0.5]{./images/popBlue} & No lateral comment zone; 
+first click on the detail reveals it, and a second one pops up the comment 
+(no zoom) \\
 \hline
-\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popYellow}{popYellow} &  \includegraphics[scale=0.5]{./images/popYellow} & L'image apparaît en pleine largeur; un premier clic fait apparaître le détail, un second déclenche simultanément l'apparition du commentaire et le zoom sur le détail\\
+\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popYellow}{popYellow} & 
+\includegraphics[scale=0.5]{./images/popYellow} & No lateral comment zone ; 
+first click on the detail reveals it, and a second one simultaneously unveils 
+the comment and the zoom function zoom sur le détail\\
 \hline
 \end{tabular}
 \end{center}
 
-\subsection{Pour résumer}
+\subsection{Abstract}
 
 \begin{enumerate}
- \item Une image active est conçue dans le logiciel Inkscape, au format .svg, 
- Xia transforme ce svg en animation au format html5
- \item Le titre de l'image active est renseigné dans les \chemin{Métadonnées du document}
- \item Le texte des détails est renseigné dans les \chemin{Propriétés de l'objet},
- champs \chemin{Titre} et \chemin{Description}
- \item La description générale de l'image active est renseignée dans les \chemin{Propriétés de l'objet} 
- de l'image de fond
+ \item An image-active is first build in Inkscape (svg format). Xia only 
+ converts the svg source file into an html5 animation
+ \item Title of the image-active must be indicated in the \chemin{Metadatas of 
+the document}
+ \item The text of the details is filled in the \chemin{Object properties}, 
+ in the \chemin{Title} and \chemin{Description} fields
+ \item General description of the image-active must be indicated in the \chemin
+{Object properties} of the background image
 \end{enumerate}
 
-\section{Image active enrichie}
+\section{Enriched image-active}
 
-Explorez l'\href{http://geoffrey-gekiere.ac-versailles.fr/xia2}{image active créée pour cette section de la documentation} 
-et téléchargez le \href{http://geoffrey-gekiere.ac-versailles.fr/xia2/svg/xia2.svg}{svg}.
+Explore the \href{http://geoffrey-gekiere.ac-versailles.fr/xia2}{image-active 
+created for this section of the documentation} and download the 
+\href{http://geoffrey-gekiere.ac-versailles.fr/xia2/svg/xia2.svg}{svg}.
 
-Dans cette section, nous réalisons toujours une image active classique (un détail = un commentaire),
-mais nous enrichissons le contenu de celle-ci par divers moyens, comme une mise en forme avancée du texte ou des contenus 
-multimédias directement insérés dans les commentaires.
+In this section, the goal is still to create a "traditionna" image-active 
+(ie. in which a detail matches a comment), but the content of the comments 
+will be enriched with  formatted text or multimedia resources.
 
-\subsection{Mise en forme du texte}
+\subsection{Formatting text}
 
-Pour mettre en forme le texte des commentaires, on insérera les balises suivantes:
+In ordre to insert formatted text, the following tags should be used :
 
 % problème d'alignement du contenu des cellules sur les lignes "<liste de puces"> et "<tracer une ligne">
 \begin{center}
  \begin{tabular}{|l|l|}
  \hline
-  Balises & Résultat\\
+  Tag & Result\\
   \hline
   \hline
-  ***gras*** & \textbf{gras}\\
+  ***bold*** & \textbf{bold}\\
   \hline
-  **italique** & \textit{italique}\\
+  **italic** & \textit{italic}\\
   \hline
-  [http://dane.ac-versailles.fr Le site de la Dane] & \href{http://dane.ac-versailles/fr}{Le site de la Dane}\\
+  [http://dane.ac-versailles.fr Le site de la Dane] & \href{http://dane.ac-versailles/fr}{Dane website}\\
   \hline
-  \{\{\{Texte brut\}\}\} & \includegraphics[scale=0.7]{./images/texte_brut}\\
+  \{\{\{Plain text\}\}\} & \includegraphics[scale=0.7]{./images/texte_brut}\\
   % là, faudrait symboliser les espaces simple et double pour les listes de puces
   \hline
-  ~* une liste\\
-  ~* de puces\\
-  ~~* sur 2\\
-  ~~* niveaux\\ & \includegraphics[scale=0.7]{./images/liste_puce}\\
+  ~* a list\\
+  ~* of bullets\\
+  ~~* out of 2\\
+  ~~* levels\\ & \includegraphics[scale=0.7]{./images/liste_puce}\\
   \hline
-  tracer\\
+  drawing\\
   \verb|----|\\
-  une ligne\\ & \includegraphics[scale=0.7]{./images/ligne_commentaire}\\
+  a line\\ & \includegraphics[scale=0.7]{./images/ligne_commentaire}\\
   \hline
   \end{tabular}
 \end{center}
 
-\subsection{Enrichissement multimédia des détails}\label{enrichissement_multimedia}
+\subsection{Inserting multmedia resources into details}\label{enrichissement_multimedia}
 
-L'insertion de contenus multimédias dans les commentaires des détails est extrêmement aisée:
-il suffit à l'utilisateur d'indiquer l'url (relative ou absolue) de la ressource, ou d'insérer le code iframe
-fourni par le service hébergeant le contenu (par exemple, la \href{https://scolawebtv.crdp-versailles.fr/}{Scolawebtv}).
+Inserting multimedia resources into detail comments is quite easy: just paste 
+the resource url (relative or absolute link) or iframe tag of the web service 
+you want to use (for example, \href{https://scolawebtv.crdp-versailles.fr/}
+Scolawebtv}).
 
-Nativement, Xia génère un lecteur multimédia dans le commentaire à partir du moment où la ressource (image, son ou vidéo)
-correspond à un des formats suivants:
+Xia will automatically create a multimedia player in the comment as long as 
+the resource (image, sound or video) matches its supported formats: 
 \begin{description}
  \item [Images] jpg, jpeg, png, gif
- \item [Son] ogg, mp3
- \item [Vidéo] ogv, webm, mp4
+ \item [Audio] ogg, mp3
+ \item [Video] ogv, webm, mp4
 \end{description}
 
-Le lien est simplement inséré dans le fil du commentaire du détail:
+The link is just inserted into the thread of comments to the detail:
 \begin{description}
- \item [Lien absolu] Si la ressource se trouve à l'adresse\\
+ \item[Absolute link] If the resource url is\\
  \begin{center}
  \verb|http://web.crdp.ac-versailles.fr/02546.ogg|\\
  \end{center}
- il suffira d'indiquer cette adresse dans le champs description des propriétés de l'objet, dans Inkscape
- \item [Lien relatif] Si la ressource se trouve dans le dossier d'export ou dans un dossier situé dans le dossier d'export, on en indiquera
- l'emplacement en considérant le dossier d'export comme la racine. Par exemple, si \verb|video.ogv| se trouve dans un répertoire \verb|videos| lui-même situé dans le dossier d'export, on indiquera dans
- le commentaire\\
+ Just type that url inside description of the properties of the object in 
+ Inkscape
+ \item [Relative link] If the multimedia file is located in the image-active 
+ folder or in a folder wihtin this one, just indicate its location, keeping in 
+ mind that the image-active folder has to be considered as the root folder. 
+ For example, if the \verb|video.ogv| file is located in a \verb|videos| 
+ folder located itself in the image-active exportation folder, just indicate:\\
  \begin{center}
   \verb|videos/video.ogv|
  \end{center}
-  pour que le lecteur soit créé
+  in order to create the player
 \end{description}
 
-Les différents formats vidéos gérés par Xia ne sont pas nativement reconnus par tous les navigateurs.
-Une méthode pour contourner ce problème peut consister à exporter dans les trois formats la ressource,
-et à déposer les trois fichiers ainsi obtenus dans un répertoire identique, avec le même nom (seule l'extension
-en .ogv, .mp4 et .webm les différencie alors):\\
+Since video formats supported by Xia are not natively supported by every web 
+browsers, it is recommanded to export videos into the 3 supported formats, 
+and to upload them into a single folder (from there, the only difference 
+between those files is their extension (ie. .ogv or .mp4 or .webm):\\
 
 % je pense qu'il y a moyen de faire vachement plus joli pour représenter l'arborescence
  % po4a: environment tikzpicture {} 
@@ -291,90 +323,96 @@ en .ogv, .mp4 et .webm les différencie alors):\\
 \parbox{0.40\textwidth}
 {
 \begin{alltt}
- -\textcolor{blue}{repertoire\_export}\\
+ -\textcolor{blue}{imageactive\_folder}\\
  ---index.html\\
- ---[ensemble des fichiers et répertoires générés par Xia]\\
- ---\textcolor{blue}{repertoire\_videos}\\
+ ---[files and folders generated by Xia]\\
+ ---\textcolor{blue}{videos\_folder}\\
  -----video.mp4\\
  -----video.ogv\\
  -----video.webm\\
 \end{alltt}
 }
 \fbox{\begin{minipage}{0.50\textwidth}
-	Dans l'exemple ci-contre, les répertoires, en bleu, ont été créés par l'utilisateur. 
-	Dans le répertoire \textcolor{blue}{repertoire\_export}
-	se trouvent les répertoires et fichiers générés par Xia, dont le fichier index.html.
-	On crée également dans ce répertoire un répertoire \textcolor{blue}{repertoire\_videos} qui a pour fonction
-	de stocker les vidéos qui seront appelées dans les commentaires de l'image active grâce à un lien relatif.
+In this example, the folders (pointed out with blue type), were manually 
+created by the image-active designer.  Folder \textcolor{blue}
+{imageactive\_folder} contains the files et folders generated by Xia from the 
+svg source file, including the index.html file. The \textcolor{blue}
+{videos\_folder} was also manually created, in order to host videos inserted 
+in the comments of the image-active using relative links.
       \end{minipage}}
 
 
-Ainsi, même si un format particulier est indiqué dans la description (en suivant l'exemple précédent: \verb|repertoire_videos/video.ogv|),
-si le navigateur ne parvient pas à lire la ressource, il tentera automatiquement de lire les fichiers du même nom 
-possèdant une extension différente (soit, ici, \verb|video.mp4| puis \verb|video.webm|).
+Thus, even if a particular format is indicated in the description (following 
+the previous example : \verb|repertoire_videos/video.ogv|), if the browser is 
+unable to read the resource, it will automatically attempt to read the files 
+of the same name possessing a different extension (ie. \verb|video.mp4| 
+then \verb|video.webm|).
 
-Enfin, la dernière possibilité consiste à insérer dans le commentaire le code iframe d'un service d'hébergement de ressources.
-Celui-ci sera interprêté et le lecteur du service s'affichera dans le commentaire, donnant accès à la ressource.
+The last option is to insert in the commentary the iframe code hosting service 
+resources. This will be interpreted and the reader will appear in the comment, 
+giving access to the resource.
 
-\subsection{Le cas de l'export «~audioBrown~»: remplacer le texte par du son}
+\subsection{The "audioBrown" template: sounds instead of text}
 
-Un modèle d'export, «~audioBrown~», est spécifiquement dédié à la création d'images actives 
-dans lesquelles les détails sont associés à un son, et pas à du texte.
+The "audioBrown" template is specifically dedicated to creation of 
+images-actives in which details are associated with sounds rather than text.
 
-L'insertion de ces sons se fait selon la méthode décrite dans la section \ref{enrichissement_multimedia}, 
-par un lien relatif ou absolu. 
-Afin de lancer automatiquement la lecture du son à la sélection du détail dans l'image générée, on ajoutera 
-simplement un \verb|autostart| après le lien vers la ressource\footnote{Insérer un autostart
-après un lien vers une ressources multimédia audio ou vidéo dans un autre modèle d'export aura le même effet.}:\\
+The method to insert sounds using absolute or relative links is described in 
+section \ref{enrichissement_multimedia}. If you wish the sound to play 
+automatically as the user click on the comment, just add \verb|autostart|right 
+after the url \footnote{The \\verb|autostart| tag also works with the other 
+Xia templates.}:\\"
 \begin{center}
  \verb|sons/son_detail_1.ogg autostart|
 \end{center}
 
 
-\subsection{Insertion d'images dans l'image active}\label{insertion_images}
+\subsection{Inserting images into your image-active}\label{insertion_images}
 
-On peut ajouter à l'image active des images (logo, puces, etc.) au format png.
-Pour ce faire, dans Inkscape, retourner dans le menu \chemin{Fichier}, et choisir \chemin{Importer}
-afin d'incorporer votre nouvelle image.
+Png images can be added to the background image-active. To do this, in 
+Inkscape, go in the \\chemin{File} menu, and choose \chemin{Import} 
+to incorporate your new image.
 
-Cette nouvelle image ne sera visible automatiquement dans l'image active générée
-que si on lui applique un fond blanc (après l'avoir sélectionnée, on choisit cette couleur dans la palette
-horizontale située en bas de l'interface d'Inkscape (voir figure \ref{remplissage_blanc}).
+Imported image will only appear in image-active if applied white background in 
+Inkscape (choose white in the horizontal colour palette at the bottom of 
+Inkscape interface (see illustration \ref{remplissage_blanc}).
 
 \begin{figure}[htp]
  \centering
- \caption{Dans Inkscape, on sélectionne le png incorporé puis on lui applique un fond blanc en sélectionnant 
- cette couleur dans la palette horizontale afin de le rendre visible automatiquement}
- \includegraphics[width=0.6\textwidth]{images/remplissage_blanc}
+ \caption{In Inkscape, select the embedded png then apply a white background 
+ by selecting the color from the horizontal colour palette to make it 
+ automatically visible} \includegraphics[width=0.6\textwidth]
+ {images/remplissage_blanc}
  \label{remplissage_blanc}
 \end{figure}
 
-En indiquant une url dans le champs \chemin{Titre} des \chemin{Propriétés de l'objet}, l'image incorporée
-devient une icône clicable renvoyant vers la page web en question.
+By indicating a URL in the \chemin{Title} of \chemin{Object properties} field, 
+the embedded image becomes a clickable icon linking to a web page.
 
-\subsection{Afficher une question et accéder à une réponse}
+\subsection{Displaying a question and unveiling an answer}
 
-Pour insérer dans un détail un bouton «~\textit{Réponse}~» clicable bloquant momentanément l'accès à la suite du commentaire,
-rien de plus simple!
+Designer can create an "\textit{Answer}" clickable icon, momentarily 
+preventing user to read the end of the comment.
 
-Il suffit en effet d'insérer dans la description, à l'endroit souhaité, la ligne\\
-\verb|Réponse:| ou \verb|réponse:| et de rédiger en-dessous le texte que l'on souhaite voir apparaître.
+To do so, just indicate, in the description, the line\\ \verb|Answer:| or 
+\verb|answer:| followed by the text you wish to be showed.
 
-\subsection{Contrôler le comportement des détails: affichage immédiat et désactivation
-de l'effet «~zoom~»}\label{couche_XML}
+\subsection{Controlling details behavior : automatic display and disabled zoom}
+\label{couche_XML}
 
-Par défaut, le comportement d'un détail dans l'image active générée est le suivant:
+Default behavior of details in an image-active consists in:
 \begin{itemize}
- \item Le détail ne se révêle qu'au survol de la souris ou qu'à la sélection du titre du commentaire
- qui lui est associé
- \item Un second clic sur un détail déjà sélectionné effectue un zoom sur celui-ci\footnote{À l'exception
- du modèle d'export popBlue.	}
+ \item highlighting details only on mouse over or with a click on the comment 
+ detail title
+ \item zoom in effect when clicking again on the active detail\footnote{Except 
+ for the popBlue template.}
 \end{itemize}
 
-Ces deux comportements sont modifiables par l'application, dans Inkscape, d'un fond de couleur blanche ou noire
-aux détails détourés (voir section \ref{insertion_images} et figure \ref{remplissage_blanc}):
+Both of these default behaviors can be modified if the designer applies a white
+ or black background to cropped details (see section \ref{insertion_images} 
+ and illustration \ref{remplissage_blanc):
 \begin{description}
- \item [Détail auquel est appliqué un fond de couleur blanche] Dans l'image générée, 
+ \item [Detail whith a white background] Dans l'image générée, 
  le détail sera immédiatement visible, sous la forme d'un aplat de couleur opaque (masquant
  logiquement l'image de fond), qui une fois sélectionné, révêle l'image de fond (le détail demeure zoomable)
  \item [Détail auquel est appliqué un fond de couleur noire] Le détail n'est visible qu'en étant sélectionné, mais
