@@ -585,9 +585,9 @@ La démarche pour la réalisation d'un jeu de ce type est la suivante:
 Deux méthodes sont envisageables pour disposer des «~étiquettes~» à déplacer.
 Un moyen simple est d'utiliser un utilitaire de capture d'écran 
 capable de produire des images au format png puis d'importer celles-ci dans Inkscape.
-On peut également produire des étiquettes de type texte directement dans Inkscape en regroupant une forme
-et un élément textuel puis en  faisant une copie bitmap de cet ensemble 
-(voir section \ref{detail_progression})\footnote{... sans oublier, après avoir
+On peut également produire des étiquettes de type texte directement dans Inkscape en regroupant un 
+cadre (outil \chemin{Créer des rectangles et des carrés}) et un élément textuel puis en 
+faisant une copie bitmap de cet ensemble (voir section \ref{detail_progression})\footnote{... sans oublier, après avoir
 fait la copie bitmap, de supprimer le regroupement devenu inutile.}.
 On fait ensuite correspondre aux détails censés les accueillir\footnote{\textbf{Une} étiquette ne pouvant correspondre qu'à \textbf{un} détail.}.
 
@@ -603,6 +603,8 @@ Champs ID & & \verb|Titre_Detail|\\
 \hline
 Champs Description & \verb|<target>Titre_Detail</target>| & \\
 \hline
+Champs Interactivité > Onclick & & \verb|off|\\
+\hline
 \end{tabular}
 \end{center}
 
@@ -610,6 +612,12 @@ Pour résumer, le créateur de la ressource fait savoir à Xia quelle étiquette
 correspondre le champs \chemin{ID} du détail (réceptacle) au champs \chemin{Description} de l'étiquette 
 (objet à déplacer). La seule subtilité consiste à entourer, dans le champs \chemin{Description}
 de l'étiquette, l'ID correspondante d'une balise \verb|<target></target>|.
+
+Une astuce: si l'image active contient de nombreux détails réceptacles de taille identique, 
+on peut en créer une, lui appliquer la caractéristique \chemin{Interactivité > OnClick} = \verb|off|, 
+puis copier-coller ce détail autant de fois que nécessaire. Conservant cette option, 
+le créateur de la ressource n'aura pas besoin d'aller l'appliquer à chaque détail créé, 
+et aura uniquement à modifier les champs \chemin{ID}.
 
 La génération d'une l'image active ayant pour principe ludique le glisser déposer 
 correspond dans Xia à l'export \chemin{gameDragAndDrop}:
@@ -631,9 +639,6 @@ l'utilisateur approche son étiquette de la cible.
 L'avantage de cette option est qu'elle permet à l'utilisateur d'être sûr que 
 la non-résolution du jeu provient d'une erreur de correspondance de ses 
 étiquettes, et pas d'un léger décalage entre l'étiquette et la zone de dépôt.
-
-L'inconvénient est qu'elle donne un indice assez clair des correspondances entre 
-étiquettes et zones de dépôt puisque l'effet aimant n'est actif que sur les détails jumelés!
 
 \subsection{Pour résumer}
 
