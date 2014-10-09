@@ -1,5 +1,5 @@
 Feature: test
-  In order to test IA2
+  In order to test XIA
   As normal user
   I need to see something
 

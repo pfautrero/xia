@@ -1,14 +1,14 @@
 <?xml version="1.0" ?>
 <svg xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Check background image with file:// link --> 
-    <image height="10" width="10" xlink:href='file://tests/fixtures/image.png'>
+    <image height="10" width="10" xlink:href='file://fixtures/image.png'>
         <desc>description</desc>
         <title>title</title>
     </image>
     <image
        y="100"
        x="100"
-       xlink:href="file://tests/fixtures/image.png"
+       xlink:href="file://fixtures/image.png"
        height="161"
        width="152"
        transform="matrix(0.90537448,0.424614,-0.424614,0.90537448,0,0)">

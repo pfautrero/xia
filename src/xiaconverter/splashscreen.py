@@ -20,8 +20,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 import Tkinter
 import time
 
-################################################################################
-
 class Splash:
 
     def __init__(self, root, file, wait):

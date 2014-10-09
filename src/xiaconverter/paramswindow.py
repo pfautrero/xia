@@ -63,8 +63,6 @@ class IAParams(Tkinter.Frame):
         self.button_resize.grid(row=0,column=0, columnspan=1,sticky='W')
         tooltip2 = ToolTip(self.button_resize,translate("modify image resolution"), None, 0.1)
 
-        
-
         # title
 
         label = Tkinter.Label(self, image=params_img)

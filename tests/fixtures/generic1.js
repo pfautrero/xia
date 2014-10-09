@@ -12,7 +12,7 @@ var details = [
   "maxX":"152.0",
   "maxY":"161.0",
   "title":"image title",
-  "image":"file://tests/fixtures/image.png",
+  "image":"file://fixtures/image.png",
   "detail":"image description",
   "height":"161",
   "minX":"0.0",

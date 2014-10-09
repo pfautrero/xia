@@ -45,8 +45,6 @@ if not sys.platform.startswith('darwin'):
         print "Requirement : Please, install python-pil package"
         sys.exit(1)
 
-
-
 class iaObject:
     """generate Image Active Object"""
 
@@ -66,7 +64,6 @@ class iaObject:
             return node.childNodes[0].nodeValue
         else:
             return ""
-
 
     def extractMetadatas(self, xml):
         
@@ -133,7 +130,6 @@ class iaObject:
                 if metadata_value.item(0) is not None:
                     self.scene['contributor'] = self.get_tag_value(\
                       metadata_value.item(0))
-
 
     def analyzeSVG(self,filePath, maxNumPixels):
         """analyze svg file and fill self.details and self.scene"""
@@ -417,7 +413,6 @@ class iaObject:
             ctm.applyTransformToPath(ctm.matrix,p)
             record_rect['path'] = cubicsuperpath.formatPath(p)
 
-
         # apply group transformation on current object
         if ctm_group:
             ctm_group.applyTransformToPath(ctm_group.matrix,p)
@@ -541,8 +536,6 @@ class iaObject:
             ctm.applyTransformToPath(ctm.matrix,p)
             record['path'] = cubicsuperpath.formatPath(p)       
 
-
-
         if record["path"].lower().find("z") == -1:
             record["path"] += " z"
         record['path'] = '"' + record['path'] + '"'
@@ -583,10 +576,8 @@ class iaObject:
         if root.childNodes:
             for node in root.childNodes:
                if node.nodeType == node.ELEMENT_NODE:
-                   #print node.tagName,"has value:",  node.nodeValue, "and is child of:", node.parentNode.tagName
                    childs.append(node)
                    self.print_node(node, childs)
-
 
     def extract_g(self,group, ctm_group):
         """Analyze a svg group"""
@@ -708,7 +699,6 @@ class iaObject:
 
                         newrasterWidth = newwidth.__str__()
                         newrasterHeight = newheight.__str__()                    
-
 
                     else:
                         # "Platform Linux or Windows : resizing using PIL"
