@@ -7,6 +7,26 @@ module.exports = function(grunt) {
   var bootstrapPath = 'bower_components/bootstrap/dist/js/bootstrap.min.js';
   
   var locales = ["en_US", "fr_FR"];
+  
+  var themesArray = [
+      "accordionBlack",
+      "accordionCloud",
+      "audioBrown",
+      "popBlue",
+      "popYellow",
+      "buttonBlue",
+      "game1clic",
+      "gameDragAndDrop"
+  ];
+  
+  var jsfiles = [
+      "iaobject.js",
+      "hooks.js",
+      "iascene.js",
+      "iframe.js",
+      "main.js"
+  ];
+  
   var _ = require('lodash');  
   var mos = _.map(locales, function(locale){
 	  return 'build/share/i18n/' + locale + '/LC_MESSAGES/xia-converter.mo';
@@ -15,11 +35,31 @@ module.exports = function(grunt) {
 	  return 'build/share/i18n/' + locale + '/LC_MESSAGES/xia-converter.po';
   });
 
+  var xiajs = _.map(themesArray, function(theme){
+	  return 'build/share/themes/' + theme + '/js/xia.js';
+  });
   
-  // Project configuration.
+  var jsfilestoconcat = _.map(themesArray, function(theme){
+      var map = _.map(jsfiles, function(jsfile){
+          return 'src/share/themes/' + theme + '/js/'+jsfile;
+      });
+      return map;
+  });
+
+  var jsfilestoremove = _.map(themesArray, function(theme){
+      var map = _.map(jsfiles, function(jsfile){
+          return 'build/share/themes/' + theme + '/js/'+jsfile;
+      });
+      return map;
+  });    
+    
+    // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    clean: ['build'],
+    clean: {
+        build: ['build'],
+        js: jsfilestoremove
+    },
     chmod: {
       options: {
         mode: '744'
@@ -114,7 +154,7 @@ module.exports = function(grunt) {
     },
     uglify: {
 
-      kinetic: {
+      kinetic_xia: {
         files: {
           'build/share/themes/game1clic/js/kinetic-xia.js': ['src/share/themes/game1clic/js/kinetic-xia.js'],          
           'build/share/themes/gameDragAndDrop/js/kinetic-xia.js': ['src/share/themes/gameDragAndDrop/js/kinetic-xia.js'],
@@ -125,57 +165,8 @@ module.exports = function(grunt) {
         options: {
           separator: ';',
         },
-        build: {
-            files: {
-                'build/share/themes/accordionBlack/js/xia.js': ['src/share/themes/accordionBlack/js/iascene.js',
-                                                                'src/share/themes/accordionBlack/js/hooks.js',
-                                                                'src/share/themes/accordionBlack/js/iaobject.js',
-                                                                'src/share/themes/accordionBlack/js/iframe.js',
-                                                                'src/share/themes/accordionBlack/js/main.js',
-                                                                ],
-                'build/share/themes/accordionCloud/js/xia.js': ['src/share/themes/accordionCloud/js/iascene.js',
-                                                                'src/share/themes/accordionCloud/js/hooks.js',
-                                                                'src/share/themes/accordionCloud/js/iaobject.js',
-                                                                'src/share/themes/accordionCloud/js/iframe.js',
-                                                                'src/share/themes/accordionCloud/js/main.js',
-                                                                ], 
-                'build/share/themes/audioBrown/js/xia.js': ['src/share/themes/audioBrown/js/iascene.js',
-                                                                'src/share/themes/audioBrown/js/hooks.js',
-                                                                'src/share/themes/audioBrown/js/iaobject.js',
-                                                                'src/share/themes/audioBrown/js/iframe.js',
-                                                                'src/share/themes/audioBrown/js/main.js',
-                                                                ],
-                'build/share/themes/buttonBlue/js/xia.js': ['src/share/themes/buttonBlue/js/iascene.js',
-                                                                'src/share/themes/buttonBlue/js/hooks.js',
-                                                                'src/share/themes/buttonBlue/js/iaobject.js',
-                                                                'src/share/themes/buttonBlue/js/iframe.js',
-                                                                'src/share/themes/buttonBlue/js/main.js',
-                                                                ],
-                'build/share/themes/popBlue/js/xia.js': ['src/share/themes/popBlue/js/iascene.js',
-                                                                'src/share/themes/popBlue/js/hooks.js',
-                                                                'src/share/themes/popBlue/js/iaobject.js',
-                                                                'src/share/themes/popBlue/js/iframe.js',
-                                                                'src/share/themes/popBlue/js/main.js',
-                                                                ],
-                'build/share/themes/popYellow/js/xia.js': ['src/share/themes/popYellow/js/iascene.js',
-                                                                'src/share/themes/popYellow/js/hooks.js',
-                                                                'src/share/themes/popYellow/js/iaobject.js',
-                                                                'src/share/themes/popYellow/js/iframe.js',
-                                                                'src/share/themes/popYellow/js/main.js',
-                                                                ],
-                'build/share/themes/game1clic/js/xia.js': ['src/share/themes/game1clic/js/iascene.js',
-                                                                'src/share/themes/game1clic/js/hooks.js',
-                                                                'src/share/themes/game1clic/js/iaobject.js',
-                                                                'src/share/themes/game1clic/js/iframe.js',
-                                                                'src/share/themes/game1clic/js/main.js',
-                                                                ],
-                'build/share/themes/gameDragAndDrop/js/xia.js': ['src/share/themes/gameDragAndDrop/js/iascene.js',
-                                                                'src/share/themes/gameDragAndDrop/js/hooks.js',
-                                                                'src/share/themes/gameDragAndDrop/js/iaobject.js',
-                                                                'src/share/themes/gameDragAndDrop/js/iframe.js',
-                                                                'src/share/themes/gameDragAndDrop/js/main.js',
-                                                                ]
-            }
+        jsfiles: {
+            files: _.zipObject(xiajs,jsfilestoconcat)
         },
     }    
   });
@@ -190,10 +181,26 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-nose');
   grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.registerTask('default', ['clean', 'copy:main' , 'copy:jquery' , 'copy:kinetic', 'copy:labjs', 'copy:bootstrap','pot',  'shell:msgmerge', 'potomo', 'chmod', 'uglify:kinetic', 'concat:build']);
+
+    //grunt.registerTask('default', ['clean:build', 'copy:main' , 'copy:jquery' , 'copy:kinetic', 'copy:labjs', 'copy:bootstrap','pot',  'shell:msgmerge', 'potomo', 'chmod', 'uglify:kinetic', 'concat:jsfiles', 'clean:js']);
+  grunt.registerTask('default', ['clean:build', 'copy:main' , 'pot', 'shell:msgmerge', 'potomo', 'chmod', 'concat:jsfiles', 'clean:js']);  
+  grunt.registerTask('minify', ['uglify:kinetic_xia']);
+  grunt.registerTask('copy_vendors_js', ['copy:jquery' , 'copy:kinetic', 'copy:labjs', 'copy:bootstrap']);  
+  
+  grunt.registerTask('full', function(){
+      grunt.task.run('default');
+      grunt.task.run('copy_vendors_js');
+      grunt.task.run('minify');
+  });  
+  grunt.registerTask('debianbuild', function(){
+      grunt.task.run('default');
+      grunt.task.run('minify');
+  });
+  grunt.registerTask('dev', function(){
+      grunt.task.run('default');
+      grunt.task.run('copy_vendors_js');
+  });
   grunt.registerTask('tests', ['jshint']);
-  grunt.registerTask('dev', ['clean', 'copy:main' , 'copy:jquery' , 'copy:kinetic', 'copy:labjs', 'copy:bootstrap', 'pot',  'shell:msgmerge', 'potomo', 'chmod', 'concat:build']);
-  grunt.registerTask('debianbuild', ['clean', 'copy:main' , 'pot',  'shell:msgmerge', 'potomo', 'chmod']);
 };
 
 
