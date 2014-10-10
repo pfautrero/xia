@@ -2,7 +2,7 @@
   "name": "xia",
   "version": "1.0.0",
   "description": "tools to create images actives and games",
-  "main": "src/converter/xia.py",
+  "main": "src/xia.py",
   "directories": {
     "test": "tests"
   },
