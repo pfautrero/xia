@@ -18,14 +18,28 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import os
-import stat
 import shutil
+import subprocess
 from distutils.core import setup
 
-# The directory which contains this script.
+# Important paths and filenames.
 setup_dir = os.path.dirname(os.path.abspath(__file__))
+build_dir = os.path.join(setup_dir, 'build')
+make_dir = os.path.join(setup_dir, 'make')
+src_dir = os.path.join(setup_dir, 'src')
 changelog = os.path.join(setup_dir, 'src/CHANGELOG.md')
 readme = os.path.join(setup_dir, 'README.md')
+
+# Recreate a Cleaned build directory.
+if os.path.isdir(build_dir):
+    shutil.rmtree(build_dir)
+shutil.copytree(src_dir, build_dir)
+
+# Generate .mo files.
+subprocess.check_call([os.path.join(make_dir, "generate_mo.sh")])
+
+# Build js for each themes and in vendors/.
+subprocess.check_call([os.path.join(make_dir, "build_js.sh")])
 
 # Get the version of the application.
 with open(changelog, 'r') as f:
@@ -40,9 +54,7 @@ with open(readme, 'r') as f:
 setup(
     name='xia',
     version=version,
-    # Search all python packages in the root of setup_dir
-    # (all directories which contain a __init__.py file).
-    packages=find_packages(),
+    packages=['src/xiaconverter'],
 
     # With this parameter, a non python file in a package and
     # found in MANIFEST.in will be included in the build with:
@@ -66,100 +78,5 @@ setup(
     url='http://images-actives.crdp-versailles.fr/beta/',
     license='GPL-3',
 )
-
-
-# start application building
-
-class default():
-    def __init__(self):
-        self.locales = ['en_US', 'fr_FR']
-        self.dirbuild = 'build'
-        self.dirsource = 'src'
-        self.themes = [ 
-              "accordionBlack", 
-              "accordionCloud", 
-              "audioBrown", 
-              "popBlue", 
-              "popYellow", 
-              "buttonBlue", 
-              "game1clic", 
-              "gameDragAndDrop" 
-        ]
-
-        self.jsfiles = [ 
-            "iaobject.js", 
-            "hooks.js", 
-            "iascene.js", 
-            "iframe.js", 
-            "main.js" 
-        ]    
-
-    def mos(self, locale):
-        return self.dirbuild + '/share/i18n/' + locale + \
-            '/LC_MESSAGES/xia-converter.mo'
-
-    def pos(self, locale):
-        return self.dirbuild + '/share/i18n/' + locale + \
-            '/LC_MESSAGES/xia-converter.po'
-
-    def cleanbuild(self):
-        if os.path.isdir(self.dirbuild):
-            shutil.rmtree(self.dirbuild)
-        os.mkdir(self.dirbuild)
-        
-    def cleanjs(self):
-        for theme in themes:
-            for script_name in self.jsfiles:
-                os.remove(self.map_jsfiletoremove(theme, script_name))
-        
-    def copy(self):
-        shutil.copytree(self.dirsource, self.dirbuild)
-
-    def pot(self):
-        # xgettext --from-code=UTF-8 --keyword=translate -o messages.pot $(find src/ -type f -name "*.py")
-        continue
-        
-    def msgmerge(self):
-        # msgmerge --update da.po messages.pot
-        continue
-
-    def potomo(self):
-        # msgfmt nl.po --output-file nl.mo
-        continue
-        
-    def chmod(self):
-        os.fchmod(self.dirbuild + "/xia.py", stat.S_IRWXU)
-        continue
-    
-    def map_xiajs(self, theme):
-        return self.dirbuild + '/share/themes/' + theme + '/js/xia.js'
-
-    def map_jsfilestoconcat(self, theme, jsfile):
-        return self.dirsource + '/share/themes/' + theme + '/js/' + jsfile
-
-    def map_jsfilestoremove(self, theme, jsfile):
-        return self.dirbuild + '/share/themes/' + theme + '/js/' + jsfile
-            
-    def concatjs(self):
-        for theme in themes:
-            final_script = ''            
-            for script_name in self.jsfiles:
-                with open(self.map_jsfiletoconcat(theme, script_name), 'r') as f:
-                    final_script += ('\n' + f.read())
-                with open(self.map_xiajs(theme), 'w') as f:
-                    f.write(final_script)
-
-# default task
-mainbuild = default()
-mainbuild.cleanbuild()
-mainbuild.copy()
-mainbuild.pot()
-mainbuild.msgmerge()
-mainbuild.potomo()
-mainbuild.chmod()
-mainbuild.concatjs()
-mainbuild.cleanjs()
-# copy external js files in vendors directory ?!
-
 
 

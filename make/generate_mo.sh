@@ -23,9 +23,10 @@ xgettext --from-code=UTF-8 --keyword=translate \
     do
         # Skip the messages.pot file. /!\
         [ ! -d "$build_dir/share/i18n/$loc" ] && continue
-        msgmerge --no-fuzzy-matching --backup=off              \
+        msgmerge --no-fuzzy-matching                           \
             "$loc/LC_MESSAGES/xia-converter.po" "messages.pot" \
-            -o "$loc/LC_MESSAGES/xia-converter.po.updated"
+            -o "$loc/LC_MESSAGES/xia-converter.po.updated"     \
+            >/dev/null 2>&1
         msgfmt "$loc/LC_MESSAGES/xia-converter.po.updated" \
             -o "$loc/LC_MESSAGES/xia-converter.mo"
     done

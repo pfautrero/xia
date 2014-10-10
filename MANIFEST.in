@@ -1,4 +1,3 @@
-include *.md
-recursive-include share *
+recursive-include build/share *
 
 
