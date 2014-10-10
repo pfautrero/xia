@@ -1,7 +1,6 @@
 #!/bin/sh
 
 set -e
-
 export PATH='/usr/bin:/bin'
 
 # Get root directory and build directory of the project.
