@@ -39,10 +39,11 @@ really easy to use (Inkscape will be used in this document).
  \centering
  \caption{Creation process of an image-active with  Xia}
  \tikzstyle{box} = [draw, text width=.6\textwidth, align=center]
- \tikzstyle{ia} = [draw, text width=.8\textwidth, fill=reddebian, rounded corners, inner ysep=4mm]
+ \tikzstyle{ia} = [draw, text width=.8\textwidth, fill=reddebian!80, rounded corners, inner ysep=4mm]
+ \tikzstyle{xia} = [draw, text width=.8\textwidth, fill=bluedane!80, rounded corners, inner ysep=4mm]
   % po4a: environement tikzpicture {} 
  \begin{tikzpicture}
-   \node[box] (open) {Openimg an Image in Inkscape};
+   \node[box] (open) {Opening an Image in Inkscape};
    \node[box,below of=open] (create)  {Create details in image};
    \node[box,below of=create] (meta) {For each detail, edit metadata};
    \node[box,below of=meta] (save) {Save project};
@@ -50,7 +51,15 @@ really easy to use (Inkscape will be used in this document).
    \begin{scope}[on background layer]
     \node[fit = (open)(meta)(save)(scape), ia] (ink) {};
   \end{scope}
-   
+   \node[box,below=2cm of save] (createia) {Create "image-active" in HTML5};
+   \node[left of=createia,xshift=-.37\textwidth, rotate=90] (xia) {\textbf{Xia}};
+   \begin{scope}[on background layer]
+    \node[fit = (createia)(xia), xia] (ink) {};
+  \end{scope}
+  \draw[->] (open) -- (create);
+  \draw[->] (create) -- (meta);
+  \draw[->] (meta) -- (save);
+  \draw[->] (save) -- (createia);
  \end{tikzpicture}
  \label{workflowxia}
 \end{figure}
