@@ -151,8 +151,8 @@ module.exports = function(grunt) {
 
       kinetic_xia: {
         files: {
-          'build/share/themes/game1clic/js/kinetic-xia.js': ['src/share/themes/game1clic/js/kinetic-xia.js'],          
-          'build/share/themes/gameDragAndDrop/js/kinetic-xia.js': ['src/share/themes/gameDragAndDrop/js/kinetic-xia.js'],
+          'build/share/themes/game1clic/js/kinetic-xia.min.js': ['src/share/themes/game1clic/js/kinetic-xia.js'],          
+          'build/share/themes/gameDragAndDrop/js/kinetic-xia.min.js': ['src/share/themes/gameDragAndDrop/js/kinetic-xia.js'],
         }
        }      
     },
