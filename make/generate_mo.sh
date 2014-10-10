@@ -19,15 +19,15 @@ xgettext --from-code=UTF-8 --keyword=translate \
 #   - remove all files except .mo in i18n.
 (
     cd "$build_dir/share/i18n/"
-    for lco in *
+    for loc in *
     do
         # Skip the messages.pot file. /!\
-        [ ! -d "$lco" ] && continue
+        [ ! -d "$build_dir/share/i18n/$loc" ] && continue
         msgmerge --no-fuzzy-matching --backup=off              \
-            "$lco/LC_MESSAGES/xia-converter.po" "messages.pot" \
-            -o "$lco/LC_MESSAGES/xia-converter.po.updated"
-        msgfmt "$lco/LC_MESSAGES/xia-converter.po.updated" \
-            -o "$lco/LC_MESSAGES/xia-converter.mo"
+            "$loc/LC_MESSAGES/xia-converter.po" "messages.pot" \
+            -o "$loc/LC_MESSAGES/xia-converter.po.updated"
+        msgfmt "$loc/LC_MESSAGES/xia-converter.po.updated" \
+            -o "$loc/LC_MESSAGES/xia-converter.mo"
     done
 
     find . -type f ! -name '*.mo' -exec rm "{}" \+
