@@ -21,12 +21,11 @@ import os
 import stat
 import shutil
 from distutils.core import setup
-from setuptools import find_packages
 
 # The directory which contains this script.
 setup_dir = os.path.dirname(os.path.abspath(__file__))
-changelog = os.path.join(setup_dir, 'CHANGELOG.md')
-readme = os.path.join(setup_dir, '../README.md')
+changelog = os.path.join(setup_dir, 'src/CHANGELOG.md')
+readme = os.path.join(setup_dir, 'README.md')
 
 # Get the version of the application.
 with open(changelog, 'r') as f:
@@ -39,7 +38,7 @@ with open(readme, 'r') as f:
     long_description = f.read()
 
 setup(
-    name='xiaconverter',
+    name='xia',
     version=version,
     # Search all python packages in the root of setup_dir
     # (all directories which contain a __init__.py file).
@@ -161,3 +160,6 @@ mainbuild.chmod()
 mainbuild.concatjs()
 mainbuild.cleanjs()
 # copy external js files in vendors directory ?!
+
+
+
