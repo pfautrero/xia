@@ -12,9 +12,11 @@
 \usepackage{epsfig}
 \usepackage{fancyvrb}
 \usepackage{tikz}
-\usetikzlibrary{shapes.geometric,backgrounds,fit,positioning,trees}
+\usetikzlibrary{shapes.geometric,backgrounds,fit,positioning,trees,arrows.meta}
 \usepackage{alltt}
 \usepackage{wrapfig}
+\usepackage{manfnt}
+\usepackage{dingbat}
 \usepackage{xcolor}
 
 \definecolor{reddebian}{rgb}{0.84314,0.03922,0.32549}
@@ -43,3 +45,76 @@
 % pour unifier les indications relatives aux manipulation à effectuer dans les logiciels
 % à modifier au besoin
 \newcommand{\chemin}[1]{\texttt{\textcolor{reddebian}{#1}}}
+% L'environnement alerte                        
+\newsavebox{\boiteBrouillon}
+\newcommand{\virageDanger}{\textdbend}
+
+\newlength{\LargeurBouleAlerte}
+\settowidth{\LargeurBouleAlerte}{%
+  \begin{tikzpicture}%
+    \node{\virageDanger};%
+  \end{tikzpicture}%
+}
+
+% Style pour la boîte alerte
+\tikzstyle{boitealerte}=[draw=red,rounded corners,inner xsep=1em,inner ysep=1ex]
+
+% Style pour la boule alerte
+\tikzstyle{boulealerte}=[circle,ball color=red,text=white] 
+
+\newenvironment{alerte}{%
+  \begin{lrbox}{\boiteBrouillon}% On sauve dans \boiteBrouillon le contenu
+    \begin{minipage}{.8\linewidth}%  
+      \color{red}%
+      \setlength{\parskip}{1ex plus 0.2ex minus 0.2ex}%
+}{%
+    \end{minipage}%
+  \end{lrbox}% Fin. Attention lrbox stocke du contenu sur 1 ligne (pas de paragrpahe)
+  % La boîte peut être utilisée via \usebox{\boiteBrouillon}
+  \vspace{1.5ex}%
+  \begin{tikzpicture}%
+    \node [boitealerte] (cadre) {%
+      \hspace{0.5\LargeurBouleAlerte}%
+      \usebox{\boiteBrouillon}%
+    };%
+    \node [boulealerte] (alerte) at (cadre.west) {\virageDanger};%
+  \end{tikzpicture}%
+  \vspace{1.5ex}%
+}        
+
+
+
+
+% L'environnement astuce
+\newcommand{\pouceOK}{\large\leftthumbsup}
+
+\newlength{\LargeurBouleAstuce}
+\settowidth{\LargeurBouleAstuce}{%
+  \begin{tikzpicture}%
+    \node{\pouceOK};%
+  \end{tikzpicture}%
+}
+
+\tikzstyle{bouleastuce}=[circle,ball color=teal,text=white]
+
+\tikzstyle{boiteastuce}=[draw=teal,rounded corners,inner xsep=1em,inner ysep=1ex]
+                        
+\newenvironment{astuce}{%
+  \begin{lrbox}{\boiteBrouillon}% On sauve dans \boiteBrouillon le contenu
+    \begin{minipage}{.8\linewidth}%
+      \color{teal}%
+      \setlength{\parskip}{1ex plus 0.2ex minus 0.2ex}%
+}{%
+    \end{minipage}%
+  \end{lrbox}% Fin. Attention lrbox stocke du contenu sur 1 ligne (pas de paragrpahe)
+  % La boîte peut être utilisée via \usebox{\boiteBrouillon}
+  \vspace{1.5ex}%
+  \begin{tikzpicture}%
+    \node [boiteastuce] (cadre) {%
+      \hspace{0.5\LargeurBouleAstuce}%
+      \usebox{\boiteBrouillon}%
+    };%
+    \node [bouleastuce] (astuce) at (cadre.west) {\pouceOK};%
+  \end{tikzpicture}%
+  \vspace{1.5ex}%
+}    
