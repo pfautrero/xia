@@ -24,7 +24,8 @@ xgettext --from-code=UTF-8 --keyword=translate \
     do
         # Skip the messages.pot file. /!\
         [ ! -d "$lco" ] && continue
-        msgmerge "$lco/LC_MESSAGES/xia-converter.po" "messages.pot" \
+        msgmerge --no-fuzzy-matching --backup=off              \
+            "$lco/LC_MESSAGES/xia-converter.po" "messages.pot" \
             -o "$lco/LC_MESSAGES/xia-converter.po.updated"
         msgfmt "$lco/LC_MESSAGES/xia-converter.po.updated" \
             -o "$lco/LC_MESSAGES/xia-converter.mo"
