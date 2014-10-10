@@ -31,7 +31,7 @@ remember when creating an image-active.
 
 Unlike ``ImagesActives'', Xia is only needed at the end of the process.
 As we can see on illustration \ref{workflowxia}, most of the work is done with 
-a  vector graphics editor. We recommend to use the free open-source and 
+a  vector graphics editor. We recommend using the free open-source and 
 muliplatform software \href{http://www.inkscape.org/}{Inkscape}, which is 
 really easy to use (Inkscape will be used in this document).
 
@@ -69,7 +69,7 @@ really easy to use (Inkscape will be used in this document).
 \subsection{Installing Inkscape and Xia}
 
 Having Inkscape and Xia installed on your computer is the only thing you need 
-to read this documentation.You will find any relevant informations about the 
+to read this documentation.You will find any relevant information about the 
 installation of these softwares on their website :\footnote{See the site 
 \href{http://www.inkscape.org/}{Inkscape} and \href
 {http://images-actives.crdp-versailles.fr/beta/}{Xia}.}.
@@ -85,22 +85,22 @@ Manipulations described in this section will help you to
 create a "basic" image-active featuring :
 \begin{itemize}
  \item Zoom-in enabled details
- \item Details comments made only with raw text
+ \item Details comments made only with plain text
 \end{itemize}
 
 
 Once you've chosen the image you will work with, open it with Inkscape 
 (\chemin{File} menu, then \chemin{Open}).  When asked by the software
 if you wish to «~\chemin{Link or incorporate image}~», choose «~\chemin
-{Incorporate}.
+{Incorporate}~».
 
 Among the many details that one can learn by accessing the 
 dialog window \chemin{document} Metadata (\chemin
 {File} menu), three will be included in the image-active once
-generated : title, creator, rights. They are therefore strongly.
-recommended to inquire. In the following example (see figure \ref{titre_ia}),
+generated : title, creator, rights. Hence it is strongly recommanded
+recommended to type in this information. In the following example (see figure \ref{titre_ia}),
 we see the importance of a title correctly entered in
-Metadata: This is actually the title of the image-active  \footnote{The
+Metadata: this is actually the title of the image-active  \footnote{The
 fields «~author~» and «~rights~» appear in the window
 «~About~», symbolized by a clickable button shaped like the letter «~i~»}.
 
@@ -143,7 +143,7 @@ The tool «~\chemin{Draw Bezier curves and straight lines}~»
 allows to crop «~click by click~» (work points are called 
 «~nodes~»).  Figure is closed by clicking on the start node. 
 The tool «~Bezier curves~» is called by keeping the mouse button pressed 
-after creating a node, then moving the cursor to bring up the control handles 
+after creating a node, then move the cursor to bring up the control handles 
 to shape the curve segment as desired.
 
 Note:
@@ -153,13 +153,13 @@ example : a line), Xia will automatically close it  by connecting a
  straight line between the beginning and the end of it.
  \item The order of creation of details in the image is generated in display 
 order of the details (for example, detail first created in
-Inkscape appears at the top in the image-active).)\footnote{if you wish to 
+Inkscape appears at the top in the image-active)\footnote{If you wish to 
 change that sequence without having to create the details once more, see 
 section 
 \ref{couche_XML}.}
 \end{itemize}
 
-Once a detail is cutted out, you can select it with the tool  
+Once a detail is cut out, you can select it with the tool  
 \chemin{Select and transform object} to resize it, to" 
 move it, etc.
 
@@ -207,7 +207,7 @@ Clicking on one of the icons export generates a series of files, including a
 \verb|index.html|. Warning : this file will not display anything if used 
 alone. All the other files and directories generated during the export process 
 must be stored in  the same folder as the \verb|index.html| file in order to 
-the animation to work properly. \ textbf {It is therefore essential to 
+the animation to work properly. \textbf{It is therefore essential to 
 dedicate a specific directory for each exported image}. Finally, just open 
 the \verb| index.html| file in a web browser to see the image-active.
 
@@ -242,7 +242,7 @@ first click on the detail reveals it, and a second one pops up the comment
 \href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popYellow}{popYellow} & 
 \raisebox{-5ex}{\includegraphics[scale=0.3]{./images/popYellow}} & No lateral comment zone ; 
 first click on the detail reveals it, and a second one simultaneously unveils 
-the comment and the zoom function zoom sur le détail\\
+the comment and the zoom function zoom on the detail\\
 \hline
 \end{tabular}
 \end{center}
@@ -266,7 +266,7 @@ Explore the \href{http://geoffrey-gekiere.ac-versailles.fr/xia2}{image-active
 created for this section of the documentation} and download the 
 \href{http://geoffrey-gekiere.ac-versailles.fr/xia2/svg/xia2.svg}{svg}.
 
-In this section, the goal is still to create a "traditionna" image-active 
+In this section, the goal is still to create a "traditionnal" image-active 
 (ie. in which a detail matches a comment), but the content of the comments 
 will be enriched with  formatted text or multimedia resources.
 
@@ -385,8 +385,8 @@ images-actives in which details are associated with sounds rather than text.
 The method to insert sounds using absolute or relative links is described in 
 section 
 \ref{enrichissement_multimedia}. If you wish the sound to play 
-automatically as the user click on the comment, just add \verb|autostart|right 
-after the url \footnote{The \\verb|autostart| tag also works with the other 
+automatically as the user click on the comment, just add \verb|autostart| right 
+after the url \footnote{The "autostart" tag also works with the other 
 Xia templates.}:\\"
 \begin{center}
  \verb|sons/son_detail_1.ogg autostart|
@@ -422,7 +422,7 @@ Designer can create an "\textit{Answer}" clickable icon, momentarily
 preventing user to read the end of the comment.
 
 To do so, just indicate, in the description, the line\\ \verb|Answer:| or 
-\verb|answer:| followed by the text you wish to be showed.
+\verb|answer:| followed by the text you wish to be shown.
 
 \subsection{Controlling details behavior : automatic display and disabled zoom}
 \label{couche_XML}
@@ -446,7 +446,7 @@ Both of these default behaviors can be modified if the designer applies a white
  \item [Detail with a black background] Users still have to click on the detail to unveil it, but it is not zoom-able.
 \end{description}
 
-Logical consequence :The designer can not apply a white and a black
+Logical consequence : the designer can not apply a white and a black
 background all together on the same detail. The image-active can not be 
 both immediately displayed \textit{and} have the zoom effect disabled.
 
@@ -454,9 +454,9 @@ both immediately displayed \textit{and} have the zoom effect disabled.
 
 By default, in the image-active, the details appear vertically in the order in which the relevant details have been created (the first detail created in Inkscape corresponding to detail placed up in the sidebar of the image-active).
 
-We will go through the path \chemin{XML Editor} in the \chemin{Edit} menu in order to change this default order.
+We will go through the \chemin{XML Editor} in the \chemin{Edit} menu in order to change this default order.
 
-A priori complex to manage, this dialogue window lets itself actually tame easily : selecting the image detail highlights corresponding XML inputs and the only thing left is to drag the files to the desired location (see figure \ref{ordre_couches}).
+A priori complex to manage, this dialogue window is in fact quite easy to use : selecting the image detail highlights corresponding XML inputs and the only thing left is to drag the files to the desired location (see figure \ref{ordre_couches}).
 
 Thus, the user who frequently changes the order of details should be used to inquire for each the field \chemin{ID} of its properties in in order to be able to more easily handle them in the \chemin{XML Editor}.
 
@@ -507,9 +507,9 @@ This kind of game is almost the easiest way to create an image-active.
 The designer only has to crop the details that the final user will have to select. 
 
 The instructions have to be completed in the 
-documents metadatas. Xia will look into 
+documents metadata. Xia will look into 
 the informations  filled in the  \chemin
-{Description} field of the metadatas of the document (see section \ref{preparation_svg} and illustration \ref{titre_ia}), and create an instruction «~pop up~» 
+{Description} field of the metadata of the document (see section \ref{preparation_svg} and illustration \ref{titre_ia}), and create an instruction «~pop up~» 
 that will show up at the opening of the game. The final user will just have to 
 read the instructions and close the pop up to play the game.
 
@@ -518,8 +518,8 @@ has to be filled in the \chemin{Description} field of the \chemin{Object Propert
 background image \footnote{When creating a «~traditional~» image-active, 
 this field creates the introduction text, not related with any detail 
 (see section \ref{preparation_svg}).}.  Two informations are needed in order for this message to pop up 
-: exact number of details that have to be selected
-\footnote{This number does not have to match the number of details on the image) 
+: exact number of details that have to be selected and the message itself\footnote{This number does 
+not have to match the number of details on the image) 
 and the message itself.} This table sums up the tags that have to be used:
 
 % le multicolumn refuse le \verb... à corriger
@@ -554,7 +554,7 @@ the click to select game principle.
 
 
 
-\subsubsection{Advanced image-active creation tips... How to show the user's progress in the use of a game game1clic ?}
+\subsubsection{Advanced image-active creation tips... How to show the user's progress in the use of a game game1clic ?}\label{détail_progression}
 
 It is possible to automatically display graphical elements when users correctly 
 select a correct answer.Those graphical elements being png imported images or 
@@ -565,8 +565,7 @@ For example :
 \begin{enumerate}
  \item Draw  a star of yellow sides on a yellow background with the  Inkscape tools 
 d'Inkscape
- \item Select this star, and click on \chemin
-the {Edition} menu, then on \chemin{Make a bitmap copy}
+ \item Select this star, and click on the \chemin{Edition} menu, then on \chemin{Make a bitmap copy}
  \item Delete the original star used to create the bitmap copy
 \end{enumerate}
 
@@ -621,7 +620,7 @@ Here's how to create a game based on the drag and drop principle :
 \end{itemize}
  \item In Xia
  \begin{itemize}
-  \item Export the svg source file using the «~jeu-DragAndDrop~» template
+  \item Export the svg source file using the «~gameDragAndDrop~» template
  \end{itemize}
 \end{enumerate}
 
@@ -678,7 +677,7 @@ The advantage of this option is that it allows the user to be sure
 that the non-resolution of the game comes from a mismatch of his 
 labels, not a slight offset between the label and the drop zone.
 
-\subsection{In a nutshell...}
+\subsection{Abstract}
 
 This table sums up the tags that have to be indicated when a game is created 
  (export game1clic or gameDragAndDrop) :
