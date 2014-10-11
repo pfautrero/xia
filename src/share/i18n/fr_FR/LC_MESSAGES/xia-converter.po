@@ -19,11 +19,15 @@ msgstr ""
 
 #: build/share/themes/accordionBlack/hook.py:38
 msgid "export accordionBlack !"
-msgstr "exporter en accordionBlack"
+msgstr ""
+"exporter en accordionBlack\n"
+"Accordéon large (grande zone de texte, image réduite)"
 
 #: build/share/themes/accordionCloud/hook.py:34
 msgid "export accordionCloud"
-msgstr "exporter en accordionCloud"
+msgstr ""
+"exporter en accordionCloud\n"
+"Accordéon étroit (zone de texte réduite, image large)"
 
 #: build/share/themes/audioBrown/hook.py:34
 msgid "export audioBrown"
@@ -33,7 +37,9 @@ msgstr ""
 
 #: build/share/themes/buttonBlue/hook.py:34
 msgid "export buttonBlue"
-msgstr "exporter en buttonBlue"
+msgstr ""
+"exporter en buttonBlue\n"
+"Boutons au dessus"
 
 #: build/share/themes/game1clic/hook.py:39
 msgid "export game1clic"
@@ -53,11 +59,15 @@ msgstr "Ce jeu n'est pas correctement configuré"
 
 #: build/share/themes/popBlue/hook.py:34
 msgid "export popBlue"
-msgstr "exporter en popBlue"
+msgstr ""
+"exporter en popBlue\n"
+"Bulles (détail isolé puis commentaire au second clic)"
 
 #: build/share/themes/popYellow/hook.py:35
 msgid "export popYellow"
-msgstr "exporter en popYellow"
+msgstr ""
+"exporter en popYellow\n"
+"Bulles avec zoom possible (commentaire immédiat puis zoom au second clic)"
 
 #: build/xiaconverter/mainwindow.py:85
 msgid "select svg file"

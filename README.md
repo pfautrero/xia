@@ -8,6 +8,15 @@ Thanks to it, you can generate three kinds of resources :
 
 # Build application in Debian Jessie
 
+apt-get install libjavascript-minifier-perl
+cd project
+./setup.py buildstandalone
+
+
+
+
+# obsolete - keep it just for a while
+
 First, install nodejs :
 
     apt-get install nodejs nodejs-legacy npm
