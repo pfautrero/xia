@@ -83,6 +83,7 @@ setup(
     version=version,
     packages=['xiaconverter'],
     package_dir={ '': 'src'},
+    data_files=['src/CHANGELOG.md'],
     cmdclass={ 'buildstandalone': BuildStandalone, 'install': Install},
     author='Pascal Fautrero',
     author_email='pascal.fautrero@ac-versailles.fr',
