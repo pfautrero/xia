@@ -42,7 +42,7 @@ def xia_build():
     # Generate .mo files.
     subprocess.check_call([os.path.join(make_dir, "generate_mo.sh")])
 
-    # Build js for each themes and in vendors/.
+    # Build js in each theme and in vendors/.
     subprocess.check_call([os.path.join(make_dir, "build_js.sh")])
 
 
