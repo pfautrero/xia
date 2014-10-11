@@ -38,7 +38,7 @@ class hook:
         self.PageFormatter = PageFormatter
         self.tooltip = translate("export game1clic")
         self.score = "0"
-        self.game_not_configured = translate("this game is not properly configured")
+        self.game_not_configured = translate("You win !")
         self.message = self.game_not_configured
 
     def generateIndex(self,filePath, templatePath):
