@@ -32,7 +32,7 @@ do
         -o "$loc/LC_MESSAGES/xia-converter.mo"
 done
 
-# Remove all files except .mo in "$build_dir/share/i18n/".
-find "$build_dir/share/i18n/" -type f ! -name '*.mo' -exec rm "{}" \+
+# Remove "xia-converter.po" files in "$build_dir/share/i18n/" directory.
+find "$build_dir/share/i18n/" -type f -name "xia-converter.po" -exec rm "{}" \+
 
 
