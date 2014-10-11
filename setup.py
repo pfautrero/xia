@@ -33,7 +33,7 @@ changelog = os.path.join(setup_dir, 'CHANGELOG.md')
 readme = os.path.join(setup_dir, 'README.md')
 
 
-def my_build():
+def xia_build():
     # Recreate a Cleaned build directory.
     if os.path.isdir(build_dir):
         shutil.rmtree(build_dir)
@@ -44,6 +44,25 @@ def my_build():
 
     # Build js for each themes and in vendors/.
     subprocess.check_call([os.path.join(make_dir, "build_js.sh")])
+
+
+def update_po():
+    subprocess.check_call([os.path.join(make_dir, "update_po.sh")])
+
+
+class UpdatePO(Command):
+    user_options = []
+
+    def initialize_options(self):
+        """Abstract method that is required to be overwritten"""
+        pass
+
+    def finalize_options(self):
+        """Abstract method that is required to be overwritten"""
+        pass
+
+    def run(self):
+        update_po()
 
 
 class BuildStandalone(Command):
@@ -58,14 +77,14 @@ class BuildStandalone(Command):
         pass
 
     def run(self):
-        my_build()
+        xia_build()
 
 
 class Install(install):
 
     def run(self):
         install.run(self)
-        my_build()
+        xia_build()
 
 
 # Get the version of the application.
@@ -83,7 +102,11 @@ setup(
     version=version,
     packages=['xiaconverter'],
     package_dir={ '': 'src'},
-    cmdclass={ 'buildstandalone': BuildStandalone, 'install': Install},
+    cmdclass={
+        'buildstandalone': BuildStandalone,
+        'install': Install,
+        'update_po': UpdatePO,
+    },
     author='Pascal Fautrero',
     author_email='pascal.fautrero@ac-versailles.fr',
     description='Convert svg to full html5 interactive pictures',
