@@ -79,7 +79,7 @@ installation of these softwares on their website :\footnote{See the site
 % cette phrase est répétée en début de chaque section: il faudrait trouver un moyen de la mettre en valeur
 Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1}{image-active 
 created to illustrate this part of the document} and download the \href
-{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/svg/xia1.svg}{svg source file}.
+{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/svg/xia1.svg}{svg} source file.
 
 Manipulations described in this section will help you to
 create a "basic" image-active featuring:
@@ -277,7 +277,7 @@ the document}
 
 Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2}{image-active 
 created for this section of the documentation} and download the 
-\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2/svg/xia2.svg}{svg}.
+\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2/svg/xia2.svg}{svg} source file.
 
 In this section, the goal is still to create a "traditionnal" image-active 
 (ie. in which a detail matches a comment), but the content of the comments 
@@ -520,13 +520,13 @@ has much more to do than simply clicking on details in order to read text.
 
 \subsection{First game principle: selecting, finding elements in the image}
 
-Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia3}{image- 
-active created for this section of the documentation} and download the \href
-{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia3/svg/xia3.svg}{svg} source file.
-
 \textit{The game principle described in this section consists in selecting details 
 on a background image. When the user has reached the goal described in the 
 instructions, a message appears in a final pop up.}
+
+Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia3}{image- 
+active created for this section of the documentation} and download the \href
+{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia3/svg/xia3.svg}{svg} source file.
 
 This kind of game is almost the easiest way to create an image-active.
 The designer only has to crop the details that the final user will have to select. 
@@ -625,7 +625,7 @@ then converted into bitmap (see how to do that in the section
 When applied with a \verb|disable-score| tag, a detail still remains clickable, but does not 
 add a score to the counter that delivers the final success message pop up.
 
-\subsection{Second game principle: classyfying, ordering, ranking}
+\subsection{Second game principle: classyfying, ordering, ranking}\label{gameDragAndDropsection}
 
 \textit{The second kind of game that can be created with Xia consists in dragging and dropping graphical elements 
 on the background image. If all the elements have been dropped on their corresponding drop zone, a pop up
@@ -685,7 +685,7 @@ The only subtlety consists in the  \verb|<target></target>| tags that have to be
 {Description} field.
 
 Generating an image-active having the drag and
-drop game principle corresponds in Xia in export \chemin{gameDragAndDrop}:
+drop game principle corresponds in Xia in export \chemin{gameDragAndDrop}.
 
 
 
@@ -696,11 +696,54 @@ If the designer indicates\\
 \verb|<magnet>on</magnet>| 
 \end{center}
 in the \chemin{Description} field of the drop zone, a 
-magnet effect will then be active when the final user will drop the graphical element on its matching drop zone.
+magnet effect will then be active when the final user will drop the 
+graphical element on its matching drop zone.
 
 The advantage of this option is that it allows the user to be sure 
 that the non-resolution of the game comes from a mismatch of his 
 labels, not a slight offset between the label and the drop zone.
+
+\subsubsection{Two ways to give the players a little help: tooltips and links on drop zones}
+
+It is possible to display tooltips of details on mouse-over. In order to do that, 
+create the tooltip with a png imported file or a bitmap copy of a text created in 
+inkscape\footnote{Or a bitmap copy of a shape grouped with some text\ldots}, and 
+apply to this tooltip a specific \chemin{ID} in its \chemin{Object Properties}. Then, 
+just apply the tag \verb|<tooltip>specific_ID_of_the_tooltip</tooltip>| in the 
+\chemin{Description} field of the \chemin{Object Properties} of the detail (see figure \ref{tooltip_example}).
+Note that the tooltip tool is also available in the game1clic template.
+
+\begin{figure}[htp]
+ \centering
+ \caption{When the user moves the mouse over the yellow square, the tooltip ''Help'' displays}
+ \includegraphics[width=\textwidth]{images/tooltip_example}
+ \label{tooltip_example}
+\end{figure}
+
+Another method consists in inserting links in the \chemin{Title} field of the \chemin{Object Properties} 
+of the drop zones. Those drop zones become clickable in the html5 animation.
+
+\subsection{Third game principle: collisions}
+
+\textit{The game principle described in this section consists in moving objects
+within bounds defined by the image-active designer. Typically, the "collisions" game principle
+can be used to create mazes or gem puzzle.}
+
+%todo: add a ''xia6'' example
+
+% Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia6}{image-
+% active created for this section of the documentation} and download the \href
+% {http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia6/svg/xia6.svg}{svg} source file.
+
+
+In order to create that kind of game, add the tag \verb|<collisions>on</collisions>| to the 
+background image. All the details will then become solid and will prevent objects 
+(png imported files or bitmap copies of shapes created in Inkscape) from moving through them.
+
+The ''collisions'' game is in fact an enhanced gameDragAndDrop game, since the goal remains to 
+drag one or several objects to their respective drop zones. The requisite tags for this template are 
+therefore the same as in the gameDragAndDrop template (\verb|<target></target>| on the objects, \verb|<score></score>| 
+on the background image; see section \ref{gameDragAndDropsection}).
 
 \subsection{Abstract}
 
