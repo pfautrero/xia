@@ -8,9 +8,11 @@ Thanks to it, you can generate three kinds of resources :
 
 # Build application in Debian Jessie
 
-apt-get install libjavascript-minifier-perl
+```sh
+apt-get install -y libjavascript-minifier-perl gettext python
 cd project
-./setup.py buildstandalone
+python setup.py buildstandalone
+```
 
 
 
