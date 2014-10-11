@@ -24,20 +24,25 @@ script_dir=$(dirname "$0")
 root_dir=$(cd "$script_dir/.."; pwd)
 src_dir="$root_dir/src"
 
-# /!\ Attention /!\
-# All is run in "$src_dir" to have relative paths in
-# comments in .pot and .po files.
-cd "$src_dir"
+# xgettext is run in a subshell in "$src_dir" directory to
+# have relative paths for locations in comments in .pot and
+# .po files.
+(
+    cd "$src_dir"
 
-# Extract gettext from source.
-xgettext --from-code=UTF-8 --keyword=translate \
-    -o "share/i18n/messages.pot"               \
-    $(find "." -type f -name "*.py")
+    # Extract gettext from source.
+    xgettext --from-code=UTF-8 --keyword=translate \
+        -o "share/i18n/messages.pot"               \
+        $(find "." -type f -name "*.py")
+)
 
-for loc in share/i18n/*
+for loc in "$src_dir/share/i18n/"*
 do
+    # Don't handle "messages.pot" file which is not a directory.
     [ ! -d "$loc" ] && continue
-    printf "Merging xia-converter.po in $loc\n"
+
+    loc_shortname=${loc##*/}
+    printf "Merging xia-converter.po in share/i18n/$loc_shortname\n"
     mv "$loc/LC_MESSAGES/xia-converter.po" "$loc/LC_MESSAGES/xia-converter.po.old"
     msgmerge --no-fuzzy-matching                \
         "$loc/LC_MESSAGES/xia-converter.po.old" \
@@ -45,7 +50,10 @@ do
         -o "$loc/LC_MESSAGES/xia-converter.po"
 done
 
-# Remove all files except .po in "share/i18n/".
-find "share/i18n/" -type f ! -name '*.po' -exec rm "{}" \+
+# Remove "xia-converter.po.old" and "messages.pot" files
+# in "$src_dir/share/i18n/" directory.
+find "$src_dir/share/i18n/" -type f                          \
+  \( -name "xia-converter.po.old" -o -name "messages.pot" \) \
+  -exec rm "{}" \+
 
 
