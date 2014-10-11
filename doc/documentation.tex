@@ -232,7 +232,9 @@ the \verb| index.html| file in a web browser to see the image-active.
   \node[right= .8mm of pBlue] (pYellow) {\includegraphics[scale=.3]{./images/popYellow}};
   \node[above = .2mm of guClic.north] (aCloud) {\includegraphics[scale=.3]{./images/accordionCloud}};
   \node[above = .2mm of aCloud.north] (aBlack) {\includegraphics[scale=.3]{./images/accordionBlack}};  
-  \node[left = 2cm of aBlack] (files) {\includegraphics[scale=.3]{./images/xia_open}};
+  \node[left = .2mm of aBlack] (params) {\includegraphics[scale=.3]{./images/params}};  
+  \node[left = .2mm of params] (files) {\includegraphics[scale=.3]{./images/xia_open}};
+  
   %comments
   \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the svg source file};
   \node[box,above right = 5mm of aBlack] (aBlackC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionBlack}{accordionBlack}\\ Large comment zone, suitable for insertion of multimedia resources; to be used with vertical images (portrait)};
@@ -316,8 +318,33 @@ will be enriched with  formatted text or multimedia resources.
 
 \subsection{Formatting text}
 
-In ordre to insert formatted text, the following tags should be used :
+In ordre to insert formatted text, the following tags should be used:
 
+\tikzstyle{descrip}=[font=\sffamily, anchor=north west]
+\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners, anchor=north west]
+
+\begin{tikzpicture}
+  \node[anchor=north west] (bold) {\includegraphics[scale=.5]{./images/Description}};
+  \node[descrip, below = -7mm of bold] (boldT) {This text is ***bold***};
+  \node[box, right = 3cm of bold] (bolR) {This text is \textbf{bold}};
+  \node[anchor=north west, below = 1cm of bold] (italic) {\includegraphics[scale=.5]{./images/Description}};
+  \node[descrip, below = -7mm of italic] (italicT) {This text is in **italic**};
+  \node[box, right = 3cm of italic] (italicR) {This text is in \textit{italic}};
+  \node[anchor=north west, below = 1cm of italic] (link) {\includegraphics[scale=.5]{./images/Description}};
+  \node[descrip, below = 7mm of link.north] (linkT) {A link to };
+  \node[descrip, below = 1mm of linkT] (linkTV) {\verb![https://www.wikipedia.org/Wikipedia]! };
+  \node[box, right = 3cm of link] (linkR) {A link to \href{https://www.wikipedia.org/}{Wikipedia}}; 
+  \node[anchor=north west, below = 1cm of link] (bullets) {\includegraphics[scale=.5]{./images/Description}};
+  \node[descrip, below = -7mm of bullets] (bulletsT) {Making a list \\ * of bullets \\  * out of \\   * 2 levels};
+  \node[box, right = 3cm of bullets] (bulletsR) {Making a list 
+      \begin{itemize}
+       \item of bullets
+       \item out of
+       \begin{itemize}
+         \item2 levels
+       \end{itemize}
+      \end{itemize} };
+\end{tikzpicture}
 % problème d'alignement du contenu des cellules sur les lignes "<liste de puces"> et "<tracer une ligne">
 \begin{center}
  \begin{tabular}{|l|l|}
