@@ -38,7 +38,7 @@ class hook:
         self.tooltip = translate("export gameDragAndDrop")        
         self.score = "0"
         self.collisions = "off"
-        self.message = translate("This game is not properly configured")
+        self.message = translate("You win !")
 
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""
