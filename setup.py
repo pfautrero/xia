@@ -29,7 +29,7 @@ setup_dir = os.path.dirname(os.path.abspath(__file__))
 build_dir = os.path.join(setup_dir, 'build')
 make_dir = os.path.join(setup_dir, 'make')
 src_dir = os.path.join(setup_dir, 'src')
-changelog = os.path.join(setup_dir, 'src/CHANGELOG.md')
+changelog = os.path.join(setup_dir, 'CHANGELOG.md')
 readme = os.path.join(setup_dir, 'README.md')
 
 
@@ -83,7 +83,6 @@ setup(
     version=version,
     packages=['xiaconverter'],
     package_dir={ '': 'src'},
-    data_files=['src/CHANGELOG.md'],
     cmdclass={ 'buildstandalone': BuildStandalone, 'install': Install},
     author='Pascal Fautrero',
     author_email='pascal.fautrero@ac-versailles.fr',
