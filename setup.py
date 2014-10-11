@@ -21,8 +21,10 @@ import os
 import shutil
 import subprocess
 from distutils.core import setup
+from distutils.cmd import Command
+from distutils.command.install import install
 
-# Important paths and filenames.
+## Important paths and filenames.
 setup_dir = os.path.dirname(os.path.abspath(__file__))
 build_dir = os.path.join(setup_dir, 'build')
 make_dir = os.path.join(setup_dir, 'make')
@@ -30,16 +32,41 @@ src_dir = os.path.join(setup_dir, 'src')
 changelog = os.path.join(setup_dir, 'src/CHANGELOG.md')
 readme = os.path.join(setup_dir, 'README.md')
 
-# Recreate a Cleaned build directory.
-if os.path.isdir(build_dir):
-    shutil.rmtree(build_dir)
-shutil.copytree(src_dir, build_dir)
 
-# Generate .mo files.
-subprocess.check_call([os.path.join(make_dir, "generate_mo.sh")])
+def my_build():
+    # Recreate a Cleaned build directory.
+    if os.path.isdir(build_dir):
+        shutil.rmtree(build_dir)
+    shutil.copytree(src_dir, build_dir)
 
-# Build js for each themes and in vendors/.
-subprocess.check_call([os.path.join(make_dir, "build_js.sh")])
+    # Generate .mo files.
+    subprocess.check_call([os.path.join(make_dir, "generate_mo.sh")])
+
+    # Build js for each themes and in vendors/.
+    subprocess.check_call([os.path.join(make_dir, "build_js.sh")])
+
+
+class BuildStandalone(Command):
+    user_options = []
+
+    def initialize_options(self):
+        """Abstract method that is required to be overwritten"""
+        pass
+
+    def finalize_options(self):
+        """Abstract method that is required to be overwritten"""
+        pass
+
+    def run(self):
+        my_build()
+
+
+class Install(install):
+
+    def run(self):
+        install.run(self)
+        my_build()
+
 
 # Get the version of the application.
 with open(changelog, 'r') as f:
@@ -54,23 +81,9 @@ with open(readme, 'r') as f:
 setup(
     name='xia',
     version=version,
-    packages=['src/xiaconverter'],
-
-    # With this parameter, a non python file in a package and
-    # found in MANIFEST.in will be included in the build with:
-    #
-    #   ./setup.py install --root=/tmp/foo --install-layout=deb
-    #
-    # But files in MANIFEST.in and not in a package will be
-    # not included in the build with the command above.
-    #
-    # To create tar.gz which includes all files in MANIFEST.in,
-    # use this command:
-    #
-    #   ./setup.py sdist
-    #
-    include_package_data=True,
-
+    packages=['xiaconverter'],
+    package_dir={ '': 'src'},
+    cmdclass={ 'buildstandalone': BuildStandalone, 'install': Install},
     author='Pascal Fautrero',
     author_email='pascal.fautrero@ac-versailles.fr',
     description='Convert svg to full html5 interactive pictures',
