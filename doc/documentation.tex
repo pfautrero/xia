@@ -199,9 +199,9 @@ Xia (see figure
 \ref{xia_interface}). The first icon on the top left allows 
 to select the svg source file.
 
-\begin{center}
-\includegraphics[scale=0.4]{./images/xia_open} 
-\end{center}
+%\begin{center}
+%\includegraphics[scale=0.4]{./images/xia_open} 
+%\end{center}
 
 Clicking on one of the icons export generates a series of files, including a 
 \verb|index.html|. 
@@ -215,11 +215,46 @@ dedicate a specific directory for each exported image}. Finally, just open
 the \verb| index.html| file in a web browser to see the image-active.
 \end{alerte}
 
-"Basic" Images actives templates are :
+\subsubsection{"Basic" Images actives templates} 
+%\begin{tikzpicture}
+%  \draw[help lines] (0,0) grid (5,5);
+%\end{tikzpicture}
 
+\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]
 \begin{tikzpicture}
-  \node (aBlack) {\includegraphics[scale=0.5]{./images/accordionBlack}};
-  \node[below = .2cm of aBlack.south] (aCloud) {\includegraphics[scale=0.5]{./images/accordionCloud}};
+  %\draw[help lines] (0,0) grid (5,5);
+  %icons
+  \node (bBlue) {\includegraphics[scale=.3]{./images/buttonBlue}};
+  \node[left= .8mm of bBlue, opacity=.5] (aBrown) {\includegraphics[scale=.3]{./images/audioBrown}};
+  \node[right= .8mm of bBlue, opacity=.5] (guClic) {\includegraphics[scale=.3]{./images/game1clic}};
+  \node[below= .2mm of bBlue.south] (pBlue) {\includegraphics[scale=.3]{./images/popBlue}};
+  \node[left= .8mm of pBlue, opacity=.5] (gDDrop) {\includegraphics[scale=.3]{./images/gameDragAndDrop}};
+  \node[right= .8mm of pBlue] (pYellow) {\includegraphics[scale=.3]{./images/popYellow}};
+  \node[above = .2mm of guClic.north] (aCloud) {\includegraphics[scale=.3]{./images/accordionCloud}};
+  \node[above = .2mm of aCloud.north] (aBlack) {\includegraphics[scale=.3]{./images/accordionBlack}};  
+  \node[left = 2cm of aBlack] (files) {\includegraphics[scale=.3]{./images/xia_open}};
+  %comments
+  \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the svg source file};
+  \node[box,above right = 5mm of aBlack] (aBlackC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionBlack}{accordionBlack}\\ Large comment zone, suitable for insertion of multimedia resources; to be used with vertical images (portrait)};
+  \node[box, right = 5mm of aCloud] (aCloudC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionCloud}{accordionCloud}\\ Narrow comment zone, with more space for the image itself ; to be used with horizontal images (landscape)};
+  \node[box, below right = 5mm of pYellow] (pYellowC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popYellow}{popYellow}\\ No lateral comment zone ; 
+first click on the detail reveals it, and a second one simultaneously unveils 
+the comment and the zoom function zoom on the detail};
+  \node[box, left = 25mm of bBlue] (bBlueC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/buttonBlue}{buttonBlue}\\ No lateral comment zone ; 
+comments appear above the image (suitable for long comments) ; users access  
+comments through icons placed above the image-active};
+  \node[box, below left = 5mm of pBlue] (pBlueC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{popBlue}\\ No lateral comment zone; 
+first click on the detail reveals it, and a second one pops up the comment 
+(no zoom)};
+  
+  %arrows
+  \draw[-Stealth] (aBlackC.south west) -- (aBlack.north east);
+  \draw[-Stealth] (aCloudC.west) -- (aCloud.east);
+  \draw[-Stealth] (pYellowC.north west) -- (pYellow.south east);
+  \draw[-Stealth] (bBlueC.north east) -- (bBlue.north west);
+  \draw[-Stealth] (pBlueC.north east) -- (pBlue.south west);
+  \draw[-Stealth] (filesC.south east) -- (files.north west);
+  
 \end{tikzpicture}
 % pertinence d'ajouter une 4e colonne pour décrire brièvement les 
 % caractéristiques de chaque export?
