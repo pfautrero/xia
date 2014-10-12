@@ -39,7 +39,7 @@ if __name__=='__main__':
     
     root = Tkinter.Tk()
 
-    root.title("Xia - 1.0-alpha9")
+    root.title("Xia - 1.0-beta1")
     root.geometry("465x310")
     root.resizable(0,0)
     img = Tkinter.PhotoImage(file=imagesPath + '/image-active64.gif')

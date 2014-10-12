@@ -1,4 +1,15 @@
-Version 1.0-alpha9 - xx/xx/2014
+Version 1.0-beta1 - 12/10/2014
+-------------------------------
+
+- Correctif : les bandes sons ne s'arrêtaient pas lorsqu'on changeait de détail
+- Mise à jour des documentations + refactorisation du code
+- Ajout de la documentation en anglais
+- Reconstruction de la procédure de build
+- Correctif : les tests unitaires ne passaient plus à cause d'un chemin erroné
+- Suppression de la dépendance avec bootstrap dans les thèmes accordion
+- Ajout d'informations plus explicites dans les infos-bulles
+
+Version 1.0-alpha9 - 05/10/2014
 -------------------------------
 
 - Correction d'une regression sur les détourages dans game1clic
