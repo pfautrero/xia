@@ -294,12 +294,14 @@ In ordre to insert formatted text, the following tags should be used:
   \node[anchor=north west] (bold) {\includegraphics[scale=.5]{./images/Description}};
   \node[descrip, below = -7mm of bold] (boldT) {This text is ***bold***};
   \node[box, right = 3.5cm of bold] (bolR) {This text is \textbf{bold}};
-  \node[anchor=north west, below = .4cm of bold] (italic) {\includegraphics[scale=.5]{./images/Description}};
+  \node[anchor=north west, below = .2cm of bold] (italic) {\includegraphics[scale=.5]{./images/Description}};
   \node[descrip, below = -7mm of italic] (italicT) {This text is in **italic**};
   \node[box, right = 3.5cm of italic] (italicR) {This text is in \textit{italic}};
-  \node[anchor=north west, below = .4cm of italic] (link) {\includegraphics[scale=.5]{./images/Description}};
-  \node[descrip, below = 7mm of link.north] (linkT) {A link to };
-  \node[descrip, below = 1mm of linkT] (linkTV) {\verb![https://www.wikipedia.org/Wikipedia]! };
+  \node[anchor=north west, below = .2cm of italic] (texttt) {\includegraphics[scale=.5]{./images/Description}};
+  \node[descrip, below = -7mm of texttt] (textttT) {This text is in \verb!{{{typewriter}}}!};
+  \node[box, right = 3.5cm of texttt] (textttR) {This text is in \texttt{typewriter}};
+  \node[anchor=north west, below = .2cm of texttt] (link) {\includegraphics[scale=.5]{./images/Description}};
+  \node[descrip, below = 7mm of link.north] (linkT) {A link to \verb![https://www.wikipedia.org/Wikipedia]!};
   \node[box, right = 3.5cm of link] (linkR) {A link to \href{https://www.wikipedia.org/}{Wikipedia}}; 
   \node[anchor=north west, below = .8cm of link] (bullets) {\includegraphics[scale=.5]{./images/Description}};
   \node[descrip, below = -7mm of bullets] (bulletsT) {Making a list \\ $\ast$ of bullets \\  $\ast$ out of \\ ~$\ast$ 2 levels};
