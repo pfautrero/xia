@@ -56,10 +56,10 @@ really easy to use (Inkscape will be used in this document).
    \begin{scope}[on background layer]
     \node[fit = (createia)(xia), xia] (ink) {};
   \end{scope}
-  \draw[-Stealth] (open) -- (create);
-  \draw[-Stealth] (create) -- (meta);
-  \draw[-Stealth] (meta) -- (save);
-  \draw[-Stealth] (save) -- (createia);
+  \draw[-stealth] (open) -- (create);
+  \draw[-stealth] (create) -- (meta);
+  \draw[-stealth] (meta) -- (save);
+  \draw[-stealth] (save) -- (createia);
  \end{tikzpicture}
  \label{workflowxia}
 \end{figure}
@@ -251,13 +251,13 @@ first click on the detail reveals it, and a second one pops up the comment
 (no zoom)};
   
   %arrows
-  \draw[-Stealth] (aBlackC.south west) -- (aBlack.north east);
-  \draw[-Stealth] (aCloudC.west) -- (aCloud.east);
-  \draw[-Stealth] (pYellowC.north west) -- (pYellow.south east);
-  \draw[-Stealth] (bBlueC.north east) -- (bBlue.north west);
-  \draw[-Stealth] (pBlueC.north east) -- (pBlue.south west);
-  \draw[-Stealth] (filesC.south east) -- (files.north west);
-  \draw[-Stealth] (paramsC.south) -- (params.north);
+  \draw[-stealth] (aBlackC.south west) -- (aBlack.north east);
+  \draw[-stealth] (aCloudC.west) -- (aCloud.east);
+  \draw[-stealth] (pYellowC.north west) -- (pYellow.south east);
+  \draw[-stealth] (bBlueC.north east) -- (bBlue.north west);
+  \draw[-stealth] (pBlueC.north east) -- (pBlue.south west);
+  \draw[-stealth] (filesC.south east) -- (files.north west);
+  \draw[-stealth] (paramsC.south) -- (params.north);
   
 \end{tikzpicture}
 
