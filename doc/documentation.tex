@@ -289,9 +289,11 @@ the document}
 
 \section{Enriched image-active}
 
-Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2}{image-active 
-created for this section of the documentation} and download the 
-\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2/svg/xia2.svg}{svg} source file.
+\begin{links}
+Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2}{image-active created for this section of the documentation} 
+
+Download the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2/svg/xia2.svg}{svg} source file.
+\end{links}
 
 In this section, the goal is still to create a "traditionnal" image-active 
 (ie. in which a detail matches a comment), but the content of the comments 
@@ -376,15 +378,15 @@ and to upload them into a single folder (from there, the only difference
 between those files is their extension (ie. .ogv or .mp4 or .webm).\\
 
 \tikzstyle{every node}=[draw=black,thick,anchor=west]
-\tikzstyle{auto}=[draw=reddebian,fill=reddebian!30]
-\tikzstyle{manual}=[draw=bluedane,fill=bluedane!30]
+\tikzstyle{auto}=[draw=reddebian,fill=reddebian!30, text height=2.5mm]
+\tikzstyle{manual}=[draw=bluedane,fill=bluedane!30, text height=2.5mm]
 \tikzstyle{manualT}=[fill=bluedane!30,draw=bluedane, rectangle callout,text width=5cm]
 \tikzstyle{autoT}=[fill=reddebian!30,draw=reddebian, rectangle callout,text width=5cm]
 \begin{tikzpicture}[%
   grow via three points={one child at (0.5,-0.7) and
   two children at (0.5,-0.7) and (0.5,-1.4)},
   edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
-  \node [manual] {imageactive\_folder}
+  \node [manual] {my\_project}
     child { node [auto] {index.html}}		
     child { node [auto] {deploy.html}}		
     child { node [auto] {manifest.webapp}}		
@@ -393,7 +395,7 @@ between those files is their extension (ie. .ogv or .mp4 or .webm).\\
     child { node [auto] {font}}
     child { node [auto] {img}}
     child { node [auto] {js}}
-    child { node [manual] {videos\_folder}
+    child { node [manual] {videos}
       child { node [manual] {video.mp4}}
       child { node [manual] {video.ogv}}
       child { node [manual] {video.webm}}
@@ -407,7 +409,7 @@ in the comments of the image-active using relative links.};
 
 
 Even if a particular format is indicated in the description (following 
-the previous example : \verb|videos_folder/video.ogv|), if the browser is 
+the previous example : \verb|videos/video.ogv|), if the browser is 
 unable to read the resource, it will automatically attempt to read the files 
 of the same name possessing a different extension (ie. \verb|video.mp4| 
 then \verb|video.webm|).
@@ -536,9 +538,12 @@ has much more to do than simply clicking on details in order to read text.
 on a background image. When the user has reached the goal described in the 
 instructions, a message appears in a final pop up.}
 
+\begin{links}
 Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia3}{image- 
-active created for this section of the documentation} and download the \href
-{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia3/svg/xia3.svg}{svg} source file.
+active created for this section of the documentation} 
+
+Download the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia3/svg/xia3.svg}{svg} source file.
+\end{links}
 
 This kind of game is almost the easiest way to create an image-active.
 The designer only has to crop the details that the final user will have to select. 
@@ -647,9 +652,13 @@ add a score to the counter that delivers the final success message pop up.
 on the background image. If all the elements have been dropped on their corresponding drop zone, a pop up
 message appears, confirming the achievement of the game}
 
+\begin{links}
 Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia5}{image-
-active created for this section of the documentation} and download the \href
+active created for this section of the documentation}
+
+Download the \href
 {http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia5/svg/xia5.svg}{svg} source file.
+\end{links}
 
 Here's how to create a game based on the drag and drop principle :
 \begin{enumerate}
