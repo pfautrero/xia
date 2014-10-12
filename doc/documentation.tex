@@ -778,7 +778,6 @@ This table sums up the tags that have to be indicated when a game is created
  & \emph{Where ?} & \chemin{Object properties $\rightarrow$ Description} \\
  & \emph{What ?} & Number corresponding to the required score\\
  \hline
-
  \multicolumn{3}{|l|}{\texttt{<message></message>} }\\
  \hline
   & \emph{Role} & Pops up the end message of the game \\
@@ -786,35 +785,34 @@ This table sums up the tags that have to be indicated when a game is created
   & \emph{Where ?} & \chemin{Object properties $\rightarrow$ Description}\\ 
   & \emph{What ?} & A personalized message if necessary enriched with multimedia or html links\\
  \hline
- 
-% \verb|off| & Making a cropped detail unclickable & Detail & Object properties $\rightarrow$ Interactivty $\rightarrow$ Onclick & \\
-% \hline
-% \verb|disable-score| & Cropped detail is still clickable, but when clicked, does not add a point to the score game counter & Detail & Object properties $\rightarrow$ Interactivty $\rightarrow$ Onclick & \\
-% \hline
-% \verb|<target></target>| & Indicates the corresponding drag and drop element and drop zone & Graphical element to move & Object Properties $\rightarrow$ Description & Make sure to match the ID field of the drop zone\\
-% \hline
-% \verb|<magnet>on</magnet>| & Add a "magnet" effect & Drop zone & Object Properties $\rightarrow$ Description & \\
+  \multicolumn{3}{|l|}{\texttt{off}}\\
+  \hline
+  & \emph{Role} & Making a cropped detail unclickable \\
+  & \emph{Element} & Detail \\
+  & \emph{Where ?} & \chemin{Object properties $\rightarrow$ Interactivty $\rightarrow$ Onclick}\\
+ \hline
+  \multicolumn{3}{|l|}{\texttt{disable-score}}\\
+  \hline
+  & \emph{Role} & Cropped detail is still clickable, but when clicked, does not add a point to the score game counter \\
+  & \emph{Element} & Detail \\
+  & \emph{Where ?} & \chemin{Object properties $\rightarrow$ Interactivty $\rightarrow$ Onclick}\\
+ \hline
+  \multicolumn{3}{|l|}{\texttt{<target></target>}}\\
+  \hline
+  & \emph{Role} & Indicates the corresponding drag and drop element and drop zone \\
+  & \emph{Element} & Graphical element to move \\
+  & \emph{Where ?} & \chemin{Object Properties $\rightarrow$ Description}\\
+  & \emph{What ?} & Make sure to match the ID field of the drop zone\\
+ \hline
+  \multicolumn{3}{|l|}{\texttt{<magnet>on</magnet>}}\\
+  \hline
+  & \emph{Role} & Add a "magnet" effect \\
+  & \emph{Element} & Drop zone \\
+  & \emph{Where ?} & \chemin{Object Properties $\rightarrow$ Description} \\
+  \hline
  \end{tabular}
 \end{center} 
 
-\begin{center}
- \begin{tabular}{|p{1.5in}|p{1in}|p{1in}|p{1in}|p{1in}|}
- \hline
- Tags & Role  & Element & Where ? & What ?\\
- \hline
- \verb|<score></score>| & Amount of correct answers needed to pop up the end message of the game & Background picture & Object properties $\rightarrow$ Description & Number corresponding to the required score\\
- \hline
- \verb|<message></message>| & Pops up the end message of the game & Background picture & Object properties $\rightarrow$ Description & A personalized message if necessary enriched with multimedia or html links\\
- \hline
- \verb|off| & Making a cropped detail unclickable & Detail & Object properties $\rightarrow$ Interactivty $\rightarrow$ Onclick & \\
- \hline
- \verb|disable-score| & Cropped detail is still clickable, but when clicked, does not add a point to the score game counter & Detail & Object properties $\rightarrow$ Interactivty $\rightarrow$ Onclick & \\
- \hline
- \verb|<target></target>| & Indicates the corresponding drag and drop element and drop zone & Graphical element to move & Object Properties $\rightarrow$ Description & Make sure to match the ID field of the drop zone\\
- \hline
- \verb|<magnet>on</magnet>| & Add a "magnet" effect & Drop zone & Object Properties $\rightarrow$ Description & \\
- \end{tabular}
-\end{center}
 
 
 \end{document}
