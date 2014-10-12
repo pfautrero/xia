@@ -237,6 +237,7 @@ the \verb| index.html| file in a web browser to see the image-active.
   
   %comments
   \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the svg source file};
+  \node[box, above = 5mm of params] (paramsC) {Select the quality of the export};
   \node[box,above right = 5mm of aBlack] (aBlackC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionBlack}{accordionBlack}\\ Large comment zone, suitable for insertion of multimedia resources; to be used with vertical images (portrait)};
   \node[box, right = 5mm of aCloud] (aCloudC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionCloud}{accordionCloud}\\ Narrow comment zone, with more space for the image itself ; to be used with horizontal images (landscape)};
   \node[box, below right = 5mm of pYellow] (pYellowC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popYellow}{popYellow}\\ No lateral comment zone ; 
@@ -256,6 +257,7 @@ first click on the detail reveals it, and a second one pops up the comment
   \draw[-Stealth] (bBlueC.north east) -- (bBlue.north west);
   \draw[-Stealth] (pBlueC.north east) -- (pBlue.south west);
   \draw[-Stealth] (filesC.south east) -- (files.north west);
+  \draw[-Stealth] (paramsC.south) -- (params.north);
   
 \end{tikzpicture}
 
