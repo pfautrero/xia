@@ -489,7 +489,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     iaScene.cursorState = "default";
 
                     $('#' + that.idText + " audio").each(function(){
-                        $(this)[0].stop();
+                        $(this)[0].pause();
                     });        
                     $('#' + that.idText + " video").each(function(){
                         $(this)[0].pause();
@@ -529,7 +529,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         }
                         if (iaScene.element.layer) iaScene.element.layer.draw();
                         $('#' + iaScene.element.idText + " audio").each(function(){
-                            $(this)[0].stop();
+                            $(this)[0].pause();
                         });        
                         $('#' + iaScene.element.idText + " video").each(function(){
                             $(this)[0].pause();

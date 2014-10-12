@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: activit 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-09 18:27+0200\n"
+"POT-Creation-Date: 2014-10-12 01:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,90 +17,83 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: build/share/themes/accordionBlack/hook.py:38
-msgid "export accordionBlack !"
-msgstr ""
-"exporter en accordionBlack\n"
-"Accordéon large (grande zone de texte, image réduite)"
-
-#: build/share/themes/accordionCloud/hook.py:34
+#: share/themes/accordionCloud/hook.py:34
 msgid "export accordionCloud"
 msgstr ""
 "exporter en accordionCloud\n"
 "Accordéon étroit (zone de texte réduite, image large)"
 
-#: build/share/themes/audioBrown/hook.py:34
-msgid "export audioBrown"
-msgstr ""
-"exporter en audioBrown\n"
-"(adapté pour les bandes audio auto-démarrées)"
-
-#: build/share/themes/buttonBlue/hook.py:34
-msgid "export buttonBlue"
-msgstr ""
-"exporter en buttonBlue\n"
-"Boutons au dessus"
-
-#: build/share/themes/game1clic/hook.py:39
-msgid "export game1clic"
-msgstr "exporter en game1clic"
-
-#: build/share/themes/game1clic/hook.py:41
-msgid "this game is not properly configured"
-msgstr "Ce jeu n'est pas correctement configuré"
-
-#: build/share/themes/gameDragAndDrop/hook.py:38
-msgid "export gameDragAndDrop"
-msgstr "exporter en gameDragAndDrop"
-
-#: build/share/themes/gameDragAndDrop/hook.py:41
-msgid "This game is not properly configured"
-msgstr "Ce jeu n'est pas correctement configuré"
-
-#: build/share/themes/popBlue/hook.py:34
-msgid "export popBlue"
-msgstr ""
-"exporter en popBlue\n"
-"Bulles (détail isolé puis commentaire au second clic)"
-
-#: build/share/themes/popYellow/hook.py:35
+#: share/themes/popYellow/hook.py:35
 msgid "export popYellow"
 msgstr ""
 "exporter en popYellow\n"
 "Bulles avec zoom possible (commentaire immédiat puis zoom au second clic)"
 
-#: build/xiaconverter/mainwindow.py:85
+#: share/themes/game1clic/hook.py:39
+msgid "export game1clic"
+msgstr "exporter en game1clic"
+
+#: share/themes/game1clic/hook.py:41 share/themes/gameDragAndDrop/hook.py:41
+msgid "You win !"
+msgstr "C'est gagné !"
+
+#: share/themes/buttonBlue/hook.py:34
+msgid "export buttonBlue"
+msgstr ""
+"exporter en buttonBlue\n"
+"Boutons au dessus"
+
+#: share/themes/gameDragAndDrop/hook.py:38
+msgid "export gameDragAndDrop"
+msgstr "exporter en gameDragAndDrop"
+
+#: share/themes/accordionBlack/hook.py:38
+msgid "export accordionBlack !"
+msgstr ""
+"exporter en accordionBlack\n"
+"Accordéon large (grande zone de texte, image réduite)"
+
+#: share/themes/popBlue/hook.py:34
+msgid "export popBlue"
+msgstr ""
+"exporter en popBlue\n"
+"Bulles (détail isolé puis commentaire au second clic)"
+
+#: share/themes/audioBrown/hook.py:34
+msgid "export audioBrown"
+msgstr ""
+"exporter en audioBrown\n"
+"(adapté pour les bandes audio auto-démarrées)"
+
+#: xiaconverter/mainwindow.py:85
 msgid "select svg file"
 msgstr "sélectionner un fichier svg"
 
-#: build/xiaconverter/mainwindow.py:98
+#: xiaconverter/mainwindow.py:98
 msgid "ajust parameters"
 msgstr "Réglages"
 
-#: build/xiaconverter/mainwindow.py:159
+#: xiaconverter/mainwindow.py:159
 msgid "myfile.svg"
 msgstr "monfichier.svg"
 
-#: build/xiaconverter/mainwindow.py:161
-#, fuzzy
+#: xiaconverter/mainwindow.py:161
 msgid "Select a svg file"
 msgstr "sélectionner un fichier svg"
 
-#: build/xiaconverter/mainwindow.py:168
-#, fuzzy
+#: xiaconverter/mainwindow.py:168
 msgid "Select target folder"
 msgstr "sélectionner un fichier svg"
 
-#: build/xiaconverter/mainwindow.py:180
-#, python-brace-format
+#: xiaconverter/mainwindow.py:180
 msgid "Sorry, impossible to create the {0} directory"
 msgstr "Désolé, impossible de créer le répertoire {0}"
 
-#: build/xiaconverter/mainwindow.py:210
+#: xiaconverter/mainwindow.py:210
 msgid "Parameters"
 msgstr "Paramètres"
 
-#: build/xiaconverter/paramswindow.py:64
+#: xiaconverter/paramswindow.py:64
 msgid "modify image resolution"
 msgstr ""
 "modifier la résolution de l'image.\n"

@@ -437,6 +437,13 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     that.group.x(that.originalX[0]);
                     that.group.y(that.originalY[0]);
 
+                    $('#' + that.idText + " audio").each(function(){
+                        $(this)[0].pause();
+                    });        
+                    $('#' + that.idText + " video").each(function(){
+                        $(this)[0].pause();
+                    });
+                    
                     that.backgroundCache_layer.moveToBottom();
                     document.body.style.cursor = "default";
                     iaScene.cursorState = "default";
@@ -474,6 +481,12 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                             iaScene.element.kineticElement[i].setStrokeWidth(0);                         
                         }
                         iaScene.element.layer.draw();
+                        $('#' + iaScene.element.idText + " audio").each(function(){
+                            $(this)[0].pause();
+                        });        
+                        $('#' + iaScene.element.idText + " video").each(function(){
+                            $(this)[0].pause();
+                        });                        
                     }                    
                     //if (zoomable === true) {
                         //document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';
