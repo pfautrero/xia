@@ -23,7 +23,7 @@
 \definecolor{reddebian}{rgb}{0.84314,0.03922,0.32549}
 \definecolor{bluedane}{rgb}{0.09020,0.56863,1}
 \definecolor{greendane}{rgb}{0.43137,0.60784,0.14510}
-
+\def\purpledane{violet}
 
 \hypersetup{%
   pdftitle={Xia},
@@ -115,6 +115,40 @@
       \usebox{\boiteBrouillon}%
     };%
     \node [bouleastuce] (astuce) at (cadre.west) {\pouceOK};%
+  \end{tikzpicture}%
+  \vspace{1.5ex}%
+}    
+
+% L'environnement links
+\newcommand{\mainDroite}{\large\leftpointright}
+
+\newlength{\LargeurBouleLinks}
+\settowidth{\LargeurBouleLinks}{%
+  \begin{tikzpicture}%
+    \node{\mainDroite};%
+  \end{tikzpicture}%
+}
+
+\tikzstyle{boulelinks}=[circle,ball color=\purpledane,text=white]
+
+\tikzstyle{boitelinks}=[draw=\purpledane,rounded corners,inner xsep=1em,inner ysep=1ex, align=right]
+                        
+\newenvironment{links}{%
+  \begin{lrbox}{\boiteBrouillon}% On sauve dans \boiteBrouillon le contenu
+    \begin{minipage}{.8\linewidth}%
+      \color{\purpledane}%
+      \setlength{\parskip}{1ex plus 0.2ex minus 0.2ex}%
+}{%
+    \end{minipage}%
+  \end{lrbox}% Fin. Attention lrbox stocke du contenu sur 1 ligne (pas de paragrpahe)
+  % La boîte peut être utilisée via \usebox{\boiteBrouillon}
+  \vspace{1.5ex}%
+  \begin{tikzpicture}%
+    \node [boitelinks] (cadre) {%
+      \hspace{0.5\LargeurBouleLinks}%
+      \usebox{\boiteBrouillon}%
+    };%
+    \node [boulelinks] (links) at (cadre.west) {\mainDroite};%
   \end{tikzpicture}%
   \vspace{1.5ex}%
 }    
