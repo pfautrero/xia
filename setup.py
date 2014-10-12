@@ -23,6 +23,7 @@ import subprocess
 from distutils.core import setup
 from distutils.cmd import Command
 from distutils.command.install import install
+from distutils.command.clean import clean
 
 ## Important paths and filenames.
 setup_dir = os.path.dirname(os.path.abspath(__file__))
@@ -86,6 +87,13 @@ class Install(install):
         install.run(self)
         xia_build()
 
+class Clean(clean):
+
+    def run(self):
+        clean.run(self)
+        if os.path.isdir(build_dir):
+            shutil.rmtree(build_dir)
+
 
 # Get the version of the application.
 with open(changelog, 'r') as f:
@@ -105,6 +113,7 @@ setup(
     cmdclass={
         'buildstandalone': BuildStandalone,
         'install': Install,
+        'clean': Clean,
         'update_po': UpdatePO,
     },
     author='Pascal Fautrero',
