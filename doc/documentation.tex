@@ -207,7 +207,7 @@ Clicking on one of the icons export generates a series of files, including a
 \verb|index.html|. 
 
 \begin{alerte}
-Warning : this file will not display anything if used 
+This file will not display anything if used 
 alone. All the other files and directories generated during the export process 
 must be stored in  the same folder as the \verb|index.html| file in order to 
 the animation to work properly. \textbf{It is therefore essential to 
@@ -519,7 +519,7 @@ of their creation in Inkscape. Nevertheless, the Inkscape XML editor allows to c
 \section{Creating games with Xia}
 
 Until now, this document has only talked about creation of traditionnal image-actives: 
-background image enriched with cropped details associated with texts
+background image enriched with cropped details associated with texts.
 
 This kind of image-active can be used in classrooms in various situations 
 (students progressively discovering a document, or creating an image-active 
@@ -557,31 +557,29 @@ not have to match the number of details on the image)
 and the message itself.} This table sums up the tags that have to be used:
 
 % le multicolumn refuse le \verb... à corriger
-\begin{center}
+%\begin{center}
  \begin{tabular}{|l|p{2in}|p{2in}|}
  % \hline
 % \multicolumn{3}{|c|}{Informations à renseigner dans le champs Description des Propriétés de l'objet}\\
  \hline
   Goal & Enter the number of correct answers needed to complete the game & Display a message\\
   \hline
-  Tag & \verb|<score></score>| & \verb|<message></message>|\\
+  Tag & \texttt{<score></score>}| & \texttt{<message></message>}\\
   \hline
-  Example & \multicolumn{2}{|l|}{<score>6</score>}\\
-   & \multicolumn{2}{|l|}{<messageCongratulations!}\\
-    & \multicolumn{2}{|l|}{You have completed the game!</message>}\\
+  Example & \multicolumn{2}{|l|}{\texttt{<score>6</score>}}\\
+   & \multicolumn{2}{|l|}{\texttt{<message>Congratulations!}}\\
+    & \multicolumn{2}{|l|}{\texttt{You have completed the game!</message>}}\\
   \hline
  \end{tabular}
-\end{center}
+%\end{center}
 
-\begin{wrapfigure}{r}{45mm}
-  \centering
-  \includegraphics[scale=0.7]{./images/game1clic} 
-\end{wrapfigure}
 
-A little tip: text inserted inside the \verb|<message></message>| tag can be 
+\begin{astuce}
+Text inserted inside the \verb|<message></message>| tag can be 
 enriched. Images, videos or sounds can be inserted inside this message.
-It is also possible to insert a link, allowing users to play another game.
+It is also possible to insert a link, allowing users to play another game,
 in order to "chain" activities up by degree of difficulty.
+\end{astuce}
 
 The template \chemin{game1clic} should be chosen for any image-active matching 
 the click to select game principle.
@@ -589,6 +587,13 @@ the click to select game principle.
 
 
 \subsubsection{Advanced image-active creation tips... How to show the user's progress in the use of a game game1clic ?}\label{détail_progression}
+
+
+
+\begin{wrapfigure}{r}{45mm}
+  \centering
+  \includegraphics[scale=0.7]{./images/game1clic} 
+\end{wrapfigure}
 
 It is possible to automatically display graphical elements when users correctly 
 select a correct answer.Those graphical elements being png imported images or 
@@ -605,7 +610,7 @@ d'Inkscape
 
 When the graphical elements are imported (png files) or created (bitmap copy 
 of figures created by hand), just apply to those elements the following 
-charasteristic :
+charasteristic:
 \begin{center}
 \chemin{Interactivity > OnClick} = \verb|off|
 \end{center}
@@ -758,6 +763,37 @@ on the background image; see section \ref{gameDragAndDropsection}).
 
 This table sums up the tags that have to be indicated when a game is created 
  (export game1clic or gameDragAndDrop) :
+ 
+\begin{center}
+ \begin{tabular}{|p{.5cm}|p{2cm}|p{10cm}|}
+ \hline
+ \multicolumn{3}{|l|}{Tags} \\
+ \hline
+ \multicolumn{3}{|l|}{\texttt{<score></score>}}\\
+ \hline
+ & \emph{Role} & Amount of correct answers needed to pop up the end message of the game\\
+ & \emph{Element}  & Background picture \\
+ & \emph{Where ?} & \chemin{Object properties $\rightarrow$ Description} \\
+ & \emph{What ?} & Number corresponding to the required score\\
+ \hline
+
+ \multicolumn{3}{|l|}{\texttt{<message></message>} }\\
+ \hline
+  & \emph{Role} & Pops up the end message of the game \\
+  & \emph{Element}  & Background picture \\
+  & \emph{Where ?} & \chemin{Object properties $\rightarrow$ Description}\\ 
+  & \emph{What ?} & A personalized message if necessary enriched with multimedia or html links\\
+ \hline
+ 
+% \verb|off| & Making a cropped detail unclickable & Detail & Object properties $\rightarrow$ Interactivty $\rightarrow$ Onclick & \\
+% \hline
+% \verb|disable-score| & Cropped detail is still clickable, but when clicked, does not add a point to the score game counter & Detail & Object properties $\rightarrow$ Interactivty $\rightarrow$ Onclick & \\
+% \hline
+% \verb|<target></target>| & Indicates the corresponding drag and drop element and drop zone & Graphical element to move & Object Properties $\rightarrow$ Description & Make sure to match the ID field of the drop zone\\
+% \hline
+% \verb|<magnet>on</magnet>| & Add a "magnet" effect & Drop zone & Object Properties $\rightarrow$ Description & \\
+ \end{tabular}
+\end{center} 
 
 \begin{center}
  \begin{tabular}{|p{1.5in}|p{1in}|p{1in}|p{1in}|p{1in}|}
