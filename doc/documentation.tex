@@ -190,9 +190,8 @@ detail in the image-active.
 
 \begin{figure}[htp]
  \centering
- \includegraphics[width=0.5\textwidth]{./images/proprietes_objet}
- \caption{The "\chemin{Object properties}" allows to enter the text that will become a 
- comment for the detail in the image-active}
+ \includegraphics[width=0.5\textwidth, clip=true, trim=0mm 60mm 0mm 0mm]{./images/proprietes_objet}
+ \caption{The "\chemin{Object properties}" allows to enter the text that will become a  comment for the detail in the image-active}
  \label{objet_properties}
 \end{figure}
 
@@ -206,51 +205,11 @@ the image-active (title and comment not related to a particular detail).
 
 \subsection{Generating the image-active with Xia}
 
-When all the details are clipped and their metadatas indicated, Xia can be launched.
+When all the details are clipped and their metadatas indicated, Xia\ref{xia_interface} can be launched.
 You just have to select the svg souce file with the top left icon,
 choose the export quality (on a scale from 1 to 4), and then choose a 
 template and the destination folder of the image-active.
 
-\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]
-\begin{tikzpicture}
-  %\draw[help lines] (0,0) grid (5,5);
-  %icons
-  \node (bBlue) {\includegraphics[scale=.3]{./images/buttonBlue}};
-  \node[left= .8mm of bBlue, opacity=.5] (aBrown) {\includegraphics[scale=.3]{./images/audioBrown}};
-  \node[right= .8mm of bBlue, opacity=.5] (guClic) {\includegraphics[scale=.3]{./images/game1clic}};
-  \node[below= .2mm of bBlue.south] (pBlue) {\includegraphics[scale=.3]{./images/popBlue}};
-  \node[left= .8mm of pBlue, opacity=.5] (gDDrop) {\includegraphics[scale=.3]{./images/gameDragAndDrop}};
-  \node[right= .8mm of pBlue] (pYellow) {\includegraphics[scale=.3]{./images/popYellow}};
-  \node[above = .2mm of guClic.north] (aCloud) {\includegraphics[scale=.3]{./images/accordionCloud}};
-  \node[above = .2mm of aCloud.north] (aBlack) {\includegraphics[scale=.3]{./images/accordionBlack}};  
-  \node[left = .2mm of aBlack] (params) {\includegraphics[scale=.3]{./images/params}};  
-  \node[left = .2mm of params] (files) {\includegraphics[scale=.3]{./images/xia_open}};
-  
-  %comments
-  \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the svg source file};
-  \node[box, above = 5mm of params] (paramsC) {Select the quality of the export};
-  \node[box,above right = 5mm of aBlack] (aBlackC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionBlack}{accordionBlack}\\ Large comment zone, suitable for insertion of multimedia resources; to be used with vertical images (portrait)};
-  \node[box, right = 5mm of aCloud] (aCloudC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionCloud}{accordionCloud}\\ Narrow comment zone, with more space for the image itself ; to be used with horizontal images (landscape)};
-  \node[box, below right = 5mm of pYellow] (pYellowC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popYellow}{popYellow}\\ No lateral comment zone ; 
-first click on the detail reveals it, and a second one simultaneously unveils 
-the comment and the zoom function zoom on the detail};
-  \node[box, left = 25mm of bBlue] (bBlueC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/buttonBlue}{buttonBlue}\\ No lateral comment zone ; 
-comments appear above the image (suitable for long comments) ; users access  
-comments through icons placed above the image-active};
-  \node[box, below left = 5mm of pBlue] (pBlueC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{popBlue}\\ No lateral comment zone; 
-first click on the detail reveals it, and a second one pops up the comment 
-(no zoom)};
-  
-  %arrows
-  \draw[-stealth] (aBlackC.south west) -- (aBlack.north east);
-  \draw[-stealth] (aCloudC.west) -- (aCloud.east);
-  \draw[-stealth] (pYellowC.north west) -- (pYellow.south east);
-  \draw[-stealth] (bBlueC.north east) -- (bBlue.north west);
-  \draw[-stealth] (pBlueC.north east) -- (pBlue.south west);
-  \draw[-stealth] (filesC.south east) -- (files.north west);
-  \draw[-stealth] (paramsC.south) -- (params.north);
-  
-\end{tikzpicture}
 
 
 Clicking on one of the template icons generates a series of files and folders, including a 
@@ -259,11 +218,47 @@ Clicking on one of the template icons generates a series of files and folders, i
 \begin{alerte}
 This file will not display anything if used 
 alone. All the other files and directories generated during the export process 
-must be stored in  the same folder as the \verb|index.html| file in order to 
+must be stored in  the same folder\ref{xia_files} as the \verb|index.html| file in order to 
 the animation to work properly. \textbf{It is therefore essential to 
-dedicate a specific directory for each exported image}. Finally, just open 
+dedicate a specific directory\ref{xia_files} for each exported image}. Finally, just open 
 the \verb| index.html| file in a web browser to see the image-active.
 \end{alerte}
+
+\tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{auto}=[draw=reddebian,fill=reddebian!30, text height=2.5mm]
+\tikzstyle{manual}=[draw=bluedane,fill=bluedane!30, text height=2.5mm]
+\tikzstyle{manualT}=[fill=bluedane!30,draw=bluedane, rectangle,text width=5cm, rounded corners]
+\tikzstyle{autoT}=[fill=reddebian!30,draw=reddebian, rectangle,text width=5cm, rounded corners]
+\begin{figure}[htp]
+\begin{tikzpicture}[%
+  grow via three points={one child at (0.5,-0.7) and
+  two children at (0.5,-0.7) and (0.5,-1.4)},
+  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+  \node [manual] {my\_project}
+    child { node [auto] {index.html}}		
+    child { node [auto] {deploy.html}}		
+    child { node [auto] {manifest.webapp}}		
+    child { node [auto] {css}}
+    child { node [auto] {datas}}
+    child { node [auto] {font}}
+    child { node [auto] {img}}
+    child { node [auto] {js}}
+    child { node [manual] {videos}
+      child { node [manual] {video.mp4}}
+      child { node [manual] {video.ogv}}
+      child { node [manual] {video.webm}}
+      };
+  \node[manualT] (textM) at (10,-2) {These files and folders  were manually created by the image-active designer. The \textcolor{bluedane}
+{videos\_folder} was also manually created, in order to host videos inserted 
+in the comments of the image-active using relative links.}; 
+  \node[autoT] (textA) at (10,-6) {Files et folders generated by Xia from the svg source file, including the \textcolor{reddebian}{index.html} file.};
+  \draw[-stealth] (textM.west) -- (4,0);
+  \draw[-stealth] (textM.west) -- (5.5,-7);
+  \draw[-stealth] (textA.west) -- (4,-3);
+\end{tikzpicture}
+\caption{Files of an "image-active"}
+\label{xia_files}
+\end{figure}
 
 In fact, since Xia is also an Inkscape plugin, you can generate your project directly 
 in Inkscape: just click on \chemin{Plugins $\rightarrow$ Various $\rightarrow$ Xia Édu}, 
@@ -282,6 +277,53 @@ the document}
 {Object properties} of the background image
 \end{enumerate}
 
+\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]
+
+\begin{figure}[htp]
+\begin{tikzpicture}
+  %\draw[help lines] (0,0) grid (5,5);
+  %icons
+  \node (bBlue) {\includegraphics[scale=.35]{./images/buttonBlue}};
+  \node[left= .8mm of bBlue, opacity=.5] (aBrown) {\includegraphics[scale=.35]{./images/audioBrown}};
+  \node[right= .8mm of bBlue, opacity=.5] (guClic) {\includegraphics[scale=.35]{./images/game1clic}};
+  \node[below= .2mm of bBlue.south] (pBlue) {\includegraphics[scale=.35]{./images/popBlue}};
+  \node[left= .8mm of pBlue, opacity=.5] (gDDrop) {\includegraphics[scale=.35]{./images/gameDragAndDrop}};
+  \node[right= .8mm of pBlue] (pYellow) {\includegraphics[scale=.35]{./images/popYellow}};
+  \node[above = .2mm of guClic.north] (aCloud) {\includegraphics[scale=.35]{./images/accordionCloud}};
+  \node[above = .2mm of aCloud.north] (aBlack) {\includegraphics[scale=.35]{./images/accordionBlack}};  
+  \node[left = .2mm of aBlack] (params) {\includegraphics[scale=.35]{./images/params}};  
+  \node[left = .2mm of params] (files) {\includegraphics[scale=.35]{./images/xia_open}};
+  
+  %comments
+  \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the svg source file};
+  \node[box, above = 5mm of params] (paramsC) {Select the quality of the export};
+  \node[box,above right = 5mm of aCloud.north east] (aBlackC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionBlack}{accordionBlack}\\ Large comment zone, suitable for insertion of multimedia resources; to be used with vertical images (portrait)};
+  \node[box, right = 5mm of guClic] (aCloudC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionCloud}{accordionCloud}\\ Narrow comment zone, with more space for the image itself ; to be used with horizontal images (landscape)};
+  \node[box, below right = 5mm of pYellow] (pYellowC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popYellow}{popYellow}\\ No lateral comment zone ; 
+first click on the detail reveals it, and a second one simultaneously unveils 
+the comment and the zoom function zoom on the detail};
+  \node[box, left = 25mm of bBlue] (bBlueC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/buttonBlue}{buttonBlue}\\ No lateral comment zone ; 
+comments appear above the image (suitable for long comments) ; users access  
+comments through icons placed above the image-active};
+  \node[box, below left = 5mm of pBlue] (pBlueC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{popBlue}\\ No lateral comment zone; 
+first click on the detail reveals it, and a second one pops up the comment 
+(no zoom)};
+  
+  %arrows
+  \draw[-stealth] (aBlackC.west) -- (aBlack.north east);
+  \draw[-stealth] (aCloudC.west) -- (aCloud.east);
+  \draw[-stealth] (pYellowC.north west) -- (pYellow.south east);
+  \draw[-stealth] (bBlueC.north east) -- (bBlue.north west);
+  \draw[-stealth] (pBlueC.north east) -- (pBlue.south west);
+  \draw[-stealth] (filesC.south east) -- (files.north west);
+  \draw[-stealth] (paramsC.south) -- (params.north);
+  
+\end{tikzpicture}
+\caption{Xia interface}
+\label{xia_interface}
+\end{figure}
+
+
 \section{Enriched image-active}\label{enriched_IA}
 
 \begin{links}
@@ -296,11 +338,12 @@ will be enriched with  formatted text or multimedia resources.
 
 \subsection{Formatting text}
 
-In ordre to insert formatted text, the following tags should be used:
+In ordre to insert formatted text, the following tags\ref{xia_text_tags} should be used:
 
 \tikzstyle{descrip}=[font=\sffamily, anchor=north west, text width = 4.3cm]
 \tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners, anchor=north west]
 
+\begin{figure}
 \begin{tikzpicture}
   \node[anchor=north west] (bold) {\includegraphics[scale=.5]{./images/Description}};
   \node[descrip, below = -7mm of bold] (boldT) {This text is ***bold***};
@@ -328,6 +371,9 @@ In ordre to insert formatted text, the following tags should be used:
   \node[descrip, below = 7mm of line.north] (lineT) {Drawing \\ - - - - \\ a line};
   \node[box, right = 3.5cm of line] (lineR) {Drawing \\ \hrulefill \\ a line};
 \end{tikzpicture}
+\caption{Tags to format text}
+\label{xia_text_tags}
+\end{figure}
 
 
 \subsection{Inserting multimedia resources into details}\label{enrichissement_multimedia}
@@ -354,7 +400,7 @@ The link is just inserted into the thread of comments to the detail:
  Inkscape
  
  \item [Relative link] If the multimedia file is located in the image-active 
- folder or in a folder wihtin this one, just indicate its location, keeping in 
+ folder\ref{xia_files} or in a folder\ref{xia_files} wihtin this one, just indicate its location, keeping in 
  mind that the image-active folder has to be considered as the root folder. 
  For example, if the \verb|video.ogv| file is located in a \verb|videos| 
  folder located itself in the image-active exportation folder, just indicate:
@@ -371,35 +417,7 @@ browsers, it is recommanded to export videos into the 3 supported formats,
 and to upload them into a single folder (from there, the only difference 
 between those files is their extension (ie. .ogv or .mp4 or .webm).\\
 
-\tikzstyle{every node}=[draw=black,thick,anchor=west]
-\tikzstyle{auto}=[draw=reddebian,fill=reddebian!30, text height=2.5mm]
-\tikzstyle{manual}=[draw=bluedane,fill=bluedane!30, text height=2.5mm]
-\tikzstyle{manualT}=[fill=bluedane!30,draw=bluedane, rectangle callout,text width=5cm]
-\tikzstyle{autoT}=[fill=reddebian!30,draw=reddebian, rectangle callout,text width=5cm]
-\begin{tikzpicture}[%
-  grow via three points={one child at (0.5,-0.7) and
-  two children at (0.5,-0.7) and (0.5,-1.4)},
-  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
-  \node [manual] {my\_project}
-    child { node [auto] {index.html}}		
-    child { node [auto] {deploy.html}}		
-    child { node [auto] {manifest.webapp}}		
-    child { node [auto] {css}}
-    child { node [auto] {datas}}
-    child { node [auto] {font}}
-    child { node [auto] {img}}
-    child { node [auto] {js}}
-    child { node [manual] {videos}
-      child { node [manual] {video.mp4}}
-      child { node [manual] {video.ogv}}
-      child { node [manual] {video.webm}}
-      };
-  \node[manualT, callout absolute pointer={(7,-7)}] at (10,-1) {~}; 
-  \node[manualT, callout absolute pointer={(5,0)}] at (10,0) {These files and folders  were manually created by the image-active designer. The \textcolor{bluedane}
-{videos\_folder} was also manually created, in order to host videos inserted 
-in the comments of the image-active using relative links.}; 
-  \node[autoT, callout absolute pointer={(6,-3)}] at (10,-6) {Files et folders generated by Xia from the svg source file, including the \textcolor{reddebian}{index.html} file.};
-\end{tikzpicture}
+
 
 
 Even if a particular format is indicated in the description (following 
@@ -724,8 +742,8 @@ Note that the tooltip tool is also available in the game1clic template.
 
 \begin{figure}[htp]
  \centering
- \caption{When the user moves the mouse over the yellow square, the tooltip ''Test'' displays}
  \includegraphics[width=0.5\textwidth]{images/tooltip_example}
+ \caption{When the user moves the mouse over the yellow square, the tooltip "Test" displays}
  \label{tooltip_example}
 \end{figure}
 
