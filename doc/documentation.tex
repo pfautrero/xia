@@ -212,15 +212,15 @@ template and the destination folder of the image-active.
 
 
 
-Clicking on one of the template icons generates a series of files and folders, including a 
-\verb|index.html|. 
+Clicking on one of the template icons generates a series of files and folders, including the
+\verb|index.html|.
 
 \begin{alerte}
 This file will not display anything if used 
 alone. All the other files and directories generated during the export process 
-must be stored in  the same folder\ref{xia_files} as the \verb|index.html| file in order to 
+must be stored in  the same folder (see figure \ref{xia_files}) as the \verb|index.html| file in order to 
 the animation to work properly. \textbf{It is therefore essential to 
-dedicate a specific directory\ref{xia_files} for each exported image}. Finally, just open 
+dedicate a specific directory for each exported image}. Finally, just open 
 the \verb| index.html| file in a web browser to see the image-active.
 \end{alerte}
 
@@ -338,7 +338,7 @@ will be enriched with  formatted text or multimedia resources.
 
 \subsection{Formatting text}
 
-In ordre to insert formatted text, the following tags\ref{xia_text_tags} should be used:
+In order to insert formatted text, the tags described in figure \ref{xia_text_tags} should be used.
 
 \tikzstyle{descrip}=[font=\sffamily, anchor=north west, text width = 4.3cm]
 \tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners, anchor=north west]
@@ -347,10 +347,10 @@ In ordre to insert formatted text, the following tags\ref{xia_text_tags} should 
 \begin{tikzpicture}
   \node[anchor=north west] (bold) {\includegraphics[scale=.5]{./images/Description}};
   \node[descrip, below = -7mm of bold] (boldT) {This text is ***bold***};
-  \node[box, right = 3.5cm of bold] (bolR) {This text is \textbf{bold}};
+  \node[box, right = 3.5cm of bold] (bolR) {This text is in \textbf{bold}};
   \node[anchor=north west, below = .2cm of bold] (italic) {\includegraphics[scale=.5]{./images/Description}};
-  \node[descrip, below = -7mm of italic] (italicT) {This text is in **italic**};
-  \node[box, right = 3.5cm of italic] (italicR) {This text is in \textit{italic}};
+  \node[descrip, below = -7mm of italic] (italicT) {This text is in **italics**};
+  \node[box, right = 3.5cm of italic] (italicR) {This text is in \textit{italics}};
   \node[anchor=north west, below = .2cm of italic] (texttt) {\includegraphics[scale=.5]{./images/Description}};
   \node[descrip, below = -7mm of texttt] (textttT) {This text is in \verb!{{{typewriter}}}!};
   \node[box, right = 3.5cm of texttt] (textttR) {This text is in \texttt{typewriter}};
@@ -378,7 +378,7 @@ In ordre to insert formatted text, the following tags\ref{xia_text_tags} should 
 
 \subsection{Inserting multimedia resources into details}\label{enrichissement_multimedia}
 
-Inserting multimedia resources into detail comments is quite easy: just paste 
+Inserting multimedia resources into details comments is quite easy: just paste 
 the resource url (relative or absolute link) or iframe tag of the web service 
 you want to use. Xia will automatically create a multimedia player in the comment as long as 
 the resource (image, sound or video) matches its supported formats: 
@@ -388,7 +388,7 @@ the resource (image, sound or video) matches its supported formats:
  \item [Video] ogv, webm, mp4
 \end{description}
 
-The link is just inserted into the thread of comments to the detail:
+The link has to be inserted into the \chemin{Description} field of the \chemin{Object Properties}:
 \begin{description}
  \item[Absolute link] If the resource url is
  
@@ -396,11 +396,11 @@ The link is just inserted into the thread of comments to the detail:
  \verb|http://web.crdp.ac-versailles.fr/02546.ogg|
  %\end{center}
  
- Just type that url in the \chemin{Description} field of the \chemin{Object Properties} in 
+ just type it in the \chemin{Description} field of the \chemin{Object Properties} in 
  Inkscape
  
  \item [Relative link] If the multimedia file is located in the image-active 
- folder\ref{xia_files} or in a folder\ref{xia_files} wihtin this one, just indicate its location, keeping in 
+ folder\ref{xia_files} or in a folder\ref{xia_files} within this one, just indicate its location, keeping in 
  mind that the image-active folder has to be considered as the root folder. 
  For example, if the \verb|video.ogv| file is located in a \verb|videos| 
  folder located itself in the image-active exportation folder, just indicate:
@@ -432,13 +432,13 @@ giving access to the resource.
 
 \subsection{The "audioBrown" template: sounds instead of text}
 
-The "audioBrown" template is specifically dedicated to creation of 
-images-actives in which details are associated with sounds rather than text.
+The "audioBrown" template is specifically dedicated to the creation of 
+images-actives in which details are associated with sounds instead of text.
 
 The method to insert sounds using absolute or relative links is described in 
 section 
 \ref{enrichissement_multimedia}. If you wish the sound to play 
-automatically as the user click on the comment, just add \verb|autostart| right 
+automatically as the user clicks on the comment, just add \verb|autostart| right 
 after the url \footnote{The "\texttt{autostart}" tag also works with the other 
 Xia templates.}:\\
 \begin{center}
@@ -448,10 +448,10 @@ Xia templates.}:\\
 
 \subsection{Inserting images into your image-active}\label{insertion_images}
 
-Png images can be added to the background. To do this, in 
-Inkscape, select \chemin{File $\rightarrow$ Import} to incorporate your new image.
+Png images can be added to the background. To do so, select \chemin{File $\rightarrow$ Import} in 
+Inkscape to incorporate your new image.
 
-Imported image will only appear in image-active if applied white background in 
+The imported image will only appear in image-active if you have applied white background in 
 Inkscape (choose white in the horizontal colour palette at the bottom of 
 Inkscape interface (see illustration \ref{remplissage_blanc}).
 
@@ -459,17 +459,17 @@ Inkscape interface (see illustration \ref{remplissage_blanc}).
  \centering\includegraphics[width=0.6\textwidth] {images/remplissage_blanc}
  \caption{In Inkscape, select the embedded png then apply a white background 
  by selecting the color from the horizontal colour palette to make it 
- automatically visible} 
+ automatically visible.} 
  \label{remplissage_blanc}
 \end{figure}
 
-By indicating an URL in the \chemin{Title} of \chemin{Object properties} field, 
+By indicating a URL in the \chemin{Title} of \chemin{Object properties} field, 
 the embedded image becomes a clickable icon linking to a web page.
 
 \subsection{Displaying a question and unveiling an answer}
 
-Designer can create an "\textit{Answer}" clickable icon, momentarily 
-preventing user to read the end of the comment.
+The designer can create an "\textit{Answer}" clickable icon, momentarily 
+preventing the user to read the end of the comment.
 
 To do so, just indicate, in the description, the line\\ \verb|Answer:| or 
 \verb|answer:| followed by the text you wish to be shown.
