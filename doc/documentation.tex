@@ -21,14 +21,14 @@ Interactive activities : drag and drop games, discrimination, selection, etc.
 
 First sections of this documentation (see section \ref{basic_imageactive}) are dedicated to make a very simple 
 "image-active": cropped details with comments only made of plain text.
-Then, you will learn how to create enriched image-actives (see section \ref{enriched_IA}).
+Then, you will learn how to create an enriched "image-active" (see section \ref{enriched_IA}).
 Final sections (section \ref{games_IA}) will teach you to create games.
 
 \begin{astuce}
 All examples are on line (links and downloads available at 
 the beginning of each section). At the end
 of each section, a heading "Abstract" presents the essential guide lines to 
-remember when creating an image-active. 
+remember when creating an "image-active". 
 \end{astuce}
 
 \subsection{General process}
@@ -42,8 +42,8 @@ really easy to use (Inkscape will be used in this document).
 \begin{figure}[htp]
  \centering
  \tikzstyle{box} = [draw, text width=.6\textwidth, align=center]
- \tikzstyle{ia} = [draw, text width=.8\textwidth, fill=reddebian!80, rounded corners, inner ysep=4mm]
- \tikzstyle{xia} = [draw, text width=.8\textwidth, fill=bluedane!80, rounded corners, inner ysep=4mm]
+ \tikzstyle{ia} = [draw, text width=.8\textwidth, fill=reddebian!80, rounded corners, inner ysep=2mm]
+ \tikzstyle{xia} = [draw, text width=.8\textwidth, fill=bluedane!80, rounded corners, inner ysep=2mm]
   % po4a: environement tikzpicture {} 
  \begin{tikzpicture}
    \node[box] (open) {Open an Image in Inkscape};
@@ -54,7 +54,7 @@ really easy to use (Inkscape will be used in this document).
    \begin{scope}[on background layer]
     \node[fit = (open)(meta)(save)(scape), ia] (ink) {};
   \end{scope}
-   \node[box,below=2cm of save] (createia) {Create an "image-active" in html5};
+   \node[box,below=1cm of save] (createia) {Create an "image-active" in html5};
    \node[left of=createia,xshift=-.37\textwidth, rotate=90] (xia) {\textbf{Xia}};
    \begin{scope}[on background layer]
     \node[fit = (createia)(xia), xia] (ink) {};
@@ -64,7 +64,7 @@ really easy to use (Inkscape will be used in this document).
   \draw[-stealth] (meta) -- (save);
   \draw[-stealth] (save) -- (createia);
  \end{tikzpicture}
- \caption{Creation process of an image-active with  Xia}
+ \caption{Creation process of an "image-active" with  Xia}
  \label{workflowxia}
 \end{figure}
 
@@ -76,20 +76,19 @@ installation of these softwares on their websites\footnote{See the site
 \href{http://www.inkscape.org/}{Inkscape} and \href
 {http://images-actives.crdp-versailles.fr/beta/}{Xia}.}.
 
-\section{Creating your first image-active using Inkscape and Xia: \emph{Basic features}}\label{basic_imageactive}
+\section{Creating your first "image-active" using Inkscape and Xia: \emph{Basic features}}\label{basic_imageactive}
 
-\subsection{Building the svg source file to generate an image-active}\label{preparation_svg}
+\subsection{Building the svg source file to generate an "image-active"}\label{preparation_svg}
 
 % cette phrase est répétée en début de chaque section: il faudrait trouver un moyen de la mettre en valeur
 \begin{links}
-Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1}{image-active 
-created for this section of the documentation}
+Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1}{"image-active"} created for this section of the documentation.
 
 Download the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/svg/xia1.svg}{svg} source file
 \end{links}
 
 Manipulations described in this section will help you to
-create a "basic" image-active featuring:
+create a "basic" "image-active" featuring:
 \begin{itemize}
  \item Zoom-in enabled details
  \item Details comments made only with plain text
@@ -104,7 +103,7 @@ When asked by the software if you wish to "\chemin{Link}" or "\chemin{Incorporat
 
 Among the many details that one can learn by accessing the 
 dialog window \chemin{document Metadata} (\chemin
-{File} menu), three will be included in the image-active once
+{File} menu), three will be included in the "image-active" once
 generated : title, creator, rights. It is strongly recommended to type in this information
 (see what it looks like once generated on figure \ref{titre_ia})\footnote{The
 fields "author" and "rights" appear in the window
@@ -114,9 +113,9 @@ fields "author" and "rights" appear in the window
  \centering
  \includegraphics[width=\textwidth,clip=true,trim=0mm 120mm 55mm 0mm ]{images/titre_ia}
  \caption{The title entered in the metadatas of the document appears above 
-the image-active and gives its name to the web page. The creator and 
+the "image-active" and gives its name to the web page. The creator and 
  rights associated appear in the pop up associated with the "i" button 
-on the right of the title of the image-active.}
+on the right of the title of the "image-active".}
  \label{titre_ia}
 \end{figure}
 
@@ -168,7 +167,7 @@ to shape the curve segment as desired.
 \begin{alerte}
  The order of creation of details in Inkscape will be 
  the same in the html5 "image-active" (for example: the first created detail in
-Inkscape will appear at the top of the image-active).
+Inkscape will appear at the top of the "image-active").
 If you wish to change the sequence without having to create the details once more, see 
 section \ref{couche_XML}.
 \end{alerte}
@@ -189,7 +188,7 @@ detail in the "image-active".
 \begin{figure}[htp]
  \centering
  \includegraphics[width=0.5\textwidth, clip=true, trim=0mm 60mm 0mm 0mm]{./images/proprietes_objet}
- \caption{The "\chemin{Object properties}" allows to enter the text that will become a  comment on the detail in the image-active}
+ \caption{The "\chemin{Object properties}" allows to enter the text that will become a  comment on the detail in the "image-active"}
  \label{objet_properties}
 \end{figure}
 
@@ -199,34 +198,30 @@ description will be its comment.
 
 The process described above must also be done with the background image : 
 the title and description indicated here will serve as an introduction to 
-the image-active (title and comment not related to a particular detail).
+the "image-active" (title and comment not related to a particular detail).
 
-\subsection{Generating the image-active with Xia}
+\subsection{Generating the "image-active" with Xia}
 
-When all the details are clipped and their metadatas indicated, Xia\ref{xia_interface} can be launched.
-You must select the svg source file with the top left icon,
+When all the details are clipped and their metadatas indicated, Xia\ref{xia_interface} can be launched. You must select the svg source file with the top left icon,
 choose the export quality (on a scale from 1 to 4), and then choose a 
-template and the destination folder of the image-active.
+template and the destination folder of the "image-active".
 
-
-
-Clicking on one of the template icons generates a series of files and folders, including the
-\verb|index.html|.
+Clicking on one of the template icons generates a series of files and folders, including the \texttt{index.html}.
 
 \begin{alerte}
 This file will not display anything if used 
 alone. All the other files and directories generated during the export process 
-must be stored in  the same folder (see figure \ref{xia_files}) as the \verb|index.html| file so that the animation works properly. \textbf{It is therefore essential to 
+must be stored in  the same folder (figure \ref{xia_files}) as the \texttt{index.html} file so that the animation works properly. \textbf{It is therefore essential to 
 dedicate a specific directory for each exported image}. Finally, just open 
-the \verb| index.html| file in a web browser to see the image-active.
+the \texttt{index.html} file in a web browser to see the "image-active".
 \end{alerte}
 
+\begin{figure}[htp]
 \tikzstyle{every node}=[draw=black,thick,anchor=west]
 \tikzstyle{auto}=[draw=reddebian,fill=reddebian!30, text height=2.5mm]
 \tikzstyle{manual}=[draw=bluedane,fill=bluedane!30, text height=2.5mm]
 \tikzstyle{manualT}=[fill=bluedane!30,draw=bluedane, rectangle,text width=5cm, rounded corners]
 \tikzstyle{autoT}=[fill=reddebian!30,draw=reddebian, rectangle,text width=5cm, rounded corners]
-\begin{figure}[htp]
 \begin{tikzpicture}[%
   grow via three points={one child at (0.5,-0.7) and
   two children at (0.5,-0.7) and (0.5,-1.4)},
@@ -245,9 +240,9 @@ the \verb| index.html| file in a web browser to see the image-active.
       child { node [manual] {video.ogv}}
       child { node [manual] {video.webm}}
       };
-  \node[manualT] (textM) at (10,-2) {These files and folders  have been manually created by the image-active designer. The folder \textcolor{bluedane}
+  \node[manualT] (textM) at (10,-2) {These files and folders  have been manually created by the "image-active" designer. The folder \textcolor{bluedane}
 {videos} was also been manually created, in order to host videos inserted 
-in the comments of the image-active using relative links.}; 
+in the comments of the "image-active" using relative links.}; 
   \node[autoT] (textA) at (10,-6) {Files and folders generated by Xia from the svg source file, including the \textcolor{reddebian}{index.html} file.};
   \draw[-stealth] (textM.west) -- (4,0);
   \draw[-stealth] (textM.west) -- (5.5,-7);
@@ -257,26 +252,8 @@ in the comments of the image-active using relative links.};
 \label{xia_files}
 \end{figure}
 
-In fact, since Xia is also an Inkscape plugin, you can generate your project directly 
-in Inkscape: just click on \chemin{Plugins $\rightarrow$ Various $\rightarrow$ Xia Édu}, 
-and choose your template and destination folder.
-
-\subsection{Abstract}
-
-\begin{enumerate}
- \item An image-active is first built in Inkscape (svg format). Xia only 
- converts the svg source file into an html5 animation ;
- \item The title of the "image-active" must be indicated in the \chemin{Metadatas of 
-the document} ;
- \item The text of the details is filled in the \chemin{Object properties}, 
- in the \chemin{Title} and \chemin{Description} fields ;
- \item The general description of the "image-active" must be indicated in the \chemin
-{Object properties} of the background image.
-\end{enumerate}
-
-\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]
-
 \begin{figure}[htp]
+\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]
 \begin{tikzpicture}
   %\draw[help lines] (0,0) grid (5,5);
   %icons
@@ -301,7 +278,7 @@ a first click on the detail reveals it, and a second one simultaneously unveils
 the comment and the zoom function zooms in the detail};
   \node[box, left = 25mm of bBlue] (bBlueC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/buttonBlue}{buttonBlue}\\ No lateral comment zone ; 
 comments appear above the image (suitable for long comments) ; users access  
-comments through icons placed above the image-active};
+comments through icons placed above the "image-active"};
   \node[box, below left = 5mm of pBlue] (pBlueC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{popBlue}\\ No lateral comment zone; 
 a first click on the detail reveals it, and a second one pops up the comment 
 (no zoom)};
@@ -320,11 +297,27 @@ a first click on the detail reveals it, and a second one pops up the comment
 \label{xia_interface}
 \end{figure}
 
+In fact, since Xia is also an Inkscape plugin, you can generate your project directly 
+in Inkscape: just click on \chemin{Plugins $\rightarrow$ Various $\rightarrow$ Xia Édu}, 
+and choose your template and destination folder.
 
-\section{Enriched image-active}\label{enriched_IA}
+\subsection{Abstract}
+
+\begin{enumerate}
+ \item An "image-active" is first built in Inkscape (svg format). Xia only 
+ converts the svg source file into an html5 animation ;
+ \item The title of the "image-active" must be indicated in the \chemin{Metadatas of 
+the document} ;
+ \item The text of the details is filled in the \chemin{Object properties}, 
+ in the \chemin{Title} and \chemin{Description} fields ;
+ \item The general description of the "image-active" must be indicated in the \chemin
+{Object properties} of the background image.
+\end{enumerate}
+
+\section{Enriched "image-active"}\label{enriched_IA}
 
 \begin{links}
-Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2}{image-active created for this section of the documentation} 
+Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2}{"image-active"} created for this section of the documentation. 
 
 Download the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2/svg/xia2.svg}{svg} source file
 \end{links}
@@ -337,10 +330,9 @@ will be enriched with  formatted text or multimedia resources.
 
 In order to insert formatted text, the tags described in figure \ref{xia_text_tags} should be used.
 
+\begin{figure}[htp!]
 \tikzstyle{descrip}=[font=\sffamily, anchor=north west, text width = 4.3cm]
 \tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners, anchor=north west]
-
-\begin{figure}
 \begin{tikzpicture}
   \node[anchor=north west] (bold) {\includegraphics[scale=.5]{./images/Description}};
   \node[descrip, below = -7mm of bold] (boldT) {This text is ***bold***};
@@ -372,6 +364,7 @@ In order to insert formatted text, the tags described in figure \ref{xia_text_ta
 \label{xia_text_tags}
 \end{figure}
 
+\newpage
 
 \subsection{Inserting multimedia resources into details}\label{enrichissement_multimedia}
 
@@ -396,11 +389,11 @@ The link has to be inserted into the \chemin{Description} field of the \chemin{O
  just type it in the \chemin{Description} field of the \chemin{Object Properties} in 
  Inkscape
  
- \item [Relative link] If the multimedia file is located in the image-active 
+ \item [Relative link] If the multimedia file is located in the "image-active" 
  folder\ref{xia_files} or in a folder\ref{xia_files} within this one, just indicate its location, keeping in 
- mind that the image-active folder has to be considered as the root folder. 
+ mind that the "image-active" folder has to be considered as the root folder. 
  For example, if the \verb|video.ogv| file is located in a \verb|videos| 
- folder located itself in the image-active exportation folder, just indicate:
+ folder located itself in the "image-active" exportation folder, just indicate:
  
  %\begin{center}
   \verb|videos/video.ogv|
@@ -443,12 +436,12 @@ Xia templates.}:\\
 \end{center}
 
 
-\subsection{Inserting images into your image-active}\label{insertion_images}
+\subsection{Inserting images into your "image-active"}\label{insertion_images}
 
 Png images can be added to the background. To do so, select \chemin{File $\rightarrow$ Import} in 
 Inkscape to incorporate your new image.
 
-The imported image will only appear in image-active if you have applied white background in 
+The imported image will only appear in "image-active" if you have applied white background in 
 Inkscape (choose white in the horizontal colour palette at the bottom of 
 Inkscape interface (see illustration \ref{remplissage_blanc}).
 
@@ -474,7 +467,7 @@ To do so, just indicate, in the description, the line\\ \verb|Answer:| or
 \subsection{Controlling details behavior : automatic display and disabled zoom}\label{white_black_background}
 \label{couche_XML}
 
-Default behavior of details in an image-active consists in:
+Default behavior of details in an "image-active" consists in:
 \begin{itemize}
  \item highlighting details only on mouse over or with a click on the comment 
  detail title
@@ -495,12 +488,12 @@ Both of these default behaviors can be modified if the designer applies a white
 \end{description}
 
 Logical consequence : the designer can not apply a white and a black
-background all together on the same detail. The image-active can not be 
+background all together on the same detail. The "image-active" can not be 
 both immediately displayed \textit{and} have the zoom effect disabled.
 
 \subsection{Controlling order of details display in the lateral comment zone}
 
-By default, in the image-active, the details appear vertically in the order in which the relevant details have been created (the first detail created in Inkscape corresponding to detail placed up in the sidebar of the image-active).
+By default, in the "image-active", the details appear vertically in the order in which the relevant details have been created (the first detail created in Inkscape corresponding to detail placed up in the sidebar of the "image-active").
 
 We will work with the \chemin{Edit $\rightarrow$ XML Editor} to change this default order.
 
@@ -511,7 +504,7 @@ to do is to drag the files to the desired location (see figure \ref{ordre_couche
 \begin{figure}[htp]
  \centering
  \includegraphics[width=\textwidth]{images/ordre_couches}
- \caption{The Inkscape XML editor allows to control the display order of the details in the image-active. Note the highlighting of an element  
+ \caption{The Inkscape XML editor allows to control the display order of the details in the "image-active". Note the highlighting of an element  
 in the editor and on the background image by a single mouse click.}
  \label{ordre_couches}
 \end{figure}
@@ -525,18 +518,18 @@ or absolute to a file whose format is recognized by Xia
  \item Adding images to the background image is possible by importing them
  \item It is possible to modify the default behavior of a detail by changing its color 
 background (white, black)
- \item The order of the details in the image-active depends on the order
+ \item The order of the details in the "image-active" depends on the order
 of their creation in Inkscape. Nevertheless, the Inkscape XML editor allows to change that order
 \end{enumerate}
 
 
 \section{Creating games with Xia}\label{games_IA}
 
-Until now, this document has only talked about creation of traditionnal image-actives: 
+Until now, this document has only talked about creation of traditionnal "image-actives": 
 background image enriched with cropped details associated with texts.
 
-This kind of image-active can be used in classrooms in various situations 
-(students progressively discovering a document, or creating an image-active 
+This kind of "image-active" can be used in classrooms in various situations 
+(students progressively discovering a document, or creating an "image-active" 
 by themselves), but Xia introduces new features, 
 such as the creation of games and activities, in which the final user 
 has much more to do than simply clicking on details in order to read text.
@@ -549,13 +542,13 @@ instructions, a message appears in a final pop up.}
 
 
 \begin{links}
-Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia3}{image- 
-active created for this section of the documentation} 
+Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia3}{"image- 
+active"} created for this section of the documentation. 
 
 Download the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia3/svg/xia3.svg}{svg} source file.
 \end{links}
 
-This kind of game is almost the easiest way to create an image-active.
+This kind of game is almost the easiest way to create an "image-active".
 The designer only has to crop the details that the final user will have to select. 
 
 The instructions have to be completed in the 
@@ -567,7 +560,7 @@ read the instructions and close the pop up to play the game.
 
 When the user completes the game, a message automatically appears.  This message 
 has to be filled in the \chemin{Description} field of the \chemin{Object Properties} of the 
-background image \footnote{When creating a ''traditional'' image-active, 
+background image \footnote{When creating a "traditional" "image-active", 
 this field creates the introduction text, not related with any detail 
 (see section \ref{preparation_svg}).}. 
 Two informations are needed in order for this message to pop up :
@@ -600,16 +593,16 @@ in order to "chain" activities up by degree of difficulty.
   \includegraphics[scale=0.7]{./images/game1clic} 
 \end{wrapfigure}
 
-Choose the template \chemin{game1clic} to generate the image-active.
+Choose the template \chemin{game1clic} to generate the "image-active".
 
 
-\subsubsection{Advanced image-active creation tips... Showing the player's score}\label{détail_progression}
+\subsubsection{\emph{Advanced "image-active" creation tips\ldots} Showing the player's score}\label{détail_progression}
 
 
 It is possible to automatically display graphical elements when users correctly 
 selects a correct answer. Those graphical elements being png imported images or 
 shapes directly designed in Inkscape. But as Xia considers as a clickable 
-detail any shapes designed using Inkscape tools, designer of the image-active 
+detail any shapes designed using Inkscape tools, designer of the "image-active" 
 will have to transform thoses shapes in bitmap, using the "bitmap copy" Inkscape tool. 
 For example :
 \begin{enumerate}
@@ -628,7 +621,7 @@ Then, group the clickable detail to its graphical element (by successively
 clicking on the detail and the graphical element with the \Shift keystroke on),
 then selecting \chemin{Group} in the Inkscape menu \chemin{Object}.
 
-\subsubsection{Advanced image-active creation tips... Showing the player's mistakes}
+\subsubsection{\emph{Advanced "image-active" creation tips\ldots} Showing the player's mistakes}
 
 Games based on the details selection principle are obviously very
 interesting educational games\ldots but it is also quite obvious to guess how some 
@@ -638,7 +631,7 @@ frenetically clicking everywhere on the image, until the final message pops up).
 This is why it may be interesting to be able to 
 highlight the users errors during the game.
 
-In order to do that, the image-active designer will anticipate users hypothetical mistakes, and 
+In order to do that, the "image-active" designer will anticipate users hypothetical mistakes, and 
 put on the background image explicit graphical elements symbolizing those errors. 
 This grapical element may be an imported image 
 (png file) or a shape directly designed with the Inkscape tools, 
@@ -669,7 +662,7 @@ Here's how to create a game based on the drag and drop principle :
  \item In Inkscape:
 \begin{itemize}
  \item Choose a background picture
- \item Create the graphical elements users of the image-active will have to drag and drop (ie. images or group of words)
+ \item Create the graphical elements users of the "image-active" will have to drag and drop (ie. images or group of words)
  \item Using metadatas, make each label matches its drop zone (actually being cropped details)
 \end{itemize}
  \item In Xia
@@ -713,11 +706,11 @@ the \chemin{Description} field of the drag and drop graphical element.
 The only subtlety consists in the  \verb|<target></target>| tags that have to be filled in the \chemin
 {Description} field.
 
-Choose the template \chemin{gameDragAndDrop} to generate the image-active.
+Choose the template \chemin{gameDragAndDrop} to generate the "image-active".
 
 
 
-\subsubsection{How to add a «~magnet~» effect in the gameDragAndDrop template}
+\subsubsection{How to add a "magnet" effect in the gameDragAndDrop template}
 
 If the designer indicates\\
 \begin{center}
@@ -750,7 +743,7 @@ of the drop zones. Those drop zones become clickable in the html5 animation.
 \subsection{Third game principle: collisions}
 
 \textit{The game principle described in this section consists in moving objects
-within bounds defined by the image-active designer. Typically, the "collisions" game principle
+within bounds defined by the "image-active" designer. Typically, the "collisions" game principle
 can be used to create mazes or gem puzzle.}
 
 %todo: add a ''xia6'' example
