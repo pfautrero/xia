@@ -753,13 +753,12 @@ on the background image; see section \ref{gameDragAndDropsection}).
 
 \subsection{Abstract}
 
-This table sums up the tags that have to be indicated when a game is created 
- (export game1clic or gameDragAndDrop) :
+This table sums up the tags that have to be indicated when a game is created :
  
 \begin{center}
  \begin{tabular}{|p{.5cm}|p{2cm}|p{10cm}|}
  \hline
- \multicolumn{3}{|l|}{Tags} \\
+ \multicolumn{3}{|l|}{\chemin{game1clic} template} \\
  \hline
  \multicolumn{3}{|l|}{\texttt{<score></score>}}\\
  \hline
@@ -767,7 +766,6 @@ This table sums up the tags that have to be indicated when a game is created
  & \emph{Element}  & Background picture \\
  & \emph{Where ?} & \chemin{Object properties $\rightarrow$ Description} \\
  & \emph{What ?} & Number corresponding to the required score\\
- & \emph{Template} & \chemin{game1clic}, \chemin{gameDragAndDrop}\\
  \hline
  \multicolumn{3}{|l|}{\texttt{<message></message>} }\\
  \hline
@@ -775,21 +773,40 @@ This table sums up the tags that have to be indicated when a game is created
   & \emph{Element}  & Background picture \\
   & \emph{Where ?} & \chemin{Object properties $\rightarrow$ Description}\\ 
   & \emph{What ?} & A personalized message if necessary enriched with multimedia or html links\\
-  & \emph{Template} & \chemin{game1clic}, \chemin{gameDragAndDrop}\\
   \hline
   \multicolumn{3}{|l|}{\texttt{off}}\\
   \hline
   & \emph{Role} & Makes a cropped detail unclickable \\
   & \emph{Element} & Detail \\
   & \emph{Where ?} & \chemin{Object properties $\rightarrow$ Interactivity $\rightarrow$ Onclick}\\
-  & \emph{Template} & \chemin{game1clic}\\
  \hline
   \multicolumn{3}{|l|}{\texttt{disable-score}}\\
   \hline
   & \emph{Role} & Makes a cropped detail clickable, but when clicked, does not add a point to the score game counter \\
   & \emph{Element} & Detail \\
   & \emph{Where ?} & \chemin{Object properties $\rightarrow$ Interactivity $\rightarrow$ Onclick}\\
-  & \emph{Template} & \chemin{game1clic}\\
+  \hline
+  \end{tabular}
+\end{center}
+
+\begin{center}
+ \begin{tabular}{|p{.5cm}|p{2cm}|p{10cm}|}
+ \hline
+ \multicolumn{3}{|l|}{\chemin{gameDragAndDrop} template} \\
+ \hline
+ \multicolumn{3}{|l|}{\texttt{<score></score>}}\\
+ \hline
+ & \emph{Role} & Sets the amount of correct answers needed to pop up the end message of the game\\
+ & \emph{Element}  & Background picture \\
+ & \emph{Where ?} & \chemin{Object properties $\rightarrow$ Description} \\
+ & \emph{What ?} & Number corresponding to the required score\\
+ \hline
+ \multicolumn{3}{|l|}{\texttt{<message></message>} }\\
+ \hline
+  & \emph{Role} & Pops up the end message of the game \\
+  & \emph{Element}  & Background picture \\
+  & \emph{Where ?} & \chemin{Object properties $\rightarrow$ Description}\\ 
+  & \emph{What ?} & A personalized message if necessary enriched with multimedia or html links\\
   \hline
   \multicolumn{3}{|l|}{\texttt{<target></target>}}\\
   \hline
@@ -797,28 +814,24 @@ This table sums up the tags that have to be indicated when a game is created
   & \emph{Element} & Graphical element to move \\
   & \emph{Where ?} & \chemin{Object Properties $\rightarrow$ Description}\\
   & \emph{What ?} & Make sure to match the ID field of the drop zone\\
-  & \emph{Template} & \chemin{gameDragAndDrop}\\
   \hline
   \multicolumn{3}{|l|}{\texttt{<magnet>on</magnet>}}\\
   \hline
   & \emph{Role} & Adds a "magnet" effect \\
   & \emph{Element} & Drop zone \\
   & \emph{Where ?} & \chemin{Object Properties $\rightarrow$ Description} \\
-  & \emph{Template} & \chemin{gameDragAndDrop}\\
   \hline
   \multicolumn{3}{|l|}{\texttt{<collisions>on</collisions>}}\\
   \hline
   & \emph{Role} & Activates the "collisions" game principle \\
   & \emph{Element} & Background picture \\
   & \emph{Where ?} & \chemin{Object Properties $\rightarrow$ Description} \\
-  & \emph{Template} & \chemin{gameDragAndDrop}\\
   \hline
   \multicolumn{3}{|l|}{\texttt{<collisions>off</collisions>}}\\
   \hline
   & \emph{Role} & Creates a drop zone in a "collisions" game\\
   & \emph{Element} & Drop zone\\
   & \emph{Where ?} & \chemin{Object Properties $\rightarrow$ Description} \\
-  & \emph{Template} & \chemin{gameDragAndDrop}\\
   \hline
   \end{tabular}
 \end{center} 
