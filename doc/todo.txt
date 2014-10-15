@@ -1,10 +1,10 @@
 # Reminder and TODO list
 
 # Generate .pot file from text
-po4a-gettextize -f latex -m contenu.tex -M UTF8 -p fr_FR.po
+po4a-gettextize -f latex -m contenu.tex -M UTF8 -p en_EN.pot
 
 # Generate translation
-po4a-translate -f latex -m contenu.tex -p en-EN.pot -l documentation.tex
+po4a-translate -f latex -m contenu.tex -p fr_FR.po -l documentation_fr.tex
 
 # Script to generate docs from po files
 
