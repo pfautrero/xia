@@ -3,10 +3,7 @@
 \begin{document}
  \maketitle
  \tableofcontents
- 
- % il y a, à plusieurs reprises, des paragraphes du style "<à noter"> ou "<astuces">
- % peut-être faut-il adopter le style utilisé pour ce genre de choses dans la doc se3?
- 
+  
 \section{Introducing Xia}
 
 \subsection{What is Xia ?}
@@ -80,11 +77,10 @@ installation of these softwares on their websites\footnote{See the site
 
 \subsection{Building the svg source file to generate an "image-active"}\label{preparation_svg}
 
-% cette phrase est répétée en début de chaque section: il faudrait trouver un moyen de la mettre en valeur
 \begin{links}
 Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1}{"image-active"} created for this section of the documentation.
 
-Download the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/svg/xia1.svg}{svg} source file
+Download the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/svg/xia1.svg}{svg} source file.
 \end{links}
 
 Manipulations described in this section will help you to
@@ -307,9 +303,9 @@ the document} ;
 \section{Enriched "image-active"}\label{enriched_IA}
 
 \begin{links}
-Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2}{"image-active"} created for this section of the documentation. 
+Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2}{"image-active"} created for this section of the documentation.
 
-Download the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2/svg/xia2.svg}{svg} source file
+Download the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2/svg/xia2.svg}{svg} source file.
 \end{links}
 
 In this section, the goal is still to create a "traditional" "image-active" 
@@ -534,7 +530,7 @@ instructions, a message appears in a final pop up.}
 
 \begin{links}
 Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia3}{"image- 
-active"} created for this section of the documentation. 
+active"} created for this section of the documentation.
 
 Download the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia3/svg/xia3.svg}{svg} source file.
 \end{links}
@@ -643,10 +639,10 @@ message appears, confirming the achievement of the game}
 
 \begin{links}
 Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia5}{image-
-active created for this section of the documentation}
+active created for this section of the documentation}.
 
 Download the \href
-{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia5/svg/xia5.svg}{svg} source file
+{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia5/svg/xia5.svg}{svg} source file.
 \end{links}
 
 This is how you can create a game based on the drag and drop principle :
@@ -767,10 +763,11 @@ This table sums up the tags that have to be indicated when a game is created
  \hline
  \multicolumn{3}{|l|}{\texttt{<score></score>}}\\
  \hline
- & \emph{Role} & Amount of correct answers needed to pop up the end message of the game\\
+ & \emph{Role} & Sets the amount of correct answers needed to pop up the end message of the game\\
  & \emph{Element}  & Background picture \\
  & \emph{Where ?} & \chemin{Object properties $\rightarrow$ Description} \\
  & \emph{What ?} & Number corresponding to the required score\\
+ & \emph{Template} & \chemin{game1clic}, \chemin{gameDragAndDrop}\\
  \hline
  \multicolumn{3}{|l|}{\texttt{<message></message>} }\\
  \hline
@@ -778,33 +775,52 @@ This table sums up the tags that have to be indicated when a game is created
   & \emph{Element}  & Background picture \\
   & \emph{Where ?} & \chemin{Object properties $\rightarrow$ Description}\\ 
   & \emph{What ?} & A personalized message if necessary enriched with multimedia or html links\\
- \hline
+  & \emph{Template} & \chemin{game1clic}, \chemin{gameDragAndDrop}\\
+  \hline
   \multicolumn{3}{|l|}{\texttt{off}}\\
   \hline
-  & \emph{Role} & Making a cropped detail unclickable \\
+  & \emph{Role} & Makes a cropped detail unclickable \\
   & \emph{Element} & Detail \\
-  & \emph{Where ?} & \chemin{Object properties $\rightarrow$ Interactivty $\rightarrow$ Onclick}\\
+  & \emph{Where ?} & \chemin{Object properties $\rightarrow$ Interactivity $\rightarrow$ Onclick}\\
+  & \emph{Template} & \chemin{game1clic}\\
  \hline
   \multicolumn{3}{|l|}{\texttt{disable-score}}\\
   \hline
-  & \emph{Role} & Cropped detail is still clickable, but when clicked, does not add a point to the score game counter \\
+  & \emph{Role} & Makes a cropped detail clickable, but when clicked, does not add a point to the score game counter \\
   & \emph{Element} & Detail \\
-  & \emph{Where ?} & \chemin{Object properties $\rightarrow$ Interactivty $\rightarrow$ Onclick}\\
- \hline
+  & \emph{Where ?} & \chemin{Object properties $\rightarrow$ Interactivity $\rightarrow$ Onclick}\\
+  & \emph{Template} & \chemin{game1clic}\\
+  \hline
   \multicolumn{3}{|l|}{\texttt{<target></target>}}\\
   \hline
   & \emph{Role} & Indicates the corresponding drag and drop element and drop zone \\
   & \emph{Element} & Graphical element to move \\
   & \emph{Where ?} & \chemin{Object Properties $\rightarrow$ Description}\\
   & \emph{What ?} & Make sure to match the ID field of the drop zone\\
- \hline
+  & \emph{Template} & \chemin{gameDragAndDrop}\\
+  \hline
   \multicolumn{3}{|l|}{\texttt{<magnet>on</magnet>}}\\
   \hline
-  & \emph{Role} & Add a "magnet" effect \\
+  & \emph{Role} & Adds a "magnet" effect \\
   & \emph{Element} & Drop zone \\
   & \emph{Where ?} & \chemin{Object Properties $\rightarrow$ Description} \\
+  & \emph{Template} & \chemin{gameDragAndDrop}\\
   \hline
- \end{tabular}
+  \multicolumn{3}{|l|}{\texttt{<collisions>on</collisions>}}\\
+  \hline
+  & \emph{Role} & Activates the "collisions" game principle \\
+  & \emph{Element} & Background picture \\
+  & \emph{Where ?} & \chemin{Object Properties $\rightarrow$ Description} \\
+  & \emph{Template} & \chemin{gameDragAndDrop}\\
+  \hline
+  \multicolumn{3}{|l|}{\texttt{<collisions>off</collisions>}}\\
+  \hline
+  & \emph{Role} & Creates a drop zone in a "collisions" game\\
+  & \emph{Element} & Drop zone\\
+  & \emph{Where ?} & \chemin{Object Properties $\rightarrow$ Description} \\
+  & \emph{Template} & \chemin{gameDragAndDrop}\\
+  \hline
+  \end{tabular}
 \end{center} 
 
 
