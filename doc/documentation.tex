@@ -1,5 +1,10 @@
 \include{preambule}
 
+% po4a: environement astuce {}
+% po4a: environement alerte {}
+% po4a: environement links {}
+% po4a: environement tikzpicture {} 
+% po4a: command tikzstyle {} []
 \begin{document}
  \maketitle
  \tableofcontents
@@ -20,7 +25,6 @@ First sections of this documentation (see section \ref{basic_imageactive}) are d
 "image-active": cropped details with comments only made of plain text.
 Then, you will learn how to create an enriched "image-active" (see section \ref{enriched_IA}).
 Final sections (section \ref{games_IA}) will teach you to create games.
-
 \begin{astuce}
 All examples are on line (links and downloads available at 
 the beginning of each section). At the end
@@ -41,7 +45,6 @@ really easy to use (Inkscape will be used in this document).
  \tikzstyle{box} = [draw, text width=.6\textwidth, align=center]
  \tikzstyle{ia} = [draw, text width=.8\textwidth, fill=reddebian!80, rounded corners, inner ysep=2mm]
  \tikzstyle{xia} = [draw, text width=.8\textwidth, fill=bluedane!80, rounded corners, inner ysep=2mm]
-  % po4a: environement tikzpicture {} 
  \begin{tikzpicture}
    \node[box] (open) {Open an Image in Inkscape};
    \node[box,below of=open] (create)  {Create details in image};
@@ -753,7 +756,7 @@ on the background image; see section \ref{gameDragAndDropsection}).
 \newpage
 \subsection{Abstract}
 
-This table sums up the tags that have to be indicated when a game is created :
+This tables sum up the tags that have to be indicated when a game is created:
  
 \begin{center}
  \begin{tabular}{|p{.5cm}|p{2cm}|p{10cm}|}
