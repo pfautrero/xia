@@ -91,7 +91,7 @@ Manipulations described in this section will help you to
 create a "basic" "image-active" featuring:
 \begin{itemize}
  \item Zoom-in enabled details
- \item Details comments made only with plain text
+ \item Comments on details only made of plain text
 \end{itemize}
 
 
@@ -101,7 +101,7 @@ Once you have chosen the image you will work with, open it with Inkscape:
 
 When asked by the software if you wish to "\chemin{Link}" or "\chemin{Incorporate image}", choose "\chemin{Incorporate}".
 
-Among the many details that one can learn by accessing the 
+Among the many details that you can learn by accessing the 
 dialog window \chemin{document Metadata} (\chemin
 {File} menu), three will be included in the "image-active" once
 generated : title, creator, rights. It is strongly recommended to type in this information
@@ -112,7 +112,7 @@ fields "author" and "rights" appear in the window
 \begin{figure}[htp]
  \centering
  \includegraphics[width=\textwidth,clip=true,trim=0mm 120mm 55mm 0mm ]{images/titre_ia}
- \caption{The title entered in the metadatas of the document appears above 
+ \caption{The title entered in the metadata of the document appears above 
 the "image-active" and gives its name to the web page. The creator and 
  rights associated appear in the pop up associated with the "i" button 
 on the right of the title of the "image-active".}
@@ -172,7 +172,7 @@ If you wish to change the sequence without having to create the details once mor
 section \ref{couche_XML}.
 \end{alerte}
 
-Once a detail is cut out, you can select it with the tool  
+Once you have cut out a detail, you can select it with the tool  
 \chemin{Select and transform object} to resize it, move it\ldots
 
 \begin{astuce}
@@ -202,7 +202,7 @@ the "image-active" (title and comment not related to a particular detail).
 
 \subsection{Generating the "image-active" with Xia}
 
-When all the details are clipped and their metadatas indicated, Xia\ref{xia_interface} can be launched. You must select the svg source file with the top left icon,
+When all the details are clipped and their metadata indicated, Xia\ref{xia_interface} can be launched. You must select the svg source file with the top left icon,
 choose the export quality (on a scale from 1 to 4), and then choose a 
 template and the destination folder of the "image-active".
 
@@ -405,7 +405,7 @@ The link has to be inserted into the \chemin{Description} field of the \chemin{O
 Since video formats supported by Xia are not natively supported by every web 
 browsers, it is recommanded to export videos into the 3 supported formats, 
 and to upload them into a single folder (from there, the only difference 
-between those files is their extension (ie. .ogv or .mp4 or .webm).\\
+between these files is their extension (ie. .ogv or .mp4 or .webm).\\
 
 
 
@@ -475,7 +475,7 @@ Default behavior of details in an "image-active" consists in:
  for the popBlue template.}
 \end{itemize}
 
-Both of these default behaviors can be modified if the designer applies a white
+Both of these default behaviors can be modified if you apply a white
  or black background to cropped details (see section 
 \ref{insertion_images} 
  and illustration 
@@ -489,16 +489,17 @@ Both of these default behaviors can be modified if the designer applies a white
 
 Logical consequence : the designer can not apply a white and a black
 background all together on the same detail. The "image-active" can not be 
-both immediately displayed \textit{and} have the zoom effect disabled.
+ immediately displayed \textit{and} have the zoom effect disabled.
 
 \subsection{Controlling order of details display in the lateral comment zone}
 
-By default, in the "image-active", the details appear vertically in the order in which the relevant details have been created (the first detail created in Inkscape corresponding to detail placed up in the sidebar of the "image-active").
+By default, in the "image-active", the details appear vertically following the order in which these details have been created (the first detail created in Inkscape corresponding to the detail placed up in the sidebar of the "image-active").
 
 We will work with the \chemin{Edit $\rightarrow$ XML Editor} to change this default order.
 
 A priori complex to manage, this dialogue window is in fact quite easy to use : 
-selecting the image detail highlights corresponding XML inputs and the only thing left 
+by selecting the input in the XML editor, the corresponding detail will be
+highlighted on the image and the only thing left 
 to do is to drag the files to the desired location (see figure \ref{ordre_couches}).
 
 \begin{figure}[htp]
@@ -512,27 +513,27 @@ in the editor and on the background image by a single mouse click.}
 \subsection{Abstract}
 
 \begin{enumerate}
- \item One can enrich and shaping text using tags
- \item A multimedia enrichment is possible through a simple link relative
-or absolute to a file whose format is recognized by Xia
+ \item You can enrich and shaping text using tags
+ \item A multimedia enrichment is possible through a simple link (relative
+or absolute) to a file whose format is recognized by Xia
  \item Adding images to the background image is possible by importing them
  \item It is possible to modify the default behavior of a detail by changing its color 
 background (white, black)
  \item The order of the details in the "image-active" depends on the order
-of their creation in Inkscape. Nevertheless, the Inkscape XML editor allows to change that order
+of their creation in Inkscape. Nevertheless, the Inkscape XML editor allows to change this order
 \end{enumerate}
 
 
 \section{Creating games with Xia}\label{games_IA}
 
-Until now, this document has only talked about creation of traditionnal "image-actives": 
+Until now, this document was only about creation of traditionnal "image-actives": 
 background image enriched with cropped details associated with texts.
 
-This kind of "image-active" can be used in classrooms in various situations 
-(students progressively discovering a document, or creating an "image-active" 
-by themselves), but Xia introduces new features, 
+This kind of "image-active" can be used in class in various situations 
+(students progressively discovering a document, or creating an image-active
+on their own), but Xia introduces new features, 
 such as the creation of games and activities, in which the final user 
-has much more to do than simply clicking on details in order to read text.
+has much more to do than simply clicking on details in order to read the comment.
 
 \subsection{First game principle: selecting, finding elements in the image}
 
@@ -551,10 +552,10 @@ Download the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia3/
 This kind of game is almost the easiest way to create an "image-active".
 The designer only has to crop the details that the final user will have to select. 
 
-The instructions have to be completed in the 
-documents metadatas. Xia will look into 
+The instructions must be completed in the 
+metadata of the document. Xia will look into 
 the informations  filled in the  \chemin
-{Description} field of the metadatas of the document (see section \ref{preparation_svg}), and create an instruction «~pop up~» 
+{Description} field of the metadata of the document (see section \ref{preparation_svg}), and create an instruction «~pop up~» 
 that will show up at the opening of the game. The player will just have to 
 read the instructions and close the pop up to play the game.
 
@@ -599,27 +600,28 @@ Choose the template \chemin{game1clic} to generate the "image-active".
 \subsubsection{\emph{Advanced "image-active" creation tips\ldots} Showing the player's score}\label{détail_progression}
 
 
-It is possible to automatically display graphical elements when users correctly 
-selects a correct answer. Those graphical elements being png imported images or 
-shapes directly designed in Inkscape. But as Xia considers as a clickable 
+It is possible to display graphical elements automatically  when the user 
+selects the correct answer. These elements can be png imported images or shapes directly designed in
+Inkscape.
+But as Xia considers as a clickable 
 detail any shapes designed using Inkscape tools, designer of the "image-active" 
-will have to transform thoses shapes in bitmap, using the "bitmap copy" Inkscape tool. 
+will have to transform these shapes in bitmap, using the "bitmap copy" Inkscape tool. 
 For example :
 \begin{enumerate}
- \item Draw  a star of yellow sides on a yellow background with the Inkscape tools 
+ \item Draw  a star with yellow sides on a yellow background with the Inkscape tools 
  \item Select this star, and click on the \chemin{Edition $\rightarrow$ Make a bitmap copy}
- \item Delete the first created star
+ \item Delete the first star
 \end{enumerate}
 
 When the graphical elements are imported (png files) or created (bitmap copy 
-of figures created by hand), just apply to those elements the following 
-charasteristic:
+of figures created by hand), just apply the following 
+carasteristics to these elements:
 \begin{center}
 \chemin{Interactivity > OnClick} = \verb|off|
 \end{center}
 Then, group the clickable detail to its graphical element (by successively 
 clicking on the detail and the graphical element with the \Shift keystroke on),
-then selecting \chemin{Group} in the Inkscape menu \chemin{Object}.
+then select \chemin{Group} in the Inkscape \chemin{Object} menu.
 
 \subsubsection{\emph{Advanced "image-active" creation tips\ldots} Showing the player's mistakes}
 
@@ -629,14 +631,14 @@ students may be tempted to cheat to achieve such games (for example, by
 frenetically clicking everywhere on the image, until the final message pops up).
 
 This is why it may be interesting to be able to 
-highlight the users errors during the game.
+highlight the user's mistakes during the game.
 
-In order to do that, the "image-active" designer will anticipate users hypothetical mistakes, and 
-put on the background image explicit graphical elements symbolizing those errors. 
-This grapical element may be an imported image 
+To do so, the "image-active" designer will anticipate the user's probable mistakes, and 
+put explicit graphical elements symbolizing these errors on the background image. 
+This graphical element may be an imported image 
 (png file) or a shape directly designed with the Inkscape tools, 
 then converted into bitmap (see how to do that in the section 
-\ref{détail_progression}). Those elements will have to possess the following characteristic:
+\ref{détail_progression}). These elements will have to include the following caracteristics:
 \begin{center}
 \chemin{Interactivity > OnClick} = \verb|disable-score| 
 \end{center}
@@ -657,13 +659,13 @@ Download the \href
 {http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia5/svg/xia5.svg}{svg} source file
 \end{links}
 
-Here's how to create a game based on the drag and drop principle :
+This is how you can create a game based on the drag and drop principle :
 \begin{enumerate}
  \item In Inkscape:
 \begin{itemize}
  \item Choose a background picture
  \item Create the graphical elements users of the "image-active" will have to drag and drop (ie. images or group of words)
- \item Using metadatas, make each label matches its drop zone (actually being cropped details)
+ \item Using metadata, make each label match its drop zone (actually being cropped details)
 \end{itemize}
  \item In Xia
  \begin{itemize}
@@ -673,14 +675,14 @@ Here's how to create a game based on the drag and drop principle :
 
 Two methods can be used to create the drag and drop "graphical-elements".
 A very simple way is to use a screenshot tool, in order to create png files, and then import them in Inkscape.
-It is also possible to create those elements directly in Inkscape, by creating a text, grouping it with a shape,
+It is also possible to create these elements directly in Inkscape, by creating a text, grouping it with a shape,
 and finally making a bitmap copy of this group 
 (see section \ref{détail_progression})\footnote{\ldots do not forget to delete
 the original text and shape once the bitmap copy has been created.}.
-The graphical elements then have to be associated with their drop zone \footnote{\textbf{One} object can match only \textbf{one} drop zone.}.
+The graphical elements then have to be associated with their drop zone \footnote{\textbf{One} object can only match \textbf{one} drop zone.}.
 
-You will find in this table the metadatas to be filled in the \chemin{Object Properties} 
-of the drag and drop graphical elements and the corresponding details in order "to-twin" them :
+You will find in this table the metadata to be filled in the \chemin{Object Properties} 
+of the drag and drop graphical elements and the corresponding details in order to make them match :
 
 \begin{center}
 \begin{tabular}{|p{1.in}|p{2.5in}|p{1.5in}|}
@@ -703,7 +705,7 @@ Description Field & \verb|<target>Detail_Title</target>| & \\
 The designer makes the graphical elements match the drop zones by 
 making the \chemin{ID} field of the drop zone match
 the \chemin{Description} field of the drag and drop graphical element. 
-The only subtlety consists in the  \verb|<target></target>| tags that have to be filled in the \chemin
+The only subtlety consists in the  \verb|<target></target>| tags which have to be filled in the \chemin
 {Description} field.
 
 Choose the template \chemin{gameDragAndDrop} to generate the "image-active".
@@ -717,12 +719,12 @@ If the designer indicates\\
 \verb|<magnet>on</magnet>| 
 \end{center}
 in the \chemin{Description} field of the drop zone, a 
-magnet effect will then be active when the player will drop the 
-graphical element on its matching drop zone.
+magnet effect will then be active when the player drops the 
+graphical element onto its matching drop zone.
 
 \subsubsection{Two ways to give the players a little help: tooltips and links on drop zones}
 
-It is possible to display tooltips of details on mouse-over. In order to do that, 
+It is possible to display tooltips of details on mouse-over. To do so, 
 create the tooltip with a png imported file or a bitmap copy of a text created in 
 inkscape\footnote{Or a bitmap copy of a shape grouped with some text\ldots}, and 
 apply to this tooltip a specific \chemin{ID} in its \chemin{Object Properties}. Then, 
@@ -738,7 +740,7 @@ Note that the tooltip tool is also available in the game1clic template.
 \end{figure}
 
 Another method consists in inserting links in the \chemin{Title} field of the \chemin{Object Properties} 
-of the drop zones. Those drop zones become clickable in the html5 animation.
+of the drop zones. These drop zones become clickable in the html5 animation.
 
 \subsection{Third game principle: collisions}
 
@@ -753,11 +755,11 @@ can be used to create mazes or gem puzzle.}
 % {http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia6/svg/xia6.svg}{svg} source file.
 
 
-In order to create that kind of game, add the tag \verb|<collisions>on</collisions>| to the 
+In order to create this kind of game, add the tag \verb|<collisions>on</collisions>| to the 
 background image. All the details will then become solid and will prevent objects 
 (png imported files or bitmap copies of shapes created in Inkscape) from being moved through them.
 
-The ''collision'' game is in fact an enhanced gameDragAndDrop game, since the goal remains to 
+The ''collision'' game is in fact a gameDragAndDrop game, since the goal remains to 
 drag one or several objects and drop them somewhere on the image.
 The requisite tags for this template are 
 therefore the same as in the gameDragAndDrop template (\verb|<target></target>| on the objects, \verb|<score></score>| 
