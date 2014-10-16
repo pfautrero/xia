@@ -23,8 +23,8 @@ interactive activities : drag and drop games, discrimination, selection, etc.
 
 First sections of this documentation (see section \ref{basic_imageactive}) are dedicated to make a very simple 
 "image-active": cropped details with comments only made of plain text.
-Then, you will learn how to create an enriched "image-active" (see section \ref{enriched_IA}).
-Final sections (section \ref{games_IA}) will teach you to create games.
+Then, you will learn how to create an enriched "image-active" (see section \ref{enriched_IA}). Final sections (section \ref{games_IA}) will teach you to create games.
+
 \begin{astuce}
 All examples are on line (links and downloads available at 
 the beginning of each section). At the end
@@ -509,6 +509,7 @@ background (white, black)
 of their creation in Inkscape. Nevertheless, the Inkscape XML editor allows to change this order
 \end{enumerate}
 
+\newpage
 
 \section{Creating games with Xia}\label{games_IA}
 
@@ -520,6 +521,41 @@ This kind of "image-active" can be used in class in various situations
 on their own), but Xia introduces new features, 
 such as the creation of games and activities, in which the final user 
 has much more to do than simply clicking on details in order to read the comment.
+
+\begin{figure}[htp]
+\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]
+\begin{tikzpicture}
+  %\draw[help lines] (0,0) grid (5,5);
+  %icons
+  \node[opacity=.5] (bBlue) {\includegraphics[scale=.35]{./images/buttonBlue}};
+  \node[left= .8mm of bBlue] (aBrown) {\includegraphics[scale=.35]{./images/audioBrown}};
+  \node[right= .8mm of bBlue] (guClic) {\includegraphics[scale=.35]{./images/game1clic}};
+  \node[below= .2mm of bBlue.south, opacity=.5] (pBlue) {\includegraphics[scale=.35]{./images/popBlue}};
+  \node[left= .8mm of pBlue] (gDDrop) {\includegraphics[scale=.35]{./images/gameDragAndDrop}};
+  \node[right= .8mm of pBlue, opacity=.5] (pYellow) {\includegraphics[scale=.35]{./images/popYellow}};
+  \node[above = .2mm of guClic.north, opacity=.5] (aCloud) {\includegraphics[scale=.35]{./images/accordionCloud}};
+  \node[above = .2mm of aCloud.north, opacity=.5] (aBlack) {\includegraphics[scale=.35]{./images/accordionBlack}};  
+  \node[left = .2mm of aBlack] (params) {\includegraphics[scale=.35]{./images/params}};  
+  \node[left = .2mm of params] (files) {\includegraphics[scale=.35]{./images/xia_open}};
+  
+  %comments
+  \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the svg source file};
+  \node[box, above = 5mm of params] (paramsC) {Select the quality of the export};
+  \node[box, right = 5mm of guClic] (guClicC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionCloud}{game1clic}\\ text to fill and change url};
+  \node[box, left = 25mm of bBlue] (aBrownC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/buttonBlue}{audioBrown}\\ text to fill and change url};
+  \node[box, below left = 5mm of pBlue] (gDDropC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{gameDragAndDrop}\\ text to fill and change url};
+  
+  %arrows
+  \draw[-stealth] (guClicC.west) -- (guClic.east);
+  \draw[-stealth] (gDDropC.north) -- (gDDrop.south);
+  \draw[-stealth] (aBrownC.north east) -- (aBrown.north);
+  \draw[-stealth] (filesC.south east) -- (files.north west);
+  \draw[-stealth] (paramsC.south) -- (params.north);
+  
+\end{tikzpicture}
+\caption{Xia's templates}
+\label{xia_interface}
+\end{figure}
 
 \subsection{First game principle: selecting, finding elements in the image}
 
@@ -553,8 +589,9 @@ this field creates the introduction text, not related with any detail
 Two informations are needed in order for this message to pop up :
 the exact number of details that have to be selected\footnote{This number does 
 not have to match the number of details on the image).}
-and the message itself. This table sums up the tags that have to be used:
+and the message itself. 
 
+\begin{table}
  \begin{tabular}{|l|p{2in}|p{2in}|}
  \hline
   Goal & Enter the number of correct answers needed to complete the game & Display a message\\
@@ -566,7 +603,9 @@ and the message itself. This table sums up the tags that have to be used:
     & \multicolumn{2}{|l|}{\texttt{You have completed the game!</message>}}\\
   \hline
  \end{tabular}
-
+\caption{Sum up of tags}
+\label{tag1_sumup}
+\end{table}
  
 \begin{astuce}
 Text inserted inside the \verb|<message></message>| tag can be 
@@ -670,7 +709,7 @@ The graphical elements then have to be associated with their drop zone \footnote
 You will find in this table the metadata to be filled in the \chemin{Object Properties} 
 of the drag and drop graphical elements and the corresponding details in order to make them match :
 
-\begin{center}
+\begin{table}
 \begin{tabular}{|p{1.in}|p{2.5in}|p{1.5in}|}
 \hline
  & Graphical element (drag and drop objects in the game) & Cropped detail (drop zone)\\
@@ -680,7 +719,9 @@ ID Field & & \verb|Detail_Title|\\
 Description Field & \verb|<target>Detail_Title</target>| & \\
 \hline
 \end{tabular}
-\end{center}
+\caption{Sum up of tags}
+\label{tag2_sumup}
+\end{table}
 
 \begin{wrapfigure}{r}{45mm}
   \centering
@@ -700,12 +741,7 @@ Choose the template \chemin{gameDragAndDrop} to generate the "image-active".
 
 \subsubsection{How to add a "magnet" effect in the gameDragAndDrop template}
 
-If you indicate\\
-\begin{center}
-\verb|<magnet>on</magnet>| 
-\end{center}
-in the \chemin{Description} field of the drop zone, a 
-magnet effect will then be active when the player drops the 
+If you indicate \verb|<magnet>on</magnet>| in the \chemin{Description} field of the drop zone, a magnet effect will then be active when the player drops the 
 graphical element onto its matching drop zone.
 
 \subsubsection{Two ways to give the players a little help: tooltips and links on drop zones}
@@ -738,27 +774,16 @@ In order to create this kind of game, add the tag \verb|<collisions>on</collisio
 background image. All the details will then become solid and will prevent objects 
 (png imported files or bitmap copies of shapes created in Inkscape) from being moved through them.
 
-The ''collision'' game is in fact a gameDragAndDrop game, since the goal remains to 
+The "collision" game is in fact a gameDragAndDrop game, since the goal remains to 
 drag one or several objects and drop them somewhere on the image.
-The requisite tags for this template are 
-<<<<<<< HEAD
-therefore the same as in the gameDragAndDrop template (\verb|<target></target>| on the objects, \verb|<score></score>| 
-on the background image; see section \ref{gameDragAndDropsection}).
+The requisite tags for this template are therefore the same as in the gameDragAndDrop template \footnote{\texttt{<target></target>} on the objects, \texttt{<score></score>} 
+on the background image: see section \ref{gameDragAndDropsection}.}, but you will apply the  \verb|<collisions>off</collisions>| tag to the drop zone's \chemin{Description} field.
 \newpage
 \subsection{Abstract}
 
 This tables sum up the tags that have to be indicated when a game is created:
-=======
-therefore the same as in the gameDragAndDrop template\footnote{\texttt{<target></target>} on the objects, \texttt{<score></score>} 
-on the background image: see section \ref{gameDragAndDropsection}.}, but you will apply the 
- \verb|<collisions>off</collisions>| tag to the drop zone's \chemin{Description} field.
 
-\subsection{Abstract}
-
-These tables sum up the tags that have to be indicated when a game is created :
->>>>>>> be31d98f6a791fed21deb9375402f741b93f75a7
- 
-\begin{center}
+\begin{table}[thp]
  \begin{tabular}{|p{.5cm}|p{2cm}|p{10cm}|}
  \hline
  \multicolumn{3}{|l|}{\chemin{game1clic} template} \\
@@ -797,7 +822,10 @@ These tables sum up the tags that have to be indicated when a game is created :
   & \emph{Where ?} & \chemin{Object properties $\rightarrow$ Description}\\
   \hline
   \end{tabular}
-  
+  \caption{game1clic tags}
+ \end{table}
+ 
+ \begin{table}[thp]
  \begin{tabular}{|p{.5cm}|p{2cm}|p{10cm}|}
  \hline
  \multicolumn{3}{|l|}{\chemin{gameDragAndDrop} template} \\
@@ -849,7 +877,8 @@ These tables sum up the tags that have to be indicated when a game is created :
   & \emph{Where ?} & \chemin{Object properties $\rightarrow$ Description}\\
   \hline
   \end{tabular}
-\end{center} 
+  \caption{gameDragAndDrop tags}
+\end{table} 
 
 \listoffigures
 \listoftables
