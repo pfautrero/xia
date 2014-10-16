@@ -1,3 +1,17 @@
+% po4a: environment astuce 
+% po4a: environment alerte 
+% po4a: environment links 
+% po4a: environment tikzpicture  
+% po4a: command -tikzstyle 
+% po4a: command node [] [] {_}
+% po4a: environment scope []
+% po4a: command -usetikzlibrary {}
+% po4a: command -def
+% po4a: command -geometry {}
+% po4a: command -arabic {}
+% po4a: command -Roman {}
+% po4a: command -alph {}
+% po4a: command chemin {_}
 \documentclass[a4paper,12pt]{report}
 \usepackage[utf8]{inputenc}
 %\usepackage[frenchb]{babel}
@@ -19,6 +33,8 @@
 \usepackage{dingbat}
 \usepackage{xcolor}
 \usepackage{geometry}
+
+
 
 \definecolor{reddebian}{rgb}{0.84314,0.03922,0.32549}
 \definecolor{bluedane}{rgb}{0.09020,0.56863,1}
@@ -54,6 +70,7 @@
 
 \newlength{\LargeurBouleAlerte}
 \settowidth{\LargeurBouleAlerte}{%
+
   \begin{tikzpicture}%
     \node{\virageDanger};%
   \end{tikzpicture}%
@@ -75,6 +92,7 @@
   \end{lrbox}% Fin. Attention lrbox stocke du contenu sur 1 ligne (pas de paragrpahe)
   % La boîte peut être utilisée via \usebox{\boiteBrouillon}
   \vspace{1.5ex}%
+
   \begin{tikzpicture}%
     \node [boitealerte] (cadre) {%
       \hspace{0.5\LargeurBouleAlerte}%

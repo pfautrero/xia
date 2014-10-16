@@ -1,0 +1,1850 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2014-10-16 10:58+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. type: Plain text
+#: ./preambule.tex
+#: :43
+msgid "\\def\\purpledane{violet}"
+msgstr ""
+
+#. type: hypersetup{#1}
+#: ./preambule.tex
+#: :53
+msgid ""
+"pdftitle={Xia}, pdfauthor={Énuma Logiciel Libre}, pdfsubject={Xia}, "
+"pdfkeywords={Xia, logiciel libre, html5, Inkscape}, colorlinks= true, "
+"linkcolor = greendane, urlcolor = bluedane"
+msgstr ""
+
+#. type: title{#1}
+#: ./preambule.tex
+#: :58
+msgid "Xia"
+msgstr ""
+
+#. type: title{#1}
+#: ./preambule.tex
+#: :58
+msgid "Create HTML5 \"images-actives\""
+msgstr ""
+
+#.  pour unifier les indications relatives aux manipulation à effectuer dans les logiciels
+#.  à modifier au besoin
+#. type: newcommand{#4}
+#: ./preambule.tex
+#: :66
+msgid "\\texttt{\\textcolor{reddebian}{#1}}"
+msgstr ""
+
+#.  L'environnement alerte                        
+#. type: newcommand{#4}
+#: ./preambule.tex
+#: :70
+msgid "\\textdbend"
+msgstr ""
+
+#. type: tikzpicture
+#: ./preambule.tex
+#: :78
+msgid "\\node{\\virageDanger};"
+msgstr ""
+
+#.  Style pour la boîte alerte
+#. type: Plain text
+#: ./preambule.tex
+#: :81
+msgid ""
+"\\tikzstyle{boitealerte}=[draw=red,rounded corners,inner xsep=1em,inner "
+"ysep=1ex]"
+msgstr ""
+
+#.  Style pour la boule alerte
+#. type: Plain text
+#: ./preambule.tex
+#: :84
+msgid "\\tikzstyle{boulealerte}=[circle,ball color=red,text=white]"
+msgstr ""
+
+#.  On sauve dans \boiteBrouillon le contenu
+#.  Fin. Attention lrbox stocke du contenu sur 1 ligne (pas de paragrpahe)
+#.  La boîte peut être utilisée via \usebox{\boiteBrouillon}
+#. type: lrbox
+#: ./preambule.tex
+#: :105 ./preambule.tex
+#: :139 documentation.tex:2
+msgid "{\\boiteBrouillon}"
+msgstr ""
+
+#. type: tikzpicture
+#: ./preambule.tex
+#: :105
+msgid ""
+"\\node [boitealerte] (cadre) "
+"{\\hspace{0.5\\LargeurBouleAlerte}\\usebox{\\boiteBrouillon}};\\node "
+"[boulealerte] (alerte) at (cadre.west) {\\virageDanger};"
+msgstr ""
+
+#.  L'environnement astuce
+#. type: newcommand{#4}
+#: ./preambule.tex
+#: :108
+msgid "\\large\\leftthumbsup"
+msgstr ""
+
+#. type: tikzpicture
+#: ./preambule.tex
+#: :115
+msgid "\\node{\\pouceOK};"
+msgstr ""
+
+#. type: Plain text
+#: ./preambule.tex
+#: :117
+msgid "\\tikzstyle{bouleastuce}=[circle,ball color=teal,text=white]"
+msgstr ""
+
+#. type: Plain text
+#: ./preambule.tex
+#: :119
+msgid ""
+"\\tikzstyle{boiteastuce}=[draw=teal,rounded corners,inner xsep=1em,inner "
+"ysep=1ex]"
+msgstr ""
+
+#. type: tikzpicture
+#: ./preambule.tex
+#: :139
+msgid ""
+"\\node [boiteastuce] (cadre) "
+"{\\hspace{0.5\\LargeurBouleAstuce}\\usebox{\\boiteBrouillon}};\\node "
+"[bouleastuce] (astuce) at (cadre.west) {\\pouceOK};"
+msgstr ""
+
+#.  L'environnement links
+#. type: newcommand{#4}
+#: ./preambule.tex
+#: :142
+msgid "\\large\\leftpointright"
+msgstr ""
+
+#. type: tikzpicture
+#: ./preambule.tex
+#: :149
+msgid "\\node{\\mainDroite};"
+msgstr ""
+
+#. type: Plain text
+#: ./preambule.tex
+#: :151
+msgid "\\tikzstyle{boulelinks}=[circle,ball color=\\purpledane,text=white]"
+msgstr ""
+
+#. type: Plain text
+#: ./preambule.tex
+#: :153
+msgid ""
+"\\tikzstyle{boitelinks}=[draw=\\purpledane,rounded corners,inner "
+"xsep=1em,inner ysep=1ex]"
+msgstr ""
+
+#. type: tikzpicture
+#: documentation.tex:2
+msgid ""
+"\\node [boitelinks] (cadre) "
+"{\\hspace{0.5\\LargeurBouleLinks}\\usebox{\\boiteBrouillon}};\\node "
+"[boulelinks] (links) at (cadre.west) {\\mainDroite};"
+msgstr ""
+
+#. type: section{#2}
+#: documentation.tex:10
+msgid "Introducing Xia"
+msgstr ""
+
+#. type: subsection{#2}
+#: documentation.tex:12
+msgid "What is Xia ?"
+msgstr ""
+
+#. type: document
+#: documentation.tex:20
+msgid ""
+"Xia is a free software developped by teachers from the french academy of "
+"Versailles.  It is released under "
+"\\href{http://www.gnu.org/copyleft/gpl.html}{GPLv3} license.  Xia converter "
+"takes a svg file as input and outputs an \"image-active\" in html5. Beyond "
+"the already known templates export of Images-Actives software "
+"(\\href{http://images-actives.crdp-versailles.fr/spip.php?article11\\&lang=fr} "
+"{accordion, buttons, etc.}), Xia allows to generate interactive activities : "
+"drag and drop games, discrimination, selection, etc."
+msgstr ""
+
+#. type: document
+#: documentation.tex:24
+msgid ""
+"First sections of this documentation (see section \\ref{basic_imageactive}) "
+"are dedicated to make a very simple \"image-active\": cropped details with "
+"comments only made of plain text.  Then, you will learn how to create an "
+"enriched \"image-active\" (see section \\ref{enriched_IA}). Final sections "
+"(section \\ref{games_IA}) will teach you to create games."
+msgstr ""
+
+#. type: astuce
+#: documentation.tex:31
+msgid ""
+"All examples are on line (links and downloads available at the beginning of "
+"each section). At the end of each section, a heading \"Abstract\" presents "
+"the essential guide lines to remember when creating an \"image-active\"."
+msgstr ""
+
+#. type: subsection{#2}
+#: documentation.tex:33
+msgid "General process"
+msgstr ""
+
+#. type: document
+#: documentation.tex:39
+msgid ""
+"Unlike \"ImagesActives\", Xia is only needed at the end of the process.  As "
+"we can see on figure \\ref{workflowxia}, most of the work is done with a "
+"vector graphics editor. We recommend using the free open-source and "
+"muliplatform software \\href{http://www.inkscape.org/}{Inkscape}, which is "
+"really easy to use (Inkscape will be used in this document)."
+msgstr ""
+
+#. type: figure
+#: documentation.tex:68
+msgid ""
+"\\tikzstyle{box} = [draw, text width=.6\\textwidth, align=center] "
+"\\tikzstyle{ia} = [draw, text width=.8\\textwidth, fill=reddebian!80, "
+"rounded corners, inner ysep=2mm] \\tikzstyle{xia} = [draw, text "
+"width=.8\\textwidth, fill=bluedane!80, rounded corners, inner ysep=2mm]"
+msgstr ""
+
+#. type: tikzpicture
+#: documentation.tex:68
+msgid ""
+"\\node[box] (open) {Open an Image in Inkscape}; \\node[box,below of=open] "
+"(create)  {Create details in image}; \\node[box,below of=create] (meta) {For "
+"each detail, edit metadata}; \\node[box,below of=meta] (save) {Save "
+"project}; \\node[left of=create,xshift=-.37\\textwidth, rotate=90] (scape) "
+"{\\textbf{Inkscape}};"
+msgstr ""
+
+#. type: scope
+#: documentation.tex:68
+msgid "\\node[fit = (open)(meta)(save)(scape), ia] (ink) {};"
+msgstr ""
+
+#. type: tikzpicture
+#: documentation.tex:68
+msgid ""
+"\\node[box,below=1cm of save] (createia) {Create an \"image-active\" in "
+"html5}; \\node[left of=createia,xshift=-.37\\textwidth, rotate=90] (xia) "
+"{\\textbf{Xia}};"
+msgstr ""
+
+#. type: scope
+#: documentation.tex:68
+msgid "\\node[fit = (createia)(xia), xia] (ink) {};"
+msgstr ""
+
+#. type: tikzpicture
+#: documentation.tex:68
+msgid ""
+"\\draw[-stealth] (open) -- (create); \\draw[-stealth] (create) -- (meta); "
+"\\draw[-stealth] (meta) -- (save); \\draw[-stealth] (save) -- (createia);"
+msgstr ""
+
+#. type: caption{#2}
+#: documentation.tex:68
+msgid "Creation process of an \"image-active\" with Xia"
+msgstr ""
+
+#. type: subsection{#2}
+#: documentation.tex:70
+msgid "Installing Inkscape and Xia"
+msgstr ""
+
+#. type: document
+#: documentation.tex:76
+msgid ""
+"Having Inkscape and Xia installed on your computer is the only thing you "
+"need to read this documentation. You will find any relevant information "
+"about the installation of these softwares on their websites\\footnote{See "
+"the site \\href{http://www.inkscape.org/}{Inkscape} and \\href "
+"{http://images-actives.crdp-versailles.fr/beta/}{Xia}.}."
+msgstr ""
+
+#. type: section{#2}
+#: documentation.tex:78
+msgid ""
+"Creating your first \"image-active\" using Inkscape and Xia: \\emph{Basic "
+"features}"
+msgstr ""
+
+#. type: subsection{#2}
+#: documentation.tex:80
+msgid "Building the svg source file to generate an \"image-active\""
+msgstr ""
+
+#. type: links
+#: documentation.tex:83
+msgid ""
+"Explore the "
+"\\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1}{\"image-active\"} "
+"created for this section of the documentation."
+msgstr ""
+
+#. type: links
+#: documentation.tex:86
+msgid ""
+"Download the "
+"\\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/svg/xia1.svg}{svg} "
+"source file."
+msgstr ""
+
+#. type: document
+#: documentation.tex:93
+msgid ""
+"Manipulations described in this section will help you to create a \"basic\" "
+"\"image-active\" featuring:"
+msgstr ""
+
+#. type: itemize
+#: documentation.tex:93
+msgid "Zoom-in enabled details"
+msgstr ""
+
+#. type: itemize
+#: documentation.tex:93
+msgid "Comments on details only made of plain text"
+msgstr ""
+
+#. type: document
+#: documentation.tex:96
+msgid "Once you have chosen the image you will work with, open it with Inkscape:"
+msgstr ""
+
+#. type: document
+#: documentation.tex:98
+msgid "\\chemin{File $\\rightarrow$ Open}"
+msgstr ""
+
+#. type: document
+#: documentation.tex:100
+msgid ""
+"When asked by the software if you wish to \"\\chemin{Link}\" or "
+"\"\\chemin{Incorporate image}\", choose \"\\chemin{Incorporate}\"."
+msgstr ""
+
+#. type: document
+#: documentation.tex:108
+msgid ""
+"Among the many details that you can learn by accessing the dialog window "
+"\\chemin{document Metadata} (\\chemin {File} menu), three will be included "
+"in the \"image-active\" once generated : title, creator, rights. It is "
+"strongly recommended to type in this information (see what it looks like "
+"once generated on figure \\ref{titre_ia})\\footnote{The fields \"author\" "
+"and \"rights\" appear in the window \"About\", symbolized by a clickable "
+"button shaped like the letter \"i\"}."
+msgstr ""
+
+#. type: caption{#2}
+#: documentation.tex:118
+msgid ""
+"The title entered in the metadata of the document appears above the "
+"\"image-active\" and gives its name to the web page. The creator and rights "
+"appear in the pop up associated with the \"i\" button on the right of the "
+"title of the \"image-active\"."
+msgstr ""
+
+#. type: document
+#: documentation.tex:121
+msgid ""
+"You can save the image in svg format in the earlywork, through \\chemin{File "
+"$\\rightarrow$ Save as\\ldots}."
+msgstr ""
+
+#. type: document
+#: documentation.tex:125
+msgid ""
+"For more clarity, you should remove the current extension of the image in "
+"the field \\chemin{Name} of the dialog window. Finally, in the dropdown "
+"menu, choose the Inkscape svg file format:"
+msgstr ""
+
+#. type: document
+#: documentation.tex:127
+msgid "\\chemin{SVG Inkscape (*.svg)}."
+msgstr ""
+
+#. type: document
+#: documentation.tex:136
+msgid ""
+"Several Inkscape tools can be used to clip the details that will become "
+"active in the animation generated by Xia. Among these:"
+msgstr ""
+
+#. type: itemize
+#: documentation.tex:136
+msgid "\\chemin{Create rectangles and squares}"
+msgstr ""
+
+#. type: itemize
+#: documentation.tex:136
+msgid "\\chemin{Create circles, ellipses and arcs}"
+msgstr ""
+
+#. type: itemize
+#: documentation.tex:136
+msgid "\\chemin{Draw freehand lines}"
+msgstr ""
+
+#. type: itemize
+#: documentation.tex:136
+msgid ""
+"\\includegraphics[scale=0.5]{./images/bezier} \\chemin{Bezier curves and "
+"straight lines}"
+msgstr ""
+
+#. type: document
+#: documentation.tex:144
+msgid ""
+"Without going in the detail of how these tools work\\footnote{For this, "
+"refer to "
+"\\href{http://inkscape.org/doc/shapes/tutorial-shapes.fr.html}{Inkscape "
+"manual} or \\href{http://en.flossmanuals.net/inkscape/}{Floss manual}.} note "
+"that the tool \"\\chemin{Draw Bezier curves and straight lines}\" allows to "
+"crop \"click by click\" (work points are called \"nodes\").  You close the "
+"figure by clicking on the start node.  You can draw \"\\chemin{Bezier "
+"curves}\" by keeping the mouse button pressed after creating a node, then "
+"moving the cursor to bring up the control handles to shape the curve segment "
+"as desired."
+msgstr ""
+
+#. type: alerte
+#: documentation.tex:149
+msgid ""
+"If you set a left open shape in Inkscape (for example a line), Xia will "
+"automatically close it by connecting a straight line between the beginning "
+"and the end of it."
+msgstr ""
+
+#. type: alerte
+#: documentation.tex:157
+msgid ""
+"The order of creation of details in Inkscape will be the same in the html5 "
+"\"image-active\" (for example: the first created detail in Inkscape will "
+"appear at the top of the \"image-active\").  If you wish to change the "
+"sequence without having to create the details once more, see section "
+"\\ref{couche_XML}."
+msgstr ""
+
+#. type: document
+#: documentation.tex:160
+msgid ""
+"Once you have cut out a detail, you can select it with the tool "
+"\\chemin{Select and transform object} to resize it, move it\\ldots"
+msgstr ""
+
+#. type: astuce
+#: documentation.tex:165
+msgid ""
+"If you have some difficulties to select the details you have drawn, apply a "
+"colour background to them. Choose whatever colour you like, except for black "
+"and white (see why in section \\ref{white_black_background})."
+msgstr ""
+
+#. type: document
+#: documentation.tex:170
+msgid ""
+"You can access to the \\chemin{Object properties} (see illustration "
+"\\ref{objet_properties}) by right-clicking on the cut-out detail. Thus you "
+"also access to the dialog window in which you add the text to be associated "
+"with the detail in the \"image-active\"."
+msgstr ""
+
+#. type: caption{#2}
+#: documentation.tex:177
+msgid ""
+"The \"\\chemin{Object properties}\" allows to enter the text that will "
+"become a comment on the detail in the \"image-active\""
+msgstr ""
+
+#. type: document
+#: documentation.tex:181
+msgid ""
+"The two fields to be filled in this window are \\chemin{Title} and "
+"\\chemin{Description}.  The title filled in here will be that of the detail, "
+"description will be its comment."
+msgstr ""
+
+#. type: document
+#: documentation.tex:185
+msgid ""
+"The process described above must also be done with the background image : "
+"the title and description indicated here will serve as an introduction to "
+"the \"image-active\" (title and comment not related to a particular detail)."
+msgstr ""
+
+#. type: subsection{#2}
+#: documentation.tex:187
+msgid "Generating the \"image-active\" with Xia"
+msgstr ""
+
+#. type: document
+#: documentation.tex:191
+msgid ""
+"When all the details are clipped and their metadata indicated, Xia can be "
+"launched (see figure \\ref{xia_interface}). You must select the svg source "
+"file with the top left icon, choose the export quality (on a scale from 1 to "
+"4), and then choose a template and the destination folder of the "
+"\"image-active\"."
+msgstr ""
+
+#. type: document
+#: documentation.tex:195
+msgid ""
+"Clicking on one of the template icons generates a series of files and "
+"folders.  Open the \\chemin{index.html} file in a webbrowser to see the "
+"html5 image-active."
+msgstr ""
+
+#. type: alerte
+#: documentation.tex:202
+msgid ""
+"This file will not display anything if used alone. All the other files and "
+"directories generated during the export process must be stored in the same "
+"folder (see figure \\ref{xia_files}) as the \\texttt{index.html} file so "
+"that the animation works properly. \\textbf{It is therefore essential to "
+"dedicate a specific directory for each exported image}."
+msgstr ""
+
+#. type: figure
+#: documentation.tex:238
+msgid ""
+"\\tikzstyle{every node}=[draw=black,thick,anchor=west] "
+"\\tikzstyle{auto}=[draw=reddebian,fill=reddebian!30, text height=2.5mm] "
+"\\tikzstyle{manual}=[draw=bluedane,fill=bluedane!30, text height=2.5mm] "
+"\\tikzstyle{manualT}=[fill=bluedane!30,draw=bluedane, rectangle,text "
+"width=5cm, rounded corners] "
+"\\tikzstyle{autoT}=[fill=reddebian!30,draw=reddebian, rectangle,text "
+"width=5cm, rounded corners]"
+msgstr ""
+
+#. type: tikzpicture
+#: documentation.tex:238
+msgid ""
+"[grow via three points={one child at (0.5,-0.7) and two children at "
+"(0.5,-0.7) and (0.5,-1.4)}, edge from parent path={(\\tikzparentnode.south) "
+"|- (\\tikzchildnode.west)}] \\node [manual] {my\\_project/} child { node "
+"[auto] {index.html}}\t\t child { node [auto] {deploy.html}}\t\t child { node "
+"[auto] {manifest.webapp}}\t\t child { node [auto] {css/}} child { node "
+"[auto] {data/}} child { node [auto] {font/}} child { node [auto] {img/}} "
+"child { node [auto] {js/}} child { node [manual] {videos/} child { node "
+"[manual] {video.mp4}} child { node [manual] {video.ogv}} child { node "
+"[manual] {video.webm}} }; \\node[manualT] (textM) at (10,-2) {These files "
+"and folders have been manually created by the \"image-active\" designer. The "
+"folder \\textcolor{bluedane} {videos} was also manually created, in order to "
+"host videos inserted in the comments of the \"image-active\" using relative "
+"links.}; \\node[autoT] (textA) at (10,-6) {Files and folders generated by "
+"Xia from the svg source file.}; \\draw[-stealth] (textM.west) -- (4,0); "
+"\\draw[-stealth] (textM.west) -- (5.5,-7); \\draw[-stealth] (textA.west) -- "
+"(4,-3);"
+msgstr ""
+
+#. type: caption{#2}
+#: documentation.tex:238
+msgid "Files of an \"image-active\""
+msgstr ""
+
+#. type: figure
+#: documentation.tex:254 documentation.tex:538
+msgid "\\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]"
+msgstr ""
+
+#. \draw[help lines] (0,0) grid (5,5);
+#. icons
+#. type: tikzpicture
+#: documentation.tex:254
+msgid ""
+"\\node (bBlue) {\\includegraphics[scale=.35]{./images/buttonBlue}}; "
+"\\node[left= .8mm of bBlue, opacity=.5] (aBrown) "
+"{\\includegraphics[scale=.35]{./images/audioBrown}}; \\node[right= .8mm of "
+"bBlue, opacity=.5] (guClic) "
+"{\\includegraphics[scale=.35]{./images/game1clic}}; \\node[below= .2mm of "
+"bBlue.south] (pBlue) {\\includegraphics[scale=.35]{./images/popBlue}}; "
+"\\node[left= .8mm of pBlue, opacity=.5] (gDDrop) "
+"{\\includegraphics[scale=.35]{./images/gameDragAndDrop}}; \\node[right= .8mm "
+"of pBlue] (pYellow) {\\includegraphics[scale=.35]{./images/popYellow}}; "
+"\\node[above = .2mm of guClic.north] (aCloud) "
+"{\\includegraphics[scale=.35]{./images/accordionCloud}}; \\node[above = .2mm "
+"of aCloud.north] (aBlack) "
+"{\\includegraphics[scale=.35]{./images/accordionBlack}}; \\node[left = .2mm "
+"of aBlack] (params) {\\includegraphics[scale=.35]{./images/params}}; "
+"\\node[left = .2mm of params] (files) "
+"{\\includegraphics[scale=.35]{./images/xia_open}};"
+msgstr ""
+
+#. comments
+#. type: tikzpicture
+#: documentation.tex:269
+msgid ""
+"\\node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the "
+"svg source file}; \\node[box, above = 5mm of params] (paramsC) {Select the "
+"quality of the export}; \\node[box,above right = 5mm of aCloud.north east] "
+"(aBlackC) "
+"{\\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionBlack}{accordionBlack}\\\\ "
+"Large comment zone, suitable for the insertion of multimedia resources; to "
+"be used with vertical images (portrait)}; \\node[box, right = 5mm of guClic] "
+"(aCloudC) "
+"{\\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionCloud}{accordionCloud}\\\\ "
+"Narrow comment zone, with more space for the image itself ; to be used with "
+"horizontal images (landscape)}; \\node[box, below right = 5mm of pYellow] "
+"(pYellowC) "
+"{\\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popYellow}{popYellow}\\\\ "
+"No lateral comment zone ; a first click on the detail reveals it, and a "
+"second one simultaneously unveils the comment and the zoom function zooms in "
+"the detail}; \\node[box, left = 25mm of bBlue] (bBlueC) "
+"{\\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/buttonBlue}{buttonBlue}\\\\ "
+"No lateral comment zone ; comments appear above the image (suitable for long "
+"comments) ; the users access the comments through icons placed above the "
+"\"image-active\"}; \\node[box, below left = 5mm of pBlue] (pBlueC) "
+"{\\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{popBlue}\\\\ "
+"No lateral comment zone; a first click on the detail reveals it, and a "
+"second one pops up the comment (no zoom)};"
+msgstr ""
+
+#. arrows
+#. type: tikzpicture
+#: documentation.tex:278
+msgid ""
+"\\draw[-stealth] (aBlackC.west) -- (aBlack.north east); \\draw[-stealth] "
+"(aCloudC.west) -- (aCloud.east); \\draw[-stealth] (pYellowC.north west) -- "
+"(pYellow.south east); \\draw[-stealth] (bBlueC.north east) -- (bBlue.north "
+"west); \\draw[-stealth] (pBlueC.north east) -- (pBlue.south west); "
+"\\draw[-stealth] (filesC.south east) -- (files.north west); \\draw[-stealth] "
+"(paramsC.south) -- (params.north);"
+msgstr ""
+
+#. type: caption{#2}
+#: documentation.tex:283 documentation.tex:557
+msgid "Xia's templates"
+msgstr ""
+
+#. type: document
+#: documentation.tex:287
+msgid ""
+"In fact, since Xia is also an Inkscape plugin, you can generate your project "
+"directly in Inkscape: just click on \\chemin{Plugins $\\rightarrow$ Various "
+"$\\rightarrow$ Xia Édu}, and choose your template and destination folder."
+msgstr ""
+
+#. type: subsection{#2}
+#: documentation.tex:289 documentation.tex:498 documentation.tex:781
+msgid "Abstract"
+msgstr ""
+
+#. type: enumerate
+#: documentation.tex:300
+msgid ""
+"An \"image-active\" is first built in Inkscape (svg format). Xia only "
+"converts the svg source file into an html5 animation ;"
+msgstr ""
+
+#. type: enumerate
+#: documentation.tex:300
+msgid ""
+"The title of the \"image-active\" must be indicated in the \\chemin{Metadata "
+"of the document} ;"
+msgstr ""
+
+#. type: enumerate
+#: documentation.tex:300
+msgid ""
+"The text of the details is filled in the \\chemin{Object properties}, in the "
+"\\chemin{Title} and \\chemin{Description} fields ;"
+msgstr ""
+
+#. type: enumerate
+#: documentation.tex:300
+msgid ""
+"The general description of the \"image-active\" must be indicated in the "
+"\\chemin {Object properties} of the background image."
+msgstr ""
+
+#. type: section{#2}
+#: documentation.tex:302
+msgid "Enriched \"image-active\""
+msgstr ""
+
+#. type: links
+#: documentation.tex:305
+msgid ""
+"Explore the "
+"\\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2}{\"image-active\"} "
+"created for this section of the documentation."
+msgstr ""
+
+#. type: links
+#: documentation.tex:308
+msgid ""
+"Download the "
+"\\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2/svg/xia2.svg}{svg} "
+"source file."
+msgstr ""
+
+#. type: document
+#: documentation.tex:312
+msgid ""
+"In this section, the goal is still to create a \"traditional\" "
+"\"image-active\" (ie. in which a detail matches with a comment), but the "
+"content of the comments will be enriched with formatted text or multimedia "
+"resources."
+msgstr ""
+
+#. type: subsection{#2}
+#: documentation.tex:316
+msgid "Formatting text"
+msgstr ""
+
+#. type: document
+#: documentation.tex:318
+msgid ""
+"In order to insert formatted text, the tags described in figure "
+"\\ref{xia_text_tags} should be used."
+msgstr ""
+
+#. type: figure
+#: documentation.tex:352
+msgid ""
+"\\tikzstyle{descrip}=[font=\\sffamily, anchor=north west, text width = "
+"4.3cm] \\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded "
+"corners, anchor=north west]"
+msgstr ""
+
+#. type: tikzpicture
+#: documentation.tex:352
+msgid ""
+"\\node[anchor=north west] (bold) "
+"{\\includegraphics[scale=.5]{./images/Description}}; \\node[descrip, below = "
+"-7mm of bold] (boldT) {This text is ***bold***}; \\node[box, right = 3.5cm "
+"of bold] (bolR) {This text is in \\textbf{bold}}; \\node[anchor=north west, "
+"below = .2cm of bold] (italic) "
+"{\\includegraphics[scale=.5]{./images/Description}}; \\node[descrip, below = "
+"-7mm of italic] (italicT) {This text is in **italics**}; \\node[box, right = "
+"3.5cm of italic] (italicR) {This text is in \\textit{italics}}; "
+"\\node[anchor=north west, below = .2cm of italic] (texttt) "
+"{\\includegraphics[scale=.5]{./images/Description}}; \\node[descrip, below = "
+"-7mm of texttt] (textttT) {This text is in \\verb!{{{typewriter}}}!}; "
+"\\node[box, right = 3.5cm of texttt] (textttR) {This text is in "
+"\\texttt{typewriter}}; \\node[anchor=north west, below = .2cm of texttt] "
+"(link) {\\includegraphics[scale=.5]{./images/Description}}; \\node[descrip, "
+"below = 7mm of link.north] (linkT) {A link to "
+"\\verb![https://www.wikipedia.org/Wikipedia]!}; \\node[box, right = 3.5cm of "
+"link] (linkR) {A link to \\href{https://www.wikipedia.org/}{Wikipedia}}; "
+"\\node[anchor=north west, below = .8cm of link] (bullets) "
+"{\\includegraphics[scale=.5]{./images/Description}}; \\node[descrip, below = "
+"-7mm of bullets] (bulletsT) {Making a list \\\\ $\\ast$ of bullets \\\\ "
+"$\\ast$ out of \\\\ ~$\\ast$ 2 levels}; \\node[box, right = 3.5cm of "
+"bullets.south east] (bulletsR) {Making a list \\begin{itemize} \\item of "
+"bullets \\item out of \\begin{itemize} \\item2 levels \\end{itemize} "
+"\\end{itemize} }; \\node[anchor=north west, below = 2cm of bullets] (line) "
+"{\\includegraphics[scale=.5]{./images/Description}}; \\node[descrip, below = "
+"7mm of line.north] (lineT) {Drawing \\\\ - - - - \\\\ a line}; \\node[box, "
+"right = 3.5cm of line] (lineR) {Drawing \\\\ \\hrulefill \\\\ a line};"
+msgstr ""
+
+#. type: caption{#2}
+#: documentation.tex:352
+msgid "Tags to format text"
+msgstr ""
+
+#. type: subsection{#2}
+#: documentation.tex:354
+msgid "Inserting multimedia resources into details"
+msgstr ""
+
+#. type: document
+#: documentation.tex:364
+msgid ""
+"Inserting multimedia resources into details comments is quite easy: just "
+"paste the resource url (relative or absolute link) or iframe tag of the web "
+"service you want to use. Xia will automatically create a multimedia player "
+"in the comment as long as the resource (image, sound or video) matches its "
+"supported formats:"
+msgstr ""
+
+#. type: item[#1]
+#: documentation.tex:364
+msgid "Images"
+msgstr ""
+
+#. type: description
+#: documentation.tex:364
+msgid "jpg, jpeg, png, gif"
+msgstr ""
+
+#. type: description
+#: documentation.tex:364
+msgid "[Audio] ogg, mp3"
+msgstr ""
+
+#. type: description
+#: documentation.tex:364
+msgid "[Video] ogv, webm, mp4"
+msgstr ""
+
+#. type: document
+#: documentation.tex:368
+msgid ""
+"The link has to be inserted into the \\chemin{Description} field of the "
+"\\chemin{Object Properties}:"
+msgstr ""
+
+#. type: item[#1]
+#: documentation.tex:368
+msgid "Absolute link"
+msgstr ""
+
+#. type: description
+#: documentation.tex:368
+msgid "If the resource url is"
+msgstr ""
+
+#. \begin{center}
+#. \end{center}
+#. type: description
+#: documentation.tex:372
+msgid "\\verb|http://web.crdp.ac-versailles.fr/02546.ogg|"
+msgstr ""
+
+#. type: description
+#: documentation.tex:375
+msgid ""
+"just type it in the \\chemin{Description} field of the \\chemin{Object "
+"Properties} in Inkscape"
+msgstr ""
+
+#. type: item[#1]
+#: documentation.tex:381
+msgid "Relative link"
+msgstr ""
+
+#. type: description
+#: documentation.tex:381
+msgid ""
+"If the multimedia file is located in the \"image-active\" folder or in a "
+"folder (see figure \\ref{xia_files}) within this one, just indicate its "
+"location, keeping in mind that the \"image-active\" folder has to be "
+"considered as the root folder.  For example, if the \\verb|video.ogv| file "
+"is located in a \\verb|videos| folder located itself in the \"image-active\" "
+"exportation folder, just indicate:"
+msgstr ""
+
+#. \begin{center}
+#. end{center}
+#. type: description
+#: documentation.tex:385
+msgid "\\verb|videos/video.ogv|"
+msgstr ""
+
+#. type: description
+#: documentation.tex:388
+msgid "in order to create the player."
+msgstr ""
+
+#. type: document
+#: documentation.tex:393
+msgid ""
+"Since video formats supported by Xia are not natively supported by every web "
+"browsers, it is recommanded to export videos into the 3 supported formats, "
+"and to upload them into a single folder (from there, the only difference "
+"between these files is their extension (ie. .ogv or .mp4 or .webm).\\\\"
+msgstr ""
+
+#. type: document
+#: documentation.tex:402
+msgid ""
+"Even if a particular format is indicated in the description (following the "
+"previous example : \\verb|videos/video.ogv|), if the browser is unable to "
+"read the resource, it will automatically attempt to read the files of the "
+"same name possessing a different extension (ie. \\verb|video.mp4| then "
+"\\verb|video.webm|)."
+msgstr ""
+
+#. type: document
+#: documentation.tex:406
+msgid ""
+"The last option is to insert an iframe tag.  It will be interpreted and the "
+"reader will appear in the comment, giving access to the resource."
+msgstr ""
+
+#. type: subsection{#2}
+#: documentation.tex:408
+msgid "The \"audioBrown\" template: sounds instead of text"
+msgstr ""
+
+#. type: document
+#: documentation.tex:411
+msgid ""
+"The \"audioBrown\" template is specifically dedicated to the creation of "
+"images-actives in which details are associated with sounds instead of text."
+msgstr ""
+
+#. type: document
+#: documentation.tex:421
+msgid ""
+"The method to insert sounds using absolute or relative links is described in "
+"section \\ref{enrichissement_multimedia}. If you wish the sound to play "
+"automatically as the user clicks on the comment, just add \\verb|autostart| "
+"right after the url \\footnote{The \"\\texttt{autostart}\" tag also works "
+"with the other Xia templates.}:\\\\"
+msgstr ""
+
+#. type: center
+#: documentation.tex:421
+msgid "\\verb|sons/son_detail_1.ogg autostart|"
+msgstr ""
+
+#. type: subsection{#2}
+#: documentation.tex:424
+msgid "Inserting images into your \"image-active\""
+msgstr ""
+
+#. type: document
+#: documentation.tex:427
+msgid ""
+"Png images can be added to the background. To do so, select \\chemin{File "
+"$\\rightarrow$ Import} in Inkscape to incorporate your new image."
+msgstr ""
+
+#. type: document
+#: documentation.tex:431
+msgid ""
+"The imported image will only appear in the html5 animation if you have "
+"applied white background in Inkscape. Choose white in the horizontal colour "
+"palette at the bottom of Inkscape interface (see illustration "
+"\\ref{remplissage_blanc})."
+msgstr ""
+
+#. type: caption{#2}
+#: documentation.tex:439
+msgid ""
+"In Inkscape, select the embedded png then apply a white background by "
+"selecting the color from the horizontal colour palette to make it "
+"automatically visible."
+msgstr ""
+
+#. type: document
+#: documentation.tex:442
+msgid ""
+"By indicating a url in the \\chemin{Title} of \\chemin{Object properties} "
+"field, the embedded image becomes a clickable icon linking to a web page."
+msgstr ""
+
+#. type: subsection{#2}
+#: documentation.tex:444
+msgid "Displaying a question and unveiling an answer"
+msgstr ""
+
+#. type: document
+#: documentation.tex:447
+msgid ""
+"You can create an \"\\textit{Answer}\" clickable icon, momentarily "
+"preventing the user to read the end of the comment."
+msgstr ""
+
+#. type: document
+#: documentation.tex:450
+msgid ""
+"To do so, just indicate, in the description, the line\\\\ \\verb|Answer:| or "
+"\\verb|answer:| followed by the text you wish to be shown."
+msgstr ""
+
+#. type: subsection{#2}
+#: documentation.tex:453
+msgid "Controlling details behavior : automatic display and disabled zoom"
+msgstr ""
+
+#. type: document
+#: documentation.tex:461
+msgid "Default behavior of details in an \"image-active\" consists in:"
+msgstr ""
+
+#. type: itemize
+#: documentation.tex:461
+msgid ""
+"highlighting details only on mouse over or with a click on the comment "
+"detail title"
+msgstr ""
+
+#. type: itemize
+#: documentation.tex:461
+msgid "zoom in effect when clicking again on the active detail"
+msgstr ""
+
+#. type: footnote{#2}
+#: documentation.tex:461
+msgid "Except for the popBlue template."
+msgstr ""
+
+#. type: document
+#: documentation.tex:473
+msgid ""
+"Both of these default behaviors can be modified if you apply a white or "
+"black background to cropped details (see section \\ref{insertion_images} and "
+"illustration \\ref{remplissage_blanc}):"
+msgstr ""
+
+#. type: item[#1]
+#: documentation.tex:473
+msgid "Detail with a white background"
+msgstr ""
+
+#. type: description
+#: documentation.tex:473
+msgid ""
+"In the generated image, details will be immediately visible as a flat area "
+"of opaque color, hiding the background image; once selected, it reveals the "
+"background (the zoom effect is still active)."
+msgstr ""
+
+#. type: description
+#: documentation.tex:473
+msgid ""
+"[Detail with a black background] Users still have to click on the detail to "
+"unveil it, but the zoom effect is disabled."
+msgstr ""
+
+#. type: document
+#: documentation.tex:477
+msgid ""
+"Logical consequence : you can not apply a white and a black background all "
+"together on the same detail. The \"image-active\" can not be immediately "
+"displayed \\textit{and} have the zoom effect disabled."
+msgstr ""
+
+#. type: subsection{#2}
+#: documentation.tex:479
+msgid "Controlling order of details display in the lateral comment zone"
+msgstr ""
+
+#. type: document
+#: documentation.tex:481
+msgid ""
+"By default, in the \"image-active\", the details appear vertically following "
+"the order in which these details have been created (the first detail created "
+"in Inkscape corresponding to the detail placed up in the sidebar of the "
+"\"image-active\")."
+msgstr ""
+
+#. type: document
+#: documentation.tex:483
+msgid ""
+"We will work with the \\chemin{Edit $\\rightarrow$ XML Editor} to change "
+"this default order."
+msgstr ""
+
+#. type: document
+#: documentation.tex:488
+msgid ""
+"A priori complex to manage, this dialogue window is in fact quite easy to "
+"use : by selecting the input in the XML editor, the corresponding detail "
+"will be highlighted on the image and the only thing left to do is to drag "
+"the files to the desired location (see figure \\ref{ordre_couches})."
+msgstr ""
+
+#. type: caption{#2}
+#: documentation.tex:496
+msgid ""
+"The Inkscape XML editor allows to control the display order of the details "
+"in the \"image-active\". Note the highlighting of an element in the editor "
+"and on the background image by a single mouse click."
+msgstr ""
+
+#. type: enumerate
+#: documentation.tex:509
+msgid "You can enrich and shaping text using tags"
+msgstr ""
+
+#. type: enumerate
+#: documentation.tex:509
+msgid ""
+"A multimedia enrichment is possible through a simple link (relative or "
+"absolute) to a file whose format is recognized by Xia"
+msgstr ""
+
+#. type: enumerate
+#: documentation.tex:509
+msgid "Adding images to the background image is possible by importing them"
+msgstr ""
+
+#. type: enumerate
+#: documentation.tex:509
+msgid ""
+"It is possible to modify the default behavior of a detail by changing its "
+"color background (white, black)"
+msgstr ""
+
+#. type: enumerate
+#: documentation.tex:509
+msgid ""
+"The order of the details in the \"image-active\" depends on the order of "
+"their creation in Inkscape. Nevertheless, the Inkscape XML editor allows to "
+"change this order"
+msgstr ""
+
+#. type: section{#2}
+#: documentation.tex:513
+msgid "Creating games with Xia"
+msgstr ""
+
+#. type: document
+#: documentation.tex:516
+msgid ""
+"Until now, this document was only about creation of traditionnal "
+"\"image-actives\": background image enriched with cropped details associated "
+"with texts."
+msgstr ""
+
+#. type: document
+#: documentation.tex:522
+msgid ""
+"This kind of \"image-active\" can be used in class in various situations "
+"(students progressively discovering a document, or creating an image-active "
+"on their own), but Xia introduces new features, such as the creation of "
+"games and activities, in which the final user has much more to do than "
+"simply clicking on details in order to read the comment."
+msgstr ""
+
+#. \draw[help lines] (0,0) grid (5,5);
+#. icons
+#. type: tikzpicture
+#: documentation.tex:538
+msgid ""
+"\\node[opacity=.5] (bBlue) "
+"{\\includegraphics[scale=.35]{./images/buttonBlue}}; \\node[left= .8mm of "
+"bBlue] (aBrown) {\\includegraphics[scale=.35]{./images/audioBrown}}; "
+"\\node[right= .8mm of bBlue] (guClic) "
+"{\\includegraphics[scale=.35]{./images/game1clic}}; \\node[below= .2mm of "
+"bBlue.south, opacity=.5] (pBlue) "
+"{\\includegraphics[scale=.35]{./images/popBlue}}; \\node[left= .8mm of "
+"pBlue] (gDDrop) {\\includegraphics[scale=.35]{./images/gameDragAndDrop}}; "
+"\\node[right= .8mm of pBlue, opacity=.5] (pYellow) "
+"{\\includegraphics[scale=.35]{./images/popYellow}}; \\node[above = .2mm of "
+"guClic.north, opacity=.5] (aCloud) "
+"{\\includegraphics[scale=.35]{./images/accordionCloud}}; \\node[above = .2mm "
+"of aCloud.north, opacity=.5] (aBlack) "
+"{\\includegraphics[scale=.35]{./images/accordionBlack}}; \\node[left = .2mm "
+"of aBlack] (params) {\\includegraphics[scale=.35]{./images/params}}; "
+"\\node[left = .2mm of params] (files) "
+"{\\includegraphics[scale=.35]{./images/xia_open}};"
+msgstr ""
+
+#. comments
+#. type: tikzpicture
+#: documentation.tex:545
+msgid ""
+"\\node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the "
+"svg source file}; \\node[box, above = 5mm of params] (paramsC) {Select the "
+"quality of the export}; \\node[box, right = 5mm of guClic] (guClicC) "
+"{\\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionCloud}{game1clic}\\\\ "
+"text to fill and change url}; \\node[box, left = 25mm of bBlue] (aBrownC) "
+"{\\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/buttonBlue}{audioBrown}\\\\ "
+"text to fill and change url}; \\node[box, below left = 5mm of pBlue] "
+"(gDDropC) "
+"{\\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{gameDragAndDrop}\\\\ "
+"text to fill and change url};"
+msgstr ""
+
+#. arrows
+#. type: tikzpicture
+#: documentation.tex:552
+msgid ""
+"\\draw[-stealth] (guClicC.west) -- (guClic.east); \\draw[-stealth] "
+"(gDDropC.north) -- (gDDrop.south); \\draw[-stealth] (aBrownC.north east) -- "
+"(aBrown.north); \\draw[-stealth] (filesC.south east) -- (files.north west); "
+"\\draw[-stealth] (paramsC.south) -- (params.north);"
+msgstr ""
+
+#. type: subsection{#2}
+#: documentation.tex:559
+msgid "First game principle: selecting, finding elements in the image"
+msgstr ""
+
+#. type: document
+#: documentation.tex:563
+msgid ""
+"\\textit{The game principle described in this section consists in selecting "
+"details on a background image. When the user has reached the goal described "
+"in the instructions, a message appears in a final pop up.}"
+msgstr ""
+
+#. type: links
+#: documentation.tex:568
+msgid ""
+"Explore the "
+"\\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia3}{\"image- "
+"active\"} created for this section of the documentation."
+msgstr ""
+
+#. type: links
+#: documentation.tex:571
+msgid ""
+"Download the "
+"\\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia3/svg/xia3.svg}{svg} "
+"source file."
+msgstr ""
+
+#. type: document
+#: documentation.tex:574
+msgid ""
+"This kind of game is almost the easiest way to create an \"image-active\".  "
+"You only have to crop the details that the final user will have to select."
+msgstr ""
+
+#. type: document
+#: documentation.tex:581
+msgid ""
+"The instructions must be completed in the metadata of the document. Xia will "
+"look into the informations filled in the \\chemin {Description} field of the "
+"metadata of the document (see section \\ref{preparation_svg}), and create an "
+"instruction «~pop up~» that will show up at the opening of the game. The "
+"player will just have to read the instructions and close the pop up to play "
+"the game."
+msgstr ""
+
+#. type: document
+#: documentation.tex:591
+msgid ""
+"When the user completes the game, a message automatically appears.  This "
+"message has to be filled in the \\chemin{Description} field of the "
+"\\chemin{Object Properties} of the background image \\footnote{When creating "
+"a traditional \"image-active\", this field creates the introduction text, "
+"not related with any detail (see section \\ref{preparation_svg}).}.  Two "
+"informations are needed in order for this message to pop up : the exact "
+"number of details that have to be selected\\footnote{This number does not "
+"have to match the number of details on the image).} and the message itself."
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:607
+msgid "Goal"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:607
+msgid "Enter the number of correct answers needed to complete the game"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:607
+msgid "Display a message"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:607
+msgid "Tag"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:607
+msgid "\\texttt{<score></score>}|"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:607
+msgid "\\texttt{<message></message>}"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:607
+msgid "Example"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:607
+msgid "\\multicolumn{2}{|l|}{\\texttt{<score>6</score>}}"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:607
+msgid "\\multicolumn{2}{|l|}{\\texttt{<message>Congratulations!}}"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:607
+msgid "\\multicolumn{2}{|l|}{\\texttt{You have completed the game!</message>}}"
+msgstr ""
+
+#. type: caption{#2}
+#: documentation.tex:607 documentation.tex:723
+msgid "Sum up of tags"
+msgstr ""
+
+#. type: astuce
+#: documentation.tex:614
+msgid ""
+"Text inserted inside the \\verb|<message></message>| tag can be "
+"enriched. Images, videos or sounds can be inserted.  It is also possible to "
+"insert a link, allowing users to play another game, in order to \"chain\" "
+"activities up by degree of difficulty."
+msgstr ""
+
+#. type: wrapfigure
+#: documentation.tex:619 documentation.tex:728
+msgid "{r}{45mm}"
+msgstr ""
+
+#. type: document
+#: documentation.tex:621
+msgid "Choose the template \\chemin{game1clic} to generate the \"image-active\"."
+msgstr ""
+
+#. type: subsubsection{#2}
+#: documentation.tex:624
+msgid ""
+"\\emph{Advanced \"image-active\" creation tips\\ldots} Showing the player's "
+"score"
+msgstr ""
+
+#. type: document
+#: documentation.tex:638
+msgid ""
+"It is possible to display graphical elements automatically when the user "
+"selects the correct answer. These elements can be png imported images or "
+"shapes directly designed in Inkscape.  But as Xia considers as a clickable "
+"detail any shapes designed using Inkscape tools, you will have to transform "
+"these shapes in bitmap, using the \"bitmap copy\" Inkscape tool.  For "
+"example :"
+msgstr ""
+
+#. type: enumerate
+#: documentation.tex:638
+msgid "Draw a star with yellow sides on a yellow background with the Inkscape tools"
+msgstr ""
+
+#. type: enumerate
+#: documentation.tex:638
+msgid ""
+"Select this star, and click on the \\chemin{Edition $\\rightarrow$ Make a "
+"bitmap copy}"
+msgstr ""
+
+#. type: enumerate
+#: documentation.tex:638
+msgid "Delete the first star"
+msgstr ""
+
+#. type: document
+#: documentation.tex:648
+msgid ""
+"When the graphical elements are imported (png files) or created (bitmap copy "
+"of shapes created manually), just apply the following carasteristics to "
+"these elements:"
+msgstr ""
+
+#. type: center
+#: documentation.tex:648
+msgid "\\chemin{Interactivity > OnClick} = \\verb|off|"
+msgstr ""
+
+#. type: document
+#: documentation.tex:648
+msgid ""
+"Then, group the clickable detail to its graphical element (by successively "
+"clicking on the detail and the graphical element with the \\Shift keystroke "
+"on), then select \\chemin{Group} in the Inkscape \\chemin{Object} menu."
+msgstr ""
+
+#. type: subsubsection{#2}
+#: documentation.tex:650
+msgid ""
+"\\emph{Advanced \"image-active\" creation tips\\ldots} Showing the player's "
+"mistakes"
+msgstr ""
+
+#. type: document
+#: documentation.tex:655
+msgid ""
+"Games based on the details selection principle are obviously very "
+"interesting educational games\\ldots but it is also quite obvious to guess "
+"how some students may be tempted to cheat to achieve such games (for "
+"example, by frenetically clicking everywhere on the image, until the final "
+"message pops up)."
+msgstr ""
+
+#. type: document
+#: documentation.tex:658
+msgid ""
+"This is why it may be interesting to be able to highlight the user's "
+"mistakes during the game."
+msgstr ""
+
+#. type: document
+#: documentation.tex:670
+msgid ""
+"To do so, you will anticipate the user's probable mistakes, and put explicit "
+"graphical elements symbolizing these errors on the background image.  This "
+"graphical element may be an imported image (png file) or a shape directly "
+"designed with the Inkscape tools, then converted into bitmap (see how to do "
+"that in the section \\ref{détail_progression}). These elements will have to "
+"include the following caracteristics:"
+msgstr ""
+
+#. type: center
+#: documentation.tex:670
+msgid "\\chemin{Interactivity > OnClick} = \\verb|disable-score|"
+msgstr ""
+
+#. type: document
+#: documentation.tex:670
+msgid ""
+"When applied with a \\verb|disable-score| tag, a detail still remains "
+"clickable, but does not add a score to the counter that delivers the final "
+"success message pop up."
+msgstr ""
+
+#. type: subsection{#2}
+#: documentation.tex:672
+msgid "Second game principle: classyfying, ordering, ranking"
+msgstr ""
+
+#. type: document
+#: documentation.tex:676
+msgid ""
+"\\textit{The second kind of game that can be created with Xia consists in "
+"dragging and dropping graphical elements on the background image. If all the "
+"elements have been dropped on their corresponding drop zone, a pop up "
+"message appears, confirming the achievement of the game}"
+msgstr ""
+
+#. type: links
+#: documentation.tex:680
+msgid ""
+"Explore the "
+"\\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia5}{image- "
+"active created for this section of the documentation}."
+msgstr ""
+
+#. type: links
+#: documentation.tex:684
+msgid ""
+"Download the \\href "
+"{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia5/svg/xia5.svg}{svg} "
+"source file."
+msgstr ""
+
+#. type: document
+#: documentation.tex:698
+msgid "This is how you can create a game based on the drag and drop principle :"
+msgstr ""
+
+#. type: enumerate
+#: documentation.tex:698
+msgid "In Inkscape:"
+msgstr ""
+
+#. type: itemize
+#: documentation.tex:698
+msgid "Choose a background picture"
+msgstr ""
+
+#. type: itemize
+#: documentation.tex:698
+msgid ""
+"Create the graphical elements the users of the \"image-active\" will have to "
+"drag and drop (ie. images or group of words)"
+msgstr ""
+
+#. type: itemize
+#: documentation.tex:698
+msgid ""
+"Using metadata, make each label match its drop zone (actually being cropped "
+"details)"
+msgstr ""
+
+#. type: enumerate
+#: documentation.tex:698
+msgid "In Xia"
+msgstr ""
+
+#. type: itemize
+#: documentation.tex:698
+msgid "Export the svg source file using the \"gameDragAndDrop\" template"
+msgstr ""
+
+#. type: document
+#: documentation.tex:706
+msgid ""
+"Two methods can be used to create the drag and drop \"graphical-elements\".  "
+"A very simple way is to use a screenshot tool, in order to create png files, "
+"and then import them in Inkscape.  It is also possible to create these "
+"elements directly in Inkscape, by creating a text, grouping it with a shape, "
+"and finally making a bitmap copy of this group (see how to do that in "
+"section \\ref{détail_progression})\\footnote{\\ldots do not forget to delete "
+"the original text and shape once the bitmap copy has been created.}.  The "
+"graphical elements then have to be associated with their drop zone "
+"\\footnote{\\textbf{One} object can only match \\textbf{one} drop zone.}."
+msgstr ""
+
+#. type: document
+#: documentation.tex:709
+msgid ""
+"You will find in this table the metadata to be filled in the \\chemin{Object "
+"Properties} of the drag and drop graphical elements and the corresponding "
+"details in order to make them match :"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:723
+msgid "Graphical element (drag and drop objects in the game)"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:723
+msgid "Cropped detail (drop zone)"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:723
+msgid "ID Field"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:723
+msgid "\\verb|Detail_Title|"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:723
+msgid "Description Field"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:723
+msgid "\\verb|<target>Detail_Title</target>|"
+msgstr ""
+
+#. type: document
+#: documentation.tex:735
+msgid ""
+"Make the graphical elements match the drop zones by making the \\chemin{ID} "
+"field of the drop zone match the \\chemin{Description} field of the drag and "
+"drop graphical element.  The only subtlety consists in the "
+"\\verb|<target></target>| tags which have to be filled in the \\chemin "
+"{Description} field."
+msgstr ""
+
+#. type: document
+#: documentation.tex:737
+msgid ""
+"Choose the template \\chemin{gameDragAndDrop} to generate the "
+"\"image-active\"."
+msgstr ""
+
+#. type: subsubsection{#2}
+#: documentation.tex:741
+msgid "How to add a \"magnet\" effect in the gameDragAndDrop template"
+msgstr ""
+
+#. type: document
+#: documentation.tex:744
+msgid ""
+"If you indicate \\verb|<magnet>on</magnet>| in the \\chemin{Description} "
+"field of the drop zone, a magnet effect will then be active when the player "
+"drops the graphical element onto its matching drop zone."
+msgstr ""
+
+#. type: subsubsection{#2}
+#: documentation.tex:746
+msgid "Two ways to give the players a little help: tooltips and links on drop zones"
+msgstr ""
+
+#. type: document
+#: documentation.tex:754
+msgid ""
+"It is possible to display tooltips of details on mouse-over. To do so, "
+"create the tooltip with a png imported file or a bitmap copy of a text "
+"created in Inkscape\\footnote{Or a bitmap copy of a shape grouped with some "
+"text\\ldots}, and apply to this tooltip a specific \\chemin{ID} in its "
+"\\chemin{Object Properties}. Then, just apply the tag "
+"\\verb|<tooltip>specific_ID_of_the_tooltip</tooltip>| in the "
+"\\chemin{Description} field of the \\chemin{Object Properties} of the detail "
+"(see figure \\ref{tooltip_example}).  Note that the tooltip tool is also "
+"available in the game1clic template."
+msgstr ""
+
+#. type: caption{#2}
+#: documentation.tex:761
+msgid ""
+"When the user moves the mouse over the yellow square, the tooltip \"Test\" "
+"displays"
+msgstr ""
+
+#. type: document
+#: documentation.tex:764
+msgid ""
+"Another method consists in inserting links in the \\chemin{Title} field of "
+"the \\chemin{Object Properties} of the drop zones. These drop zones become "
+"clickable in the html5 animation."
+msgstr ""
+
+#. type: subsection{#2}
+#: documentation.tex:766
+msgid "Third game principle: collisions"
+msgstr ""
+
+#. type: document
+#: documentation.tex:770
+msgid ""
+"\\textit{The game principle described in this section consists in moving "
+"objects within bounds you defined. Typically, the \"collisions\" game "
+"principle can be used to create mazes or gem puzzle.}"
+msgstr ""
+
+#. type: document
+#: documentation.tex:774
+msgid ""
+"In order to create this kind of game, add the tag "
+"\\verb|<collisions>on</collisions>| to the background image. All the details "
+"will then become solid and will prevent objects (png imported files or "
+"bitmap copies of shapes created in Inkscape) from being moved through them."
+msgstr ""
+
+#. type: document
+#: documentation.tex:781
+msgid ""
+"The \"collision\" game is in fact a gameDragAndDrop game, since the goal "
+"remains to drag one or several objects and drop them somewhere on the "
+"image.  The requisite tags for this template are therefore the same as in "
+"the gameDragAndDrop template \\footnote{\\texttt{<target></target>} on the "
+"objects, \\texttt{<score></score>} on the background image: see section "
+"\\ref{gameDragAndDropsection}.}, but you will apply the "
+"\\verb|<collisions>off</collisions>| tag to the drop zone's "
+"\\chemin{Description} field."
+msgstr ""
+
+#. type: document
+#: documentation.tex:783
+msgid ""
+"This tables sum up the tags that have to be indicated when a game is "
+"created:"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:825
+msgid "\\multicolumn{3}{|l|}{\\chemin{game1clic} template}"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:825 documentation.tex:880
+msgid "\\multicolumn{3}{|l|}{\\texttt{<score></score>}}"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:825 documentation.tex:825 documentation.tex:825 documentation.tex:825 documentation.tex:825 documentation.tex:880 documentation.tex:880 documentation.tex:880 documentation.tex:880 documentation.tex:880 documentation.tex:880 documentation.tex:880
+msgid "\\emph{Role}"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:825 documentation.tex:880
+msgid ""
+"Sets the amount of correct answers needed to pop up the end message of the "
+"game"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:825 documentation.tex:825 documentation.tex:825 documentation.tex:825 documentation.tex:825 documentation.tex:880 documentation.tex:880 documentation.tex:880 documentation.tex:880 documentation.tex:880 documentation.tex:880 documentation.tex:880
+msgid "\\emph{Element}"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:825 documentation.tex:825 documentation.tex:880 documentation.tex:880 documentation.tex:880
+msgid "Background picture"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:825 documentation.tex:825 documentation.tex:825 documentation.tex:825 documentation.tex:825 documentation.tex:880 documentation.tex:880 documentation.tex:880 documentation.tex:880 documentation.tex:880 documentation.tex:880 documentation.tex:880
+msgid "\\emph{Where ?}"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:825 documentation.tex:825 documentation.tex:825 documentation.tex:880 documentation.tex:880 documentation.tex:880
+msgid "\\chemin{Object properties $\\rightarrow$ Description}"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:825 documentation.tex:825 documentation.tex:825 documentation.tex:880 documentation.tex:880 documentation.tex:880 documentation.tex:880
+msgid "\\emph{What ?}"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:825 documentation.tex:880
+msgid "A number corresponding to the required score"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:825 documentation.tex:880
+msgid "\\multicolumn{3}{|l|}{\\texttt{<message></message>} }"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:825 documentation.tex:880
+msgid "Pops up the end message of the game"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:825 documentation.tex:880
+msgid "A personalized message if necessary enriched with multimedia or html links"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:825
+msgid "\\multicolumn{3}{|l|}{\\texttt{off}}"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:825
+msgid "Makes a cropped detail unclickable"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:825 documentation.tex:825 documentation.tex:825
+msgid "Detail"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:825 documentation.tex:825
+msgid ""
+"\\chemin{Object properties $\\rightarrow$ Interactivity $\\rightarrow$ "
+"Onclick}"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:825
+msgid "\\multicolumn{3}{|l|}{\\texttt{disable-score}}"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:825
+msgid ""
+"Makes a cropped detail clickable, but when clicked, does not add a point to "
+"the score game counter"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:825 documentation.tex:880
+msgid "\\multicolumn{3}{|l|}{\\texttt{<tooltip></tooltip>}}"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:825 documentation.tex:880
+msgid "Displays a tooltip when moused-over"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:825 documentation.tex:880
+msgid "Make sure to match the ID of the element used as tooltip"
+msgstr ""
+
+#. type: caption{#2}
+#: documentation.tex:825
+msgid "game1clic tags"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:880
+msgid "\\multicolumn{3}{|l|}{\\chemin{gameDragAndDrop} template}"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:880
+msgid "\\multicolumn{3}{|l|}{\\texttt{<target></target>}}"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:880
+msgid "Indicates the corresponding drag and drop element and drop zone"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:880
+msgid "Graphical element to move"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:880 documentation.tex:880 documentation.tex:880 documentation.tex:880
+msgid "\\chemin{Object Properties $\\rightarrow$ Description}"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:880
+msgid "Make sure to match the ID field of the drop zone"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:880
+msgid "\\multicolumn{3}{|l|}{\\texttt{<magnet>on</magnet>}}"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:880
+msgid "Adds a \"magnet\" effect"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:880 documentation.tex:880
+msgid "Drop zone"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:880
+msgid "\\multicolumn{3}{|l|}{\\texttt{<collisions>on</collisions>}}"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:880
+msgid "Activates the \"collisions\" game principle"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:880
+msgid "\\multicolumn{3}{|l|}{\\texttt{<collisions>off</collisions>}}"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:880
+msgid "Creates a drop zone in a \"collisions\" game"
+msgstr ""
+
+#. type: tabular
+#: documentation.tex:880
+msgid "Drop zone, Graphical element to move"
+msgstr ""
+
+#. type: caption{#2}
+#: documentation.tex:880
+msgid "gameDragAndDrop tags"
+msgstr ""
+
+#. type: document
+#: documentation.tex:883
+msgid "\\listoffigures \\listoftables"
+msgstr ""
