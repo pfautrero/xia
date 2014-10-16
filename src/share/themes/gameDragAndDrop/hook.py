@@ -60,7 +60,7 @@ class hook:
         
         final_str = u'<article class="message_success" id="message_success" data-collisions="' + self.collisions + '" data-score="' + self.score + '">\n'
         final_str += '<img id="popup_toggle" src="img/hide.png" alt="toggle"/>\n'
-        final_str += u'  <p id="message_success_content">' + self.PageFormatter(self.message).print_html() + u'</p>\n'
+        final_str += u'  <div id="message_success_content">' + self.PageFormatter(self.message).print_html() + u'</div>\n'
         final_str += u'</article>\n'
         for i, detail in enumerate(self.iaobject.details):
             if detail['options'].find(u"direct-link") == -1:            
