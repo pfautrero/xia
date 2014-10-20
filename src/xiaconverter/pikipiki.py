@@ -197,7 +197,7 @@ class PageFormatter:
             if password:
                 # encrypt hidden_block
                 start_block = self.final_str.rfind("<!-- ==HIDDEN_BLOCK== -->")
-                str_to_encrypt = self.final_str[start_block:]
+                str_to_encrypt = self.final_str[start_block + len("<!-- ==HIDDEN_BLOCK== -->"):]
                 while len(password) < len(str_to_encrypt):
                     password += password
                 str_encrypted = base64.b64encode(self.str_xor(str_to_encrypt, password))

@@ -47,28 +47,15 @@ class hook:
         final_str += u'</div>\n'
         for i, detail in enumerate(self.iaobject.details):
             if detail['options'].find(u"direct-link") == -1:
-                if detail['detail'].find(u"Réponse:") != -1:
-                    question = detail['detail'][0:detail['detail'].find(u"Réponse:")]
-                    answer = detail['detail'][detail['detail'].find(u"Réponse:") + 9:]
-                    final_str += u'<div class="accordion-group">\n'
-                    final_str += u'  <div class="accordion-heading">\n'
-                    final_str += u'      <a id="collapse'+unicode(str(i), "utf8") + u'-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse' + unicode(str(i), "utf8") + u'">' + detail['title'] + u'</a>\n'
-                    final_str += u'      <div id="collapse'+unicode(str(i), "utf8") + u'" class="accordion-body collapse">\n'
-                    final_str += u'          <div class="accordion-inner">' + self.PageFormatter(question).print_html() + u'<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#response_' + unicode(str(i), "utf8") + u'">Réponse</a></div>' + u'<div class="response" id="response_'+ unicode(str(i), "utf8") + u'">' + self.PageFormatter(answer).print_html() + u'</div>' + u'\n'
-                    final_str += u'          </div>\n'
-                    final_str += u'      </div>\n'
-                    final_str += u'  </div>\n'
-                    final_str += u'</div>\n'
-                else:
-                    final_str += u'<div class="accordion-group">\n'
-                    final_str += u'  <div class="accordion-heading">\n'
-                    final_str += u'      <a id="collapse' + unicode(str(i), "utf8") + u'-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse' + unicode(str(i), "utf8") + u'">' + detail['title'] + u'</a>\n'
-                    final_str += u'      <div id="collapse' + unicode(str(i), "utf8") + u'" class="accordion-body collapse">\n'
-                    final_str += u'          <div class="accordion-inner">' + self.PageFormatter(detail["detail"]).print_html() + u'\n'
-                    final_str += u'          </div>\n'
-                    final_str += u'      </div>\n'
-                    final_str += u'  </div>\n'
-                    final_str += u'</div>\n'        
+                final_str += u'<div class="accordion-group">\n'
+                final_str += u'  <div class="accordion-heading">\n'
+                final_str += u'      <a id="collapse' + unicode(str(i), "utf8") + u'-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse' + unicode(str(i), "utf8") + u'">' + detail['title'] + u'</a>\n'
+                final_str += u'      <div id="collapse' + unicode(str(i), "utf8") + u'" class="accordion-body collapse">\n'
+                final_str += u'          <div class="accordion-inner">' + self.PageFormatter(detail["detail"]).print_html() + u'\n'
+                final_str += u'          </div>\n'
+                final_str += u'      </div>\n'
+                final_str += u'  </div>\n'
+                final_str += u'</div>\n'        
 
         with open(templatePath,"r") as template:
             final_index = template.read().decode("utf-8")
