@@ -4,19 +4,11 @@
 po4a-gettextize -f latex -m documentation.tex -M UTF8 -p en_EN.pot
 
 # Generate translation
-po4a-translate -f latex -m documentation.tex -p fr_FR.po -l documentation_fr.tex
+po4a-translate -f latex -m documentation.tex -M UTF8 -p fr/documentation-fr_FR.po -l documentation_fr.tex
 
 # Update transations when source document changes
 po4a-updatepo -f latex -m documentation.tex -p fr_FR.po
 
 # Script to generate docs from po files
 
-# Collision game documentation
-
 # tips for inkscape beginners: for ex., adding a red background to details in order to manipulate them more easily
-
-# tooltips in draganddrop and game1clic games
-
-#  config button in xia interface section
-
-# Xia as an Inkscape extension

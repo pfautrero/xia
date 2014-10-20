@@ -1,0 +1,1082 @@
+% This file was generated with po4a. Translate the source file.
+%
+\clearpage
+\documentclass[a4paper,12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,textcomp}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage[pdftex]{hyperref}
+\usepackage{fancyvrb}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,backgrounds,fit,positioning,trees}
+\usepackage{wrapfig}
+\usepackage{manfnt}
+\usepackage{keystroke}
+\usepackage{dingbat}
+\usepackage{xcolor}
+\usepackage{geometry}
+
+
+
+\definecolor{reddebian}{rgb}{0.84314,0.03922,0.32549}
+\definecolor{bluedane}{rgb}{0.09020,0.56863,1}
+\definecolor{greendane}{rgb}{0.43137,0.60784,0.14510}
+\def\purpledane{violet}
+
+\hypersetup{pdftitle={Xia}, pdfauthor={Énuma Logiciel Libre}, pdfsubject={Xia},
+pdfkeywords={Xia, logiciel libre, html5, Inkscape}, colorlinks= true,
+linkcolor = greendane, urlcolor = bluedane
+  }
+
+\geometry{hscale=0.7,vscale=0.85}
+
+\title{Xia\\ Créer des images-actives au format HTML5}
+
+\renewcommand{\thechapter}{\arabic{chapter}}
+\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\thesubsection}{\alph{subsection}}
+
+\newcommand{\chemin}[1]{\texttt{\textcolor{reddebian}{#1}}}
+
+\newsavebox{\boiteBrouillon}
+\newcommand{\virageDanger}{\textdbend}
+
+\newlength{\LargeurBouleAlerte}
+\settowidth{\LargeurBouleAlerte}{
+
+  \begin{tikzpicture}\node{\virageDanger};\end{tikzpicture}}
+
+\tikzstyle{boitealerte}=[draw=red,rounded corners,inner xsep=1em,inner
+ysep=1ex]
+
+\tikzstyle{boulealerte}=[circle,ball color=red,text=white] 
+
+\newenvironment{alerte}{\begin{lrbox}{\boiteBrouillon}\begin{minipage}{.8\linewidth}\color{red}\setlength{\parskip}{1ex plus 0.2ex minus 0.2ex}}{\end{minipage}\end{lrbox}\vspace{1.5ex}
+
+  \begin{tikzpicture}\node [boitealerte] (cadre)
+{\hspace{0.5\LargeurBouleAlerte}\usebox{\boiteBrouillon}};\node
+[boulealerte] (alerte) at (cadre.west) {\virageDanger};\end{tikzpicture}\vspace{1.5ex}}        
+
+\newcommand{\pouceOK}{\large\leftthumbsup}
+
+\newlength{\LargeurBouleAstuce}
+\settowidth{\LargeurBouleAstuce}{\begin{tikzpicture}\node{\pouceOK};\end{tikzpicture}}
+
+\tikzstyle{bouleastuce}=[circle,ball color=teal,text=white]
+
+\tikzstyle{boiteastuce}=[draw=teal,rounded corners,inner xsep=1em,inner
+ysep=1ex]
+                        
+\newenvironment{astuce}{\begin{lrbox}{\boiteBrouillon}\begin{minipage}{.8\linewidth}\color{teal}\setlength{\parskip}{1ex plus 0.2ex minus 0.2ex}}{\end{minipage}\end{lrbox}\vspace{1.5ex}\begin{tikzpicture}\node [boiteastuce] (cadre)
+{\hspace{0.5\LargeurBouleAstuce}\usebox{\boiteBrouillon}};\node
+[bouleastuce] (astuce) at (cadre.west) {\pouceOK};\end{tikzpicture}\vspace{1.5ex}}    
+
+\newcommand{\mainDroite}{\large\leftpointright}
+
+\newlength{\LargeurBouleLinks}
+\settowidth{\LargeurBouleLinks}{\begin{tikzpicture}\node{\mainDroite};\end{tikzpicture}}
+
+\tikzstyle{boulelinks}=[circle,ball color=\purpledane,text=white]
+
+\tikzstyle{boitelinks}=[draw=\purpledane,rounded corners,inner
+xsep=1em,inner ysep=1ex]
+                        
+\newenvironment{links}{\begin{lrbox}{\boiteBrouillon}\begin{minipage}{.8\linewidth}\color{\purpledane}\setlength{\parskip}{1ex plus 0.2ex minus 0.2ex}}{\end{minipage}\end{lrbox}\vspace{1.5ex}\begin{tikzpicture}\node [boitelinks] (cadre)
+{\hspace{0.5\LargeurBouleLinks}\usebox{\boiteBrouillon}};\node [boulelinks]
+(links) at (cadre.west) {\mainDroite};\end{tikzpicture}\vspace{1.5ex}}    
+\clearpage
+
+
+
+\begin{document}
+ \maketitle
+ \tableofcontents
+  
+\section{Présentation de Xia}
+
+\subsection{Qu'est-ce que Xia?}
+
+Xia est un logiciel libre développé par des enseignants de l'académie de
+Versailles. Il est distribué sous la licence
+\href{http://www.gnu.org/copyleft/gpl.html}{GPLv3}. Le logiciel
+xia-converter a pour fonction de transformer un fichier svg en une animation
+"image-active" html5. Au-delà des modèles d'export déjà connus des
+utilisateurs du logiciel Images-Actives
+(\href{http://images-actives.crdp-versailles.fr/spip.php?article11\&lang=fr}
+{accordéon, boutons, etc.}, Xia permet également de générer des jeux et
+activités interactives: jeux de glisser-déposer, sélection, discrimination,
+etc.
+
+Les premières parties de cette documentation (voir la partie
+\ref{basic_imageactive}) sont consacrées à la réalisation d'une
+"image-active" simple: détails détourés et commentaires en texte sans mise
+en forme. Par la suite, vous apprendrez à créer des "images-actives"
+enrichies (voir la partie \ref{enriched_IA}). Dans les dernières parties
+(partie \ref{games_IA}), vous découvrirez comment créer des jeux.
+
+\begin{astuce}
+Tous les exemples utilisés sont visibles en ligne (les liens pour visualiser
+les animations et télécharger les fichiers sources sont indiqués en début de
+chaque section). À la fin de chaque partie, une rubrique «~En résumé~»
+rappelle les points essentiels à retenir pour créer une image-active. 
+\end{astuce}
+
+\subsection{Processus général}
+
+À la différence du logiciel «~Images Actives~», Xia n'est nécessaire qu'à la
+toute fin du processus de création. Comment vous pouvez le constater sur
+l'illustration \ref{workflowxia}, l'essentiel du travail est réalisé avec un
+logiciel de dessin vectoriel. Nous recommandons l'utilisation du logiciel
+libre et multi-plateforme \href{http://www.inkscape.org/}{Inkscape},
+intuitif et simple (Inkscape sera d'ailleurs utilisé dans cette
+documentation).
+
+
+\begin{figure}[htp]
+ \centering
+ \tikzstyle{box} = [draw, text width=.6\textwidth, align=center]
+\tikzstyle{ia} = [draw, text width=.8\textwidth, fill=reddebian!80, rounded
+corners, inner ysep=2mm] \tikzstyle{xia} = [draw, text width=.8\textwidth,
+fill=bluedane!80, rounded corners, inner ysep=2mm]
+ \begin{tikzpicture}
+   \node[box] (open) {Ouvrir l'image dans Inkscape}; \node[box,below of=open]
+(create)  {Créer les détails}; \node[box,below of=create] (meta) {Pour
+chaque détail, compléter les métadonnées}; \node[box,below of=meta] (save)
+{Sauvegarder le projet}; \node[left of=create,xshift=-.37\textwidth,
+rotate=90] (scape) {\textbf{Inkscape}};
+   \begin{scope}[on background layer]
+    \node[fit = (open)(meta)(save)(scape), ia] (ink) {};
+  \end{scope}
+   \node[box,below=1cm of save] (createia) {Créer une image-active en html5};
+\node[left of=createia,xshift=-.37\textwidth, rotate=90] (xia)
+{\textbf{Xia}};
+   \begin{scope}[on background layer]
+    \node[fit = (createia)(xia), xia] (ink) {};
+  \end{scope}
+  \draw[-stealth] (open) -- (create); \draw[-stealth] (create) -- (meta);
+\draw[-stealth] (meta) -- (save); \draw[-stealth] (save) -- (createia);
+ \end{tikzpicture}
+ \caption{Processus de création d'une image-active avec Xia}
+ \label{workflowxia}
+\end{figure}
+
+\subsection{Installer Inkscape et Xia}
+
+L'installation d'Inkscape et de Xia sont les seuls prérequis pour la
+poursuite de la lecture de cette documentation. Vous trouverez les
+informations nécessaires à l'installation de ces logiciels sur leurs sites
+web respectifs\footnote{Voir le site
+d'\href{http://www.inkscape.org/}{Inkscape} et celui de \href
+{http://images-actives.crdp-versailles.fr/beta/}{Xia}.}.
+
+\section{Création d'une première image-active avec Inkscape et Xia:
+\emph{Fonctionnalités de base}}\label{basic_imageactive}
+
+\subsection{Création du fichier source au formation svg en vue de la génération de
+l'image-active}\label{preparation_svg}
+
+\begin{links}
+Visualisez
+l'\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1}{"image-active"}
+créée pour cette partie de la documentation.
+
+Téléchargez le fichier source au format
+\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/svg/xia1.svg}{svg}.
+\end{links}
+
+Les manipulations décrites dans cette partie de la documentation vous
+permettront de créer une image-active «~basique~», comprenant:
+\begin{itemize}
+ \item Détails zoomables
+ \item Commentaires uniquement constitués de texte non mis en forme
+\end{itemize}
+
+
+Une fois l'image choisie, ouvrez-la dans Inkscape
+
+\chemin{File $\rightarrow$ Ouvrir}  
+
+Quand Inkscape vous demande de choisir entre \chemin{Lier} ou
+\chemin{Incorporer l'image}, choisissez \chemin{Incorporer}.
+
+Parmi les multiples champs que vous pouvez renseigner dans la fenêtre de
+dialogue des \chemin{Métadonnées du document} (menu \chemin{Fichier}), trois
+seront inclus dans l'image-active: le titre, le créateur et les droits. Il
+est donc fortement recommandé de renseigner ces informations (vous pouvez
+voir le résultat final sur l'illustration \ref{titre_ia})\footnote{Les
+champs «~auteur~» et «~droits~» apparaissent pour leur part dans la fenêtre
+«~À propos~», symbolisé par l'icône cliquable en forme de lettre «~i~».}.
+
+\begin{figure}[htp]
+ \centering
+ \includegraphics[width=\textwidth,clip=true,trim=0mm 120mm 55mm 0mm ]{images/titre_ia}
+ \caption[How do metadata display in the html5 animation]{Le titre renseigné dans les métadonnées du document apparaissent au-dessus
+de l'image-active et donnent son nom à la page web l'affichant. Le créateur
+et les droits associés apparaissent dans la pop up accessible via l'icône
+«~i~» située à droite du titre de l'image-active.}
+ \label{titre_ia}
+\end{figure}
+
+Vous pouvez sauvegarder votre projet au format svg dès le début du travail,
+en allant dans le menu \chemin{Fichier $\rightarrow$ Enregistrer
+sous\ldots}.
+
+Vous pouvez, par souci de clarté, supprimer l'extension d'origine de votre
+image dans le champs \chemin{Nom} de la fenêtre de dialogue. Enfin, dans le
+menu déroulant, choisissez le format de fichier Inkscape svg:
+
+\chemin{SVG Inkscape (*.svg)}.
+
+De nombreux outils d'Inkscape peuvent être utilisés pour détourer les
+détails qui deviendront actifs dans l'animation générée par Xia. Parmi
+ceux-ci:
+\begin{itemize}
+ \item \includegraphics[scale=0.5]{./images/rec_carre} \chemin{Créer des rectangles et des carrés}
+ \item \includegraphics[scale=0.5]{./images/cercles} \chemin{Créer des cercles, des ellipses et des arcs}
+ \item \includegraphics[scale=0.5]{./images/lignes} \chemin{Dessiner des lignes à main levée}
+ \item \includegraphics[scale=0.5]{./images/bezier} \chemin{Tracer des courbes de
+Bézier et des segments de droite}
+\end{itemize}
+
+Sans rentrer dans le détail du fonctionnement de ces différents
+outils\footnote{Pour cela, lire le
+\href{http://inkscape.org/doc/shapes/tutorial-shapes.fr.html}{manuel
+d'Inkscape} ou \href{http://en.flossmanuals.net/inkscape/}{le manuel
+Floss}.}, sachez que l'outil \chemin{Tracer des courbes de Bézier et des
+segments de droit} permet de détourer "clic par clic" (les points de
+construction du polygones sont alors appelés des «~nœuds~»). Vous pouvez
+refermer votre polygone en cliquant sur le premier nœud de ce même
+polygone. Vous pouvez dessiner des \chemin{Courbes de Bézier} en gardant le
+clic de votre souris enfoncé avec avoir créer un nœud, puis en déplaçant le
+curseur pour faire apparaître les poignets de contrôle afin de modifier la
+forme de la courbe.
+
+
+\begin{alerte}
+  Si vous laissez une forme ouverte dans Inkscape (une courbe par exemple),
+Xia refermera automatiquement celle-ci en joignant son point de départ et
+d'arrivée.
+\end{alerte}
+
+\begin{alerte}
+ L'ordre de création des détails dans Inkscape sera respecté dans
+l'image-active au format html5 (par exemple, le premier détail détouré dans
+Inkscape apparaîtra en haut dans le modèle accordéon ou en numéro 1 dans le
+modèle boutons). Si vous souhaitez changer cet ordre sans avoir à recréer
+tous les détails, lisez la rubrique \ref{couche_XML}.
+\end{alerte}
+
+Une fois les détails détourés, vous pouvez les sélectionner avec l'outil
+\chemin{Sélectionner et transformer des objets} afin de les redimensionner,
+les déplacer, etc.\ldots
+
+\begin{astuce}
+Si vous avez des difficultés pour sélectionner un détail que vous avez
+détouré, appliquez-lui une couleur de fond. N'importe quelle couleur fera
+l'affaire, sauf noir et blanc (pour comprendre pourquoi, lisez la rubrique
+\ref{white_black_background}).
+\end{astuce}
+
+
+Vous pouvez accéder au \chemin{Propriétés de l'objet} (voir l'illustration
+\ref{objet_properties}) par un clic-droit sur le détail détouré. À partir de
+là, vous accédez à une fenêtre de dialogue vous permettant d'ajouter le
+texte qui sera associé au détail dans l'image-active.
+
+\begin{figure}[htp]
+ \centering
+ \includegraphics[width=0.5\textwidth, clip=true, trim=0mm 60mm 0mm 0mm]{./images/proprietes_objet}
+ \caption[The "Object Properties" of the detail in Inkscape]{Les \chemin{Propriétés de l'objet} permettent de renseigner le texte qui
+deviendra le commentaire du détail dans l'image-active}
+ \label{objet_properties}
+\end{figure}
+
+Les deux champs devant nécessairement être renseigné dans cette fenêtre sont
+les champs \chemin{Titre} et \chemin{Description}. Le titre deviendra celui
+du détail, la description son commentaire.
+
+Le processus décrit ci-dessus doit également être effectué avec l'image de
+fond: le titre et la description de celle-ci serviront d'introduction
+générale à l'image-active (il s'agit d'un titre et d'un commentaire qui ne
+sont pas relié à un détail particulier).
+
+\subsection{Génération de l'image-active avec Xia}
+
+Quand tous les détails sont détourés et leurs métadonnées renseignées, Xia
+peut être lancé (voir l'illustration /ref{xia_interface}). Vous devez
+sélectionner votre fichier svg avec l'icône située en haut à gauche, choisir
+la qualité de l'export (sur une échelle de 1 à 4), et enfin choisir un
+modèle d'export et un répertoire d'enregistrement de l'image-active.
+
+En cliquant sur l'une des icônes des modèles d'export, vous générez une
+série de fichiers et de répertoires. Ouvrez le fichier \chemin{index.html}
+dans un navigateur web pour voir votre image-active au format html5.
+
+\begin{alerte}
+Ce fichier ne peut être séparé des autres pour que l'image-active
+fonctionne. Tous les autres fichiers et répertoires générés durant le
+processus d'exportation doivent obligatoirement être localisés dans le même
+répertoire (voir l'illustration \ref{xia_files}) pour que le fichier
+\texttt{index.html} fonctionne correctement. \textbf{Il est donc impératif
+de dédier un répertoire spécifique pour chaque image-active générée}.
+\end{alerte}
+
+\begin{figure}[htp]
+\tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{auto}=[draw=reddebian,fill=reddebian!30, text height=2.5mm]
+\tikzstyle{manual}=[draw=bluedane,fill=bluedane!30, text height=2.5mm]
+\tikzstyle{manualT}=[fill=bluedane!30,draw=bluedane, rectangle,text
+width=5cm, rounded corners]
+\tikzstyle{autoT}=[fill=reddebian!30,draw=reddebian, rectangle,text
+width=5cm, rounded corners]
+\begin{tikzpicture}[grow via three points={one child at (0.5,-0.7) and two children at
+(0.5,-0.7) and (0.5,-1.4)}, edge from parent path={(\tikzparentnode.south)
+|- (\tikzchildnode.west)}] \node [manual] {my\_project/} child { node [auto]
+{index.html}}		 child { node [auto] {deploy.html}}		 child { node [auto]
+{manifest.webapp}}		 child { node [auto] {css/}} child { node [auto]
+{data/}} child { node [auto] {font/}} child { node [auto] {img/}} child {
+node [auto] {js/}} child { node [manual] {videos/} child { node [manual]
+{video.mp4}} child { node [manual] {video.ogv}} child { node [manual]
+{video.webm}} }; \node[manualT] (textM) at (10,-2) {Ces fichiers et
+répertoires ont été créés manuellement par le créateur de l'image-active. Le
+répertoire \textcolor{bluedane} {videos} a également été créé manuellement,
+dans le but de stocker les vidéos insérés dans les commentaires de
+l'image-active, à l'aide de liens relatifs.}; \node[autoT] (textA) at
+(10,-6) {Ces fichiers et répertoires sont générés par Xia durant le
+processus d'export.}; \draw[-stealth] (textM.west) -- (4,0); \draw[-stealth]
+(textM.west) -- (5.5,-7); \draw[-stealth] (textA.west) -- (4,-3);
+\end{tikzpicture}
+\caption{Fichiers d'une image-active}
+\label{xia_files}
+\end{figure}
+
+\begin{figure}[htp]
+\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]
+\begin{tikzpicture}
+  \node (bBlue) {\includegraphics[scale=.35]{./images/buttonBlue}};
+\node[left= .8mm of bBlue, opacity=.5] (aBrown)
+{\includegraphics[scale=.35]{./images/audioBrown}}; \node[right= .8mm of
+bBlue, opacity=.5] (guClic)
+{\includegraphics[scale=.35]{./images/game1clic}}; \node[below= .2mm of
+bBlue.south] (pBlue) {\includegraphics[scale=.35]{./images/popBlue}};
+\node[left= .8mm of pBlue, opacity=.5] (gDDrop)
+{\includegraphics[scale=.35]{./images/gameDragAndDrop}}; \node[right= .8mm
+of pBlue] (pYellow) {\includegraphics[scale=.35]{./images/popYellow}};
+\node[above = .2mm of guClic.north] (aCloud)
+{\includegraphics[scale=.35]{./images/accordionCloud}}; \node[above = .2mm
+of aCloud.north] (aBlack)
+{\includegraphics[scale=.35]{./images/accordionBlack}}; \node[left = .2mm of
+aBlack] (params) {\includegraphics[scale=.35]{./images/params}}; \node[left
+= .2mm of params] (files) {\includegraphics[scale=.35]{./images/xia_open}};
+  
+  \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the
+svg source file}; \node[box, above = 5mm of params] (paramsC) {Sélectionner
+la qualité de l'export}; \node[box,above right = 5mm of aCloud.north east]
+(aBlackC)
+{\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionBlack}{accordionBlack}\\ 
+Large comment zone, suitable for the insertion of multimedia resources; to
+be used with vertical images (portrait)}; \node[box, right = 5mm of guClic]
+(aCloudC)
+{\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionCloud}{accordionCloud}\\ 
+Narrow comment zone, with more space for the image itself ; to be used with
+horizontal images (landscape)}; \node[box, below right = 5mm of pYellow]
+(pYellowC)
+{\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popYellow}{popYellow}\\ 
+No lateral comment zone ; a first click on the detail reveals it, and a
+second one simultaneously unveils the comment and the zoom function zooms in
+the detail}; \node[box, left = 25mm of bBlue] (bBlueC)
+{\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/buttonBlue}{buttonBlue}\\ 
+No lateral comment zone ; comments appear above the image (suitable for long
+comments) ; the users access the comments through icons placed above the
+"image-active"}; \node[box, below left = 5mm of pBlue] (pBlueC)
+{\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{popBlue}\\ No
+lateral comment zone; a first click on the detail reveals it, and a second
+one pops up the comment (no zoom)};
+  
+  \draw[-stealth] (aBlackC.west) -- (aBlack.north east); \draw[-stealth]
+(aCloudC.west) -- (aCloud.east); \draw[-stealth] (pYellowC.north west) --
+(pYellow.south east); \draw[-stealth] (bBlueC.north east) -- (bBlue.north
+west); \draw[-stealth] (pBlueC.north east) -- (pBlue.south west);
+\draw[-stealth] (filesC.south east) -- (files.north west); \draw[-stealth]
+(paramsC.south) -- (params.north);
+  
+\end{tikzpicture}
+\caption{Les modèles d'export de Xia}
+\label{xia_interface}
+\end{figure}
+
+En réalité, puisque Xia est également une extension d'Inkscape, vous pouvez
+générez vos projets directement depuis ce logiciel: cliquez sur
+\chemin{Extensions $\rightarrow$ Divers $\rightarrow$ Xia Édu}, et
+choisissez directement la qualité, le modèle d'export, et le répertoire de
+destination.
+
+\subsection{En résumé}
+
+\begin{enumerate}
+ \item Une image-active est construite dans Inkscape (au format svg). Xia ne fait
+que convertir ce fichier source svg en animation html5; 
+ \item Le titre de l'image-active doit être renseignée dans les \chemin{Métadonnées
+du document};
+ \item Le texte des détails est renseigné dans les \chemin{Propriétés de l'objet},
+dans les champs \chemin{Titre} et \chemin{Description};
+ \item La description générale de l'image-active doit être renseignée dans les
+\chemin{Propriétés de l'objet} de l'image de fond.
+\end{enumerate}
+
+\section{Images-actives enrichies}\label{enriched_IA}
+
+\begin{links}
+Visualisez
+l'\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2}{"image-active"}
+créée pour cette partie de la documentation.
+
+Téléchargez le fichier source au format
+\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2/svg/xia2.svg}{svg}.
+\end{links}
+
+Dans cette section, l'objectif demeure la création d'une image-active
+«~traditionnelle~» (autrement dit, dans laquelle un détail fait apparaître
+un commentaire). Cependant, le texte des commentaires sera enrichi par une
+mise en forme ou des ressources multimédias.
+
+
+\newpage
+\subsection{Mise en forme du texte}
+
+Afin de mettre en forme le texte, les balises indiquées dans l'illustration
+\ref{xia_text_tags} seront utilisées.
+
+\begin{figure}[htp!]
+\tikzstyle{descrip}=[font=\sffamily, anchor=north west, text width = 4.3cm]
+\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners,
+anchor=north west]
+\begin{tikzpicture}
+  \node[anchor=north west] (bold)
+{\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
+-7mm of bold] (boldT) {Ce texte est en ***gras***}; \node[box, right = 3.5cm
+of bold] (bolR) {Ce texte est en \textbf{gras}}; \node[anchor=north west,
+below = .2cm of bold] (italic)
+{\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
+-7mm of italic] (italicT) {Ce texte est en **italique**}; \node[box, right =
+3.5cm of italic] (italicR) {Ce texte est en \textit{italique}};
+\node[anchor=north west, below = .2cm of italic] (texttt)
+{\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
+-7mm of texttt] (textttT) {Bout de texte \verb!{{{brut}}}!}; \node[box,
+right = 3.5cm of texttt] (textttR) {Bout de texte \texttt{brut}};
+\node[anchor=north west, below = .2cm of texttt] (link)
+{\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
+7mm of link.north] (linkT) {Un lien vers
+\verb![https://www.wikipedia.org/Wikipedia]!}; \node[box, right = 3.5cm of
+link] (linkR) {Un lien vers \href{https://www.wikipedia.org/}{Wikipedia}};
+\node[anchor=north west, below = .8cm of link] (bullets)
+{\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
+-7mm of bullets] (bulletsT) {Faire une liste \\ $\ast$ de puces \\ $\ast$
+sur \\ ~$\ast$ 2 niveaux}; \node[box, right = 3.5cm of bullets.south east]
+(bulletsR) {Faire une liste \begin{itemize} \item de puces \item sur
+\begin{itemize} \item 2 niveaux \end{itemize} \end{itemize} };
+\node[anchor=north west, below = 2cm of bullets] (line)
+{\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
+7mm of line.north] (lineT) {Tracer \\ - - - - \\ un trait}; \node[box, right
+= 3.5cm of line] (lineR) {Tracer \\ \hrulefill \\ un tait};
+\end{tikzpicture}
+\caption{Balises de mise en forme du texte}
+\label{xia_text_tags}
+\end{figure}
+
+\subsection{Insérer des ressources multimédias dans les commentaires}\label{enrichissement_multimedia}
+
+L'insertion de ressources multimédias dans les commentaires est chose assez
+aisée: copier-coller l'url de la ressources (qu'elle soit absolue ou
+relative) ou le code iframe du service web utilisé pour héberger votre
+ressources, et Xia créera automatiquement un lecture multimédia, pour peu
+que celle-ci (image, son, vidéo) fasse partie des formats supportés: 
+\begin{description}
+ \item[Images] jpg, jpeg, png, gif
+ \item [Audio] ogg, mp3
+ \item [Video] ogv, webm, mp4
+\end{description}
+
+Le lien doit être inséré dans le champ \chemin{Description} des
+\chemin{Propriétés de l'objet}:
+\begin{description}
+ \item[Lien absolu] Si l'url de la ressource est
+ 
+ \verb|http://web.crdp.ac-versailles.fr/02546.ogg|
+ 
+
+ il suffit alors de l'indiquer dans le champs \chemin{Description} des
+\chemin{Propriétés de l'objet} dans Inkscape.
+ 
+ \item[Lien relatif] Si le fichier de la ressources multimédia se trouve dans le répertoire
+d'export de l'image-active, ou dans un répertoire contenu dans celui-ci,
+indiquez simplement le chemin vers le fichier, en considérant le répertoire
+d'export comme répertoire racine. Par exemple, si le fichier
+\verb|video.ogv] se trouve dans le répertoire  \verb|videos| se trouvant
+lui-même dans le répertoire de l'image-active, indiquez:
+ 
+ \verb|videos/video.ogv|
+ 
+
+  pour créer le lecteur multimédia.
+\end{description}
+
+Tous les formats vidéos supportés par Xia ne sont cependant pas supportés
+nativement par tous les navigateurs web. Il est recommandé d'exporter les
+vidéos dans les 3 formats supportés par Xia, et de les déposer dans un seul
+et même répertoire (la seule différence entre ces trois vidéos étant donc
+leur extension).\\
+
+
+
+
+Ainsi, même si un format particulier est renseigné dans la description (si
+l'on suit l'exemple précédent, ce serait \verb|videos/video.ogv|), si le
+navigateur web est incapable de lire la ressource, il tentera
+automatiquement de lire les fichiers possédant le même nom mais une
+extension différnte.
+
+La dernière possibilité consiste à insérer un code iframe. Celui-ci sera
+interprété et le lecteur du service web apparaîtra, donnant accès à la
+ressource.
+
+\subsection{Le modèle «~audioBrown~»: le son à la place du texte}
+
+Le modèle «~audioBrown~» est spécifiquement dédié à la création
+d'images-actives dans lesquelles les détails sont associés à des sons plutôt
+qu'à du texte.
+
+Pour insérer des sons, vous utiliserez des liens absolus ou relatifs en
+suivant la méthode décrite dans la section
+\ref{enrichissement_multimedia}. Si vous souhaitez que le son soit joué
+automatiquement à la sélection du détail, ajoutez la balise \verb|autostart|
+après l'url de la ressource \footnote{La balise \textttt{autostart}
+fonctionne également avec les autres modèles d'export de Xia.}:\\
+\begin{center}
+ \verb|sounds/detail_1_sound.ogg autostart|
+\end{center}
+
+
+\subsection{Insérer des images dans votre image-active}\label{insertion_images}
+
+Des images au format png peuvent être ajoutées à l'image de fond. Pour faire
+cela, sélectionnez \chemin{Fichier $\rightarrow$ Importer} dans Inkscape
+afin d'incorporer votre image.
+
+The imported image will only appear in the html5 animation if you have
+applied white background in Inkscape. Choose white in the horizontal colour
+palette at the bottom of Inkscape interface (see figure
+\ref{remplissage_blanc}).
+
+\begin{figure}[htp!]
+ \centering\includegraphics[width=0.6\textwidth]{images/remplissage_blanc}
+ \caption[How to apply a white background to the details]{Dans Inkscape, sélectionnez le png incorporé et appliquez-lui un fond blanc
+en sélectionnant cette couleur dans la palette horizontale, afin de le
+rendre visible une fois l'image-active générée.} 
+ \label{remplissage_blanc}
+\end{figure}
+
+En indiquant une url dans le champ \chemin{Titre} des \chemin{Propriétés de
+l'objet}, cette image incorporée deviendra un lien cliquable.
+
+\subsection{Faire apparaître une question et dévoiler une réponse}
+
+Vous pouvez créer une icône «~\textit{Réponse}~» cliquable, qui empêche
+temporairement un utilisateur de lire la suite du commentaire.
+
+Pour fair cela, indiquez simplement dans la description, sur une ligne\\ 
+\verb|Réponse:| ou \verb|réponse:|, suivi du texte qui sera dévoilé.
+
+\subsection{Contrôler le comportement des détails: affichage immédiat et désactivation
+du zoom}\label{white_black_background}
+\label{couche_XML}
+
+Par défaut, le comportement des détails d'une image-active est le suivant:
+\begin{itemize}
+ \item mise en valeur des détails au survol de la souris ou par un clic sur son
+titre dans les commentaires
+ \item effet de zoom lors d'un second clic sur le détail actif\footnote{Sauf dans le cas du modèle popBlue.}
+\end{itemize}
+
+Both of these default behaviors can be modified if you apply a white or
+black background to cropped details (see section \ref{insertion_images} and
+figure \ref{remplissage_blanc}):
+\begin{description}
+ \item[Détail avec un fond blanc] Dans l'image-active, ces détails seront visibles immédiatement, sous la
+forme d'un aplat de couleur opaque, cachant l'image de fond; une fois
+sélectionné, ce fond sera visible (le zoom demeure actif).
+ \item [Détail avec un fond noir] Les utilisateurs devront cliquer pour activer le
+détail, mais l'effet de zoom est désactivé.
+\end{description}
+
+Logical consequence : you can not apply a white and a black background all
+together on the same detail. A single detail can not be immediately
+displayed \textit{and} have the zoom effect disabled.
+
+\subsection{Contrôler l'ordre d'affichage des détails dans la barre latérale des
+commentaires}
+
+Par défaut dans une image-active, les détails apparaissent verticalement en
+suivant l'ordre dans lequel ils ont été créés dans Inkscape (le premier
+détail créé dans Inkscape correspond à celui placé en haut dans la barre
+latérale de l'image-active).
+
+Pour changer cet ordre par défaut, nous utiliserons l'\chemin{Éditeur XML},
+situé dans le menu \chemin{Édition}.
+
+A priori complexe, cette fenêtre de dialogue est en réalité assez simple à
+utiliser: en sélectionnant une entrée de l'éditeur XML, le détail
+correspondant à celle-ci sera mise en évidence sur l'image. Il ne reste plus
+qu'à glisser-déposer celle-ci à l'endroit désiré (voir l'illustration
+\ref{ordre_couches}).
+
+\begin{figure}[htp]
+ \centering
+ \includegraphics[width=\textwidth]{images/ordre_couches}
+ \caption[The Inkscape XML Editor and the display order of the details]{L'éditeur XML d'Inkscape permet de contrôler l'ordre d'affichage des détails
+dans l'image-active. Remarquez la mise en évidence d'un élément sur l'image
+de fond par simple sélection dans l'éditeur.}
+ \label{ordre_couches}
+\end{figure}
+
+\subsection{En résumé}
+
+\begin{enumerate}
+ \item Vous pouvez enrichir et mettre en forme le texte en utilisant des balises
+ \item L'enrichissement multimédia est possible par simple lien (relatif ou absolu)
+vers un fichier dont le format est reconnu par Xia
+ \item On ajoute des images sur l'image de fond en les incorporant et en leur
+appliquant un fond blanc
+ \item On peut modifier le comportement par défaut des détails en leur appliquant
+une couleur de fond (blanc ou noir)
+ \item L'ordre des détails de l'image-active dépend de l'ordre de leur création
+dans Inkscape. Cependant, on peut utiliser l'éditeur XML d'Inkscape pour
+modifier cet ordre
+\end{enumerate}
+
+\newpage
+
+\section{Créer des jeux avec Xia}\label{games_IA}
+
+Jusqu'à maintenant, cette documentation n'a traité que de la création
+d'image-active «~traditionnelle~»: une image de fond, des détails détourés
+associés à des commentaires.
+
+Ce type d'image-active peut être utilisé en classe dans des situations très
+variées (les élèves découvrent progressivement une image, ou créent
+eux-mêmes une image-active), mais Xia va plus loin avec de nouvelles
+fonctionnalités. On peut désormais créer des jeux, des activités, dans
+lesquelles l'utilisateur final a bien davantage à faire que de simplement
+cliquer sur des détails et lire du texte.
+
+\begin{figure}[htp]
+\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]
+\begin{tikzpicture}
+  \node[opacity=.5] (bBlue)
+{\includegraphics[scale=.35]{./images/buttonBlue}}; \node[left= .8mm of
+bBlue] (aBrown) {\includegraphics[scale=.35]{./images/audioBrown}};
+\node[right= .8mm of bBlue] (guClic)
+{\includegraphics[scale=.35]{./images/game1clic}}; \node[below= .2mm of
+bBlue.south, opacity=.5] (pBlue)
+{\includegraphics[scale=.35]{./images/popBlue}}; \node[left= .8mm of pBlue]
+(gDDrop) {\includegraphics[scale=.35]{./images/gameDragAndDrop}};
+\node[right= .8mm of pBlue, opacity=.5] (pYellow)
+{\includegraphics[scale=.35]{./images/popYellow}}; \node[above = .2mm of
+guClic.north, opacity=.5] (aCloud)
+{\includegraphics[scale=.35]{./images/accordionCloud}}; \node[above = .2mm
+of aCloud.north, opacity=.5] (aBlack)
+{\includegraphics[scale=.35]{./images/accordionBlack}}; \node[left = .2mm of
+aBlack] (params) {\includegraphics[scale=.35]{./images/params}}; \node[left
+= .2mm of params] (files) {\includegraphics[scale=.35]{./images/xia_open}};
+  
+  \node[box, text width=2.5cm,above left = 5mm of files] (filesC)
+{Sélectionner le fichier source au format svg file}; \node[box, above = 5mm
+of params] (paramsC) {Sélectionner la qualité de l'export}; \node[box, right
+= 5mm of guClic] (guClicC)
+{\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionCloud}{game1clic}\\ 
+text to fill and change url}; \node[box, left = 25mm of bBlue] (aBrownC)
+{\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/buttonBlue}{audioBrown}\\ 
+text to fill and change url}; \node[box, below left = 5mm of pBlue]
+(gDDropC)
+{\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{gameDragAndDrop}\\ 
+text to fill and change url};
+  
+  \draw[-stealth] (guClicC.west) -- (guClic.east); \draw[-stealth]
+(gDDropC.north) -- (gDDrop.south); \draw[-stealth] (aBrownC.north east) --
+(aBrown.north); \draw[-stealth] (filesC.south east) -- (files.north west);
+\draw[-stealth] (paramsC.south) -- (params.north);
+  
+\end{tikzpicture}
+\caption{Les modèles d'export de Xia}
+\label{xia_interface2}
+\end{figure}
+
+\subsection{Premier principe ludique: sélectionner, trouver des éléments dans une image}
+
+\textit{Le principe ludique décrit dans cette partie de la documentation est
+le suivant: le joueur doit sélectionner des détails dans une image, quand il
+a sélectionné les éléments indiqués dans la consigne, un message de fin
+apparaît.}
+
+
+\begin{links}
+Visualisez
+l'\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia3}{"image-active"}
+créée pour cette partie de la documentation.
+
+Téléchargez le fichier source au format
+\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia3/svg/xia3.svg}{svg}.
+\end{links}
+
+Ce type de jeu est presque le type d'image-active la plus facile à
+créer. Vous devez uniquement détourer les détails que le joueur devra
+sélectionner. 
+
+Les consignes doivent être indiquées dans les métadonnées du document. Xia
+cherchera les informations relatives aux consignes dans le champ
+\chemin{Description} des métadonnées du doucment (voir la section
+\ref{preparation_svg}), et créera une pop up affichant ces consignes à
+l'ouverture du jeu. Le joueur pourra les lire, fermer la fenêtre puis jouer.
+
+When the user completes the game, a message automatically appears.  This
+message has to be filled in the \chemin{Description} field of the
+\chemin{Object Properties} of the background image \footnote{When creating a
+traditional "image-active", this field creates the introduction text, not
+related with any detail (see section \ref{preparation_svg}).}.  Two
+informations are needed in order for this message to pop up : the exact
+number of details that have to be selected\footnote{This number does not
+have to match the number of details on the image.} and the message itself. 
+
+\begin{table}
+ \begin{tabular}{|l|p{2in}|p{2in}|}
+ \hline
+  Objectif & Renseigner le nombre de réponses correctes permettant de terminer le jeu & Afficher un message\\
+  \hline
+  Balise & \texttt{<score></score>}| & \texttt{<message></message>}\\
+  \hline
+  Exemple & \multicolumn{2}{|l|}{\texttt{<score>6</score>}}\\
+   & \multicolumn{2}{|l|}{\texttt{<message>Bravo!}}\\
+    & \multicolumn{2}{|l|}{\texttt{Vous avez terminé le jeu!</message>}}\\
+  \hline
+ \end{tabular}
+\caption{Résumé des balises à utiliser}
+\label{tag1_sumup}
+\end{table}
+ 
+\begin{astuce}
+Le texte insérer dans la balise \verb|<message></message>| peut être enrichi
+avec des images, des vidéos, du son. On peut aussi imaginer ajouter un lien
+vers un autre jeu, ce qui permettrait aux utilisateurs d'enchaîner les jeux
+par degré de difficulté.
+\end{astuce}
+
+\begin{wrapfigure}{r}{45mm}
+  \centering
+  \includegraphics[scale=0.7]{./images/game1clic} 
+\end{wrapfigure}
+
+Choisir le modèle d'export \chemin{game1clic} pour générer l'image-active.
+
+
+\subsubsection{\emph{Astuces pour la création d'image-active «~avancée~»\ldots} Montrer la
+progression du joueur}\label{détail_progression}
+
+
+Il est possible de faire s'afficher des éléments graphiques quand le joueur
+sélectionne une réponse correcte. Ces éléments peuvent être des png importés
+ou des formes directement dessinées dans Inkscape. Comme Xia considère
+qu'une forme dessinée avec les outils d'Inkscape est un détail, il faudra
+transformer ces formes en utilisant l'outil «~copie bitmap~». Par exemple:
+\begin{enumerate}
+ \item Dessinez une étoile aux bords jaunes et au fond jaune avec les outils de
+dessin d'Inkscape 
+ \item Sélectionnez cette étoile, et cliquez sur /chemin{Édition $\rightarrow$
+Créer une copie bitmap}
+ \item Supprimer l'étoile créée avec les outils de dessin
+\end{enumerate}
+
+Une fois les éléments importés (format png) ou créés (copie bitmap des
+formes dessinées manuellement), appliquez-leurs les caractéristiques
+suivantes:
+\begin{center}
+\chemin{Interactivité > OnClick} = \verb|off|
+\end{center}
+Ensuite, groupez le détail cliquable à son élément graphique (en cliquant
+successivement sur le détail et l'élément en maintenant la touche \Shift
+enfoncée), puis en sélectionnant \chemin{Grouper} dans le menu
+\chemin{Objet} d'Inkscape.
+
+\subsubsection{\emph{Astuces pour la création d'image-active «~avancée~»\ldots} Mettre en
+évidence les erreurs du joueur}
+
+On voit clairement l'intérêt pédagogique des jeux basés sur le principe de
+la sélection\ldots mais on voit également rapidement comment des élèves
+peuvent être tentés de contourner le dispositif ludique pour terminer les
+jeux sans avoir à réfléchir (par exemple, en cliquant frénétiquement partout
+sur l'image, jusqu'à trouver par hasard tous les détails à trouver).
+
+C'est la raison pour laquelle il peut être intéressant de mettre en valeur
+les erreurs commises par le joueur.
+
+Pour cela, il faudra prévoir les erreurs pouvant être commises, et placer
+sur l'image des éléments graphiques symbolisant l'erreur (croix rouge,
+etc.). Ces éléments pouvant être des images au format png importées ou des
+formes dessinés dans Inkscape, puis copier en bitmap (pour savoir comment
+faire cela, voir la section \ref{detail_progression}). Ces éléments devront
+posséder les caractéristiques suivantes:
+\begin{center}
+\chemin{Interactivité > OnClick} = \verb|disable-score| 
+\end{center}
+Une fois la balise \verb|disable-score| appliquée, le détail demeure
+cliquable, mais sa sélection n'ajoutera pas un point au compteur surveillant
+le score pour délivrer le message de fin.
+
+\subsection{Second principe ludique: classer, organiser, hiérarchiser}\label{gameDragAndDropsection}
+
+\textit{The second kind of game that can be created with Xia consists in
+dragging and dropping graphical elements on the background image. If all the
+elements have been dropped on their corresponding drop zone, a pop up
+message appears, confirming the achievement of the game.}
+
+\begin{links}
+Visualisez
+l'\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia5}{"image-active"}
+créée pour cette partie de la documentation.
+
+Téléchargez le fichier source au format
+\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia5/svg/xia5.svg}{svg}.
+\end{links}
+
+Voici comment créer un jeu basé sur le principe du glisser-déposer:
+\begin{enumerate}
+ \item Dans Inkscape:
+\begin{itemize}
+ \item Choisir une image de fond
+ \item Créer les éléments que les utilisateurs de votre image-active auront à
+déplacer et à déposer (autrement dit: des images, des mots ou groupes de
+mots)
+ \item En renseignant les métadonnées, faites correspondre chaque élément à une
+zone de dépôt (ces zones de dépôts étant en réalité des détails détourés)
+\end{itemize}
+ \item Dans Xia
+ \begin{itemize}
+  \item Exporter le fichier source au format svg avec le modèle «~gameDragAndDrop~»
+ \end{itemize}
+\end{enumerate}
+
+Deux méthodes peuvent être utilisées pour créer les éléments que les joueurs
+auront à glisser et déposer. La première, très simple, consiste à utiliser
+un utilitaire de capture d'écran capable de créer des petites images au
+format png, puis d'importer celles-ci dans Inkscape. Il est également
+possible de créer ces éléments directement dans Inkscape. Par exemple, en
+créant un texte, en regroupant ce texte avec une forme puis en faisant une
+copie bitmap de cet ensemble (pour comprendre comment faire cela, se référer
+à la section \ref{détail_progression}\footnote{\ldots N'oubliez pas de
+supprimer l'élément original une fois la copie bitmap créée.}. Les éléments
+à déplacer doivent être associés à leur zone de dépôt \footnote{\textbf{Un}
+objet ne pouvant être associé qu'à \textbf{une} zone de dépôt.}.
+
+Vous trouverez dans ce tableau les balises à renseigner dans les
+\chemin{Propriétés de l'objet} des éléments à déplacer et des zones de
+dépôts afin de les faire correspondre:
+
+\begin{table}
+\begin{tabular}{|p{1.in}|p{2.5in}|p{1.5in}|}
+\hline
+ & Élément à déplacer (objets à glisser et déposer) & Détail détouré (zone de dépôt)\\
+\hline
+Champ ID & & \verb|Titre_du_détail|\\
+\hline
+Champ description & \verb|<target>Titre_du_détail</target>| & \\
+\hline
+\end{tabular}
+\caption{Résumé des balises à utiliser}
+\label{tag2_sumup}
+\end{table}
+
+\begin{wrapfigure}{r}{45mm}
+  \centering
+  \includegraphics[scale=0.7]{./images/gameDragAndDrop} 
+\end{wrapfigure}
+
+
+Faites correspondre les éléments à glisser-déposer avec leur zone de dépôt
+en faisant correspondre le champ \chemin{ID} de la zone de dépôt au champ
+\chemin{Description} de l'élément à glisser déposer. La seule subtilité
+tient dans la balise \verb|<target></target>| devant être indiquée dans la
+\chemin{Description}.
+
+Choisissez le modèle \chemin{gameDragAndDrop} pour générer l'image-active.
+
+
+
+\subsubsection{Comment ajouter un effet «~aimant~» dans le jeu gameDragAndDrop}
+
+Si vous indiquez \verb|<magnet>on</magnet>| dans le champ
+\chemin{Description} de la zone de dépôt, un effet aimant sera activé quand
+le joueur déposera l'élément sur celle-ci.
+
+\subsubsection{Deux façons de donner des indices aux joueurs: les infobulles et les liens
+sur les zones de dépôt}
+
+On peut activer l'affichage d'infobulles lorsque la souris survole les
+détails. Pour cela, créer l'infobulle avec un png importé ou une copie
+bitmap d'un texte créé dans Inkscape\footnote{Ou une copie bitmap d'un texte
+regroupé avec une forme\ldots}, et spécifez une \chemin{ID} pour cet objet
+(dans les \chemin{Propriétés de l'objet}). Ensuite, indiquez la balise
+\verb|<tooltip>ID_de_l_infobulle</tooltip>| dans le champ
+\chemin{Description} des \chemin{Propriétés de l'objet} du détail (voir
+l'illustration \ref{tooltip_example}).  Notez que cette fonctionnalité est
+également disponible dans le jeu game1clic.
+
+\begin{figure}[htp]
+ \centering
+ \includegraphics[width=0.5\textwidth]{images/tooltip_example}
+ \caption[Tooltip]{Lorsque la souris survole le carré jaune, une infobulle «~Test~» apparaît}
+ \label{tooltip_example}
+\end{figure}
+
+Une autre méthode consiste à insérer un lien dans le champ \chemin{Titre}
+des \chemin{Propriétés de l'objet} de la zone de dépôt. La zone de dépôt
+devient alors un lien cliquable dans l'image-active.
+
+\subsection{Troisième principe ludique: les collisions}
+
+\textit{Le principe ludique documenté dans cette section est le suivant: le
+joueur doit déplacer des éléments vers des zones de dépôt, mais les
+déplacements de ces éléments ne peuvent avoir lieu que dans certaines
+limites. Le jeu de type «~collisions~» peut ainsi être utilisé pour créer
+des labyrinthes, des taquins.}
+
+Pour créer ce type de jeu, ajoutez la balise
+\verb|<collisions>on</collisions>| à l'image de fond. Une fois cela fait,
+tous les détails deviennent «~solides~», et bloquent le déplacement des
+objets qu'il faut déplacer (images au format png importées, ou copie bitmap
+de formes dessinées avec Inkscape).
+
+Le jeu de type «~collisions~» est en réalité un jeu de type gameDragAndDrop,
+puisque la résolution passe par le dépôt d'un ou plusieurs éléments à
+certains endroits de l'image. Les balises nécessaires dans ce type de jeu
+sont donc les mêmes que dans le jeu gameDragAndDrop
+\footnote{\texttt{<target></target>} sur les objets,
+\texttt{<score></score>} sur l'image de fond: voir la section
+\ref{gameDragAndDropsection}.}, mais il faudra penser à appliquer la balise
+\verb|<collisions>off</collisions>| sur les zones de dépôts, dans le champ
+\chemin{Description}.
+\newpage
+\subsection{En résumé}
+
+Ces tableaux résument les balises pouvant être utilisées dans le cadre de la
+création de jeux avec Xia:
+
+\begin{table}[thp]
+ \begin{tabular}{|p{.5cm}|p{2cm}|p{10cm}|}
+ \hline
+ \multicolumn{3}{|l|}{Modèle \chemin{game1clic}} \\
+ \hline
+ \multicolumn{3}{|l|}{\texttt{<score></score>}}\\
+ \hline
+ & \emph{Rôle} & Permet de régler le nombre de bonnes réponses nécessaire pour faire
+apparaître le message de fin du jeu\\
+ & \emph{Élément}  & Image de fond \\
+ & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description} \\
+ & \emph{Quoi?} & Le nombre de bonnes réponses nécessaire à la résolution du jeu\\
+ \hline
+ \multicolumn{3}{|l|}{\texttt{<message></message>} }\\
+ \hline
+  & \emph{Rôle} & Fais apparaître le message de fin du jeu \\
+  & \emph{Élément}  & Image de fond \\
+  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description}\\ 
+  & \emph{Quoi?} & Un message que vous pouvez si nécessaire enrichir avec des ressources
+multimédias ou un lien hypertexte\\
+  \hline
+  \multicolumn{3}{|l|}{\texttt{off}}\\
+  \hline
+  & \emph{Rôle} & Rend un détail insensible au clic \\
+  & \emph{Élément} & Détail \\
+  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Interactivité $\rightarrow$
+Onclick}\\
+ \hline
+  \multicolumn{3}{|l|}{\texttt{disable-score}}\\
+  \hline
+  & \emph{Rôle} & Rend un détail détouré cliquable, mais sa sélection n'ajoutera pas de point
+au compteur de score \\
+  & \emph{Élément} & Détail \\
+  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Interactivité $\rightarrow$
+Onclick}\\
+  \hline
+  \multicolumn{3}{|l|}{\texttt{<tooltip></tooltip>}}\\
+  \hline
+  & \emph{Rôle} & Affiche une infobulle au survol de la souris \\
+  & \emph{Élément} & Détail \\
+  & \emph{Quoi?} & Assurez-vous que ce champ est identique à l'ID de l'élément servant
+d'infobulle\\
+  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description}\\
+  \hline
+  \end{tabular}
+  \caption{Balises à insérer pour un jeu de type game1clic}
+ \end{table}
+ 
+ \begin{table}[thp]
+ \begin{tabular}{|p{.5cm}|p{2cm}|p{10cm}|}
+ \hline
+ \multicolumn{3}{|l|}{Modèle \chemin{gameDragAndDrop}} \\
+ \hline
+ \multicolumn{3}{|l|}{\texttt{<score></score>}}\\
+ \hline
+ & \emph{Rôle} & Permet de régler le nombre de bonnes réponses nécessaire pour faire
+apparaître le message de fin du jeu\\
+ & \emph{Élément}  & Image de fond \\
+ & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description} \\
+ & \emph{Quoi?} & Le nombre de bonnes réponses nécessaire à la résolution du jeu\\
+ \hline
+ \multicolumn{3}{|l|}{\texttt{<message></message>} }\\
+ \hline
+  & \emph{Rôle} & Fais apparaître le message de fin du jeu \\
+  & \emph{Élément}  & Image de fond \\
+  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description}\\ 
+  & \emph{Quoi?} & Un message que vous pouvez si nécessaire enrichir avec des ressources
+multimédias ou un lien hypertexte\\
+  \hline
+  \multicolumn{3}{|l|}{\texttt{<target></target>}}\\
+  \hline
+  & \emph{Rôle} & Indique la correspondance entre l'élément à déplacer et la zone de dépôt \\
+  & \emph{Élément} & Élément à déplacer \\
+  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description}\\
+  & \emph{Quoi?} & Assurez-vous que ce champ est identique à l'ID de la zone de dépôt\\
+  \hline
+  \multicolumn{3}{|l|}{\texttt{<magnet>on</magnet>}}\\
+  \hline
+  & \emph{Rôle} & Ajoute un effet «~aimant~» \\
+  & \emph{Élément} & Zone de dépôt \\
+  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description} \\
+  \hline
+  \multicolumn{3}{|l|}{\texttt{<collisions>on</collisions>}}\\
+  \hline
+  & \emph{Rôle} & Active le jeu de type "collisions" \\
+  & \emph{Élément} & Image de fond \\
+  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description} \\
+  \hline
+  \multicolumn{3}{|l|}{\texttt{<collisions>off</collisions>}}\\
+  \hline
+  & \emph{Rôle} & Crée une zone de dépôt dans un jeu de type "collisions"\\
+  & \emph{Élément} & Zone de dépôt\\
+  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description} \\
+  \hline
+    \multicolumn{3}{|l|}{\texttt{<tooltip></tooltip>}}\\
+  \hline
+  & \emph{Rôle} & Affiche une infobulle au survol de la souris \\
+  & \emph{Élément} & Zone de dépôt, éléments à déplacer \\
+  & \emph{Quoi?} & Assurez-vous que ce champ est identique à l'ID de l'élément servant
+d'infobulle\\
+  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description}\\
+  \hline
+  \end{tabular}
+  \caption{Balises à insérer en vue d'un export gameDragAndDrop}
+\end{table} 
+
+\listoffigures \listoftables
+
+\end{document}
