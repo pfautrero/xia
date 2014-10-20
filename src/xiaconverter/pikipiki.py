@@ -19,6 +19,10 @@
 import re
 import string
 import os
+from datetime import datetime
+import hashlib
+import base64
+
 class PageFormatter:
     """Object that turns Wiki markup into HTML.
 
@@ -32,6 +36,8 @@ class PageFormatter:
         self.is_em = self.is_b = 0
         self.list_indents = []
         self.in_pre = 0
+        self.hidden_block = []
+        self.final_str = ""
 
     def _emph_repl(self, word):
         if len(word) == 3:
@@ -152,6 +158,57 @@ class PageFormatter:
         else:
             return u''
 
+    def _hidden_block_repl(self, word):
+        if word.startswith('[['):
+            #self.hidden_block.append(1)
+            stack_value = 0
+            data_password=""
+            code_present = re.search('\(code=(.*)\)', word, re.IGNORECASE|re.DOTALL)
+            content =  word[2:len(word) - 1]
+            final_result = ""
+            if code_present:
+                #password = hashlib.md5(code_present.group(1)).hexdigest()
+                password = code_present.group(1)
+                stack_value = password
+                data_password = 'data-password="' + hashlib.sha1(password).hexdigest() + '"'
+                content = re.sub('\(code=(.*)\)', '', content)
+            
+            random_id = hashlib.md5(str(datetime.now().microsecond)).hexdigest()
+            final_result =  u'<div style="margin-top:5px;margin-bottom:5px;">' + \
+                u'<a class="button" href="#" ' + data_password + \
+                u' data-target="' + random_id + '">' + \
+                content + \
+                u'</a>' + \
+                u'</div>'
+            if data_password != "":
+                final_result += u'<form class="unlock" style="display:none;" id="form_' + random_id + '">' + \
+                            u'<input type="text">' + \
+                            u'<input type="submit" data-target="' + random_id + '" value="" ' + data_password + '>' + \
+                            u'</form>'
+            final_result += u'<div class="response" id="response_' + random_id + '">'
+            if data_password != "":
+                final_result += u'<!-- ==HIDDEN_BLOCK== -->'
+            
+            self.hidden_block.append(stack_value)
+            return final_result
+        
+        elif len(self.hidden_block):
+            password = self.hidden_block.pop()
+            if password:
+                # encrypt hidden_block
+                start_block = self.final_str.rfind("<!-- ==HIDDEN_BLOCK== -->")
+                str_to_encrypt = self.final_str[start_block:]
+                while len(password) < len(str_to_encrypt):
+                    password += password
+                str_encrypted = base64.b64encode(self.str_xor(str_to_encrypt, password))
+                self.final_str = self.final_str[0:start_block] + str_encrypted
+            return u'</div>\n'
+        else:
+            return u''
+
+    def str_xor(self, s1, s2):
+        return "".join([chr(ord(c1) ^ ord(c2)) for (c1,c2) in zip(s1,s2)])
+        
     def _indent_level(self):
         return len(self.list_indents) and self.list_indents[-1]
 
@@ -181,7 +238,7 @@ class PageFormatter:
     def print_html(self):
         # For each line, we scan through looking for magic
         # strings, outputting verbatim any intervening text
-        final_str = u""
+        #final_str = u""
         scan_re = re.compile(
             r"(?:(?P<emph>\*{2,3})"
             + r'|(?P<iframe2><iframe(.*)></iframe>)'
@@ -199,6 +256,7 @@ class PageFormatter:
             + r"|(?P<li>^\s+\*(.*))"
             + r"|(?P<nothandled>nothandled)"
             + r"|(?P<pre>(\{\{\{|\}\}\}))"
+            + r"|(?P<hidden_block>(\[\[(.*)\:|\]\]))"
             + r")")
         blank_re = re.compile("^\s*$")
         indent_re = re.compile("^\s*")
@@ -208,11 +266,15 @@ class PageFormatter:
         for line in eol_re.split(raw):
             if not self.in_pre:
                 if blank_re.match(line):
-                    final_str += u'<br>\n'
+                    self.final_str += u'<br>\n'
                     continue
                 indent = indent_re.match(line)
-                final_str += self._indent_to(len(indent.group(0)))
-            final_str += re.sub(scan_re, self.replace, line)
-        if self.in_pre: final_str += u'</pre>\n'
-        final_str += self._undent()
-        return final_str
+                self.final_str += self._indent_to(len(indent.group(0)))
+            test = re.sub(scan_re, self.replace, line)
+            self.final_str += test
+        if self.in_pre: self.final_str += u'</pre>\n'
+        while len(self.hidden_block):
+            self.hidden_block.pop(0)
+            self.final_str += u'</div>\n'
+        self.final_str += self._undent()
+        return self.final_str

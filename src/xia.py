@@ -36,6 +36,7 @@ if __name__=='__main__':
     labjsLib = config.get('paths', 'labjsLib')
     jqueryLib = config.get('paths', 'jqueryLib')
     kineticLib = config.get('paths', 'kineticLib')
+    sha1Lib = config.get('paths', 'sha1Lib')
     
     root = Tkinter.Tk()
 
@@ -44,5 +45,5 @@ if __name__=='__main__':
     root.resizable(0,0)
     img = Tkinter.PhotoImage(file=imagesPath + '/image-active64.gif')
     root.tk.call('wm', 'iconphoto', root._w, img)    
-    IADialog(root,langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, "").pack(side="left")
+    IADialog(root,langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, "").pack(side="left")
     root.mainloop()

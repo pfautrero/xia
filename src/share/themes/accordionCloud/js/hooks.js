@@ -76,13 +76,51 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         $("#overlay").hide();
     });
 
-    $(".accordion-toggle").on("click touchstart", function(){
+    var button_click = function() {
+        var target = $(this).data("target");
+        if ($("#response_" + target).is(":hidden")) {
+            if ($(this).data("password")) {
+                $("#form_" + target).toggle();
+                $("#form_" + target + " input[type=text]").attr("value", "");
+                $("#form_" + target + " input[type=text]").focus();
+            }
+            else {
+                $("#response_" + target).toggle();
+            }
+        }
+        else {
+            if ($(this).data("password")) {
+                $("#response_" + target).html($("#response_" + target).data("encrypted_content"));
+            }
+            $("#response_" + target).toggle();
+        }
+       
+    };
+    var unlock_input = function() {
+        var entered_password = $(this).parent().children("input[type=text]").attr("value");
+        var hash=CryptoJS.SHA1(entered_password);
+        if (hash.toString(CryptoJS.enc.Hex) == $(this).data("password")) {
+            var target = $(this).data("target");
+            var encrypted_content = $("#response_" + target).html();
+            $("#response_" + target).data("encrypted_content", encrypted_content);
+            $("#response_" + target).html(XORCipher.decode(entered_password, encrypted_content).decode());
+            $("#response_" + target).show();
+            $("#form_" + target).hide();
+            $(".button").off("click");
+            $(".button").on("click", button_click);
+            $(".unlock input[type=submit]").off("click");
+            $(".unlock input[type=submit]").on("click", unlock_input);
+        }        
+    };
+    $(".button").on("click", button_click);
+    $(".unlock input[type=submit]").on("click", unlock_input);
+
+    $(".accordion-toggle").on("click tap", function(){
         $('.accordion-body').removeClass("slidedown").addClass("collapse");
         $(this).parent().children(".accordion-body").removeClass("collapse").addClass("slidedown");              
     });
 
-    $("#collapsecomment-heading").on('click touchstart',function(){
-        console.log("test");
+    $("#collapsecomment-heading").on('click tap',function(){
         if (mainScene.zoomActive === 0) {
             if ((mainScene.element !== 0) && (typeof(mainScene.element) !== 'undefined')) {
                 for (var i in mainScene.element.kineticElement) {

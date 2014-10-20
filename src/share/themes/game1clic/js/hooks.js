@@ -66,6 +66,47 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
 
     var viewportHeight = $(window).height();
 
+    var button_click = function() {
+        var target = $(this).data("target");
+        if ($("#response_" + target).is(":hidden")) {
+            if ($(this).data("password")) {
+                $("#form_" + target).toggle();
+                $("#form_" + target + " input[type=text]").attr("value", "");
+                $("#form_" + target + " input[type=text]").focus();
+            }
+            else {
+                $("#response_" + target).toggle();
+            }
+        }
+        else {
+            if ($(this).data("password")) {
+                $("#response_" + target).html($("#response_" + target).data("encrypted_content"));
+            }
+            $("#response_" + target).toggle();
+        }
+       
+    };
+    var unlock_input = function() {
+        var entered_password = $(this).parent().children("input[type=text]").attr("value");
+        var hash=CryptoJS.SHA1(entered_password);
+        if (hash.toString(CryptoJS.enc.Hex) == $(this).data("password")) {
+            var target = $(this).data("target");
+            var encrypted_content = $("#response_" + target).html();
+            $("#response_" + target).data("encrypted_content", encrypted_content);
+            $("#response_" + target).html(XORCipher.decode(entered_password, encrypted_content).decode());
+            $("#response_" + target).show();
+            $("#form_" + target).hide();
+            $(".button").off("click");
+            $(".button").on("click", button_click);
+            $(".unlock input[type=submit]").off("click");
+            $(".unlock input[type=submit]").on("click", unlock_input);
+        }        
+    };
+    $(".button").on("click", button_click);
+    $(".unlock input[type=submit]").on("click", unlock_input);
+
+
+
     mainScene.score = $("#message_success").data("score");
     if ((mainScene.score == mainScene.currentScore) && (mainScene.score != "0")) {
         $("#content").show();
