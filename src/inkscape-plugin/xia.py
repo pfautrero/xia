@@ -20,6 +20,7 @@
 import inkex
 import tempfile
 import Tkinter
+import os
 import ConfigParser
 from xiaconverter.mainwindow import IADialog
 
@@ -34,16 +35,24 @@ class ImageActive(inkex.Effect):
         pathNodes = self.document.xpath('//sodipodi:namedview',namespaces=inkex.NSS)
         pathNodes[0].set('id','base')        
 
+        # workaround - fix path according to working dir
+        # inkscape 0.47 extensions working dir is inkscape/
+        # inkscape 0.48 extensions working dir is inkscape/share/extensions
+        
+        inkexWorkingDir = "."
+        if not os.getcwd().endswith("extensions"):
+            inkexWorkingDir = "share/extensions"
+
         config = ConfigParser.ConfigParser()
-        config.read("xia.cnf")
-        imagesPath = config.get('paths', 'imagesPath')
-        langPath = config.get('paths', 'langPath')
-        fontsPath = config.get('paths', 'fontsPath')
-        themesPath = config.get('paths', 'themesPath')        
-        labjsLib = config.get('paths', 'labjsLib')
-        jqueryLib = config.get('paths', 'jqueryLib')
-        kineticLib = config.get('paths', 'kineticLib')
-        sha1Lib = config.get('paths', 'sha1Lib')       
+        config.read(inkexWorkingDir + "/xia.cnf")
+        imagesPath = inkexWorkingDir + "/" + config.get('paths', 'imagesPath')
+        langPath = inkexWorkingDir + "/" + config.get('paths', 'langPath')
+        fontsPath = inkexWorkingDir + "/" + config.get('paths', 'fontsPath')
+        themesPath = inkexWorkingDir + "/" + config.get('paths', 'themesPath')        
+        labjsLib = inkexWorkingDir + "/" + config.get('paths', 'labjsLib')
+        jqueryLib = inkexWorkingDir + "/" + config.get('paths', 'jqueryLib')
+        kineticLib = inkexWorkingDir + "/" + config.get('paths', 'kineticLib')
+        sha1Lib = inkexWorkingDir + "/" + config.get('paths', 'sha1Lib')       
         
         try:
             filePath = tempfile.mkdtemp() + "/" + "temp.svg"
