@@ -1,3 +1,11 @@
+Version 1.0-beta2 - 23/10/2014
+-------------------------------
+
+- XIA est compatible Inkscape 0.47 en tant qu'extension
+- Mise à jour de la documentation + internationalisation
+- Système de réponse générique avec mot de passe possible
+- Correctif : bug dans kinetic bloquant pour IE11 sur gameDrag&Drop
+
 Version 1.0-beta1 - 12/10/2014
 -------------------------------
 
