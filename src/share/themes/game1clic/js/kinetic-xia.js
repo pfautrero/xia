@@ -9953,7 +9953,7 @@ var Kinetic = {};
             }
             var p = new Array();
             //console.log(this);
-            var startingPos = 4 * (pos.y * Math.floor(this.hitCanvas.width) + pos.x);
+            var startingPos = 4 * (Math.floor(pos.y) * Math.floor(this.hitCanvas.width) + Math.floor(pos.x));
             p[0] = this.completeImage[startingPos];
             p[1] = this.completeImage[startingPos + 1];
             p[2] = this.completeImage[startingPos + 2];

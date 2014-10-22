@@ -75,7 +75,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         if ($("#response_" + target).is(":hidden")) {
             if ($(this).data("password")) {
                 $("#form_" + target).toggle();
-                $("#form_" + target + " input[type=text]").attr("value", "");
+                $("#form_" + target + " input[type=text]").val("");
                 $("#form_" + target + " input[type=text]").focus();
             }
             else {
@@ -90,10 +90,13 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         }
        
     };
-    var unlock_input = function() {
-        var entered_password = $(this).parent().children("input[type=text]").attr("value");
-        var hash=CryptoJS.SHA1(entered_password);
-        if (hash.toString(CryptoJS.enc.Hex) == $(this).data("password")) {
+    var unlock_input = function(e) {
+        e.preventDefault();
+        var entered_password = $(this).parent().children("input[type=text]").val();
+        var sha1Digest= new createJs(true);
+        sha1Digest.update(entered_password);
+        var hash = sha1Digest.digest();
+        if (hash == $(this).data("password")) {
             var target = $(this).data("target");
             var encrypted_content = $("#response_" + target).html();
             $("#response_" + target).data("encrypted_content", encrypted_content);

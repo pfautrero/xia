@@ -43,6 +43,8 @@ class ImageActive(inkex.Effect):
         if not os.getcwd().endswith("extensions"):
             inkexWorkingDir = "share/extensions"
 
+        # retrieve paths
+
         config = ConfigParser.ConfigParser()
         config.read(inkexWorkingDir + "/xia.cnf")
         imagesPath = inkexWorkingDir + "/" + config.get('paths', 'imagesPath')
