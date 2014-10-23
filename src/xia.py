@@ -15,6 +15,20 @@
 #   
 # @author : pascal.fautrero@ac-versailles.fr
 
+"""xia-converter.
+
+Usage:
+  xia-converter
+  xia-converter -i <input-file> -o <output-dir>  -t <theme>
+  xia-converter (-h | --help)
+  xia-converter --version
+
+Options:
+  -h --help     Show this screen.
+  --version     Show version.
+
+"""
+
 try:
     import Tkinter, Tkconstants, tkFileDialog
 except ImportError:
@@ -24,6 +38,8 @@ except ImportError:
 
 from xiaconverter.mainwindow import IADialog
 import ConfigParser
+from xiaconverter.docopt import docopt
+from xiaconverter.xiaconsole import XIAConsole
 
 if __name__=='__main__':
 
@@ -37,13 +53,22 @@ if __name__=='__main__':
     jqueryLib = config.get('paths', 'jqueryLib')
     kineticLib = config.get('paths', 'kineticLib')
     sha1Lib = config.get('paths', 'sha1Lib')
-    
-    root = Tkinter.Tk()
 
-    root.title("Xia - 1.0-beta2")
-    root.geometry("465x310")
-    root.resizable(0,0)
-    img = Tkinter.PhotoImage(file=imagesPath + '/image-active64.gif')
-    root.tk.call('wm', 'iconphoto', root._w, img)    
-    IADialog(root,langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, "").pack(side="left")
-    root.mainloop()
+    arguments = docopt(__doc__)
+    
+    if arguments["-i"] and arguments["-o"] and arguments["-t"]:
+        input_file = arguments["<input-file>"]
+        output_dir = arguments["<output-dir>"]
+        selected_theme = arguments["<theme>"]
+        xia = XIAConsole(langPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, input_file, output_dir, selected_theme)
+        xia.createIA()
+        
+    else:
+        root = Tkinter.Tk()
+        root.title("Xia - 1.0-beta2")
+        root.geometry("465x310")
+        root.resizable(0,0)
+        img = Tkinter.PhotoImage(file=imagesPath + '/image-active64.gif')
+        root.tk.call('wm', 'iconphoto', root._w, img)    
+        IADialog(root,langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, "").pack(side="left")
+        root.mainloop()
