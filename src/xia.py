@@ -18,10 +18,10 @@
 """xia-converter.
 
 Usage:
-  xia-converter
-  xia-converter -i <input-file> -o <output-dir>  -t <theme>
-  xia-converter (-h | --help)
-  xia-converter --version
+  xia.py [<input-file>]
+  xia.py -i <input-file> -o <output-dir>  -t <theme>
+  xia.py (-h | --help)
+  xia.py --version
 
 Options:
   -h --help     Show this screen.
@@ -42,7 +42,8 @@ from xiaconverter.docopt import docopt
 from xiaconverter.xiaconsole import XIAConsole
 
 if __name__=='__main__':
-
+    
+    numVersion = "Xia - 1.0-beta2"
     config = ConfigParser.ConfigParser()
     config.read("xia.cnf")
     imagesPath = config.get('paths', 'imagesPath')
@@ -56,19 +57,23 @@ if __name__=='__main__':
 
     arguments = docopt(__doc__)
     
-    if arguments["-i"] and arguments["-o"] and arguments["-t"]:
+    if arguments["--version"]:
+        print(numVersion)
+    elif arguments["-i"] and arguments["-o"] and arguments["-t"]:
         input_file = arguments["<input-file>"]
         output_dir = arguments["<output-dir>"]
         selected_theme = arguments["<theme>"]
         xia = XIAConsole(langPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, input_file, output_dir, selected_theme)
         xia.createIA()
-        
     else:
+        filename = ""
+        if arguments["<input-file>"] is not None:
+            filename = arguments["<input-file>"]
         root = Tkinter.Tk()
-        root.title("Xia - 1.0-beta2")
+        root.title(numVersion)
         root.geometry("465x310")
         root.resizable(0,0)
         img = Tkinter.PhotoImage(file=imagesPath + '/image-active64.gif')
         root.tk.call('wm', 'iconphoto', root._w, img)    
-        IADialog(root,langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, "").pack(side="left")
+        IADialog(root,langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, filename).pack(side="left")
         root.mainloop()

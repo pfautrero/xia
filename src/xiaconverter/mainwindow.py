@@ -65,7 +65,7 @@ class IADialog(Tkinter.Frame):
 
         import_img= Tkinter.PhotoImage(file=self.imagesPath + "/open.gif")
         ia_img= Tkinter.PhotoImage(file=self.imagesPath + "/ia.gif")    
-        inkscape= Tkinter.PhotoImage(file=self.imagesPath + "/inkscape.gif")    
+        file_locked= Tkinter.PhotoImage(file=self.imagesPath + "/file_locked.gif")    
         void_img= Tkinter.PhotoImage(file=self.imagesPath + "/void.gif")
         params_img= Tkinter.PhotoImage(file=self.imagesPath + "/params.gif")            
 
@@ -86,8 +86,8 @@ class IADialog(Tkinter.Frame):
             tooltip = ToolTip(button1,translate("select svg file"), None, 0.1)
             self.keep_alive = "yes"
         else:
-            label1 = Tkinter.Label(self, image=inkscape)
-            label1.photo = inkscape
+            label1 = Tkinter.Label(self, image=file_locked)
+            label1.photo = file_locked
             label1.grid(row=0,column=0,columnspan=1, sticky='W')
             self.keep_alive = "no"
 
