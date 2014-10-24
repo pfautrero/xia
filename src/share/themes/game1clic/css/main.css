@@ -270,11 +270,11 @@ header h1 {
     width:20%;
     max-width: 100px;
 }
-#content #message_success {
+#content #message_success, #content #message_success2 {
     overflow-x:visible;
     overflow-y:visible;
 }
-#popup_close, #popup_close_intro, #popup_toggle {
+#popup_close, #popup_close_intro, #popup_toggle, #popup_toggle2 {
     cursor: pointer;
     position:absolute;
     top:-40px;

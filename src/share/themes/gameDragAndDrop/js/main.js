@@ -16,8 +16,6 @@
  * Main
  * Initialization
  * 
- * 1rst layer : div "detect" - if clicked, enable canvas events
- * 3rd layer : div "canvas" containing images and paths
  */
 
 function main(myhooks) {

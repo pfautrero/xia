@@ -44,7 +44,10 @@ function IaScene(originalWidth, originalHeight) {
  
     // internal
     this.score = 0;
+    this.score2 = 0;
+
     this.currentScore = 0;
+    this.currentScore2 = 0;    
     this.fullScreen = "off";
     this.overColor = 'rgba(' + _colorOver.red + ',' + _colorOver.green + ',' + _colorOver.blue + ',' + _colorOver.opacity + ')';   
     this.overColorStroke = 'rgba(' + _colorOverStroke.red + ',' + _colorOverStroke.green + ',' + _colorOverStroke.blue + ',' + _colorOverStroke.opacity + ')';

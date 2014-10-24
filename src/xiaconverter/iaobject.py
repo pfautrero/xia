@@ -234,6 +234,7 @@ class iaObject:
             # just remove it
             nb_root_groups = 0
             nb_root_elements = 0
+            last_group = None
             for childnode in mainSVG[0].childNodes:
                 if childnode.nodeName == "g":
                     nb_root_groups+=1
@@ -246,15 +247,16 @@ class iaObject:
                 mainSVG[0] = last_group
             else:
                 # look for libreoffice draw svg export
-                if last_group.hasAttribute("class"):
-                    if last_group.attributes["class"].value == "SlideGroup":
-                        group_childs = []
-                        self.print_node(last_group, group_childs)
-                        for childnode in group_childs:
-                            if childnode.hasAttribute("class"):
-                                if childnode.attributes["class"].value == "Page":
-                                    mainSVG[0] = childnode
-                                    break
+                if last_group is not None:
+                    if last_group.hasAttribute("class"):
+                        if last_group.attributes["class"].value == "SlideGroup":
+                            group_childs = []
+                            self.print_node(last_group, group_childs)
+                            for childnode in group_childs:
+                                if childnode.hasAttribute("class"):
+                                    if childnode.attributes["class"].value == "Page":
+                                        mainSVG[0] = childnode
+                                        break
                                     
             for childnode in mainSVG[0].childNodes:
                 if childnode.parentNode.nodeName == mainSVG[0].nodeName:

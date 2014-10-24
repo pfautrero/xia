@@ -46,19 +46,35 @@ class hook:
         
         self.score = "0"
         self.message = self.game_not_configured
+
+        self.score2 = "0"
+        self.message2 = self.game_not_configured
         
-        
-        score = re.search('<score>(.*)</score>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
+        score = re.search('<score>(.*?)</score>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
         if score:
             self.score = score.group(1)
 
-        message = re.search('<message>(.*)</message>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
+        message = re.search('<message>(.*?)</message>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
         if message:
             self.message = message.group(1)
+
+        score2 = re.search('<score2>(.*?)</score2>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
+        if score2:
+            self.score2 = score2.group(1)
+
+        message2 = re.search('<message2>(.*?)</message2>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
+        if message2:
+            self.message2 = message2.group(1)
+       
        
         final_str = u'<article class="message_success" id="message_success" data-score="' + self.score + '">\n'
         final_str += '<img id="popup_toggle" src="img/hide.png" alt="toggle"/>\n'        
         final_str += u'  <div id="message_success_content">' + self.PageFormatter(self.message).print_html() + u'</div>\n'
+        final_str += u'</article>\n'
+
+        final_str += u'<article class="message_success" id="message_success2" data-score="' + self.score2 + '">\n'
+        final_str += '<img id="popup_toggle2" src="img/hide.png" alt="toggle"/>\n'        
+        final_str += u'  <div id="message_success_content2">' + self.PageFormatter(self.message2).print_html() + u'</div>\n'
         final_str += u'</article>\n'
             
         for i, detail in enumerate(self.iaobject.details):

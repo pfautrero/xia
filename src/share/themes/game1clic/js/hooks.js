@@ -111,6 +111,20 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
 
 
     mainScene.score = $("#message_success").data("score");
+    mainScene.score2 = $("#message_success2").data("score");
+
+/*
+    if ((mainScene.score2 == mainScene.currentScore2) && (mainScene.score2 != "0")) {
+        mainScene.score = 0;
+        $("#content").show();
+        $("#message_success2").show();
+        $("#message_success").hide();
+        var general_border = $("#message_success2").css("border-top-width").substr(0,$("#message_success2").css("border-top-width").length - 2);
+        var general_offset = $("#message_success2").offset();
+        var content_offset = $("#content").offset();
+        $("#message_success2").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});        
+    }
+
     if ((mainScene.score == mainScene.currentScore) && (mainScene.score != "0")) {
         $("#content").show();
         $("#message_success").show();
@@ -119,7 +133,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         var content_offset = $("#content").offset();
         $("#message_success").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});        
     }
-
+*/
     $(".overlay").hide();
 
     $(".infos").on("click", function(){
@@ -140,6 +154,17 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
             $(this).attr('src', 'img/hide.png');
         }
     });
+
+    $("#popup_toggle2").on("click", function(){
+        $("#message_success_content2").toggle();
+        if ($(this).attr('src') == 'img/hide.png') {
+            $(this).attr('src', 'img/show.png');
+        }
+        else {
+            $(this).attr('src', 'img/hide.png');
+        }
+    });
+    
     
 };
 /*
@@ -172,9 +197,21 @@ hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
     
     var options = $('#' + idText).data("options");
     if (typeof(options) != "undefined") { 
-        if (options.indexOf("disable-score") == -1) {
-            iaScene.currentScore += 1;        
+        if (options.indexOf("score2") != -1) {
+            iaScene.currentScore2 += 1;
         }
+        else if (options.indexOf("disable-score") == -1) {
+            iaScene.currentScore += 1;    
+        }
+    }
+    if ((iaScene.score2 == iaScene.currentScore2) && (iaScene.score2 != 0)) {
+        iaScene.currentScore = -1;
+        $("#content").show();
+        $("#message_success2").show();
+        var general_border = $("#message_success2").css("border-top-width").substr(0,$("#message_success").css("border-top-width").length - 2);
+        var general_offset = $("#message_success2").offset();
+        var content_offset = $("#content").offset();
+        $("#message_success2").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});        
     }
     if ((iaScene.score == iaScene.currentScore) && (iaScene.score != 0)) {
         $("#content").show();
@@ -184,7 +221,8 @@ hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
         var content_offset = $("#content").offset();
         $("#message_success").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});        
     }
-    if (iaScene.score != 0) {
+
+    if ((iaScene.score != 0) || (iaScene.score2 != 0)) {
         for (var i in iaObject.kineticElement) {    
             iaObject.kineticElement[i].off("click");
         }
