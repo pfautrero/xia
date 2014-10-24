@@ -68,19 +68,25 @@ class iaObject:
     def extractMetadatas(self, xml):
         
         metadatas = xml.getElementsByTagName('metadata')
+        self.scene['date'] = ""
+        self.scene['creator'] = ""
+        self.scene['rights'] = ""
+        self.scene['publisher'] = ""
+        self.scene['language'] = ""
+        self.scene['keywords'] = ""
+        self.scene['description'] = ""
+        self.scene['contributor'] = ""
         if metadatas.item(0) is not None:
             
             metadata = metadatas.item(0).getElementsByTagName('dc:title')
             if metadata.item(0) is not None:
                 if self.get_tag_value(metadata.item(0)) != "":
                     self.scene['title'] = self.get_tag_value(metadata.item(0))
-
-            self.scene['date'] = ""
+            
             metadata = metadatas.item(0).getElementsByTagName('dc:date')
             if metadata.item(0) is not None:
                 self.scene['date'] = self.get_tag_value(metadata.item(0))            
-
-            self.scene['creator'] = ""
+            
             metadata = metadatas.item(0).getElementsByTagName('dc:creator')
             if metadata.item(0) is not None:
                 metadata_value = metadata.item(0).getElementsByTagName('dc:title')
@@ -88,7 +94,6 @@ class iaObject:
                     self.scene['creator'] = self.get_tag_value(\
                       metadata_value.item(0))
 
-            self.scene['rights'] = ""
             metadata = metadatas.item(0).getElementsByTagName('dc:rights')
             if metadata.item(0) is not None:
                 metadata_value = metadata.item(0).getElementsByTagName('dc:title')
@@ -96,7 +101,6 @@ class iaObject:
                     self.scene['rights'] = self.get_tag_value(\
                       metadata_value.item(0))
 
-            self.scene['publisher'] = ""
             metadata = metadatas.item(0).getElementsByTagName('dc:publisher')
             if metadata.item(0) is not None:
                 metadata_value = metadata.item(0).getElementsByTagName('dc:title')
@@ -104,12 +108,10 @@ class iaObject:
                     self.scene['publisher'] = self.get_tag_value(\
                       metadata_value.item(0))
 
-            self.scene['language'] = ""
             metadata = metadatas.item(0).getElementsByTagName('dc:language')
             if metadata.item(0) is not None:
                 self.scene['language'] = self.get_tag_value(metadata.item(0))
             
-            self.scene['keywords'] = ""
             metadata = metadatas.item(0).getElementsByTagName('dc:subject')
             if metadata.item(0) is not None:
                 items = metadata.item(0).getElementsByTagName('rdf:li')
@@ -118,12 +120,10 @@ class iaObject:
                         self.scene['keywords'] += ","
                     self.scene['keywords'] += self.get_tag_value(key_word) 
             
-            self.scene['description'] = ""
             metadata = metadatas.item(0).getElementsByTagName('dc:description')
             if metadata.item(0) is not None:
                 self.scene['description'] = self.get_tag_value(metadata.item(0))
 
-            self.scene['contributor'] = ""
             metadata = metadatas.item(0).getElementsByTagName('dc:contributor')
             if metadata.item(0) is not None:
                 metadata_value = metadata.item(0).getElementsByTagName('dc:title')
@@ -140,7 +140,7 @@ class iaObject:
 
         head, tail = os.path.split(filePath)
         self.scene['intro_title'] = u"Description"
-        self.scene['intro_detail'] = u"Images Actives - Canopé Versailles"
+        self.scene['intro_detail'] = u"XIA - DANE Versailles"
         self.scene['image'] = ""
         self.scene['width'] = ""
         self.scene['height'] = ""
@@ -169,14 +169,28 @@ class iaObject:
                 self.translation = ctm.matrix
 
             desc = image.getElementsByTagName('desc')
+            if desc.item(0) is None and image.parentNode.parentNode is not None:
+                big_group = image.parentNode.parentNode
+                #libreoffice svg export
+                if big_group.nodeName == 'g':
+                    if big_group.hasAttribute("class"):
+                        if big_group.attributes["class"].value == "Graphic":
+                            desc = big_group.getElementsByTagName('desc')
             if desc.item(0) is not None:
-                if desc.item(0).parentNode == image:
-                    self.scene['intro_detail'] = self.get_tag_value(desc.item(0))
+                #if desc.item(0).parentNode == image:
+                self.scene['intro_detail'] = self.get_tag_value(desc.item(0))
 
             title = image.getElementsByTagName('title')
+            if title.item(0) is None and image.parentNode.parentNode is not None:
+                big_group = image.parentNode.parentNode
+                #libreoffice svg export
+                if big_group.nodeName == 'g':
+                    if big_group.hasAttribute("class"):
+                        if big_group.attributes["class"].value == "Graphic":
+                            title = big_group.getElementsByTagName('title')
             if title.item(0) is not None:
-                if title.item(0).parentNode == image:
-                    self.scene['intro_title'] = self.get_tag_value(title.item(0))
+                #if title.item(0).parentNode == image:
+                self.scene['intro_title'] = self.get_tag_value(title.item(0))
 
             self.raster = image.attributes['xlink:href'].value
             if image.attributes['xlink:href'].value.startswith("file://"):
@@ -228,7 +242,18 @@ class iaObject:
             
             if (nb_root_groups == 1) and (nb_root_elements == 1):
                 mainSVG[0] = last_group
-                
+            else:
+                # look for libreoffice draw svg export
+                if last_group.hasAttribute("class"):
+                    if last_group.attributes["class"].value == "SlideGroup":
+                        group_childs = []
+                        self.print_node(last_group, group_childs)
+                        for childnode in group_childs:
+                            if childnode.hasAttribute("class"):
+                                if childnode.attributes["class"].value == "Page":
+                                    mainSVG[0] = childnode
+                                    break
+                                    
             for childnode in mainSVG[0].childNodes:
                 if childnode.parentNode.nodeName == mainSVG[0].nodeName:
                     if childnode.nodeName in svgElements:
@@ -794,7 +819,13 @@ class iaObject:
                             replace("\t"," ").\
                             replace("\r"," ") + u'",\n'
                 else:
-                    final_str += u'  "' + entry + u'":"' + detail[entry].replace('"', "'") + u'",\n'
+                    final_str += u'  "' + entry + u'":"' + \
+                        detail[entry].\
+                            replace('"', "'").\
+                            replace('\t', " ").\
+                            replace('\r', " ").\
+                            replace('\n', " ") + \
+                            u'",\n'
             final_str += u'},\n'
         final_str += u'];\n'
         #final_str += u'lazyload("/js/iascene.js");'
