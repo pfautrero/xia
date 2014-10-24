@@ -34,6 +34,8 @@ import tempfile
 import sys
 import shutil
 import commands
+import hashlib
+from datetime import datetime
 
 # import PIL for windows and Linux
 # For MAC OS X, use internal tool called "sips"
@@ -287,6 +289,7 @@ class iaObject:
         
         if not image.isSameNode(self.backgroundNode):
             record_image = {}
+            record_image['id'] =  hashlib.md5(str(datetime.now().microsecond)).hexdigest()
             if image.hasAttribute('id'):
                 record_image['id'] = image.attributes['id'].value
             record_image['image'] = image.attributes['xlink:href'].value
@@ -372,6 +375,7 @@ class iaObject:
         """Analyze rectangles"""
         
         record_rect = {}
+        record_rect['id'] =  hashlib.md5(str(datetime.now().microsecond)).hexdigest()
         if rect.hasAttribute("id"):
             record_rect['id'] = rect.attributes['id'].value
         record_rect['width'] = rect.attributes['width'].value
@@ -486,6 +490,7 @@ class iaObject:
         record = {}
         record["path"] = ""
         record["fill"] = ""
+        record["id"] =  hashlib.md5(str(datetime.now().microsecond)).hexdigest()
         if path.hasAttribute("id"):
             record["id"] =  path.attributes['id'].value
         record["path"] =  path.attributes['d'].value. \
@@ -608,6 +613,7 @@ class iaObject:
         """Analyze a svg group"""
 
         record = {}
+        record["id"] = hashlib.md5(str(datetime.now().microsecond)).hexdigest()
         if group.hasAttribute("id"):
             record["id"] =  group.attributes['id'].value
         record['title'] = self.getText("title", group)
