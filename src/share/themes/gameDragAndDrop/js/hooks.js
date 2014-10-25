@@ -202,6 +202,11 @@ hooks.prototype.afterIaObjectDragEnd = function(iaScene, idText, iaObject, event
                 iaScene.currentScore -= 1;
             }            
         }
+        
+        if (target_object[0].getXiaParent().options.indexOf("direct-link") != -1) {
+            location.href = target_object[0].getXiaParent().title;
+        }        
+        
         var viewportHeight = $(window).height();
         if ((iaScene.score == iaScene.currentScore) && (iaScene.score != 0)) {
             $("#content").show();

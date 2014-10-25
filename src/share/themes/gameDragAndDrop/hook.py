@@ -63,33 +63,31 @@ class hook:
         final_str += u'  <div id="message_success_content">' + self.PageFormatter(self.message).print_html() + u'</div>\n'
         final_str += u'</article>\n'
         for i, detail in enumerate(self.iaobject.details):
-            if detail['options'].find(u"direct-link") == -1:            
-                #xml = minidom.parseString(u"<detail>"+detail["detail"]+u"</detail>")
 
-                target_id = ""
-                target = re.search('<target>(.*)</target>', detail["detail"], re.IGNORECASE|re.DOTALL)
-                if target:
-                    target_id = target.group(1)
+            target_id = ""
+            target = re.search('<target>(.*)</target>', detail["detail"], re.IGNORECASE|re.DOTALL)
+            if target:
+                target_id = target.group(1)
 
-                magnet_state = "off"
-                magnet = re.search('<magnet>(.*)</magnet>', detail["detail"], re.IGNORECASE|re.DOTALL)
-                if magnet:
-                    magnet_state = magnet.group(1)
+            magnet_state = "off"
+            magnet = re.search('<magnet>(.*)</magnet>', detail["detail"], re.IGNORECASE|re.DOTALL)
+            if magnet:
+                magnet_state = magnet.group(1)
 
-                collision_state = "on"
-                collision = re.search('<collisions>(.*)</collisions>', detail["detail"], re.IGNORECASE|re.DOTALL)
-                if collision:
-                    collision_state = collision.group(1)
+            collision_state = "on"
+            collision = re.search('<collisions>(.*)</collisions>', detail["detail"], re.IGNORECASE|re.DOTALL)
+            if collision:
+                collision_state = collision.group(1)
 
-                tooltip_state = ""
-                tooltip = re.search('<tooltip>(.*)</tooltip>', detail["detail"], re.IGNORECASE|re.DOTALL)
-                if tooltip:
-                    tooltip_state = tooltip.group(1)
-                    
-                final_str += u'<article class="detail_content" data-tooltip="'+ tooltip_state +'" data-collisions="'+ collision_state +'" data-magnet="'+ magnet_state +'" data-kinetic_id="'+detail["id"]+'" data-target="'+target_id+'" id="article-'+unicode(str(i), "utf8") + u'">\n'
-                final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
-                final_str += u'  <p>' + self.PageFormatter(detail["detail"]).print_html() + u'<p>\n'
-                final_str += u'</article>\n'
+            tooltip_state = ""
+            tooltip = re.search('<tooltip>(.*)</tooltip>', detail["detail"], re.IGNORECASE|re.DOTALL)
+            if tooltip:
+                tooltip_state = tooltip.group(1)
+
+            final_str += u'<article class="detail_content" data-tooltip="'+ tooltip_state +'" data-collisions="'+ collision_state +'" data-magnet="'+ magnet_state +'" data-kinetic_id="'+detail["id"]+'" data-target="'+target_id+'" id="article-'+unicode(str(i), "utf8") + u'">\n'
+            final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
+            final_str += u'  <p>' + self.PageFormatter(detail["detail"]).print_html() + u'<p>\n'
+            final_str += u'</article>\n'
 
         with open(templatePath,"r") as template:
             final_index = template.read().decode("utf-8")
