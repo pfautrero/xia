@@ -429,6 +429,8 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 document.body.style.cursor = "zoom-out";
                 iaScene.cursorState = "url(img/ZoomOut.cur),auto";
                 that.layer.moveToTop();
+                this.moveToTop();
+                that.group.moveToTop();
                 that.group.zoomActive = 1;
                 that.originalX[0] = that.group.x();
                 that.originalY[0] = that.group.y();
@@ -560,6 +562,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         that.kineticElement[i].moveToTop();
                     }
                     if (cacheBackground === true) that.backgroundCache_layer.moveToTop();
+                    that.group.moveToTop();
                     that.layer.moveToTop();
                     that.layer.draw(); 
                     iaScene.element = that;
