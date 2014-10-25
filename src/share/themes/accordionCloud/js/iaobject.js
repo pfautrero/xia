@@ -500,16 +500,22 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         if (that.persistent[k] == "off") {
                             that.kineticElement[k].fillPriority('color');
                             that.kineticElement[k].fill('rgba(0, 0, 0, 0)');
+                            that.kineticElement[i].setStroke('rgba(0, 0, 0, 0)');
+                            that.kineticElement[i].setStrokeWidth(0);                             
                         }
                         else if (that.persistent[k] == "onPath") {
                             that.kineticElement[k].fillPriority('color');
                             that.kineticElement[k].fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');                       
+                            that.kineticElement[i].setStroke('rgba(0, 0, 0, 0)');
+                            that.kineticElement[i].setStrokeWidth(0);                             
                         }
                         else if (that.persistent[k] == "onImage") {
                             that.kineticElement[k].fillPriority('pattern');
                             that.kineticElement[k].fillPatternScaleX(that.backgroundImageOwnScaleX[k] * 1/iaScene.scale);
                             that.kineticElement[k].fillPatternScaleY(that.backgroundImageOwnScaleY[k] * 1/iaScene.scale);
                             that.kineticElement[k].fillPatternImage(that.backgroundImage[k]);                        
+                            that.kineticElement[i].setStroke('rgba(0, 0, 0, 0)');
+                            that.kineticElement[i].setStrokeWidth(0);                             
                         }
                     }                    
                     that.layer.draw();

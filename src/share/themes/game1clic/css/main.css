@@ -274,6 +274,9 @@ header h1 {
     overflow-x:visible;
     overflow-y:visible;
 }
+#content #message_success_content, #content #message_success_content2 {
+    margin:10px;
+}
 #popup_close, #popup_close_intro, #popup_toggle, #popup_toggle2 {
     cursor: pointer;
     position:absolute;

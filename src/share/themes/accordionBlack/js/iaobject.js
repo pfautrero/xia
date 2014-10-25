@@ -499,16 +499,22 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         if (that.persistent[i] == "off") {
                             that.kineticElement[i].fillPriority('color');
                             that.kineticElement[i].fill('rgba(0, 0, 0, 0)');
+                            that.kineticElement[i].setStroke('rgba(0, 0, 0, 0)');
+                            that.kineticElement[i].setStrokeWidth(0);                            
                         }
                         else if (that.persistent[i] == "onPath") {
                             that.kineticElement[i].fillPriority('color');
-                            that.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');                       
+                            that.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');
+                            that.kineticElement[i].setStroke('rgba(0, 0, 0, 0)');
+                            that.kineticElement[i].setStrokeWidth(0);                               
                         }
                         else if (that.persistent[i] == "onImage") {
                             that.kineticElement[i].fillPriority('pattern');
                             that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
                             that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale); 
-                            that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);                        
+                            that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
+                            that.kineticElement[i].setStroke('rgba(0, 0, 0, 0)');
+                            that.kineticElement[i].setStrokeWidth(0);   
                         }
                     }                    
                     that.layer.draw();
