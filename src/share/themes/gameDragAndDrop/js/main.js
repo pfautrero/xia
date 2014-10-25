@@ -38,6 +38,24 @@ function main(myhooks) {
             return this.iaobject;
         }
     });
+
+    Kinetic.Util.addMethods(Kinetic.Path,{
+        setXiaParent: function(xiaparent) {
+            this.xiaparent = xiaparent;
+        },
+        getXiaParent: function() {
+            return this.xiaparent;
+        }
+    });    
+    
+    Kinetic.Util.addMethods(Kinetic.Image,{
+        setXiaParent: function(xiaparent) {
+            this.xiaparent = xiaparent;
+        },
+        getXiaParent: function() {
+            return this.xiaparent;
+        }    });    
+    
     Kinetic.draggedshape = null;
     
     var that=window;
@@ -82,7 +100,7 @@ function main(myhooks) {
         stage.add(layers[indice]);
 
         for (var i in details) {
-            var iaObj = new IaObject(that.imageObj, details[i], layers[indice], "article-" + i, baseImage, mainScene, layers[0], myhooks);
+            var iaObj = new IaObject(that.imageObj, details[i], layers[indice], "article-" + i, baseImage, mainScene, myhooks);
             mainScene.shapes.push(iaObj);
         }
         myhooks.afterMainConstructor(mainScene, that.layers);             

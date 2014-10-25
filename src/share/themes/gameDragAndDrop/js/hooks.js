@@ -179,7 +179,7 @@ hooks.prototype.afterIaObjectDragEnd = function(iaScene, idText, iaObject, event
         // retrieve kineticElement drop zone
         // if center of dropped element is located in the drop zone
         // then drop !
-        var target_object = iaObject.kineticElement[0].getStage().find("#" + target_id);
+        var target_object = iaObject.xiaDetail[0].kineticElement.getStage().find("#" + target_id);
         var middle_coords = {x: event.target.x() + (iaObject.maxX - iaObject.minX)/2,y:event.target.y() + (iaObject.maxY - iaObject.minY)/2};
         var target_iaObject = target_object[0].getIaObject();
         var magnet_state = $("#" + target_iaObject.idText).data("magnet");
@@ -192,8 +192,8 @@ hooks.prototype.afterIaObjectDragEnd = function(iaScene, idText, iaObject, event
                 iaScene.currentScore += 1;
             }
             if (magnet_state=="on") {
-                iaObject.kineticElement[0].x(target_iaObject.minX);
-                iaObject.kineticElement[0].y(target_iaObject.minY);
+                iaObject.xiaDetail[0].kineticElement.x(target_iaObject.minX);
+                iaObject.xiaDetail[0].kineticElement.y(target_iaObject.minY);
             }
         }
         else {
