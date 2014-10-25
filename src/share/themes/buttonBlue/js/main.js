@@ -113,10 +113,13 @@ function main(myhooks) {
         stage.add(layers[2]);
 
         myhooks.beforeMainConstructor(mainScene, that.layers);
+        var indice = 3;
+        layers[indice] = new Kinetic.Layer();
+        stage.add(layers[indice]);        
         for (var i in details) {
-            var indice = parseInt(i+3);
-            layers[indice] = new Kinetic.Layer();
-            stage.add(layers[indice]);
+            //var indice = parseInt(i+3);
+            //layers[indice] = new Kinetic.Layer();
+            //stage.add(layers[indice]);
             var iaObj = new IaObject(that.imageObj, details[i], layers[indice], "article-" + i, baseImage, mainScene, layers[1], layers[0], myhooks);
         }
         myhooks.afterMainConstructor(mainScene, that.layers); 
