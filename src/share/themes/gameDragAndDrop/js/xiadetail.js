@@ -16,14 +16,32 @@
 /*
  * 
  */
-function XiaDetail() {
+function XiaDetail(detail, idText) {
     "use strict";
+    
     var that = this;
-    this.title = "";
+    
+    this.title = detail.title;
     this.path = "";
     this.kineticElement = null;
     this.persistent = "";
     this.options = "";
     this.backgroundImage = null;
     this.tooltip = null;
+    this.draggable_object = true;
+    
+    if ((typeof(detail.options) !== 'undefined')) {
+        this.options = detail.options;
+    }
+    
+    if (that.xiaDetail[i].options.indexOf("disable-click") != -1) {
+        this.draggable_object = false;
+    };  
+    if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
+        this.draggable_object = false;
+    }    
+    if ($('article[data-tooltip="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
+        this.draggable_object = false;
+    }  
+
 }

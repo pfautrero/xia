@@ -247,7 +247,7 @@ class PageFormatter:
             + r"|(?P<rule>-{4,})"
             + r"|(?P<videostart>[^\s'\"]+\.(ogv|mp4|webm)(\s*)autostart$)"
             + r"|(?P<video>[^\s'\"]+\.(ogv|mp4|webm)$)"
-            + r"|(?P<link>\[http(.*)\])"
+            + r"|(?P<link>\[(http|\.\.\/|\.\/)(.*)\])"
             + r"|(?P<img>[^\s'\"]+\.(jpg|jpeg|png|gif)$)"
             + r"|(?P<audiostart>[^\s'\"]+\.(ogg|mp3)(\s*)autostart$)"
             + r"|(?P<audio>[^\s'\"]+\.(ogg|mp3)$)"

@@ -78,29 +78,12 @@ function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, myhooks) 
 IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, idText) {
 
     var that = this;
-    that.xiaDetail[i] = new XiaDetail();
-    
-    if ((typeof(detail.options) !== 'undefined')) {
-        //that.options[i] = detail.options;
-        that.xiaDetail[i].options = detail.options;
-    }   
-    var draggable_object = true;
-    if (that.xiaDetail[i].options.indexOf("disable-click") != -1) {
-        draggable_object = false;
-    };  
-    if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
-        draggable_object = false;
-    }    
-    if ($('article[data-tooltip="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
-        draggable_object = false;
-    }  
+    that.xiaDetail[i] = new XiaDetail(detail, idText);
+
     that.defineImageBoxSize(detail, that);
     var rasterObj = new Image();
     
-    rasterObj.src = detail.image;   
-    
-    //that.title[i] = detail.title;
-    that.xiaDetail[i].title = detail.title;
+    rasterObj.src = detail.image;
     
     that.xiaDetail[i].kineticElement = new Kinetic.Image({
         id: detail.id,
@@ -109,10 +92,11 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
         width: detail.width,
         height: detail.height,
-        draggable: draggable_object
+        draggable: that.xiaDetail[i].draggable_object
      
     });
     that.xiaDetail[i].kineticElement.setXiaParent(that.xiaDetail[i]);
+    that.xiaDetail[i].kineticElement.setIaObject(that);
     that.xiaDetail[i].backgroundImage = rasterObj;
     that.xiaDetail[i].kineticElement.tooltip = "";
     
@@ -201,18 +185,10 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
     }
     
     
-    that.xiaDetail[i].kineticElement.setIaObject(that);
-
     rasterObj.onload = function() {
         
         that.xiaDetail[i].kineticElement.backgroundImageOwnScaleX = iaScene.scale * detail.width / this.width;
         that.xiaDetail[i].kineticElement.backgroundImageOwnScaleY = iaScene.scale * detail.height / this.height;        
-        var zoomable = true;
-
-        if ((typeof(detail.fill) !== 'undefined') && 
-            (detail.fill === "#000000")) {
-            zoomable = false;
-        }
 
         if ($('article[data-tooltip="' + $("#" + idText).data("kinetic_id") + '"]').length == 0) {
             detail.fill = '#ffffff';    // force image to be displayed - must refactor if it is a good idea !
@@ -225,11 +201,10 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
             that.xiaDetail[i].kineticElement.fillPatternScaleX(that.xiaDetail[i].kineticElement.backgroundImageOwnScaleX * 1/iaScene.scale);
             that.xiaDetail[i].kineticElement.fillPatternScaleY(that.xiaDetail[i].kineticElement.backgroundImageOwnScaleY * 1/iaScene.scale);                
             that.xiaDetail[i].kineticElement.fillPatternImage(that.xiaDetail[i].backgroundImage); 
-            zoomable = false;
         }
         
         that.layer.add(that.xiaDetail[i].kineticElement);
-        that.addEventsManagement(i,zoomable, that, iaScene, baseImage, idText);
+        that.addEventsManagement(i, that, iaScene, baseImage, idText);
         
         // define hit area excluding transparent pixels
         // =============================================================
@@ -252,30 +227,9 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
  */
 IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, idText) {
     var that = this;
-    that.xiaDetail[i] = new XiaDetail();
-    
-    if ((typeof(detail.options) !== 'undefined')) {
-        that.xiaDetail[i].options = detail.options;
-    }   
-    
-    var draggable_object = true;
-    if (that.xiaDetail[i].options.indexOf("disable-click") != -1) {
-        draggable_object = false;
-    };
+    that.xiaDetail[i] = new XiaDetail(detail, idText);
 
-    if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
-        draggable_object = false;
-    }
-    if ($('article[data-tooltip="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
-        draggable_object = false;
-    }      
-    
-
-    
-    //that.path[i] = detail.path;
     that.xiaDetail[i].path = detail.path;
-    that.xiaDetail[i].title = detail.title;
-    //that.title[i] = detail.title;
     // if detail is out of background, hack maxX and maxY
     if (parseFloat(detail.maxX) < 0) detail.maxX = 1;
     if (parseFloat(detail.maxY) < 0) detail.maxY = 1;        
@@ -287,10 +241,11 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
         scale: {x:iaScene.coeff,y:iaScene.coeff},
         fill: 'rgba(0, 0, 0, 0)',
-        draggable : draggable_object
+        draggable : that.xiaDetail[i].draggable_object
     });
-    
+    that.xiaDetail[i].kineticElement.setIaObject(that);    
     that.xiaDetail[i].kineticElement.setXiaParent(that.xiaDetail[i]);
+    that.xiaDetail[i].kineticElement.tooltip = "";
     
     var collision_state = $("#" + idText).data("collisions");
     if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
@@ -380,10 +335,9 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
 
     }
 
-    that.xiaDetail[i].kineticElement.setIaObject(that);
     that.definePathBoxSize(detail, that);
     // crop background image to suit shape box
-    that.xiaDetail[i].kineticElement.tooltip = "";
+
     if (that.xiaDetail[i].options.indexOf("disable-click") == -1) {
         var cropCanvas = document.createElement('canvas');
         cropCanvas.setAttribute('width', parseFloat(detail.maxX) - parseFloat(detail.minX));
@@ -426,20 +380,13 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         };
     }
 
-
-
-    var zoomable = true;
-    if ((typeof(detail.fill) !== 'undefined') && 
-        (detail.fill === "#000000")) {
-        zoomable = false;
-    }
     that.xiaDetail[i].persistent = "off";
     if ((typeof(detail.fill) !== 'undefined') && 
         (detail.fill === "#ffffff")) {
         that.xiaDetail[i].persistent = "onPath";
         that.xiaDetail[i].kineticElement.fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');
     }    
-    that.addEventsManagement(i, zoomable, that, iaScene, baseImage, idText);
+    that.addEventsManagement(i, that, iaScene, baseImage, idText);
 
     that.layer.add(that.xiaDetail[i].kineticElement);
     that.layer.draw();
@@ -511,7 +458,7 @@ IaObject.prototype.scaleBox = function(that, iaScene) {
  * @returns {undefined}
  */
    
-IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, baseImage, idText) {
+IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, idText) {
 
     var that=this;
 
