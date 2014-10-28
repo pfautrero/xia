@@ -200,7 +200,6 @@ class PageFormatter:
                 # encrypt hidden_block
                 start_block = self.final_str.rfind("<!-- ==HIDDEN_BLOCK== -->")
                 str_to_encrypt = self.final_str[start_block + len("<!-- ==HIDDEN_BLOCK== -->"):]
-                print "toto : " + str_to_encrypt
                 str_to_encrypt = str_to_encrypt + current_str
                 while len(password) < len(str_to_encrypt):
                     password += password
@@ -269,6 +268,11 @@ class PageFormatter:
         eol_re = re.compile(r'\r?\n')
         raw = string.expandtabs(self.raw)
 
+        # fix some elements
+        fix_element = re.sub(r"\[\[(.*)\:", r"[[\1:\n", raw)
+        raw = fix_element
+
+        # loop on lines
         for line in eol_re.split(raw):
             if not self.in_pre:
                 if blank_re.match(line):
