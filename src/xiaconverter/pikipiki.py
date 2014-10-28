@@ -36,6 +36,7 @@ class PageFormatter:
         self.is_em = self.is_b = 0
         self.list_indents = []
         self.in_pre = 0
+        self.in_li = 0
         self.hidden_block = []
         self.final_str = ""
 
@@ -131,7 +132,9 @@ class PageFormatter:
                 '>': '&gt;'}[s]
 
     def _li_repl(self, match):
-        return u'<li>%s</li>\n' %(match[match.find('*')+1:])
+        #return u'<li>%s</li>\n' %(match[match.find('*')+1:])
+        self.in_li = 1
+        return u'<li>'
 
     def _link_repl(self, word):
         word_filtered = re.sub(' +', ' ', word[1:-1])
@@ -272,6 +275,12 @@ class PageFormatter:
                 self.final_str += self._indent_to(len(indent.group(0)))
             test = re.sub(scan_re, self.replace, line)
             self.final_str += test
+            if self.in_li:
+                test = re.sub(scan_re, self.replace, line[line.find("*")+1:].strip())
+                self.final_str += test
+                self.final_str += "</li>"
+                self.in_li = 0
+                
         if self.in_pre: self.final_str += u'</pre>\n'
         while len(self.hidden_block):
             self.hidden_block.pop(0)
