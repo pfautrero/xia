@@ -132,7 +132,6 @@ class PageFormatter:
                 '>': '&gt;'}[s]
 
     def _li_repl(self, match):
-        #return u'<li>%s</li>\n' %(match[match.find('*')+1:])
         self.in_li = 1
         return u'<li>'
 
@@ -170,7 +169,6 @@ class PageFormatter:
             content =  word[2:len(word) - 1]
             final_result = ""
             if code_present:
-                #password = hashlib.md5(code_present.group(1)).hexdigest()
                 password = code_present.group(1)
                 stack_value = password
                 data_password = 'data-password="' + hashlib.sha1(password).hexdigest() + '"'
@@ -197,15 +195,20 @@ class PageFormatter:
         
         elif len(self.hidden_block):
             password = self.hidden_block.pop()
+            current_str = word[0:word.find("]]")]
             if password:
                 # encrypt hidden_block
                 start_block = self.final_str.rfind("<!-- ==HIDDEN_BLOCK== -->")
                 str_to_encrypt = self.final_str[start_block + len("<!-- ==HIDDEN_BLOCK== -->"):]
+                print "toto : " + str_to_encrypt
+                str_to_encrypt = str_to_encrypt + current_str
                 while len(password) < len(str_to_encrypt):
                     password += password
                 str_encrypted = base64.b64encode(self.str_xor(str_to_encrypt, password))
                 self.final_str = self.final_str[0:start_block] + str_encrypted
-            return u'</div>\n'
+                return u'</div>\n'
+            else:
+                return current_str + u'</div>\n'
         else:
             return u''
 
@@ -259,7 +262,7 @@ class PageFormatter:
             + r"|(?P<li>^\s+\*(.*))"
             + r"|(?P<nothandled>nothandled)"
             + r"|(?P<pre>(\{\{\{|\}\}\}))"
-            + r"|(?P<hidden_block>(\[\[(.*)\:|\]\]))"
+            + r"|(?P<hidden_block>(\[\[(.*)\:|(.*)\]\]))"
             + r")")
         blank_re = re.compile("^\s*$")
         indent_re = re.compile("^\s*")

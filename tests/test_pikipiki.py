@@ -17,6 +17,7 @@
 
 from xiaconverter.pikipiki import PageFormatter
 from nose.tools import *
+import re
 
 class TestPageFormatter:
 
@@ -81,8 +82,8 @@ class TestPageFormatter:
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)         
 
-        raw = '&lt;iframe src=&quot;//example.com&quot;&gt;&lt;/iframe&gt;';
-        expected_output = '<div class="videoWrapper4_3" data-iframe="http://example.com"></div>\n';
+        raw = '&lt;iframe width="560" height="315" src=&quot;//example.com&quot;&gt;&lt;/iframe&gt;';
+        expected_output = '<div class="videoWrapper16_9" data-iframe="http://example.com"></div>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output) 
 
@@ -122,12 +123,17 @@ class TestPageFormatter:
         assert_equal(expected_output, output)         
         
         raw = " * line 1\n * line2";
-        expected_output = '<ul>\n<li> line 1</li>\n<li> line2</li>\n</ul>';
+        expected_output = '<ul>\n<li>line 1</li><li>line2</li></ul>';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
+
+        raw = " * ***line 1***\n * [http://test line2]";
+        expected_output = '<ul>\n<li><b>line 1</b></li><li><a href="http://test" target="_blank">line2</a></li></ul>';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
        
         raw = "   * line 1\n  * line2";
-        expected_output = '<ul>\n<li> line 1</li>\n</ul>\n<ul>\n<li> line2</li>\n</ul>';
+        expected_output = '<ul>\n<li>line 1</li></ul>\n<ul>\n<li>line2</li></ul>';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
         
@@ -182,6 +188,16 @@ class TestPageFormatter:
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
 
+        raw = "[../index.html test]";
+        expected_output = '<a href="../index.html" target="_blank">test</a>';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
+
+        raw = "[./index.html test]";
+        expected_output = '<a href="./index.html" target="_blank">test</a>';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
+
         raw = " ";
         expected_output = '<br>\n';
         output = PageFormatter(raw).print_html()
@@ -190,6 +206,36 @@ class TestPageFormatter:
         raw = "}}}";
         expected_output = '';
         output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
+
+        raw = "[[answer : my answer]]";
+        expected_output = '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#"  data-target="##">answer </a></div><div class="response" id="response_##"> my answer</div>\n';
+        output = PageFormatter(raw).print_html()
+        target_id = ""
+        target_entry = re.search('data-target="(.*?)"', output, re.IGNORECASE|re.DOTALL)
+        if target_entry:
+            target_id = target_entry.group(1)
+            output = output.replace(target_id, "##")
+        assert_equal(expected_output, output)
+
+        raw = "[[answer (code=123456):\nmy answer]]";
+        expected_output = '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b" data-target="##">answer </a></div><form class="unlock" style="display:none;" id="form_##"><input type="text"><input type="submit" data-target="##" value="" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b"></form><div class="response" id="response_##">XEsTVVtFRldB</div>\n';
+        output = PageFormatter(raw).print_html()
+        target_id = ""
+        target_entry = re.search('data-target="(.*?)"', output, re.IGNORECASE|re.DOTALL)
+        if target_entry:
+            target_id = target_entry.group(1)
+            output = output.replace(target_id, "##")
+        assert_equal(expected_output, output)
+
+        raw = "[[answer : my answer";
+        expected_output = '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#"  data-target="##">answer </a></div><div class="response" id="response_##"> my answer</div>\n';
+        output = PageFormatter(raw).print_html()
+        target_id = ""
+        target_entry = re.search('data-target="(.*?)"', output, re.IGNORECASE|re.DOTALL)
+        if target_entry:
+            target_id = target_entry.group(1)
+            output = output.replace(target_id, "##")
         assert_equal(expected_output, output)
 
         raw = "nothandled";
