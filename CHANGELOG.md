@@ -1,3 +1,18 @@
+Version 1.0-beta3 - 29/10/2014
+-------------------------------
+
+- XIA est disponible en mode console.
+- LibreOffice Draw : XIA peut lire les sorties svg issues de libreoffice draw
+(sauf pour le thème gameDragAndDrop)
+- Système de "double-scoring" disponible sur game1clic
+- hotfix : amélioration de la gestion de la mémoire dans les thèmes des
+images interactives
+- Dans gameDragAndDrop, les zones de drop peuvent maintenant déclencher
+l'ouverture d'une nouvelle page au moment du drop.
+- Chemins relatifs disponibles dans les liens entre crochets
+- Les listes à puces sont désormais "formattables".
+- hotfix : bug sur le module quiz avec un mot de passe.
+
 Version 1.0-beta2 - 23/10/2014
 -------------------------------
 
