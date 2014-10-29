@@ -34,7 +34,7 @@ function XiaDetail(detail, idText) {
         this.options = detail.options;
     }
     
-    if (that.xiaDetail[i].options.indexOf("disable-click") != -1) {
+    if (this.options.indexOf("disable-click") != -1) {
         this.draggable_object = false;
     };  
     if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
