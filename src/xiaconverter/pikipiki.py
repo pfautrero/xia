@@ -203,7 +203,7 @@ class PageFormatter:
                 str_to_encrypt = str_to_encrypt + current_str
                 while len(password) < len(str_to_encrypt):
                     password += password
-                str_encrypted = base64.b64encode(self.str_xor(str_to_encrypt, password))
+                str_encrypted = base64.b64encode(self.str_xor(str_to_encrypt.encode("utf-8"), password))
                 self.final_str = self.final_str[0:start_block] + str_encrypted
                 return u'</div>\n'
             else:
