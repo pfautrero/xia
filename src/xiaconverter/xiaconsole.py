@@ -38,6 +38,8 @@ class XIAConsole():
         self.filename = svgfile
         self.dirname = output_dir
         self.theme = {}
+        self.index_standalone = 0
+        self.firefoxos = 0 
         
         if not os.path.isdir(self.themesPath + "/" + selected_theme):
             selected_theme = "accordionBlack"
@@ -54,42 +56,49 @@ class XIAConsole():
 
     def createIA(self):
 
-        if os.path.isdir(self.dirname + '/font'):
-            shutil.rmtree(self.dirname + '/font')              
-        if os.path.isdir(self.dirname + '/img'):
-            shutil.rmtree(self.dirname + '/img')
-        if os.path.isdir(self.dirname + '/css'):
-            shutil.rmtree(self.dirname + '/css')
-        if os.path.isdir(self.dirname + '/js'):
-            shutil.rmtree(self.dirname + '/js')
-        if os.path.isdir(self.dirname + '/datas'):
-            shutil.rmtree(self.dirname + '/datas')
-        os.mkdir(self.dirname + '/datas')
-        shutil.copytree(self.fontsPath , self.dirname + '/font/')              
-        shutil.copytree(self.themesPath + '/' + self.theme['name'] + \
-            '/css/', self.dirname + '/css/')
-        shutil.copytree(self.themesPath + '/' + self.theme['name'] + \
-            '/img/', self.dirname + '/img/')
-        shutil.copytree(self.themesPath + '/' + self.theme['name'] + \
-            '/js/', self.dirname + '/js/')
-        shutil.copy(self.labjsLib , self.dirname + '/js')
-        shutil.copy(self.jqueryLib , self.dirname + '/js')
-        shutil.copy(self.kineticLib , self.dirname + '/js')
-        shutil.copy(self.sha1Lib , self.dirname + '/js')
+        if not self.index_standalone:
+            if os.path.isdir(self.dirname + '/font'):
+                shutil.rmtree(self.dirname + '/font')              
+            if os.path.isdir(self.dirname + '/img'):
+                shutil.rmtree(self.dirname + '/img')
+            if os.path.isdir(self.dirname + '/css'):
+                shutil.rmtree(self.dirname + '/css')
+            if os.path.isdir(self.dirname + '/js'):
+                shutil.rmtree(self.dirname + '/js')
+            if os.path.isdir(self.dirname + '/datas'):
+                shutil.rmtree(self.dirname + '/datas')
+            os.mkdir(self.dirname + '/datas')
+            shutil.copytree(self.fontsPath , self.dirname + '/font/')              
+            shutil.copytree(self.themesPath + '/' + self.theme['name'] + \
+                '/css/', self.dirname + '/css/')
+            shutil.copytree(self.themesPath + '/' + self.theme['name'] + \
+                '/img/', self.dirname + '/img/')
+            shutil.copytree(self.themesPath + '/' + self.theme['name'] + \
+                '/js/', self.dirname + '/js/')
+            shutil.copy(self.labjsLib , self.dirname + '/js')
+            shutil.copy(self.jqueryLib , self.dirname + '/js')
+            shutil.copy(self.kineticLib , self.dirname + '/js')
+            shutil.copy(self.sha1Lib , self.dirname + '/js')
+        if self.firefoxos:
+            shutil.copyfile(self.themesPath + '/' + self.theme['name'] + \
+                '/manifest.webapp', self.dirname + '/manifest.webapp')
 
-        shutil.copyfile(self.themesPath + '/' + self.theme['name'] + \
-            '/manifest.webapp', self.dirname + '/manifest.webapp')
-
-        shutil.copyfile(self.themesPath + '/' + self.theme['name'] + \
-            '/deploy.html', self.dirname + '/deploy.html')
+            shutil.copyfile(self.themesPath + '/' + self.theme['name'] + \
+                '/deploy.html', self.dirname + '/deploy.html')
 
         maxNumPixels = self.defineMaxPixels(self.resize)
         self.imageActive.analyzeSVG(self.filename, maxNumPixels)
 
-        self.imageActive.generateJSON(self.dirname + '/datas/data.js')
+        self.imageActive.generateJSON()
 
-        self.theme['object'].generateIndex(self.dirname + "/index.html", \
-            self.themesPath + '/' + self.theme['name'] + '/index.html')
+        if not self.index_standalone:
+            with open(self.dirname + '/datas/data.js',"w") as jsonfile:
+                jsonfile.write(self.imageActive.jsonContent.encode('utf8'))
+            theme['object'].generateIndex(self.dirname + "/index.html", \
+                self.themesPath + '/' + theme['name'] + '/index.html')
+        else:
+            theme['object'].generateIndex(self.dirname + "/index.html", \
+                self.themesPath + '/' + theme['name'] + '/index_standalone.html')
 
 
     def defineMaxPixels(self, resizeCoeff):

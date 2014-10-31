@@ -174,7 +174,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
                     for(var vary = 0; vary < maxHeight; vary +=1) {
                         position1 = 4 * (vary * maxWidth + varx);
                         position2 = 4 * ((vary + startY) * hitCanvasWidth + varx + startX);
-                        if (imageData[position1 + 3] > 200) {
+                        if (imageData[position1 + 3] > 100) {
                            imageDest[position2 + 0] = rgbColorKey.r;
                            imageDest[position2 + 1] = rgbColorKey.g;
                            imageDest[position2 + 2] = rgbColorKey.b;

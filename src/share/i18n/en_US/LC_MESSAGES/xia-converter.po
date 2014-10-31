@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: activit 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-12 02:27+0200\n"
+"POT-Creation-Date: 2014-10-31 11:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,9 +17,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: share/themes/accordionCloud/hook.py:34
+#: share/themes/accordionCloud/hook.py:35
 msgid "export accordionCloud"
 msgstr "export in accordionCloud"
+
+#: share/themes/accordionCloud/hook.py:36 share/themes/popYellow/hook.py:36
+#: share/themes/game1clic/hook.py:43 share/themes/buttonBlue/hook.py:35
+#: share/themes/gameDragAndDrop/hook.py:42
+#: share/themes/accordionBlack/hook.py:40 share/themes/popBlue/hook.py:36
+#: share/themes/audioBrown/hook.py:35
+msgid "loading"
+msgstr "Loading..."
 
 #: share/themes/popYellow/hook.py:35
 msgid "export popYellow"
@@ -41,11 +49,11 @@ msgstr ""
 msgid "export gameDragAndDrop"
 msgstr ""
 
-#: share/themes/accordionBlack/hook.py:38
+#: share/themes/accordionBlack/hook.py:39
 msgid "export accordionBlack !"
 msgstr "export in accordionBlack"
 
-#: share/themes/popBlue/hook.py:34
+#: share/themes/popBlue/hook.py:35
 msgid "export popBlue"
 msgstr ""
 
@@ -53,35 +61,47 @@ msgstr ""
 msgid "export audioBrown"
 msgstr "export in audioBrown"
 
-#: xiaconverter/mainwindow.py:85
+#: xiaconverter/mainwindow.py:88
 msgid "select svg file"
 msgstr ""
 
-#: xiaconverter/mainwindow.py:98
+#: xiaconverter/mainwindow.py:101
 msgid "ajust parameters"
 msgstr ""
 
-#: xiaconverter/mainwindow.py:159
+#: xiaconverter/mainwindow.py:162
 msgid "myfile.svg"
 msgstr ""
 
-#: xiaconverter/mainwindow.py:161
+#: xiaconverter/mainwindow.py:164
 msgid "Select a svg file"
 msgstr ""
 
-#: xiaconverter/mainwindow.py:168
+#: xiaconverter/mainwindow.py:171
 msgid "Select target folder"
 msgstr ""
 
-#: xiaconverter/mainwindow.py:180
+#: xiaconverter/mainwindow.py:183
 #, python-brace-format
 msgid "Sorry, impossible to create the {0} directory"
 msgstr ""
 
-#: xiaconverter/mainwindow.py:210
+#: xiaconverter/mainwindow.py:213
 msgid "Parameters"
 msgstr "Parameters"
 
-#: xiaconverter/paramswindow.py:64
+#: xiaconverter/paramswindow.py:79
 msgid "modify image resolution"
 msgstr ""
+
+#: xiaconverter/paramswindow.py:87
+msgid "create firefox OS files"
+msgstr "enable/disable firefox OS files creation"
+
+#: xiaconverter/paramswindow.py:95
+msgid "index standalone"
+msgstr ""
+"enable/disable unique file export.\n"
+"Unique file configuration needs internet connection to access the resource.\n"
+"xia engine used in unique file is hosted on Versailles academy servers and automatically updated."
+"In this configuration, you can not control background image et icons."

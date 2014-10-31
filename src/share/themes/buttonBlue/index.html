@@ -11,20 +11,20 @@
     <meta property="og:description" content="{{DESCRIPTION}}"/>
     <meta property="og:image" content="http://xia.dane.ac-versailles.fr/img/logo.jpg"/>
     <title>{{TITLE}}</title>
-    <link rel="stylesheet" type="text/css" href="css/main.css"/>
-    <script src="js/LAB.min.js"></script>    
+    <link rel="stylesheet" type="text/css" href="{{MainCSS}}"/>
+    <script src="{{labJS}}"></script>        
 </head>
 <body id="image-active">
     <div id="loader">
         <div id="splash">
-            <p><img src="img/image-active.png" alt="images actives"/></p>
-            <p>Chargement...</p>
+            <p><img src="{{LogoLoading}}" alt="xia"/></p>
+            <p>{{LOADING}}</p>
         </div>
-    </div>
+    </div>   
     <div class="buttons_container">
         <div id="article_close"></div>
         <div id="article_move"></div>
-    </div>    
+    </div>        
     <div id="container">
         <div id="detect"></div>
         <header>
@@ -39,24 +39,24 @@
     </div>
     <footer class="overlay" id="rights">
         <section id="popup">
-            <img id="popup_close" src="img/close.png" alt="close"/>
+            <img id="popup_close" src="{{LogoClose}}" alt="close"/>
             <article id="popup_text">
-                <img src="img/image-active.png" alt="Images Actives" />
+                <img src="{{LogoLoading}}" alt="xia" />
                 <p>{{RIGHTS}}</p>
                 <p>{{CREATOR}}</p>
                 <p>{{PUBLISHER}}</p>
             </article>
         </section>
     </footer>
+    {{datasJS}}
     <script>
         document.body.onload = function() {
             $LAB.setGlobalDefaults({CacheBust:true});
-            $LAB
-             .script("js/jquery.min.js")
-             .script("js/git-sha1.min.js")
-             .script("js/kinetic.min.js").wait()
-             .script("datas/data.js").wait()
-             .script("js/xia.js")
+            $LAB{{lazyDatasJS}}
+             .script("{{JqueryJS}}")
+             .script("{{sha1JS}}")
+             .script("{{kineticJS}}").wait()
+             .script("{{xiaJS}}")
              ;
         }
     </script>

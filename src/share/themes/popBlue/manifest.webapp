@@ -9,9 +9,9 @@
         "name": "Académie de Versailles"
     },
     "icons": { 
-        "16": "/img/ia16.png",
-        "48": "/img/ia48.png",
-        "64": "/img/ia64.png",
-        "128": "/img/ia128.png" 
+        "16": "/img/xia16.png",
+        "48": "/img/xia48.png",
+        "64": "/img/xia64.png",
+        "128": "/img/xia128.png" 
     }
 }

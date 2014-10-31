@@ -60,6 +60,7 @@ class iaObject:
         self.ratio = 1
 
         self.translation = 0
+        self.jsonContent = ""
         
     def get_tag_value(self,node):
         if node.childNodes:
@@ -635,7 +636,7 @@ class iaObject:
             if str_onclick == "off":
                 record['options'] += " disable-click "
             else:
-                record_image['options'] += " " + str_onclick + " "
+                record['options'] += " " + str_onclick + " "
         
         
         ctm_group = CurrentTransformation()
@@ -759,7 +760,7 @@ class iaObject:
         return [newraster, newrasterWidth, newrasterHeight]
 
 
-    def generateJSON(self,filePath):
+    def generateJSON(self):
         """ generate json file"""
         final_str = u""
         final_str += u'var scene = {\n'
@@ -836,7 +837,4 @@ class iaObject:
                             u'",\n'
             final_str += u'},\n'
         final_str += u'];\n'
-        #final_str += u'lazyload("/js/iascene.js");'
-
-        with open(filePath,"w") as jsonfile:
-            jsonfile.write(final_str.encode('utf8'))
+        self.jsonContent = final_str

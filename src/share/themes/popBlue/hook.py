@@ -21,17 +21,19 @@ import locale
 class hook:
     """do some stuff during image active generations"""
 
-    def __init__(self, iaobject, PageFormatter, langPath):
+    def __init__(self, root, iaobject, PageFormatter, langPath):
         """Init"""
 
         try:
             t = gettext.translation("xia-converter", langPath, languages=[locale.getdefaultlocale()[0]])
         except:
             t = gettext.translation("xia-converter", langPath, languages=['en_US'])
-        translate = t.ugettext        
+        translate = t.ugettext
+        self.root = root
         self.iaobject = iaobject
         self.PageFormatter = PageFormatter
         self.tooltip = translate("export popBlue")
+        self.loading = translate("loading")
 
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""
@@ -58,6 +60,30 @@ class hook:
             final_index = final_index.replace("{{RIGHTS}}", self.iaobject.scene["rights"])
             final_index = final_index.replace("{{CREATOR}}", self.iaobject.scene["creator"])
             final_index = final_index.replace("{{PUBLISHER}}", self.iaobject.scene["publisher"])
-            final_index = final_index.replace("{{CONTENT}}", final_str)            
+            final_index = final_index.replace("{{CONTENT}}", final_str)
+            final_index = final_index.replace("{{LOADING}}", self.loading)
+            if self.root.index_standalone:
+                xiaWebsite = "http://xia.dane.ac-versailles.fr/network/delivery/popBlue"
+                final_index = final_index.replace("{{MainCSS}}", xiaWebsite + "/css/main.css")
+                final_index = final_index.replace("{{LogoLoading}}",  xiaWebsite + "/img/xia.png")
+                final_index = final_index.replace("{{LogoClose}}", xiaWebsite + "/img/close.png")
+                final_index = final_index.replace("{{datasJS}}", "<script>" + self.iaobject.jsonContent + "</script>")
+                final_index = final_index.replace("{{lazyDatasJS}}", '')
+                final_index = final_index.replace("{{JqueryJS}}", "https://code.jquery.com/jquery-1.11.1.min.js")
+                final_index = final_index.replace("{{sha1JS}}", xiaWebsite + "/js/git-sha1.min.js")
+                final_index = final_index.replace("{{kineticJS}}", "https://cdn.jsdelivr.net/kineticjs/5.1.0/kinetic.min.js")
+                final_index = final_index.replace("{{xiaJS}}", xiaWebsite + "/js/xia.js")
+                final_index = final_index.replace("{{labJS}}", "https://cdnjs.cloudflare.com/ajax/libs/labjs/2.0.3/LAB.min.js")
+            else:
+                final_index = final_index.replace("{{MainCSS}}", "css/main.css")
+                final_index = final_index.replace("{{LogoLoading}}",  "img/xia.png")
+                final_index = final_index.replace("{{LogoClose}}", "img/close.png")
+                final_index = final_index.replace("{{datasJS}}", "")
+                final_index = final_index.replace("{{lazyDatasJS}}", '.script("datas/data.js")')
+                final_index = final_index.replace("{{JqueryJS}}", "js/jquery.min.js")
+                final_index = final_index.replace("{{sha1JS}}", "js/git-sha1.min.js")
+                final_index = final_index.replace("{{kineticJS}}", "js/kinetic.min.js")
+                final_index = final_index.replace("{{xiaJS}}", "js/xia.js")
+                final_index = final_index.replace("{{labJS}}", "js/LAB.min.js")  
         with open(filePath,"w") as indexfile:
             indexfile.write(final_index.encode("utf-8"))

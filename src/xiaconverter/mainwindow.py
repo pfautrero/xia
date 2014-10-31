@@ -54,6 +54,8 @@ class IADialog(Tkinter.Frame):
         self.jqueryLib = jqueryLib
         self.root = root
         self.resize = 3
+        self.firefoxos = 0
+        self.index_standalone = 0
 
         # Don't show hidden files and directories 
         # (with tkinter, by default, it's the opposite).
@@ -111,7 +113,7 @@ class IADialog(Tkinter.Frame):
                 imp.load_source(filename, themesPath + "/" + filename + \
                     "/hook.py")
                 imported_class = __import__(filename)
-                theme['object'] = imported_class.hook(self.imageActive, \
+                theme['object'] = imported_class.hook(self, self.imageActive, \
                     PageFormatter, self.langPath)
                 self.themes.append(theme)
 
@@ -244,43 +246,48 @@ class IADialog(Tkinter.Frame):
                 mysplash.enter()              
 
                 self.dir_opt['initialdir'] = self.dirname
-                if os.path.isdir(self.dirname + '/font'):
-                    shutil.rmtree(self.dirname + '/font')              
-                if os.path.isdir(self.dirname + '/img'):
-                    shutil.rmtree(self.dirname + '/img')
-                if os.path.isdir(self.dirname + '/css'):
-                    shutil.rmtree(self.dirname + '/css')
-                if os.path.isdir(self.dirname + '/js'):
-                    shutil.rmtree(self.dirname + '/js')
-                if os.path.isdir(self.dirname + '/datas'):
-                    shutil.rmtree(self.dirname + '/datas')
-                os.mkdir(self.dirname + '/datas')
-                shutil.copytree(self.fontsPath , self.dirname + '/font/')              
-                shutil.copytree(self.themesPath + '/' + theme['name'] + \
-                    '/css/', self.dirname + '/css/')
-                shutil.copytree(self.themesPath + '/' + theme['name'] + \
-                    '/img/', self.dirname + '/img/')
-                shutil.copytree(self.themesPath + '/' + theme['name'] + \
-                    '/js/', self.dirname + '/js/')
-                shutil.copy(self.labjsLib , self.dirname + '/js')
-                shutil.copy(self.jqueryLib , self.dirname + '/js')
-                shutil.copy(self.kineticLib , self.dirname + '/js')
-                shutil.copy(self.sha1Lib , self.dirname + '/js')
+                if not self.index_standalone:
+                    if os.path.isdir(self.dirname + '/font'):
+                        shutil.rmtree(self.dirname + '/font')              
+                    if os.path.isdir(self.dirname + '/img'):
+                        shutil.rmtree(self.dirname + '/img')
+                    if os.path.isdir(self.dirname + '/css'):
+                        shutil.rmtree(self.dirname + '/css')
+                    if os.path.isdir(self.dirname + '/js'):
+                        shutil.rmtree(self.dirname + '/js')
+                    if os.path.isdir(self.dirname + '/datas'):
+                        shutil.rmtree(self.dirname + '/datas')
+                    os.mkdir(self.dirname + '/datas')
+                    shutil.copytree(self.fontsPath , self.dirname + '/font/')              
+                    shutil.copytree(self.themesPath + '/' + theme['name'] + \
+                        '/css/', self.dirname + '/css/')
+                    shutil.copytree(self.themesPath + '/' + theme['name'] + \
+                        '/img/', self.dirname + '/img/')
+                    shutil.copytree(self.themesPath + '/' + theme['name'] + \
+                        '/js/', self.dirname + '/js/')
+                    shutil.copy(self.labjsLib , self.dirname + '/js')
+                    shutil.copy(self.jqueryLib , self.dirname + '/js')
+                    shutil.copy(self.kineticLib , self.dirname + '/js')
+                    shutil.copy(self.sha1Lib , self.dirname + '/js')
 
-                shutil.copyfile(self.themesPath + '/' + theme['name'] + \
-                    '/manifest.webapp', self.dirname + '/manifest.webapp')
+                if self.firefoxos:
+                    shutil.copyfile(self.themesPath + '/' + theme['name'] + \
+                        '/manifest.webapp', self.dirname + '/manifest.webapp')
 
-                shutil.copyfile(self.themesPath + '/' + theme['name'] + \
-                    '/deploy.html', self.dirname + '/deploy.html')
-                    
+                    shutil.copyfile(self.themesPath + '/' + theme['name'] + \
+                        '/deploy.html', self.dirname + '/deploy.html')
+
                 maxNumPixels = self.defineMaxPixels(self.resize)
                 self.imageActive.analyzeSVG(self.filename, maxNumPixels)
                 
-                self.imageActive.generateJSON(self.dirname + '/datas/data.js')
+                self.imageActive.generateJSON()
+                if not self.index_standalone:
+                    with open(self.dirname + '/datas/data.js',"w") as jsonfile:
+                        jsonfile.write(self.imageActive.jsonContent.encode('utf8'))
 
                 theme['object'].generateIndex(self.dirname + "/index.html", \
                     self.themesPath + '/' + theme['name'] + '/index.html')
-
+                    
                 mysplash.exit()
 
                 if self.keep_alive == "no":
