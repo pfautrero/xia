@@ -65,7 +65,7 @@ class ImageActive(inkex.Effect):
             root.title("Xia - 1.0-beta3")
             root.geometry("465x310")
             root.resizable(0,0)
-            img = Tkinter.PhotoImage(file= imagesPath + '/image-active64.gif')
+            img = Tkinter.PhotoImage(file= imagesPath + '/xia64.gif')
             root.tk.call('wm', 'iconphoto', root._w, img)  
             maindialog = IADialog(root,langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, filePath)
             maindialog.pack(side="left")

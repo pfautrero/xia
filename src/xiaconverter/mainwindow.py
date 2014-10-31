@@ -220,7 +220,7 @@ class IADialog(Tkinter.Frame):
             self.params.title(self.paramsTitle)
             self.params.geometry("310x310")
             self.params.resizable(0,0)
-            img = Tkinter.PhotoImage(file=self.imagesPath + '/image-active64.gif')
+            img = Tkinter.PhotoImage(file=self.imagesPath + '/xia64.gif')
             self.params.tk.call('wm', 'iconphoto', self.params._w, img)    
             IAParams(self.params, self, self.langPath, self.imagesPath).pack(side="left")
         

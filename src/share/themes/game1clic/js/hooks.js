@@ -108,32 +108,9 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
     $(".button").on("click", button_click);
     $(".unlock input[type=submit]").on("click", unlock_input);
 
-
-
     mainScene.score = $("#message_success").data("score");
     mainScene.score2 = $("#message_success2").data("score");
 
-/*
-    if ((mainScene.score2 == mainScene.currentScore2) && (mainScene.score2 != "0")) {
-        mainScene.score = 0;
-        $("#content").show();
-        $("#message_success2").show();
-        $("#message_success").hide();
-        var general_border = $("#message_success2").css("border-top-width").substr(0,$("#message_success2").css("border-top-width").length - 2);
-        var general_offset = $("#message_success2").offset();
-        var content_offset = $("#content").offset();
-        $("#message_success2").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});        
-    }
-
-    if ((mainScene.score == mainScene.currentScore) && (mainScene.score != "0")) {
-        $("#content").show();
-        $("#message_success").show();
-        var general_border = $("#message_success").css("border-top-width").substr(0,$("#message_success").css("border-top-width").length - 2);
-        var general_offset = $("#message_success").offset();
-        var content_offset = $("#content").offset();
-        $("#message_success").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});        
-    }
-*/
     $(".overlay").hide();
 
     $(".infos").on("click", function(){
