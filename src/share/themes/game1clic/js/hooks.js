@@ -187,7 +187,7 @@ hooks.prototype.afterIaObjectZoom = function(iaScene, idText, iaObject) {
  *
  *  
  */
-hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
+hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject, kineticElement) {
     var viewportHeight = $(window).height();
     $('#' + idText + " audio").each(function(){
         if ($(this).data("state") === "autostart") {
@@ -195,7 +195,8 @@ hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
         }
     }); 
     
-    var options = $('#' + idText).data("options");
+    //var options = $('#' + idText).data("options");
+    var options = kineticElement.getXiaParent().options;
     if (typeof(options) != "undefined") { 
         if (options.indexOf("score2") != -1) {
             iaScene.currentScore2 += 1;
@@ -224,7 +225,7 @@ hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
 
     if ((iaScene.score != 0) || (iaScene.score2 != 0)) {
         for (var i in iaObject.kineticElement) {    
-            iaObject.kineticElement[i].off("click");
+            iaObject.xiaDetail[i].kineticElement.off("click");
         }
     }
                 

@@ -27,23 +27,15 @@ function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     "use strict";
     var that = this;
     this.path = [];
-    this.title = [];      
-    this.kineticElement = [];
+    this.xiaDetail = [];
     this.persistent = [];
-    this.originalX = [];
-    this.originalY = [];
-    this.options = [];
     this.layer = layer;
     this.background_layer = background_layer;
     this.imageObj = imageObj;
-    this.agrandissement = 0;
-    this.zoomActive = 0;
     this.minX = 10000;
     this.minY = 10000;
     this.maxX = -10000;
     this.maxY = -10000;
-    this.tween = []; 
-    this.tween_group = 0;
     this.group = 0;
     this.idText = idText;
     this.myhooks = myhooks;
@@ -73,7 +65,7 @@ function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
         console.log(detail);
     }
 
-    this.defineTweens(this, iaScene);
+    this.scaleBox(this, iaScene);
     this.myhooks.afterIaObjectConstructor(iaScene, idText, detail, this);
 }
 
@@ -85,11 +77,13 @@ function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
  */
 IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, idText) {
     that.defineImageBoxSize(detail, that);
+    
+    that.xiaDetail[i] = new XiaDetail(detail, idText);
+    
     var rasterObj = new Image();
     rasterObj.src = detail.image;    
-    that.title[i] = detail.title;    
-    //that.backgroundImage[i] = rasterObj;
-    that.kineticElement[i] = new Kinetic.Image({
+
+    that.xiaDetail[i].kineticElement = new Kinetic.Image({
         id: detail.id,
         name: detail.title,
         x: parseFloat(detail.x) * iaScene.coeff,
@@ -98,22 +92,17 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         height: detail.height,
         scale: {x:iaScene.coeff,y:iaScene.coeff}
     });
-
-    that.kineticElement[i].backgroundImage = rasterObj;
-    that.kineticElement[i].tooltip = "";
+    that.xiaDetail[i].kineticElement.setXiaParent(that.xiaDetail[i]);
+    that.xiaDetail[i].kineticElement.setIaObject(that);
+    
+    that.xiaDetail[i].kineticElement.backgroundImage = rasterObj;
+    that.xiaDetail[i].kineticElement.tooltip = "";
     
     rasterObj.onload = function() {
         
-        that.kineticElement[i].backgroundImageOwnScaleX = iaScene.scale * detail.width / this.width;
-        that.kineticElement[i].backgroundImageOwnScaleY = iaScene.scale * detail.height / this.height;           
+        that.xiaDetail[i].kineticElement.backgroundImageOwnScaleX = iaScene.scale * detail.width / this.width;
+        that.xiaDetail[i].kineticElement.backgroundImageOwnScaleY = iaScene.scale * detail.height / this.height;           
         var zoomable = true;
-
-        if ((typeof(detail.options) !== 'undefined')) {
-            that.options[i] = detail.options;
-        }
-        else {
-            that.options[i] = "";
-        }
 
         if ((typeof(detail.fill) !== 'undefined') && 
             (detail.fill === "#000000")) {
@@ -124,13 +113,13 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         if ((typeof(detail.fill) !== 'undefined') && 
             (detail.fill === "#ffffff")) {
             that.persistent[i] = "onImage";
-            that.kineticElement[i].fillPriority('pattern');
-            that.kineticElement[i].fillPatternScaleX(that.kineticElement[i].backgroundImageOwnScaleX * 1/iaScene.scale);
-            that.kineticElement[i].fillPatternScaleY(that.kineticElement[i].backgroundImageOwnScaleY * 1/iaScene.scale);                
-            that.kineticElement[i].fillPatternImage(that.kineticElement[i].backgroundImage); 
+            that.xiaDetail[i].kineticElement.fillPriority('pattern');
+            that.xiaDetail[i].kineticElement.fillPatternScaleX(that.xiaDetail[i].kineticElement.backgroundImageOwnScaleX * 1/iaScene.scale);
+            that.xiaDetail[i].kineticElement.fillPatternScaleY(that.xiaDetail[i].kineticElement.backgroundImageOwnScaleY * 1/iaScene.scale);                
+            that.xiaDetail[i].kineticElement.fillPatternImage(that.xiaDetail[i].kineticElement.backgroundImage); 
             zoomable = false;
         }
-        that.group.add(that.kineticElement[i]);
+        that.group.add(that.xiaDetail[i].kineticElement);
 
         // define hit area excluding transparent pixels
 
@@ -157,9 +146,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
 	imageDataSource = context_source.getImageData(0, 0, Math.floor(cropWidth * iaScene.coeff), Math.floor(cropHeight * iaScene.coeff));            
 
         (function(imageDataSource){
-        that.kineticElement[i].hitFunc(function(context) {
-
-            if (that.group.zoomActive == 0) {
+            that.xiaDetail[i].kineticElement.hitFunc(function(context) {
                 var imageData = imageDataSource.data;
                 var imageDest = iaScene.completeImage.data;
                 var position1 = 0;
@@ -182,23 +169,15 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
                         }
                     }
                 } 
-                context.putImageData(iaScene.completeImage, 0, 0);     
-            }
-            else {
-                context.beginPath();
-                context.rect(0,0,this.width(),this.height());
-                context.closePath();
-                context.fillStrokeShape(this);					
-            }
-        });        
+                context.putImageData(iaScene.completeImage, 0, 0);    
+            });        
         })(imageDataSource);    
         
         
-        /*that.kineticElement[i].sceneFunc(function(context) {
+        /*that.xiaDetail[i].kineticElement.sceneFunc(function(context) {
             var yo = that.layer.getHitCanvas().getContext().getImageData(0,0,iaScene.width, iaScene.height);
             context.putImageData(yo, 0,0);  
         });*/
-        that.group.zoomActive = 0;
         that.addEventsManagement(i,zoomable, that, iaScene, baseImage, idText);
         that.group.draw();        
     };
@@ -215,13 +194,13 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
 IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, idText) {
     
     var that=this;
+    that.xiaDetail[i] = new XiaDetail(detail, idText);
     
     that.path[i] = detail.path;
-    that.title[i] = detail.title;
     // if detail is out of background, hack maxX and maxY
     if (parseFloat(detail.maxX) < 0) detail.maxX = 1;
     if (parseFloat(detail.maxY) < 0) detail.maxY = 1;        
-    that.kineticElement[i] = new Kinetic.Path({
+    that.xiaDetail[i].kineticElement = new Kinetic.Path({
         id: detail.id,        
         name: detail.title,
         data: detail.path,
@@ -230,6 +209,9 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         scale: {x:iaScene.coeff,y:iaScene.coeff},
         fill: 'rgba(0, 0, 0, 0)'
     });
+    that.xiaDetail[i].kineticElement.setXiaParent(that.xiaDetail[i]);
+    that.xiaDetail[i].kineticElement.setIaObject(that);
+    
     that.definePathBoxSize(detail, that);
     // crop background image to suit shape box
     that.cropCanvas = document.createElement('canvas');
@@ -264,25 +246,15 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     delete that.cropCanvas;
     var cropedImage = new Image();
     cropedImage.src = dataUrl;
-    that.kineticElement[i].tooltip = "";
+    that.xiaDetail[i].kineticElement.tooltip = "";
     cropedImage.onload = function() {
-        that.kineticElement[i].backgroundImage = cropedImage;
-
-        that.kineticElement[i].backgroundImage = cropedImage;
-        that.kineticElement[i].backgroundImageOwnScaleX = 1;
-        that.kineticElement[i].backgroundImageOwnScaleY = 1;
-        that.kineticElement[i].fillPatternRepeat('no-repeat');
-        that.kineticElement[i].fillPatternX(detail.minX);
-        that.kineticElement[i].fillPatternY(detail.minY);
+        that.xiaDetail[i].kineticElement.backgroundImage = cropedImage;
+        that.xiaDetail[i].kineticElement.backgroundImageOwnScaleX = 1;
+        that.xiaDetail[i].kineticElement.backgroundImageOwnScaleY = 1;
+        that.xiaDetail[i].kineticElement.fillPatternRepeat('no-repeat');
+        that.xiaDetail[i].kineticElement.fillPatternX(detail.minX);
+        that.xiaDetail[i].kineticElement.fillPatternY(detail.minY);
     };
-
-    if ((typeof(detail.options) !== 'undefined')) {
-
-        that.options[i] = detail.options;
-    }
-    else {
-        that.options[i] = "";
-    }
 
     var zoomable = true;
     if ((typeof(detail.fill) !== 'undefined') && 
@@ -293,13 +265,11 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     if ((typeof(detail.fill) !== 'undefined') && 
         (detail.fill === "#ffffff")) {
         that.persistent[i] = "onPath";
-        that.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');
+        that.xiaDetail[i].kineticElement.fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');
     }    
     that.addEventsManagement(i, zoomable, that, iaScene, baseImage, idText);
 
-
-
-    that.group.add(that.kineticElement[i]);
+    that.group.add(that.xiaDetail[i].kineticElement);
     that.group.draw();
 };
 
@@ -353,31 +323,15 @@ IaObject.prototype.definePathBoxSize = function(detail, that) {
 
 
 /*
- * Define zoom rate and define tween effect for each group
- * @returns {undefined}
+ * 
  */
-IaObject.prototype.defineTweens = function(that, iaScene) {
+IaObject.prototype.scaleBox = function(that, iaScene) {
 
     that.minX = that.minX * iaScene.coeff;
     that.minY = that.minY * iaScene.coeff;
     that.maxX = that.maxX * iaScene.coeff;
     that.maxY = that.maxY * iaScene.coeff;    
 
-    var largeur = that.maxX - that.minX;
-    var hauteur = that.maxY - that.minY;
-    that.agrandissement1  = (iaScene.height - iaScene.y) / hauteur;   // beta
-    that.agrandissement2  = iaScene.width / largeur;    // alpha
-
-    if (hauteur * that.agrandissement2 > iaScene.height) {
-        that.agrandissement = that.agrandissement1;
-        that.tweenX = (0 - (that.minX)) * that.agrandissement + (iaScene.width - largeur * that.agrandissement) / 2;
-        that.tweenY = (0 - iaScene.y - (that.minY)) * that.agrandissement + iaScene.y;
-    }
-    else {
-        that.agrandissement = that.agrandissement2;
-        that.tweenX = (0 - (that.minX)) * that.agrandissement;
-        that.tweenY = 1 * ((0 - iaScene.y - (that.minY)) * that.agrandissement + iaScene.y + (iaScene.height - hauteur * that.agrandissement) / 2);
-    }
 };
 
 /*
@@ -390,19 +344,19 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 
     var that=this;
 
-    that.kineticElement[i].droparea = false;
-    that.kineticElement[i].tooltip_area = false;
+    that.xiaDetail[i].kineticElement.droparea = false;
+    that.xiaDetail[i].kineticElement.tooltip_area = false;
     // if current detail is a drop area, disable drag and drop
     if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
-        that.kineticElement[i].droparea = true;
+        that.xiaDetail[i].kineticElement.droparea = true;
     }
     // tooltip must be at the bottom
     if ($('article[data-tooltip="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
-        that.kineticElement[i].getParent().moveToBottom();
-        that.options[i] += " disable-click ";
-        that.kineticElement[i].tooltip_area = true;
+        that.xiaDetail[i].kineticElement.getParent().moveToBottom();
+        that.xiaDetail[i].options += " disable-click ";
+        that.xiaDetail[i].kineticElement.tooltip_area = true;
         // disable hitArea for tooltip
-        that.kineticElement[i].hitFunc(function(context){
+        that.xiaDetail[i].kineticElement.hitFunc(function(context){
             context.beginPath();
             context.rect(0,0,0,0);
             context.closePath();
@@ -413,7 +367,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
      * if mouse is over element, fill the element with semi-transparency
      */
     
-    that.kineticElement[i].on('mouseover', function() {
+    that.xiaDetail[i].kineticElement.on('mouseover', function() {
         if (iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) {
 
         }
@@ -421,7 +375,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 
         }
         else if (iaScene.cursorState.indexOf("HandPointer.cur") === -1) {
-            if ((that.options[i].indexOf("pointer") !== -1) && (!this.tooltip_area)) {
+            if ((this.getXiaParent().options.indexOf("pointer") !== -1) && (!this.tooltip_area)) {
                 document.body.style.cursor = "pointer";
             }
             iaScene.cursorState = "url(img/HandPointer.cur),auto";   
@@ -456,7 +410,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
     /*
      * if we leave this element, just clear the scene
      */
-    that.kineticElement[i].on('mouseleave', function() {
+    that.xiaDetail[i].kineticElement.on('mouseleave', function() {
         //iaScene.noPropagation = true;
         if ((iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) ||
                 (iaScene.cursorState.indexOf("ZoomIn.cur") !== -1)){
@@ -495,59 +449,56 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
     }); 
 
 
-    if (that.options[i].indexOf("disable-click") !== -1) return;
+    if (that.xiaDetail[i].options.indexOf("disable-click") !== -1) return;
     
     /*
      * if we click in this element, manage zoom-in, zoom-out
      */
-    if (that.options[i].indexOf("direct-link") !== -1) {
-        that.kineticElement[i].on('click touchstart', function(e) {
-            location.href = that.title[i];
+    if (that.xiaDetail[i].options.indexOf("direct-link") !== -1) {
+        that.xiaDetail[i].kineticElement.on('click touchstart', function(e) {
+            location.href = this.getXiaParent().title;
         });
     }
     else {    
-        that.kineticElement[i].on('click touchstart', function(evt) {
+        that.xiaDetail[i].kineticElement.on('click touchstart', function(evt) {
 
             iaScene.noPropagation = true;
-                if (iaScene.zoomActive === 0) {
-                    for (var i in that.kineticElement) {
-                        if (that.persistent[i] == "off") {
-                            if (that.kineticElement[i] instanceof Kinetic.Image) {
-                                that.kineticElement[i].fillPriority('pattern');
-                                that.kineticElement[i].fillPatternScaleX(that.kineticElement[i].backgroundImageOwnScaleX * 1/iaScene.scale);
-                                that.kineticElement[i].fillPatternScaleY(that.kineticElement[i].backgroundImageOwnScaleY * 1/iaScene.scale); 
-                                that.kineticElement[i].fillPatternImage(that.kineticElement[i].backgroundImage);                        
-                            }
-                            else {
-                                that.kineticElement[i].fillPriority('color');
-                                that.kineticElement[i].fill(iaScene.overColor);
-                                that.kineticElement[i].scale(iaScene.coeff);
-                                that.kineticElement[i].stroke(iaScene.overColorStroke);
-                                that.kineticElement[i].strokeWidth(2);                                                
-                            }
 
-                        }
-                        else if (that.persistent[i] == "onPath") {
-                            that.kineticElement[i].fillPriority('color');
-                            that.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');                       
-                        }
-                        else if (that.persistent[i] == "onImage") {
-                            that.kineticElement[i].fillPriority('pattern');
-                            that.kineticElement[i].fillPatternScaleX(that.kineticElement[i].backgroundImageOwnScaleX * 1/iaScene.scale);
-                            that.kineticElement[i].fillPatternScaleY(that.kineticElement[i].backgroundImageOwnScaleY * 1/iaScene.scale); 
-                            that.kineticElement[i].fillPatternImage(that.kineticElement[i].backgroundImage);                        
-                        }                
-                        that.kineticElement[i].moveToTop();
-                    }                
-
-                    that.group.moveToTop();
-                    that.layer.draw(); 
-                    iaScene.element = that;
-                    that.myhooks.afterIaObjectFocus(iaScene, idText, that);
-                    this.getStage().completeImage = "redefine";
+            for (var i in that.xiaDetail) {
+                if (that.persistent[i] == "off") {
+                    if (that.xiaDetail[i].kineticElement instanceof Kinetic.Image) {
+                        that.xiaDetail[i].kineticElement.fillPriority('pattern');
+                        that.xiaDetail[i].kineticElement.fillPatternScaleX(that.xiaDetail[i].kineticElement.backgroundImageOwnScaleX * 1/iaScene.scale);
+                        that.xiaDetail[i].kineticElement.fillPatternScaleY(that.xiaDetail[i].kineticElement.backgroundImageOwnScaleY * 1/iaScene.scale); 
+                        that.xiaDetail[i].kineticElement.fillPatternImage(that.xiaDetail[i].kineticElement.backgroundImage);                        
+                    }
+                    else {
+                        that.xiaDetail[i].kineticElement.fillPriority('color');
+                        that.xiaDetail[i].kineticElement.fill(iaScene.overColor);
+                        that.xiaDetail[i].kineticElement.scale(iaScene.coeff);
+                        that.xiaDetail[i].kineticElement.stroke(iaScene.overColorStroke);
+                        that.xiaDetail[i].kineticElement.strokeWidth(2);                                                
+                    }
 
                 }
-            //}
+                else if (that.persistent[i] == "onPath") {
+                    that.xiaDetail[i].kineticElement.fillPriority('color');
+                    that.xiaDetail[i].kineticElement.fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');                       
+                }
+                else if (that.persistent[i] == "onImage") {
+                    that.xiaDetail[i].kineticElement.fillPriority('pattern');
+                    that.xiaDetail[i].kineticElement.fillPatternScaleX(that.xiaDetail[i].kineticElement.backgroundImageOwnScaleX * 1/iaScene.scale);
+                    that.xiaDetail[i].kineticElement.fillPatternScaleY(that.xiaDetail[i].kineticElement.backgroundImageOwnScaleY * 1/iaScene.scale); 
+                    that.xiaDetail[i].kineticElement.fillPatternImage(that.xiaDetail[i].kineticElement.backgroundImage);                        
+                }                
+                that.xiaDetail[i].kineticElement.moveToTop();
+            }                
+
+            that.group.moveToTop();
+            that.layer.draw(); 
+            iaScene.element = that;
+            that.myhooks.afterIaObjectFocus(iaScene, idText, that, this);
+            this.getStage().completeImage = "redefine";
 
         });
     }

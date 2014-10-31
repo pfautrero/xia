@@ -27,6 +27,43 @@ function main(myhooks) {
     var that=window;
     that.canvas = document.getElementById("canvas");
 
+    Kinetic.Util.addMethods(Kinetic.Path,{
+        setIaObject: function(iaobject) {
+            this.iaobject = iaobject;
+        },
+        getIaObject: function() {
+            return this.iaobject;
+        }
+    });    
+    
+    Kinetic.Util.addMethods(Kinetic.Image,{
+        setIaObject: function(iaobject) {
+            this.iaobject = iaobject;
+        },
+        getIaObject: function() {
+            return this.iaobject;
+        }
+    });
+
+    Kinetic.Util.addMethods(Kinetic.Path,{
+        setXiaParent: function(xiaparent) {
+            this.xiaparent = xiaparent;
+        },
+        getXiaParent: function() {
+            return this.xiaparent;
+        }
+    });    
+    Kinetic.Util.addMethods(Kinetic.Image,{
+        setXiaParent: function(xiaparent) {
+            this.xiaparent = xiaparent;
+        },
+        getXiaParent: function() {
+            return this.xiaparent;
+        }    
+    });    
+    
+
+
     // Load background image
 
     that.imageObj = new Image();
