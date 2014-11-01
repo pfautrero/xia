@@ -79,7 +79,55 @@ function main(myhooks) {
             width: mainScene.width,
             height: mainScene.height
         });
+        stage.on("mouseout", function(){
+            var shape = Kinetic.shapes[mainScene.currentShape];
+            if (typeof(shape) != "undefined") {
+                mainScene.mouseout(shape);    
+            }
+            mainScene.currentShape = "";
+        });
 
+        stage.on("click touchstart", function(){
+            if ((mainScene.currentShape == "") || (typeof(mainScene.currentShape) == "undefined")) {
+                var mousePos = this.getPointerPosition();
+                var imageDest = mainScene.completeImage.data;
+                var position1 = 0;
+                position1 = 4 * (Math.floor(mousePos.y) * Math.floor(mainScene.width) + Math.floor(mousePos.x));
+                mainScene.currentShape = "#" + Kinetic.Util._rgbToHex(imageDest[position1 + 0], imageDest[position1 + 1], imageDest[position1 + 2]);                
+            }
+            var shape = Kinetic.shapes[mainScene.currentShape];
+            if (typeof(shape) != "undefined") {
+                mainScene.click(shape);    
+            }
+        });        
+        
+        stage.on("mousemove", function(){
+            var mousePos = this.getPointerPosition();
+            var imageDest = mainScene.completeImage.data;
+            var position1 = 0;
+            position1 = 4 * (Math.floor(mousePos.y) * Math.floor(mainScene.width) + Math.floor(mousePos.x));
+            var shape_id = Kinetic.Util._rgbToHex(imageDest[position1 + 0], imageDest[position1 + 1], imageDest[position1 + 2]);
+            var shape = Kinetic.shapes["#" + shape_id];
+            if (typeof(shape) != "undefined") {
+                if (shape.colorKey != mainScene.currentShape) {
+                    if (mainScene.currentShape != "") {
+                        var oldShape = Kinetic.shapes[mainScene.currentShape];
+                        if (typeof(oldShape) != "undefined") {
+                            mainScene.mouseout(oldShape);    
+                        } 
+                    }
+                    mainScene.currentShape = shape.colorKey;
+                    mainScene.mouseover(shape);
+                }
+            }
+            else {
+                var shape = Kinetic.shapes[mainScene.currentShape];
+                if (typeof(shape) != "undefined") {
+                    mainScene.mouseout(shape);    
+                }
+                mainScene.currentShape = "";
+            }
+        });
         // area containing image background    
         var baseImage = new Kinetic.Image({
             x: 0,
@@ -104,6 +152,11 @@ function main(myhooks) {
         for (var i in details) {
             var iaObj = new IaObject(that.imageObj, details[i], layers[indice], "article-" + i, baseImage, mainScene, layers[0], myhooks);
         }
+        
+	var hitCanvas = layers[indice].getHitCanvas();
+        mainScene.completeImage = hitCanvas.getContext().getImageData(0,0,Math.floor(hitCanvas.width),Math.floor(hitCanvas.height));        
+        
+        
         myhooks.afterMainConstructor(mainScene, that.layers);             
         $("#splash").fadeOut("slow", function(){
                 $("#loader").hide();	

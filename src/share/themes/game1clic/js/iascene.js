@@ -46,6 +46,8 @@ function IaScene(originalWidth, originalHeight) {
     this.score = 0;
     this.score2 = 0;
 
+    this.currentShape = "";
+
     this.currentScore = 0;
     this.currentScore2 = 0;    
     this.fullScreen = "off";
@@ -97,3 +99,144 @@ IaScene.prototype.scaleScene = function(mainScene){
     $('#detect').css({"height": (mainScene.height) + 'px'});
     $('#detect').css({"top": ($('#canvas').offset().top) + 'px'});
 };
+
+IaScene.prototype.mouseover = function(kineticElement) {
+    if (this.cursorState.indexOf("ZoomOut.cur") !== -1) {
+
+    }
+    else if (this.cursorState.indexOf("ZoomIn.cur") !== -1) {
+
+    }
+    else if (this.cursorState.indexOf("HandPointer.cur") === -1) {
+        if ((kineticElement.getXiaParent().options.indexOf("pointer") !== -1) && (!this.tooltip_area)) {
+            document.body.style.cursor = "pointer";
+        }
+        this.cursorState = "url(img/HandPointer.cur),auto";   
+
+        // manage tooltips if present
+        var tooltip = false;
+        if (kineticElement.tooltip != "") {
+            tooltip = true;
+        }
+        else if ($("#" + kineticElement.getXiaParent().idText).data("tooltip") != "") {
+            var tooltip_id = $("#" + kineticElement.getXiaParent().idText).data("tooltip");
+            kineticElement.tooltip = kineticElement.getStage().find("#" + tooltip_id)[0];
+            tooltip = true;
+        }
+        if (tooltip) {
+            kineticElement.tooltip.clearCache();
+            kineticElement.tooltip.fillPriority('pattern');
+            if ((kineticElement.tooltip.backgroundImageOwnScaleX != "undefined") && 
+                    (kineticElement.tooltip.backgroundImageOwnScaleY != "undefined")) {
+                kineticElement.tooltip.fillPatternScaleX(kineticElement.tooltip.backgroundImageOwnScaleX * 1/this.scale);
+                kineticElement.tooltip.fillPatternScaleY(kineticElement.tooltip.backgroundImageOwnScaleY * 1/this.scale);
+            }
+            kineticElement.tooltip.fillPatternImage(kineticElement.tooltip.backgroundImage);
+            kineticElement.tooltip.getParent().moveToTop();
+            //that.group.draw();
+            kineticElement.tooltip.draw();
+        }            
+
+        //kineticElement.getIaObject().layer.batchDraw();
+        //kineticElement.draw();
+    }
+
+    
+};
+
+IaScene.prototype.mouseout = function(kineticElement) {
+
+    if ((this.cursorState.indexOf("ZoomOut.cur") !== -1) ||
+            (this.cursorState.indexOf("ZoomIn.cur") !== -1)){
+
+    }
+    else {
+        
+        var mouseXY = kineticElement.getStage().getPointerPosition();
+        if (typeof(mouseXY) == "undefined") {
+            mouseXY = {x:0,y:0};
+        }            
+        //if ((kineticElement.getStage().getIntersection(mouseXY) != kineticElement)) {
+
+            // manage tooltips if present
+            var tooltip = false;
+            if (kineticElement.tooltip != "") {
+                tooltip = true;
+            }
+            else if ($("#" + kineticElement.getXiaParent().idText).data("tooltip") != "") {
+                var tooltip_id = $("#" + kineticElement.getXiaParent().idText).data("tooltip");
+                kineticElement.tooltip = kineticElement.getStage().find("#" + tooltip_id)[0];
+                tooltip = true;
+            }         
+            if (tooltip) {
+                kineticElement.tooltip.fillPriority('color');
+                kineticElement.tooltip.fill('rgba(0, 0, 0, 0)');
+                kineticElement.tooltip.getParent().moveToBottom();
+                kineticElement.tooltip.draw();
+            }                     
+
+            document.body.style.cursor = "default";
+            this.cursorState = "default";
+            kineticElement.getIaObject().layer.draw();						
+        //}
+        document.body.style.cursor = "default";
+    }
+    
+};
+
+IaScene.prototype.click = function(kineticElement) {
+  
+    if (kineticElement.getXiaParent().click == "off") return;
+
+    /*
+     * if we click in this element, manage zoom-in, zoom-out
+     */
+    if (kineticElement.getXiaParent().options.indexOf("direct-link") !== -1) {
+        location.href = kineticElement.getXiaParent().title;
+    }
+    else {    
+
+        this.noPropagation = true;
+        var iaobject = kineticElement.getIaObject();
+        for (var i in iaobject.xiaDetail) {
+            if (iaobject.persistent[i] == "off") {
+                if (iaobject.xiaDetail[i].kineticElement instanceof Kinetic.Image) {
+                    iaobject.xiaDetail[i].kineticElement.fillPriority('pattern');
+                    iaobject.xiaDetail[i].kineticElement.fillPatternScaleX(iaobject.xiaDetail[i].kineticElement.backgroundImageOwnScaleX * 1/this.scale);
+                    iaobject.xiaDetail[i].kineticElement.fillPatternScaleY(iaobject.xiaDetail[i].kineticElement.backgroundImageOwnScaleY * 1/this.scale); 
+                    iaobject.xiaDetail[i].kineticElement.fillPatternImage(iaobject.xiaDetail[i].kineticElement.backgroundImage);                        
+                }
+                else {
+                    iaobject.xiaDetail[i].kineticElement.fillPriority('color');
+                    iaobject.xiaDetail[i].kineticElement.fill(this.overColor);
+                    iaobject.xiaDetail[i].kineticElement.scale(this.coeff);
+                    iaobject.xiaDetail[i].kineticElement.stroke(this.overColorStroke);
+                    iaobject.xiaDetail[i].kineticElement.strokeWidth(2);                                                
+                }
+
+            }
+            else if (iaobject.persistent[i] == "onPath") {
+                iaobject.xiaDetail[i].kineticElement.fillPriority('color');
+                iaobject.xiaDetail[i].kineticElement.fill('rgba(' + this.colorPersistent.red + ',' + this.colorPersistent.green + ',' + this.colorPersistent.blue + ',' + this.colorPersistent.opacity + ')');                       
+            }
+            else if (iaobject.persistent[i] == "onImage") {
+                iaobject.xiaDetail[i].kineticElement.fillPriority('pattern');
+                iaobject.xiaDetail[i].kineticElement.fillPatternScaleX(iaobject.xiaDetail[i].kineticElement.backgroundImageOwnScaleX * 1/this.scale);
+                iaobject.xiaDetail[i].kineticElement.fillPatternScaleY(iaobject.xiaDetail[i].kineticElement.backgroundImageOwnScaleY * 1/this.scale); 
+                iaobject.xiaDetail[i].kineticElement.fillPatternImage(iaobject.xiaDetail[i].kineticElement.backgroundImage);                        
+            }                
+            iaobject.xiaDetail[i].kineticElement.moveToTop();
+            iaobject.xiaDetail[i].kineticElement.draw();
+        }                
+
+        iaobject.group.moveToTop();
+        //iaobject.layer.draw(); 
+        this.element = iaobject;
+        iaobject.myhooks.afterIaObjectFocus(this, kineticElement.getXiaParent().idText, iaobject, kineticElement);
+        iaobject.layer.getStage().completeImage = "redefine";
+
+
+    }    
+
+};
+

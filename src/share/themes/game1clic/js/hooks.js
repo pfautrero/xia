@@ -26,34 +26,6 @@ function hooks() {
  */
 hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
 
-    // Load datas - only useful for themes debugging
-    if ($("#content").html() === "{{CONTENT}}") {
-        var menu = "";
-        menu += '<article class="message_success" id="message_success" data-score="14">';
-        menu += '<p>Bravo !!</p>';
-        menu += '</article>';
-        for (var i in details) {
-            if (details[i].options.indexOf("direct-link") == -1) {
-                if ((details[i].detail.indexOf("Réponse:") != -1) || (details[i].detail.indexOf("réponse:") != -1)) {
-                    var question = details[i].detail.substr(0,details[i].detail.indexOf("Réponse:"));
-                    var answer = details[i].detail.substr(details[i].detail.indexOf("Réponse:")+8);
-                    menu += '<article class="detail_content" id="article-'+i+'">';
-                    menu += '<h1>'+details[i].title+'</h1>';
-                    menu += '<p>' + question + '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#response_'+i+'">Réponse</a></div>' + '<div class="response" id="response_'+ i +'">' + answer + '</div>' + '</p>';
-                    menu += '</article>';            
-                }
-                else {
-                    menu += '<article class="detail_content" id="article-'+i+'">';
-                    menu += '<h1>'+details[i].title+'</h1>';
-                    menu += '<p>'+details[i].detail+'</p>';
-                    menu += '</article>';                        
-                }
-            }
-        }        
-        $("#content").html(menu);
-    }
-    if ($("#title").html() === "{{TITLE}}") $("#title").html(scene.title);
-
 };
 
 /*
@@ -63,8 +35,6 @@ hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
 hooks.prototype.afterMainConstructor = function(mainScene, layers) {
 
     // some stuff to manage popin windows
-
-    var viewportHeight = $(window).height();
 
     var button_click = function() {
         var target = $(this).data("target");
@@ -201,8 +171,8 @@ hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject, kinetic
     }
 
     if ((iaScene.score != 0) || (iaScene.score2 != 0)) {
-        for (var i in iaObject.kineticElement) {    
-            iaObject.xiaDetail[i].kineticElement.off("click");
+        for (var i in iaObject.xiaDetail) {    
+            iaObject.xiaDetail[i].click = "off";
         }
     }
                 

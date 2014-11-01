@@ -21,7 +21,9 @@ function XiaDetail(detail, idText) {
     
     var that = this;
     
+    this.click = "on";
     this.title = detail.title;
+    this.idText = idText;
     this.path = "";
     this.kineticElement = null;
     this.persistent = "";
@@ -31,6 +33,9 @@ function XiaDetail(detail, idText) {
     
     if ((typeof(detail.options) !== 'undefined')) {
         this.options = detail.options;
+    }
+    if (this.options.indexOf("disable-click") !== -1) {
+        this.click = "off";
     }
     
 }
