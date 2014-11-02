@@ -22,6 +22,7 @@ import os
 from datetime import datetime
 import hashlib
 import base64
+import uuid
 
 class PageFormatter:
     """Object that turns Wiki markup into HTML.
@@ -174,7 +175,7 @@ class PageFormatter:
                 data_password = 'data-password="' + hashlib.sha1(password).hexdigest() + '"'
                 content = re.sub('\(code=(.*)\)', '', content)
             
-            random_id = hashlib.md5(str(datetime.now().microsecond)).hexdigest()
+            random_id = hashlib.md5(str(uuid.uuid1())).hexdigest()
             final_result =  u'<div style="margin-top:5px;margin-bottom:5px;">' + \
                 u'<a class="button" href="#" ' + data_password + \
                 u' data-target="' + random_id + '">' + \
