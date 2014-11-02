@@ -62,7 +62,7 @@ class ImageActive(inkex.Effect):
                 self.document.write(filePath)
 
             root = Tkinter.Tk()
-            root.title("Xia - 1.0-beta3")
+            root.title("Xia - 1.0-beta3-02-11-2014")
             root.geometry("465x310")
             root.resizable(0,0)
             img = Tkinter.PhotoImage(file= imagesPath + '/xia64.gif')

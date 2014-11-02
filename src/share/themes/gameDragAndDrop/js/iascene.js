@@ -101,3 +101,11 @@ IaScene.prototype.scaleScene = function(mainScene){
     $('#detect').css({"height": (mainScene.height) + 'px'});
     $('#detect').css({"top": ($('#canvas').offset().top) + 'px'});
 };
+
+IaScene.prototype.mouseover = function(kineticElement) {
+    
+};
+
+IaScene.prototype.mouseout = function(kineticElement) {
+    
+};
