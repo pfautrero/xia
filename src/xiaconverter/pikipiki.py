@@ -262,7 +262,7 @@ class PageFormatter:
             + r"|(?P<li>^\s+\*(.*))"
             + r"|(?P<nothandled>nothandled)"
             + r"|(?P<pre>(\{\{\{|\}\}\}))"
-            + r"|(?P<hidden_block>(\[\[(.*)\:|(.*)\]\]))"
+            + r"|(?P<hidden_block>(\[\[(.*?)\:|(.*)\]\]))"
             + r")")
         blank_re = re.compile("^\s*$")
         indent_re = re.compile("^\s*")
@@ -270,7 +270,7 @@ class PageFormatter:
         raw = string.expandtabs(self.raw)
 
         # fix some elements
-        fix_element = re.sub(r"\[\[(.*)\:", r"[[\1:\n", raw)
+        fix_element = re.sub(r"\[\[(.*?)\:", r"[[\1:\n", raw)
         raw = fix_element
 
         # loop on lines
