@@ -79,7 +79,7 @@ msgstr "sélectionner un fichier svg"
 
 #: xiaconverter/mainwindow.py:101
 msgid "ajust parameters"
-msgstr "Réglages"
+msgstr "Paramètres"
 
 #: xiaconverter/mainwindow.py:162
 msgid "myfile.svg"
@@ -91,7 +91,7 @@ msgstr "sélectionner un fichier svg"
 
 #: xiaconverter/mainwindow.py:171
 msgid "Select target folder"
-msgstr "sélectionner un fichier svg"
+msgstr "sélectionner un dossier de destination"
 
 #: xiaconverter/mainwindow.py:183
 #, python-brace-format

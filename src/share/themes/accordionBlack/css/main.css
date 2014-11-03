@@ -288,7 +288,8 @@ a.accordion-toggle {
 }
 #popup_text img{
     float:left;
-    width:100px;
+    max-width: 60px;
+    margin: 10px;
 }
 #content #message_success {
     overflow-x:visible;
