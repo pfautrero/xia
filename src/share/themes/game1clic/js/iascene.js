@@ -173,11 +173,12 @@ IaScene.prototype.mouseout = function(kineticElement) {
                 kineticElement.tooltip.fill('rgba(0, 0, 0, 0)');
                 kineticElement.tooltip.getParent().moveToBottom();
                 kineticElement.tooltip.draw();
+                kineticElement.getIaObject().layer.draw();
             }                     
 
             document.body.style.cursor = "default";
             this.cursorState = "default";
-            kineticElement.getIaObject().layer.draw();						
+            						
         //}
         document.body.style.cursor = "default";
     }

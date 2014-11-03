@@ -50,7 +50,7 @@ class XIAConsole():
         imp.load_source(selected_theme, themesPath + "/" + selected_theme + \
             "/hook.py")
         imported_class = __import__(selected_theme)
-        self.theme['object'] = imported_class.hook(self.imageActive, \
+        self.theme['object'] = imported_class.hook(self, self.imageActive, \
             PageFormatter, self.langPath)
 
 
@@ -94,11 +94,11 @@ class XIAConsole():
         if not self.index_standalone:
             with open(self.dirname + '/datas/data.js',"w") as jsonfile:
                 jsonfile.write(self.imageActive.jsonContent.encode('utf8'))
-            theme['object'].generateIndex(self.dirname + "/index.html", \
-                self.themesPath + '/' + theme['name'] + '/index.html')
+            self.theme['object'].generateIndex(self.dirname + "/index.html", \
+                self.themesPath + '/' + self.theme['name'] + '/index.html')
         else:
-            theme['object'].generateIndex(self.dirname + "/index.html", \
-                self.themesPath + '/' + theme['name'] + '/index_standalone.html')
+            self.theme['object'].generateIndex(self.dirname + "/index.html", \
+                self.themesPath + '/' + self.theme['name'] + '/index_standalone.html')
 
 
     def defineMaxPixels(self, resizeCoeff):
