@@ -23,6 +23,7 @@ from datetime import datetime
 import hashlib
 import base64
 import uuid
+import math
 
 class PageFormatter:
     """Object that turns Wiki markup into HTML.
@@ -98,11 +99,22 @@ class PageFormatter:
           '" data-iframe="%s"></div>\n' % (word_url)
 
     def _iframe2_repl(self, word):
-        word_url = word.split('src="')[1].split('"')[0]
-        if word_url[0:2] == "//":
-            word_url = "http:" + word_url
-        iframe_width = word.split('width="')[1].split('"')[0]
-        iframe_height = word.split('height="')[1].split('"')[0]
+        
+        word_url = ""
+        srccheck = re.search('src=("|\')(.*?)("|\')', word, re.IGNORECASE|re.DOTALL)
+        if srccheck:
+            word_url = srccheck.group(2)        
+        
+        iframe_width = ""
+        widthcheck = re.search('width=("|\')(.*?)("|\')', word, re.IGNORECASE|re.DOTALL)
+        if widthcheck:
+            iframe_width = widthcheck.group(2)        
+        
+        iframe_height = ""
+        heightcheck = re.search('height=("|\')(.*?)("|\')', word, re.IGNORECASE|re.DOTALL)
+        if heightcheck:
+            iframe_height = heightcheck.group(2)        
+
         videoClass = 'videoWrapper4_3'
         if iframe_width and iframe_height:
             ratio = (float(iframe_height) / float(iframe_width)) * 16
