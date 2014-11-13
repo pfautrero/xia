@@ -7,7 +7,7 @@ po4a-gettextize -f latex -m documentation.tex -M UTF8 -p en_EN.pot
 po4a-translate -f latex -m documentation.tex -M UTF8 -p fr/documentation-fr_FR.po -l documentation_fr.tex
 
 # Update transations when source document changes
-po4a-updatepo -f latex -m documentation.tex -p fr_FR.po
+po4a-updatepo -f latex -m documentation.tex -M UTF8 -p fr/documentation-fr_FR.po
 
 # Script to generate docs from po files
 
