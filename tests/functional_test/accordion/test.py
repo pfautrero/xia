@@ -30,6 +30,8 @@ class Test(unittest.TestCase):
         self.assertEqual("Titre de l'image", driver.find_element_by_id("collapsecomment-heading").text)
     
     def test_nav(self):
+        driver = self.driver
+        driver.get(self.base_url)
         driver.find_element_by_id("collapsecomment-heading").click()
         driver.find_element_by_id("collapse0-heading").click()
         print("TEst alert")
