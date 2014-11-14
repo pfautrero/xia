@@ -17,13 +17,13 @@ class Test(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
-        self.base_url = "index.html"
+        self.base_url = "file://home/gitlab_ci_runner/gitlab-ci-runner/tmp/builds/project-4/images-actives-html5/tests/functional_test/accordion/index.html"
         self.verificationErrors = []
         self.accept_next_alert = True
     
     def test_(self):
         driver = self.driver
-        driver.get(self.base_url )
+        driver.get(self.base_url)
         print("Titre du document")
         self.assertEqual("Titre du document", driver.find_element_by_id("title").text)
         print("Titre de l'image")
