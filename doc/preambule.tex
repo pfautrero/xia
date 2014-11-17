@@ -55,7 +55,7 @@
 % La dimension des marges
 \geometry{hscale=0.7,vscale=0.85}
 
-\title{Xia\\ Create HTML5 "images-actives"}
+\title{Xia\\ Create HTML5 interactive images}
 
 \renewcommand{\thechapter}{\arabic{chapter}}
 \renewcommand{\thesection}{\Roman{section}}
@@ -70,12 +70,12 @@
 \newcommand{\virageDanger}{\textdbend}
 
 \newlength{\LargeurBouleAlerte}
-\settowidth{\LargeurBouleAlerte}{%
+\settowidth{\LargeurBouleAlerte}{
+  \begin{tikzpicture}
+  \node{\virageDanger};
+  \end{tikzpicture}
+  }
 
-  \begin{tikzpicture}%
-    \node{\virageDanger};%
-  \end{tikzpicture}%
-}
 
 % Style pour la boîte alerte
 \tikzstyle{boitealerte}=[draw=red,rounded corners,inner xsep=1em,inner ysep=1ex]

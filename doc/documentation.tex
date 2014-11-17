@@ -12,21 +12,21 @@
 
 Xia is a free software developped by teachers from the french academy of Versailles.
 It is released under \href{http://www.gnu.org/copyleft/gpl.html}{GPLv3} license.
-Xia converter takes a svg file as input and outputs an "image-active" in 
+Xia converter takes a svg file as input and outputs an "interactive image" in 
 html5. Beyond the already known templates export of Images-Actives software
 (\href{http://images-actives.crdp-versailles.fr/spip.php?article11\&lang=fr}
 {accordion, buttons, etc.}), Xia allows to generate
 interactive activities : drag and drop games, discrimination, selection, etc.
 
 First sections of this documentation (see section \ref{basic_imageactive}) are dedicated to make a very simple 
-"image-active": cropped details with comments only made of plain text.
-Then, you will learn how to create an enriched "image-active" (see section \ref{enriched_IA}). Final sections (section \ref{games_IA}) will teach you to create games.
+"interactive image": cropped details with comments only made of plain text.
+Then, you will learn how to create an enriched "interactive image" (see section \ref{enriched_IA}). Final sections (section \ref{games_IA}) will teach you to create games.
 
 \begin{astuce}
 All examples are on line (links and downloads available at 
 the beginning of each section). At the end
 of each section, a heading "Abstract" presents the essential guide lines to 
-remember when creating an "image-active". 
+remember when creating an "interactive image". 
 \end{astuce}
 
 \subsection{General process}
@@ -35,8 +35,8 @@ Unlike "ImagesActives", Xia is only needed at the end of the process.
 As we can see on figure \ref{workflowxia}, most of the work is done with 
 a  vector graphics editor. We recommend using the free open-source and 
 muliplatform software \href{http://www.inkscape.org/}{Inkscape}, which is 
-really easy to use (Inkscape will be used in this document).
-
+really easy to use (Inkscape will be used in this document)\footnote{It is also possible 
+to use LibreOffice Draw.}.
 
 \begin{figure}[htp]
  \centering
@@ -52,7 +52,7 @@ really easy to use (Inkscape will be used in this document).
    \begin{scope}[on background layer]
     \node[fit = (open)(meta)(save)(scape), ia] (ink) {};
   \end{scope}
-   \node[box,below=1cm of save] (createia) {Create an "image-active" in html5};
+   \node[box,below=1cm of save] (createia) {Create an "interactive image" in html5};
    \node[left of=createia,xshift=-.37\textwidth, rotate=90] (xia) {\textbf{Xia}};
    \begin{scope}[on background layer]
     \node[fit = (createia)(xia), xia] (ink) {};
@@ -62,9 +62,16 @@ really easy to use (Inkscape will be used in this document).
   \draw[-stealth] (meta) -- (save);
   \draw[-stealth] (save) -- (createia);
  \end{tikzpicture}
- \caption{Creation process of an "image-active" with  Xia}
+ \caption{Creation process of an "interactive image" with  Xia}
  \label{workflowxia}
 \end{figure}
+
+\begin{astuce}
+ If you have "image active" project files (with a .xia extension), you can change their extension to .zip,
+ unzip them, get the svg file located in the unzipped folder, and open it with Inkscape. If you are using GNU/Linux,
+ just explore the .xia file and extract the svg file.
+\end{astuce}
+
 
 \subsection{Installing Inkscape and Xia}
 
@@ -74,18 +81,18 @@ installation of these softwares on their websites\footnote{See the site
 \href{http://www.inkscape.org/}{Inkscape} and \href
 {http://images-actives.crdp-versailles.fr/beta/}{Xia}.}.
 
-\section{Creating your first "image-active" using Inkscape and Xia: \emph{Basic features}}\label{basic_imageactive}
+\section{Creating your first "interactive image" using Inkscape and Xia: \emph{Basic features}}\label{basic_imageactive}
 
-\subsection{Building the svg source file to generate an "image-active"}\label{preparation_svg}
+\subsection{Building the svg source file to generate an "interactive image"}\label{preparation_svg}
 
 \begin{links}
-Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1}{"image-active"} created for this section of the documentation.
+Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1}{"interactive image"} created for this section of the documentation.
 
 Download the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/svg/xia1.svg}{svg} source file.
 \end{links}
 
 Manipulations described in this section will help you to
-create a "basic" "image-active" featuring:
+create a "basic" "interactive image" featuring:
 \begin{itemize}
  \item Zoom-in enabled details
  \item Comments on details only made of plain text
@@ -100,7 +107,7 @@ When asked by the software if you wish to "\chemin{Link}" or "\chemin{Incorporat
 
 Among the many details that you can learn by accessing the 
 dialog window \chemin{document Metadata} (\chemin
-{File} menu), three will be included in the "image-active" once
+{File} menu), three will be included in the "interactive image" once
 generated : title, creator, rights. It is strongly recommended to type in this information
 (see what it looks like once generated on figure \ref{titre_ia})\footnote{The
 fields "author" and "rights" appear in the window
@@ -110,9 +117,9 @@ fields "author" and "rights" appear in the window
  \centering
  \includegraphics[width=\textwidth,clip=true,trim=0mm 120mm 55mm 0mm ]{images/titre_ia}
  \caption[How do metadata display in the html5 animation]{The title entered in the metadata of the document appears above 
-the "image-active" and gives its name to the web page. The creator and 
+the "interactive image" and gives its name to the web page. The creator and 
  rights appear in the pop up associated with the "i" button 
-on the right of the title of the "image-active".}
+on the right of the title of the "interactive image".}
  \label{titre_ia}
 \end{figure}
 
@@ -149,8 +156,8 @@ to shape the curve segment as desired.
 
 \begin{alerte}
  The order of creation of details in Inkscape will be 
- the same in the html5 "image-active" (for example: the first created detail in
-Inkscape will appear at the top of the "image-active").
+ the same in the html5 "interactive image" (for example: the first created detail in
+Inkscape will appear at the top of the "interactive image").
 If you wish to change the sequence without having to create the details once more, see 
 section \ref{couche_XML}.
 \end{alerte}
@@ -166,12 +173,12 @@ apply a colour background to them. Choose whatever colour you like, except for b
 
 You can access to the \chemin{Object properties} (see illustration 
 \ref{objet_properties}) by right-clicking on the cut-out detail. Thus you also access to the dialog window in which you add the text to be associated with the 
-detail in the "image-active".
+detail in the "interactive image".
 
 \begin{figure}[htp]
  \centering
  \includegraphics[width=0.5\textwidth, clip=true, trim=0mm 60mm 0mm 0mm]{./images/proprietes_objet}
- \caption[The "Object Properties" of the detail in Inkscape]{The "\chemin{Object properties}" allows to enter the text that will become a  comment on the detail in the "image-active"}
+ \caption[The "Object Properties" of the detail in Inkscape]{The "\chemin{Object properties}" allows to enter the text that will become a  comment on the detail in the "interactive image"}
  \label{objet_properties}
 \end{figure}
 
@@ -181,17 +188,17 @@ description will be its comment.
 
 The process described above must also be done with the background image : 
 the title and description indicated here will serve as an introduction to 
-the "image-active" (title and comment not related to a particular detail).
+the "interactive image" (title and comment not related to a particular detail).
 
-\subsection{Generating the "image-active" with Xia}
+\subsection{Generating the "interactive image" with Xia}
 
 When all the details are clipped and their metadata indicated, Xia can be launched (see figure \ref{xia_interface}). You must select the svg source file with the top left icon,
 choose the export quality (on a scale from 1 to 4), and then choose a 
-template and the destination folder of the "image-active".
+template and the destination folder of the "interactive image".
 
 Clicking on one of the template icons generates a series of files and folders.
  Open the \chemin{index.html} file in a 
-  webbrowser to see the html5 image-active.
+  webbrowser to see the html5 interactive image.
 
 \begin{alerte}
 This file will not display anything if used 
@@ -224,15 +231,15 @@ dedicate a specific directory for each exported image}.
       child { node [manual] {video.ogv}}
       child { node [manual] {video.webm}}
       };
-  \node[manualT] (textM) at (10,-2) {These files and folders have been manually created by the "image-active" designer. The folder \textcolor{bluedane}
+  \node[manualT] (textM) at (10,-2) {These files and folders have been manually created by the "interactive image" designer. The folder \textcolor{bluedane}
 {videos} was also manually created, in order to host videos inserted 
-in the comments of the "image-active" using relative links.}; 
+in the comments of the "interactive image" using relative links.}; 
   \node[autoT] (textA) at (10,-6) {Files and folders generated by Xia from the svg source file.};
   \draw[-stealth] (textM.west) -- (4,0);
   \draw[-stealth] (textM.west) -- (5.5,-7);
   \draw[-stealth] (textA.west) -- (4,-3);
 \end{tikzpicture}
-\caption{Files of an "image-active"}
+\caption{Files of an "interactive image"}
 \label{xia_files}
 \end{figure}
 
@@ -255,15 +262,15 @@ in the comments of the "image-active" using relative links.};
   %comments
   \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the svg source file};
   \node[box, above = 5mm of params] (paramsC) {Select the quality of the export};
-  \node[box,above right = 5mm of aCloud.north east] (aBlackC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionBlack}{accordionBlack}\\ Large comment zone, suitable for the insertion of multimedia resources; to be used with vertical images (portrait)};
-  \node[box, right = 5mm of guClic] (aCloudC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionCloud}{accordionCloud}\\ Narrow comment zone, with more space for the image itself ; to be used with horizontal images (landscape)};
-  \node[box, below right = 5mm of pYellow] (pYellowC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popYellow}{popYellow}\\ No lateral comment zone ; 
+  \node[box,above right = 5mm of aCloud.north east] (aBlackC) {\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/accordionBlack}{accordionBlack}\\ Large comment zone, suitable for the insertion of multimedia resources; to be used with vertical images (portrait)};
+  \node[box, right = 5mm of guClic] (aCloudC) {\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/accordionCloud}{accordionCloud}\\ Narrow comment zone, with more space for the image itself ; to be used with horizontal images (landscape)};
+  \node[box, below right = 5mm of pYellow] (pYellowC) {\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/popYellow}{popYellow}\\ No lateral comment zone ; 
 a first click on the detail reveals it, and a second one simultaneously unveils 
 the comment and the zoom function zooms in the detail};
-  \node[box, left = 25mm of bBlue] (bBlueC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/buttonBlue}{buttonBlue}\\ No lateral comment zone ; 
+  \node[box, left = 25mm of bBlue] (bBlueC) {\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/buttonBlue}{buttonBlue}\\ No lateral comment zone ; 
 comments appear above the image (suitable for long comments) ; the users access  
-the comments through icons placed above the "image-active"};
-  \node[box, below left = 5mm of pBlue] (pBlueC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{popBlue}\\ No lateral comment zone; 
+the comments through icons placed above the "interactive image"};
+  \node[box, below left = 5mm of pBlue] (pBlueC) {\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/popBlue}{popBlue}\\ No lateral comment zone; 
 a first click on the detail reveals it, and a second one pops up the comment 
 (no zoom)};
   
@@ -285,28 +292,38 @@ In fact, since Xia is also an Inkscape plugin, you can generate your project dir
 in Inkscape: just click on \chemin{Plugins $\rightarrow$ Various $\rightarrow$ Xia Édu}, 
 and choose your template and destination folder.
 
+\begin{astuce}
+ If you are using Xia for GNU/Linux, you can generate your html5 animation
+ using the terminal with the command \texttt{xia-converter}. The parameters are
+ \texttt{-i} to indicate the input file, \texttt{-o} to indicate the exportation folder, and
+ \texttt{-t} to indicate the template. For example:\\
+ \texttt{\$ xia-converter -i myfile.svg -o ../export\_folder/ -t accordionBlack}\\
+ The template accordionBlack will be chosen if a syntax error is made in the \texttt{-t} parameter.
+\end{astuce}
+
+
 \subsection{Abstract}
 
 \begin{enumerate}
- \item An "image-active" is first built in Inkscape (svg format). Xia only 
+ \item An "interactive image" is first built in Inkscape (svg format). Xia only 
  converts the svg source file into an html5 animation ;
- \item The title of the "image-active" must be indicated in the \chemin{Metadata of 
+ \item The title of the "interactive image" must be indicated in the \chemin{Metadata of 
 the document} ;
  \item The text of the details is filled in the \chemin{Object properties}, 
  in the \chemin{Title} and \chemin{Description} fields ;
- \item The general description of the "image-active" must be indicated in the \chemin
+ \item The general description of the "interactive image" must be indicated in the \chemin
 {Object properties} of the background image.
 \end{enumerate}
 
-\section{Enriched "image-active"}\label{enriched_IA}
+\section{Enriched "interactive image"}\label{enriched_IA}
 
 \begin{links}
-Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2}{"image-active"} created for this section of the documentation.
+Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2}{"interactive image"} created for this section of the documentation.
 
 Download the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2/svg/xia2.svg}{svg} source file.
 \end{links}
 
-In this section, the goal is still to create a "traditional" "image-active" 
+In this section, the goal is still to create a "traditional" "interactive image" 
 (ie. in which a detail matches with a comment), but the content of the comments 
 will be enriched with  formatted text or multimedia resources.
 
@@ -330,9 +347,12 @@ In order to insert formatted text, the tags described in figure \ref{xia_text_ta
   \node[descrip, below = -7mm of texttt] (textttT) {This text is in \verb!{{{typewriter}}}!};
   \node[box, right = 3.5cm of texttt] (textttR) {This text is in \texttt{typewriter}};
   \node[anchor=north west, below = .2cm of texttt] (link) {\includegraphics[scale=.5]{./images/Description}};
-  \node[descrip, below = 7mm of link.north] (linkT) {A link to \verb![https://www.wikipedia.org/Wikipedia]!};
+  \node[descrip, below = 7mm of link.north] (linkT) {A link to \verb![https://www.wikipedia.org/ Wikipedia]!};
   \node[box, right = 3.5cm of link] (linkR) {A link to \href{https://www.wikipedia.org/}{Wikipedia}}; 
-  \node[anchor=north west, below = .8cm of link] (bullets) {\includegraphics[scale=.5]{./images/Description}};
+  \node[anchor=north west, below = .2cm of link] (relativelinks) {\includegraphics[scale=.5]{./images/Description}};
+  \node[descrip, below = -7mm of relativelinks] (relativelinksT) {A link to a \verb![../folder/file.pdf local file]!};
+  \node[box, right = 3.5cm of relativelinks] (relativelinksR) {A link to a \href{/home/geoffrey/ownCloud/DANE/DOSSIERS/XIA/tuto/folder/file.pdf}{local file\footnote{That does not work on your computer!}}};
+  \node[anchor=north west, below = .8cm of relativelinks] (bullets) {\includegraphics[scale=.5]{./images/Description}};
   \node[descrip, below = -7mm of bullets] (bulletsT) {Making a list \\ $\ast$ of bullets \\  $\ast$ out of \\ ~$\ast$ 2 levels};
   \node[box, right = 3.5cm of bullets.south east] (bulletsR) {Making a list 
       \begin{itemize}
@@ -373,17 +393,19 @@ The link has to be inserted into the \chemin{Description} field of the \chemin{O
  just type it in the \chemin{Description} field of the \chemin{Object Properties} in 
  Inkscape
  
- \item [Relative link] If the multimedia file is located in the "image-active" 
+ \item [Relative link] If the multimedia file is located in the "interactive image" 
  folder or in a folder (see figure \ref{xia_files}) within this one, just indicate its location, keeping in 
- mind that the "image-active" folder has to be considered as the root folder. 
+ mind that the "interactive image" folder has to be considered as the root folder. 
  For example, if the \verb|video.ogv| file is located in a \verb|videos| 
- folder located itself in the "image-active" exportation folder, just indicate:
+ folder located itself in the "interactive image" exportation folder, just indicate:
  
  %\begin{center}
-  \verb|videos/video.ogv|
+  \verb|./videos/video.ogv|
  %end{center}
  
-  in order to create the player.
+  in order to create the player. The \verb|./| means that the \verb|videos| folder
+  is located in the exportation folder. You can also use the \verb|../| tag to indicate
+  that the resource is located in a parent folder.
 \end{description}
 
 Since video formats supported by Xia are not natively supported by every web 
@@ -404,10 +426,10 @@ The last option is to insert an iframe tag.
 It will be interpreted and the reader will appear in the comment, 
 giving access to the resource.
 
-\subsection{The "audioBrown" template: sounds instead of text}
+\subsection{The "audioBrown" template: sounds instead of text}\label{audioBrownsection}
 
 The "audioBrown" template is specifically dedicated to the creation of 
-images-actives in which details are associated with sounds instead of text.
+interactive images in which details are associated with sounds instead of text.
 
 The method to insert sounds using absolute or relative links is described in 
 section 
@@ -420,7 +442,7 @@ Xia templates.}:\\
 \end{center}
 
 
-\subsection{Inserting images into your "image-active"}\label{insertion_images}
+\subsection{Inserting images into your "interactive image"}\label{insertion_images}
 
 Png images can be added to the background. To do so, select \chemin{File $\rightarrow$ Import} in 
 Inkscape to incorporate your new image.
@@ -442,16 +464,35 @@ the embedded image becomes a clickable icon linking to a web page.
 
 \subsection{Displaying a question and unveiling an answer}
 
-You can create an "\textit{Answer}" clickable icon, momentarily 
-preventing the user to read the end of the comment.
+You can create clickable icon which will momentarily 
+prevent the user to read the end of the comment.
+You can even ask the user to enter a password to read the 
+end of the comment.
 
-To do so, just indicate, in the description, the line\\ \verb|Answer:| or 
-\verb|answer:| followed by the text you wish to be shown.
+To do so, just indicate, in the description, the tags described in figure \ref{xia_answer_tags}.
 
+\begin{figure}[htp!]
+\tikzstyle{descrip}=[font=\sffamily, anchor=north west, text width = 4.3cm]
+\tikzstyle{box}=[draw, text width=6cm, fill=lightgray!50, rounded corners, anchor=north west]
+\begin{tikzpicture}
+  \node[anchor=north west] (answer) {\includegraphics[scale=.5]{./images/Description}};
+  \node[descrip, below = -7mm of answer] (answerT) {[[Can I ask you a question? (code=12345): Yes, indeed I can.]]};
+  \node[box, right = 3.5cm of answer] (answerI) {\includegraphics[scale=.5]{./images/answer_code}};
+\end{tikzpicture}
+\caption{Tags to insert a button which will momentarily prevent the user to read the end of the comment}
+\label{xia_answer_tags}
+\end{figure}
+
+Use the double brackets tag \texttt{[[ (...) ]]} to indicate you wish to create the icon, 
+split the text between the question and the answer with the \texttt{:}
+tag, and add a code by inserting \texttt{(code=insert\_password)} just before 
+the \texttt{:} tag\footnote{The \texttt{(code={...})} is not mandatory. Remember 
+that you can not insert the \texttt{)} character in the password.}.
+  
 \subsection{Controlling details behavior : automatic display and disabled zoom}\label{white_black_background}
 \label{couche_XML}
 
-Default behavior of details in an "image-active" consists in:
+Default behavior of details in an "interactive image" consists in:
 \begin{itemize}
  \item highlighting details only on mouse over or with a click on the comment 
  detail title
@@ -471,13 +512,12 @@ Both of these default behaviors can be modified if you apply a white
  \item [Detail with a black background] Users still have to click on the detail to unveil it, but the zoom effect is disabled.
 \end{description}
 
-Logical consequence : you can not apply a white and a black
-background all together on the same detail. A single detail can not be 
- immediately displayed \textit{and} have the zoom effect disabled.
+Logical consequence : you can not apply a white and a black background all together on the same detail.
+A single detail can not be immediately displayed and have the zoom effect disabled.
 
 \subsection{Controlling order of details display in the lateral comment zone}
 
-By default, in the "image-active", the details appear vertically following the order in which these details have been created (the first detail created in Inkscape corresponding to the detail placed up in the sidebar of the "image-active").
+By default, in the "interactive image", the details appear vertically following the order in which these details have been created (the first detail created in Inkscape corresponding to the detail placed up in the sidebar of the "interactive image").
 
 We will work with the \chemin{Edit $\rightarrow$ XML Editor} to change this default order.
 
@@ -489,7 +529,7 @@ to do is to drag the files to the desired location (see figure \ref{ordre_couche
 \begin{figure}[htp]
  \centering
  \includegraphics[width=\textwidth]{images/ordre_couches}
- \caption[The Inkscape XML Editor and the display order of the details]{The Inkscape XML editor allows to control the display order of the details in the "image-active". Note the highlighting of an element  
+ \caption[The Inkscape XML Editor and the display order of the details]{The Inkscape XML editor allows to control the display order of the details in the "interactive image". Note the highlighting of an element  
 in the editor and on the background image by a single mouse click.}
  \label{ordre_couches}
 \end{figure}
@@ -503,19 +543,20 @@ or absolute) to a file whose format is recognized by Xia
  \item Adding images to the background image is possible by importing them
  \item It is possible to modify the default behavior of a detail by changing its color 
 background (white, black)
- \item The order of the details in the "image-active" depends on the order
+ \item The order of the details in the "interactive image" depends on the order
 of their creation in Inkscape. Nevertheless, the Inkscape XML editor allows to change this order
+\item It is possible prevent the user to access the comments by inserting a clickable icon and / or a password
 \end{enumerate}
 
 \newpage
 
 \section{Creating games with Xia}\label{games_IA}
 
-Until now, this document was only about creation of traditionnal "image-actives": 
+Until now, this document was only about creation of traditionnal "interactive images": 
 background image enriched with cropped details associated with texts.
 
-This kind of "image-active" can be used in class in various situations 
-(students progressively discovering a document, or creating an image-active
+This kind of "interactive image" can be used in class in various situations 
+(students progressively discovering a document, or creating an interactive image
 on their own), but Xia introduces new features, 
 such as the creation of games and activities, in which the final user 
 has much more to do than simply clicking on details in order to read the comment.
@@ -539,23 +580,23 @@ has much more to do than simply clicking on details in order to read the comment
   %comments
   \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the svg source file};
   \node[box, above = 5mm of params] (paramsC) {Select the quality of the export};
-  \node[box, right = 5mm of guClic] (guClicC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionCloud}{game1clic}\\ text to fill and change url};
-  \node[box, left = 25mm of bBlue] (aBrownC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/buttonBlue}{audioBrown}\\ text to fill and change url};
-  \node[box, below left = 5mm of pBlue] (gDDropC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{gameDragAndDrop}\\ text to fill and change url};
+  \node[box, right = 5mm of guClic] (guClicC) {\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia4}{game1clic}\\ selecting details on a background image \\ How-to in section \ref{game1clicsection}};
+  \node[box, left = 25mm of bBlue] (aBrownC) {audioBrown template \\ creation of interactive images in which details are associated with sounds \\ How-to in section \ref{audioBrownsection}};
+  \node[box, below left = 5mm of pBlue] (gDDropC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{gameDragAndDrop}\\ drag and drop graphical elements on the background image \\ How-to in section \ref{gameDragAndDropsection}};
   
   %arrows
   \draw[-stealth] (guClicC.west) -- (guClic.east);
-  \draw[-stealth] (gDDropC.north) -- (gDDrop.south);
-  \draw[-stealth] (aBrownC.north east) -- (aBrown.north);
+  \draw[-stealth] (gDDropC.north) -- (gDDrop.south west);
+  \draw[-stealth] (aBrownC.east) -- (aBrown.west);
   \draw[-stealth] (filesC.south east) -- (files.north west);
   \draw[-stealth] (paramsC.south) -- (params.north);
   
 \end{tikzpicture}
-\caption{Xia's templates}
+\caption{Xia's games and multimedia templates}
 \label{xia_interface2}
 \end{figure}
 
-\subsection{First game principle: selecting, finding elements in the image}
+\subsection{First game principle: selecting, finding elements in the image}\label{game1clicsection}
 
 \textit{The game principle described in this section consists in selecting details 
 on a background image. When the user has reached the goal described in the 
@@ -569,7 +610,7 @@ active"} created for this section of the documentation.
 Download the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia3/svg/xia3.svg}{svg} source file.
 \end{links}
 
-This kind of game is almost the easiest way to create an "image-active".
+This kind of game is almost the easiest way to create an "interactive image".
 You only have to crop the details that the final user will have to select. 
 
 The instructions must be completed in the 
@@ -579,11 +620,11 @@ the informations  filled in the  \chemin
 that will show up at the opening of the game. The player will just have to 
 read the instructions and close the pop up to play the game.
 
-When the user completes the game, a message automatically appears.  This message 
-has to be filled in the \chemin{Description} field of the \chemin{Object Properties} of the 
-background image \footnote{When creating a traditional "image-active", 
-this field creates the introduction text, not related with any detail 
-(see section \ref{preparation_svg}).}. 
+When the user completes the game, a message automatically appears.
+This message has to be filled in the \chemin{Description} field of the \chemin{Object Properties} of the 
+background image\footnote{When creating a traditional "interactive image", 
+this field creates the introduction text, not related with any detail.}. 
+
 Two informations are needed in order for this message to pop up :
 the exact number of details that have to be selected\footnote{This number does 
 not have to match the number of details on the image.}
@@ -617,11 +658,10 @@ in order to "chain" activities up by degree of difficulty.
   \includegraphics[scale=0.7]{./images/game1clic} 
 \end{wrapfigure}
 
-Choose the template \chemin{game1clic} to generate the "image-active".
+Choose the template \chemin{game1clic} to generate the "interactive image".
 
 
-\subsubsection{\emph{Advanced "image-active" creation tips\ldots} Showing the player's score}\label{détail_progression}
-
+\subsubsection{\emph{Advanced "interactive image" creation tips\ldots} Showing the player's score}
 
 It is possible to display graphical elements automatically  when the user 
 selects the correct answer. These elements can be png imported images or shapes directly designed in
@@ -646,7 +686,7 @@ Then, group the clickable detail to its graphical element (by successively
 clicking on the detail and the graphical element with the \Shift keystroke on),
 then select \chemin{Group} in the Inkscape \chemin{Object} menu.
 
-\subsubsection{\emph{Advanced "image-active" creation tips\ldots} Showing the player's mistakes}
+\subsubsection{\emph{Advanced "interactive image" creation tips\ldots} Showing the player's mistakes}
 
 Games based on the details selection principle are obviously very
 interesting educational games\ldots but it is also quite obvious to guess how some 
@@ -660,18 +700,27 @@ To do so, you will anticipate the user's probable mistakes, and
 put explicit graphical elements symbolizing these errors on the background image. 
 This graphical element may be an imported image 
 (png file) or a shape directly designed with the Inkscape tools, 
-then converted into bitmap (see how to do that in the section 
-\ref{détail_progression}). These elements will have to include the following caracteristics:
+then converted into bitmap. These elements will have to include the following caracteristics:
 \begin{center}
 \chemin{Interactivity > OnClick} = \verb|disable-score| 
 \end{center}
 When applied with a \verb|disable-score| tag, a detail still remains clickable, but does not 
 add a score to the counter that delivers the final success message pop up.
 
+\subsubsection{\emph{Advanced "interactive image" creation tips\ldots} Double scoring}
+
+If you indicate \verb|score2| in the \chemin{Description} field of the \chemin{Object properties} of the detail,
+and if you use \texttt{<score2></score2>} and  \texttt{<message2></message2>} in the \chemin{Object Properties} of the 
+background image, you create a double scoring game, in which the user can select two different categories of details.
+
+Two messages can pop up, depending on the category of details the user will select.
+
+
 \subsection{Second game principle: classyfying, ordering, ranking}\label{gameDragAndDropsection}
 
-\textit{The second kind of game that can be created with Xia consists in dragging and dropping graphical elements 
-on the background image. If all the elements have been dropped on their corresponding drop zone, a pop up
+\textit{The second kind of game that can be created with Xia consists in
+dragging and dropping graphical elements on the background image. If all the
+elements have been dropped on their corresponding drop zone, a pop up
 message appears, confirming the achievement of the game.}
 
 \begin{links}
@@ -687,7 +736,7 @@ This is how you can create a game based on the drag and drop principle :
  \item In Inkscape:
 \begin{itemize}
  \item Choose a background picture
- \item Create the graphical elements the users of the "image-active" will have to drag and drop (ie. images or group of words)
+ \item Create the graphical elements the users of the "interactive image" will have to drag and drop (ie. images or group of words)
  \item Using metadata, make each label match its drop zone (actually being cropped details)
 \end{itemize}
  \item In Xia
@@ -733,7 +782,7 @@ the \chemin{Description} field of the drag and drop graphical element.
 The only subtlety consists in the  \verb|<target></target>| tags which have to be filled in the \chemin
 {Description} field.
 
-Choose the template \chemin{gameDragAndDrop} to generate the "image-active".
+Choose the template \chemin{gameDragAndDrop} to generate the "interactive image".
 
 
 
@@ -760,7 +809,7 @@ Note that the tooltip tool is also available in the game1clic template.
 \end{figure}
 
 Another method consists in inserting links in the \chemin{Title} field of the \chemin{Object Properties} 
-of the drop zones. These drop zones become clickable in the html5 animation.
+of the drop zones. The user can open the link by clicking on it or by dropping its corresponding detail on it.
 
 \subsection{Third game principle: collisions}
 
