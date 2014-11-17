@@ -7,17 +7,19 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
+import os
 
 
 display = Display(visible=0, size=(1024, 768))
 display.start()
 
 
+
 class Test(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
-        self.base_url = "file:///home/gitlab_ci_runner/gitlab-ci-runner/tmp/builds/project-4/images-actives-html5/tests/functional_test/accordion/index.html"
+        self.base_url = "file://"+os.path.dirname(os.path.abspath(__file__))+"/index.html"
         self.verificationErrors = []
         self.accept_next_alert = True
     
@@ -102,3 +104,8 @@ class Test(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+    
+    
+    
+ 
