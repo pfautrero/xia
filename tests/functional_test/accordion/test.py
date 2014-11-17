@@ -30,7 +30,7 @@ class Test(unittest.TestCase):
         self.assertEqual("Titre de l'image", driver.find_element_by_id("collapsecomment-heading").text)
         self.assertEqual("Titre du rectangle ***gras*** **italique**", driver.find_element_by_id("collapse0-heading").text)
         self.assertEqual("Titre de l'ellipse", driver.find_element_by_id("collapse1-heading").text)
-        self.assertEqual("Titre de l'étoile {{{Texte brut}}}", driver.find_element_by_id("collapse2-heading").text)
+        self.assertEqual("Titre de l'Ã©toile {{{Texte brut}}}", driver.find_element_by_id("collapse2-heading").text)
         self.assertEqual("Titre de ligne", driver.find_element_by_id("collapse3-heading").text)
         self.assertEqual("Titre bezier", driver.find_element_by_id("collapse4-heading").text)
         self.assertEqual("son 2", driver.find_element_by_id("collapse5-heading").text)
@@ -48,16 +48,6 @@ class Test(unittest.TestCase):
 			    }
 		    }
            """
-       # print(script)
-       # driver.execute_script("alert('rr');","")
-       # driver.switch_to_alert()
-       # print("toto")
-       # time.sleep(5)
-       # driver.execute_script("alert('XX');","")
-       # print("totoXX")
-       # time.sleep(5)
-       # script22="alert('TT');"
-       # driver.execute_script("alert('OO');","")
         print("toto")
         driver.execute_script(script)
         time.sleep(5)
@@ -66,15 +56,7 @@ class Test(unittest.TestCase):
         time.sleep(5)
         driver.find_element_by_xpath("//div[@id='canvas']/div/canvas[4]").click()
         driver.find_element_by_id("collapse5-heading").click()
-        driver.find_element_by_id("collapse6-heading").click()
-     #   for i in range(3):
-     #       print(i)
-     #       try:
-     #           if "ee" == self.close_alert_and_get_its_text(): break
-     #       except: pass
-     #       time.sleep(1)
-     #   else: self.fail("time out")
-     #   print("okk")    
+        driver.find_element_by_id("collapse6-heading").click() 
 
     def is_element_present(self, how, what):
         try: self.driver.find_element(by=how, value=what)
@@ -104,8 +86,4 @@ class Test(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
-    
-    
-    
  
