@@ -21,14 +21,18 @@ class Test(unittest.TestCase):
         self.verificationErrors = []
         self.accept_next_alert = True
     
-    def test_(self):
+    def test_init(self):
         driver = self.driver
         driver.get(self.base_url)
-        print("Titre du document")
         self.assertEqual("Titre du document", driver.find_element_by_id("title").text)
-        print("Titre de l'image")
         self.assertEqual("Titre de l'image", driver.find_element_by_id("collapsecomment-heading").text)
-    
+        self.assertEqual("Titre du rectangle ***gras*** **italique**", driver.find_element_by_id("collapse0-heading").text)
+        self.assertEqual("Titre de l'ellipse", driver.find_element_by_id("collapse1-heading").text)
+        self.assertEqual("Titre de l'étoile {{{Texte brut}}}", driver.find_element_by_id("collapse2-heading").text)
+        self.assertEqual("Titre de ligne", driver.find_element_by_id("collapse3-heading").text)
+        self.assertEqual("Titre bezier", driver.find_element_by_id("collapse4-heading").text)
+        self.assertEqual("son 2", driver.find_element_by_id("collapse5-heading").text)
+        self.assertEqual("Son 1", driver.find_element_by_id("collapse6-heading").text)
     def test_nav(self):
         driver = self.driver
         driver.get(self.base_url)
