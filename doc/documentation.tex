@@ -262,15 +262,15 @@ in the comments of the "interactive image" using relative links.};
   %comments
   \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the svg source file};
   \node[box, above = 5mm of params] (paramsC) {Select the quality of the export};
-  \node[box,above right = 5mm of aCloud.north east] (aBlackC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionBlack}{accordionBlack}\\ Large comment zone, suitable for the insertion of multimedia resources; to be used with vertical images (portrait)};
-  \node[box, right = 5mm of guClic] (aCloudC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionCloud}{accordionCloud}\\ Narrow comment zone, with more space for the image itself ; to be used with horizontal images (landscape)};
-  \node[box, below right = 5mm of pYellow] (pYellowC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popYellow}{popYellow}\\ No lateral comment zone ; 
+  \node[box,above right = 5mm of aCloud.north east] (aBlackC) {\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/accordionBlack}{accordionBlack}\\ Large comment zone, suitable for the insertion of multimedia resources; to be used with vertical images (portrait)};
+  \node[box, right = 5mm of guClic] (aCloudC) {\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/accordionCloud}{accordionCloud}\\ Narrow comment zone, with more space for the image itself ; to be used with horizontal images (landscape)};
+  \node[box, below right = 5mm of pYellow] (pYellowC) {\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/popYellow}{popYellow}\\ No lateral comment zone ; 
 a first click on the detail reveals it, and a second one simultaneously unveils 
 the comment and the zoom function zooms in the detail};
-  \node[box, left = 25mm of bBlue] (bBlueC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/buttonBlue}{buttonBlue}\\ No lateral comment zone ; 
+  \node[box, left = 25mm of bBlue] (bBlueC) {\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/buttonBlue}{buttonBlue}\\ No lateral comment zone ; 
 comments appear above the image (suitable for long comments) ; the users access  
 the comments through icons placed above the "interactive image"};
-  \node[box, below left = 5mm of pBlue] (pBlueC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{popBlue}\\ No lateral comment zone; 
+  \node[box, below left = 5mm of pBlue] (pBlueC) {\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/popBlue}{popBlue}\\ No lateral comment zone; 
 a first click on the detail reveals it, and a second one pops up the comment 
 (no zoom)};
   
@@ -426,10 +426,10 @@ The last option is to insert an iframe tag.
 It will be interpreted and the reader will appear in the comment, 
 giving access to the resource.
 
-\subsection{The "audioBrown" template: sounds instead of text}
+\subsection{The "audioBrown" template: sounds instead of text}\label{audioBrownsection}
 
 The "audioBrown" template is specifically dedicated to the creation of 
-images-actives in which details are associated with sounds instead of text.
+interactive images in which details are associated with sounds instead of text.
 
 The method to insert sounds using absolute or relative links is described in 
 section 
@@ -464,9 +464,10 @@ the embedded image becomes a clickable icon linking to a web page.
 
 \subsection{Displaying a question and unveiling an answer}
 
-You can create clickable icon, momentarily 
-preventing the user to read the end of the comment.
-You can even ask the user to enter a password to read the comment.
+You can create clickable icon which will momentarily 
+prevent the user to read the end of the comment.
+You can even ask the user to enter a password to read the 
+end of the comment.
 
 To do so, just indicate, in the description, the tags described in figure \ref{xia_answer_tags}.
 
@@ -478,10 +479,15 @@ To do so, just indicate, in the description, the tags described in figure \ref{x
   \node[descrip, below = -7mm of answer] (answerT) {[[Can I ask you a question? (code=12345): Yes, indeed I can.]]};
   \node[box, right = 3.5cm of answer] (answerI) {\includegraphics[scale=.5]{./images/answer_code}};
 \end{tikzpicture}
-\caption{Tags to insert a button momentarily preventing to read the end of the comment}
+\caption{Tags to insert a button which will momentarily prevent the user to read the end of the comment}
 \label{xia_answer_tags}
 \end{figure}
 
+Use the double brackets tag \texttt{[[ (...) ]]} to indicate you wish to create the icon, 
+split the text between the question and the answer with the \texttt{:}
+tag, and add a code by inserting \texttt{(code=insert\_password)} just before 
+the \texttt{:} tag\footnote{The \texttt{(code={...})} is not mandatory. Remember 
+that you can not insert the \texttt{)} character in the password.}.
   
 \subsection{Controlling details behavior : automatic display and disabled zoom}\label{white_black_background}
 \label{couche_XML}
@@ -539,6 +545,7 @@ or absolute) to a file whose format is recognized by Xia
 background (white, black)
  \item The order of the details in the "interactive image" depends on the order
 of their creation in Inkscape. Nevertheless, the Inkscape XML editor allows to change this order
+\item It is possible prevent the user to access the comments by inserting a clickable icon and / or a password
 \end{enumerate}
 
 \newpage
@@ -573,23 +580,23 @@ has much more to do than simply clicking on details in order to read the comment
   %comments
   \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the svg source file};
   \node[box, above = 5mm of params] (paramsC) {Select the quality of the export};
-  \node[box, right = 5mm of guClic] (guClicC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionCloud}{game1clic}\\ text to fill and change url};
-  \node[box, left = 25mm of bBlue] (aBrownC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/buttonBlue}{audioBrown}\\ text to fill and change url};
-  \node[box, below left = 5mm of pBlue] (gDDropC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{gameDragAndDrop}\\ text to fill and change url};
+  \node[box, right = 5mm of guClic] (guClicC) {\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia4}{game1clic}\\ selecting details on a background image \\ How-to in section \ref{game1clicsection}};
+  \node[box, left = 25mm of bBlue] (aBrownC) {audioBrown template \\ creation of interactive images in which details are associated with sounds \\ How-to in section \ref{audioBrownsection}};
+  \node[box, below left = 5mm of pBlue] (gDDropC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{gameDragAndDrop}\\ drag and drop graphical elements on the background image \\ How-to in section \ref{gameDragAndDropsection}};
   
   %arrows
   \draw[-stealth] (guClicC.west) -- (guClic.east);
-  \draw[-stealth] (gDDropC.north) -- (gDDrop.south);
-  \draw[-stealth] (aBrownC.north east) -- (aBrown.north);
+  \draw[-stealth] (gDDropC.north) -- (gDDrop.south west);
+  \draw[-stealth] (aBrownC.east) -- (aBrown.west);
   \draw[-stealth] (filesC.south east) -- (files.north west);
   \draw[-stealth] (paramsC.south) -- (params.north);
   
 \end{tikzpicture}
-\caption{Xia's templates}
+\caption{Xia's games and multimedia templates}
 \label{xia_interface2}
 \end{figure}
 
-\subsection{First game principle: selecting, finding elements in the image}
+\subsection{First game principle: selecting, finding elements in the image}\label{game1clicsection}
 
 \textit{The game principle described in this section consists in selecting details 
 on a background image. When the user has reached the goal described in the 
@@ -711,10 +718,10 @@ Two messages can pop up, depending on the category of details the user will sele
 
 \subsection{Second game principle: classyfying, ordering, ranking}\label{gameDragAndDropsection}
 
-The second kind of game that can be created with Xia consists in
+\textit{The second kind of game that can be created with Xia consists in
 dragging and dropping graphical elements on the background image. If all the
 elements have been dropped on their corresponding drop zone, a pop up
-message appears, confirming the achievement of the game.
+message appears, confirming the achievement of the game.}
 
 \begin{links}
 Explore the \href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia5}{image-

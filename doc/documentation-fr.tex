@@ -389,26 +389,26 @@ aBlack] (params) {\includegraphics[scale=.35]{./images/params}}; \node[left
 svg source file}; \node[box, above = 5mm of params] (paramsC) {Sélectionner
 la qualité de l'export}; \node[box,above right = 5mm of aCloud.north east]
 (aBlackC)
-{\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionBlack}{accordionBlack}\\ 
+{\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/accordionBlack}{accordionBlack}\\ 
 Zone de commentaire large, recommandé pour l'insertion de ressources
 multimédias; à utiliser avec des images verticales (portrait)}; \node[box,
 right = 5mm of guClic] (aCloudC)
-{\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionCloud}{accordionCloud}\\ 
+{\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/accordionCloud}{accordionCloud}\\ 
 Zone de commentaires étroite, laissant davantage de place à l'image en
 elle-même ; à utiliser avec des images horizontales (paysage)}; \node[box,
 below right = 5mm of pYellow] (pYellowC)
-{\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popYellow}{popYellow}\\ 
+{\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/popYellow}{popYellow}\\ 
 Pas de zone latérale de commentaire ; un premier clic sur le détail le met
 en évidence, et un second fait apparaître le commentaire et enclenche la
 fonction zoom}; \node[box, left = 25mm of bBlue] (bBlueC)
-{\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/buttonBlue}{buttonBlue}\\ 
+{\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/buttonBlue}{buttonBlue}\\ 
 Pas de zone latérale de commentaire ; les commentaires apparaissent
 au-dessus de l'image (recommandé pour les commentaires longs) ; les
 utilisateurs accèdent aux commentaires via des boutons situés au-dessus de
 l'image interactive}; \node[box, below left = 5mm of pBlue] (pBlueC)
-{\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{popBlue}\\ Pas
-de zone latérale de commentaire; un premier clic met en évidence le détail,
-un second fait apparaître le commentaire (pas de zoom)};
+{\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/popBlue}{popBlue}\\ 
+Pas de zone latérale de commentaire; un premier clic met en évidence le
+détail, un second fait apparaître le commentaire (pas de zoom)};
   
   \draw[-stealth] (aBlackC.west) -- (aBlack.north east); \draw[-stealth]
 (aCloudC.west) -- (aCloud.east); \draw[-stealth] (pYellowC.north west) --
@@ -579,7 +579,7 @@ La dernière possibilité consiste à insérer un code iframe. Celui-ci sera
 interprété et le lecteur du service web apparaîtra, donnant accès à la
 ressource.
 
-\subsection{Le modèle «~audioBrown~»: le son à la place du texte}
+\subsection{Le modèle «~audioBrown~»: le son à la place du texte}\label{audioBrownsection}
 
 Le modèle «~audioBrown~» est spécifiquement dédié à la création
 d'images-actives dans lesquelles les détails sont associés à des sons plutôt
@@ -643,6 +643,12 @@ la suite du commentaire.}
 \label{xia_answer_tags}
 \end{figure}
 
+Utilisez la balise \texttt{[[ (...) ]]} pour indiquer que vous souhaitez
+créer une icône, séparez le texte de la question de celui de la réponse avec
+la balise \texttt{:}, et ajoutez un code en insérant
+\texttt{(code=mot\_de\_passe)} avant la balise \texttt{:}\footnote{Le code
+n'est pas obligatoire. Souvenez-vous que vous pouvez utiliser tous les
+caractères que vous souhaitez dans le code, sauf le \texttt{)}.}.
   
 \subsection{Contrôler le comportement des détails: affichage immédiat et désactivation
 du zoom}\label{white_black_background}
@@ -710,6 +716,8 @@ une couleur de fond (blanc ou noir)
  \item L'ordre des détails de l'image interactive dépend de l'ordre de leur
 création dans Inkscape. Cependant, on peut utiliser l'éditeur XML d'Inkscape
 pour modifier cet ordre
+\item Il est possible d'empêcher les utilisateurs d'accéder au commentaire en
+insérant une icône clicable et / ou un mot de passe
 \end{enumerate}
 
 \newpage
@@ -751,13 +759,16 @@ aBlack] (params) {\includegraphics[scale=.35]{./images/params}}; \node[left
 {Sélectionner le fichier source au format svg file}; \node[box, above = 5mm
 of params] (paramsC) {Sélectionner la qualité de l'export}; \node[box, right
 = 5mm of guClic] (guClicC)
-{\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/accordionCloud}{game1clic}\\ 
-Texte à remplir, changer l'url}; \node[box, left = 25mm of bBlue] (aBrownC)
-{\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/buttonBlue}{audioBrown}\\ 
-text to fill and change url}; \node[box, below left = 5mm of pBlue]
-(gDDropC)
-{\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{gameDragAndDrop}\\ 
-Texte à remplir et changer l'url};
+{\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/accordionCloud}{game1clic}\\ 
+Sélectionner des détails sur l'image de fond \\ Explications dans la
+rubrique \ref{game1clicsection}}; \node[box, left = 25mm of bBlue] (aBrownC)
+{\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/buttonBlue}{audioBrown}\\ 
+Création d'une image interactive dans laquelle les détails sont associés à
+des sons \\ Explications dans la rubrique \ref{audioBrownsection}};
+\node[box, below left = 5mm of pBlue] (gDDropC)
+{\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/popBlue}{gameDragAndDrop}\\ 
+Glisser-déposer d'éléments graphiques sur l'image de fond \\ Explications
+dans la rubrique \ref{gameDragAndDropsection}};
   
   \draw[-stealth] (guClicC.west) -- (guClic.east); \draw[-stealth]
 (gDDropC.north) -- (gDDrop.south); \draw[-stealth] (aBrownC.north east) --
@@ -765,11 +776,11 @@ Texte à remplir et changer l'url};
 \draw[-stealth] (paramsC.south) -- (params.north);
   
 \end{tikzpicture}
-\caption{Les modèles d'export de Xia}
+\caption{Les modèles multimédias et ludiques de Xia}
 \label{xia_interface2}
 \end{figure}
 
-\subsection{Premier principe ludique: sélectionner, trouver des éléments dans une image}
+\subsection{Premier principe ludique: sélectionner, trouver des éléments dans une image}\label{game1clicsection}
 
 \textit{Le principe ludique décrit dans cette partie de la documentation est
 le suivant: le joueur doit sélectionner des détails dans une image, quand il
@@ -943,11 +954,9 @@ un utilitaire de capture d'écran capable de créer des petites images au
 format png, puis d'importer celles-ci dans Inkscape. Il est également
 possible de créer ces éléments directement dans Inkscape. Par exemple, en
 créant un texte, en regroupant ce texte avec une forme puis en faisant une
-copie bitmap de cet ensemble (pour comprendre comment faire cela, se référer
-à la section \ref{détail_progression}\footnote{\ldots N'oubliez pas de
-supprimer l'élément original une fois la copie bitmap créée.}. Les éléments
-à déplacer doivent être associés à leur zone de dépôt \footnote{\textbf{Un}
-objet ne pouvant être associé qu'à \textbf{une} zone de dépôt.}.
+copie bitmap de cet ensemble. Les éléments à déplacer doivent être associés
+à leur zone de dépôt \footnote{\textbf{Un} objet ne pouvant être associé
+qu'à \textbf{une} zone de dépôt.}.
 
 Vous trouverez dans ce tableau les balises à renseigner dans les
 \chemin{Propriétés de l'objet} des éléments à déplacer et des zones de
