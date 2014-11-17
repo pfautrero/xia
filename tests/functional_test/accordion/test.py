@@ -1,4 +1,5 @@
 ﻿# -*- coding: utf-8 -*-
+from __future__ import unicode_literals 
 from pyvirtualdisplay import Display
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -40,7 +41,6 @@ class Test(unittest.TestCase):
         driver.get(self.base_url)
         driver.find_element_by_id("collapsecomment-heading").click()
         driver.find_element_by_id("collapse0-heading").click()
-        print("TEst alert")
         script = """
 		    for (var i in Kinetic.shapes) {
 			    if (Kinetic.shapes[i].attrs['name'] == 'Son 1') {
@@ -48,12 +48,8 @@ class Test(unittest.TestCase):
 			    }
 		    }
            """
-        print("toto")
         driver.execute_script(script)
-        time.sleep(5)
-        driver.execute_script(script)
-        print("toto2")
-        time.sleep(5)
+ #       time.sleep(5)
         driver.find_element_by_xpath("//div[@id='canvas']/div/canvas[4]").click()
         driver.find_element_by_id("collapse5-heading").click()
         driver.find_element_by_id("collapse6-heading").click() 
