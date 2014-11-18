@@ -57,7 +57,8 @@ class Test(unittest.TestCase):
     def test_click(self):
         driver = self.driver
         driver.get(self.base_url)
-        self.assertTrue(driver.find_element_by_xpath("//div[@id='collapse4']/div/hr").is_displayed())
+        try: self.assertTrue(driver.find_element_by_xpath("//div[@id='collapse4']/div/hr").is_displayed())
+        except AssertionError as e: self.verificationErrors.append(str(e))
         self.assertEqual("Description de beziertracer \n une ligne", driver.find_element_by_xpath("//div[@id='collapse4']/div").text)
         driver.find_element_by_css_selector("a.infos").click()
         driver.find_element_by_id("popup_close").click()
