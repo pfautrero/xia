@@ -36,6 +36,14 @@ class Test(unittest.TestCase):
         self.assertEqual("Titre bezier", driver.find_element_by_id("collapse4-heading").text)
         self.assertEqual("son 2", driver.find_element_by_id("collapse5-heading").text)
         self.assertEqual("Son 1", driver.find_element_by_id("collapse6-heading").text)
+        self.assertEqual("Michaël Nourry", driver.find_element_by_xpath("id('popup_text')/x:p[2]").text)
+        self.assertEqual("Description de l'image", driver.find_element_by_xpath("id('collapsecomment')/x:div").text)
+        self.assertTrue(self.is_element_present(By.XPATH, "//div[@id='collapsecomment']/div/video"))
+        self.assertEqual("Description du rectangle gras italiqueRéponse:Voici la vidéo :", driver.find_element_by_xpath("id('collapse0')/x:div").text)
+        self.assertTrue(self.is_element_present(By.XPATH, "id('collapse0')/x:div/x:video"))
+        self.assertEqual("Description de l'ellipse une liste Le site de la Danede puces sur 2niveaux\n Quelle est la bonne réponse ?", driver.find_element_by_xpath("id('collapse1')/x:div/x:ul/x:li[1]").text)
+        self.assertTrue(self.is_element_present(By.XPATH, "id('collapse1')/x:div/x:img"))
+        
     def test_nav(self):
         driver = self.driver
         driver.get(self.base_url)
