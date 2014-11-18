@@ -54,7 +54,7 @@ class Test(unittest.TestCase):
         driver.find_element_by_id("collapse5-heading").click()
         driver.find_element_by_id("collapse6-heading").click() 
         
-    dev test_click(self):
+    def test_click(self):
         driver = self.driver
         driver.get(self.base_url)
         try: self.assertTrue(driver.find_element_by_xpath("//div[@id='collapse4']/div/hr").is_displayed())
