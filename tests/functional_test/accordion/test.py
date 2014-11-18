@@ -81,10 +81,9 @@ class Test(unittest.TestCase):
         except AssertionError as e: self.verificationErrors.append(str(e))
         self.assertEqual("", driver.find_element_by_css_selector("#collapse0 > div.accordion-inner > video").text)
         self.assertEqual("Description de beziertracer \n une ligne", driver.find_element_by_css_selector("#collapse4 > div.accordion-inner").text)
-         = driver.find_element_by_css_selector("#collapse4 > div.accordion-inner").text
-         try: self.assertEqual("Description de beziertracer \n une ligne", driver.find_element_by_css_selector("#collapse4 > div.accordion-inner").text)
-         except AssertionError as e: self.verificationErrors.append(str(e))
-         driver.find_element_by_id("collapse4-heading").click()
+        try: self.assertEqual("Description de beziertracer \n une ligne", driver.find_element_by_css_selector("#collapse4 > div.accordion-inner").text)
+        except AssertionError as e: self.verificationErrors.append(str(e))
+        driver.find_element_by_id("collapse4-heading").click()
 
     def is_element_present(self, how, what):
         try: self.driver.find_element(by=how, value=what)
