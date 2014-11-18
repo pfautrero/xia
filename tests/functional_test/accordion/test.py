@@ -57,10 +57,8 @@ class Test(unittest.TestCase):
     def test_click(self):
         driver = self.driver
         driver.get(self.base_url)
-        try: self.assertTrue(driver.find_element_by_xpath("//div[@id='collapse4']/div/hr").is_displayed())
-        except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertEqual("Description de beziertracer \n une ligne", driver.find_element_by_xpath("//div[@id='collapse4']/div").text)
-        except AssertionError as e: self.verificationErrors.append(str(e))
+        self.assertTrue(driver.find_element_by_xpath("//div[@id='collapse4']/div/hr").is_displayed())
+        self.assertEqual("Description de beziertracer \n une ligne", driver.find_element_by_xpath("//div[@id='collapse4']/div").text)
         driver.find_element_by_css_selector("a.infos").click()
         driver.find_element_by_id("popup_close").click()
         driver.find_element_by_id("collapse0-heading").click()
@@ -77,8 +75,7 @@ class Test(unittest.TestCase):
         driver.find_element_by_id("collapsecomment-heading").click()
         driver.find_element_by_id("collapse0-heading").click()
         self.assertEqual("Description de l'image", driver.find_element_by_css_selector("div.accordion-inner").text)
-        try: self.assertTrue(self.is_element_present(By.CSS_SELECTOR, "#collapse0 > div.accordion-inner > video"))
-        except AssertionError as e: self.verificationErrors.append(str(e))
+        self.assertTrue(self.is_element_present(By.CSS_SELECTOR, "#collapse0 > div.accordion-inner > video"))
         self.assertEqual("", driver.find_element_by_css_selector("#collapse0 > div.accordion-inner > video").text)
         self.assertEqual("Description de beziertracer \n une ligne", driver.find_element_by_css_selector("//div[@id='collapse4']/div").text)
         driver.find_element_by_id("collapse4-heading").click()
