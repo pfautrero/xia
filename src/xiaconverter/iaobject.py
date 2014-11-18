@@ -138,6 +138,8 @@ class iaObject:
         """analyze svg file and fill self.details and self.scene"""
         self.details = []
         self.scene.clear()
+        self.translation = 0
+        self.ratio = 1
         
         self.xml = minidom.parse(filePath)
 
@@ -166,11 +168,15 @@ class iaObject:
             if image.hasAttribute('y'):
                 self.backgroundY =  float(image.attributes['y'].value)
             
+            #print self.backgroundX
+            #print self.backgroundY
             if (self.backgroundX != 0) or (self.backgroundY != 0):
                 ctm = CurrentTransformation()
                 ctm.extractTranslate([self.backgroundX * (-1), self.backgroundY * (-1)])
                 self.translation = ctm.matrix
 
+            #print self.translation
+            
             desc = image.getElementsByTagName('desc')
             if desc.item(0) is None and image.parentNode.parentNode is not None:
                 big_group = image.parentNode.parentNode
@@ -263,31 +269,31 @@ class iaObject:
                 if childnode.parentNode.nodeName == mainSVG[0].nodeName:
                     if childnode.nodeName in svgElements:
                         newrecord = getattr(self, 'extract_' + \
-                            childnode.nodeName)(childnode, 0)
+                            childnode.nodeName)(childnode, "")
                         if newrecord is not None:
                             self.details.append(newrecord)
 
-    def extract_circle(self, image, ctm_group):
+    def extract_circle(self, image, stackTransformations):
         """not yet implemented"""
         print("circle is not implemented")
 
-    def extract_ellipse(self, image, ctm_group):
+    def extract_ellipse(self, image, stackTransformations):
         """not yet implemented"""
         print("ellipse is not implemented")
 
-    def extract_line(self, image, ctm_group):
+    def extract_line(self, image, stackTransformations):
         """not yet implemented"""
         print("line is not implemented")
 
-    def extract_polyline(self, image, ctm_group):
+    def extract_polyline(self, image, stackTransformations):
         """not yet implemented"""
         print("polyline is not implemented")
 
-    def extract_polygon(self, image, ctm_group):
+    def extract_polygon(self, image, stackTransformations):
         """not yet implemented"""
         print("polygon is not implemented")
         
-    def extract_image(self, image, ctm_group):
+    def extract_image(self, image, stackTransformations):
         """Analyze images"""
         
         if not image.isSameNode(self.backgroundNode):
@@ -374,7 +380,7 @@ class iaObject:
 
             return record_image
 
-    def extract_rect(self, rect, ctm_group):
+    def extract_rect(self, rect, stackTransformations):
         """Analyze rectangles"""
         
         record_rect = {}
@@ -438,17 +444,25 @@ class iaObject:
         record_rect['x'] = str(0)
         record_rect['y'] = str(0)                        
 
-        if rect.hasAttribute("transform"):
-            transformation = rect.attributes['transform'].value
-            ctm.analyze(transformation)
+       # if rect.hasAttribute("transform"):
+       #     transformation = rect.attributes['transform'].value
+       #     ctm.analyze(transformation)
 
-            ctm.applyTransformToPath(ctm.matrix,p)
-            record_rect['path'] = cubicsuperpath.formatPath(p)
+       #     ctm.applyTransformToPath(ctm.matrix,p)
+       #     record_rect['path'] = cubicsuperpath.formatPath(p)
 
         # apply group transformation on current object
-        if ctm_group:
-            ctm_group.applyTransformToPath(ctm_group.matrix,p)
-            record_rect['path'] = cubicsuperpath.formatPath(p)
+        if stackTransformations != "":
+            transformations = stackTransformations.split("#")
+            for transformation in transformations[::-1]:
+                ctm = CurrentTransformation()
+                ctm.analyze(transformation)
+                ctm.applyTransformToPath(ctm.matrix,p)
+                record_rect['path'] = cubicsuperpath.formatPath(p) 
+            
+        #if ctm_group:
+        #    ctm_group.applyTransformToPath(ctm_group.matrix,p)
+        #    record_rect['path'] = cubicsuperpath.formatPath(p)
 
         if self.translation != 0:
             ctm = CurrentTransformation()
@@ -487,7 +501,7 @@ class iaObject:
         record_rect['path'] = '"' + record_rect['path'] + ' z"'
         return record_rect
 
-    def extract_path(self,path, ctm_group):
+    def extract_path(self,path, stackTransformations):
         """Analyze paths"""
         
         record = {}
@@ -545,20 +559,29 @@ class iaObject:
         p = cubicsuperpath.parsePath(record['path'])
         record['path'] = cubicsuperpath.formatPath(p)
 
-        if path.hasAttribute("transform"):
-            transformation = path.attributes['transform'].value
-            ctm = CurrentTransformation()
-            ctm.analyze(transformation)
+        #if path.hasAttribute("transform"):
+        #    transformation = path.attributes['transform'].value
+        #    ctm = CurrentTransformation()
+        #    ctm.analyze(transformation)
 
-            ctm.applyTransformToPath(ctm.matrix,p)
-            record['path'] = cubicsuperpath.formatPath(p)
+        #    ctm.applyTransformToPath(ctm.matrix,p)
+        #    record['path'] = cubicsuperpath.formatPath(p)
 
         # apply group transformation on current object
-        if ctm_group:
-            ctm_group.applyTransformToPath(ctm_group.matrix,p)
-            record['path'] = cubicsuperpath.formatPath(p)
+        # if ctm_group:
+        #    ctm_group.applyTransformToPath(ctm_group.matrix,p)
+        #    record['path'] = cubicsuperpath.formatPath(p)
+
+        if stackTransformations != "":
+            transformations = stackTransformations.split("#")
+            for transformation in transformations[::-1]:
+                ctm = CurrentTransformation()
+                ctm.analyze(transformation)
+                ctm.applyTransformToPath(ctm.matrix,p)
+                record['path'] = cubicsuperpath.formatPath(p) 
 
         if self.translation != 0:
+            #print("apply translation")
             ctm = CurrentTransformation()
             ctm.applyTransformToPath(self.translation,p)
             record['path'] = cubicsuperpath.formatPath(p)  
@@ -612,7 +635,27 @@ class iaObject:
                    childs.append(node)
                    self.print_node(node, childs)
 
-    def extract_g(self,group, ctm_group):
+    def linearize_childs(self,root, childs, stackTransform):
+
+        if root.hasAttribute("transform"):
+            stackTransform.append(root.attributes['transform'].value)
+
+        if root.childNodes:
+            for node in root.childNodes:
+               if node.nodeType == node.ELEMENT_NODE:
+                   #childs.append(node)
+                   self.linearize_childs(node, childs, stackTransform)
+            if root.hasAttribute("transform"):
+                stackTransform.pop()
+        else:
+            entry = {}
+            entry["node"] = root
+            entry["transform"] = "#".join(stackTransform)
+            if root.hasAttribute("transform"):
+                stackTransform.pop()
+            childs.append(entry)
+                   
+    def extract_g(self,group, stackTransformations):
         """Analyze a svg group"""
 
         record = {}
@@ -639,19 +682,24 @@ class iaObject:
                 record['options'] += " " + str_onclick + " "
         
         
-        ctm_group = CurrentTransformation()
-        if group.hasAttribute("transform"):
-            transformation = group.attributes['transform'].value
-            ctm_group.analyze(transformation)
+        #ctm_group = CurrentTransformation()
+        #if group.hasAttribute("transform"):
+        #    transformation = group.attributes['transform'].value
+        #    ctm_group.analyze(transformation)
 
         svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', \
             'polygon', 'path', 'image']
         group_childs = []
-        self.print_node(group, group_childs)
-        for childnode in group_childs:
+        stackTransform = []
+        self.linearize_childs(group, group_childs, stackTransform)
+
+        for childentry in group_childs:
+            childnode = childentry['node']
+            #print childentry['node']
+            #print childentry['transform']
             if childnode.nodeName in svgElements:
                 newrecord = getattr(self, 'extract_' + \
-                    childnode.nodeName)(childnode, ctm_group)
+                    childnode.nodeName)(childnode, childentry['transform'])
                 if newrecord is not None:
                     #newrecord["options"] += record["options"]
                     #record["options"] =  newrecord["options"]
