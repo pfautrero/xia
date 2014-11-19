@@ -45,8 +45,11 @@ class Test(unittest.TestCase):
         self.assertTrue(self.is_element_present(By.XPATH, "id('collapse1')/x:div/x:img"))
         self.assertEqual("Description de l'étoile Le site de la Dane Texte brut", driver.find_element_by_xpath("id('collapse2')/x:div").text)
         self.assertTrue(self.is_element_present(By.XPATH, "id('collapse2')/x:div/x:img"))
-        self.assertEqual("Description de l'étoile Le site de la Dane Texte brut", driver.find_element_by_xpath("id('collapse3')/x:div").text)
+        self.assertEqual("Description de ligne1", driver.find_element_by_xpath("id('collapse3')/x:div").text)
         self.assertTrue(self.is_element_present(By.XPATH, "id('collapse3')/x:div/x:video"))
+        self.assertEqual("Description de beziertracer une ligne", driver.find_element_by_xpath("id('collapse4')/x:div").text)
+        self.assertTrue(self.is_element_present(By.XPATH, "id('id('collapse4')/x:div/x:img"))
+        
         
     def test_nav(self):
         driver = self.driver
