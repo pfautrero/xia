@@ -76,9 +76,10 @@ class Test(unittest.TestCase):
         self.assertFalse(driver.find_element_by_xpath("id('collapse3')/x:div").is_displayed())
         self.assertFalse(driver.find_element_by_xpath("id('collapse3')/x:div/x:video").is_displayed())
         self.assertFalse(driver.find_element_by_xpath("id('collapse4')/x:div").is_displayed())
-        self.assertFalse(driver.find_element_by_xpath("id('id('collapse4')/x:div/x:img").is_displayed())
+        self.assertFalse(driver.find_element_by_xpath("id('collapse4')/x:div/x:img").is_displayed())
         self.assertFalse(driver.find_element_by_xpath("id('collapse5')/x:div").is_displayed())
         self.assertFalse(driver.find_element_by_xpath("id('collapse6')/x:div/x:audio").is_displayed())
+        check_element(self)
         
     def test_nav_1(self):
         driver = self.driver
@@ -144,7 +145,8 @@ class Test(unittest.TestCase):
                 alert.dismiss()
             return alert_text
         finally: self.accept_next_alert = True
-    def check_element(self,visible=0):
+    
+    def check_element(self,visible=0XXXX0XXXX0):
         elements = [
             "id('popup_text')/x:p[2]",
             "id('collapsecomment')/x:div",
@@ -158,13 +160,18 @@ class Test(unittest.TestCase):
             "id('collapse3')/x:div",
             "id('collapse3')/x:div/x:video",
             "id('collapse4')/x:div",
-            "id('id('collapse4')/x:div/x:img",
+            "id('collapse4')/x:div/x:img",
             "id('collapse5')/x:div",
             "id('collapse5')/x:div/x:audio",
             "id('collapse6')/x:div",
             "id('collapse6')/x:div/x:audio"
             ]
-            
+        for id in elements:
+            if id.find(visible):
+                self.assertTrue(driver.find_element_by_xpath(id).is_displayed())
+            else
+                self.assertFalse(driver.find_element_by_xpath(id).is_displayed())
+
     def tearDown(self):
         self.driver.quit()
         self.assertEqual([], self.verificationErrors)
