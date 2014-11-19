@@ -70,7 +70,7 @@ class TestiaObject:
                 <path d='M 0,0 L 10,0 L 10,10 L 0,10 L 0,0 z' />\
             </svg>")
         path = dom1.getElementsByTagName('path')
-        newrecord = ia.extract_path(path[0], 0)
+        newrecord = ia.extract_path(path[0], "")
         assert_equal(newrecord['path'],'"M0.0 0.0C0.0 0.0 10.0 0.0 10.0 0.0C10.0 0.0 10.0 10.0 10.0 10.0C10.0 10.0 0.0 10.0 0.0 10.0C0.0 10.0 0.0 0.0 0.0 0.0C0.0 0.0 0.0 0.0 0.0 0.0 z"')
         assert_equal(newrecord['maxX'],'10.0')
         assert_equal(newrecord['maxY'],'10.0')
@@ -89,7 +89,7 @@ class TestiaObject:
                     d='M 0,0 L 10,0 L 10,10 L 0,10 L 0,0 z' />\
             </svg>")
         path = dom1.getElementsByTagName('path')
-        newrecord = ia.extract_path(path[0], 0)
+        newrecord = ia.extract_path(path[0], "")
         assert_equal(newrecord['path'],'"M10.0 10.0C10.0 10.0 20.0 10.0 20.0 10.0C20.0 10.0 20.0 20.0 20.0 20.0C20.0 20.0 10.0 20.0 10.0 20.0C10.0 20.0 10.0 10.0 10.0 10.0C10.0 10.0 10.0 10.0 10.0 10.0 z"')
         assert_equal(newrecord['maxX'],'20.0')
         assert_equal(newrecord['maxY'],'20.0')
@@ -109,7 +109,7 @@ class TestiaObject:
                     d='M 0,0 L 10,0 L 10,10 L 0,10 L 0,0 z' />\
             </g>")
         group = dom1.getElementsByTagName('g')
-        newrecord = ia.extract_g(group[0], 0)
+        newrecord = ia.extract_g(group[0], "")
         assert_equal(newrecord["group"][0]['path'],'"M10.0 10.0C10.0 10.0 20.0 10.0 20.0 10.0C20.0 10.0 20.0 20.0 20.0 20.0C20.0 20.0 10.0 20.0 10.0 20.0C10.0 20.0 10.0 10.0 10.0 10.0C10.0 10.0 10.0 10.0 10.0 10.0 z"')
         assert_equal(newrecord["group"][0]['maxX'],'20.0')
         assert_equal(newrecord["group"][0]['maxY'],'20.0')
@@ -128,7 +128,7 @@ class TestiaObject:
                     d='M 0,0 L 10,0 L 10,10 L 0,10 L 0,0 z' />\
             </g>")
         group = dom1.getElementsByTagName('g')
-        newrecord = ia.extract_g(group[0], 0)
+        newrecord = ia.extract_g(group[0], "")
         assert_equal(newrecord["group"][0]['path'],'"M0.0 0.0C0.0 0.0 9.64966028492 -2.62374853704 9.64966028492 -2.62374853704C9.64966028492 -2.62374853704 12.273408822 7.02591174788 12.273408822 7.02591174788C12.273408822 7.02591174788 2.62374853704 9.64966028492 2.62374853704 9.64966028492C2.62374853704 9.64966028492 0.0 0.0 0.0 0.0C0.0 0.0 0.0 0.0 0.0 0.0 z"')
         assert_equal(newrecord["group"][0]['maxX'],'12.273408822')
         assert_equal(newrecord["group"][0]['maxY'],'9.64966028492')
@@ -151,7 +151,7 @@ class TestiaObject:
             </svg>')
         group = dom1.getElementsByTagName('g')
         ia.backgroundNode = 0
-        newrecord = ia.extract_g(group[0], 0)
+        newrecord = ia.extract_g(group[0], "")
         assert_equal(newrecord["group"][0]['x'],'0')
         assert_equal(newrecord["group"][0]['y'],'0')        
         assert_equal(newrecord["group"][0]['width'],'50')
@@ -166,7 +166,7 @@ class TestiaObject:
                 </g>\
             </svg>')
         group = dom1.getElementsByTagName('g')
-        newrecord = ia.extract_g(group[0], 0)
+        newrecord = ia.extract_g(group[0], "")
         assert_equal(newrecord["group"][0]['x'],'0')
         assert_equal(newrecord["group"][0]['y'],'0')        
         assert_equal(newrecord["group"][0]['width'],'50')
@@ -185,7 +185,7 @@ class TestiaObject:
                 </g> \
             </svg>')
         group = dom1.getElementsByTagName('g')
-        newrecord = ia.extract_g(group[0], 0)
+        newrecord = ia.extract_g(group[0], "")
         assert_equal(newrecord['detail'],'description')
         assert_equal(newrecord['title'],'title')
 
