@@ -104,7 +104,10 @@ class PageFormatter:
         srccheck = re.search('src=("|\')(.*?)("|\')', word, re.IGNORECASE|re.DOTALL)
         if srccheck:
             word_url = srccheck.group(2)        
-        
+
+        if word_url[0:2] == "//":
+            word_url = "http:" + word_url
+            
         iframe_width = ""
         widthcheck = re.search('width=("|\')(.*?)("|\')', word, re.IGNORECASE|re.DOTALL)
         if widthcheck:

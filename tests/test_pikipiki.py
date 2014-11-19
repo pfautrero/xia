@@ -262,3 +262,4 @@ class TestPageFormatter:
         expected_output = "Can't handle match nothandled";
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
+
