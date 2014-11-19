@@ -43,6 +43,8 @@ class Test(unittest.TestCase):
         self.assertTrue(self.is_element_present(By.XPATH, "id('collapse0')/x:div/x:video"))
         self.assertEqual("Description de l'ellipse une liste Le site de la Danede puces sur 2niveaux\n Quelle est la bonne réponse ?", driver.find_element_by_xpath("id('collapse1')/x:div/x:ul/x:li[1]").text)
         self.assertTrue(self.is_element_present(By.XPATH, "id('collapse1')/x:div/x:img"))
+        self.assertEqual("Description de l'étoile Le site de la Dane Texte brut", driver.find_element_by_xpath("id('collapse2')/x:div").text)
+        self.assertTrue(self.is_element_present(By.XPATH, "id('collapse2')/x:div/x:img"))
         
     def test_nav(self):
         driver = self.driver
