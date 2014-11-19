@@ -61,8 +61,8 @@ class Test(unittest.TestCase):
         self.assertEqual("le son 2 ! Réponse:LA réponse à la question", driver.find_element_by_xpath("id('collapse5')/x:div").text)
         self.assertTrue(self.is_element_present(By.XPATH, "id('collapse5')/x:div/x:audio"))
         self.assertEqual("le son 1 !", driver.find_element_by_xpath("id('collapse6')/x:div").text)
-        self.assertFalse(driver.find_element_by_xpath("id('collapse5')/x:div/x:audio").is_displayed())
         self.assertTrue(self.is_element_present(By.XPATH, "id('collapse6')/x:div/x:audio"))
+        self.assertFalse(driver.find_element_by_xpath("id('collapse5')/x:div/x:audio").is_displayed())
         self.assertFalse(driver.find_element_by_xpath("id('collapse6')/x:div").is_displayed())
         self.assertFalse(driver.find_element_by_xpath("id('popup_text')/x:p[2]").is_displayed())
         self.assertFalse(driver.find_element_by_xpath("id('collapsecomment')/x:div").is_displayed())
@@ -145,7 +145,25 @@ class Test(unittest.TestCase):
             return alert_text
         finally: self.accept_next_alert = True
     def check_element(self,visible=0):
-        for x in range(0, 7):
+        elements = [
+            "id('popup_text')/x:p[2]",
+            "id('collapsecomment')/x:div",
+            "//div[@id='collapsecomment']/div/video",
+            "id('collapse0')/x:div",
+            "id('collapse0')/x:div/x:video",
+            "id('collapse1')/x:div/x:ul/x:li[1]",
+            "id('collapse1')/x:div/x:img",
+            "id('collapse2')/x:div",
+            "id('collapse2')/x:div/x:img",
+            "id('collapse3')/x:div",
+            "id('collapse3')/x:div/x:video",
+            "id('collapse4')/x:div",
+            "id('id('collapse4')/x:div/x:img",
+            "id('collapse5')/x:div",
+            "id('collapse5')/x:div/x:audio",
+            "id('collapse6')/x:div",
+            "id('collapse6')/x:div/x:audio"
+            ]
             
     def tearDown(self):
         self.driver.quit()
