@@ -443,16 +443,16 @@ class iaObject:
         record_rect['path'] = cubicsuperpath.formatPath(p)
         record_rect['x'] = str(0)
         record_rect['y'] = str(0)                        
+        if stackTransformations == "":
+            if rect.hasAttribute("transform"):
+                transformation = rect.attributes['transform'].value
+                ctm.analyze(transformation)
 
-       # if rect.hasAttribute("transform"):
-       #     transformation = rect.attributes['transform'].value
-       #     ctm.analyze(transformation)
-
-       #     ctm.applyTransformToPath(ctm.matrix,p)
-       #     record_rect['path'] = cubicsuperpath.formatPath(p)
+                ctm.applyTransformToPath(ctm.matrix,p)
+                record_rect['path'] = cubicsuperpath.formatPath(p)
 
         # apply group transformation on current object
-        if stackTransformations != "":
+        else:
             transformations = stackTransformations.split("#")
             for transformation in transformations[::-1]:
                 ctm = CurrentTransformation()
@@ -559,20 +559,21 @@ class iaObject:
         p = cubicsuperpath.parsePath(record['path'])
         record['path'] = cubicsuperpath.formatPath(p)
 
-        #if path.hasAttribute("transform"):
-        #    transformation = path.attributes['transform'].value
-        #    ctm = CurrentTransformation()
-        #    ctm.analyze(transformation)
+        if stackTransformations == "":        
+            if path.hasAttribute("transform"):
+                transformation = path.attributes['transform'].value
+                ctm = CurrentTransformation()
+                ctm.analyze(transformation)
 
-        #    ctm.applyTransformToPath(ctm.matrix,p)
-        #    record['path'] = cubicsuperpath.formatPath(p)
+                ctm.applyTransformToPath(ctm.matrix,p)
+                record['path'] = cubicsuperpath.formatPath(p)
 
         # apply group transformation on current object
         # if ctm_group:
         #    ctm_group.applyTransformToPath(ctm_group.matrix,p)
         #    record['path'] = cubicsuperpath.formatPath(p)
 
-        if stackTransformations != "":
+        else:
             transformations = stackTransformations.split("#")
             for transformation in transformations[::-1]:
                 ctm = CurrentTransformation()
@@ -639,21 +640,19 @@ class iaObject:
 
         if root.hasAttribute("transform"):
             stackTransform.append(root.attributes['transform'].value)
-
+        entry = {}
+        entry["node"] = root
+        entry["transform"] = "#".join(stackTransform)
+        childs.append(entry)
+        
         if root.childNodes:
             for node in root.childNodes:
-               if node.nodeType == node.ELEMENT_NODE:
-                   #childs.append(node)
-                   self.linearize_childs(node, childs, stackTransform)
-            if root.hasAttribute("transform"):
-                stackTransform.pop()
-        else:
-            entry = {}
-            entry["node"] = root
-            entry["transform"] = "#".join(stackTransform)
-            if root.hasAttribute("transform"):
-                stackTransform.pop()
-            childs.append(entry)
+                if node.nodeType == node.ELEMENT_NODE:
+                    #childs.append(node)
+                    self.linearize_childs(node, childs, stackTransform)
+
+        if root.hasAttribute("transform"):
+            stackTransform.pop()
                    
     def extract_g(self,group, stackTransformations):
         """Analyze a svg group"""
@@ -671,8 +670,6 @@ class iaObject:
         minY = 10000
         maxX = 0
         maxY = 0
-        # retrieve transformations applied on master group
-        # TODO : manage nested groups tranformations
        
         if group.hasAttribute("onclick"):                            
             str_onclick = group.attributes['onclick'].value
