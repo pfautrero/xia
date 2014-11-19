@@ -49,7 +49,10 @@ class Test(unittest.TestCase):
         self.assertTrue(self.is_element_present(By.XPATH, "id('collapse3')/x:div/x:video"))
         self.assertEqual("Description de beziertracer une ligne", driver.find_element_by_xpath("id('collapse4')/x:div").text)
         self.assertTrue(self.is_element_present(By.XPATH, "id('id('collapse4')/x:div/x:img"))
-        
+        self.assertEqual("le son 2 ! Réponse:LA réponse à la question", driver.find_element_by_xpath("id('collapse5')/x:div").text)
+        self.assertTrue(self.is_element_present(By.XPATH, "id('collapse5')/x:div/x:audio"))
+        self.assertEqual("le son 1 !", driver.find_element_by_xpath("id('collapse6')/x:div").text)
+        self.assertTrue(self.is_element_present(By.XPATH, "id('collapse6')/x:div/x:audio"))
         
     def test_nav(self):
         driver = self.driver
