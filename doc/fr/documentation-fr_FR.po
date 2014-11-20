@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fr_FR\n"
-"POT-Creation-Date: 2014-11-19 23:33+0100\n"
-"PO-Revision-Date: 2014-11-19 23:33+0100\n"
+"POT-Creation-Date: 2014-11-20 17:01+0100\n"
+"PO-Revision-Date: 2014-11-20 17:02+0100\n"
 "Last-Translator: geoffrey <ggekiere@ac-versailles.fr>\n"
 "Language-Team: français <>\n"
 "Language: \n"
@@ -903,7 +903,7 @@ msgstr ""
 "(paramètre \\texttt{-t})."
 
 #. type: subsection{#2}
-#: documentation.tex:307 documentation.tex:539 documentation.tex:831
+#: documentation.tex:307 documentation.tex:539 documentation.tex:829
 msgid "Abstract"
 msgstr "En résumé"
 
@@ -1727,12 +1727,15 @@ msgstr ""
 
 #. type: links
 #: documentation.tex:610
+#| msgid ""
+#| "Explore the \\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1}"
+#| "{interactive image} created for this section of the documentation."
 msgid ""
-"Explore the \\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia3}{\"image- "
-"active\"} created for this section of the documentation."
+"Explore the \\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia3}"
+"{interactive image} created for this section of the documentation."
 msgstr ""
-"Visualisez l'\\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia3}{\"image-"
-"active\"} créée pour cette partie de la documentation."
+"Visualisez l'\\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1}{image "
+"interactive} créée pour cette partie de la documentation."
 
 #. type: links
 #: documentation.tex:613
@@ -1848,7 +1851,7 @@ msgid "\\multicolumn{2}{|l|}{\\texttt{You have completed the game!</message>}}"
 msgstr "\\multicolumn{2}{|l|}{\\texttt{Vous avez terminé le jeu!</message>}}"
 
 #. type: caption{#2}
-#: documentation.tex:649 documentation.tex:773
+#: documentation.tex:649 documentation.tex:771
 msgid "Sum up of tags"
 msgstr "Résumé des balises à utiliser"
 
@@ -1866,7 +1869,7 @@ msgstr ""
 "par degré de difficulté."
 
 #. type: wrapfigure
-#: documentation.tex:661 documentation.tex:778
+#: documentation.tex:661 documentation.tex:776
 msgid "{r}{45mm}"
 msgstr "{r}{45mm}"
 
@@ -2069,12 +2072,15 @@ msgstr ""
 
 #. type: links
 #: documentation.tex:730
+#| msgid ""
+#| "Explore the \\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1}"
+#| "{interactive image} created for this section of the documentation."
 msgid ""
-"Explore the \\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia5}{image- "
-"active created for this section of the documentation}."
+"Explore the \\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia5}"
+"{interactive image} created for this section of the documentation."
 msgstr ""
-"Visualisez l'\\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia5}{\"image-"
-"active\"} créée pour cette partie de la documentation."
+"Visualisez l'\\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1}{image "
+"interactive} créée pour cette partie de la documentation."
 
 #. type: links
 #: documentation.tex:734
@@ -2132,17 +2138,26 @@ msgstr ""
 "Exporter le fichier source au format svg avec le modèle «~gameDragAndDrop~»"
 
 #. type: document
-#: documentation.tex:756
+#: documentation.tex:754
+#| msgid ""
+#| "Two methods can be used to create the drag and drop \"graphical-elements"
+#| "\".  A very simple way is to use a screenshot tool, in order to create "
+#| "png files, and then import them in Inkscape.  It is also possible to "
+#| "create these elements directly in Inkscape, by creating a text, grouping "
+#| "it with a shape, and finally making a bitmap copy of this group (see how "
+#| "to do that in section \\ref{détail_progression})\\footnote{\\ldots do not "
+#| "forget to delete the original text and shape once the bitmap copy has "
+#| "been created.}.  The graphical elements then have to be associated with "
+#| "their drop zone \\footnote{\\textbf{One} object can only match \\textbf"
+#| "{one} drop zone.}."
 msgid ""
 "Two methods can be used to create the drag and drop \"graphical-elements\".  "
 "A very simple way is to use a screenshot tool, in order to create png files, "
 "and then import them in Inkscape.  It is also possible to create these "
 "elements directly in Inkscape, by creating a text, grouping it with a shape, "
-"and finally making a bitmap copy of this group (see how to do that in "
-"section \\ref{détail_progression})\\footnote{\\ldots do not forget to delete "
-"the original text and shape once the bitmap copy has been created.}.  The "
-"graphical elements then have to be associated with their drop zone \\footnote"
-"{\\textbf{One} object can only match \\textbf{one} drop zone.}."
+"and finally making a bitmap copy of this group.  The graphical elements then "
+"have to be associated with their drop zone \\footnote{\\textbf{One} object "
+"can only match \\textbf{one} drop zone.}."
 msgstr ""
 "Deux méthodes peuvent être utilisées pour créer les éléments que les joueurs "
 "auront à glisser et déposer. La première, très simple, consiste à utiliser "
@@ -2155,7 +2170,7 @@ msgstr ""
 "qu'à \\textbf{une} zone de dépôt.}."
 
 #. type: document
-#: documentation.tex:759
+#: documentation.tex:757
 msgid ""
 "You will find in this table the metadata to be filled in the \\chemin{Object "
 "Properties} of the drag and drop graphical elements and the corresponding "
@@ -2166,37 +2181,37 @@ msgstr ""
 "de les faire correspondre:"
 
 #. type: tabular
-#: documentation.tex:773
+#: documentation.tex:771
 msgid "Graphical element (drag and drop objects in the game)"
 msgstr "Élément à déplacer (objets à glisser et déposer)"
 
 #. type: tabular
-#: documentation.tex:773
+#: documentation.tex:771
 msgid "Cropped detail (drop zone)"
 msgstr "Détail détouré (zone de dépôt)"
 
 #. type: tabular
-#: documentation.tex:773
+#: documentation.tex:771
 msgid "ID Field"
 msgstr "Champ ID"
 
 #. type: tabular
-#: documentation.tex:773
+#: documentation.tex:771
 msgid "\\verb|Detail_Title|"
 msgstr "\\verb|Titre_du_détail|"
 
 #. type: tabular
-#: documentation.tex:773
+#: documentation.tex:771
 msgid "Description Field"
 msgstr "Champ description"
 
 #. type: tabular
-#: documentation.tex:773
+#: documentation.tex:771
 msgid "\\verb|<target>Detail_Title</target>|"
 msgstr "\\verb|<target>Titre_du_détail</target>|"
 
 #. type: document
-#: documentation.tex:785
+#: documentation.tex:783
 msgid ""
 "Make the graphical elements match the drop zones by making the \\chemin{ID} "
 "field of the drop zone match the \\chemin{Description} field of the drag and "
@@ -2210,7 +2225,7 @@ msgstr ""
 "\\chemin{Description}."
 
 #. type: document
-#: documentation.tex:787
+#: documentation.tex:785
 msgid ""
 "Choose the template \\chemin{gameDragAndDrop} to generate the interactive "
 "image."
@@ -2219,12 +2234,12 @@ msgstr ""
 "interactive."
 
 #. type: subsubsection{#2}
-#: documentation.tex:791
+#: documentation.tex:789
 msgid "How to add a \"magnet\" effect in the gameDragAndDrop template"
 msgstr "Comment ajouter un effet «~aimant~» dans le jeu gameDragAndDrop"
 
 #. type: document
-#: documentation.tex:794
+#: documentation.tex:792
 msgid ""
 "If you indicate \\verb|<magnet>on</magnet>| in the \\chemin{Description} "
 "field of the drop zone, a magnet effect will then be active when the player "
@@ -2235,7 +2250,7 @@ msgstr ""
 "joueur déposera l'élément sur celle-ci."
 
 #. type: subsubsection{#2}
-#: documentation.tex:796
+#: documentation.tex:794
 msgid ""
 "Two ways to give the players a little help: tooltips and links on drop zones"
 msgstr ""
@@ -2243,7 +2258,7 @@ msgstr ""
 "sur les zones de dépôt"
 
 #. type: document
-#: documentation.tex:804
+#: documentation.tex:802
 msgid ""
 "It is possible to display tooltips of details on mouse-over. To do so, "
 "create the tooltip with a png imported file or a bitmap copy of a text "
@@ -2266,12 +2281,12 @@ msgstr ""
 "également disponible dans le jeu game1clic."
 
 #. type: caption[#1]
-#: documentation.tex:811
+#: documentation.tex:809
 msgid "Tooltip"
 msgstr "Infobulles"
 
 #. type: caption{#2}
-#: documentation.tex:811
+#: documentation.tex:809
 msgid ""
 "When the user moves the mouse over the yellow square, the tooltip \"Test\" "
 "displays"
@@ -2279,7 +2294,7 @@ msgstr ""
 "Lorsque la souris survole le carré jaune, une infobulle «~Test~» apparaît"
 
 #. type: document
-#: documentation.tex:814
+#: documentation.tex:812
 msgid ""
 "Another method consists in inserting links in the \\chemin{Title} field of "
 "the \\chemin{Object Properties} of the drop zones. The user can open the "
@@ -2291,12 +2306,12 @@ msgstr ""
 "le lien."
 
 #. type: subsection{#2}
-#: documentation.tex:816
+#: documentation.tex:814
 msgid "Third game principle: collisions"
 msgstr "Troisième principe ludique: les collisions"
 
 #. type: document
-#: documentation.tex:820
+#: documentation.tex:818
 msgid ""
 "\\textit{The game principle described in this section consists in moving "
 "objects within bounds you defined. Typically, the \"collisions\" game "
@@ -2309,7 +2324,7 @@ msgstr ""
 "des labyrinthes, des taquins.}"
 
 #. type: document
-#: documentation.tex:824
+#: documentation.tex:822
 msgid ""
 "In order to create this kind of game, add the tag \\verb|<collisions>on</"
 "collisions>| to the background image. All the details will then become solid "
@@ -2323,7 +2338,7 @@ msgstr ""
 "dessinées avec Inkscape)."
 
 #. type: document
-#: documentation.tex:831
+#: documentation.tex:829
 msgid ""
 "The \"collision\" game is in fact a gameDragAndDrop game, since the goal "
 "remains to drag one or several objects and drop them somewhere on the "
@@ -2343,7 +2358,7 @@ msgstr ""
 "dépôts, dans le champ \\chemin{Description}."
 
 #. type: document
-#: documentation.tex:833
+#: documentation.tex:831
 msgid ""
 "This tables sum up the tags that have to be indicated when a game is created:"
 msgstr ""
@@ -2351,22 +2366,22 @@ msgstr ""
 "création de jeux avec Xia:"
 
 #. type: tabular
-#: documentation.tex:875
+#: documentation.tex:873
 msgid "\\multicolumn{3}{|l|}{\\chemin{game1clic} template}"
 msgstr "\\multicolumn{3}{|l|}{Modèle \\chemin{game1clic}}"
 
 #. type: tabular
-#: documentation.tex:875 documentation.tex:930
+#: documentation.tex:873 documentation.tex:928
 msgid "\\multicolumn{3}{|l|}{\\texttt{<score></score>}}"
 msgstr "\\multicolumn{3}{|l|}{\\texttt{<score></score>}}"
 
 #. type: tabular
-#: documentation.tex:875 documentation.tex:930
+#: documentation.tex:873 documentation.tex:928
 msgid "\\emph{Role}"
 msgstr "\\emph{Rôle}"
 
 #. type: tabular
-#: documentation.tex:875 documentation.tex:930
+#: documentation.tex:873 documentation.tex:928
 msgid ""
 "Sets the amount of correct answers needed to pop up the end message of the "
 "game"
@@ -2375,47 +2390,47 @@ msgstr ""
 "apparaître le message de fin du jeu"
 
 #. type: tabular
-#: documentation.tex:875 documentation.tex:930
+#: documentation.tex:873 documentation.tex:928
 msgid "\\emph{Element}"
 msgstr "\\emph{Élément}"
 
 #. type: tabular
-#: documentation.tex:875 documentation.tex:930
+#: documentation.tex:873 documentation.tex:928
 msgid "Background picture"
 msgstr "Image de fond"
 
 #. type: tabular
-#: documentation.tex:875 documentation.tex:930
+#: documentation.tex:873 documentation.tex:928
 msgid "\\emph{Where ?}"
 msgstr "\\emph{Où?}"
 
 #. type: tabular
-#: documentation.tex:875 documentation.tex:930
+#: documentation.tex:873 documentation.tex:928
 msgid "\\chemin{Object properties $\\rightarrow$ Description}"
 msgstr "\\chemin{Propriétés de l'objet $\\rightarrow$ Description}"
 
 #. type: tabular
-#: documentation.tex:875 documentation.tex:930
+#: documentation.tex:873 documentation.tex:928
 msgid "\\emph{What ?}"
 msgstr "\\emph{Quoi?}"
 
 #. type: tabular
-#: documentation.tex:875 documentation.tex:930
+#: documentation.tex:873 documentation.tex:928
 msgid "A number corresponding to the required score"
 msgstr "Le nombre de bonnes réponses nécessaire à la résolution du jeu"
 
 #. type: tabular
-#: documentation.tex:875 documentation.tex:930
+#: documentation.tex:873 documentation.tex:928
 msgid "\\multicolumn{3}{|l|}{\\texttt{<message></message>} }"
 msgstr "\\multicolumn{3}{|l|}{\\texttt{<message></message>} }"
 
 #. type: tabular
-#: documentation.tex:875 documentation.tex:930
+#: documentation.tex:873 documentation.tex:928
 msgid "Pops up the end message of the game"
 msgstr "Fais apparaître le message de fin du jeu"
 
 #. type: tabular
-#: documentation.tex:875 documentation.tex:930
+#: documentation.tex:873 documentation.tex:928
 msgid ""
 "A personalized message if necessary enriched with multimedia or html links"
 msgstr ""
@@ -2423,22 +2438,22 @@ msgstr ""
 "multimédias ou un lien hypertexte"
 
 #. type: tabular
-#: documentation.tex:875
+#: documentation.tex:873
 msgid "\\multicolumn{3}{|l|}{\\texttt{off}}"
 msgstr "\\multicolumn{3}{|l|}{\\texttt{off}}"
 
 #. type: tabular
-#: documentation.tex:875
+#: documentation.tex:873
 msgid "Makes a cropped detail unclickable"
 msgstr "Rend un détail insensible au clic"
 
 #. type: tabular
-#: documentation.tex:875
+#: documentation.tex:873
 msgid "Detail"
 msgstr "Détail"
 
 #. type: tabular
-#: documentation.tex:875
+#: documentation.tex:873
 msgid ""
 "\\chemin{Object properties $\\rightarrow$ Interactivity $\\rightarrow$ "
 "Onclick}"
@@ -2447,12 +2462,12 @@ msgstr ""
 "Onclick}"
 
 #. type: tabular
-#: documentation.tex:875
+#: documentation.tex:873
 msgid "\\multicolumn{3}{|l|}{\\texttt{disable-score}}"
 msgstr "\\multicolumn{3}{|l|}{\\texttt{disable-score}}"
 
 #. type: tabular
-#: documentation.tex:875
+#: documentation.tex:873
 msgid ""
 "Makes a cropped detail clickable, but when clicked, does not add a point to "
 "the score game counter"
@@ -2461,107 +2476,121 @@ msgstr ""
 "au compteur de score"
 
 #. type: tabular
-#: documentation.tex:875 documentation.tex:930
+#: documentation.tex:873 documentation.tex:928
 msgid "\\multicolumn{3}{|l|}{\\texttt{<tooltip></tooltip>}}"
 msgstr "\\multicolumn{3}{|l|}{\\texttt{<tooltip></tooltip>}}"
 
 #. type: tabular
-#: documentation.tex:875 documentation.tex:930
+#: documentation.tex:873 documentation.tex:928
 msgid "Displays a tooltip when moused-over"
 msgstr "Affiche une infobulle au survol de la souris"
 
 #. type: tabular
-#: documentation.tex:875 documentation.tex:930
+#: documentation.tex:873 documentation.tex:928
 msgid "Make sure to match the ID of the element used as tooltip"
 msgstr ""
 "Assurez-vous que ce champ est identique à l'ID de l'élément servant "
 "d'infobulle"
 
 #. type: caption{#2}
-#: documentation.tex:875
+#: documentation.tex:873
 msgid "game1clic tags"
 msgstr "Balises à insérer pour un jeu de type game1clic"
 
 #. type: tabular
-#: documentation.tex:930
+#: documentation.tex:928
 msgid "\\multicolumn{3}{|l|}{\\chemin{gameDragAndDrop} template}"
 msgstr "\\multicolumn{3}{|l|}{Modèle \\chemin{gameDragAndDrop}}"
 
 #. type: tabular
-#: documentation.tex:930
+#: documentation.tex:928
 msgid "\\multicolumn{3}{|l|}{\\texttt{<target></target>}}"
 msgstr "\\multicolumn{3}{|l|}{\\texttt{<target></target>}}"
 
 #. type: tabular
-#: documentation.tex:930
+#: documentation.tex:928
 msgid "Indicates the corresponding drag and drop element and drop zone"
 msgstr ""
 "Indique la correspondance entre l'élément à déplacer et la zone de dépôt"
 
 #. type: tabular
-#: documentation.tex:930
+#: documentation.tex:928
 msgid "Graphical element to move"
 msgstr "Élément à déplacer"
 
 #. type: tabular
-#: documentation.tex:930
+#: documentation.tex:928
 msgid "\\chemin{Object Properties $\\rightarrow$ Description}"
 msgstr "\\chemin{Propriétés de l'objet $\\rightarrow$ Description}"
 
 #. type: tabular
-#: documentation.tex:930
+#: documentation.tex:928
 msgid "Make sure to match the ID field of the drop zone"
 msgstr "Assurez-vous que ce champ est identique à l'ID de la zone de dépôt"
 
 #. type: tabular
-#: documentation.tex:930
+#: documentation.tex:928
 msgid "\\multicolumn{3}{|l|}{\\texttt{<magnet>on</magnet>}}"
 msgstr "\\multicolumn{3}{|l|}{\\texttt{<magnet>on</magnet>}}"
 
 #. type: tabular
-#: documentation.tex:930
+#: documentation.tex:928
 msgid "Adds a \"magnet\" effect"
 msgstr "Ajoute un effet «~aimant~»"
 
 #. type: tabular
-#: documentation.tex:930
+#: documentation.tex:928
 msgid "Drop zone"
 msgstr "Zone de dépôt"
 
 #. type: tabular
-#: documentation.tex:930
+#: documentation.tex:928
 msgid "\\multicolumn{3}{|l|}{\\texttt{<collisions>on</collisions>}}"
 msgstr "\\multicolumn{3}{|l|}{\\texttt{<collisions>on</collisions>}}"
 
 #. type: tabular
-#: documentation.tex:930
+#: documentation.tex:928
 msgid "Activates the \"collisions\" game principle"
 msgstr "Active le jeu de type \"collisions\""
 
 #. type: tabular
-#: documentation.tex:930
+#: documentation.tex:928
 msgid "\\multicolumn{3}{|l|}{\\texttt{<collisions>off</collisions>}}"
 msgstr "\\multicolumn{3}{|l|}{\\texttt{<collisions>off</collisions>}}"
 
 #. type: tabular
-#: documentation.tex:930
+#: documentation.tex:928
 msgid "Creates a drop zone in a \"collisions\" game"
 msgstr "Crée une zone de dépôt dans un jeu de type \"collisions\""
 
 #. type: tabular
-#: documentation.tex:930
+#: documentation.tex:928
 msgid "Drop zone, Graphical element to move"
 msgstr "Zone de dépôt, éléments à déplacer"
 
 #. type: caption{#2}
-#: documentation.tex:930
+#: documentation.tex:928
 msgid "gameDragAndDrop tags"
 msgstr "Balises à insérer en vue d'un export gameDragAndDrop"
 
 #. type: document
-#: documentation.tex:933
+#: documentation.tex:931
 msgid "\\listoffigures \\listoftables"
 msgstr "\\listoffigures \\listoftables"
+
+#~ msgid ""
+#~ "Explore the \\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia3}"
+#~ "{\"image- active\"} created for this section of the documentation."
+#~ msgstr ""
+#~ "Visualisez l'\\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia3}"
+#~ "{\"image-active\"} créée pour cette partie de la documentation."
+
+#~ msgid ""
+#~ "Explore the \\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia5}"
+#~ "{image- active created for this section of the documentation}."
+#~ msgstr ""
+#~ "Visualisez l'\\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia5}"
+#~ "{\"image-active\"} créée pour cette partie de la documentation."
 
 #~ msgid "toto"
 #~ msgstr "tata"
