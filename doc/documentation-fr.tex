@@ -803,8 +803,9 @@ sélectionner.
 Les consignes doivent être indiquées dans les métadonnées du document. Xia
 cherchera les informations relatives aux consignes dans le champ
 \chemin{Description} des métadonnées du doucment (voir la section
-\ref{preparation_svg}), et créera une pop up affichant ces consignes à
-l'ouverture du jeu. Le joueur pourra les lire, fermer la fenêtre puis jouer.
+\ref{preparation_svg}: \chemin{Fichier $\rightarrow$ Métadonnées du
+document}), et créera une pop up affichant ces consignes à l'ouverture du
+jeu. Le joueur pourra les lire, fermer la fenêtre puis jouer.
 
 Quand un joueur termine le jeu, un message apparaît automatiquement. Ce
 message doit être renseigné dans le champ \chemin{Description} des
@@ -829,7 +830,7 @@ lui-même.
     & \multicolumn{2}{|l|}{\texttt{Vous avez terminé le jeu!</message>}}\\
   \hline
  \end{tabular}
-\caption{Résumé des balises à utiliser}
+\caption{Résumé des balises du jeu game1clic}
 \label{tag1_sumup}
 \end{table}
  
@@ -937,6 +938,9 @@ Voici comment créer un jeu basé sur le principe du glisser-déposer:
  \item Créer les éléments que les utilisateurs de votre image interactive auront à
 déplacer et à déposer (autrement dit: des images, des mots ou groupes de
 mots)
+ \item Créer la fenêtre surgissante de consignes en éditant les informations du
+champs \chemin{Fichier $\rightarrow$ Métadonnées du document $\rightarrow$
+Description}\footnote{Exactement comme dans le jeu game1clic}
  \item En renseignant les métadonnées, faites correspondre chaque élément à une
 zone de dépôt (ces zones de dépôts étant en réalité des détails détourés)
 \end{itemize}
@@ -956,9 +960,9 @@ copie bitmap de cet ensemble. Les éléments à déplacer doivent être associé
 à leur zone de dépôt \footnote{\textbf{Un} objet ne pouvant être associé
 qu'à \textbf{une} zone de dépôt.}.
 
-Vous trouverez dans ce tableau les balises à renseigner dans les
-\chemin{Propriétés de l'objet} des éléments à déplacer et des zones de
-dépôts afin de les faire correspondre:
+Vous trouverez dans le tableau \ref{tag2_sumup} un résumé des balises à
+renseigner dans les \chemin{Propriétés de l'objet} des éléments à déplacer
+et des zones de dépôts afin de les faire correspondre:
 
 \begin{table}
 \begin{tabular}{|p{1.in}|p{2.5in}|p{1.5in}|}
@@ -970,7 +974,7 @@ Champ ID & & \verb|Titre_du_détail|\\
 Champ description & \verb|<target>Titre_du_détail</target>| & \\
 \hline
 \end{tabular}
-\caption{Résumé des balises à utiliser}
+\caption{Résumé des balises à utiliser dans le jeu gameDragAndDrop}
 \label{tag2_sumup}
 \end{table}
 
