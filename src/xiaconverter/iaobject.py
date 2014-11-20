@@ -338,7 +338,10 @@ class iaObject:
                 for item in str_style.split(";"):
                     key,value = item.split(":")
                     style[key] = value
-                record_image['fill'] = style['fill']
+                if 'fill' in style:
+                    record_image['fill'] = style['fill']
+                else:
+                    record_image['fill'] = "#ffffff"
 
             if image.hasAttribute("onclick"):                            
                 str_onclick = image.attributes['onclick'].value
@@ -433,7 +436,10 @@ class iaObject:
             for item in str_style.split(";"):
                 key,value = item.split(":")
                 style[key] = value
-            record_rect['fill'] = style['fill']
+            if 'fill' in style:
+                record_rect['fill'] = style['fill']
+            else:
+                record_rect['fill'] = "#ffffff"
 
         # ObjectToPath                    
         ctm = CurrentTransformation()

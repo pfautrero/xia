@@ -46,6 +46,10 @@ function IaScene(originalWidth, originalHeight) {
     var _colorCache = {red:0, green:0, blue:0, opacity:0.6};
  
     // internal
+    this.global_magnet_enabled = false;
+    if ($("#message_success").data("magnet") == "on") {
+        this.global_magnet_enabled = true;
+    }
     this.score = 0;
     this.currentScore = 0;
     this.fullScreen = "off";

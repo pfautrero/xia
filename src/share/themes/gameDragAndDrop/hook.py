@@ -46,6 +46,7 @@ class hook:
 
         self.score = "0"
         self.collisions = "off"
+        self.magnet = "off"
         
         score = re.search('<score>(.*)</score>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
         if score:
@@ -58,8 +59,12 @@ class hook:
         collisions = re.search('<collisions>(.*)</collisions>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
         if collisions:
             self.collisions = collisions.group(1)        
+
+        magnet = re.search('<magnet>(.*)</magnet>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
+        if magnet:
+            self.magnet = magnet.group(1)        
         
-        final_str = u'<article class="message_success" id="message_success" data-collisions="' + self.collisions + '" data-score="' + self.score + '">\n'
+        final_str = u'<article class="message_success" id="message_success" data-magnet="' + self.magnet + '" data-collisions="' + self.collisions + '" data-score="' + self.score + '">\n'
         final_str += '<img id="popup_toggle" src="img/hide.png" alt="toggle"/>\n'
         final_str += u'  <div id="message_success_content">' + self.PageFormatter(self.message).print_html() + u'</div>\n'
         final_str += u'</article>\n'
