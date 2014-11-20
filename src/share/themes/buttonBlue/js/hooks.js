@@ -149,6 +149,12 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         $(".buttons_container").hide();
         $(".detail_content").hide();
         $("#content").hide();
+        $(this).parent().children("audio").each(function(){
+            $(this)[0].pause();
+        });
+        $(this).parent().children("video").each(function(){
+            $(this)[0].pause();
+        });                
     });
     $("#article_move").on("mousedown", function(evt){
         that.dragwindow = true;

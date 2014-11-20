@@ -138,6 +138,12 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         $(this).hide();
         $(".detail_content").hide();
         $("#content").hide();
+        $(this).parent().children("audio").each(function(){
+            $(this)[0].pause();
+        });
+        $(this).parent().children("video").each(function(){
+            $(this)[0].pause();
+        });                
     });
     
     document.addEventListener("click", function(ev){
