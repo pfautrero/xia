@@ -616,10 +616,7 @@ You only have to crop the details that the final user will have to select.
 
 The instructions must be completed in the 
 metadata of the document. Xia will look into 
-the informations  filled in the  \chemin
-{Description} field of the metadata of the document (see section \ref{preparation_svg}), and create an instruction «~pop up~» 
-that will show up at the opening of the game. The player will just have to 
-read the instructions and close the pop up to play the game.
+the informations  filled in the \chemin{Description} field of the metadata of the document (see section \ref{preparation_svg}: \chemin{File $\rightarrow$ Metadata of the document}), and create an instruction «~pop up~» that will show up at the opening of the game. The player will just have to read the instructions and close the pop up to play the game.
 
 When the user completes the game, a message automatically appears.
 This message has to be filled in the \chemin{Description} field of the \chemin{Object Properties} of the 
@@ -643,7 +640,7 @@ and the message itself.
     & \multicolumn{2}{|l|}{\texttt{You have completed the game!</message>}}\\
   \hline
  \end{tabular}
-\caption{Sum up of tags}
+\caption{Sum up of tags in a game1clic game}
 \label{tag1_sumup}
 \end{table}
  
@@ -738,6 +735,7 @@ This is how you can create a game based on the drag and drop principle :
 \begin{itemize}
  \item Choose a background picture
  \item Create the graphical elements the users of the interactive image will have to drag and drop (ie. images or group of words)
+ \item Create the instruction pop up in \chemin{File $\rightarrow$ Metadata of the document $\rightarrow$ Description}\footnote{Exactly as in the game1clic template.}
  \item Using metadata, make each label match its drop zone (actually being cropped details)
 \end{itemize}
  \item In Xia
@@ -752,8 +750,8 @@ It is also possible to create these elements directly in Inkscape, by creating a
 and finally making a bitmap copy of this group.
 The graphical elements then have to be associated with their drop zone \footnote{\textbf{One} object can only match \textbf{one} drop zone.}.
 
-You will find in this table the metadata to be filled in the \chemin{Object Properties} 
-of the drag and drop graphical elements and the corresponding details in order to make them match :
+You will find in the table \ref{tag2_sumup} an abstract of the metadata to be filled in the \chemin{Object Properties} 
+of the drag and drop graphical elements and the corresponding details in order to make them match.
 
 \begin{table}
 \begin{tabular}{|p{1.in}|p{2.5in}|p{1.5in}|}
@@ -765,7 +763,7 @@ ID Field & & \verb|Detail_Title|\\
 Description Field & \verb|<target>Detail_Title</target>| & \\
 \hline
 \end{tabular}
-\caption{Sum up of tags}
+\caption{Sum up of tags in the gameDragAndDrop template}
 \label{tag2_sumup}
 \end{table}
 
