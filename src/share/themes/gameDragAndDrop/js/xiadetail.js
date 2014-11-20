@@ -29,6 +29,9 @@ function XiaDetail(detail, idText) {
     this.backgroundImage = null;
     this.tooltip = null;
     this.draggable_object = true;
+    this.target_id = null;
+    this.magnet_state = null;
+    this.droparea = false;
     
     if ((typeof(detail.options) !== 'undefined')) {
         this.options = detail.options;
@@ -43,5 +46,13 @@ function XiaDetail(detail, idText) {
     if ($('article[data-tooltip="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
         this.draggable_object = false;
     }  
+    
+    this.target_id = $('#' + idText).data("target");
+    this.magnet_state = $("#" + idText).data("magnet");
 
+    if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
+        this.droparea = true;
+        
+    }    
+    
 }

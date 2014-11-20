@@ -165,35 +165,62 @@ hooks.prototype.afterIaObjectDragStart = function(iaScene, idText, iaObject) {
  *
  *  
  */
-hooks.prototype.afterIaObjectDragEnd = function(iaScene, idText, iaObject, event) {
-    var target_id = $('#' + idText).data("target");
-
+hooks.prototype.afterIaObjectDragEnd = function(iaScene, idText, iaObject, event, kineticElement) {
+    //var target_id = $('#' + idText).data("target");
+    var target_id = kineticElement.getXiaParent().target_id;
+    var target_object = kineticElement.getStage().find("#" + target_id);
     var iaObject_width = iaObject.maxX - iaObject.minX;
     var iaObject_height = iaObject.maxY - iaObject.minY;
     iaObject.minX = event.target.x();
     iaObject.minY = event.target.y();
     iaObject.maxX = event.target.x() + iaObject_width;
     iaObject.maxY = event.target.y() + iaObject_height;    
+    var middle_coords = {x: event.target.x() + (iaObject.maxX - iaObject.minX)/2,y:event.target.y() + (iaObject.maxY - iaObject.minY)/2};
     
-    if (target_id) {
+    var mouseXY = kineticElement.getStage().getPointerPosition();
+    var droparea = kineticElement.getStage().getIntersection(mouseXY);
+    var over_droparea = false;
+    if (droparea) {
+        if (droparea == kineticElement) {
+            // element dropped on its own area
+            // move current element out of stage, redraw the scene, 
+            // find the drop zone element
+            // and move current element to its original position
+            var old_x = kineticElement.x();
+            kineticElement.x(2000);
+            kineticElement.getLayer().drawHit();
+            kineticElement.getStage().completeImage = "redefine";
+            droparea = kineticElement.getStage().getIntersection(mouseXY);
+            if (droparea) {
+                if (droparea != kineticElement) {
+                    over_droparea = true;
+                }
+            }
+            kineticElement.x(old_x);
+            kineticElement.getLayer().drawHit();
+        }
+        else if (droparea.getXiaParent().droparea) {    
+            over_droparea = true;
+        }        
+    }
+    
+    if (over_droparea) {
         // retrieve kineticElement drop zone
         // if center of dropped element is located in the drop zone
         // then drop !
-        var target_object = iaObject.xiaDetail[0].kineticElement.getStage().find("#" + target_id);
-        var middle_coords = {x: event.target.x() + (iaObject.maxX - iaObject.minX)/2,y:event.target.y() + (iaObject.maxY - iaObject.minY)/2};
-        var target_iaObject = target_object[0].getIaObject();
-        var magnet_state = $("#" + target_iaObject.idText).data("magnet");
+        //var target_object = iaObject.xiaDetail[0].kineticElement.getStage().find("#" + target_id);
+        var target_iaObject = droparea.getIaObject();
         if ((middle_coords.x > target_iaObject.minX) &
                 (middle_coords.x < target_iaObject.maxX) &
                 (middle_coords.y > target_iaObject.minY) &
                 (middle_coords.y < target_iaObject.maxY)) {
-            if (!iaObject.match) {
+            if (!iaObject.match && droparea == target_object[0]) {
                 iaObject.match = true;
                 iaScene.currentScore += 1;
             }
-            if (magnet_state=="on") {
-                iaObject.xiaDetail[0].kineticElement.x(target_iaObject.minX);
-                iaObject.xiaDetail[0].kineticElement.y(target_iaObject.minY);
+            if (iaScene.global_magnet_enabled || droparea.getXiaParent().magnet_state=="on") {
+                kineticElement.x(target_iaObject.minX - (iaObject_width / 2) + (target_iaObject.maxX - target_iaObject.minX) / 2);
+                kineticElement.y(target_iaObject.minY - (iaObject_height / 2) + (target_iaObject.maxY - target_iaObject.minY) / 2);
             }
         }
         else {
@@ -203,8 +230,8 @@ hooks.prototype.afterIaObjectDragEnd = function(iaScene, idText, iaObject, event
             }            
         }
         
-        if (target_object[0].getXiaParent().options.indexOf("direct-link") != -1) {
-            location.href = target_object[0].getXiaParent().title;
+        if (droparea.getXiaParent().options.indexOf("direct-link") != -1) {
+            location.href = droparea.getXiaParent().title;
         }        
         
         var viewportHeight = $(window).height();
@@ -221,6 +248,12 @@ hooks.prototype.afterIaObjectDragEnd = function(iaScene, idText, iaObject, event
                 $(this)[0].play();
             }
         });         
+    }
+    else {
+        if (iaObject.match) {
+            iaObject.match = false;
+            iaScene.currentScore -= 1;
+        }            
     }
 };
 
