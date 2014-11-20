@@ -44,11 +44,14 @@ class hook:
         final_str += u'</article>\n'
         for i, detail in enumerate(self.iaobject.details):
             if detail['options'].find(u"direct-link") == -1:
-                final_str += u'<article class="detail_content" id="article-'+unicode(str(i), "utf8") + u'">\n'
+                dataState = "full"
+                if self.PageFormatter(detail["detail"]).print_html() == "":
+                    dataState = "void"
+                final_str += u'<article class="detail_content" data-state="' + dataState + '" id="article-'+unicode(str(i), "utf8") + u'">\n'
                 final_str += '<img class="article_close" src="img/close.png" alt="close"/>'
                 if detail['title'] != "":
                     final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
-                final_str += u'  <p>' + self.PageFormatter(detail["detail"]).print_html() + u'<p>\n'
+                final_str += u'  <div>' + self.PageFormatter(detail["detail"]).print_html() + u'</div>\n'
                 final_str += u'</article>\n'
 
         with open(templatePath,"r") as template:

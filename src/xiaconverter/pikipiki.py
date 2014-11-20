@@ -283,6 +283,7 @@ class PageFormatter:
         indent_re = re.compile("^\s*")
         eol_re = re.compile(r'\r?\n')
         raw = string.expandtabs(self.raw)
+        html_feed = u'<br>\n'
 
         # fix some elements
         fix_element = re.sub(r"\[\[(.*?)\:", r"[[\1:\n", raw)
@@ -292,7 +293,7 @@ class PageFormatter:
         for line in eol_re.split(raw):
             if not self.in_pre:
                 if blank_re.match(line):
-                    self.final_str += u'<br>\n'
+                    self.final_str += html_feed
                     continue
                 indent = indent_re.match(line)
                 self.final_str += self._indent_to(len(indent.group(0)))
@@ -309,4 +310,7 @@ class PageFormatter:
             self.hidden_block.pop(0)
             self.final_str += u'</div>\n'
         self.final_str += self._undent()
-        return self.final_str
+        if self.final_str == html_feed:
+            return ""
+        else:
+            return self.final_str

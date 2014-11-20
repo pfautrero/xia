@@ -199,7 +199,7 @@ class TestPageFormatter:
         assert_equal(expected_output, output)
 
         raw = " ";
-        expected_output = '<br>\n';
+        expected_output = '';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
 

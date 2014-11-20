@@ -184,12 +184,14 @@ hooks.prototype.afterIaObjectZoom = function(iaScene, idText, iaObject) {
  *  
  */
 hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
-    $("#content").show();
-    $(".detail_content").hide();
-    $('#' + idText).show();
-    $('#' + idText + " audio").each(function(){
-        if ($(this).data("state") === "autostart") {
-            $(this)[0].play();
-        }
-    });
+    if ($('#' + idText).data("state") != "void") {
+        $("#content").show();
+        $(".detail_content").hide();
+        $('#' + idText).show();
+        $('#' + idText + " audio").each(function(){
+            if ($(this).data("state") === "autostart") {
+                $(this)[0].play();
+            }
+        });
+    }
 };
