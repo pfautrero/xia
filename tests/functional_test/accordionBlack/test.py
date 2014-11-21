@@ -208,7 +208,7 @@ Réponse:LA réponse à la question<br>
 		    }
            """
     def check_element(self,visible="0XXXX0XXXX0"):
-        time.sleep(3)
+        time.sleep()
         driver = self.driver
         elements = [
             "id('popup')",
