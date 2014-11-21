@@ -187,7 +187,7 @@ class PageFormatter:
             if code_present:
                 password = code_present.group(1)
                 stack_value = password
-                data_password = 'data-password="' + hashlib.sha1(password).hexdigest() + '"'
+                data_password = 'data-password="' + hashlib.sha1(password.encode("utf-8")).hexdigest() + '"'
                 content = re.sub('\(code=(.*)\)', '', content)
             
             random_id = hashlib.md5(str(uuid.uuid1())).hexdigest()

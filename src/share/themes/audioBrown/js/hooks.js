@@ -100,7 +100,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         e.preventDefault();
         var entered_password = $(this).parent().children("input[type=text]").val();
         var sha1Digest= new createJs(true);
-        sha1Digest.update(entered_password);
+        sha1Digest.update(entered_password.encode());
         var hash = sha1Digest.digest();
         if (hash == $(this).data("password")) {
             var target = $(this).data("target");
