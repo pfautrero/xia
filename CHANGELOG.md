@@ -1,3 +1,29 @@
+Version 1.0-beta4 - 21/11/2014
+-------------------------------
+
+- XIA est compatible avec les ressources issues de IA1
+- Le mode "lier les images" d'inkscape n'a désormais plus d'incidence sur XIA
+- bugfix : les mots de passe du module quiz peuvent comporter des caractères
+accentués
+- Les vidéos et les sons s'arrêtent à la fermeture des popups
+- Si la description d'un détail est vide, la popup liée n'est plus visible
+- AccordionBlack : l'accordéon laisse apparaître un ascenseur vertical s'il est
+trop long
+- Le moteur de zoom dans les images interactives est plus fluide et plus rapide
+- gameDragAndDrop : la balise <magnet> existe maintenant aussi de manière
+ globale. De plus, si elle est sur "on", toutes les zones de drop sont 
+aimantées pour tous les détails.
+- bugfix : les transformations du plan appliquées sur des groupes imbriqués
+fonctionnent désormais comme prévu.
+- Mise en place des nouveaux logos xia 
+- gameclic : grosse amélioration de la vitesse de détection des zones de survol
+- Export fichier unique disponible
+- Export firefox os en option
+- moteur de wiki : les liens relatifs sont autorisés dans les hyperliens
+- Système de double-scoring disponible dans gameclic
+- mise à jour de la documentation
+- développement des tests fonctionnels en cours
+
 Version 1.0-beta3 - 29/10/2014
 -------------------------------
 
