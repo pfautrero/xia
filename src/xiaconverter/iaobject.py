@@ -61,6 +61,7 @@ class iaObject:
 
         self.translation = 0
         self.jsonContent = ""
+        self.filePath = ""
         
     def get_tag_value(self,node):
         if node.childNodes:
@@ -167,7 +168,24 @@ class iaObject:
         self.scene.clear()
         self.translation = 0
         self.ratio = 1
+
+        # workaround to be able to read svg files 
+        # generated with images actives 1
+        # (xlink namespace is not available and must be added)
+        
+        with open(filePath, 'r') as svgfile:
+            svgcontent = svgfile.read()
+            if not re.search(r'xmlns:xlink=', svgcontent, re.M):
+                svgcontent = svgcontent.replace("<svg", '<svg\nxmlns:xlink="http://www.w3.org/1999/xlink"')
+                dirname = os.path.dirname(filePath)
+                basename = os.path.basename(filePath)
+                fixedfile = dirname + "/fixed_" + basename
+                with open(fixedfile, 'w') as tempsvgfile:
+                    tempsvgfile.write(svgcontent)
+                filePath = fixedfile
+        
         self.filePath = filePath
+
         
         self.xml = minidom.parse(filePath)
 
