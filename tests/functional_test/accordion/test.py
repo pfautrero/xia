@@ -153,7 +153,7 @@ Réponse:LA réponse à la question<br>
         self.check_element("popup")
         driver.find_element_by_id("popup_close").click()
         self.check_element()
-        driver.execute_script(self.click_zone("Son 2"))
+        driver.execute_script(self.click_zone("son 2"))
         self.check_element("collapse5")
         driver.find_element_by_id("collapse0-heading").click()
         self.check_element("collapse0")
