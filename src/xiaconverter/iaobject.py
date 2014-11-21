@@ -134,12 +134,40 @@ class iaObject:
                     self.scene['contributor'] = self.get_tag_value(\
                       metadata_value.item(0))
 
+    def extractRaster(self,xlink):
+        """ extract raster from xlink:href attribute """
+        raster = xlink
+        if not xlink.startswith("data:"):
+            strStarter = 0
+            if xlink.startswith("file://"):
+                strStarter = len("file://")
+            # Embed image thanks to data URI Scheme
+            imgName, imgExtension = os.path.splitext(xlink[strStarter:])
+            imgMimeTypes = {}
+            imgMimeTypes['.png'] = 'image/png'
+            imgMimeTypes['.jpg'] = 'image/jpeg'
+            imgMimeTypes['.jpeg'] = 'image/jpeg'
+            imgMimeTypes['.gif'] = 'image/gif'
+            imgMimeTypes['.bmp'] = 'image/bmp'
+            rasterPref = u"data:" + \
+                imgMimeTypes[imgExtension.lower()] + u";base64,"
+            if os.path.exists(xlink[strStarter:]):
+                imgFile = xlink[strStarter:]
+            else:
+                localDir = os.path.dirname(self.filePath)
+                imgFile = localDir + "/" + xlink[strStarter:]
+            if os.path.exists(imgFile):    
+                with open(imgFile, 'rb') as img:
+                    raster = rasterPref + img.read().encode("base64", "strict")        
+        return raster
+    
     def analyzeSVG(self,filePath, maxNumPixels):
         """analyze svg file and fill self.details and self.scene"""
         self.details = []
         self.scene.clear()
         self.translation = 0
         self.ratio = 1
+        self.filePath = filePath
         
         self.xml = minidom.parse(filePath)
 
@@ -201,6 +229,7 @@ class iaObject:
                 #if title.item(0).parentNode == image:
                 self.scene['intro_title'] = self.get_tag_value(title.item(0))
 
+            """
             self.raster = image.attributes['xlink:href'].value
             if image.attributes['xlink:href'].value.startswith("file://"):
                 # Embed background image thanks to data URI Scheme
@@ -218,6 +247,9 @@ class iaObject:
                   bgImage:
                     self.raster = self.rasterPrefix + \
                         bgImage.read().encode("base64", "strict")
+            """
+            
+            self.raster = self.extractRaster(image.attributes['xlink:href'].value)
             self.scene['image'] = self.raster
 
             # calculate ratio to resize background image down to maxNumPixels
@@ -301,7 +333,8 @@ class iaObject:
             record_image['id'] =  hashlib.md5(str(datetime.now().microsecond)).hexdigest()
             if image.hasAttribute('id'):
                 record_image['id'] = image.attributes['id'].value
-            record_image['image'] = image.attributes['xlink:href'].value
+            raster = self.extractRaster(image.attributes['xlink:href'].value)                
+            record_image['image'] = raster
             record_image['width'] = image.attributes['width'].value
             record_image['height'] = image.attributes['height'].value
             record_image['detail'] = self.getText("desc", image)
