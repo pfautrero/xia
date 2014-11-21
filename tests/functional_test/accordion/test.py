@@ -35,7 +35,7 @@ class Test(unittest.TestCase):
         self.assertTrue(driver.find_element_by_id("collapse0-heading").is_displayed())
         self.assertEqual("Titre de l'ellipse", driver.find_element_by_id("collapse1-heading").text)
         self.assertTrue(driver.find_element_by_id("collapse1-heading").is_displayed())
-        self.assertEqual("Titre de l'étoile {{{Texte brut}}}", driver.find_element_by_id("collapse2-heading").text)
+        self.assertEqual(u"Titre de l'étoile {{{Texte brut}}}", driver.find_element_by_id("collapse2-heading").text)
         self.assertTrue(driver.find_element_by_id("collapse2-heading").is_displayed())
         self.assertEqual("Titre de ligne", driver.find_element_by_id("collapse3-heading").text)
         self.assertTrue(driver.find_element_by_id("collapse3-heading").is_displayed())
@@ -45,84 +45,139 @@ class Test(unittest.TestCase):
         self.assertTrue(driver.find_element_by_id("collapse5-heading").is_displayed())
         self.assertEqual("Son 1", driver.find_element_by_id("collapse6-heading").text)
         self.assertTrue(driver.find_element_by_id("collapse6-heading").is_displayed())
-        self.assertEqual("Michaël Nourry", driver.find_element_by_xpath("id('popup_text')/x:p[2]").text)
-        self.assertFalse(driver.find_element_by_xpath("id('popup_text')/x:p[2]").is_displayed())
-        self.assertEqual("Description de l'image", driver.find_element_by_xpath("id('collapsecomment')/x:div").text)
-        self.assertFalse(driver.find_element_by_xpath("id('collapsecomment')/x:div").is_displayed())
+        self.assertEqual("""Description de l'image<video controls="" preload="none" data-state="none">
+	            <source type="video/mp4" src="../media-share/1.mp4">
+	            <source type="video/ogg" src="../media-share/1.ogv">
+	            <source type="video/webm" src="../media-share/1.webm">
+            </video>
+
+        """, driver.find_element_by_xpath("//div[@id='collapsecomment']/div").get_attribute('innerHTML'))
         self.assertTrue(self.is_element_present(By.XPATH, "//div[@id='collapsecomment']/div/video"))
-        self.assertFalse(driver.find_element_by_xpath("//div[@id='collapsecomment']/div/video").is_displayed())
-        self.assertEqual("Description du rectangle gras italiqueRéponse:Voici la vidéo :", driver.find_element_by_xpath("id('collapse0')/x:div").text)
-        self.assertFalse(driver.find_element_by_xpath("id('collapse0')/x:div").is_displayed())
-        self.assertTrue(self.is_element_present(By.XPATH, "id('collapse0')/x:div/x:video"))
-        self.assertFalse(driver.find_element_by_xpath("id('collapse0')/x:div/x:video").is_displayed())
-        self.assertEqual("Description de l'ellipse une liste Le site de la Danede puces sur 2niveaux\n Quelle est la bonne réponse ?", driver.find_element_by_xpath("id('collapse1')/x:div/x:ul/x:li[1]").text)
-        self.assertFalse(driver.find_element_by_xpath("id('collapse1')/x:div/x:ul/x:li[1]").is_displayed())
-        self.assertTrue(self.is_element_present(By.XPATH, "id('collapse1')/x:div/x:img"))
-        self.assertFalse(driver.find_element_by_xpath("id('collapse1')/x:div/x:img").is_displayed())
-        self.assertEqual("Description de l'étoile Le site de la Dane Texte brut", driver.find_element_by_xpath("id('collapse2')/x:div").text)
-        self.assertFalse(driver.find_element_by_xpath("id('collapse2')/x:div").is_displayed())
-        self.assertTrue(self.is_element_present(By.XPATH, "id('collapse2')/x:div/x:img"))
-        self.assertFalse(driver.find_element_by_xpath("id('collapse2')/x:div/x:img").is_displayed())
-        self.assertEqual("Description de ligne1", driver.find_element_by_xpath("id('collapse3')/x:div").text)
-        self.assertFalse(driver.find_element_by_xpath("id('collapse3')/x:div").is_displayed())
-        self.assertTrue(self.is_element_present(By.XPATH, "id('collapse3')/x:div/x:video"))
-        self.assertFalse(driver.find_element_by_xpath("id('collapse3')/x:div/x:video").is_displayed())
-        self.assertEqual("Description de beziertracer une ligne", driver.find_element_by_xpath("id('collapse4')/x:div").text)
-        self.assertFalse(driver.find_element_by_xpath("id('collapse4')/x:div").is_displayed())
-        self.assertTrue(self.is_element_present(By.XPATH, "id('id('collapse4')/x:div/x:img"))
-        self.assertFalse(driver.find_element_by_xpath("id('id('collapse4')/x:div/x:img").is_displayed())
-        self.assertEqual("le son 2 ! Réponse:LA réponse à la question", driver.find_element_by_xpath("id('collapse5')/x:div").text)
-        self.assertFalse(driver.find_element_by_xpath("id('collapse5')/x:div").is_displayed())
-        self.assertTrue(self.is_element_present(By.XPATH, "id('collapse5')/x:div/x:audio"))
-        self.assertFalse(driver.find_element_by_xpath("id('collapse5')/x:div/x:audio").is_displayed())
-        self.assertEqual("le son 1 !", driver.find_element_by_xpath("id('collapse6')/x:div").text)
-        self.assertFalse(driver.find_element_by_xpath("id('collapse6')/x:div").is_displayed())
-        self.assertTrue(self.is_element_present(By.XPATH, "id('collapse6')/x:div/x:audio"))
-        self.assertFalse(driver.find_element_by_xpath("id('collapse6')/x:div/x:audio").is_displayed())
+        self.assertEqual("""
+          <div class="accordion-inner">Description du rectangle <b>gras</b> <em>italique</em>Réponse:Voici la vidéo :<video controls="" preload="none" data-state="none">
+	            <source type="video/mp4" src="../media-share/1.mp4">
+	            <source type="video/ogg" src="../media-share/1.ogv">
+	            <source type="video/webm" src="../media-share/1.webm">
+            </video>
+
+          </div>
+      """, driver.find_element_by_xpath("//div[@id='collapse0']").get_attribute('innerHTML'))
+        self.assertTrue(self.is_element_present(By.XPATH, "id('collapse0')/div/video"))
+        self.assertEqual("""
+          <div class="accordion-inner">Description de l'ellipse<ul>
+<li>une liste  <a href="http://dane.ac-versailles.fr" target="_blank">Le site de la Dane</a></li><li>de puces</li><ul>
+<li>sur 2</li><li>niveaux</li><br>
+</ul>
+</ul>
+Quelle est la bonne réponse ?<img src="../media-share/1.jpg">
+
+          </div>
+      """, driver.find_element_by_xpath("//div[@id='collapse1']").get_attribute('innerHTML'))
+        self.assertTrue(self.is_element_present(By.XPATH, "id('collapse1')/div/img"))
+        self.assertEqual("""
+          <div class="accordion-inner">Description de l'étoile<ul>
+ <a href="http://dane.ac-versailles.fr" target="_blank">Le site de la Dane</a></ul>
+<pre>Texte brut</pre>
+<br>
+<img src="../media-share/1.gif">
+
+          </div>
+      """, driver.find_element_by_xpath("//div[@id='collapse2']").get_attribute('innerHTML'))
+        self.assertTrue(self.is_element_present(By.XPATH, "id('collapse2')/div/img"))
+        self.assertEqual("""
+          <div class="accordion-inner">Description de ligne1<br>
+<video controls="" preload="none" data-state="autostart">
+	            <source type="video/mp4" src="../media-share/1.mp4">
+	            <source type="video/ogg" src="../media-share/1.ogv">
+	            <source type="video/webm" src="../media-share/1.webm">
+            </video>
+<br>
+
+          </div>
+      """, driver.find_element_by_xpath("//div[@id='collapse3']").get_attribute('innerHTML'))
+        self.assertTrue(self.is_element_present(By.XPATH, "id('collapse3')/div/video"))
+        self.assertEqual("""
+          <div class="accordion-inner">Description de beziertracer
+<hr>
+une ligne<br>
+<img src="../media-share/1.png">
+
+          </div>
+      """, driver.find_element_by_xpath("//div[@id='collapse4']").get_attribute('innerHTML'))
+        self.assertTrue(self.is_element_present(By.XPATH, "id('collapse4')/div/img"))
+        self.assertEqual("""
+          <div class="accordion-inner">le son 2 ! <audio controls="" data-state="autostart">
+	            <source type="audio/ogg" src="../media-share/1.ogg">
+	            <source type="audio/mp3" src="../media-share/1.mp3">
+            </audio>
+Réponse:LA réponse à la question<br>
+
+          </div>
+      """, driver.find_element_by_xpath("//div[@id='collapse5']").get_attribute('innerHTML'))
+        self.assertTrue(self.is_element_present(By.XPATH, "id('collapse5')/div/audio"))
+        self.assertEqual("""
+          <div class="accordion-inner">le son 1 !<audio controls="" data-state="none">
+	            <source type="audio/ogg" src="../media-share/1.ogg">
+	            <source type="audio/mp3" src="../media-share/1.mp3">
+            </audio>
+
+          </div>
+      """, driver.find_element_by_xpath("//div[@id='collapse6']").get_attribute('innerHTML'))
+        self.assertTrue(self.is_element_present(By.XPATH, "id('collapse6')/div/audio"))
+        self.check_element()
+        driver.find_element_by_css_selector("a.infos").click()
+        self.assertEqual("Michaël Nourry", driver.find_element_by_xpath("//article[@id='popup_text']/p[2]").text)
+        self.check_element("id('popup')")
+        
         
     def test_nav_1(self):
         driver = self.driver
         driver.get(self.base_url)
         driver.find_element_by_id("collapsecomment-heading").click()
+        self.check_element("collapsecomment")
         driver.find_element_by_id("collapse0-heading").click()
-        script = """
-		    for (var i in Kinetic.shapes) {
-			    if (Kinetic.shapes[i].attrs['name'] == 'Son 1') {
-				    Kinetic.shapes[i].fire('click');
-			    }
-		    }
-           """
-        driver.execute_script(script)
+        self.check_element("collapse0")
+        driver.execute_script(self.click_zone("Son 1"))
+        self.check_element("collapse6")
         driver.find_element_by_xpath("//div[@id='canvas']/div/canvas[4]").click()
+        self.check_element("collapse6")
         driver.find_element_by_id("collapse5-heading").click()
-        driver.find_element_by_id("collapse6-heading").click() 
+        self.check_element("collapse5")
+        driver.find_element_by_id("collapse6-heading").click()
+        self.check_element("collapse6")
         
     def test_nav_2(self):
         driver = self.driver
         driver.get(self.base_url)
-        try: self.assertTrue(driver.find_element_by_xpath("//div[@id='collapse4']/div/hr").is_displayed())
-        except AssertionError as e: self.verificationErrors.append(str(e))
-        self.assertEqual("Description de beziertracer \n une ligne", driver.find_element_by_xpath("//div[@id='collapse4']/div").text)
         driver.find_element_by_css_selector("a.infos").click()
+        self.check_element("popup")
         driver.find_element_by_id("popup_close").click()
+        self.check_element()
+        driver.execute_script(self.click_zone("son 2"))
+        self.check_element("collapse5")
         driver.find_element_by_id("collapse0-heading").click()
+        self.check_element("collapse0")
         driver.find_element_by_id("collapse1-heading").click()
+        self.check_element("collapse1")
         driver.find_element_by_id("collapse2-heading").click()
+        self.check_element("collapse2")
         driver.find_element_by_id("collapse4-heading").click()
+        self.check_element("collapse4")
         driver.find_element_by_id("collapse5-heading").click()
+        self.check_element("collapse5")
         driver.find_element_by_id("collapse6-heading").click()
+        self.check_element("collapse6")
         driver.find_element_by_id("collapsecomment-heading").click()
-        driver.find_element_by_id("collapsecomment-heading").click()
+        self.check_element("collapsecomment")
         driver.find_element_by_id("collapse0-heading").click()
-        driver.find_element_by_css_selector("#collapse0 > div.accordion-inner").click()
+        self.check_element("collapse0")
         self.assertEqual("Description du rectangle gras italiqueRéponse:Voici la vidéo :", driver.find_element_by_css_selector("#collapse0 > div.accordion-inner").text)
         driver.find_element_by_id("collapsecomment-heading").click()
+        self.check_element("collapsecomment")
         driver.find_element_by_id("collapse0-heading").click()
-        self.assertEqual("Description de l'image", driver.find_element_by_css_selector("div.accordion-inner").text)
-        self.assertTrue(self.is_element_present(By.CSS_SELECTOR, "#collapse0 > div.accordion-inner > video"))
-        self.assertEqual("", driver.find_element_by_css_selector("#collapse0 > div.accordion-inner > video").text)
-        self.assertEqual("Description de beziertracer \n une ligne", driver.find_element_by_css_selector("//div[@id='collapse4']/div").text)
+        self.check_element("collapse0")
         driver.find_element_by_id("collapse4-heading").click()
+        self.check_element("collapse4")
 
     def is_element_present(self, how, what):
         try: self.driver.find_element(by=how, value=what)
@@ -144,10 +199,45 @@ class Test(unittest.TestCase):
                 alert.dismiss()
             return alert_text
         finally: self.accept_next_alert = True
-    
+    def click_zone(self,zone):
+        return """
+		    for (var i in Kinetic.shapes) {
+			    if (Kinetic.shapes[i].attrs['name'] == '"""+zone+"""') {
+				    Kinetic.shapes[i].fire('click');
+			    }
+		    }
+           """
+    def check_element(self,visible="0XXXX0XXXX0"):
+        time.sleep()
+        driver = self.driver
+        elements = [
+            "id('popup')",
+            "id('collapsecomment')/div",
+            "//div[@id='collapsecomment']/div/video",
+            "id('collapse0')/div",
+            "id('collapse0')/div/video",
+            "id('collapse1')/div/ul",
+            "id('collapse1')/div/img",
+            "id('collapse2')/div",
+            "id('collapse2')/div/img",
+            "id('collapse3')/div",
+            "id('collapse3')/div/video",
+            "id('collapse4')/div",
+            "id('collapse4')/div/img",
+            "id('collapse5')/div",
+            "id('collapse5')/div/audio",
+            "id('collapse6')/div",
+            "id('collapse6')/div/audio"
+            ]
+        for id in elements:
+            if id.find(visible)+1:
+                self.assertTrue(driver.find_element_by_xpath(id).is_displayed())
+            else:
+                self.assertFalse(driver.find_element_by_xpath(id).is_displayed())
+
     def tearDown(self):
         self.driver.quit()
-        self.assertEqual([], self.verificationErrors)
+#        self.assertEqual([], self.verificationErrors)
         display.stop()
 
 if __name__ == "__main__":
