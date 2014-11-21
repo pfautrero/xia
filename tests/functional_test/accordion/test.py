@@ -154,7 +154,7 @@ Réponse:LA réponse à la question<br>
         driver.find_element_by_id("popup_close").click()
         self.check_element()
         driver.execute_script(self.click_zone("Son 2"))
-        self.check_element("collapse6")
+        self.check_element("collapse5")
         driver.find_element_by_id("collapse0-heading").click()
         self.check_element("collapse0")
         driver.find_element_by_id("collapse1-heading").click()
@@ -208,7 +208,7 @@ Réponse:LA réponse à la question<br>
 		    }
            """
     def check_element(self,visible="0XXXX0XXXX0"):
-        time.sleep(1)
+        time.sleep(3)
         driver = self.driver
         elements = [
             "id('popup')",
