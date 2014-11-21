@@ -166,6 +166,11 @@ class PageFormatter:
             word_displayed = word_url
         return u'<a href="%s" target="_blank">%s</a>' %(word_url, word_displayed)
 
+    def _ialink_repl(self, word):
+        """compatibility with image active 1 format"""
+        subword = word.split("@")
+        return u'<a href="%s" target="_blank">%s</a>' %(subword[1][:-1], subword[0][1:])
+
     def _pre_repl(self, word):
         if word == '{{{' and not self.in_pre:
             self.in_pre = 1
@@ -273,6 +278,7 @@ class PageFormatter:
             + r"|(?P<audiostart>[^\s'\"]+\.(ogg|mp3)(\s*)autostart$)"
             + r"|(?P<audio>[^\s'\"]+\.(ogg|mp3)$)"
             + r"|(?P<url>(http|ftp|nntp|news|mailto|https)\:[^\s'\"]+\S)"
+            + r"|(?P<ialink>\{(.*)\@(.*)\})"
             + r"|(?P<email>[-\w._+]+\@[\w.-]+)"
             + r"|(?P<li>^\s+\*(.*))"
             + r"|(?P<nothandled>nothandled)"
