@@ -429,7 +429,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 
                 that.alpha = 0;
                 that.step = 0.1;
-                var personalTween = function() {
+                var personalTween = function(anim) {
                     // linear
                     var tempX = that.originalX[0] + that.alpha.toFixed(2) * (that.tweenX - that.originalX[0]);
                     var tempY = that.originalY[0] + that.alpha.toFixed(2) * (that.tweenY - that.originalY[0]);
@@ -437,18 +437,28 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     var t = null;                    
                     if (that.alpha.toFixed(2) <= 1) {
                         that.alpha = that.alpha + that.step;
+                        //that.group.hide();
+                        //that.group.draw();
                         that.group.x(tempX);
                         that.group.y(tempY);
                         that.group.scaleX(tempScale);
                         that.group.scaleY(tempScale);
-                        that.layer.draw();
-                        t = setTimeout(personalTween, 30);
+                        //that.group.show();
+                        //that.group.draw();
+                        //t = setTimeout(personalTween, 30);
                     }
                     else {
-                        clearTimeout(t);
+                        //clearTimeout(t);
+                        anim.stop();
                     }
                 };
-                var t = setTimeout(personalTween, 30);
+                //var t = setTimeout(personalTween, 30);
+                
+                var anim = new Kinetic.Animation(function(frame) {
+                  personalTween(this);
+                }, that.layer);
+
+                anim.start();   
 
             }
             // let's unzoom

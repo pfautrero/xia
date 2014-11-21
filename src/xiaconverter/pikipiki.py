@@ -187,7 +187,7 @@ class PageFormatter:
             if code_present:
                 password = code_present.group(1)
                 stack_value = password
-                data_password = 'data-password="' + hashlib.sha1(password).hexdigest() + '"'
+                data_password = 'data-password="' + hashlib.sha1(password.encode("utf-8")).hexdigest() + '"'
                 content = re.sub('\(code=(.*)\)', '', content)
             
             random_id = hashlib.md5(str(uuid.uuid1())).hexdigest()
@@ -277,22 +277,26 @@ class PageFormatter:
             + r"|(?P<li>^\s+\*(.*))"
             + r"|(?P<nothandled>nothandled)"
             + r"|(?P<pre>(\{\{\{|\}\}\}))"
-            + r"|(?P<hidden_block>(\[\[(.*?)\:|(.*)\]\]))"
+            + r"|(?P<hidden_block>(\[\[(.*?)\:|\]\]))"
             + r")")
         blank_re = re.compile("^\s*$")
         indent_re = re.compile("^\s*")
         eol_re = re.compile(r'\r?\n')
         raw = string.expandtabs(self.raw)
+        html_feed = u'<br>\n'
 
         # fix some elements
-        fix_element = re.sub(r"\[\[(.*?)\:", r"[[\1:\n", raw)
+        fix_element = re.sub(r"\[\[(.*?):", r"[[\1:\n", raw)
+        raw = fix_element
+
+        fix_element = re.sub(r"(.*?)\]\]", r"\1\n]]", raw)
         raw = fix_element
 
         # loop on lines
         for line in eol_re.split(raw):
             if not self.in_pre:
                 if blank_re.match(line):
-                    self.final_str += u'<br>\n'
+                    self.final_str += html_feed
                     continue
                 indent = indent_re.match(line)
                 self.final_str += self._indent_to(len(indent.group(0)))
@@ -309,4 +313,7 @@ class PageFormatter:
             self.hidden_block.pop(0)
             self.final_str += u'</div>\n'
         self.final_str += self._undent()
-        return self.final_str
+        if self.final_str == html_feed:
+            return ""
+        else:
+            return self.final_str

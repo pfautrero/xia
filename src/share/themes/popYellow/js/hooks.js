@@ -94,7 +94,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         e.preventDefault();
         var entered_password = $(this).parent().children("input[type=text]").val();
         var sha1Digest= new createJs(true);
-        sha1Digest.update(entered_password);
+        sha1Digest.update(entered_password.encode());
         var hash = sha1Digest.digest();
         if (hash == $(this).data("password")) {
             var target = $(this).data("target");
@@ -138,6 +138,12 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         $(this).hide();
         $(".detail_content").hide();
         $("#content").hide();
+        $(this).parent().children("audio").each(function(){
+            $(this)[0].pause();
+        });
+        $(this).parent().children("video").each(function(){
+            $(this)[0].pause();
+        });                
     });
     
     document.addEventListener("click", function(ev){
@@ -180,21 +186,22 @@ hooks.prototype.afterIaObjectZoom = function(iaScene, idText, iaObject) {
  *  
  */
 hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
-    var viewportHeight = $(window).height();
-    $("#content").show();
-    $(".detail_content").hide();
-    $('#' + idText).show();
-    $('.article_close').show();
-    $('.article_close').css({"top":$('#' + idText).offset().top - 20});
-    $('.article_close').css({"left":($('#content').width() - 40) / 2});
-    $('#' + idText + " audio").each(function(){
-        if ($(this).data("state") === "autostart") {
-            $(this)[0].play();
-        }
-    });                
-    var article_border = $('#' + idText).css("border-top-width").substr(0,$('#' + idText).css("border-top-width").length - 2);
-    var article_offset = $('#' + idText).offset();
-    var content_offset = $("#content").offset();
-    $('#' + idText).css({'max-height':(viewportHeight - article_offset.top - content_offset.top - 2 * article_border)});
-                
+    if ($('#' + idText).data("state") != "void") {    
+        var viewportHeight = $(window).height();
+        $("#content").show();
+        $(".detail_content").hide();
+        $('#' + idText).show();
+        $('.article_close').show();
+        $('.article_close').css({"top":$('#' + idText).offset().top - 20});
+        $('.article_close').css({"left":($('#content').width() - 40) / 2});
+        $('#' + idText + " audio").each(function(){
+            if ($(this).data("state") === "autostart") {
+                $(this)[0].play();
+            }
+        });                
+        var article_border = $('#' + idText).css("border-top-width").substr(0,$('#' + idText).css("border-top-width").length - 2);
+        var article_offset = $('#' + idText).offset();
+        var content_offset = $("#content").offset();
+        $('#' + idText).css({'max-height':(viewportHeight - article_offset.top - content_offset.top - 2 * article_border)});
+    }
 };

@@ -137,3 +137,28 @@ String.prototype.decode = function(encoding) {
  
     return result;
 };
+
+String.prototype.encode = function(encoding) {
+    var result = "";
+ 
+    var s = this.replace(/\r\n/g, "\n");
+ 
+    for(var index = 0; index < s.length; index++) {
+        var c = s.charCodeAt(index);
+ 
+        if(c < 128) {
+            result += String.fromCharCode(c);
+        }
+        else if((c > 127) && (c < 2048)) {
+            result += String.fromCharCode((c >> 6) | 192);
+            result += String.fromCharCode((c & 63) | 128);
+        }
+        else {
+            result += String.fromCharCode((c >> 12) | 224);
+            result += String.fromCharCode(((c >> 6) & 63) | 128);
+            result += String.fromCharCode((c & 63) | 128);
+        }
+    }
+ 
+    return result;
+};

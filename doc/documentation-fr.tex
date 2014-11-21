@@ -3,6 +3,7 @@
 \clearpage
 \documentclass[a4paper,12pt]{report}
 \usepackage[utf8]{inputenc}
+\usepackage[english,french]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern,textcomp}
 \usepackage{graphicx}
@@ -94,6 +95,7 @@ xsep=1em,inner ysep=1ex]
 
 
 \begin{document}
+ \selectlanguage{french}
  \maketitle
  \tableofcontents
   
@@ -181,7 +183,7 @@ poursuite de la lecture de cette documentation. Vous trouverez les
 informations nécessaires à l'installation de ces logiciels sur leurs sites
 web respectifs\footnote{Voir le site
 d'\href{http://www.inkscape.org/}{Inkscape} et celui de \href
-{http://images-actives.crdp-versailles.fr/beta/}{Xia}.}.
+{http://xia.dane.ac-versailles.fr/}{Xia}.}.
 
 \section{Création d'une première image interactive avec Inkscape et Xia:
 \emph{Fonctionnalités de base}}\label{basic_imageactive}
@@ -190,12 +192,11 @@ d'\href{http://www.inkscape.org/}{Inkscape} et celui de \href
 l'image interactive}\label{preparation_svg}
 
 \begin{links}
-Visualisez
-l'\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1}{"l'image
-interactive"} créée pour cette partie de la documentation.
+Visualisez l'\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1}{image
+interactive} créée pour cette partie de la documentation.
 
 Téléchargez le fichier source au format
-\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/svg/xia1.svg}{svg}.
+\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/svg/xia1.svg}{svg}.
 \end{links}
 
 Les manipulations décrites dans cette partie de la documentation vous
@@ -225,7 +226,7 @@ en forme de lettre «~i~».}.
 \begin{figure}[htp]
  \centering
  \includegraphics[width=\textwidth,clip=true,trim=0mm 120mm 55mm 0mm ]{images/titre_ia}
- \caption[How do metadata display in the html5 animation]{Le titre renseigné dans les métadonnées du document apparaissent au-dessus
+ \caption[Affichage des métadonnées dans l'animation html5]{Le titre renseigné dans les métadonnées du document apparaissent au-dessus
 de l'image interactive et donnent son nom à la page web l'affichant. Le
 créateur et les droits associés apparaissent dans la pop up accessible via
 l'icône «~i~» située à droite du titre de l'image-active.}
@@ -301,7 +302,7 @@ texte qui sera associé au détail dans l'image interactive.
 \begin{figure}[htp]
  \centering
  \includegraphics[width=0.5\textwidth, clip=true, trim=0mm 60mm 0mm 0mm]{./images/proprietes_objet}
- \caption[The "Object Properties" of the detail in Inkscape]{Les \chemin{Propriétés de l'objet} permettent de renseigner le texte qui
+ \caption[«~Propriétés de l'objet~» du détail détouré]{Les \chemin{Propriétés de l'objet} permettent de renseigner le texte qui
 deviendra le commentaire du détail dans l'image interactive}
  \label{objet_properties}
 \end{figure}
@@ -385,28 +386,28 @@ of aCloud.north] (aBlack)
 aBlack] (params) {\includegraphics[scale=.35]{./images/params}}; \node[left
 = .2mm of params] (files) {\includegraphics[scale=.35]{./images/xia_open}};
   
-  \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the
-svg source file}; \node[box, above = 5mm of params] (paramsC) {Sélectionner
-la qualité de l'export}; \node[box,above right = 5mm of aCloud.north east]
-(aBlackC)
-{\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/accordionBlack}{accordionBlack}\\ 
+  \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Sélection
+du fichier source svg}; \node[box, above = 5mm of params] (paramsC)
+{Sélectionner la qualité de l'export}; \node[box,above right = 5mm of
+aCloud.north east] (aBlackC)
+{\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/accordionBlack}{accordionBlack}\\ 
 Zone de commentaire large, recommandé pour l'insertion de ressources
 multimédias; à utiliser avec des images verticales (portrait)}; \node[box,
 right = 5mm of guClic] (aCloudC)
-{\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/accordionCloud}{accordionCloud}\\ 
+{\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/accordionCloud}{accordionCloud}\\ 
 Zone de commentaires étroite, laissant davantage de place à l'image en
 elle-même ; à utiliser avec des images horizontales (paysage)}; \node[box,
 below right = 5mm of pYellow] (pYellowC)
-{\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/popYellow}{popYellow}\\ 
+{\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/popYellow}{popYellow}\\ 
 Pas de zone latérale de commentaire ; un premier clic sur le détail le met
 en évidence, et un second fait apparaître le commentaire et enclenche la
 fonction zoom}; \node[box, left = 25mm of bBlue] (bBlueC)
-{\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/buttonBlue}{buttonBlue}\\ 
+{\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/buttonBlue}{buttonBlue}\\ 
 Pas de zone latérale de commentaire ; les commentaires apparaissent
 au-dessus de l'image (recommandé pour les commentaires longs) ; les
 utilisateurs accèdent aux commentaires via des boutons situés au-dessus de
 l'image interactive}; \node[box, below left = 5mm of pBlue] (pBlueC)
-{\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/popBlue}{popBlue}\\ 
+{\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/popBlue}{popBlue}\\ 
 Pas de zone latérale de commentaire; un premier clic met en évidence le
 détail, un second fait apparaître le commentaire (pas de zoom)};
   
@@ -456,12 +457,11 @@ dans les champs \chemin{Titre} et \chemin{Description};
 \section{Images interactives enrichies}\label{enriched_IA}
 
 \begin{links}
-Visualisez
-l'\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2}{"image
-interactive"} créée pour cette partie de la documentation.
+Visualisez l'\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia2}{image
+interactive} créée pour cette partie de la documentation.
 
 Téléchargez le fichier source au format
-\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia2/svg/xia2.svg}{svg}.
+\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia2/svg/xia2.svg}{svg}.
 \end{links}
 
 Dans cette section, l'objectif demeure la création d'une image interactive
@@ -514,7 +514,7 @@ sur \\ ~$\ast$ 2 niveaux}; \node[box, right = 3.5cm of bullets.south east]
 \node[anchor=north west, below = 2cm of bullets] (line)
 {\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
 7mm of line.north] (lineT) {Tracer \\ - - - - \\ un trait}; \node[box, right
-= 3.5cm of line] (lineR) {Tracer \\ \hrulefill \\ un tait};
+= 3.5cm of line] (lineR) {Tracer \\ \hrulefill \\ un trait};
 \end{tikzpicture}
 \caption{Balises de mise en forme du texte}
 \label{xia_text_tags}
@@ -548,7 +548,7 @@ Le lien doit être inséré dans le champ \chemin{Description} des
 d'export de l'image-active, ou dans un répertoire contenu dans celui-ci,
 indiquez simplement le chemin vers le fichier, en considérant le répertoire
 d'export comme répertoire racine. Par exemple, si le fichier
-\verb|video.ogv] se trouve dans le répertoire  \verb|videos| se trouvant
+\verb|video.ogv| se trouve dans le répertoire  \verb|videos| se trouvant
 lui-même dans le répertoire de l'image interactive, indiquez:
  
  \verb|./videos/video.ogv|
@@ -609,7 +609,7 @@ l'illustration \ref{remplissage_blanc}).
 
 \begin{figure}[htp!]
  \centering\includegraphics[width=0.6\textwidth]{images/remplissage_blanc}
- \caption[How to apply a white background to the details]{Dans Inkscape, sélectionnez le png incorporé et appliquez-lui un fond blanc
+ \caption[Appliquer un fond blanc aux détails]{Dans Inkscape, sélectionnez le png incorporé et appliquez-lui un fond blanc
 en sélectionnant cette couleur dans la palette horizontale, afin de le
 rendre visible une fois l'image-active générée.} 
  \label{remplissage_blanc}
@@ -697,7 +697,7 @@ qu'à glisser-déposer celle-ci à l'endroit désiré (voir l'illustration
 \begin{figure}[htp]
  \centering
  \includegraphics[width=\textwidth]{images/ordre_couches}
- \caption[The Inkscape XML Editor and the display order of the details]{L'éditeur XML d'Inkscape permet de contrôler l'ordre d'affichage des détails
+ \caption[L'éditeur XML et l'ordre d'affichage des détails]{L'éditeur XML d'Inkscape permet de contrôler l'ordre d'affichage des détails
 dans l'image interactive. Remarquez la mise en évidence d'un élément sur
 l'image de fond par simple sélection dans l'éditeur.}
  \label{ordre_couches}
@@ -759,14 +759,14 @@ aBlack] (params) {\includegraphics[scale=.35]{./images/params}}; \node[left
 {Sélectionner le fichier source au format svg file}; \node[box, above = 5mm
 of params] (paramsC) {Sélectionner la qualité de l'export}; \node[box, right
 = 5mm of guClic] (guClicC)
-{\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/accordionCloud}{game1clic}\\ 
+{\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/accordionCloud}{game1clic}\\ 
 Sélectionner des détails sur l'image de fond \\ Explications dans la
 rubrique \ref{game1clicsection}}; \node[box, left = 25mm of bBlue] (aBrownC)
-{\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/buttonBlue}{audioBrown}\\ 
+{\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/buttonBlue}{audioBrown}\\ 
 Création d'une image interactive dans laquelle les détails sont associés à
 des sons \\ Explications dans la rubrique \ref{audioBrownsection}};
 \node[box, below left = 5mm of pBlue] (gDDropC)
-{\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia1/popBlue}{gameDragAndDrop}\\ 
+{\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/popBlue}{gameDragAndDrop}\\ 
 Glisser-déposer d'éléments graphiques sur l'image de fond \\ Explications
 dans la rubrique \ref{gameDragAndDropsection}};
   
@@ -789,12 +789,11 @@ apparaît.}
 
 
 \begin{links}
-Visualisez
-l'\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia3}{"image-active"}
-créée pour cette partie de la documentation.
+Visualisez l'\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1}{image
+interactive} créée pour cette partie de la documentation.
 
 Téléchargez le fichier source au format
-\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia3/svg/xia3.svg}{svg}.
+\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia3/svg/xia3.svg}{svg}.
 \end{links}
 
 Ce type de jeu est presque le type d'image interactive la plus facile à
@@ -804,8 +803,9 @@ sélectionner.
 Les consignes doivent être indiquées dans les métadonnées du document. Xia
 cherchera les informations relatives aux consignes dans le champ
 \chemin{Description} des métadonnées du doucment (voir la section
-\ref{preparation_svg}), et créera une pop up affichant ces consignes à
-l'ouverture du jeu. Le joueur pourra les lire, fermer la fenêtre puis jouer.
+\ref{preparation_svg}: \chemin{Fichier $\rightarrow$ Métadonnées du
+document}), et créera une pop up affichant ces consignes à l'ouverture du
+jeu. Le joueur pourra les lire, fermer la fenêtre puis jouer.
 
 Quand un joueur termine le jeu, un message apparaît automatiquement. Ce
 message doit être renseigné dans le champ \chemin{Description} des
@@ -830,7 +830,7 @@ lui-même.
     & \multicolumn{2}{|l|}{\texttt{Vous avez terminé le jeu!</message>}}\\
   \hline
  \end{tabular}
-\caption{Résumé des balises à utiliser}
+\caption{Résumé des balises du jeu game1clic}
 \label{tag1_sumup}
 \end{table}
  
@@ -923,12 +923,11 @@ fond. Quand tous les éléments ont été placés sur leur zone de dépôt, un
 message apparaît, annonçant la fin du jeu.
 
 \begin{links}
-Visualisez
-l'\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia5}{"image-active"}
-créée pour cette partie de la documentation.
+Visualisez l'\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1}{image
+interactive} créée pour cette partie de la documentation.
 
 Téléchargez le fichier source au format
-\href{http://images-actives.crdp-versailles.fr/beta/demo/tuto/xia5/svg/xia5.svg}{svg}.
+\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia5/svg/xia5.svg}{svg}.
 \end{links}
 
 Voici comment créer un jeu basé sur le principe du glisser-déposer:
@@ -939,6 +938,9 @@ Voici comment créer un jeu basé sur le principe du glisser-déposer:
  \item Créer les éléments que les utilisateurs de votre image interactive auront à
 déplacer et à déposer (autrement dit: des images, des mots ou groupes de
 mots)
+ \item Créer la fenêtre surgissante de consignes en éditant les informations du
+champs \chemin{Fichier $\rightarrow$ Métadonnées du document $\rightarrow$
+Description}\footnote{Exactement comme dans le jeu game1clic}
  \item En renseignant les métadonnées, faites correspondre chaque élément à une
 zone de dépôt (ces zones de dépôts étant en réalité des détails détourés)
 \end{itemize}
@@ -958,9 +960,9 @@ copie bitmap de cet ensemble. Les éléments à déplacer doivent être associé
 à leur zone de dépôt \footnote{\textbf{Un} objet ne pouvant être associé
 qu'à \textbf{une} zone de dépôt.}.
 
-Vous trouverez dans ce tableau les balises à renseigner dans les
-\chemin{Propriétés de l'objet} des éléments à déplacer et des zones de
-dépôts afin de les faire correspondre:
+Vous trouverez dans le tableau \ref{tag2_sumup} un résumé des balises à
+renseigner dans les \chemin{Propriétés de l'objet} des éléments à déplacer
+et des zones de dépôts afin de les faire correspondre:
 
 \begin{table}
 \begin{tabular}{|p{1.in}|p{2.5in}|p{1.5in}|}
@@ -972,7 +974,7 @@ Champ ID & & \verb|Titre_du_détail|\\
 Champ description & \verb|<target>Titre_du_détail</target>| & \\
 \hline
 \end{tabular}
-\caption{Résumé des balises à utiliser}
+\caption{Résumé des balises à utiliser dans le jeu gameDragAndDrop}
 \label{tag2_sumup}
 \end{table}
 
@@ -1015,7 +1017,7 @@ l'illustration \ref{tooltip_example}).  Notez que cette fonctionnalité est
 \begin{figure}[htp]
  \centering
  \includegraphics[width=0.5\textwidth]{images/tooltip_example}
- \caption[Tooltip]{Lorsque la souris survole le carré jaune, une infobulle «~Test~» apparaît}
+ \caption[Infobulles]{Lorsque la souris survole le carré jaune, une infobulle «~Test~» apparaît}
  \label{tooltip_example}
 \end{figure}
 

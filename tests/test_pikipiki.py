@@ -199,7 +199,7 @@ class TestPageFormatter:
         assert_equal(expected_output, output)
 
         raw = " ";
-        expected_output = '<br>\n';
+        expected_output = '';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
 
@@ -209,7 +209,7 @@ class TestPageFormatter:
         assert_equal(expected_output, output)
 
         raw = "[[answer : my answer]]";
-        expected_output = '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#"  data-target="##">answer </a></div><div class="response" id="response_##"><ul>\n my answer</div>\n</ul>';
+        expected_output = '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#"  data-target="##">answer </a></div><div class="response" id="response_##"><ul>\n my answer</ul>\n</div>\n';
         output = PageFormatter(raw).print_html()
         target_id = ""
         target_entry = re.search('data-target="(.*?)"', output, re.IGNORECASE|re.DOTALL)
@@ -229,7 +229,7 @@ class TestPageFormatter:
         assert_equal(expected_output, output)
 
         raw = "[[answer (code=123456):\nmy answer\n]]";
-        expected_output = '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b" data-target="##">answer </a></div><form class="unlock" style="display:none;" id="form_##"><input type="text"><input type="submit" data-target="##" value="" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b"></form><div class="response" id="response_##">DVBBCj9bSBJSWkZBVEA=</div>\n';
+        expected_output = '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b" data-target="##">answer </a></div><form class="unlock" style="display:none;" id="form_##"><input type="text"><input type="submit" data-target="##" value="" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b"></form><div class="response" id="response_##">DVBBCj9bSBJSWkZBVEAPVkcIOw==</div>\n';
         output = PageFormatter(raw).print_html()
         target_id = ""
         target_entry = re.search('data-target="(.*?)"', output, re.IGNORECASE|re.DOTALL)

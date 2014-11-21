@@ -6,9 +6,14 @@ po4a-gettextize -f latex -m documentation.tex -M UTF8 -p en_EN.pot
 # Generate translation
 po4a-translate -f latex -m documentation.tex -M UTF8 -p fr/documentation-fr_FR.po -l documentation_fr.tex
 
-# Update transations when source document changes
+# Update translations when source document changes
 po4a-updatepo -f latex -m documentation.tex -M UTF8 -p fr/documentation-fr_FR.po
 
 # Script to generate docs from po files
 
 # tips for inkscape beginners: for ex., adding a red background to details in order to manipulate them more easily
+
+# A4 abstracts:
+- games' tags
+- templates
+- workflow

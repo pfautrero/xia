@@ -72,15 +72,12 @@ IaScene.prototype.scaleScene = function(mainScene){
 
     var coeff_width = (viewportWidth * mainScene.ratio) / parseFloat(mainScene.originalWidth);
     var coeff_height = (viewportHeight) / (parseFloat(mainScene.originalHeight) + $('#canvas').offset().top + $('#container').offset().top);
-    console.log("0");
     if ((viewportWidth >= parseFloat(mainScene.originalWidth) * coeff_width) && (viewportHeight >= ((parseFloat(mainScene.originalHeight) + $('#canvas').offset().top) * coeff_width))) {
         mainScene.width = viewportWidth * mainScene.ratio;
-        console.log("1");
         mainScene.coeff = (mainScene.width) / parseFloat(mainScene.originalWidth);
         mainScene.height = parseFloat(mainScene.originalHeight) * mainScene.coeff;
     }
     else if ((viewportWidth >= parseFloat(mainScene.originalWidth) * coeff_height) && (viewportHeight >= (parseFloat(mainScene.originalHeight) + $('#canvas').offset().top) * coeff_height)) {
-        console.log("2");
         mainScene.height = viewportHeight - $('#container').offset().top - $('#canvas').offset().top -5;
         mainScene.coeff = (mainScene.height) / parseFloat(mainScene.originalHeight);
         mainScene.width = parseFloat(mainScene.originalWidth) * mainScene.coeff;
@@ -92,6 +89,7 @@ IaScene.prototype.scaleScene = function(mainScene){
     $('#canvas').css({"height": (mainScene.height) + 'px'});    
     $('#canvas').css({"width": mainScene.width + 'px'});     
     $('#detect').css({"height": (mainScene.height) + 'px'});
+    $('#accordion2').css({"max-height": (mainScene.height - $('#accordion2').offset().top) + 'px'});
     $('#detect').css({"top": ($('#canvas').offset().top - $('#container').offset().top) + 'px'});    
  
 };

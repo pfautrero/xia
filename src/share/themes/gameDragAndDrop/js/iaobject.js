@@ -462,13 +462,13 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
 
     var that=this;
 
-    that.xiaDetail[i].kineticElement.droparea = false;
+    //that.xiaDetail[i].kineticElement.droparea = false;
     that.xiaDetail[i].kineticElement.tooltip_area = false;
     // if current detail is a drop area, disable drag and drop
-    if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
+    /*if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
         that.xiaDetail[i].kineticElement.droparea = true;
         
-    }
+    }*/
     // tooltip must be at the bottom
     if ($('article[data-tooltip="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
         that.xiaDetail[i].kineticElement.moveToBottom();
@@ -484,7 +484,7 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
 
         }
         else if (iaScene.cursorState.indexOf("HandPointer.cur") === -1) {
-            if ((!this.droparea) && (!this.tooltip_area)) {
+            if ((!this.getXiaParent().droparea) && (!this.tooltip_area)) {
                 document.body.style.cursor = "pointer";
             }
             iaScene.cursorState = "url(img/HandPointer.cur),auto";
@@ -560,7 +560,7 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
         });
     }
     else {
-        if (!that.xiaDetail[i].kineticElement.droparea) {
+        if (!that.xiaDetail[i].droparea) {
             that.xiaDetail[i].kineticElement.on('dragstart', function(e) {
                 iaScene.element = that;
                 that.myhooks.afterIaObjectDragStart(iaScene, idText, that);
@@ -572,8 +572,8 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
                 iaScene.element = that;
                 Kinetic.draggedshape = null;
                 // Kinetic hacking - speed up _getIntersection (for linux)
+                that.myhooks.afterIaObjectDragEnd(iaScene, idText, that, e, this);
                 this.getStage().completeImage = "redefine";
-                that.myhooks.afterIaObjectDragEnd(iaScene, idText, that, e);
                 that.layer.draw();
             });    
         }
