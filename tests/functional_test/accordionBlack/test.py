@@ -238,7 +238,7 @@ Réponse:LA réponse à la question<br>
     def tearDown(self):
         self.driver.quit()
 #        self.assertEqual([], self.verificationErrors)
-        display.stop()
+#        display.stop()
 
 if __name__ == "__main__":
     unittest.main()
