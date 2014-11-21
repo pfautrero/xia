@@ -182,6 +182,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
             }
         });        
         })(len, imageDataSource);
+        
         /*that.kineticElement[i].sceneFunc(function(context) {
             var yo = that.layer.getHitCanvas().getContext().getImageData(0,0,iaScene.width, iaScene.height);
             context.putImageData(yo, 0,0);  
