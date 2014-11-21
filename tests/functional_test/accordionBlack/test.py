@@ -137,14 +137,7 @@ Réponse:LA réponse à la question<br>
         self.check_element("collapsecomment")
         driver.find_element_by_id("collapse0-heading").click()
         self.check_element("collapse0")
-        script = """
-		    for (var i in Kinetic.shapes) {
-			    if (Kinetic.shapes[i].attrs['name'] == 'Son 1') {
-				    Kinetic.shapes[i].fire('click');
-			    }
-		    }
-           """
-        driver.execute_script(script)
+        driver.execute_script(self.click_zone("Son 1"))
         self.check_element("collapse6")
         driver.find_element_by_xpath("//div[@id='canvas']/div/canvas[4]").click()
         self.check_element("collapse6")
@@ -160,6 +153,8 @@ Réponse:LA réponse à la question<br>
         self.check_element("popup")
         driver.find_element_by_id("popup_close").click()
         self.check_element()
+        driver.execute_script(self.click_zone("son 2"))
+        self.check_element("collapse5")
         driver.find_element_by_id("collapse0-heading").click()
         self.check_element("collapse0")
         driver.find_element_by_id("collapse1-heading").click()
@@ -204,9 +199,16 @@ Réponse:LA réponse à la question<br>
                 alert.dismiss()
             return alert_text
         finally: self.accept_next_alert = True
-    
+    def click_zone(self,zone):
+        return """
+		    for (var i in Kinetic.shapes) {
+			    if (Kinetic.shapes[i].attrs['name'] == '"""+zone+"""') {
+				    Kinetic.shapes[i].fire('click');
+			    }
+		    }
+           """
     def check_element(self,visible="0XXXX0XXXX0"):
-        time.sleep(1)
+        time.sleep(3)
         driver = self.driver
         elements = [
             "id('popup')",
