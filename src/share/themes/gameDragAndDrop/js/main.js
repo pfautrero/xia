@@ -107,7 +107,7 @@ function main(myhooks) {
         $("#loader").hide();
 
         var viewportHeight = $(window).height();
-        if (scene.description != "<br> ") {
+        if (scene.description != "") {
             $("#rights").show();
             var content_offset = $("#rights").offset();
             var message_height = $("#popup_intro").css('height').substr(0,$("#popup_intro").css("height").length - 2);
