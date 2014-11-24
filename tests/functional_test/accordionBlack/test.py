@@ -204,6 +204,7 @@ Réponse:LA réponse à la question<br>
 		    for (var i in Kinetic.shapes) {
 			    if (Kinetic.shapes[i].attrs['name'] == '"""+zone+"""') {
 				    Kinetic.shapes[i].fire('click');
+                    break;
 			    }
 		    }
            """
