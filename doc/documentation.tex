@@ -707,7 +707,7 @@ add a score to the counter that delivers the final success message pop up.
 
 \subsubsection{\emph{Advanced interactive image creation tips\ldots} Double scoring}
 
-If you indicate \verb|score2| in the \chemin{Description} field of the \chemin{Object properties} of the detail,
+If you indicate \verb|score2| in the \chemin{onclick} field (\chemin{Object Properties $\rightarrow$ Interactivity}) of the detail,
 and if you use \texttt{<score2></score2>} and  \texttt{<message2></message2>} in the \chemin{Object Properties} of the 
 background image, you create a double scoring game. In this kind of game, the user can select two different categories of details, 
 two messages can pop up at the end, depending on the category and number of details the user has selected.
@@ -860,6 +860,12 @@ This tables sum up the tags that have to be indicated when a game is created:
   \multicolumn{3}{|l|}{\texttt{disable-score}}\\
   \hline
   & \emph{Role} & Makes a cropped detail clickable, but when clicked, does not add a point to the score game counter \\
+  & \emph{Element} & Detail \\
+  & \emph{Where ?} & \chemin{Object properties $\rightarrow$ Interactivity $\rightarrow$ Onclick}\\
+  \hline
+    \multicolumn{3}{|l|}{\texttt{score2}}\\
+  \hline
+  & \emph{Role} & Makes a detail add a score to the score2 counter \\
   & \emph{Element} & Detail \\
   & \emph{Where ?} & \chemin{Object properties $\rightarrow$ Interactivity $\rightarrow$ Onclick}\\
   \hline

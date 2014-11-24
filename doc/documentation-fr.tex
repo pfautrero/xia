@@ -816,7 +816,7 @@ l'animation, non reliée à un détail particulier.}.
 Deux informations sont nécessaire pour que ce message apparaisse: le nombre
 de détails devant être sélectionnés\footnote{Ce nombre n'a pas à être
 similaire au nombre de détails se trouvant sur l'image.} et le message en
-lui-même. 
+lui-même (voir le tableau \ref{tag1_sumup}).
 
 \begin{table}
  \begin{tabular}{|l|p{2in}|p{2in}|}
@@ -904,15 +904,20 @@ le score pour délivrer le message de fin.
 \subsubsection{\emph{Astuces pour la création d'image interactive «~avancée~»\ldots} Deux
 compteurs de score}
 
-En indiquant \verb|score2| dans le champ \chemin{Description} des
-\chemin{Propriétés de l'objet} du détail, et en utilisant les balises
-\texttt{<score2></score2>} et \texttt{<message2></message2>} dans les
-\chemin{Propriétés de l'objet} de l'image de fond, on peut créer un système
-de double comptage des points, dans lequel l'utilisateur peut sélectionner
-deux types de détails différents.
+En indiquant \verb|score2| dans le champ \chemin{onclick}
+(\chemin{Propriétés de l'objet $\rightarrow$ Interactivité}) du détail, et
+en utilisant les balises \texttt{<score2></score2>} et
+\texttt{<message2></message2>} dans les \chemin{Propriétés de l'objet} de
+l'image de fond, on peut créer un système de double comptage des points,
+dans lequel l'utilisateur peut sélectionner deux types de détails
+différents.
 
-Deux messages de fin peuvent donc apparaître, en fonction des types de
-détails sélectionnés.
+Ainsi, vous pouvez créer un jeu où 3 détails comportent la balise
+\texttt{score2} (cette balise correspondant à des erreurs), et indiquez dans
+les \chemin{Propriétés de l'objet} de l'image de fond:\\ 
+\texttt{<score>4</score>\\ <message>Bravo!</message>\\ <score2>3</score2>\\ 
+<message2>3 erreurs... Ça fait beaucoup... Concentrez-vous et
+recommencez!...</message2>}\\
 
 
 \subsection{Second principe ludique: classer, organiser, hiérarchiser}\label{gameDragAndDropsection}
@@ -1091,6 +1096,13 @@ au compteur de score \\
   & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Interactivité $\rightarrow$
 Onclick}\\
   \hline
+    \multicolumn{3}{|l|}{\texttt{score2}}\\
+  \hline
+  & \emph{Rôle} & Ajoute un point au deuxième compteur de score \\
+  & \emph{Élément} & Détail \\
+  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Interactivité $\rightarrow$
+Onclick}\\
+  \hline
   \multicolumn{3}{|l|}{\texttt{<tooltip></tooltip>}}\\
   \hline
   & \emph{Rôle} & Affiche une infobulle au survol de la souris \\
@@ -1098,6 +1110,23 @@ Onclick}\\
   & \emph{Quoi?} & Assurez-vous que ce champ est identique à l'ID de l'élément servant
 d'infobulle\\
   & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description}\\
+  \hline
+ \multicolumn{3}{|l|}{\texttt{<score></score>}}\\
+ \hline
+ & \emph{Rôle} & Permet de régler le nombre de bonnes réponses nécessaire pour faire
+apparaître le message de fin du jeu\\
+ & \emph{Élément}  & Image de fond \\
+ & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description} \\
+ & \emph{Quoi?} & Le nombre de bonnes réponses nécessaire à la résolution du jeu\\
+ \hline
+ \multicolumn{3}{|l|}{\texttt{<message2></message2>}}\\
+ \hline
+  & \emph{Rôle} & Fais apparaître le second message de fin du jeu, dans le cas d'un jeu à
+double score \\
+  & \emph{Élément}  & Image de fond \\
+  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description}\\ 
+  & \emph{Quoi?} & Un message que vous pouvez si nécessaire enrichir avec des ressources
+multimédias ou un lien hypertexte\\
   \hline
   \end{tabular}
   \caption{Balises à insérer pour un jeu de type game1clic}
