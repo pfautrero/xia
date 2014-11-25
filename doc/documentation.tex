@@ -193,9 +193,35 @@ the interactive image (title and comment not related to a particular detail).
 
 \subsection{Generating the interactive image with Xia}
 
-When all the details are clipped and their metadata indicated, Xia can be launched (see figure \ref{xia_interface}). You must select the svg source file with the top left icon,
-choose the export quality (on a scale from 1 to 4), and then choose a 
+When all the details are clipped and their metadata indicated, Xia can be launched (see figure \ref{xia_interface}).
+You must select the svg source file with the top left icon,
+choose the export options (see figure \ref{xia_export_options}), and then choose a 
 template and the destination folder of the interactive image.
+
+\begin{figure}[htp]
+\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]
+\begin{tikzpicture}
+  %\draw[help lines] (0,0) grid (5,5);
+  %icons
+  \node (exp_qual) {\includegraphics[scale=.5]{./images/exp_qual}};
+  \node[right= .3mm of exp_qual] (exp_firefox) {\includegraphics[scale=.5]{./images/exp_firefox}};
+  \node[below= .2mm of exp_firefox.south] (exp_1file) {\includegraphics[scale=.5]{./images/exp_1file}};
+  \node[left= .3mm of exp_1file] (exp_params) {\includegraphics[scale=.5]{./images/params}};
+  
+  %comments
+  \node[box, text width=2.5cm, left = 5mm of exp_qual] (exp_qualC) {Select the quality of the export on a scale from 1 to 4};
+  \node[box, above right = 5mm of exp_firefox] (exp_firefoxC) {Activate or Deactivate the creation of the FirefoxOS files (default: deactivated};
+  \node[box, right = 5mm of exp_1file] (exp_1fileC) {In the unique file configuration, you will need an internet connection to access the resource. The xia engine used in the unique file configuration is hosted on Versailles academy servers and is automatically updated. In this configuration, you can not control the background image and icons (default: deactivated};
+
+  %arrows
+  \draw[-stealth] (exp_qualC.east) -- (exp_qual.west);
+  \draw[-stealth] (exp_firefoxC.west) -- (exp_firefox.north east);
+  \draw[-stealth] (exp_1fileC.west) -- (exp_1file.east);
+
+\end{tikzpicture}
+\caption{Xia's exportation options}
+\label{xia_export_options}
+\end{figure}
 
 Clicking on one of the template icons generates a series of files and folders.
  Open the \chemin{index.html} file in a 
@@ -240,7 +266,7 @@ in the comments of the interactive image using relative links.};
   \draw[-stealth] (textM.west) -- (5.5,-7);
   \draw[-stealth] (textA.west) -- (4,-3);
 \end{tikzpicture}
-\caption{Files of an interactive image}
+\caption{Files of an interactive image with FirefoxOS export activated}
 \label{xia_files}
 \end{figure}
 
@@ -250,19 +276,20 @@ in the comments of the interactive image using relative links.};
   %\draw[help lines] (0,0) grid (5,5);
   %icons
   \node (bBlue) {\includegraphics[scale=.35]{./images/buttonBlue}};
-  \node[left= .8mm of bBlue, opacity=.5] (aBrown) {\includegraphics[scale=.35]{./images/audioBrown}};
-  \node[right= .8mm of bBlue, opacity=.5] (guClic) {\includegraphics[scale=.35]{./images/game1clic}};
+  \node[left= .3mm of bBlue, opacity=.5] (aBrown) {\includegraphics[scale=.35]{./images/audioBrown}};
+  \node[right= .3mm of bBlue, opacity=.5] (guClic) {\includegraphics[scale=.35]{./images/game1clic}};
   \node[below= .2mm of bBlue.south] (pBlue) {\includegraphics[scale=.35]{./images/popBlue}};
-  \node[left= .8mm of pBlue, opacity=.5] (gDDrop) {\includegraphics[scale=.35]{./images/gameDragAndDrop}};
-  \node[right= .8mm of pBlue] (pYellow) {\includegraphics[scale=.35]{./images/popYellow}};
+  \node[left= .3mm of pBlue, opacity=.5] (gDDrop) {\includegraphics[scale=.35]{./images/gameDragAndDrop}};
+  \node[right= .3mm of pBlue] (pYellow) {\includegraphics[scale=.35]{./images/popYellow}};
   \node[above = .2mm of guClic.north] (aCloud) {\includegraphics[scale=.35]{./images/accordionCloud}};
   \node[above = .2mm of aCloud.north] (aBlack) {\includegraphics[scale=.35]{./images/accordionBlack}};  
-  \node[left = .2mm of aBlack] (params) {\includegraphics[scale=.35]{./images/params}};  
-  \node[left = .2mm of params] (files) {\includegraphics[scale=.35]{./images/xia_open}};
+  \node[left = .3mm of aBlack] (params) {\includegraphics[scale=.35]{./images/params}};  
+  \node[left = .3mm of params] (files) {\includegraphics[scale=.35]{./images/xia_open}};
+  \node[left = .3mm of aCloud, opacity=.3] (xialogo) {\includegraphics[scale=.47]{./images/xia}};
   
   %comments
   \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the svg source file};
-  \node[box, above = 5mm of params] (paramsC) {Select the quality of the export};
+  \node[box, above = 5mm of params] (paramsC) {Select the quality of the export (see figure \ref{xia_export_options})};
   \node[box,above right = 5mm of aCloud.north east] (aBlackC) {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/accordionBlack}{accordionBlack}\\ Large comment zone, suitable for the insertion of multimedia resources; to be used with vertical images (portrait)};
   \node[box, right = 5mm of guClic] (aCloudC) {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/accordionCloud}{accordionCloud}\\ Narrow comment zone, with more space for the image itself ; to be used with horizontal images (landscape)};
   \node[box, below right = 5mm of pYellow] (pYellowC) {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/popYellow}{popYellow}\\ No lateral comment zone ; 
@@ -277,7 +304,7 @@ a first click on the detail reveals it, and a second one pops up the comment
   
   %arrows
   \draw[-stealth] (aBlackC.west) -- (aBlack.north east);
-  \draw[-stealth] (aCloudC.west) -- (aCloud.east);
+  \draw[-stealth] (aCloudC.west) -- (aCloud.south east);
   \draw[-stealth] (pYellowC.north west) -- (pYellow.south east);
   \draw[-stealth] (bBlueC.north east) -- (bBlue.north west);
   \draw[-stealth] (pBlueC.north east) -- (pBlue.south west);
@@ -568,15 +595,17 @@ has much more to do than simply clicking on details in order to read the comment
   %\draw[help lines] (0,0) grid (5,5);
   %icons
   \node[opacity=.5] (bBlue) {\includegraphics[scale=.35]{./images/buttonBlue}};
-  \node[left= .8mm of bBlue] (aBrown) {\includegraphics[scale=.35]{./images/audioBrown}};
-  \node[right= .8mm of bBlue] (guClic) {\includegraphics[scale=.35]{./images/game1clic}};
+  \node[left= .3mm of bBlue] (aBrown) {\includegraphics[scale=.35]{./images/audioBrown}};
+  \node[right= .3mm of bBlue] (guClic) {\includegraphics[scale=.35]{./images/game1clic}};
   \node[below= .2mm of bBlue.south, opacity=.5] (pBlue) {\includegraphics[scale=.35]{./images/popBlue}};
-  \node[left= .8mm of pBlue] (gDDrop) {\includegraphics[scale=.35]{./images/gameDragAndDrop}};
-  \node[right= .8mm of pBlue, opacity=.5] (pYellow) {\includegraphics[scale=.35]{./images/popYellow}};
+  \node[left= .3mm of pBlue] (gDDrop) {\includegraphics[scale=.35]{./images/gameDragAndDrop}};
+  \node[right= .3mm of pBlue, opacity=.5] (pYellow) {\includegraphics[scale=.35]{./images/popYellow}};
   \node[above = .2mm of guClic.north, opacity=.5] (aCloud) {\includegraphics[scale=.35]{./images/accordionCloud}};
   \node[above = .2mm of aCloud.north, opacity=.5] (aBlack) {\includegraphics[scale=.35]{./images/accordionBlack}};  
-  \node[left = .2mm of aBlack] (params) {\includegraphics[scale=.35]{./images/params}};  
-  \node[left = .2mm of params] (files) {\includegraphics[scale=.35]{./images/xia_open}};
+  \node[left = .3mm of aBlack] (params) {\includegraphics[scale=.35]{./images/params}};  
+  \node[left = .3mm of params] (files) {\includegraphics[scale=.35]{./images/xia_open}};
+    \node[left = .3mm of aCloud, opacity=.3] (xialogo) {\includegraphics[scale=.47]{./images/xia}};
+
   
   %comments
   \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the svg source file};
@@ -830,7 +859,7 @@ on the background image: see section \ref{gameDragAndDropsection}.}, but you wil
 \newpage
 \subsection{Abstract}
 
-This tables sum up the tags that have to be indicated when a game is created:
+These tables sum up the tags that have to be indicated when a game is created:
 
 \begin{table}[thp]
  \begin{tabular}{|p{.5cm}|p{2cm}|p{10cm}|}

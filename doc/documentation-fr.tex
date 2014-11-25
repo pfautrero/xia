@@ -321,8 +321,39 @@ ne sont pas relié à un détail particulier).
 Quand tous les détails sont détourés et leurs métadonnées renseignées, Xia
 peut être lancé (voir l'illustration \ref{xia_interface}). Vous devez
 sélectionner votre fichier svg avec l'icône située en haut à gauche, choisir
-la qualité de l'export (sur une échelle de 1 à 4), et enfin choisir un
-modèle d'export et un répertoire d'enregistrement de l'image interactive.
+la qualité de l'export (voir l'illustration \ref{xia_export_options}), et
+enfin choisir un modèle d'export et un répertoire d'enregistrement de
+l'image interactive.
+
+\begin{figure}[htp]
+\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]
+\begin{tikzpicture}
+  \node (exp_qual) {\includegraphics[scale=.5]{./images/exp_qual}};
+\node[right= .3mm of exp_qual] (exp_firefox)
+{\includegraphics[scale=.5]{./images/exp_firefox}}; \node[below= .2mm of
+exp_firefox.south] (exp_1file)
+{\includegraphics[scale=.5]{./images/exp_1file}}; \node[left= .3mm of
+exp_1file] (exp_params) {\includegraphics[scale=.5]{./images/params}};
+  
+  \node[box, text width=2.5cm, left = 5mm of exp_qual] (exp_qualC)
+{Sélectionner la qualité de l'export sur une échelle de 1 à 4}; \node[box,
+above right = 5mm of exp_firefox] (exp_firefoxC) {Activer ou désactiver la
+création des fichiers pour l'export FirefoxOS (par défaut: désactivé)};
+\node[box, right = 5mm of exp_1file] (exp_1fileC) {Dans le cas d'un export
+avec fichier unique, vous aurez besoin d'une connexion internet pour accéder
+à la ressources. Le moteur de rendu de Xia est hébergé sur les serveurs de
+l'académie de Versailles, et est mis à jour automatiquement. Avec cette
+configuration, vous ne pouvez pas personnaliser le fond et les icônes (par
+défaut: désactivé)};
+
+  \draw[-stealth] (exp_qualC.east) -- (exp_qual.west); \draw[-stealth]
+(exp_firefoxC.west) -- (exp_firefox.north east); \draw[-stealth]
+(exp_1fileC.west) -- (exp_1file.east);
+
+\end{tikzpicture}
+\caption{Les options d'export de Xia}
+\label{xia_export_options}
+\end{figure}
 
 En cliquant sur l'une des icônes des modèles d'export, vous générez une
 série de fichiers et de répertoires. Ouvrez le fichier \chemin{index.html}
@@ -363,7 +394,7 @@ par Xia durant le processus d'export.}; \draw[-stealth] (textM.west) --
 (4,0); \draw[-stealth] (textM.west) -- (5.5,-7); \draw[-stealth]
 (textA.west) -- (4,-3);
 \end{tikzpicture}
-\caption{Fichiers d'une image interactive}
+\caption{Fichiers d'une image interactive avec l'export Firefox OS activé}
 \label{xia_files}
 \end{figure}
 
@@ -371,25 +402,28 @@ par Xia durant le processus d'export.}; \draw[-stealth] (textM.west) --
 \tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]
 \begin{tikzpicture}
   \node (bBlue) {\includegraphics[scale=.35]{./images/buttonBlue}};
-\node[left= .8mm of bBlue, opacity=.5] (aBrown)
-{\includegraphics[scale=.35]{./images/audioBrown}}; \node[right= .8mm of
+\node[left= .3mm of bBlue, opacity=.5] (aBrown)
+{\includegraphics[scale=.35]{./images/audioBrown}}; \node[right= .3mm of
 bBlue, opacity=.5] (guClic)
 {\includegraphics[scale=.35]{./images/game1clic}}; \node[below= .2mm of
 bBlue.south] (pBlue) {\includegraphics[scale=.35]{./images/popBlue}};
-\node[left= .8mm of pBlue, opacity=.5] (gDDrop)
-{\includegraphics[scale=.35]{./images/gameDragAndDrop}}; \node[right= .8mm
+\node[left= .3mm of pBlue, opacity=.5] (gDDrop)
+{\includegraphics[scale=.35]{./images/gameDragAndDrop}}; \node[right= .3mm
 of pBlue] (pYellow) {\includegraphics[scale=.35]{./images/popYellow}};
 \node[above = .2mm of guClic.north] (aCloud)
 {\includegraphics[scale=.35]{./images/accordionCloud}}; \node[above = .2mm
 of aCloud.north] (aBlack)
-{\includegraphics[scale=.35]{./images/accordionBlack}}; \node[left = .2mm of
+{\includegraphics[scale=.35]{./images/accordionBlack}}; \node[left = .3mm of
 aBlack] (params) {\includegraphics[scale=.35]{./images/params}}; \node[left
-= .2mm of params] (files) {\includegraphics[scale=.35]{./images/xia_open}};
+= .3mm of params] (files) {\includegraphics[scale=.35]{./images/xia_open}};
+\node[left = .3mm of aCloud, opacity=.3] (xialogo)
+{\includegraphics[scale=.47]{./images/xia}};
   
   \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Sélection
 du fichier source svg}; \node[box, above = 5mm of params] (paramsC)
-{Sélectionner la qualité de l'export}; \node[box,above right = 5mm of
-aCloud.north east] (aBlackC)
+{Sélectionner la qualité de l'export (voir l'illustration
+\ref{xia_export_options})}; \node[box,above right = 5mm of aCloud.north
+east] (aBlackC)
 {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/accordionBlack}{accordionBlack}\\ 
 Zone de commentaire large, recommandé pour l'insertion de ressources
 multimédias; à utiliser avec des images verticales (portrait)}; \node[box,
@@ -412,8 +446,8 @@ Pas de zone latérale de commentaire; un premier clic met en évidence le
 détail, un second fait apparaître le commentaire (pas de zoom)};
   
   \draw[-stealth] (aBlackC.west) -- (aBlack.north east); \draw[-stealth]
-(aCloudC.west) -- (aCloud.east); \draw[-stealth] (pYellowC.north west) --
-(pYellow.south east); \draw[-stealth] (bBlueC.north east) -- (bBlue.north
+(aCloudC.west) -- (aCloud.south east); \draw[-stealth] (pYellowC.north west)
+-- (pYellow.south east); \draw[-stealth] (bBlueC.north east) -- (bBlue.north
 west); \draw[-stealth] (pBlueC.north east) -- (pBlue.south west);
 \draw[-stealth] (filesC.south east) -- (files.north west); \draw[-stealth]
 (paramsC.south) -- (params.north);
@@ -739,21 +773,24 @@ cliquer sur des détails et lire du texte.
 \tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]
 \begin{tikzpicture}
   \node[opacity=.5] (bBlue)
-{\includegraphics[scale=.35]{./images/buttonBlue}}; \node[left= .8mm of
+{\includegraphics[scale=.35]{./images/buttonBlue}}; \node[left= .3mm of
 bBlue] (aBrown) {\includegraphics[scale=.35]{./images/audioBrown}};
-\node[right= .8mm of bBlue] (guClic)
+\node[right= .3mm of bBlue] (guClic)
 {\includegraphics[scale=.35]{./images/game1clic}}; \node[below= .2mm of
 bBlue.south, opacity=.5] (pBlue)
-{\includegraphics[scale=.35]{./images/popBlue}}; \node[left= .8mm of pBlue]
+{\includegraphics[scale=.35]{./images/popBlue}}; \node[left= .3mm of pBlue]
 (gDDrop) {\includegraphics[scale=.35]{./images/gameDragAndDrop}};
-\node[right= .8mm of pBlue, opacity=.5] (pYellow)
+\node[right= .3mm of pBlue, opacity=.5] (pYellow)
 {\includegraphics[scale=.35]{./images/popYellow}}; \node[above = .2mm of
 guClic.north, opacity=.5] (aCloud)
 {\includegraphics[scale=.35]{./images/accordionCloud}}; \node[above = .2mm
 of aCloud.north, opacity=.5] (aBlack)
-{\includegraphics[scale=.35]{./images/accordionBlack}}; \node[left = .2mm of
+{\includegraphics[scale=.35]{./images/accordionBlack}}; \node[left = .3mm of
 aBlack] (params) {\includegraphics[scale=.35]{./images/params}}; \node[left
-= .2mm of params] (files) {\includegraphics[scale=.35]{./images/xia_open}};
+= .3mm of params] (files) {\includegraphics[scale=.35]{./images/xia_open}};
+\node[left = .3mm of aCloud, opacity=.3] (xialogo)
+{\includegraphics[scale=.47]{./images/xia}};
+
   
   \node[box, text width=2.5cm,above left = 5mm of files] (filesC)
 {Sélectionner le fichier source au format svg file}; \node[box, above = 5mm
