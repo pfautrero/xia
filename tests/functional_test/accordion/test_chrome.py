@@ -21,7 +21,7 @@ class Test(unittest.TestCase):
     def setUp(self):
         #chromedriver = "/usr/bin/google-chrome"
         #os.environ["webdriver.chrome.driver"] = chromedriver
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome("/usr/bin/chromedriver")
         self.driver.implicitly_wait(30)
         self.base_url = "file://"+os.path.dirname(os.path.abspath(__file__))+"/index.html"
         self.verificationErrors = []
