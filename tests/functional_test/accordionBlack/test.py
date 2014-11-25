@@ -138,6 +138,7 @@ Réponse:LA réponse à la question<br>
         driver.find_element_by_id("collapse0-heading").click()
         self.check_element("collapse0")
         driver.execute_script(self.click_zone("Son 1"))
+        driver.execute_script(self.click_zone("Son 1"))
         self.check_element("collapse6")
         driver.find_element_by_xpath("//div[@id='canvas']/div/canvas[4]").click()
         self.check_element("collapse6")
