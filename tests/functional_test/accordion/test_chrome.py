@@ -138,10 +138,10 @@ Réponse:LA réponse à la question<br>
         driver = self.driver
         driver.get(self.base_url)
         time.sleep(2)
-        action = webdriver.common.action_chains.ActionChains(driver)
-        action.move_to_element_with_offset(driver.find_element_by_id("collapsecomment-heading"), 5, 5).click().perform()
+        webdriver.common.action_chains.ActionChains(driver).move_to_element_with_offset(driver.find_element_by_id("collapsecomment-heading"), 5, 5).click().perform()
         time.sleep(3)
         self.check_element("collapsecomment")
+        webdriver.common.action_chains.ActionChains(driver).move_to_element_with_offset(driver.find_element_by_id("collapse0-heading"), 5, 5).click().perform()
         driver.find_element_by_id("collapse0-heading").click()
         self.check_element("collapse0")
         driver.execute_script(self.click_zone("Son 1"))
