@@ -130,8 +130,8 @@ Réponse:LA réponse à la question<br>
         self.check_element()
         webdriver.common.action_chains.ActionChains(driver).move_to_element_with_offset(driver.find_element_by_css_selector("a.infos"), 5, 5).click().perform()
         time.sleep(5)
-#        self.assertEqual("Michaël Nourry", driver.find_element_by_xpath("//article[@id='popup_text']/p[2]").text)
-#        self.check_element("id('popup')")
+        self.assertEqual("Michaël Nourry ", driver.find_element_by_xpath("//article[@id='popup_text']/p[2]").get_attribute('innerHTML'))
+        self.check_element("id('popup')")
         
         
     def test_nav_1(self):
