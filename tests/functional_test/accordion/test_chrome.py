@@ -140,7 +140,7 @@ Réponse:LA réponse à la question<br>
         time.sleep(2)
         webdriver.common.action_chains.ActionChains(driver).move_to_element_with_offset(driver.find_element_by_id("collapsecomment-heading"), 5, 5).click().perform()
 #        driver.find_element_by_id("collapsecomment-heading").click()
-"""        time.sleep(3)
+        """        time.sleep(3)
         self.check_element("collapsecomment")
         webdriver.common.action_chains.ActionChains(driver).move_to_element_with_offset(driver.find_element_by_id("collapse0-heading"), 5, 5).click().perform()
         self.check_element("collapse0")
@@ -156,7 +156,7 @@ Réponse:LA réponse à la question<br>
         self.check_element("collapse5")
         driver.find_element_by_id("collapse6-heading").click()
         self.check_element("collapse6")
-"""        
+        """        
 
 
 
