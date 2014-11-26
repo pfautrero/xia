@@ -170,7 +170,7 @@ Réponse:LA réponse à la question<br>
 #        time.sleep(5)
 #        self.check_element("popup")
 #        driver.find_element_by_id("popup_close").click()
-"""        self.check_element()
+        """        self.check_element()
         driver.execute_script(self.click_zone("son 2"))
         time.sleep(5)
         self.check_element("collapse5")
@@ -197,7 +197,7 @@ Réponse:LA réponse à la question<br>
         self.check_element("collapse0")
         driver.find_element_by_id("collapse4-heading").click()
         self.check_element("collapse4")
-"""
+        """
     def is_element_present(self, how, what):
         try: self.driver.find_element(by=how, value=what)
         except NoSuchElementException, e: return False
