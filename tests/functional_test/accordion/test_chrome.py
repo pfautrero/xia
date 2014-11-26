@@ -129,11 +129,11 @@ Réponse:LA réponse à la question<br>
         self.assertTrue(self.is_element_present(By.XPATH, "id('collapse6')/div/audio"))
         self.check_element()
         webdriver.common.action_chains.ActionChains(driver).move_to_element_with_offset(driver.find_element_by_css_selector("a.infos"), 5, 5).click().perform()
-        time.sleep(5)
+#        time.sleep(5)
         self.assertEqual("Michaël Nourry ", driver.find_element_by_xpath("//article[@id='popup_text']/p[2]").get_attribute('innerHTML'))
         self.check_element("id('popup')")
-        
-        
+        time.sleep(2)
+           
     def test_nav_1(self):
         driver = self.driver
         driver.get(self.base_url)
