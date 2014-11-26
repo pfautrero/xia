@@ -130,7 +130,7 @@ Réponse:LA réponse à la question<br>
         self.check_element()
         webdriver.common.action_chains.ActionChains(driver).move_to_element_with_offset(driver.find_element_by_css_selector("a.infos"), 5, 5).click().perform()
         time.sleep(5)
-        self.assertEqual("Michaël Nourry", driver.find_element_by_xpath("//article[@id='popup_text']/p[2]").text)
+#        self.assertEqual("Michaël Nourry", driver.find_element_by_xpath("//article[@id='popup_text']/p[2]").text)
         self.check_element("id('popup')")
         
         
@@ -139,7 +139,7 @@ Réponse:LA réponse à la question<br>
         driver.get(self.base_url)
         time.sleep(2)
         webdriver.common.action_chains.ActionChains(driver).move_to_element_with_offset(driver.find_element_by_id("collapsecomment-heading"), 5, 5).click().perform()
-        driver.find_element_by_id("collapsecomment-heading").click()
+#        driver.find_element_by_id("collapsecomment-heading").click()
         time.sleep(3)
         self.check_element("collapsecomment")
         webdriver.common.action_chains.ActionChains(driver).move_to_element_with_offset(driver.find_element_by_id("collapse0-heading"), 5, 5).click().perform()
@@ -169,7 +169,7 @@ Réponse:LA réponse à la question<br>
         action.move_to_element_with_offset(driver.find_element_by_css_selector("a.infos"), 5, 5).click().perform()
 #        time.sleep(5)
 #        self.check_element("popup")
-        driver.find_element_by_id("popup_close").click()
+#        driver.find_element_by_id("popup_close").click()
         self.check_element()
         driver.execute_script(self.click_zone("son 2"))
         time.sleep(5)
