@@ -14,7 +14,7 @@ import os
 
 display = Display(visible=0, size=(1024, 768))
 display.start()
-
+print("version : 1")
 
 
 class Test(unittest.TestCase):
@@ -132,31 +132,30 @@ Réponse:LA réponse à la question<br>
 #        time.sleep(5)
         self.assertEqual("Michaël Nourry ", driver.find_element_by_xpath("//article[@id='popup_text']/p[2]").get_attribute('innerHTML'))
         self.check_element("id('popup')")
-        time.sleep(2)
+        time.sleep(3)
            
     def test_nav_1(self):
         driver = self.driver
         driver.get(self.base_url)
         time.sleep(2)
         webdriver.common.action_chains.ActionChains(driver).move_to_element_with_offset(driver.find_element_by_id("collapsecomment-heading"), 5, 5).click().perform()
-#        driver.find_element_by_id("collapsecomment-heading").click()
-        """        time.sleep(3)
+        time.sleep(2)
         self.check_element("collapsecomment")
+        time.sleep(5)
         webdriver.common.action_chains.ActionChains(driver).move_to_element_with_offset(driver.find_element_by_id("collapse0-heading"), 5, 5).click().perform()
         self.check_element("collapse0")
         driver.execute_script(self.click_zone("Son 1"))
         driver.execute_script(self.click_zone("Son 1"))
         time.sleep(5)
         self.assertTrue(driver.find_element_by_xpath("id('collapse3-heading')").is_displayed())
-#        driver.execute_script(self.click_zone("Son 1"))
+        driver.execute_script(self.click_zone("Son 1"))
         self.assertTrue(driver.find_element_by_xpath("id('collapse3-heading')").is_displayed())
         time.sleep(5)
         self.check_element("collapse6")
         driver.find_element_by_id("collapse5-heading").click()
         self.check_element("collapse5")
         driver.find_element_by_id("collapse6-heading").click()
-        self.check_element("collapse6")
-        """        
+        self.check_element("collapse6")        
 
 
 
@@ -168,11 +167,12 @@ Réponse:LA réponse à la question<br>
         action = webdriver.common.action_chains.ActionChains(driver)
         action.move_to_element_with_offset(driver.find_element_by_css_selector("a.infos"), 5, 5).click().perform()
 #        time.sleep(5)
-#        self.check_element("popup")
-#        driver.find_element_by_id("popup_close").click()
-        """        self.check_element()
+        self.check_element("popup")
+        time.sleep(10)
+        driver.find_element_by_id("popup_close").click()
+        self.check_element()
+        time.sleep(4)
         driver.execute_script(self.click_zone("son 2"))
-        time.sleep(5)
         self.check_element("collapse5")
         driver.find_element_by_id("collapse0-heading").click()
         self.check_element("collapse0")
@@ -197,7 +197,7 @@ Réponse:LA réponse à la question<br>
         self.check_element("collapse0")
         driver.find_element_by_id("collapse4-heading").click()
         self.check_element("collapse4")
-        """
+        
     def is_element_present(self, how, what):
         try: self.driver.find_element(by=how, value=what)
         except NoSuchElementException, e: return False
