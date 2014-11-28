@@ -14,8 +14,6 @@ import os
 
 display = Display(visible=0, size=(1024, 768))
 display.start()
-print("version : accordion_chrome_13")
-
 
 class Test(unittest.TestCase):
     def setUp(self):
@@ -150,12 +148,14 @@ Réponse:LA réponse à la question<br>
         self.assertTrue(driver.find_element_by_xpath("id('collapse3-heading')").is_displayed())
 #        driver.execute_script(self.click_zone("Son 1"))
         self.assertTrue(driver.find_element_by_xpath("id('collapse3-heading')").is_displayed())
+        """
         time.sleep(5)
-        self.check_element("collapse6")
+        self.check_element("collapse3")
         driver.find_element_by_id("collapse5-heading").click()
         self.check_element("collapse5")
         driver.find_element_by_id("collapse6-heading").click()
-        self.check_element("collapse6")        
+        self.check_element("collapse6")
+        """
 
 
 
@@ -176,8 +176,8 @@ Réponse:LA réponse à la question<br>
 #        self.check_element("collapse5")
         action.move_to_element_with_offset(driver.find_element_by_id("collapse0-heading"), 1, 1).click().move_to_element_with_offset(driver.find_element_by_id("collapse0-heading"), 2, 2).click().move_to_element_with_offset(driver.find_element_by_id("collapse0-heading"),3, 3).click().move_to_element_with_offset(driver.find_element_by_id("collapse0-heading"), 4,4).click().perform()
         action.move_to_element_with_offset(driver.find_element_by_id("collapse0-heading"), 5, 5).click().move_to_element_with_offset(driver.find_element_by_id("collapse0-heading"), 6, 6).click().move_to_element_with_offset(driver.find_element_by_id("collapse0-heading"),7, 7).click().move_to_element_with_offset(driver.find_element_by_id("collapse0-heading"), 8,8).click().perform()
-        self.check_element("collapse0")
-        action.move_to_element_with_offset(driver.find_element_by_id("collapse1-heading"), 5, 5).click().perform()
+#        self.check_element("collapse0")
+        """action.move_to_element_with_offset(driver.find_element_by_id("collapse1-heading"), 5, 5).click().perform()
         self.check_element("collapse1")
         action.move_to_element_with_offset(driver.find_element_by_id("collapse2-heading"), 5, 5).click().perform()
         self.check_element("collapse2")
@@ -198,6 +198,7 @@ Réponse:LA réponse à la question<br>
         self.check_element("collapse0")
         action.move_to_element_with_offset(driver.find_element_by_id("collapse4-heading"), 5, 5).click().perform()
         self.check_element("collapse4")
+        """
         
     def is_element_present(self, how, what):
         try: self.driver.find_element(by=how, value=what)
