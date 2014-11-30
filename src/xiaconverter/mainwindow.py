@@ -30,6 +30,8 @@ from paramswindow import IAParams
 
 import gettext
 import locale
+if sys.platform.startswith('win32'):
+    import ctypes
 
 class IADialog(Tkinter.Frame):
 
@@ -158,14 +160,20 @@ class IADialog(Tkinter.Frame):
         options['defaultextension'] = '.svg'
         options['filetypes'] = [('svg files', '.svg')]
 
-        options['initialdir'] = os.path.expanduser('~')
+        if sys.platform.startswith('win32'):
+            options['initialdir'] = self.getwinuser()
+        else:
+            options['initialdir'] = os.path.expanduser('~')
         options['initialfile'] = translate('myfile.svg')
         options['parent'] = root
         options['title'] = translate('Select a svg file')
 
         self.dir_opt = options = {}
 
-        options['initialdir'] = os.path.expanduser('~')
+        if sys.platform.startswith('win32'):
+            options['initialdir'] = self.getwinuser()
+        else:
+            options['initialdir'] = os.path.expanduser('~')
         options['mustexist'] = False
         options['parent'] = root
         options['title'] = translate('Select target folder')
@@ -173,7 +181,10 @@ class IADialog(Tkinter.Frame):
         # retrieves source and target directories from config file
 
         # Creation of config_dir if not exists.
-        self.home_dir = os.path.expanduser('~')
+        if sys.platform.startswith('win32'):
+            self.home_dir = self.getwinuser()
+        else:
+            self.home_dir = os.path.expanduser('~')
         self.config_dir = os.path.join(self.home_dir, '.xia')
         self.config_ini = os.path.join(self.config_dir, 'config.ini')
         if not os.path.isdir(self.config_dir):
@@ -184,7 +195,7 @@ class IADialog(Tkinter.Frame):
                     format(self.config_dir))
                 print("Error({0}): {1}".format(e.errno, e.strerror))
                 sys.exit(1)
-
+                
         if os.path.isfile(self.config_ini):
             self.config = ConfigParser.ConfigParser()
             self.config.read(self.config_ini)
@@ -211,6 +222,16 @@ class IADialog(Tkinter.Frame):
                 self.config.write(config_file)
 
         self.paramsTitle = translate("Parameters")
+        
+    def getwinuser(self):
+        """ fix python2 bug on os.path.expanduser
+        http://bugs.python.org/issue13207
+        """
+        buf = ctypes.create_unicode_buffer(1024)
+        ctypes.windll.kernel32.GetEnvironmentVariableW(u"USERPROFILE", buf, 1024)
+        return buf.value        
+    
+    
     def openparams(self):
         try:
             self.params.focus()

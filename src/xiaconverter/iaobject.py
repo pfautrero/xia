@@ -36,6 +36,7 @@ import shutil
 import commands
 import hashlib
 from datetime import datetime
+import uuid
 
 # import PIL for windows and Linux
 # For MAC OS X, use internal tool called "sips"
@@ -246,26 +247,6 @@ class iaObject:
             if title.item(0) is not None:
                 #if title.item(0).parentNode == image:
                 self.scene['intro_title'] = self.get_tag_value(title.item(0))
-
-            """
-            self.raster = image.attributes['xlink:href'].value
-            if image.attributes['xlink:href'].value.startswith("file://"):
-                # Embed background image thanks to data URI Scheme
-                fileNameImage, fileExtensionImage = os.path.splitext(\
-                    image.attributes['xlink:href'].value[7:])
-                imgMimeTypes = {}
-                imgMimeTypes['.png'] = 'image/png'
-                imgMimeTypes['.jpg'] = 'image/jpeg'
-                imgMimeTypes['.jpeg'] = 'image/jpeg'
-                imgMimeTypes['.gif'] = 'image/gif'
-                imgMimeTypes['.bmp'] = 'image/bmp'
-                self.rasterPrefix = u"data:" + \
-                    imgMimeTypes[fileExtensionImage.lower()] + u";base64,"
-                with open(image.attributes['xlink:href'].value[7:], 'rb') as \
-                  bgImage:
-                    self.raster = self.rasterPrefix + \
-                        bgImage.read().encode("base64", "strict")
-            """
             
             self.raster = self.extractRaster(image.attributes['xlink:href'].value)
             self.scene['image'] = self.raster
@@ -715,7 +696,7 @@ class iaObject:
         """Analyze a svg group"""
 
         record = {}
-        record["id"] = hashlib.md5(str(datetime.now().microsecond)).hexdigest()
+        record["id"] = hashlib.md5(str(uuid.uuid1())).hexdigest()
         if group.hasAttribute("id"):
             record["id"] =  group.attributes['id'].value
         record['title'] = self.getText("title", group)
@@ -734,12 +715,6 @@ class iaObject:
                 record['options'] += " disable-click "
             else:
                 record['options'] += " " + str_onclick + " "
-        
-        
-        #ctm_group = CurrentTransformation()
-        #if group.hasAttribute("transform"):
-        #    transformation = group.attributes['transform'].value
-        #    ctm_group.analyze(transformation)
 
         svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', \
             'polygon', 'path', 'image']
@@ -931,7 +906,7 @@ class iaObject:
                             replace("\r"," ") + u'",\n'
                 else:
                     final_str += u'  "' + entry + u'":"' + \
-                        detail[entry].\
+                        str(detail[entry]).\
                             replace('"', "'").\
                             replace('\t', " ").\
                             replace('\r', " ").\
