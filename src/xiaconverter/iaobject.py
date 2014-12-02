@@ -905,8 +905,10 @@ class iaObject:
                             replace("\t"," ").\
                             replace("\r"," ") + u'",\n'
                 else:
+                    if type(detail[entry]) is int:
+                            detail[entry] = str(detail[entry])
                     final_str += u'  "' + entry + u'":"' + \
-                        str(detail[entry]).\
+                        detail[entry].\
                             replace('"', "'").\
                             replace('\t', " ").\
                             replace('\r', " ").\
