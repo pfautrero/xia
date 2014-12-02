@@ -356,7 +356,17 @@ class iaObject:
                     self.resizeImage(record_image['image'], \
                       record_image['width'], \
                       record_image['height'])
-
+            if not sys.platform.startswith("darwin"):
+                old_height = record_image['height']
+                record_image['image'], \
+                record_image['width'], \
+                record_image['height'], \
+                newx, newy = self.cropImage(record_image['image'], \
+                      record_image['width'], \
+                      record_image['height'])
+                record_image['y'] = str(float(record_image['y']) + float(newy))
+                record_image['x'] = str(float(record_image['x']) + float(newx))
+                
             if record_image['title'].startswith("http://") or \
               record_image['title'].startswith("https://") or \
               record_image['title'].startswith("//") or \
@@ -768,6 +778,99 @@ class iaObject:
 
         if record["group"]:
             return record
+
+    def cropImage(self,raster, rasterWidth, rasterHeight):
+        dirname = tempfile.mkdtemp()
+        newraster = raster
+        newrasterWidth = rasterWidth
+        newrasterHeight = rasterHeight
+        rasterStartPosition = raster.find('base64,') + 7
+        rasterEncoded = raster[rasterStartPosition:]
+        rasterPrefix = raster[0:rasterStartPosition]
+        extension = re.search('image/(.*);base64', rasterPrefix)
+        if extension is not None:
+            if extension.group(1):
+                imageFile = dirname + os.path.sep + "image." + extension.group(1)
+                imageFileSmall = dirname + \
+                  os.path.sep + "image_small." + extension.group(1)                
+                with open(imageFile, "wb") as bgImage:
+                    bgImage.write(rasterEncoded.decode("base64"))        
+
+                if not sys.platform.startswith('darwin'):
+                    im = Image.open(imageFile, 'r')
+                    im = im.convert("RGBA")
+                    pix_val = list(im.getdata())
+                    (w, h) = im.size
+                    y_delta = 0
+                    stop_scan = 0
+                    for y in range(h):
+                        row = y * w
+                        for x in range(w):
+                            transparency = pix_val[x+row][3] - 255
+                            if transparency == 0:
+                                stop_scan = 1
+                                break
+                        if stop_scan:
+                            break
+                        else:
+                            y_delta+=1
+                    #print y_delta     
+                    y_delta2 = 0
+                    stop_scan = 0
+                    for y in range(h-1,0,-1):
+                        row = y * w
+                        for x in range(w-1,0,-1):
+                            transparency = pix_val[x+row][3] - 255
+                            if transparency == 0:
+                                stop_scan = 1
+                                break
+                        if stop_scan:
+                            break
+                        else:
+                            y_delta2+=1
+
+                    x_delta = 0
+                    stop_scan = 0
+                    for x in range(0,w-1):
+                        for y in range(0,h-1):
+                            row = y * w
+                            transparency = pix_val[x+row][3] - 255
+                            if transparency == 0:
+                                stop_scan = 1
+                                break
+                        if stop_scan:
+                            break
+                        else:
+                            x_delta+=1                            
+
+                    x_delta2 = 0
+                    stop_scan = 0
+                    for x in range(w-1,0,-1):
+                        for y in range(h-1,0,-1):
+                            row = y * w
+                            transparency = pix_val[x+row][3] - 255
+                            if transparency == 0:
+                                stop_scan = 1
+                                break
+                        if stop_scan:
+                            break
+                        else:
+                            x_delta2+=1                                 
+                            
+                    croppedBg = im.crop((x_delta,y_delta,w - x_delta2,h-y_delta2))
+                    croppedBg.save(imageFileSmall) 
+
+                    with open(imageFileSmall, 'rb') as bgSmallImage:
+                        rasterSmallEncoded = bgSmallImage.read().\
+                          encode("base64")
+                        newraster = rasterPrefix + \
+                          rasterSmallEncoded   
+                    newrasterHeight = str(h - y_delta2 - y_delta) 
+                    newrasterWidth = str(w - x_delta - x_delta2) 
+        else:
+            print('ERROR : cropImage() - image is not embedded')
+        shutil.rmtree(dirname)
+        return [newraster, newrasterWidth, newrasterHeight, x_delta, y_delta]                    
 
     def resizeImage(self, raster, rasterWidth, rasterHeight):
         """ 
