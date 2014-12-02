@@ -424,7 +424,8 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);                        
                 }                
             }
-            that.layer.batchDraw();
+            //that.layer.batchDraw();
+            this.draw();
         }
     });
     /*
