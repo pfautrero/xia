@@ -329,7 +329,7 @@ class iaObject:
         
         if not image.isSameNode(self.backgroundNode):
             record_image = {}
-            record_image['id'] =  hashlib.md5(str(datetime.now().microsecond)).hexdigest()
+            record_image['id'] =  hashlib.md5(str(uuid.uuid1())).hexdigest()
             if image.hasAttribute('id'):
                 record_image['id'] = image.attributes['id'].value
             raster = self.extractRaster(image.attributes['xlink:href'].value)                
@@ -357,7 +357,6 @@ class iaObject:
                       record_image['width'], \
                       record_image['height'])
             if not sys.platform.startswith("darwin"):
-                old_height = record_image['height']
                 record_image['image'], \
                 record_image['width'], \
                 record_image['height'], \
@@ -429,7 +428,7 @@ class iaObject:
         """Analyze rectangles"""
         
         record_rect = {}
-        record_rect['id'] =  hashlib.md5(str(datetime.now().microsecond)).hexdigest()
+        record_rect['id'] =  hashlib.md5(str(uuid.uuid1())).hexdigest()
         if rect.hasAttribute("id"):
             record_rect['id'] = rect.attributes['id'].value
         record_rect['width'] = rect.attributes['width'].value
@@ -555,7 +554,7 @@ class iaObject:
         record = {}
         record["path"] = ""
         record["fill"] = ""
-        record["id"] =  hashlib.md5(str(datetime.now().microsecond)).hexdigest()
+        record["id"] =  hashlib.md5(str(uuid.uuid1())).hexdigest()
         if path.hasAttribute("id"):
             record["id"] =  path.attributes['id'].value
         record["path"] =  path.attributes['d'].value. \
@@ -816,7 +815,7 @@ class iaObject:
                             break
                         else:
                             y_delta+=1
-                    #print y_delta     
+  
                     y_delta2 = 0
                     stop_scan = 0
                     for y in range(h-1,0,-1):
