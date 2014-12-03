@@ -364,8 +364,8 @@ class iaObject:
                 newx, newy = self.cropImage(record_image['image'], \
                       record_image['width'], \
                       record_image['height'])
-                record_image['y'] = str(float(record_image['y']) + float(newy))
-                record_image['x'] = str(float(record_image['x']) + float(newx))
+                record_image['y'] = str(int(float(record_image['y']) + float(newy)))
+                record_image['x'] = str(int(float(record_image['x']) + float(newx)))
                 
             if record_image['title'].startswith("http://") or \
               record_image['title'].startswith("https://") or \
@@ -784,6 +784,8 @@ class iaObject:
         newraster = raster
         newrasterWidth = rasterWidth
         newrasterHeight = rasterHeight
+        x_delta = 0
+        y_delta = 0
         rasterStartPosition = raster.find('base64,') + 7
         rasterEncoded = raster[rasterStartPosition:]
         rasterPrefix = raster[0:rasterStartPosition]
