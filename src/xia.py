@@ -43,9 +43,9 @@ from xiaconverter.xiaconsole import XIAConsole
 
 if __name__=='__main__':
     
-    #numVersion = "Xia - 1.0-beta4"
     config = ConfigParser.ConfigParser()
     config.read("xia.cnf")
+    numVersion = config.get('version', 'numVersion')
     imagesPath = config.get('paths', 'imagesPath')
     langPath = config.get('paths', 'langPath')
     fontsPath = config.get('paths', 'fontsPath')
@@ -63,17 +63,19 @@ if __name__=='__main__':
         input_file = arguments["<input-file>"]
         output_dir = arguments["<output-dir>"]
         selected_theme = arguments["<theme>"]
-        xia = XIAConsole(langPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, input_file, output_dir, selected_theme)
+        xia = XIAConsole(langPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, input_file,
+                         output_dir, selected_theme)
         xia.createIA()
     else:
         filename = ""
         if arguments["<input-file>"] is not None:
             filename = arguments["<input-file>"]
         root = Tkinter.Tk()
-        #root.title(numVersion)
+        root.title(numVersion)
         root.geometry("465x310")
         root.resizable(0,0)
         img = Tkinter.PhotoImage(file=imagesPath + '/xia64.gif')
         root.tk.call('wm', 'iconphoto', root._w, img)    
-        IADialog(root,langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, filename).pack(side="left")
+        IADialog(root,langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, filename)\
+            .pack(side="left")
         root.mainloop()

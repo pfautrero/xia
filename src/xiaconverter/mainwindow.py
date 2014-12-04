@@ -45,7 +45,6 @@ class IADialog(Tkinter.Frame):
             t = gettext.translation("xia-converter", langPath, languages=['en_US'])
         translate = t.ugettext
 
-        root.title("Xia - 1.0-beta4-04-12-2014")
         self.filename = ""
         self.imagesPath = imagesPath
         self.themesPath = themesPath
@@ -223,7 +222,7 @@ class IADialog(Tkinter.Frame):
                 self.config.write(config_file)
 
         self.paramsTitle = translate("Parameters")
-        
+
     def getwinuser(self):
         """ fix python2 bug on os.path.expanduser
         http://bugs.python.org/issue13207
