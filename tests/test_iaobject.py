@@ -34,8 +34,12 @@ class TestiaObject:
         assert_equal(ia.scene['creator'], 'creator')
         assert_equal(ia.scene['description'], 'description')
         assert_equal(ia.scene['title'], 'fixture 1')
-        
+
+    def test_analyzeSVG2(self):
+
         tempDirSvg = tempfile.gettempdir()
+        maxNumPixels = 5 * 1024 * 1024
+        currentDir  = os.path.dirname(os.path.realpath(__file__))
         with open(currentDir + "/fixtures/generic1.svg", "r") as genericSvg:
             tempContent = genericSvg.read()
             tempContent = tempContent.replace("file://fixtures", "file://" + currentDir + "/fixtures")
@@ -50,9 +54,10 @@ class TestiaObject:
         assert_equal(ia.scene['height'], '10')
         assert_equal(ia.details[0]['width'], '100')
         assert_equal(ia.details[0]['height'], '100')
-        
-        # check get_tag_value output
-        ia = iaObject()        
+
+    def test_analyzeSVG3(self):
+
+        ia = iaObject()
         dom1 = minidom.parseString("<?xml version='1.0' ?>\
             <desc>description</desc>")
         desc = dom1.getElementsByTagName('desc')
@@ -62,6 +67,8 @@ class TestiaObject:
         dom1 = minidom.parseString("<?xml version='1.0' ?><desc></desc>")
         desc = dom1.getElementsByTagName('desc')
         assert_equal("",ia.get_tag_value(desc[0]))
+
+    def test_analyzeSVG4(self):
 
         # check root path
         ia = iaObject()
@@ -78,6 +85,8 @@ class TestiaObject:
         assert_equal(newrecord['minY'], '0.0')
         assert_equal(newrecord['x'], '0')
         assert_equal(newrecord['y'], '0')
+
+    def test_analyzeSVG4(self):
 
         ia = iaObject()
         dom1 = minidom.parseString("<?xml version='1.0' ?>\
@@ -97,6 +106,8 @@ class TestiaObject:
         assert_equal(newrecord['minY'], '10.0')
         assert_equal(newrecord['x'], '10')
         assert_equal(newrecord['y'], '30')
+
+    def test_analyzeSVG4(self):
 
         # check path included in a group
         ia = iaObject()
@@ -118,6 +129,8 @@ class TestiaObject:
         assert_equal(newrecord["group"][0]['x'], '10')
         assert_equal(newrecord["group"][0]['y'], '30')
 
+    def test_analyzeSVG5(self):
+
         ia = iaObject()
         dom1 = minidom.parseString("<?xml version='1.0' ?>\
             <g transform='rotate(40)'>\
@@ -136,7 +149,9 @@ class TestiaObject:
         assert_equal(newrecord["group"][0]['minY'], '-2.62374853704')
         assert_equal(newrecord["group"][0]['x'], '10')
         assert_equal(newrecord["group"][0]['y'], '30')
-        
+
+    def test_analyzeSVG6(self):
+
         # check image included in a group
         ia = iaObject()
         dom1 = minidom.parseString('<?xml version="1.0" ?> \
@@ -157,6 +172,8 @@ class TestiaObject:
         assert_equal(newrecord["group"][0]['width'],'50')
         assert_equal(newrecord["group"][0]['height'],'50')                
 
+    def test_analyzeSVG7(self):
+
         # check rect included in a group
         ia = iaObject()
         dom1 = minidom.parseString('<?xml version="1.0" ?>\
@@ -171,6 +188,8 @@ class TestiaObject:
         assert_equal(newrecord["group"][0]['y'], '0')
         assert_equal(newrecord["group"][0]['width'], '50')
         assert_equal(newrecord["group"][0]['height'], '50')
+
+    def test_analyzeSVG8(self):
 
         # check groups included in a group
         ia = iaObject()
@@ -188,6 +207,8 @@ class TestiaObject:
         newrecord = ia.extract_g(group[0], "")
         assert_equal(newrecord['detail'], 'description')
         assert_equal(newrecord['title'], 'title')
+
+    def test_analyzeSVG9(self):
 
         # check metadatas
         ia = iaObject()
