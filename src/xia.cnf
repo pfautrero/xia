@@ -9,4 +9,5 @@ kineticLib = share/vendors/kinetic.min.js
 sha1Lib = share/vendors/git-sha1.min.js
 
 [version]
-numVersion = Xia - 1.0-beta4-04-12-2014
+numVersion = 1.0
+releaseVersion = beta4

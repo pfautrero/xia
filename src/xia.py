@@ -46,6 +46,7 @@ if __name__=='__main__':
     config = ConfigParser.ConfigParser()
     config.read("xia.cnf")
     numVersion = config.get('version', 'numVersion')
+    releaseVersion = config.get('version', 'releaseVersion')
     imagesPath = config.get('paths', 'imagesPath')
     langPath = config.get('paths', 'langPath')
     fontsPath = config.get('paths', 'fontsPath')
@@ -58,7 +59,7 @@ if __name__=='__main__':
     arguments = docopt(__doc__)
     
     if arguments["--version"]:
-        print(numVersion)
+        print(numVersion + releaseVersion)
     elif arguments["-i"] and arguments["-o"] and arguments["-t"]:
         input_file = arguments["<input-file>"]
         output_dir = arguments["<output-dir>"]
@@ -71,7 +72,7 @@ if __name__=='__main__':
         if arguments["<input-file>"] is not None:
             filename = arguments["<input-file>"]
         root = Tkinter.Tk()
-        root.title(numVersion)
+        root.title("XIA " + numVersion + releaseVersion)
         root.geometry("465x310")
         root.resizable(0,0)
         img = Tkinter.PhotoImage(file=imagesPath + '/xia64.gif')

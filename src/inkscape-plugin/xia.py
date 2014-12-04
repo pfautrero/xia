@@ -48,6 +48,7 @@ class ImageActive(inkex.Effect):
         config = ConfigParser.ConfigParser()
         config.read(inkexWorkingDir + "/xia.cnf")
         numVersion = inkexWorkingDir + "/" + config.get('version', 'numVersion')
+        releaseVersion = inkexWorkingDir + "/" + config.get('version', 'releaseVersion')
         imagesPath = inkexWorkingDir + "/" + config.get('paths', 'imagesPath')
         langPath = inkexWorkingDir + "/" + config.get('paths', 'langPath')
         fontsPath = inkexWorkingDir + "/" + config.get('paths', 'fontsPath')
@@ -63,7 +64,7 @@ class ImageActive(inkex.Effect):
                 self.document.write(filePath)
 
             root = Tkinter.Tk()
-            root.title(numVersion)
+            root.title("XIA " + numVersion + releaseVersion)
             root.geometry("465x310")
             root.resizable(0,0)
             img = Tkinter.PhotoImage(file= imagesPath + '/xia64.gif')
