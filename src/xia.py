@@ -43,7 +43,7 @@ from xiaconverter.xiaconsole import XIAConsole
 
 if __name__=='__main__':
     
-    numVersion = "Xia - 1.0-beta4"
+    #numVersion = "Xia - 1.0-beta4"
     config = ConfigParser.ConfigParser()
     config.read("xia.cnf")
     imagesPath = config.get('paths', 'imagesPath')

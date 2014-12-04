@@ -96,22 +96,19 @@ class iaObject:
             if metadata.item(0) is not None:
                 metadata_value = metadata.item(0).getElementsByTagName('dc:title')
                 if metadata_value.item(0) is not None:
-                    self.scene['creator'] = self.get_tag_value(\
-                      metadata_value.item(0))
+                    self.scene['creator'] = self.get_tag_value(metadata_value.item(0))
 
             metadata = metadatas.item(0).getElementsByTagName('dc:rights')
             if metadata.item(0) is not None:
                 metadata_value = metadata.item(0).getElementsByTagName('dc:title')
                 if metadata_value.item(0) is not None:
-                    self.scene['rights'] = self.get_tag_value(\
-                      metadata_value.item(0))
+                    self.scene['rights'] = self.get_tag_value(metadata_value.item(0))
 
             metadata = metadatas.item(0).getElementsByTagName('dc:publisher')
             if metadata.item(0) is not None:
                 metadata_value = metadata.item(0).getElementsByTagName('dc:title')
                 if metadata_value.item(0) is not None:
-                    self.scene['publisher'] = self.get_tag_value(\
-                      metadata_value.item(0))
+                    self.scene['publisher'] = self.get_tag_value(metadata_value.item(0))
 
             metadata = metadatas.item(0).getElementsByTagName('dc:language')
             if metadata.item(0) is not None:
@@ -133,8 +130,7 @@ class iaObject:
             if metadata.item(0) is not None:
                 metadata_value = metadata.item(0).getElementsByTagName('dc:title')
                 if metadata_value.item(0) is not None:
-                    self.scene['contributor'] = self.get_tag_value(\
-                      metadata_value.item(0))
+                    self.scene['contributor'] = self.get_tag_value(metadata_value.item(0))
 
     def extractRaster(self,xlink):
         """ extract raster from xlink:href attribute """
@@ -205,7 +201,7 @@ class iaObject:
         images = self.xml.getElementsByTagName('image')
         if images.item(0) is not None:
             image = images.item(0)
-            self.backgroundNode = image;
+            self.backgroundNode = image
             self.scene['width'] = image.attributes['width'].value
             self.scene['height'] =  image.attributes['height'].value
             self.backgroundX = 0
@@ -253,9 +249,8 @@ class iaObject:
 
             # calculate ratio to resize background image down to maxNumPixels
             
-            bgNumPixels = float(int(float(self.scene['width'])) * \
-                int(float(self.scene['height'])))
-            if (bgNumPixels > maxNumPixels):
+            bgNumPixels = float(int(float(self.scene['width'])) * int(float(self.scene['height'])))
+            if bgNumPixels > maxNumPixels:
                 self.ratio = math.sqrt(maxNumPixels / bgNumPixels)
          
             if self.ratio != 1:
@@ -343,26 +338,20 @@ class iaObject:
             record_image['options'] = ""
             
             if image.hasAttribute("x"):
-                record_image['x'] = str((float(image.attributes['x'].value) - \
-                  self.backgroundX) * self.ratio)
+                record_image['x'] = str((float(image.attributes['x'].value) - self.backgroundX) * self.ratio)
             if image.hasAttribute("y"):
-                record_image['y'] = str((float(image.attributes['y'].value) - \
-                  self.backgroundY) * self.ratio)
+                record_image['y'] = str((float(image.attributes['y'].value) - self.backgroundY) * self.ratio)
             
             if self.ratio != 1:
                 record_image['image'], \
                 record_image['width'], \
                 record_image['height'] = \
-                    self.resizeImage(record_image['image'], \
-                      record_image['width'], \
-                      record_image['height'])
+                    self.resizeImage(record_image['image'], record_image['width'], record_image['height'])
             if not sys.platform.startswith("darwin"):
                 record_image['image'], \
                 record_image['width'], \
                 record_image['height'], \
-                newx, newy = self.cropImage(record_image['image'], \
-                      record_image['width'], \
-                      record_image['height'])
+                newx, newy = self.cropImage(record_image['image'], record_image['width'], record_image['height'])
                 record_image['y'] = str(int(float(record_image['y']) + float(newy)))
                 record_image['x'] = str(int(float(record_image['x']) + float(newx)))
                 
