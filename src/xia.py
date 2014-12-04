@@ -70,7 +70,7 @@ if __name__=='__main__':
         if arguments["<input-file>"] is not None:
             filename = arguments["<input-file>"]
         root = Tkinter.Tk()
-        root.title(numVersion)
+        #root.title(numVersion)
         root.geometry("465x310")
         root.resizable(0,0)
         img = Tkinter.PhotoImage(file=imagesPath + '/xia64.gif')

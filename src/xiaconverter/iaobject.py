@@ -802,13 +802,14 @@ class iaObject:
                     im = im.convert("RGBA")
                     pix_val = list(im.getdata())
                     (w, h) = im.size
+                    alpha_threshold = 100
                     y_delta = 0
                     stop_scan = 0
                     for y in range(h):
                         row = y * w
                         for x in range(w):
-                            transparency = pix_val[x+row][3] - 255
-                            if transparency == 0:
+                            transparency = pix_val[x+row][3] - alpha_threshold
+                            if transparency >= 0:
                                 stop_scan = 1
                                 break
                         if stop_scan:
@@ -821,8 +822,8 @@ class iaObject:
                     for y in range(h-1,0,-1):
                         row = y * w
                         for x in range(w-1,0,-1):
-                            transparency = pix_val[x+row][3] - 255
-                            if transparency == 0:
+                            transparency = pix_val[x+row][3] - alpha_threshold
+                            if transparency >= 0:
                                 stop_scan = 1
                                 break
                         if stop_scan:
@@ -835,8 +836,8 @@ class iaObject:
                     for x in range(0,w-1):
                         for y in range(0,h-1):
                             row = y * w
-                            transparency = pix_val[x+row][3] - 255
-                            if transparency == 0:
+                            transparency = pix_val[x+row][3] - alpha_threshold
+                            if transparency >= 0:
                                 stop_scan = 1
                                 break
                         if stop_scan:
@@ -849,8 +850,8 @@ class iaObject:
                     for x in range(w-1,0,-1):
                         for y in range(h-1,0,-1):
                             row = y * w
-                            transparency = pix_val[x+row][3] - 255
-                            if transparency == 0:
+                            transparency = pix_val[x+row][3] - alpha_threshold
+                            if transparency >= 0:
                                 stop_scan = 1
                                 break
                         if stop_scan:
@@ -897,7 +898,6 @@ class iaObject:
                 if self.ratio != 1:
                     # Background image is too big to be used on mobiles
                     if sys.platform.startswith('darwin'):
-                        #print "Platform MAC OS X : resizing using sips"
                         oldwidth = int(float(rasterWidth))
                         oldheight = int(float(rasterHeight))
                         newwidth = int( oldwidth * self.ratio)
