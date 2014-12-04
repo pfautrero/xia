@@ -45,7 +45,7 @@ class IADialog(Tkinter.Frame):
             t = gettext.translation("xia-converter", langPath, languages=['en_US'])
         translate = t.ugettext
 
-        root.title("Xia - 1.0-beta4")
+        root.title("Xia - 1.0-beta4-04-12-2014")
         self.filename = ""
         self.imagesPath = imagesPath
         self.themesPath = themesPath
