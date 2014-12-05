@@ -55,8 +55,7 @@ class iaObject:
         """Init"""
         self.details = []
         self.scene = {}
-        self.raster = ""
-        
+
         # used to identify if background image must be resized for mobiles
         self.ratio = 1
 
@@ -244,8 +243,9 @@ class iaObject:
                 #if title.item(0).parentNode == image:
                 self.scene['intro_title'] = self.get_tag_value(title.item(0))
             
-            self.raster = self.extractRaster(image.attributes['xlink:href'].value)
-            self.scene['image'] = self.raster
+            raster = self.extractRaster(image.attributes['xlink:href'].value)
+            fixedRaster = self.fixRaster(raster, self.scene['width'], self.scene['height'])
+            self.scene['image'] = fixedRaster
 
             # calculate ratio to resize background image down to maxNumPixels
             
@@ -327,10 +327,11 @@ class iaObject:
             record_image['id'] =  hashlib.md5(str(uuid.uuid1())).hexdigest()
             if image.hasAttribute('id'):
                 record_image['id'] = image.attributes['id'].value
-            raster = self.extractRaster(image.attributes['xlink:href'].value)                
-            record_image['image'] = raster
             record_image['width'] = image.attributes['width'].value
             record_image['height'] = image.attributes['height'].value
+            raster = self.extractRaster(image.attributes['xlink:href'].value)
+            fixedRaster = self.fixRaster(raster, record_image["width"], record_image['height'])
+            record_image['image'] = fixedRaster
             record_image['detail'] = self.getText("desc", image)
             record_image['title'] = self.getText("title", image)
             record_image['x'] = str(0)
@@ -766,6 +767,52 @@ class iaObject:
 
         if record["group"]:
             return record
+
+    def fixRaster(self,raster, rasterWidth, rasterHeight):
+        dirname = tempfile.mkdtemp()
+        newraster = raster
+
+        rasterStartPosition = raster.find('base64,') + 7
+        rasterEncoded = raster[rasterStartPosition:]
+        rasterPrefix = raster[0:rasterStartPosition]
+        extension = re.search('image/(.*);base64', rasterPrefix)
+        if extension is not None:
+            if extension.group(1):
+                imageFile = dirname + os.path.sep + "image." + extension.group(1)
+                imageFileFixed = dirname + \
+                  os.path.sep + "image_small." + extension.group(1)
+                with open(imageFile, "wb") as bgImage:
+                    bgImage.write(rasterEncoded.decode("base64"))
+
+                if sys.platform.startswith('darwin'):
+                    shutil.copyfile(imageFile, imageFileFixed)
+                    w = commands.getstatusoutput('sips -g pixelWidth {0}' . format(imageFile))
+                    if w != rasterWidth:
+                        commands.getstatusoutput('sips -z {0} {1} {2}' . format(rasterHeight, rasterWidth, imageFileFixed))
+
+                        with open(imageFileFixed, 'rb') as fixedImage:
+                            rasterFixedEncoded = fixedImage.read().encode("base64")
+                            newraster = rasterPrefix + rasterFixedEncoded
+
+                else:
+                    # "Platform Linux or Windows : resizing using PIL"
+                    currentImg = Image.open(imageFile)
+                    (w,h) = currentImg.size
+                    if w != rasterWidth:
+                        newwidth = int(float(rasterWidth))
+                        newheight = int(float(rasterHeight))
+                        resizedImg = currentImg.resize((newwidth,newheight), Image.BICUBIC)
+                        resizedImg.save(imageFileFixed)
+
+                        with open(imageFileFixed, 'rb') as fixedImage:
+                            rasterFixedEncoded = fixedImage.read().encode("base64")
+                            newraster = rasterPrefix + rasterFixedEncoded
+
+        else:
+            print('ERROR : fixRaster() - image is not embedded')
+        shutil.rmtree(dirname)
+        return newraster
+
 
     def cropImage(self,raster, rasterWidth, rasterHeight):
         dirname = tempfile.mkdtemp()
