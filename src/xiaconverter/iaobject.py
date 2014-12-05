@@ -334,14 +334,14 @@ class iaObject:
             record_image['image'] = raster
             record_image['detail'] = self.getText("desc", image)
             record_image['title'] = self.getText("title", image)
-            record_image['x'] = str(0)
-            record_image['y'] = str(0)                        
+            record_image['x'] = unicode(0)
+            record_image['y'] = unicode(0)
             record_image['options'] = ""
             
             if image.hasAttribute("x"):
-                record_image['x'] = str((float(image.attributes['x'].value) - self.backgroundX) * self.ratio)
+                record_image['x'] = unicode((float(image.attributes['x'].value) - self.backgroundX) * self.ratio)
             if image.hasAttribute("y"):
-                record_image['y'] = str((float(image.attributes['y'].value) - self.backgroundY) * self.ratio)
+                record_image['y'] = unicode((float(image.attributes['y'].value) - self.backgroundY) * self.ratio)
             
             if self.ratio != 1:
                 record_image['image'], \
@@ -353,8 +353,8 @@ class iaObject:
                 record_image['width'], \
                 record_image['height'], \
                 newx, newy = self.cropImage(record_image['image'], record_image['width'], record_image['height'])
-                record_image['y'] = str(int(float(record_image['y']) + float(newy)))
-                record_image['x'] = str(int(float(record_image['x']) + float(newx)))
+                record_image['y'] = unicode(int(float(record_image['y']) + float(newy)))
+                record_image['x'] = unicode(int(float(record_image['x']) + float(newx)))
                 
             if record_image['title'].startswith("http://") or \
               record_image['title'].startswith("https://") or \
@@ -407,10 +407,10 @@ class iaObject:
               float(record_image['height'])) > float(maxY):
                 maxY = float(record_image['y']) + float(record_image['height'])
 
-            record_image["minX"] = str(minX)
-            record_image["minY"] = str(minY)
-            record_image["maxX"] = str(maxX)
-            record_image["maxY"] = str(maxY) 
+            record_image["minX"] = unicode(minX)
+            record_image["minY"] = unicode(minY)
+            record_image["maxX"] = unicode(maxX)
+            record_image["maxY"] = unicode(maxY)
 
             return record_image
 
@@ -425,10 +425,10 @@ class iaObject:
         record_rect['height'] = rect.attributes['height'].value
         record_rect['detail'] = self.getText("desc", rect)
         record_rect['title'] = self.getText("title", rect)
-        record_rect['x'] = str(0)
-        record_rect['y'] = str(0)
-        record_rect['rx'] = str(0)
-        record_rect['ry'] = str(0)
+        record_rect['x'] = unicode(0)
+        record_rect['y'] = unicode(0)
+        record_rect['rx'] = unicode(0)
+        record_rect['ry'] = unicode(0)
         record_rect['options'] = ""
 
         if rect.hasAttribute("x"):
@@ -478,8 +478,8 @@ class iaObject:
 
         p = cubicsuperpath.parsePath(record_rect['path'])
         record_rect['path'] = cubicsuperpath.formatPath(p)
-        record_rect['x'] = str(0)
-        record_rect['y'] = str(0)                        
+        record_rect['x'] = unicode(0)
+        record_rect['y'] = unicode(0)
         if stackTransformations == "":
             if rect.hasAttribute("transform"):
                 transformation = rect.attributes['transform'].value
@@ -530,10 +530,10 @@ class iaObject:
                     if float(p) > float(maxY):
                         maxY = float(p)
                 i = i + 1
-        record_rect["minX"] = str(minX)
-        record_rect["minY"] = str(minY)
-        record_rect["maxX"] = str(maxX)
-        record_rect["maxY"] = str(maxY)
+        record_rect["minX"] = unicode(minX)
+        record_rect["minY"] = unicode(minY)
+        record_rect["maxX"] = unicode(maxX)
+        record_rect["maxY"] = unicode(maxY)
 
         record_rect['path'] = '"' + record_rect['path'] + ' z"'
         return record_rect
@@ -556,8 +556,8 @@ class iaObject:
         record["style"] = ""
         record['detail'] = self.getText("desc", path)
         record['title'] = self.getText("title", path)
-        record['x'] = str(0)
-        record['y'] = str(0)
+        record['x'] = unicode(0)
+        record['y'] = unicode(0)
         record['options'] = ""
 
         if path.hasAttribute("onclick"):                            
@@ -651,10 +651,10 @@ class iaObject:
                     if float(p) > float(maxY):
                         maxY = float(p)
                 i = i + 1
-        record["minX"] = str(minX)
-        record["minY"] = str(minY)
-        record["maxX"] = str(maxX)
-        record["maxY"] = str(maxY)
+        record["minX"] = unicode(minX)
+        record["minY"] = unicode(minY)
+        record["maxX"] = unicode(maxX)
+        record["maxY"] = unicode(maxY)
         if record["path"]:
             return record
 
@@ -760,10 +760,10 @@ class iaObject:
             if group.hasAttribute("inkscape:label"):
                 record['title'] = group.attributes["inkscape:label"].value
                 
-        record["minX"] = str(minX)
-        record["minY"] = str(minY)
-        record["maxX"] = str(maxX)
-        record["maxY"] = str(maxY)
+        record["minX"] = unicode(minX)
+        record["minY"] = unicode(minY)
+        record["maxX"] = unicode(maxX)
+        record["maxY"] = unicode(maxY)
 
         if record["group"]:
             return record
@@ -903,12 +903,12 @@ class iaObject:
                           encode("base64")
                         newraster = rasterPrefix + \
                           rasterSmallEncoded   
-                    newrasterHeight = str((h - y_delta2 - y_delta) * float(rasterHeight) / h)
-                    newrasterWidth = str((w - x_delta - x_delta2) * float(rasterWidth) / w)
+                    newrasterHeight = int((h - y_delta2 - y_delta) * float(rasterHeight) / h)
+                    newrasterWidth = int((w - x_delta - x_delta2) * float(rasterWidth) / w)
         else:
             print('ERROR : cropImage() - image is not embedded ' + raster)
         shutil.rmtree(dirname)
-        return [newraster, newrasterWidth, newrasterHeight, x_delta, y_delta]                    
+        return [newraster, unicode(newrasterWidth), unicode(newrasterHeight), x_delta, y_delta]
 
     def resizeImage(self, raster, rasterWidth, rasterHeight):
         """ 
@@ -948,8 +948,8 @@ class iaObject:
                             newraster = rasterPrefix + \
                               rasterSmallEncoded
 
-                        newrasterWidth = newwidth.__str__()
-                        newrasterHeight = newheight.__str__()                    
+                        newrasterWidth = newwidth
+                        newrasterHeight = newheight
 
                     else:
                         # "Platform Linux or Windows : resizing using PIL"
@@ -969,12 +969,12 @@ class iaObject:
                             newraster = rasterPrefix + \
                               rasterSmallEncoded
 
-                        newrasterWidth = newwidth.__str__()
-                        newrasterHeight = newheight.__str__()
+                        newrasterWidth = newwidth
+                        newrasterHeight = newheight
         else:
             print('ERROR : image is not embedded')
         shutil.rmtree(dirname)
-        return [newraster, newrasterWidth, newrasterHeight]
+        return [newraster, unicode(newrasterWidth), unicode(newrasterHeight)]
 
 
     def generateJSON(self):
