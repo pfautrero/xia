@@ -808,8 +808,8 @@ class iaObject:
                             rasterFixedEncoded = fixedImage.read().encode("base64")
                             newraster = rasterPrefix + rasterFixedEncoded
 
-        #else:
-        #    print('ERROR : fixRaster() - image is not embedded')
+        else:
+            print('ERROR : fixRaster() - image is not embedded')
         shutil.rmtree(dirname)
         return newraster
 
@@ -905,8 +905,8 @@ class iaObject:
                           rasterSmallEncoded   
                     newrasterHeight = str(h - y_delta2 - y_delta) 
                     newrasterWidth = str(w - x_delta - x_delta2) 
-        #else:
-        #    print('ERROR : cropImage() - image is not embedded')
+        else:
+            print('ERROR : cropImage() - image is not embedded ' + raster)
         shutil.rmtree(dirname)
         return [newraster, newrasterWidth, newrasterHeight, x_delta, y_delta]                    
 
