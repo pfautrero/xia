@@ -62,8 +62,8 @@ class IADialog(Tkinter.Frame):
         # Don't show hidden files and directories 
         # (with tkinter, by default, it's the opposite).
         root.tk.call('namespace', 'import', '::tk::dialog::file::')
-        root.call('set', '::tk::dialog::file::showHiddenVar',  '0')
-        root.call('set', '::tk::dialog::file::showHiddenBtn',  '1')
+        root.call('set', '::tk::dialog::file::showHiddenVar', '0')
+        root.call('set', '::tk::dialog::file::showHiddenBtn', '1')
 
         # define images
 
@@ -82,9 +82,9 @@ class IADialog(Tkinter.Frame):
         # define buttons
 
         if self.filename == "":
-            button1 = Tkinter.Button(self, image=import_img, \
-                relief=Tkinter.FLAT, bd=0, height=150, width=150, \
-                command=self.askopenfilename)
+            button1 = Tkinter.Button(self, image=import_img,
+                                     relief=Tkinter.FLAT, bd=0, height=150, width=150,
+                                     command=self.askopenfilename)
             button1.image = import_img
             button1.grid(row=0,column=0, columnspan=1,sticky='W')
             tooltip = ToolTip(button1,translate("select svg file"), None, 0.1)
@@ -95,9 +95,9 @@ class IADialog(Tkinter.Frame):
             label1.grid(row=0,column=0,columnspan=1, sticky='W')
             self.keep_alive = "no"
 
-        button2 = Tkinter.Button(self, image=params_img, \
-            relief=Tkinter.FLAT, bd=0, height=150, width=150, \
-            command=self.openparams)
+        button2 = Tkinter.Button(self, image=params_img,
+                                 relief=Tkinter.FLAT, bd=0, height=150, width=150,
+                                 command=self.openparams)
         button2.image = params_img
         button2.grid(row=0,column=1, columnspan=1,sticky='W')
         tooltip2 = ToolTip(button2,translate("ajust parameters"), None, 0.1)
@@ -112,22 +112,18 @@ class IADialog(Tkinter.Frame):
             for filename in themes_folders:
                 theme = {}
                 theme['name'] = filename
-                imp.load_source(filename, themesPath + "/" + filename + \
-                    "/hook.py")
+                imp.load_source(filename, themesPath + "/" + filename + "/hook.py")
                 imported_class = __import__(filename)
-                theme['object'] = imported_class.hook(self, self.imageActive, \
-                    PageFormatter, self.langPath)
+                theme['object'] = imported_class.hook(self, self.imageActive, PageFormatter, self.langPath)
                 self.themes.append(theme)
 
-                img_button = Tkinter.PhotoImage(file= themesPath + "/" + \
-                    filename + "/" + "icon.gif")    
-                button = Tkinter.Button(self, image=img_button, \
-                    relief=Tkinter.FLAT,bd=0, height=150, width=150)
+                img_button = Tkinter.PhotoImage(file= themesPath + "/" + filename + "/" + "icon.gif")
+                button = Tkinter.Button(self, image=img_button, relief=Tkinter.FLAT,bd=0, height=150, width=150)
                 button["command"] = lambda t=theme:self.createIA(t)
                 button.image = img_button
                 button.grid(row=theme_index // 3,column=theme_index % 3)
                 tooltip = ToolTip(button,theme['object'].tooltip, None, 0.1)
-                theme_index = theme_index + 1
+                theme_index += 1
                 if theme_index == 3:
                     theme_index = 5
 
@@ -136,11 +132,8 @@ class IADialog(Tkinter.Frame):
         while (theme_index % 3) != 0:
             label = Tkinter.Label(self, image=void_img)
             label.photo = void_img
-            label.grid(row=theme_index // 3, \
-                column=theme_index % 3, \
-                columnspan=1, \
-                sticky='W')
-            theme_index = theme_index + 1
+            label.grid(row=theme_index // 3, column=theme_index % 3, columnspan=1, sticky='W')
+            theme_index += 1
             if theme_index == 3:
                 theme_index = 5
 
@@ -191,8 +184,7 @@ class IADialog(Tkinter.Frame):
             try:
                 os.mkdir(self.config_dir, 0755)
             except Exception as e:
-                print(translate("Sorry, impossible to create the {0} directory") . \
-                    format(self.config_dir))
+                print(translate("Sorry, impossible to create the {0} directory") . format(self.config_dir))
                 print("Error({0}): {1}".format(e.errno, e.strerror))
                 sys.exit(1)
                 
@@ -202,23 +194,19 @@ class IADialog(Tkinter.Frame):
             try:
                 self.file_opt['initialdir'] = self.config.get("paths", "source_dir").decode("base64")
             except:
-                self.config.set("paths", "source_dir", \
-                    self.file_opt['initialdir'].encode("utf8").encode("base64"))
-                self.config.write(config_ini)
+                self.config.set("paths", "source_dir", self.file_opt['initialdir'].encode("utf8").encode("base64"))
+                self.config.write(self.config_ini)
             try:
                 self.dir_opt['initialdir'] = self.config.get("paths", "target_dir").decode("base64")
             except:
-                self.config.set("paths", "target_dir", \
-                    self.dir_opt['initialdir'].encode("utf8").encode("base64"))
-                self.config.write(config_ini)
+                self.config.set("paths", "target_dir", self.dir_opt['initialdir'].encode("utf8").encode("base64"))
+                self.config.write(self.config_ini)
         else:
             with open(self.config_ini, "w") as config_file:
                 self.config = ConfigParser.ConfigParser()
                 self.config.add_section('paths')
-                self.config.set("paths", "source_dir", \
-                    self.file_opt['initialdir'].encode("utf8").encode("base64"))
-                self.config.set("paths", "target_dir", \
-                    self.dir_opt['initialdir'].encode("utf8").encode("base64"))
+                self.config.set("paths", "source_dir", self.file_opt['initialdir'].encode("utf8").encode("base64"))
+                self.config.set("paths", "target_dir", self.dir_opt['initialdir'].encode("utf8").encode("base64"))
                 self.config.write(config_file)
 
         self.paramsTitle = translate("Parameters")
@@ -262,8 +250,7 @@ class IADialog(Tkinter.Frame):
                 with open(self.config_ini, "w") as config_file:
                   self.config.write(config_file)
 
-                mysplash = Splash(self.root , self.imagesPath + \
-                  '/processing.gif', 0)
+                mysplash = Splash(self.root , self.imagesPath + '/processing.gif', 0)
                 mysplash.enter()              
 
                 self.dir_opt['initialdir'] = self.dirname
@@ -280,23 +267,20 @@ class IADialog(Tkinter.Frame):
                         shutil.rmtree(self.dirname + '/datas')
                     os.mkdir(self.dirname + '/datas')
                     shutil.copytree(self.fontsPath , self.dirname + '/font/')              
-                    shutil.copytree(self.themesPath + '/' + theme['name'] + \
-                        '/css/', self.dirname + '/css/')
-                    shutil.copytree(self.themesPath + '/' + theme['name'] + \
-                        '/img/', self.dirname + '/img/')
-                    shutil.copytree(self.themesPath + '/' + theme['name'] + \
-                        '/js/', self.dirname + '/js/')
+                    shutil.copytree(self.themesPath + '/' + theme['name'] + '/css/', self.dirname + '/css/')
+                    shutil.copytree(self.themesPath + '/' + theme['name'] + '/img/', self.dirname + '/img/')
+                    shutil.copytree(self.themesPath + '/' + theme['name'] + '/js/', self.dirname + '/js/')
                     shutil.copy(self.labjsLib , self.dirname + '/js')
                     shutil.copy(self.jqueryLib , self.dirname + '/js')
                     shutil.copy(self.kineticLib , self.dirname + '/js')
                     shutil.copy(self.sha1Lib , self.dirname + '/js')
 
                 if self.firefoxos:
-                    shutil.copyfile(self.themesPath + '/' + theme['name'] + \
-                        '/manifest.webapp', self.dirname + '/manifest.webapp')
+                    shutil.copyfile(self.themesPath + '/' + theme['name'] + '/manifest.webapp',
+                                    self.dirname + '/manifest.webapp')
 
-                    shutil.copyfile(self.themesPath + '/' + theme['name'] + \
-                        '/deploy.html', self.dirname + '/deploy.html')
+                    shutil.copyfile(self.themesPath + '/' + theme['name'] + '/deploy.html',
+                                    self.dirname + '/deploy.html')
 
                 maxNumPixels = self.defineMaxPixels(self.resize)
                 self.imageActive.analyzeSVG(self.filename, maxNumPixels)
@@ -306,8 +290,8 @@ class IADialog(Tkinter.Frame):
                     with open(self.dirname + '/datas/data.js',"w") as jsonfile:
                         jsonfile.write(self.imageActive.jsonContent.encode('utf8'))
 
-                theme['object'].generateIndex(self.dirname + "/index.html", \
-                    self.themesPath + '/' + theme['name'] + '/index.html')
+                theme['object'].generateIndex(self.dirname + "/index.html",
+                                              self.themesPath + '/' + theme['name'] + '/index.html')
                     
                 mysplash.exit()
 

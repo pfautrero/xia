@@ -35,7 +35,7 @@ import sys
 import shutil
 import commands
 import hashlib
-from datetime import datetime
+#from datetime import datetime
 import uuid
 
 # import PIL for windows and Linux
@@ -254,13 +254,11 @@ class iaObject:
                 self.ratio = math.sqrt(maxNumPixels / bgNumPixels)
          
             if self.ratio != 1:
-                self.scene['image'], self.scene['width'], self.scene['height'] = \
-                  self.resizeImage(self.scene['image'], \
-                    self.scene['width'], \
-                    self.scene['height'])
+                self.scene['image'], self.scene['width'], self.scene['height'] = self.resizeImage(self.scene['image'],
+                                                                                                  self.scene['width'],
+                                                                                                  self.scene['height'])
 
-        svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', \
-            'polygon', 'path', 'image', 'g']
+        svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'image', 'g']
         mainSVG = self.xml.getElementsByTagName('svg')
         if mainSVG[0]:
             # if there is only one root group
@@ -398,13 +396,11 @@ class iaObject:
             maxY = -10000
             if float(record_image['x']) < float(minX):
                 minX = float(record_image['x'])
-            if (float(record_image['x']) + \
-              float(record_image['width'])) > float(maxX):
+            if (float(record_image['x']) + float(record_image['width'])) > float(maxX):
                 maxX = float(record_image['x']) + float(record_image['width'])
             if float(record_image['y']) < float(minY):
                 minY = float(record_image['y'])
-            if (float(record_image['y']) + \
-              float(record_image['height'])) > float(maxY):
+            if (float(record_image['y']) + float(record_image['height'])) > float(maxY):
                 maxY = float(record_image['y']) + float(record_image['height'])
 
             record_image["minX"] = unicode(minX)
@@ -715,8 +711,7 @@ class iaObject:
             else:
                 record['options'] += " " + str_onclick + " "
 
-        svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', \
-            'polygon', 'path', 'image']
+        svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'image']
         group_childs = []
         stackTransform = []
         self.linearize_childs(group, group_childs, stackTransform)
@@ -958,16 +953,12 @@ class iaObject:
                         oldheight = int(float(rasterHeight))
                         newwidth = int( oldwidth * self.ratio)
                         newheight = int( oldheight * self.ratio)
-                        resizedBg = currentBg.resize( \
-                            (newwidth,newheight), \
-                            Image.BICUBIC)
+                        resizedBg = currentBg.resize((newwidth,newheight), Image.BICUBIC)
                         resizedBg.save(imageFileSmall) 
 
                         with open(imageFileSmall, 'rb') as bgSmallImage:
-                            rasterSmallEncoded = bgSmallImage.read().\
-                              encode("base64")
-                            newraster = rasterPrefix + \
-                              rasterSmallEncoded
+                            rasterSmallEncoded = bgSmallImage.read().encode("base64")
+                            newraster = rasterPrefix + rasterSmallEncoded
 
                         newrasterWidth = newwidth
                         newrasterHeight = newheight
