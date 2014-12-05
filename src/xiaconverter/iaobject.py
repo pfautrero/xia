@@ -449,7 +449,7 @@ class iaObject:
             if str_onclick == "off":
                 record_rect['options'] += " disable-click "
             else:
-                record_image['options'] += " " + str_onclick + " "
+                record_rect['options'] += " " + str_onclick + " "
         if rect.hasAttribute("onmouseover"):                            
             str_onmouseover = rect.attributes['onmouseover'].value
             record_rect['options'] += " " + str_onmouseover + " "
