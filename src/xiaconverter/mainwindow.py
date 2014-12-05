@@ -250,7 +250,7 @@ class IADialog(Tkinter.Frame):
                 with open(self.config_ini, "w") as config_file:
                   self.config.write(config_file)
 
-                mysplash = Splash(self.root , self.imagesPath + '/processing.gif', 0)
+                mysplash = Splash(self.root, self.imagesPath + '/processing.gif', 0)
                 mysplash.enter()              
 
                 self.dir_opt['initialdir'] = self.dirname
@@ -270,10 +270,10 @@ class IADialog(Tkinter.Frame):
                     shutil.copytree(self.themesPath + '/' + theme['name'] + '/css/', self.dirname + '/css/')
                     shutil.copytree(self.themesPath + '/' + theme['name'] + '/img/', self.dirname + '/img/')
                     shutil.copytree(self.themesPath + '/' + theme['name'] + '/js/', self.dirname + '/js/')
-                    shutil.copy(self.labjsLib , self.dirname + '/js')
-                    shutil.copy(self.jqueryLib , self.dirname + '/js')
-                    shutil.copy(self.kineticLib , self.dirname + '/js')
-                    shutil.copy(self.sha1Lib , self.dirname + '/js')
+                    shutil.copy(self.labjsLib, self.dirname + '/js')
+                    shutil.copy(self.jqueryLib, self.dirname + '/js')
+                    shutil.copy(self.kineticLib, self.dirname + '/js')
+                    shutil.copy(self.sha1Lib, self.dirname + '/js')
 
                 if self.firefoxos:
                     shutil.copyfile(self.themesPath + '/' + theme['name'] + '/manifest.webapp',

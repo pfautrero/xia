@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-#    This program is free software: you can redistribute it and/or modify
+# This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
@@ -48,6 +48,7 @@ if not sys.platform.startswith('darwin'):
         print "Requirement : Please, install python-pil package"
         sys.exit(1)
 
+
 class iaObject:
     """generate Image Active Object"""
 
@@ -62,15 +63,15 @@ class iaObject:
         self.translation = 0
         self.jsonContent = ""
         self.filePath = ""
-        
-    def get_tag_value(self,node):
+
+    def get_tag_value(self, node):
         if node.childNodes:
             return node.childNodes[0].nodeValue
         else:
             return ""
 
     def extractMetadatas(self, xml):
-        
+
         metadatas = xml.getElementsByTagName('metadata')
         self.scene['date'] = ""
         self.scene['creator'] = ""
@@ -81,16 +82,16 @@ class iaObject:
         self.scene['description'] = ""
         self.scene['contributor'] = ""
         if metadatas.item(0) is not None:
-            
+
             metadata = metadatas.item(0).getElementsByTagName('dc:title')
             if metadata.item(0) is not None:
                 if self.get_tag_value(metadata.item(0)) != "":
                     self.scene['title'] = self.get_tag_value(metadata.item(0))
-            
+
             metadata = metadatas.item(0).getElementsByTagName('dc:date')
             if metadata.item(0) is not None:
-                self.scene['date'] = self.get_tag_value(metadata.item(0))            
-            
+                self.scene['date'] = self.get_tag_value(metadata.item(0))
+
             metadata = metadatas.item(0).getElementsByTagName('dc:creator')
             if metadata.item(0) is not None:
                 metadata_value = metadata.item(0).getElementsByTagName('dc:title')
@@ -112,15 +113,15 @@ class iaObject:
             metadata = metadatas.item(0).getElementsByTagName('dc:language')
             if metadata.item(0) is not None:
                 self.scene['language'] = self.get_tag_value(metadata.item(0))
-            
+
             metadata = metadatas.item(0).getElementsByTagName('dc:subject')
             if metadata.item(0) is not None:
                 items = metadata.item(0).getElementsByTagName('rdf:li')
                 for key_word in items:
                     if self.scene['keywords']:
                         self.scene['keywords'] += ","
-                    self.scene['keywords'] += self.get_tag_value(key_word) 
-            
+                    self.scene['keywords'] += self.get_tag_value(key_word)
+
             metadata = metadatas.item(0).getElementsByTagName('dc:description')
             if metadata.item(0) is not None:
                 self.scene['description'] = self.get_tag_value(metadata.item(0))
@@ -131,7 +132,7 @@ class iaObject:
                 if metadata_value.item(0) is not None:
                     self.scene['contributor'] = self.get_tag_value(metadata_value.item(0))
 
-    def extractRaster(self,xlink):
+    def extractRaster(self, xlink):
         """ extract raster from xlink:href attribute """
         raster = xlink
         if not xlink.startswith("data:"):
@@ -147,18 +148,18 @@ class iaObject:
             imgMimeTypes['.gif'] = 'image/gif'
             imgMimeTypes['.bmp'] = 'image/bmp'
             rasterPref = u"data:" + \
-                imgMimeTypes[imgExtension.lower()] + u";base64,"
+                         imgMimeTypes[imgExtension.lower()] + u";base64,"
             if os.path.exists(xlink[strStarter:]):
                 imgFile = xlink[strStarter:]
             else:
                 localDir = os.path.dirname(self.filePath)
                 imgFile = localDir + "/" + xlink[strStarter:]
-            if os.path.exists(imgFile):    
+            if os.path.exists(imgFile):
                 with open(imgFile, 'rb') as img:
-                    raster = rasterPref + img.read().encode("base64", "strict")        
+                    raster = rasterPref + img.read().encode("base64", "strict")
         return raster
-    
-    def analyzeSVG(self,filePath, maxNumPixels):
+
+    def analyzeSVG(self, filePath, maxNumPixels):
         """analyze svg file and fill self.details and self.scene"""
         self.details = []
         self.scene.clear()
@@ -168,7 +169,7 @@ class iaObject:
         # workaround to be able to read svg files 
         # generated with images actives 1
         # (xlink namespace is not available and must be added)
-        
+
         with open(filePath, 'r') as svgfile:
             svgcontent = svgfile.read()
             if not re.search(r'xmlns:xlink=', svgcontent, re.M):
@@ -179,10 +180,9 @@ class iaObject:
                 with open(fixedfile, 'w') as tempsvgfile:
                     tempsvgfile.write(svgcontent)
                 filePath = fixedfile
-        
+
         self.filePath = filePath
 
-        
         self.xml = minidom.parse(filePath)
 
         head, tail = os.path.split(filePath)
@@ -202,14 +202,14 @@ class iaObject:
             image = images.item(0)
             self.backgroundNode = image
             self.scene['width'] = image.attributes['width'].value
-            self.scene['height'] =  image.attributes['height'].value
+            self.scene['height'] = image.attributes['height'].value
             self.backgroundX = 0
             self.backgroundY = 0
             if image.hasAttribute('x'):
                 self.backgroundX = float(image.attributes['x'].value)
             if image.hasAttribute('y'):
-                self.backgroundY =  float(image.attributes['y'].value)
-            
+                self.backgroundY = float(image.attributes['y'].value)
+
             #print self.backgroundX
             #print self.backgroundY
             if (self.backgroundX != 0) or (self.backgroundY != 0):
@@ -218,7 +218,7 @@ class iaObject:
                 self.translation = ctm.matrix
 
             #print self.translation
-            
+
             desc = image.getElementsByTagName('desc')
             if desc.item(0) is None and image.parentNode.parentNode is not None:
                 big_group = image.parentNode.parentNode
@@ -242,17 +242,17 @@ class iaObject:
             if title.item(0) is not None:
                 #if title.item(0).parentNode == image:
                 self.scene['intro_title'] = self.get_tag_value(title.item(0))
-            
+
             raster = self.extractRaster(image.attributes['xlink:href'].value)
             fixedRaster = self.fixRaster(raster, self.scene['width'], self.scene['height'])
             self.scene['image'] = fixedRaster
 
             # calculate ratio to resize background image down to maxNumPixels
-            
+
             bgNumPixels = float(int(float(self.scene['width'])) * int(float(self.scene['height'])))
             if bgNumPixels > maxNumPixels:
                 self.ratio = math.sqrt(maxNumPixels / bgNumPixels)
-         
+
             if self.ratio != 1:
                 self.scene['image'], self.scene['width'], self.scene['height'] = self.resizeImage(self.scene['image'],
                                                                                                   self.scene['width'],
@@ -268,12 +268,12 @@ class iaObject:
             last_group = None
             for childnode in mainSVG[0].childNodes:
                 if childnode.nodeName == "g":
-                    nb_root_groups+=1
-                    nb_root_elements+=1
+                    nb_root_groups += 1
+                    nb_root_elements += 1
                     last_group = childnode
                 elif childnode.nodeName in svgElements:
-                    nb_root_elements+=1
-            
+                    nb_root_elements += 1
+
             if (nb_root_groups == 1) and (nb_root_elements == 1):
                 mainSVG[0] = last_group
             else:
@@ -288,12 +288,11 @@ class iaObject:
                                     if childnode.attributes["class"].value == "Page":
                                         mainSVG[0] = childnode
                                         break
-                                    
+
             for childnode in mainSVG[0].childNodes:
                 if childnode.parentNode.nodeName == mainSVG[0].nodeName:
                     if childnode.nodeName in svgElements:
-                        newrecord = getattr(self, 'extract_' + \
-                            childnode.nodeName)(childnode, "")
+                        newrecord = getattr(self, 'extract_' + childnode.nodeName)(childnode, "")
                         if newrecord is not None:
                             self.details.append(newrecord)
 
@@ -316,13 +315,13 @@ class iaObject:
     def extract_polygon(self, image, stackTransformations):
         """not yet implemented"""
         print("polygon is not implemented")
-        
+
     def extract_image(self, image, stackTransformations):
         """Analyze images"""
-        
+
         if not image.isSameNode(self.backgroundNode):
             record_image = {}
-            record_image['id'] =  hashlib.md5(str(uuid.uuid1())).hexdigest()
+            record_image['id'] = hashlib.md5(str(uuid.uuid1())).hexdigest()
             if image.hasAttribute('id'):
                 record_image['id'] = image.attributes['id'].value
             record_image['width'] = image.attributes['width'].value
@@ -335,12 +334,12 @@ class iaObject:
             record_image['x'] = unicode(0)
             record_image['y'] = unicode(0)
             record_image['options'] = ""
-            
+
             if image.hasAttribute("x"):
                 record_image['x'] = unicode((float(image.attributes['x'].value) - self.backgroundX) * self.ratio)
             if image.hasAttribute("y"):
                 record_image['y'] = unicode((float(image.attributes['y'].value) - self.backgroundY) * self.ratio)
-            
+
             if self.ratio != 1:
                 record_image['image'], \
                 record_image['width'], \
@@ -353,36 +352,36 @@ class iaObject:
                 newx, newy = self.cropImage(record_image['image'], record_image['width'], record_image['height'])
                 record_image['y'] = unicode(int(float(record_image['y']) + float(newy)))
                 record_image['x'] = unicode(int(float(record_image['x']) + float(newx)))
-                
+
             if record_image['title'].startswith("http://") or \
-              record_image['title'].startswith("https://") or \
-              record_image['title'].startswith("//") or \
-              record_image['title'].startswith("./") or \
-              record_image['title'].startswith("../"):
+                    record_image['title'].startswith("https://") or \
+                    record_image['title'].startswith("//") or \
+                    record_image['title'].startswith("./") or \
+                    record_image['title'].startswith("../"):
                 record_image['options'] += " direct-link "
 
-            if image.hasAttribute("style"):                            
+            if image.hasAttribute("style"):
                 str_style = image.attributes['style'].value
                 style = {}
                 for item in str_style.split(";"):
-                    key,value = item.split(":")
+                    key, value = item.split(":")
                     style[key] = value
                 if 'fill' in style:
                     record_image['fill'] = style['fill']
                 else:
                     record_image['fill'] = "#ffffff"
 
-            if image.hasAttribute("onclick"):                            
+            if image.hasAttribute("onclick"):
                 str_onclick = image.attributes['onclick'].value
                 if str_onclick == "off":
                     record_image['options'] += " disable-click "
                 else:
                     record_image['options'] += " " + str_onclick + " "
 
-            if image.hasAttribute("onmouseover"):                            
+            if image.hasAttribute("onmouseover"):
                 str_onmouseover = image.attributes['onmouseover'].value
                 record_image['options'] += " " + str_onmouseover + " "
-                        
+
             if image.hasAttribute("transform"):
                 transformation = image.attributes['transform'].value
                 ctm = CurrentTransformation()
@@ -412,9 +411,9 @@ class iaObject:
 
     def extract_rect(self, rect, stackTransformations):
         """Analyze rectangles"""
-        
+
         record_rect = {}
-        record_rect['id'] =  hashlib.md5(str(uuid.uuid1())).hexdigest()
+        record_rect['id'] = hashlib.md5(str(uuid.uuid1())).hexdigest()
         if rect.hasAttribute("id"):
             record_rect['id'] = rect.attributes['id'].value
         record_rect['width'] = rect.attributes['width'].value
@@ -440,28 +439,28 @@ class iaObject:
         if rect.hasAttribute("ry"):
             record_rect['ry'] = rect.attributes['ry'].value
 
-        if rect.hasAttribute("onclick"):                            
+        if rect.hasAttribute("onclick"):
             str_onclick = rect.attributes['onclick'].value
             if str_onclick == "off":
                 record_rect['options'] += " disable-click "
             else:
                 record_rect['options'] += " " + str_onclick + " "
-        if rect.hasAttribute("onmouseover"):                            
+        if rect.hasAttribute("onmouseover"):
             str_onmouseover = rect.attributes['onmouseover'].value
             record_rect['options'] += " " + str_onmouseover + " "
 
         if record_rect['title'].startswith("http://") or \
-          record_rect['title'].startswith("https://") or \
-          record_rect['title'].startswith("//") or \
-          record_rect['title'].startswith("./") or \
-          record_rect['title'].startswith("../"):
+                record_rect['title'].startswith("https://") or \
+                record_rect['title'].startswith("//") or \
+                record_rect['title'].startswith("./") or \
+                record_rect['title'].startswith("../"):
             record_rect['options'] += " direct-link "
 
-        if rect.hasAttribute("style"):                            
+        if rect.hasAttribute("style"):
             str_style = rect.attributes['style'].value
             style = {}
             for item in str_style.split(";"):
-                key,value = item.split(":")
+                key, value = item.split(":")
                 style[key] = value
             if 'fill' in style:
                 record_rect['fill'] = style['fill']
@@ -481,7 +480,7 @@ class iaObject:
                 transformation = rect.attributes['transform'].value
                 ctm.analyze(transformation)
 
-                ctm.applyTransformToPath(ctm.matrix,p)
+                ctm.applyTransformToPath(ctm.matrix, p)
                 record_rect['path'] = cubicsuperpath.formatPath(p)
 
         # apply group transformation on current object
@@ -490,23 +489,23 @@ class iaObject:
             for transformation in transformations[::-1]:
                 ctm = CurrentTransformation()
                 ctm.analyze(transformation)
-                ctm.applyTransformToPath(ctm.matrix,p)
-                record_rect['path'] = cubicsuperpath.formatPath(p) 
-            
-        #if ctm_group:
+                ctm.applyTransformToPath(ctm.matrix, p)
+                record_rect['path'] = cubicsuperpath.formatPath(p)
+
+                #if ctm_group:
         #    ctm_group.applyTransformToPath(ctm_group.matrix,p)
         #    record_rect['path'] = cubicsuperpath.formatPath(p)
 
         if self.translation != 0:
             ctm = CurrentTransformation()
-            ctm.applyTransformToPath(self.translation,p)
-            record_rect['path'] = cubicsuperpath.formatPath(p) 
+            ctm.applyTransformToPath(self.translation, p)
+            record_rect['path'] = cubicsuperpath.formatPath(p)
 
         if self.ratio != 1:
             ctm = CurrentTransformation()
             ctm.extractScale([self.ratio])
-            ctm.applyTransformToPath(ctm.matrix,p)
-            record_rect['path'] = cubicsuperpath.formatPath(p) 
+            ctm.applyTransformToPath(ctm.matrix, p)
+            record_rect['path'] = cubicsuperpath.formatPath(p)
 
         minX = 10000
         minY = 10000
@@ -515,7 +514,7 @@ class iaObject:
         for cmd, params in cubicsuperpath.unCubicSuperPath(p):
             i = 0
             for p in params:
-                if (i%2 == 0):
+                if (i % 2 == 0):
                     if float(p) < float(minX):
                         minX = float(p)
                     if float(p) > float(maxX):
@@ -534,21 +533,21 @@ class iaObject:
         record_rect['path'] = '"' + record_rect['path'] + ' z"'
         return record_rect
 
-    def extract_path(self,path, stackTransformations):
+    def extract_path(self, path, stackTransformations):
         """Analyze paths"""
-        
+
         record = {}
         record["path"] = ""
         record["fill"] = ""
-        record["id"] =  hashlib.md5(str(uuid.uuid1())).hexdigest()
+        record["id"] = hashlib.md5(str(uuid.uuid1())).hexdigest()
         if path.hasAttribute("id"):
-            record["id"] =  path.attributes['id'].value
-        record["path"] =  path.attributes['d'].value. \
-            replace("&#xd;&#xa;"," "). \
-            replace("&#x9;"," "). \
-            replace("\n"," "). \
-            replace("\t"," "). \
-            replace("\r"," ") 
+            record["id"] = path.attributes['id'].value
+        record["path"] = path.attributes['d'].value. \
+            replace("&#xd;&#xa;", " "). \
+            replace("&#x9;", " "). \
+            replace("\n", " "). \
+            replace("\t", " "). \
+            replace("\r", " ")
         record["style"] = ""
         record['detail'] = self.getText("desc", path)
         record['title'] = self.getText("title", path)
@@ -556,49 +555,49 @@ class iaObject:
         record['y'] = unicode(0)
         record['options'] = ""
 
-        if path.hasAttribute("onclick"):                            
+        if path.hasAttribute("onclick"):
             str_onclick = path.attributes['onclick'].value
             if str_onclick == "off":
                 record['options'] += " disable-click "
             else:
                 record['options'] += " " + str_onclick + " "
 
-        if path.hasAttribute("onmouseover"):                            
+        if path.hasAttribute("onmouseover"):
             str_onmouseover = path.attributes['onmouseover'].value
             record['options'] += " " + str_onmouseover + " "
-                
+
         if record['title'].startswith("http://") or \
-          record['title'].startswith("https://") or \
-          record['title'].startswith("//") or \
-          record['title'].startswith("./") or \
-          record['title'].startswith("../"):
+                record['title'].startswith("https://") or \
+                record['title'].startswith("//") or \
+                record['title'].startswith("./") or \
+                record['title'].startswith("../"):
             record['options'] += " direct-link "
-        
+
         if path.hasAttribute("style") and (path.attributes['style'].value != ""):
             str_style = path.attributes['style'].value
             style = {}
             for item in str_style.split(";"):
-                key,value = item.split(":")
+                key, value = item.split(":")
                 style[key] = value
             if 'fill' in style:
                 record["fill"] = style['fill']
 
         if path.hasAttribute("x"):
             record['x'] = path.attributes['x'].value
-        if path.hasAttribute("y"):            
+        if path.hasAttribute("y"):
             record['y'] = path.attributes['y'].value
 
         # ObjectToPath
         p = cubicsuperpath.parsePath(record['path'])
         record['path'] = cubicsuperpath.formatPath(p)
 
-        if stackTransformations == "":        
+        if stackTransformations == "":
             if path.hasAttribute("transform"):
                 transformation = path.attributes['transform'].value
                 ctm = CurrentTransformation()
                 ctm.analyze(transformation)
 
-                ctm.applyTransformToPath(ctm.matrix,p)
+                ctm.applyTransformToPath(ctm.matrix, p)
                 record['path'] = cubicsuperpath.formatPath(p)
 
         # apply group transformation on current object
@@ -611,20 +610,20 @@ class iaObject:
             for transformation in transformations[::-1]:
                 ctm = CurrentTransformation()
                 ctm.analyze(transformation)
-                ctm.applyTransformToPath(ctm.matrix,p)
-                record['path'] = cubicsuperpath.formatPath(p) 
+                ctm.applyTransformToPath(ctm.matrix, p)
+                record['path'] = cubicsuperpath.formatPath(p)
 
         if self.translation != 0:
             #print("apply translation")
             ctm = CurrentTransformation()
-            ctm.applyTransformToPath(self.translation,p)
-            record['path'] = cubicsuperpath.formatPath(p)  
-            
+            ctm.applyTransformToPath(self.translation, p)
+            record['path'] = cubicsuperpath.formatPath(p)
+
         if self.ratio != 1:
             ctm = CurrentTransformation()
             ctm.extractScale([self.ratio])
-            ctm.applyTransformToPath(ctm.matrix,p)
-            record['path'] = cubicsuperpath.formatPath(p)       
+            ctm.applyTransformToPath(ctm.matrix, p)
+            record['path'] = cubicsuperpath.formatPath(p)
 
         if record["path"].lower().find("z") == -1:
             record["path"] += " z"
@@ -636,7 +635,7 @@ class iaObject:
         for cmd, params in cubicsuperpath.unCubicSuperPath(p):
             i = 0
             for p in params:
-                if (i%2 == 0):
+                if (i % 2 == 0):
                     if float(p) < float(minX):
                         minX = float(p)
                     if float(p) > float(maxX):
@@ -662,14 +661,14 @@ class iaObject:
                 return self.get_tag_value(text.item(0))
         return ""
 
-    def print_node(self,root, childs):
+    def print_node(self, root, childs):
         if root.childNodes:
             for node in root.childNodes:
-               if node.nodeType == node.ELEMENT_NODE:
-                   childs.append(node)
-                   self.print_node(node, childs)
+                if node.nodeType == node.ELEMENT_NODE:
+                    childs.append(node)
+                    self.print_node(node, childs)
 
-    def linearize_childs(self,root, childs, stackTransform):
+    def linearize_childs(self, root, childs, stackTransform):
 
         if root.hasAttribute("transform"):
             stackTransform.append(root.attributes['transform'].value)
@@ -677,7 +676,7 @@ class iaObject:
         entry["node"] = root
         entry["transform"] = "#".join(stackTransform)
         childs.append(entry)
-        
+
         if root.childNodes:
             for node in root.childNodes:
                 if node.nodeType == node.ELEMENT_NODE:
@@ -686,25 +685,25 @@ class iaObject:
 
         if root.hasAttribute("transform"):
             stackTransform.pop()
-                   
-    def extract_g(self,group, stackTransformations):
+
+    def extract_g(self, group, stackTransformations):
         """Analyze a svg group"""
 
         record = {}
         record["id"] = hashlib.md5(str(uuid.uuid1())).hexdigest()
         if group.hasAttribute("id"):
-            record["id"] =  group.attributes['id'].value
+            record["id"] = group.attributes['id'].value
         record['title'] = self.getText("title", group)
         record['detail'] = self.getText("desc", group)
         record["group"] = []
         record["options"] = ""
-        
+
         minX = 10000
         minY = 10000
         maxX = 0
         maxY = 0
-       
-        if group.hasAttribute("onclick"):                            
+
+        if group.hasAttribute("onclick"):
             str_onclick = group.attributes['onclick'].value
             if str_onclick == "off":
                 record['options'] += " disable-click "
@@ -722,17 +721,17 @@ class iaObject:
             #print childentry['transform']
             if childnode.nodeName in svgElements:
                 newrecord = getattr(self, 'extract_' + \
-                    childnode.nodeName)(childnode, childentry['transform'])
+                                    childnode.nodeName)(childnode, childentry['transform'])
                 if newrecord is not None:
                     #newrecord["options"] += record["options"]
                     #record["options"] =  newrecord["options"]
                     record["group"].append(newrecord)
-                    
+
                     if record["detail"] == "":
                         record['detail'] = newrecord['detail']
                     if record["title"] == "":
                         record['title'] = newrecord['title']
-                        
+
                     if float(newrecord["minX"]) < minX:
                         minX = float(newrecord["minX"])
                     if float(newrecord["minY"]) < minY:
@@ -754,7 +753,7 @@ class iaObject:
         if record['title'] == "":
             if group.hasAttribute("inkscape:label"):
                 record['title'] = group.attributes["inkscape:label"].value
-                
+
         record["minX"] = unicode(minX)
         record["minY"] = unicode(minY)
         record["maxX"] = unicode(maxX)
@@ -763,7 +762,7 @@ class iaObject:
         if record["group"]:
             return record
 
-    def fixRaster(self,raster, rasterWidth, rasterHeight):
+    def fixRaster(self, raster, rasterWidth, rasterHeight):
         dirname = tempfile.mkdtemp()
         newraster = raster
 
@@ -775,15 +774,17 @@ class iaObject:
             if extension.group(1):
                 imageFile = dirname + os.path.sep + "image." + extension.group(1)
                 imageFileFixed = dirname + \
-                  os.path.sep + "image_small." + extension.group(1)
+                                 os.path.sep + "image_small." + extension.group(1)
                 with open(imageFile, "wb") as bgImage:
                     bgImage.write(rasterEncoded.decode("base64"))
 
                 if sys.platform.startswith('darwin'):
                     shutil.copyfile(imageFile, imageFileFixed)
-                    w = commands.getstatusoutput('sips -g pixelWidth {0}' . format(imageFile))
+                    w = commands.getstatusoutput('sips -g pixelWidth {0}'.format(imageFile))
                     if w != rasterWidth:
-                        commands.getstatusoutput('sips -z {0} {1} {2}' . format(rasterHeight, rasterWidth, imageFileFixed))
+                        commands.getstatusoutput('sips -z {0} {1} {2}'.format(rasterHeight,
+                                                                              rasterWidth,
+                                                                              imageFileFixed))
 
                         with open(imageFileFixed, 'rb') as fixedImage:
                             rasterFixedEncoded = fixedImage.read().encode("base64")
@@ -792,11 +793,11 @@ class iaObject:
                 else:
                     # "Platform Linux or Windows : resizing using PIL"
                     currentImg = Image.open(imageFile)
-                    (w,h) = currentImg.size
+                    (w, h) = currentImg.size
                     if w != rasterWidth:
                         newwidth = int(float(rasterWidth))
                         newheight = int(float(rasterHeight))
-                        resizedImg = currentImg.resize((newwidth,newheight), Image.BICUBIC)
+                        resizedImg = currentImg.resize((newwidth, newheight), Image.BICUBIC)
                         resizedImg.save(imageFileFixed)
 
                         with open(imageFileFixed, 'rb') as fixedImage:
@@ -809,7 +810,7 @@ class iaObject:
         return newraster
 
 
-    def cropImage(self,raster, rasterWidth, rasterHeight):
+    def cropImage(self, raster, rasterWidth, rasterHeight):
         dirname = tempfile.mkdtemp()
         newraster = raster
         newrasterWidth = rasterWidth
@@ -824,9 +825,9 @@ class iaObject:
             if extension.group(1):
                 imageFile = dirname + os.path.sep + "image." + extension.group(1)
                 imageFileSmall = dirname + \
-                  os.path.sep + "image_small." + extension.group(1)                
+                                 os.path.sep + "image_small." + extension.group(1)
                 with open(imageFile, "wb") as bgImage:
-                    bgImage.write(rasterEncoded.decode("base64"))        
+                    bgImage.write(rasterEncoded.decode("base64"))
 
                 if not sys.platform.startswith('darwin'):
                     im = Image.open(imageFile, 'r')
@@ -839,65 +840,65 @@ class iaObject:
                     for y in range(h):
                         row = y * w
                         for x in range(w):
-                            transparency = pix_val[x+row][3] - alpha_threshold
+                            transparency = pix_val[x + row][3] - alpha_threshold
                             if transparency >= 0:
                                 stop_scan = 1
                                 break
                         if stop_scan:
                             break
                         else:
-                            y_delta+=1
-  
+                            y_delta += 1
+
                     y_delta2 = 0
                     stop_scan = 0
-                    for y in range(h-1,0,-1):
+                    for y in range(h - 1, 0, -1):
                         row = y * w
-                        for x in range(w-1,0,-1):
-                            transparency = pix_val[x+row][3] - alpha_threshold
+                        for x in range(w - 1, 0, -1):
+                            transparency = pix_val[x + row][3] - alpha_threshold
                             if transparency >= 0:
                                 stop_scan = 1
                                 break
                         if stop_scan:
                             break
                         else:
-                            y_delta2+=1
+                            y_delta2 += 1
 
                     x_delta = 0
                     stop_scan = 0
-                    for x in range(0,w-1):
-                        for y in range(0,h-1):
+                    for x in range(0, w - 1):
+                        for y in range(0, h - 1):
                             row = y * w
-                            transparency = pix_val[x+row][3] - alpha_threshold
+                            transparency = pix_val[x + row][3] - alpha_threshold
                             if transparency >= 0:
                                 stop_scan = 1
                                 break
                         if stop_scan:
                             break
                         else:
-                            x_delta+=1                            
+                            x_delta += 1
 
                     x_delta2 = 0
                     stop_scan = 0
-                    for x in range(w-1, 0, -1):
-                        for y in range(h-1, 0, -1):
+                    for x in range(w - 1, 0, -1):
+                        for y in range(h - 1, 0, -1):
                             row = y * w
-                            transparency = pix_val[x+row][3] - alpha_threshold
+                            transparency = pix_val[x + row][3] - alpha_threshold
                             if transparency >= 0:
                                 stop_scan = 1
                                 break
                         if stop_scan:
                             break
                         else:
-                            x_delta2+=1                                 
-                            
-                    croppedBg = im.crop((x_delta,y_delta,w - x_delta2,h-y_delta2))
-                    croppedBg.save(imageFileSmall) 
+                            x_delta2 += 1
+
+                    croppedBg = im.crop((x_delta, y_delta, w - x_delta2, h - y_delta2))
+                    croppedBg.save(imageFileSmall)
 
                     with open(imageFileSmall, 'rb') as bgSmallImage:
-                        rasterSmallEncoded = bgSmallImage.read().\
-                          encode("base64")
+                        rasterSmallEncoded = bgSmallImage.read(). \
+                            encode("base64")
                         newraster = rasterPrefix + \
-                          rasterSmallEncoded   
+                                    rasterSmallEncoded
                     newrasterHeight = int((h - y_delta2 - y_delta) * float(rasterHeight) / h)
                     newrasterWidth = int((w - x_delta - x_delta2) * float(rasterWidth) / w)
         else:
@@ -910,7 +911,7 @@ class iaObject:
         if needed, we must resize background image to be usable
         on tablets and mobiles. iPad limitation is approximatly 5Mb.
         """
-        
+
         dirname = tempfile.mkdtemp()
         newraster = raster
         newrasterWidth = rasterWidth
@@ -923,7 +924,7 @@ class iaObject:
             if extension.group(1):
                 imageFile = dirname + os.path.sep + "image." + extension.group(1)
                 imageFileSmall = dirname + \
-                  os.path.sep + "image_small." + extension.group(1)
+                                 os.path.sep + "image_small." + extension.group(1)
                 with open(imageFile, "wb") as bgImage:
                     bgImage.write(rasterEncoded.decode("base64"))
                 if self.ratio != 1:
@@ -931,17 +932,14 @@ class iaObject:
                     if sys.platform.startswith('darwin'):
                         oldwidth = int(float(rasterWidth))
                         oldheight = int(float(rasterHeight))
-                        newwidth = int( oldwidth * self.ratio)
-                        newheight = int( oldheight * self.ratio)
+                        newwidth = int(oldwidth * self.ratio)
+                        newheight = int(oldheight * self.ratio)
                         shutil.copyfile(imageFile, imageFileSmall)
-                        commands.getstatusoutput('sips -z {0} {1} {2}' . \
-                          format(newheight, newwidth, imageFileSmall))                    
+                        commands.getstatusoutput('sips -z {0} {1} {2}'.format(newheight, newwidth, imageFileSmall))
 
                         with open(imageFileSmall, 'rb') as bgSmallImage:
-                            rasterSmallEncoded = bgSmallImage.read().\
-                              encode("base64")
-                            newraster = rasterPrefix + \
-                              rasterSmallEncoded
+                            rasterSmallEncoded = bgSmallImage.read().encode("base64")
+                            newraster = rasterPrefix + rasterSmallEncoded
 
                         newrasterWidth = newwidth
                         newrasterHeight = newheight
@@ -951,10 +949,10 @@ class iaObject:
                         currentBg = Image.open(imageFile)
                         oldwidth = int(float(rasterWidth))
                         oldheight = int(float(rasterHeight))
-                        newwidth = int( oldwidth * self.ratio)
-                        newheight = int( oldheight * self.ratio)
-                        resizedBg = currentBg.resize((newwidth,newheight), Image.BICUBIC)
-                        resizedBg.save(imageFileSmall) 
+                        newwidth = int(oldwidth * self.ratio)
+                        newheight = int(oldheight * self.ratio)
+                        resizedBg = currentBg.resize((newwidth, newheight), Image.BICUBIC)
+                        resizedBg.save(imageFileSmall)
 
                         with open(imageFileSmall, 'rb') as bgSmallImage:
                             rasterSmallEncoded = bgSmallImage.read().encode("base64")
@@ -975,17 +973,17 @@ class iaObject:
         for entry in self.scene:
             if entry == "image":
                 final_str += u'"' + entry + u'":"' + \
-                    self.scene[entry]. \
-                        replace("\n",""). \
-                        replace("\t",""). \
-                        replace("\r","") + u'",\n'
+                             self.scene[entry]. \
+                                 replace("\n", ""). \
+                                 replace("\t", ""). \
+                                 replace("\r", "") + u'",\n'
             else:
                 final_str += u'"' + entry + u'":"' + \
-                    PageFormatter(self.scene[entry]).print_html(). \
-                        replace('"', "'"). \
-                        replace("\n"," "). \
-                        replace("\t"," "). \
-                        replace("\r"," ") + u'",\n'
+                             PageFormatter(self.scene[entry]).print_html(). \
+                                 replace('"', "'"). \
+                                 replace("\n", " "). \
+                                 replace("\t", " "). \
+                                 replace("\r", " ") + u'",\n'
         final_str += u'};\n'
 
         final_str += u'var details = [\n'
@@ -999,52 +997,53 @@ class iaObject:
                         for entry2 in element:
                             if entry2 == "path":
                                 final_str += u'  "' + entry2 + u'":' + \
-                                    element[entry2].\
-                                        replace('"', "'").\
-                                        replace("\n"," ").\
-                                        replace("\t"," ").\
-                                        replace("\r"," ") + u',\n'
-                            elif entry2 == "image"  or entry2 == "title":
+                                             element[entry2]. \
+                                                 replace('"', "'"). \
+                                                 replace("\n", " "). \
+                                                 replace("\t", " "). \
+                                                 replace("\r", " ") + u',\n'
+                            elif entry2 == "image" or entry2 == "title":
                                 final_str += u'  "' + entry2 + u'":"' + \
-                                    element[entry2].\
-                                        replace('"', "'").\
-                                        replace("\n"," ").\
-                                        replace("\t"," ").\
-                                        replace("\r"," ") + u'",\n'
+                                             element[entry2]. \
+                                                 replace('"', "'"). \
+                                                 replace("\n", " "). \
+                                                 replace("\t", " "). \
+                                                 replace("\r", " ") + u'",\n'
                             else:
                                 final_str += u'      "' + entry2 + u'":"' + \
-                                    PageFormatter(element[entry2]).print_html().\
-                                        replace('"', "'").\
-                                        replace("\n"," ").\
-                                        replace("\t"," ").\
-                                        replace("\r"," ") + u'",\n'
+                                             PageFormatter(element[entry2]).print_html(). \
+                                                 replace('"', "'"). \
+                                                 replace("\n", " "). \
+                                                 replace("\t", " "). \
+                                                 replace("\r", " ") + u'",\n'
                         final_str += u'  },\n'
                     final_str += u'  ],\n'
                 elif entry == "path":
                     final_str += u'  "' + entry + u'":' + detail[entry] + ',\n'
                 elif entry == "image":
-                    final_str += u'  "' + entry + u'":"' + detail[entry] .\
-                                        replace('"', "'").\
-                                        replace("\n"," ").\
-                                        replace("\t"," ").\
-                                        replace("\r"," ") + u'",\n'
+                    final_str += u'  "' + entry + u'":"' + detail[entry]. \
+                        replace('"', "'"). \
+                        replace("\n", " "). \
+                        replace("\t", " "). \
+                        replace("\r", " ") + u'",\n'
                 elif entry == "detail":
                     final_str += u'  "' + entry + u'":"' + \
-                        PageFormatter(detail[entry]).print_html().\
-                            replace('"', "'").\
-                            replace("\n"," ").\
-                            replace("\t"," ").\
-                            replace("\r"," ") + u'",\n'
+                                 PageFormatter(detail[entry]).print_html(). \
+                                     replace('"', "'"). \
+                                     replace("\n", " "). \
+                                     replace("\t", " "). \
+                                     replace("\r", " ") + \
+                                 u'",\n'
                 else:
                     if type(detail[entry]) is int:
-                            detail[entry] = str(detail[entry])
+                        detail[entry] = str(detail[entry])
                     final_str += u'  "' + entry + u'":"' + \
-                        detail[entry].\
-                            replace('"', "'").\
-                            replace('\t', " ").\
-                            replace('\r', " ").\
-                            replace('\n', " ") + \
-                            u'",\n'
+                                 detail[entry]. \
+                                     replace('"', "'"). \
+                                     replace('\t', " "). \
+                                     replace('\r', " "). \
+                                     replace('\n', " ") + \
+                                 u'",\n'
             final_str += u'},\n'
         final_str += u'];\n'
         self.jsonContent = final_str
