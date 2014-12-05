@@ -330,8 +330,8 @@ class iaObject:
             record_image['width'] = image.attributes['width'].value
             record_image['height'] = image.attributes['height'].value
             raster = self.extractRaster(image.attributes['xlink:href'].value)
-            fixedRaster = self.fixRaster(raster, record_image["width"], record_image['height'])
-            record_image['image'] = fixedRaster
+            #fixedRaster = self.fixRaster(raster, record_image["width"], record_image['height'])
+            record_image['image'] = raster
             record_image['detail'] = self.getText("desc", image)
             record_image['title'] = self.getText("title", image)
             record_image['x'] = str(0)
@@ -883,8 +883,8 @@ class iaObject:
 
                     x_delta2 = 0
                     stop_scan = 0
-                    for x in range(w-1,0,-1):
-                        for y in range(h-1,0,-1):
+                    for x in range(w-1, 0, -1):
+                        for y in range(h-1, 0, -1):
                             row = y * w
                             transparency = pix_val[x+row][3] - alpha_threshold
                             if transparency >= 0:
@@ -903,8 +903,8 @@ class iaObject:
                           encode("base64")
                         newraster = rasterPrefix + \
                           rasterSmallEncoded   
-                    newrasterHeight = str(h - y_delta2 - y_delta) 
-                    newrasterWidth = str(w - x_delta - x_delta2) 
+                    newrasterHeight = str((h - y_delta2 - y_delta) * float(rasterHeight) / h)
+                    newrasterWidth = str((w - x_delta - x_delta2) * float(rasterWidth) / w)
         else:
             print('ERROR : cropImage() - image is not embedded ' + raster)
         shutil.rmtree(dirname)
