@@ -545,13 +545,14 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
         }
     });       
     
-    if (that.xiaDetail[i].options.indexOf("disable-click") != -1) return;
-
     if (that.xiaDetail[i].options.indexOf("direct-link") != -1) {
         that.xiaDetail[i].kineticElement.on('click touchstart', function(e) {
             //location.href = that.title[i];
             location.href = that.xiaDetail[i].title;
         });
+    }
+    else if (that.xiaDetail[i].options.indexOf("disable-click") != -1) {
+        return;
     }
     else {
         if (!that.xiaDetail[i].droparea) {
