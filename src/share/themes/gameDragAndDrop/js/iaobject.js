@@ -462,13 +462,7 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
 
     var that=this;
 
-    //that.xiaDetail[i].kineticElement.droparea = false;
     that.xiaDetail[i].kineticElement.tooltip_area = false;
-    // if current detail is a drop area, disable drag and drop
-    /*if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
-        that.xiaDetail[i].kineticElement.droparea = true;
-        
-    }*/
     // tooltip must be at the bottom
     if ($('article[data-tooltip="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
         that.xiaDetail[i].kineticElement.moveToBottom();

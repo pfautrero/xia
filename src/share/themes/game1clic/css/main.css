@@ -43,6 +43,8 @@ audio {
 }
 a {
     color:#00c6ff;
+  font-family: yanone_thin; 
+  font-size:1.4em;    
 }
 a:active, a:focus, a:hover {color:#ddd;}
 header {

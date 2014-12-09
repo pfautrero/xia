@@ -156,7 +156,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
       
         (function(len, imageDataSource){
         that.kineticElement[i].hitFunc(function(context) {
-            if (that.group.zoomActive == 0) {
+            if (iaScene.zoomActive == 0) {
                /* rgbColorKey = Kinetic.Util._hexToRgb(this.colorKey);
                 //detach from the DOM
                 var imageData = imageDataSource.data;
@@ -421,7 +421,8 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);                        
                 }                
             }
-            that.layer.batchDraw();
+            //that.layer.batchDraw();
+            this.draw();
         }
     });
     /*
