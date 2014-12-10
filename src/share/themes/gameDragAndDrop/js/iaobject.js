@@ -470,6 +470,8 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
         that.xiaDetail[i].options += " disable-click ";
     }
 
+    that.myhooks.afterXiaObjectCreation(iaScene, that.xiaDetail[i]);
+
     that.xiaDetail[i].kineticElement.on('mouseenter', function() {
         if (iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) {
 
@@ -556,16 +558,6 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
     }
     else {
 
-        that.xiaDetail[i].kineticElement.on('mousedown touchstart', function(e) {
-            that.myhooks.afterMouseDown(iaScene, idText, this);
-        });
-
-        that.xiaDetail[i].kineticElement.on('mouseup touchend', function(e) {
-            that.myhooks.afterMouseUp(iaScene, idText, this);
-        });
-
-
-
         if (!that.xiaDetail[i].droparea) {
             that.xiaDetail[i].kineticElement.on('dragstart', function(e) {
                 iaScene.element = that;
@@ -586,6 +578,7 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
             });    
         }
     }
+
 };
 
 IaObject.prototype.afterDragStart = function(iaScene, idText, kineticElement) {

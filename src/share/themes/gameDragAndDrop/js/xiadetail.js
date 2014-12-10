@@ -32,6 +32,7 @@ function XiaDetail(detail, idText) {
     this.target_id = null;
     this.magnet_state = null;
     this.droparea = false;
+    this.idText = idText;
     
     if ((typeof(detail.options) !== 'undefined')) {
         this.options = detail.options;

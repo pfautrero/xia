@@ -49,27 +49,28 @@ hooks.prototype.afterIaObjectConstructor = function(mainScene, idText, detail, i
 
 };
 
-/*
- *
- *
- */
-hooks.prototype.afterMouseDown = function(mainScene, idText, kineticElement) {
-
-// kineticElement.getXiaParent() -> get reference to xiaDetail object
-// kineticElement.getIaObject() -> get reference to iaobject
-// $('#' + idText) is the DOM element linked to kineticElement
-};
 
 /*
  *
  *
  */
-hooks.prototype.afterMouseUp = function(mainScene, idText, kineticElement) {
+hooks.prototype.afterXiaObjectCreation = function(mainScene, xiaDetail) {
 
-// kineticElement.getXiaParent() -> get reference to xiaDetail object
-// kineticElement.getIaObject() -> get reference to iaobject
-// $('#' + idText) is the DOM element linked to kineticElement
+/*
+    define your own events on xiaDetails
+    have a look at XiaDetail object for further informations
+
+    examples :
+
+    xiaDetail.kineticElement.on('mousedown touchstart', function() {
+        console.log("mousedown event");
+    };
+
+*/
+
+
 };
+
 
 /*
  *
