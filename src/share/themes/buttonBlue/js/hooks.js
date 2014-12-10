@@ -31,41 +31,14 @@ var hooks = function() {
  */
 hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
 
-    // Load datas - only useful for themes debugging
-    var menu = "";
     var buttons = "<ul>";
-
-    menu += '<article class="detail_content" id="general">';
-    menu += '<h1>'+scene.intro_title+'</h1>';
-    menu += '<p>' + scene.intro_detail + '</p>';
-    menu += '</article>';
     for (var i in details) {
         if (details[i].options.indexOf("direct-link") == -1) {
-            if ((details[i].detail.indexOf("Réponse:") != -1) || (details[i].detail.indexOf("réponse:") != -1)) {
-                var question = details[i].detail.substr(0,details[i].detail.indexOf("Réponse:"));
-                var answer = details[i].detail.substr(details[i].detail.indexOf("Réponse:")+8);
-                menu += '<article class="detail_content" id="article-'+i+'">';
-                menu += '<h1>'+details[i].title+'</h1>';
-                menu += '<p>' + question + '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#response_'+i+'">Réponse</a></div>' + '<div class="response" id="response_'+ i +'">' + answer + '</div>' + '</p>';
-                menu += '</article>';            
-            }
-
-            else {
-                menu += '<article class="detail_content" id="article-'+i+'">';
-                menu += '<h1>'+details[i].title+'</h1>';
-                menu += '<p>'+details[i].detail+'</p>';
-                menu += '</article>';                        
-            }
             buttons += '<li class="button-unselected button-li" id="li-article-' + i + '">' + (parseInt(i)+1) + '</li>';
         }
     }
     buttons += '</ul>';
-    
-    if ($("#content").html() === "{{CONTENT}}") {
-        $("#content").html(menu);
-    }
     $("#buttons").html(buttons);
-    if ($("#title").html() === "{{TITLE}}") $("#title").html(scene.title);
 };
 
 /*
