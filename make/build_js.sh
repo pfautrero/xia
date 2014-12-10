@@ -16,7 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-NOT_CONCATENATED=";kinetic-xia.js;"
+NOT_CONCATENATED=";kinetic-xia.js;hooks.js;"
+NOT_MINIFIED=";hooks.js;"
 
 set -e
 export PATH='/usr/bin:/bin'
@@ -37,13 +38,16 @@ do
     do
         js_shortname=${js##*/}
         theme_shortname=${theme##*/}
-
-        if printf ";$js_shortname;\n" | grep -q "$NOT_CONCATENATED"
+        #if printf ";$js_shortname;\n" | grep -q "$NOT_CONCATENATED"
+        if printf "$NOT_CONCATENATED" | grep -q ";$js_shortname;"
         then
-            # Not in xia.js but we must minify the script.
-            printf "Minify $js_shortname in $theme_shortname theme\n"
-            perl "$script_dir/minify_js.pl" "$js"
-            rm "$js" # useless now.
+            if ! printf "$NOT_MINIFIED" | grep -q ";$js_shortname;"
+            then
+                # Not in xia.js but we must minify the script.
+                printf "Minify $js_shortname in $theme_shortname theme\n"
+                perl "$script_dir/minify_js.pl" "$js"
+                rm "$js" # useless now.
+            fi
         else
             # Must be include in xia.js
             cat "$js" >> "$theme/js/xia.js"

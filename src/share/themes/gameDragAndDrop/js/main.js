@@ -58,7 +58,8 @@ function main(myhooks) {
     
     Kinetic.draggedshape = null;
     
-    var that=window;
+    //var that=window;
+    var that=this;
     that.canvas = document.getElementById("canvas");
 
     // Load background image
@@ -103,7 +104,10 @@ function main(myhooks) {
             var iaObj = new IaObject(that.imageObj, details[i], layers[indice], "article-" + i, baseImage, mainScene, myhooks);
             mainScene.shapes.push(iaObj);
         }
+
+        that.afterMainConstructor(mainScene, that.layers);
         myhooks.afterMainConstructor(mainScene, that.layers);             
+
         $("#loader").hide();
 
         var viewportHeight = $(window).height();
@@ -155,6 +159,85 @@ function main(myhooks) {
         
     };    
 }
+main.prototype.afterMainConstructor = function(mainScene, layers) {
+
+    // some stuff to manage popin windows
+
+    var viewportHeight = $(window).height();
+
+    var button_click = function() {
+        var target = $(this).data("target");
+        if ($("#response_" + target).is(":hidden")) {
+            if ($(this).data("password")) {
+                $("#form_" + target).toggle();
+                $("#form_" + target + " input[type=text]").val("");
+                $("#form_" + target + " input[type=text]").focus();
+            }
+            else {
+                $("#response_" + target).toggle();
+            }
+        }
+        else {
+            if ($(this).data("password")) {
+                $("#response_" + target).html($("#response_" + target).data("encrypted_content"));
+            }
+            $("#response_" + target).toggle();
+        }
+
+    };
+    var unlock_input = function(e) {
+        e.preventDefault();
+        var entered_password = $(this).parent().children("input[type=text]").val();
+        var sha1Digest= new createJs(true);
+        sha1Digest.update(entered_password.encode());
+        var hash = sha1Digest.digest();
+        if (hash == $(this).data("password")) {
+            var target = $(this).data("target");
+            var encrypted_content = $("#response_" + target).html();
+            $("#response_" + target).data("encrypted_content", encrypted_content);
+            $("#response_" + target).html(XORCipher.decode(entered_password, encrypted_content).decode());
+            $("#response_" + target).show();
+            $("#form_" + target).hide();
+            $(".button").off("click");
+            $(".button").on("click", button_click);
+            $(".unlock input[type=submit]").off("click");
+            $(".unlock input[type=submit]").on("click", unlock_input);
+        }
+    };
+    $(".button").on("click", button_click);
+    $(".unlock input[type=submit]").on("click", unlock_input);
+
+
+    mainScene.score = $("#message_success").data("score");
+    if ((mainScene.score == mainScene.currentScore) && (mainScene.score != "0")) {
+        $("#content").show();
+        $("#message_success").show();
+        var general_border = $("#message_success").css("border-top-width").substr(0,$("#message_success").css("border-top-width").length - 2);
+        var general_offset = $("#message_success").offset();
+        var content_offset = $("#content").offset();
+        $("#message_success").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});
+    }
+
+    $(".overlay").hide();
+
+    $(".infos").on("click", function(){
+        $("#rights").show();
+        $("#popup").show();
+        $("#popup_intro").hide();
+    });
+    $("#popup_close").on("click", function(){
+        $("#rights").hide();
+    });
+    $("#popup_toggle").on("click", function(){
+        $("#message_success_content").toggle();
+        if ($(this).attr('src') == 'img/hide.png') {
+            $(this).attr('src', 'img/show.png');
+        }
+        else {
+            $(this).attr('src', 'img/hide.png');
+        }
+    });
+};
 
 myhooks = new hooks();
 launch = new main(myhooks);

@@ -26,33 +26,6 @@ function hooks() {
  */
 hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
 
-    // Load datas - only useful for themes debugging
-    if ($("#content").html() === "{{CONTENT}}") {
-        var menu = "";
-        menu += '<article class="message_success" id="message_success" data-score="50">';
-        menu += '<p>Bravo !!</p>';
-        menu += '</article>';
-        for (var i in details) {
-            if (details[i].options.indexOf("direct-link") == -1) {
-                if ((details[i].detail.indexOf("Réponse:") != -1) || (details[i].detail.indexOf("réponse:") != -1)) {
-                    var question = details[i].detail.substr(0,details[i].detail.indexOf("Réponse:"));
-                    var answer = details[i].detail.substr(details[i].detail.indexOf("Réponse:")+8);
-                    menu += '<article class="detail_content" id="article-'+i+'">';
-                    menu += '<h1>'+details[i].title+'</h1>';
-                    menu += '<p>' + question + '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#response_'+i+'">Réponse</a></div>' + '<div class="response" id="response_'+ i +'">' + answer + '</div>' + '</p>';
-                    menu += '</article>';            
-                }
-                else {
-                    menu += '<article class="detail_content" id="article-'+i+'">';
-                    menu += '<h1>'+details[i].title+'</h1>';
-                    menu += '<p>'+details[i].detail+'</p>';
-                    menu += '</article>';                        
-                }
-            }
-        }        
-        $("#content").html(menu);
-    }
-    if ($("#title").html() === "{{TITLE}}") $("#title").html(scene.title);
 
 };
 
@@ -62,89 +35,13 @@ hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
  */
 hooks.prototype.afterMainConstructor = function(mainScene, layers) {
 
-    // some stuff to manage popin windows
-
-    var viewportHeight = $(window).height();
-
-    var button_click = function() {
-        var target = $(this).data("target");
-        if ($("#response_" + target).is(":hidden")) {
-            if ($(this).data("password")) {
-                $("#form_" + target).toggle();
-                $("#form_" + target + " input[type=text]").val("");
-                $("#form_" + target + " input[type=text]").focus();
-            }
-            else {
-                $("#response_" + target).toggle();
-            }
-        }
-        else {
-            if ($(this).data("password")) {
-                $("#response_" + target).html($("#response_" + target).data("encrypted_content"));
-            }
-            $("#response_" + target).toggle();
-        }
-       
-    };
-    var unlock_input = function(e) {
-        e.preventDefault();
-        var entered_password = $(this).parent().children("input[type=text]").val();
-        var sha1Digest= new createJs(true);
-        sha1Digest.update(entered_password.encode());
-        var hash = sha1Digest.digest();
-        if (hash == $(this).data("password")) {
-            var target = $(this).data("target");
-            var encrypted_content = $("#response_" + target).html();
-            $("#response_" + target).data("encrypted_content", encrypted_content);
-            $("#response_" + target).html(XORCipher.decode(entered_password, encrypted_content).decode());
-            $("#response_" + target).show();
-            $("#form_" + target).hide();
-            $(".button").off("click");
-            $(".button").on("click", button_click);
-            $(".unlock input[type=submit]").off("click");
-            $(".unlock input[type=submit]").on("click", unlock_input);
-        }        
-    };
-    $(".button").on("click", button_click);
-    $(".unlock input[type=submit]").on("click", unlock_input);
-
-
-    mainScene.score = $("#message_success").data("score");
-    if ((mainScene.score == mainScene.currentScore) && (mainScene.score != "0")) {
-        $("#content").show();
-        $("#message_success").show();
-        var general_border = $("#message_success").css("border-top-width").substr(0,$("#message_success").css("border-top-width").length - 2);
-        var general_offset = $("#message_success").offset();
-        var content_offset = $("#content").offset();
-        $("#message_success").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});        
-    }
-
-    $(".overlay").hide();
-
-    $(".infos").on("click", function(){
-        $("#rights").show();
-        $("#popup").show();
-        $("#popup_intro").hide();
-    });
-    $("#popup_close").on("click", function(){
-        $("#rights").hide();
-    });
-    $("#popup_toggle").on("click", function(){
-        $("#message_success_content").toggle();
-        if ($(this).attr('src') == 'img/hide.png') {
-            $(this).attr('src', 'img/show.png');
-        }
-        else {
-            $(this).attr('src', 'img/hide.png');
-        }
-    });
     
 };
 /*
  *
  *  
  */
-hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaObject) {
+hooks.prototype.afterIaObjectConstructor = function(mainScene, idText, detail, iaObject) {
 
 
 };
@@ -153,107 +50,21 @@ hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaO
  *
  *  
  */
-hooks.prototype.afterIaObjectDragStart = function(iaScene, idText, iaObject) {
-    
-    $('#' + idText + " audio").each(function(){
-        if ($(this).data("state") === "autostart") {
-            $(this)[0].play();
-        }
-    });  
+hooks.prototype.afterObjectDragStart = function(mainScene, idText, kineticElement) {
+
+// kineticElement.getXiaParent() -> get reference to xiaDetail object
+// kineticElement.getIaObject() -> get reference to iaobject
+// $('#' + idText) is the DOM element linked to kineticElement
 };
 /*
  *
  *  
  */
-hooks.prototype.afterIaObjectDragEnd = function(iaScene, idText, iaObject, event, kineticElement) {
-    //var target_id = $('#' + idText).data("target");
-    var target_id = kineticElement.getXiaParent().target_id;
-    var target_object = kineticElement.getStage().find("#" + target_id);
-    var iaObject_width = iaObject.maxX - iaObject.minX;
-    var iaObject_height = iaObject.maxY - iaObject.minY;
-    iaObject.minX = event.target.x();
-    iaObject.minY = event.target.y();
-    iaObject.maxX = event.target.x() + iaObject_width;
-    iaObject.maxY = event.target.y() + iaObject_height;    
-    var middle_coords = {x: event.target.x() + (iaObject.maxX - iaObject.minX)/2,y:event.target.y() + (iaObject.maxY - iaObject.minY)/2};
-    
-    var mouseXY = kineticElement.getStage().getPointerPosition();
-    var droparea = kineticElement.getStage().getIntersection(mouseXY);
-    var over_droparea = false;
-    if (droparea) {
-        if (droparea == kineticElement) {
-            // element dropped on its own area
-            // move current element out of stage, redraw the scene, 
-            // find the drop zone element
-            // and move current element to its original position
-            var old_x = kineticElement.x();
-            kineticElement.x(2000);
-            kineticElement.getLayer().drawHit();
-            kineticElement.getStage().completeImage = "redefine";
-            droparea = kineticElement.getStage().getIntersection(mouseXY);
-            if (droparea) {
-                if (droparea != kineticElement) {
-                    over_droparea = true;
-                }
-            }
-            kineticElement.x(old_x);
-            kineticElement.getLayer().drawHit();
-        }
-        else if (droparea.getXiaParent().droparea) {    
-            over_droparea = true;
-        }        
-    }
-    
-    if (over_droparea) {
-        // retrieve kineticElement drop zone
-        // if center of dropped element is located in the drop zone
-        // then drop !
-        //var target_object = iaObject.xiaDetail[0].kineticElement.getStage().find("#" + target_id);
-        var target_iaObject = droparea.getIaObject();
-        if ((middle_coords.x > target_iaObject.minX) &
-                (middle_coords.x < target_iaObject.maxX) &
-                (middle_coords.y > target_iaObject.minY) &
-                (middle_coords.y < target_iaObject.maxY)) {
-            if (!iaObject.match && droparea == target_object[0]) {
-                iaObject.match = true;
-                iaScene.currentScore += 1;
-            }
-            if (iaScene.global_magnet_enabled || droparea.getXiaParent().magnet_state=="on") {
-                kineticElement.x(target_iaObject.minX - (iaObject_width / 2) + (target_iaObject.maxX - target_iaObject.minX) / 2);
-                kineticElement.y(target_iaObject.minY - (iaObject_height / 2) + (target_iaObject.maxY - target_iaObject.minY) / 2);
-            }
-        }
-        else {
-            if (iaObject.match) {
-                iaObject.match = false;
-                iaScene.currentScore -= 1;
-            }            
-        }
-        
-        if (droparea.getXiaParent().options.indexOf("direct-link") != -1) {
-            location.href = droparea.getXiaParent().title;
-        }        
-        
-        var viewportHeight = $(window).height();
-        if ((iaScene.score == iaScene.currentScore) && (iaScene.score != 0)) {
-            $("#content").show();
-            $("#message_success").show();
-            var general_border = $("#message_success").css("border-top-width").substr(0,$("#message_success").css("border-top-width").length - 2);
-            var general_offset = $("#message_success").offset();
-            var content_offset = $("#content").offset();
-            $("#message_success").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});        
-        }
-        $('#' + idText + " audio").each(function(){
-            if ($(this).data("state") === "autostart") {
-                $(this)[0].play();
-            }
-        });         
-    }
-    else {
-        if (iaObject.match) {
-            iaObject.match = false;
-            iaScene.currentScore -= 1;
-        }            
-    }
+hooks.prototype.afterObjectDragEnd = function(mainScene, idText, kineticElement) {
+
+// kineticElement.getXiaParent() -> get reference to xiaDetail object
+// kineticElement.getIaObject() -> get reference to iaobject
+// $('#' + idText) is the DOM element linked to kineticElement
+
 };
 

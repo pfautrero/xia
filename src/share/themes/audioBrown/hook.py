@@ -76,6 +76,7 @@ class hook:
                 final_index = final_index.replace("{{sha1JS}}", xiaWebsite + "/js/git-sha1.min.js")
                 final_index = final_index.replace("{{kineticJS}}", "https://cdn.jsdelivr.net/kineticjs/5.1.0/kinetic.min.js")
                 final_index = final_index.replace("{{xiaJS}}", xiaWebsite + "/js/xia.js")
+                final_index = final_index.replace("{{hooksJS}}", xiaWebsite + "/js/hooks.js")
                 final_index = final_index.replace("{{labJS}}", "https://cdnjs.cloudflare.com/ajax/libs/labjs/2.0.3/LAB.min.js")
             else:
                 final_index = final_index.replace("{{MainCSS}}", "css/main.css")
@@ -87,6 +88,7 @@ class hook:
                 final_index = final_index.replace("{{sha1JS}}", "js/git-sha1.min.js")
                 final_index = final_index.replace("{{kineticJS}}", "js/kinetic.min.js")
                 final_index = final_index.replace("{{xiaJS}}", "js/xia.js")
+                final_index = final_index.replace("{{hooksJS}}", "js/hooks.js")
                 final_index = final_index.replace("{{labJS}}", "js/LAB.min.js")  
         with open(filePath,"w") as indexfile:
             indexfile.write(final_index.encode("utf-8"))

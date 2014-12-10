@@ -558,7 +558,8 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
         if (!that.xiaDetail[i].droparea) {
             that.xiaDetail[i].kineticElement.on('dragstart', function(e) {
                 iaScene.element = that;
-                that.myhooks.afterIaObjectDragStart(iaScene, idText, that);
+                that.afterObjectDragStart(iaScene, idText, this);
+                that.myhooks.afterObjectDragStart(iaScene, idText, this);
                 this.moveToTop();
                 Kinetic.draggedshape = this;
             });
@@ -567,7 +568,8 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
                 iaScene.element = that;
                 Kinetic.draggedshape = null;
                 // Kinetic hacking - speed up _getIntersection (for linux)
-                that.myhooks.afterIaObjectDragEnd(iaScene, idText, that, e, this);
+                that.afterObjectDragEnd(iaScene, idText, e, this);
+                that.myhooks.afterObjectDragEnd(iaScene, idText, this);
                 this.getStage().completeImage = "redefine";
                 that.layer.draw();
             });    
@@ -575,3 +577,106 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
     }
 };
 
+IaObject.prototype.afterObjectDragStart = function(iaScene, idText, kineticElement) {
+
+    $('#' + idText + " audio").each(function(){
+        if ($(this).data("state") === "autostart") {
+            $(this)[0].play();
+        }
+    });
+};
+/*
+ *
+ *
+ */
+IaObject.prototype.afterObjectDragEnd = function(iaScene, idText, event, kineticElement) {
+    //var target_id = $('#' + idText).data("target");
+    var target_id = kineticElement.getXiaParent().target_id;
+    var target_object = kineticElement.getStage().find("#" + target_id);
+    var iaObject_width = this.maxX - this.minX;
+    var iaObject_height = this.maxY - this.minY;
+    this.minX = event.target.x();
+    this.minY = event.target.y();
+    this.maxX = event.target.x() + iaObject_width;
+    this.maxY = event.target.y() + iaObject_height;
+    var middle_coords = {x: event.target.x() + (this.maxX - this.minX)/2,y:event.target.y() + (this.maxY - this.minY)/2};
+
+    var mouseXY = kineticElement.getStage().getPointerPosition();
+    var droparea = kineticElement.getStage().getIntersection(mouseXY);
+    var over_droparea = false;
+    if (droparea) {
+        if (droparea == kineticElement) {
+            // element dropped on its own area
+            // move current element out of stage, redraw the scene,
+            // find the drop zone element
+            // and move current element to its original position
+            var old_x = kineticElement.x();
+            kineticElement.x(2000);
+            kineticElement.getLayer().drawHit();
+            kineticElement.getStage().completeImage = "redefine";
+            droparea = kineticElement.getStage().getIntersection(mouseXY);
+            if (droparea) {
+                if (droparea != kineticElement) {
+                    over_droparea = true;
+                }
+            }
+            kineticElement.x(old_x);
+            kineticElement.getLayer().drawHit();
+        }
+        else if (droparea.getXiaParent().droparea) {
+            over_droparea = true;
+        }
+    }
+
+    if (over_droparea) {
+        // retrieve kineticElement drop zone
+        // if center of dropped element is located in the drop zone
+        // then drop !
+        //var target_object = this.xiaDetail[0].kineticElement.getStage().find("#" + target_id);
+        var target_iaObject = droparea.getIaObject();
+        if ((middle_coords.x > target_iaObject.minX) &
+                (middle_coords.x < target_iaObject.maxX) &
+                (middle_coords.y > target_iaObject.minY) &
+                (middle_coords.y < target_iaObject.maxY)) {
+            if (!this.match && droparea == target_object[0]) {
+                this.match = true;
+                iaScene.currentScore += 1;
+            }
+            if (iaScene.global_magnet_enabled || droparea.getXiaParent().magnet_state=="on") {
+                kineticElement.x(target_iaObject.minX - (iaObject_width / 2) + (target_iaObject.maxX - target_iaObject.minX) / 2);
+                kineticElement.y(target_iaObject.minY - (iaObject_height / 2) + (target_iaObject.maxY - target_iaObject.minY) / 2);
+            }
+        }
+        else {
+            if (this.match) {
+                this.match = false;
+                iaScene.currentScore -= 1;
+            }
+        }
+
+        if (droparea.getXiaParent().options.indexOf("direct-link") != -1) {
+            location.href = droparea.getXiaParent().title;
+        }
+
+        var viewportHeight = $(window).height();
+        if ((iaScene.score == iaScene.currentScore) && (iaScene.score != 0)) {
+            $("#content").show();
+            $("#message_success").show();
+            var general_border = $("#message_success").css("border-top-width").substr(0,$("#message_success").css("border-top-width").length - 2);
+            var general_offset = $("#message_success").offset();
+            var content_offset = $("#content").offset();
+            $("#message_success").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});
+        }
+        $('#' + idText + " audio").each(function(){
+            if ($(this).data("state") === "autostart") {
+                $(this)[0].play();
+            }
+        });
+    }
+    else {
+        if (this.match) {
+            this.match = false;
+            iaScene.currentScore -= 1;
+        }
+    }
+};
