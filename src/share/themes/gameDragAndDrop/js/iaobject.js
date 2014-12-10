@@ -555,11 +555,22 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
         return;
     }
     else {
+
+        that.xiaDetail[i].kineticElement.on('mousedown touchstart', function(e) {
+            that.myhooks.afterMouseDown(iaScene, idText, this);
+        });
+
+        that.xiaDetail[i].kineticElement.on('mouseup touchend', function(e) {
+            that.myhooks.afterMouseUp(iaScene, idText, this);
+        });
+
+
+
         if (!that.xiaDetail[i].droparea) {
             that.xiaDetail[i].kineticElement.on('dragstart', function(e) {
                 iaScene.element = that;
-                that.afterObjectDragStart(iaScene, idText, this);
-                that.myhooks.afterObjectDragStart(iaScene, idText, this);
+                that.afterDragStart(iaScene, idText, this);
+                that.myhooks.afterDragStart(iaScene, idText, this);
                 this.moveToTop();
                 Kinetic.draggedshape = this;
             });
@@ -568,8 +579,8 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
                 iaScene.element = that;
                 Kinetic.draggedshape = null;
                 // Kinetic hacking - speed up _getIntersection (for linux)
-                that.afterObjectDragEnd(iaScene, idText, e, this);
-                that.myhooks.afterObjectDragEnd(iaScene, idText, this);
+                that.afterDragEnd(iaScene, idText, e, this);
+                that.myhooks.afterDragEnd(iaScene, idText, this);
                 this.getStage().completeImage = "redefine";
                 that.layer.draw();
             });    
@@ -577,7 +588,7 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
     }
 };
 
-IaObject.prototype.afterObjectDragStart = function(iaScene, idText, kineticElement) {
+IaObject.prototype.afterDragStart = function(iaScene, idText, kineticElement) {
 
     $('#' + idText + " audio").each(function(){
         if ($(this).data("state") === "autostart") {
@@ -589,7 +600,7 @@ IaObject.prototype.afterObjectDragStart = function(iaScene, idText, kineticEleme
  *
  *
  */
-IaObject.prototype.afterObjectDragEnd = function(iaScene, idText, event, kineticElement) {
+IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElement) {
     //var target_id = $('#' + idText).data("target");
     var target_id = kineticElement.getXiaParent().target_id;
     var target_object = kineticElement.getStage().find("#" + target_id);

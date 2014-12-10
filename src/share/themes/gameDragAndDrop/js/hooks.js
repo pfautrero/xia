@@ -26,6 +26,7 @@ function hooks() {
  */
 hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
 
+// a the very beginning, just before building objects
 
 };
 
@@ -35,6 +36,7 @@ hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
  */
 hooks.prototype.afterMainConstructor = function(mainScene, layers) {
 
+// after building objects, just before rendering scene
     
 };
 /*
@@ -44,13 +46,36 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
 hooks.prototype.afterIaObjectConstructor = function(mainScene, idText, detail, iaObject) {
 
 
+
+};
+
+/*
+ *
+ *
+ */
+hooks.prototype.afterMouseDown = function(mainScene, idText, kineticElement) {
+
+// kineticElement.getXiaParent() -> get reference to xiaDetail object
+// kineticElement.getIaObject() -> get reference to iaobject
+// $('#' + idText) is the DOM element linked to kineticElement
+};
+
+/*
+ *
+ *
+ */
+hooks.prototype.afterMouseUp = function(mainScene, idText, kineticElement) {
+
+// kineticElement.getXiaParent() -> get reference to xiaDetail object
+// kineticElement.getIaObject() -> get reference to iaobject
+// $('#' + idText) is the DOM element linked to kineticElement
 };
 
 /*
  *
  *  
  */
-hooks.prototype.afterObjectDragStart = function(mainScene, idText, kineticElement) {
+hooks.prototype.afterDragStart = function(mainScene, idText, kineticElement) {
 
 // kineticElement.getXiaParent() -> get reference to xiaDetail object
 // kineticElement.getIaObject() -> get reference to iaobject
@@ -60,7 +85,7 @@ hooks.prototype.afterObjectDragStart = function(mainScene, idText, kineticElemen
  *
  *  
  */
-hooks.prototype.afterObjectDragEnd = function(mainScene, idText, kineticElement) {
+hooks.prototype.afterDragEnd = function(mainScene, idText, kineticElement) {
 
 // kineticElement.getXiaParent() -> get reference to xiaDetail object
 // kineticElement.getIaObject() -> get reference to iaobject
