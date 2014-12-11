@@ -60,11 +60,26 @@ hooks.prototype.afterXiaObjectCreation = function(mainScene, xiaDetail) {
     define your own events on xiaDetails
     have a look at XiaDetail object for further informations
 
-    examples :
+    example :
 
-    xiaDetail.kineticElement.on('mousedown touchstart', function() {
-        console.log("mousedown event");
-    };
+    xiaDetail.kineticElement.on('mousedown', function(){
+        console.log("mousedown");
+
+        // remove cache
+        this.scale({x:1,y:1});
+        this.clearCache();
+
+        // add blue border
+        this.stroke("blue");
+
+        // enable cache
+        this.cache();
+        this.scale({x:iaScene.coeff,y:iaScene.coeff});
+        this.drawHitFromCache();
+
+        // redraw scene
+        that.layer.draw();
+    });
 
 */
 
