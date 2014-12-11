@@ -10,4 +10,4 @@ sha1Lib = share/vendors/git-sha1.min.js
 
 [version]
 numVersion = 1.0
-releaseVersion = beta4-05-12-2014
+releaseVersion = beta4-11-12-2014
