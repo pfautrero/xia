@@ -78,7 +78,7 @@ hooks.prototype.afterXiaObjectCreation = function(mainScene, xiaDetail) {
         this.drawHitFromCache();
 
         // redraw scene
-        that.layer.draw();
+        this.getIaObject().layer.draw();
     });
 
 */
