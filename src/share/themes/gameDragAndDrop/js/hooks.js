@@ -73,8 +73,8 @@ hooks.prototype.afterXiaObjectCreation = function(mainScene, xiaDetail) {
         this.stroke("blue");
 
         // enable cache
-        this.cache();
-        this.scale({x:iaScene.coeff,y:iaScene.coeff});
+        this.cache({width:this.width(), height:this.height()});
+        this.scale({x:mainScene.coeff,y:mainScene.coeff});
         this.drawHitFromCache();
 
         // redraw scene
