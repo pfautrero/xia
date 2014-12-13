@@ -418,6 +418,11 @@ class iaObject:
             record_rect['id'] = rect.attributes['id'].value
         record_rect['width'] = rect.attributes['width'].value
         record_rect['height'] = rect.attributes['height'].value
+
+        # if dimensions are invalid, exclude this rectangle
+        if not record_rect['width'] or not record_rect['height']:
+            return
+
         record_rect['detail'] = self.getText("desc", rect)
         record_rect['title'] = self.getText("title", rect)
         record_rect['x'] = unicode(0)
@@ -548,6 +553,11 @@ class iaObject:
             replace("\n", " "). \
             replace("\t", " "). \
             replace("\r", " ")
+
+        # if path is invalid, exclude this detail
+        if not record["path"]:
+            return
+
         record["style"] = ""
         record['detail'] = self.getText("desc", path)
         record['title'] = self.getText("title", path)
