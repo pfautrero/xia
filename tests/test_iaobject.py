@@ -266,13 +266,25 @@ class TestiaObject:
         newrecord = ia.extract_rect(detail[0], "")
         assert_equal(newrecord, None)
 
+    def test_generateJSON(self):
+
         # check generateJSON
-        #temp = tempfile.NamedTemporaryFile()
-        #ia = iaObject()
-        #ia.analyzeSVG(currentDir + "/fixtures/generic1.svg", maxNumPixels)
-        #ia.generateJSON(temp.name)
-        #temp_content = temp.read()
-        #with open('fixtures/temp.js', 'w') as js:
+        tempDirSvg = tempfile.gettempdir()
+        maxNumPixels = 5 * 1024 * 1024
+        currentDir  = os.path.dirname(os.path.realpath(__file__))
+        with open(currentDir + "/fixtures/generic1.svg", "r") as genericSvg:
+            tempContent = genericSvg.read()
+            tempContent = tempContent.replace("file://fixtures", "file://" + currentDir + "/fixtures")
+
+        with open(tempDirSvg + "/generic1.svg", "w") as tempSvg:
+            tempSvg.write(tempContent)
+
+        ia = iaObject()
+        ia.analyzeSVG(tempSvg.name, maxNumPixels)
+
+        ia.generateJSON()
+        temp_content = ia.jsonContent
+        #with open(currentDir + '/fixtures/temp.js', 'w') as js:
         #    js.write(temp_content)
-        #with open(currentDir + '/fixtures/generic1.js') as js:
-        #    assert_equal(js.read(),temp_content)
+        with open(currentDir + '/fixtures/generic1.js') as js:
+            assert_equal(js.read(),temp_content)
