@@ -241,7 +241,31 @@ class TestiaObject:
         assert_equal(ia.scene['language'], 'FR')
         assert_equal(ia.scene['keywords'], 'keyword1,keyword2')
         assert_equal(ia.scene['contributor'], 'contributor')
-        
+
+    def test_analyzeSVG10(self):
+
+        # check invalid path
+        ia = iaObject()
+        dom1 = minidom.parseString("<?xml version='1.0' ?>\
+            <svg>\
+                <path d='' />\
+            </svg>")
+        path = dom1.getElementsByTagName('path')
+        newrecord = ia.extract_path(path[0], "")
+        assert_equal(newrecord, None)
+
+    def test_analyzeSVG11(self):
+
+        # check invalid rectangle
+        ia = iaObject()
+        dom1 = minidom.parseString("<?xml version='1.0' ?>\
+            <svg>\
+                <rect width='' height='' />\
+            </svg>")
+        detail = dom1.getElementsByTagName('rect')
+        newrecord = ia.extract_rect(detail[0], "")
+        assert_equal(newrecord, None)
+
         # check generateJSON
         #temp = tempfile.NamedTemporaryFile()
         #ia = iaObject()
