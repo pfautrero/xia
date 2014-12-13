@@ -801,7 +801,6 @@ class iaObject:
                             newraster = rasterPrefix + rasterFixedEncoded
 
                 else:
-                    # "Platform Linux or Windows : resizing using PIL"
                     currentImg = Image.open(imageFile)
                     (w, h) = currentImg.size
                     if w != rasterWidth:
