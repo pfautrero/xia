@@ -38,6 +38,7 @@ function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, myhooks) 
     this.myhooks = myhooks;
     this.match = false;
     this.collisions = "on";
+    this.mainScene = iaScene;
     // Create kineticElements and include them in a group
    
     //that.group = new Kinetic.Group();
@@ -92,9 +93,11 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
         width: detail.width,
         height: detail.height,
-        draggable: that.xiaDetail[i].draggable_object
+        draggable: that.xiaDetail[i].draggable_object,
+        stroke: "red"
      
     });
+    that.layer.add(that.xiaDetail[i].kineticElement);
     that.xiaDetail[i].kineticElement.setXiaParent(that.xiaDetail[i]);
     that.xiaDetail[i].kineticElement.setIaObject(that);
     that.xiaDetail[i].backgroundImage = rasterObj;
@@ -203,7 +206,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
             that.xiaDetail[i].kineticElement.fillPatternImage(that.xiaDetail[i].backgroundImage); 
         }
         
-        that.layer.add(that.xiaDetail[i].kineticElement);
+
         that.addEventsManagement(i, that, iaScene, baseImage, idText);
         
         // define hit area excluding transparent pixels
@@ -243,7 +246,8 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         fill: 'rgba(0, 0, 0, 0)',
         draggable : that.xiaDetail[i].draggable_object
     });
-    that.xiaDetail[i].kineticElement.setIaObject(that);    
+    that.layer.add(that.xiaDetail[i].kineticElement);
+    that.xiaDetail[i].kineticElement.setIaObject(that);
     that.xiaDetail[i].kineticElement.setXiaParent(that.xiaDetail[i]);
     that.xiaDetail[i].kineticElement.tooltip = "";
     
@@ -252,6 +256,17 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         collision_state = "off";
     }
     that.collisions = collision_state;
+
+
+    if(that.xiaDetail[i].connectionStart) {
+        that.xiaDetail[i].connectorStart = that.xiaDetail[i].kineticElement.getStage().find(that.xiaDetail[i].connectionStart)[0];
+        that.xiaDetail[i].connectorEnd = that.xiaDetail[i].kineticElement.getStage().find(that.xiaDetail[i].connectionEnd)[0];
+        that.xiaDetail[i].connectorStart.getXiaParent().addObserver(that.xiaDetail[i]);
+        that.xiaDetail[i].connectorEnd.getXiaParent().addObserver(that.xiaDetail[i]);
+        detail.fill = "#ffffff";
+        that.xiaDetail[i].kineticElement.stroke("black");
+        that.xiaDetail[i].kineticElement.strokeWidth(5);
+    }
 
     var global_collision_state = $("#message_success").data("collisions");
 
@@ -388,7 +403,6 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     }    
     that.addEventsManagement(i, that, iaScene, baseImage, idText);
 
-    that.layer.add(that.xiaDetail[i].kineticElement);
     that.layer.draw();
 };
 
@@ -574,8 +588,14 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
                 that.afterDragEnd(iaScene, idText, e, this);
                 that.myhooks.afterDragEnd(iaScene, idText, this);
                 this.getStage().completeImage = "redefine";
+
                 that.layer.draw();
-            });    
+            });
+            //if (that.xiaDetail[i].connectionStart) {
+                that.xiaDetail[i].kineticElement.on('dragmove', function(e) {
+                    this.getXiaParent().notify();
+                });
+            //}
         }
     }
 

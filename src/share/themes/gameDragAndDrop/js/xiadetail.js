@@ -20,7 +20,7 @@ function XiaDetail(detail, idText) {
     "use strict";
     
     var that = this;
-    
+    this.observers = new ObserverList();
     this.title = detail.title;
     this.path = "";
     this.kineticElement = null;
@@ -33,11 +33,21 @@ function XiaDetail(detail, idText) {
     this.magnet_state = null;
     this.droparea = false;
     this.idText = idText;
-    
+    this.connectionStart = null;
+    this.connectionEnd = null;
+    this.connectorStart = null;
+    this.connectorEnd = null;
+
     if ((typeof(detail.options) !== 'undefined')) {
         this.options = detail.options;
     }
-    
+
+    if ((typeof(detail.connectionStart) !== 'undefined')) {
+        this.connectionStart = detail.connectionStart;
+        this.connectionEnd = detail.connectionEnd;
+        this.options += " disable-click ";
+    }
+
     if (this.options.indexOf("disable-click") != -1) {
         this.draggable_object = false;
     };  
@@ -57,3 +67,30 @@ function XiaDetail(detail, idText) {
     }    
     
 }
+
+XiaDetail.prototype.addObserver = function( observer ){
+  this.observers.add( observer );
+};
+
+XiaDetail.prototype.removeObserver = function( observer ){
+  this.observers.removeAt( this.observers.indexOf( observer, 0 ) );
+};
+
+XiaDetail.prototype.notify = function(){
+  var observerCount = this.observers.count();
+  for(var i=0; i < observerCount; i++){
+    this.observers.get(i).update();
+  }
+};
+
+XiaDetail.prototype.update = function(){
+    // redraw connector
+ var coeff = (1/this.kineticElement.getIaObject().mainScene.coeff);
+ xStart = this.connectorStart.x() * coeff+ this.connectorStart.width() / 2;
+ yStart = this.connectorStart.y() * coeff+ this.connectorStart.height() / 2;
+ xEnd = this.connectorEnd.x() * coeff + this.connectorEnd.width() / 2;
+ yEnd = this.connectorEnd.y() * coeff + this.connectorEnd.height() / 2;
+
+ this.kineticElement.data("M" + (xStart) + "," + (yStart) + " " + (xEnd) + "," + (yEnd) + " z");
+
+};

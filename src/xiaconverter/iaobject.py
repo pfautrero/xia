@@ -565,6 +565,10 @@ class iaObject:
         record['y'] = unicode(0)
         record['options'] = ""
 
+        if path.hasAttribute("inkscape:connection-start") and path.hasAttribute("inkscape:connection-end"):
+            record['connectionStart'] = path.attributes['inkscape:connection-start'].value
+            record['connectionEnd'] = path.attributes['inkscape:connection-end'].value
+
         if path.hasAttribute("onclick"):
             str_onclick = path.attributes['onclick'].value
             if str_onclick == "off":
