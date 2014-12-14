@@ -37,11 +37,26 @@ function XiaDetail(detail, idText) {
     this.connectionEnd = null;
     this.connectorStart = null;
     this.connectorEnd = null;
+    this.style= "";
+    this.stroke=null;
+    this.strokeWidth=null;
 
+    // retrieve options
     if ((typeof(detail.options) !== 'undefined')) {
         this.options = detail.options;
     }
 
+    // retrieve styles
+    if ((typeof(detail.style) !== 'undefined')) {
+        this.style = detail.style;
+        var stroke = this.style.match("stroke:(.*?);");
+        if (stroke) this.stroke = stroke[1];
+
+        var strokeWidth = this.style.match("stroke-width:(.*?);");
+        if (strokeWidth) this.strokeWidth = strokeWidth[1];
+    }
+
+    // retrieve connection if exists
     if ((typeof(detail.connectionStart) !== 'undefined')) {
         this.connectionStart = detail.connectionStart;
         this.connectionEnd = detail.connectionEnd;

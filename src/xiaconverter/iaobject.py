@@ -589,6 +589,7 @@ class iaObject:
 
         if path.hasAttribute("style") and (path.attributes['style'].value != ""):
             str_style = path.attributes['style'].value
+            record["style"] = path.attributes['style'].value
             style = {}
             for item in str_style.split(";"):
                 key, value = item.split(":")

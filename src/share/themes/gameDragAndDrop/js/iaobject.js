@@ -93,8 +93,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
         width: detail.width,
         height: detail.height,
-        draggable: that.xiaDetail[i].draggable_object,
-        stroke: "red"
+        draggable: that.xiaDetail[i].draggable_object
      
     });
     that.layer.add(that.xiaDetail[i].kineticElement);
@@ -264,8 +263,18 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         that.xiaDetail[i].connectorStart.getXiaParent().addObserver(that.xiaDetail[i]);
         that.xiaDetail[i].connectorEnd.getXiaParent().addObserver(that.xiaDetail[i]);
         detail.fill = "#ffffff";
-        that.xiaDetail[i].kineticElement.stroke("black");
-        that.xiaDetail[i].kineticElement.strokeWidth(5);
+        if (that.xiaDetail[i].stroke) {
+            that.xiaDetail[i].kineticElement.stroke(that.xiaDetail[i].stroke);
+        }
+        else {
+            that.xiaDetail[i].kineticElement.stroke("black");
+        }
+        if (that.xiaDetail[i].strokeWidth) {
+            that.xiaDetail[i].kineticElement.strokeWidth(that.xiaDetail[i].strokeWidth);
+        }
+        else {
+            that.xiaDetail[i].kineticElement.strokeWidth(5);
+        }
     }
 
     var global_collision_state = $("#message_success").data("collisions");
