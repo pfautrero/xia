@@ -15,38 +15,35 @@
 #   
 # @author : pascal.fautrero@ac-versailles.fr
 
-# inkscape transformations
-import cubicsuperpath
 
-# dom manipulation
-from xml.dom import minidom
 
-# wiki engine
-from pikipiki import PageFormatter
-
-# svg transform analyzer
-from ctm import CurrentTransformation
 import os
-
 import math
 import re
 import tempfile
 import sys
 import shutil
 import commands
-import hashlib
-#from datetime import datetime
-import uuid
 
 # import PIL for windows and Linux
 # For MAC OS X, use internal tool called "sips"
-
-if not sys.platform.startswith('darwin'):
-    try:
-        from PIL import Image
-    except ImportError:
+try:
+    from PIL import Image
+    HANDLE_PIL = True
+except ImportError:
+    if not sys.platform.startswith('darwin'):
         print "Requirement : Please, install python-pil package"
         sys.exit(1)
+    else:
+        HANDLE_PIL = False
+
+import hashlib
+import uuid
+from xml.dom import minidom
+
+from ctm import CurrentTransformation
+import cubicsuperpath
+from pikipiki import PageFormatter
 
 
 class iaObject:
@@ -345,7 +342,8 @@ class iaObject:
                 record_image['width'], \
                 record_image['height'] = \
                     self.resizeImage(record_image['image'], record_image['width'], record_image['height'])
-            if not sys.platform.startswith("darwin"):
+            #if not sys.platform.startswith("darwin"):
+            if HANDLE_PIL:
                 record_image['image'], \
                 record_image['width'], \
                 record_image['height'], \
@@ -793,7 +791,8 @@ class iaObject:
                 with open(imageFile, "wb") as bgImage:
                     bgImage.write(rasterEncoded.decode("base64"))
 
-                if sys.platform.startswith('darwin'):
+                #if sys.platform.startswith('darwin'):
+                if not HANDLE_PIL:
                     shutil.copyfile(imageFile, imageFileFixed)
                     w = commands.getstatusoutput('sips -g pixelWidth {0}'.format(imageFile))
                     if w != rasterWidth:
@@ -843,7 +842,8 @@ class iaObject:
                 with open(imageFile, "wb") as bgImage:
                     bgImage.write(rasterEncoded.decode("base64"))
 
-                if not sys.platform.startswith('darwin'):
+                #if not sys.platform.startswith('darwin'):
+                if HANDLE_PIL:
                     im = Image.open(imageFile, 'r')
                     im = im.convert("RGBA")
                     pix_val = list(im.getdata())
@@ -943,7 +943,8 @@ class iaObject:
                     bgImage.write(rasterEncoded.decode("base64"))
                 if self.ratio != 1:
                     # Background image is too big to be used on mobiles
-                    if sys.platform.startswith('darwin'):
+                    #if sys.platform.startswith('darwin'):
+                    if not HANDLE_PIL:
                         oldwidth = int(float(rasterWidth))
                         oldheight = int(float(rasterHeight))
                         newwidth = int(oldwidth * self.ratio)
