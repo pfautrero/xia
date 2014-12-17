@@ -284,7 +284,7 @@ class PageFormatter:
             + r"|(?P<nothandled>nothandled)"
             + r"|(?P<pre>(\{\{\{|\}\}\}))"
             + r"|(?P<hidden_block>(\[\[(.*?)\:|\]\]))"
-            + r")")
+            + r")", re.IGNORECASE)
         blank_re = re.compile("^\s*$")
         indent_re = re.compile("^\s*")
         eol_re = re.compile(r'\r?\n')
