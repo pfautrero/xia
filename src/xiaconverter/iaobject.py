@@ -71,6 +71,10 @@ class iaObject:
 
         metadatas = xml.getElementsByTagName('metadata')
         self.scene['date'] = ""
+        self.scene['identifier'] = ""
+        self.scene['coverage'] = ""
+        self.scene['source'] = ""
+        self.scene['relation'] = ""
         self.scene['creator'] = ""
         self.scene['rights'] = ""
         self.scene['publisher'] = ""
@@ -88,6 +92,22 @@ class iaObject:
             metadata = metadatas.item(0).getElementsByTagName('dc:date')
             if metadata.item(0) is not None:
                 self.scene['date'] = self.get_tag_value(metadata.item(0))
+
+            metadata = metadatas.item(0).getElementsByTagName('dc:coverage')
+            if metadata.item(0) is not None:
+                self.scene['coverage'] = self.get_tag_value(metadata.item(0))
+
+            metadata = metadatas.item(0).getElementsByTagName('dc:relation')
+            if metadata.item(0) is not None:
+                self.scene['relation'] = self.get_tag_value(metadata.item(0))
+
+            metadata = metadatas.item(0).getElementsByTagName('dc:source')
+            if metadata.item(0) is not None:
+                self.scene['source'] = self.get_tag_value(metadata.item(0))
+
+            metadata = metadatas.item(0).getElementsByTagName('dc:identifier')
+            if metadata.item(0) is not None:
+                self.scene['identifier'] = self.get_tag_value(metadata.item(0))
 
             metadata = metadatas.item(0).getElementsByTagName('dc:creator')
             if metadata.item(0) is not None:
