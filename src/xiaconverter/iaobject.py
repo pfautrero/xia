@@ -391,7 +391,10 @@ class iaObject:
                     style[key] = value
                 if 'fill' in style:
                     record_image['fill'] = style['fill']
-
+                if 'stroke' in style:
+                    record_image['stroke'] = style['stroke']
+                if 'stroke-width' in style:
+                    record_image['strokewidth'] = style['stroke-width']
 
             if image.hasAttribute("onclick"):
                 str_onclick = image.attributes['onclick'].value
@@ -497,6 +500,10 @@ class iaObject:
                 style[key] = value
             if 'fill' in style:
                 record_rect['fill'] = style['fill']
+            if 'stroke' in style:
+                record_rect['stroke'] = style['stroke']
+            if 'stroke-width' in style:
+                record_rect['strokewidth'] = style['stroke-width']
 
         # ObjectToPath                    
         ctm = CurrentTransformation()
@@ -623,6 +630,10 @@ class iaObject:
                 style[key] = value
             if 'fill' in style:
                 record["fill"] = style['fill']
+            if 'stroke' in style:
+                record['stroke'] = style['stroke']
+            if 'stroke-width' in style:
+                record['strokewidth'] = style['stroke-width']
 
         if path.hasAttribute("x"):
             record['x'] = path.attributes['x'].value

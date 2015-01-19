@@ -36,7 +36,9 @@ function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     this.persistent = [];
     this.originalX = [];
     this.originalY = [];
-    this.options = [];    
+    this.options = [];
+    this.stroke = [];
+    this.strokeWidth = [];
     this.layer = layer;
     this.background_layer = background_layer;
     this.backgroundCache_layer = backgroundCache_layer;
@@ -113,6 +115,18 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         }
         if ((typeof(detail.options) !== 'undefined')) {
             that.options[i] = detail.options;
+        }
+        if ((typeof(detail.stroke) !== 'undefined')) {
+            that.stroke[i] = detail.stroke;
+        }
+        else {
+            that.stroke[i] = 'rgba(0, 0, 0, 0)';
+        }
+        if ((typeof(detail.strokewidth) !== 'undefined')) {
+            that.strokeWidth[i] = detail.strokewidth;
+        }
+        else {
+            that.strokeWidth[i] = '2';
         }
         that.persistent[i] = "off-image";
         if ((typeof(detail.fill) !== 'undefined') && 
@@ -291,7 +305,19 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     }
     if ((typeof(detail.options) !== 'undefined')) {
         that.options[i] = detail.options;
-    }    
+    }
+    if ((typeof(detail.stroke) !== 'undefined')) {
+        that.stroke[i] = detail.stroke;
+    }
+    else {
+        that.stroke[i] = 'rgba(0, 0, 0, 0)';
+    }
+    if ((typeof(detail.strokewidth) !== 'undefined')) {
+        that.strokeWidth[i] = detail.strokewidth;
+    }
+    else {
+        that.strokeWidth[i] = '2';
+    }
     that.persistent[i] = "off";
     if ((typeof(detail.fill) !== 'undefined') && 
         (detail.fill === "#ffffff")) {
@@ -409,8 +435,10 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     that.kineticElement[i].fillPriority('color');
                     that.kineticElement[i].fill(iaScene.overColor);
                     that.kineticElement[i].scale(iaScene.coeff);
-                    that.kineticElement[i].stroke(iaScene.overColorStroke);
-                    that.kineticElement[i].strokeWidth(2);                    
+                    //that.kineticElement[i].stroke(iaScene.overColorStroke);
+                    //that.kineticElement[i].strokeWidth(2);
+                    that.kineticElement[i].stroke(that.stroke[i]);
+                    that.kineticElement[i].strokeWidth(that.strokeWidth[i]);
                 }
                 else if (that.persistent[i] == "onPath") {
                     that.kineticElement[i].fillPriority('color');
@@ -539,8 +567,10 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
                         that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale); 
                         that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
-                        that.kineticElement[i].stroke(iaScene.overColorStroke);
-                        that.kineticElement[i].strokeWidth(2);   
+                        //that.kineticElement[i].stroke(iaScene.overColorStroke);
+                        //that.kineticElement[i].strokeWidth(2);
+                        that.kineticElement[i].stroke(that.stroke[i]);
+                        that.kineticElement[i].strokeWidth(that.strokeWidth[i]);
                         that.kineticElement[i].moveToTop();
                     }
                     if (cacheBackground === true) that.backgroundCache_layer.moveToTop();

@@ -35,7 +35,9 @@ function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     this.persistent = [];
     this.originalX = [];
     this.originalY = [];
-    this.options = [];    
+    this.options = [];
+    this.stroke = [];
+    this.strokeWidth = [];
     this.layer = layer;
     this.background_layer = background_layer;
     this.backgroundCache_layer = backgroundCache_layer;
@@ -114,6 +116,18 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         }
         if ((typeof(detail.options) !== 'undefined')) {
             that.options[i] = detail.options;
+        }
+        if ((typeof(detail.stroke) !== 'undefined')) {
+            that.stroke[i] = detail.stroke;
+        }
+        else {
+            that.stroke[i] = 'rgba(0, 0, 0, 0)';
+        }
+        if ((typeof(detail.strokewidth) !== 'undefined')) {
+            that.strokeWidth[i] = detail.strokewidth;
+        }
+        else {
+            that.strokeWidth[i] = '2';
         }
         that.persistent[i] = "off-image";
         if ((typeof(detail.fill) !== 'undefined') && 
@@ -294,7 +308,19 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     }
     if ((typeof(detail.options) !== 'undefined')) {
         that.options[i] = detail.options;
-    }    
+    }
+    if ((typeof(detail.stroke) !== 'undefined')) {
+        that.stroke[i] = detail.stroke;
+    }
+    else {
+        that.stroke[i] = 'rgba(0, 0, 0, 0)';
+    }
+    if ((typeof(detail.strokewidth) !== 'undefined')) {
+        that.strokeWidth[i] = detail.strokewidth;
+    }
+    else {
+        that.strokeWidth[i] = '2';
+    }
     that.persistent[i] = "off";
     if ((typeof(detail.fill) !== 'undefined') && 
         (detail.fill === "#ffffff")) {
@@ -414,8 +440,10 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     that.kineticElement[k].fillPriority('color');
                     that.kineticElement[k].fill(iaScene.overColor);
                     that.kineticElement[k].scale(iaScene.coeff);
-                    that.kineticElement[k].stroke(iaScene.overColorStroke);
-                    that.kineticElement[k].strokeWidth(2);                    
+                    //that.kineticElement[k].stroke(iaScene.overColorStroke);
+                    //that.kineticElement[k].strokeWidth(2);
+                    that.kineticElement[k].stroke(that.stroke[k]);
+                    that.kineticElement[k].strokeWidth(that.strokeWidth[k]);
                 }
                 else if (that.persistent[k] == "onPath") {
                     that.kineticElement[k].fillPriority('color');
@@ -470,7 +498,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 that.alpha = 0;
                 that.step = 0.1;
                 for (k in that.kineticElement) {
-                   that.kineticElement[k].setStrokeWidth(parseFloat(6 / that.agrandissement));
+                   that.kineticElement[k].setStrokeWidth(parseFloat(that.strokeWidth(k) / that.agrandissement));
                 }            
                 var personalTween = function(anim) {
                     // linear
@@ -594,8 +622,10 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         that.kineticElement[k].fillPatternScaleX(that.backgroundImageOwnScaleX[k] * 1/iaScene.scale);
                         that.kineticElement[k].fillPatternScaleY(that.backgroundImageOwnScaleY[k] * 1/iaScene.scale);
                         that.kineticElement[k].fillPatternImage(that.backgroundImage[k]);
-                        that.kineticElement[k].stroke(iaScene.overColorStroke);
-                        that.kineticElement[k].strokeWidth(2); 
+                        //that.kineticElement[k].stroke(iaScene.overColorStroke);
+                        //that.kineticElement[k].strokeWidth(2);
+                        that.kineticElement[k].stroke(that.stroke[k]);
+                        that.kineticElement[k].strokeWidth(that.strokeWidth[k]);
                         that.kineticElement[k].moveToTop();
                     }
                     if (cacheBackground === true) that.backgroundCache_layer.moveToTop();
