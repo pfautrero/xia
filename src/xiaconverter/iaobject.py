@@ -156,6 +156,8 @@ class iaObject:
             strStarter = 0
             if xlink.startswith("file://"):
                 strStarter = len("file://")
+            if xlink.startswith("file:///"):
+                strStarter = len("file:///")
             # Embed image thanks to data URI Scheme
             imgName, imgExtension = os.path.splitext(xlink[strStarter:])
             imgMimeTypes = {}

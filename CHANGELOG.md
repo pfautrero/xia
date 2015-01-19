@@ -11,6 +11,7 @@ Version 1.0-beta5 - 19/01/2015
 - Amélioration : toutes les metadatas sont prises en compte
 - IA 1 : prise en compte du facteur zoom sur les fichiers .xia
 - Amélioration : les contours des détails sont définis dans le svg et ne sont donc plus rouges par défaut.
+- bugfix : les chemins réseaux n'étaient pas gérés correctement
 
 Version 1.0-beta4 - 21/11/2014
 -------------------------------
