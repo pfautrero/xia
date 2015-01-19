@@ -378,6 +378,11 @@ class iaObject:
                     record_image['title'].startswith("../"):
                 record_image['options'] += " direct-link "
 
+            if image.hasAttribute("images_actives:zoomable"):
+                str_zoom = image.attributes['images_actives:zoomable'].value
+                if str_zoom == "false":
+                    record_image['fill'] = "#000000"
+
             if image.hasAttribute("style"):
                 str_style = image.attributes['style'].value
                 style = {}
@@ -386,8 +391,7 @@ class iaObject:
                     style[key] = value
                 if 'fill' in style:
                     record_image['fill'] = style['fill']
-                else:
-                    record_image['fill'] = "#ffffff"
+
 
             if image.hasAttribute("onclick"):
                 str_onclick = image.attributes['onclick'].value
@@ -479,6 +483,12 @@ class iaObject:
                 record_rect['title'].startswith("../"):
             record_rect['options'] += " direct-link "
 
+        if rect.hasAttribute("images_actives:zoomable"):
+            str_zoom = rect.attributes['images_actives:zoomable'].value
+            if str_zoom == "false":
+                record_rect['fill'] = "#000000"
+
+
         if rect.hasAttribute("style"):
             str_style = rect.attributes['style'].value
             style = {}
@@ -487,8 +497,6 @@ class iaObject:
                 style[key] = value
             if 'fill' in style:
                 record_rect['fill'] = style['fill']
-            else:
-                record_rect['fill'] = "#ffffff"
 
         # ObjectToPath                    
         ctm = CurrentTransformation()
@@ -600,6 +608,12 @@ class iaObject:
                 record['title'].startswith("./") or \
                 record['title'].startswith("../"):
             record['options'] += " direct-link "
+
+        if path.hasAttribute("images_actives:zoomable"):
+            str_zoom = path.attributes['images_actives:zoomable'].value
+            if str_zoom == "false":
+                record['fill'] = "#000000"
+
 
         if path.hasAttribute("style") and (path.attributes['style'].value != ""):
             str_style = path.attributes['style'].value
