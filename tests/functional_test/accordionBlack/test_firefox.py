@@ -47,18 +47,18 @@ class Test(unittest.TestCase):
         self.assertEqual("Son 1", driver.find_element_by_id("collapse6-heading").text)
         self.assertTrue(driver.find_element_by_id("collapse6-heading").is_displayed())
         self.assertEqual("""Description de l'image<video controls="" preload="none" data-state="none">
-	            <source type="video/mp4" src="../media-share/1.mp4">
-	            <source type="video/ogg" src="../media-share/1.ogv">
-	            <source type="video/webm" src="../media-share/1.webm">
+                <source type="video/mp4" src="../media-share/1.mp4">
+                <source type="video/ogg" src="../media-share/1.ogv">
+                <source type="video/webm" src="../media-share/1.webm">
             </video>
 
         """, driver.find_element_by_xpath("//div[@id='collapsecomment']/div").get_attribute('innerHTML'))
         self.assertTrue(self.is_element_present(By.XPATH, "//div[@id='collapsecomment']/div/video"))
         self.assertEqual("""
           <div class="accordion-inner">Description du rectangle <b>gras</b> <em>italique</em>Réponse:Voici la vidéo :<video controls="" preload="none" data-state="none">
-	            <source type="video/mp4" src="../media-share/1.mp4">
-	            <source type="video/ogg" src="../media-share/1.ogv">
-	            <source type="video/webm" src="../media-share/1.webm">
+                <source type="video/mp4" src="../media-share/1.mp4">
+                <source type="video/ogg" src="../media-share/1.ogv">
+                <source type="video/webm" src="../media-share/1.webm">
             </video>
 
           </div>
@@ -88,9 +88,9 @@ Quelle est la bonne réponse ?<img src="../media-share/1.jpg">
         self.assertEqual("""
           <div class="accordion-inner">Description de ligne1<br>
 <video controls="" preload="none" data-state="autostart">
-	            <source type="video/mp4" src="../media-share/1.mp4">
-	            <source type="video/ogg" src="../media-share/1.ogv">
-	            <source type="video/webm" src="../media-share/1.webm">
+                <source type="video/mp4" src="../media-share/1.mp4">
+                <source type="video/ogg" src="../media-share/1.ogv">
+                <source type="video/webm" src="../media-share/1.webm">
             </video>
 <br>
 
@@ -108,8 +108,8 @@ une ligne<br>
         self.assertTrue(self.is_element_present(By.XPATH, "id('collapse4')/div/img"))
         self.assertEqual("""
           <div class="accordion-inner">le son 2 ! <audio controls="" data-state="autostart">
-	            <source type="audio/ogg" src="../media-share/1.ogg">
-	            <source type="audio/mp3" src="../media-share/1.mp3">
+                <source type="audio/ogg" src="../media-share/1.ogg">
+                <source type="audio/mp3" src="../media-share/1.mp3">
             </audio>
 Réponse:LA réponse à la question<br>
 
@@ -118,8 +118,8 @@ Réponse:LA réponse à la question<br>
         self.assertTrue(self.is_element_present(By.XPATH, "id('collapse5')/div/audio"))
         self.assertEqual("""
           <div class="accordion-inner">le son 1 !<audio controls="" data-state="none">
-	            <source type="audio/ogg" src="../media-share/1.ogg">
-	            <source type="audio/mp3" src="../media-share/1.mp3">
+                <source type="audio/ogg" src="../media-share/1.ogg">
+                <source type="audio/mp3" src="../media-share/1.mp3">
             </audio>
 
           </div>
@@ -203,12 +203,12 @@ Réponse:LA réponse à la question<br>
         finally: self.accept_next_alert = True
     def click_zone(self,zone):
         return """
-		    for (var i in Kinetic.shapes) {
-			    if (Kinetic.shapes[i].attrs['name'] == '"""+zone+"""') {
-				    Kinetic.shapes[i].fire('click');
+            for (var i in Kinetic.shapes) {
+                if (Kinetic.shapes[i].attrs['name'] == '"""+zone+"""') {
+                    Kinetic.shapes[i].fire('click');
                     break;
-			    }
-		    }
+                }
+            }
            """
     def check_element(self,visible="0XXXX0XXXX0"):
         time.sleep(1)
