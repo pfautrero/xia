@@ -1,6 +1,6 @@
 ﻿# -*- coding: utf-8 -*-
 from __future__ import unicode_literals 
-from pyvirtualdisplay import Display
+#from pyvirtualdisplay import Display
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -10,9 +10,10 @@ from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 import os
 
-
-display = Display(visible=0, size=(1024, 768))
-display.start()
+if os.name != 'nt':
+    from pyvirtualdisplay import Display
+    display = Display(visible=0, size=(1024, 768))
+    display.start()
 
 
 
