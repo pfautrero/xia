@@ -156,8 +156,9 @@ class iaObject:
             strStarter = 0
             if xlink.startswith("file://"):
                 strStarter = len("file://")
-            if xlink.startswith("file:///"):
-                strStarter = len("file:///")
+            # look for windows drive letter
+            if re.match("^[a-zA-Z]:.*$", xlink[strStarter + 1], re.UNICODE):
+                strStarter = strStarter + 1
             # Embed image thanks to data URI Scheme
             imgName, imgExtension = os.path.splitext(xlink[strStarter:])
             imgMimeTypes = {}
