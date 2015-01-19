@@ -1,3 +1,17 @@
+Version 1.0-beta5 - 19/01/2015
+-------------------------------
+
+- bugfix : gestion des noms avec caractères accentués dans les sessions windows
+- amélioration : suppression des zones transparentes inutiles sur les images
+- gameDragAndDrop : si le clic est désactivé, le lien direct fonctionne encore
+- développeurs : les fichiers hook.js peuvent être édités pour ajouter des fonctionnalités
+- bugfix : suppression des détails qui contiennent des paramètres invalides
+- pikipiki : insensible à la casse
+- MAC OS X : PIL est utilisé de base.
+- Amélioration : toutes les metadatas sont prises en compte
+- IA 1 : prise en compte du facteur zoom sur les fichiers .xia
+- Amélioration : les contours des détails sont définis dans le svg et ne sont donc plus rouges par défaut.
+
 Version 1.0-beta4 - 21/11/2014
 -------------------------------
 
