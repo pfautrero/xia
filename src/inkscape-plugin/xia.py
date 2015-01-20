@@ -47,8 +47,8 @@ class ImageActive(inkex.Effect):
 
         config = ConfigParser.ConfigParser()
         config.read(inkexWorkingDir + "/xia.cnf")
-        numVersion = inkexWorkingDir + "/" + config.get('version', 'numVersion')
-        releaseVersion = inkexWorkingDir + "/" + config.get('version', 'releaseVersion')
+        numVersion = config.get('version', 'numVersion')
+        releaseVersion = config.get('version', 'releaseVersion')
         imagesPath = inkexWorkingDir + "/" + config.get('paths', 'imagesPath')
         langPath = inkexWorkingDir + "/" + config.get('paths', 'langPath')
         fontsPath = inkexWorkingDir + "/" + config.get('paths', 'fontsPath')
