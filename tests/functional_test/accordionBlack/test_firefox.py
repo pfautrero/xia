@@ -10,6 +10,7 @@ from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 import os
 
+
 if os.name != 'nt':
     from pyvirtualdisplay import Display
     display = Display(visible=0, size=(1024, 768))

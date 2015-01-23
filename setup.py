@@ -120,7 +120,7 @@ setup(
     author_email='pascal.fautrero@ac-versailles.fr',
     description='Convert svg to full html5 interactive pictures',
     long_description=long_description,
-    url='http://images-actives.crdp-versailles.fr/beta/',
+    url='http://xia.dane.ac-versailles.fr',
     license='GPL-3',
 )
 
