@@ -320,9 +320,136 @@ class iaObject:
         """not yet implemented"""
         print("circle is not implemented")
 
-    def extract_ellipse(self, image, stackTransformations):
-        """not yet implemented"""
-        print("ellipse is not implemented")
+    def extract_ellipse(self, rect, stackTransformations):
+        """Analyze rectangles"""
+
+        record_rect = {}
+        record_rect['id'] = hashlib.md5(str(uuid.uuid1())).hexdigest()
+        if rect.hasAttribute("id"):
+            record_rect['id'] = rect.attributes['id'].value
+
+        record_rect['detail'] = self.getText("desc", rect)
+        record_rect['title'] = self.getText("title", rect)
+        record_rect['cx'] = unicode(0)
+        record_rect['cy'] = unicode(0)
+        record_rect['rx'] = unicode(0)
+        record_rect['ry'] = unicode(0)
+        record_rect['options'] = ""
+
+        if rect.hasAttribute("cx"):
+            record_rect['cx'] = rect.attributes['cx'].value
+            if self.translation != 0:
+                record_rect['cx'] = float(record_rect['cx'])
+        if rect.hasAttribute("cy"):
+            record_rect['cy'] = rect.attributes['cy'].value
+            if self.translation != 0:
+                record_rect['cy'] = float(record_rect['cy'])
+        if rect.hasAttribute("rx"):
+            record_rect['rx'] = rect.attributes['rx'].value
+        if rect.hasAttribute("ry"):
+            record_rect['ry'] = rect.attributes['ry'].value
+
+        if rect.hasAttribute("onclick"):
+            str_onclick = rect.attributes['onclick'].value
+            if str_onclick == "off":
+                record_rect['options'] += " disable-click "
+            else:
+                record_rect['options'] += " " + str_onclick + " "
+        if rect.hasAttribute("onmouseover"):
+            str_onmouseover = rect.attributes['onmouseover'].value
+            record_rect['options'] += " " + str_onmouseover + " "
+
+        if record_rect['title'].startswith("http://") or \
+                record_rect['title'].startswith("https://") or \
+                record_rect['title'].startswith("//") or \
+                record_rect['title'].startswith("./") or \
+                record_rect['title'].startswith("../"):
+            record_rect['options'] += " direct-link "
+
+        if rect.hasAttribute("images_actives:zoomable"):
+            str_zoom = rect.attributes['images_actives:zoomable'].value
+            if str_zoom == "false":
+                record_rect['fill'] = "#000000"
+
+
+        if rect.hasAttribute("style"):
+            str_style = rect.attributes['style'].value
+            style = {}
+            for item in str_style.split(";"):
+                key, value = item.split(":")
+                style[key] = value
+            if 'fill' in style:
+                record_rect['fill'] = style['fill']
+            if 'stroke' in style:
+                record_rect['stroke'] = style['stroke']
+            if 'stroke-width' in style:
+                record_rect['strokewidth'] = style['stroke-width']
+
+        # ObjectToPath
+        ctm = CurrentTransformation()
+        record_rect['path'] = ctm.ellipseToPath(record_rect)
+
+        p = cubicsuperpath.parsePath(record_rect['path'])
+        record_rect['path'] = cubicsuperpath.formatPath(p)
+        record_rect['x'] = unicode(0)
+        record_rect['y'] = unicode(0)
+        if stackTransformations == "":
+            if rect.hasAttribute("transform"):
+                transformation = rect.attributes['transform'].value
+                ctm.analyze(transformation)
+
+                ctm.applyTransformToPath(ctm.matrix, p)
+                record_rect['path'] = cubicsuperpath.formatPath(p)
+
+        # apply group transformation on current object
+        else:
+            transformations = stackTransformations.split("#")
+            for transformation in transformations[::-1]:
+                ctm = CurrentTransformation()
+                ctm.analyze(transformation)
+                ctm.applyTransformToPath(ctm.matrix, p)
+                record_rect['path'] = cubicsuperpath.formatPath(p)
+
+                #if ctm_group:
+        #    ctm_group.applyTransformToPath(ctm_group.matrix,p)
+        #    record_rect['path'] = cubicsuperpath.formatPath(p)
+
+        if self.translation != 0:
+            ctm = CurrentTransformation()
+            ctm.applyTransformToPath(self.translation, p)
+            record_rect['path'] = cubicsuperpath.formatPath(p)
+
+        if self.ratio != 1:
+            ctm = CurrentTransformation()
+            ctm.extractScale([self.ratio])
+            ctm.applyTransformToPath(ctm.matrix, p)
+            record_rect['path'] = cubicsuperpath.formatPath(p)
+
+        minX = 10000
+        minY = 10000
+        maxX = -10000
+        maxY = -10000
+        for cmd, params in cubicsuperpath.unCubicSuperPath(p):
+            i = 0
+            for p in params:
+                if (i % 2 == 0):
+                    if float(p) < float(minX):
+                        minX = float(p)
+                    if float(p) > float(maxX):
+                        maxX = float(p)
+                else:
+                    if float(p) < float(minY):
+                        minY = float(p)
+                    if float(p) > float(maxY):
+                        maxY = float(p)
+                i = i + 1
+        record_rect["minX"] = unicode(minX)
+        record_rect["minY"] = unicode(minY)
+        record_rect["maxX"] = unicode(maxX)
+        record_rect["maxY"] = unicode(maxY)
+
+        record_rect['path'] = '"' + record_rect['path'] + ' z"'
+        return record_rect
 
     def extract_line(self, image, stackTransformations):
         """not yet implemented"""
