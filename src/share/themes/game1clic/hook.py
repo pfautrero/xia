@@ -69,12 +69,12 @@ class hook:
        
        
         final_str = u'<article class="message_success" id="message_success" data-score="' + self.score + '">\n'
-        final_str += '<img id="popup_toggle" src="img/hide.png" alt="toggle"/>\n'        
+        final_str += '<img id="popup_toggle" src="{{LogoHide}}" alt="toggle"/>\n'
         final_str += u'  <div id="message_success_content">' + self.PageFormatter(self.message).print_html() + u'</div>\n'
         final_str += u'</article>\n'
 
         final_str += u'<article class="message_success" id="message_success2" data-score="' + self.score2 + '">\n'
-        final_str += '<img id="popup_toggle2" src="img/hide.png" alt="toggle"/>\n'        
+        final_str += '<img id="popup_toggle2" src="{{LogoHide}}" alt="toggle"/>\n'
         final_str += u'  <div id="message_success_content2">' + self.PageFormatter(self.message2).print_html() + u'</div>\n'
         final_str += u'</article>\n'
             
@@ -125,6 +125,7 @@ class hook:
                 xiaWebsite = "http://xia.dane.ac-versailles.fr/network/delivery/game1clic"
                 final_index = final_index.replace("{{MainCSS}}", xiaWebsite + "/css/main.css")
                 final_index = final_index.replace("{{LogoLoading}}",  xiaWebsite + "/img/xia.png")
+                final_index = final_index.replace("{{LogoHide}}",  xiaWebsite + "/img/hide.png")
                 final_index = final_index.replace("{{LogoClose}}", xiaWebsite + "/img/close.png")
                 final_index = final_index.replace("{{datasJS}}", "<script>" + self.iaobject.jsonContent + "</script>")
                 final_index = final_index.replace("{{lazyDatasJS}}", '')
@@ -137,6 +138,7 @@ class hook:
             else:
                 final_index = final_index.replace("{{MainCSS}}", "css/main.css")
                 final_index = final_index.replace("{{LogoLoading}}",  "img/xia.png")
+                final_index = final_index.replace("{{LogoHide}}", "img/hide.png")
                 final_index = final_index.replace("{{LogoClose}}", "img/close.png")
                 final_index = final_index.replace("{{datasJS}}", "")
                 final_index = final_index.replace("{{lazyDatasJS}}", '.script("datas/data.js")')

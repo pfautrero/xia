@@ -65,7 +65,7 @@ class hook:
             self.magnet = magnet.group(1)        
         
         final_str = u'<article class="message_success" id="message_success" data-magnet="' + self.magnet + '" data-collisions="' + self.collisions + '" data-score="' + self.score + '">\n'
-        final_str += '<img id="popup_toggle" src="img/hide.png" alt="toggle"/>\n'
+        final_str += '<img id="popup_toggle" src="{{LogoHide}}" alt="toggle"/>\n'
         final_str += u'  <div id="message_success_content">' + self.PageFormatter(self.message).print_html() + u'</div>\n'
         final_str += u'</article>\n'
         for i, detail in enumerate(self.iaobject.details):
@@ -130,6 +130,7 @@ class hook:
             if self.root.index_standalone:
                 xiaWebsite = "http://xia.dane.ac-versailles.fr/network/delivery/gameDragAndDrop"
                 final_index = final_index.replace("{{MainCSS}}", xiaWebsite + "/css/main.css")
+                final_index = final_index.replace("{{LogoHide}}",  xiaWebsite + "/img/hide.png")
                 final_index = final_index.replace("{{LogoLoading}}",  xiaWebsite + "/img/xia.png")
                 final_index = final_index.replace("{{LogoClose}}", xiaWebsite + "/img/close.png")
                 final_index = final_index.replace("{{datasJS}}", "<script>" + self.iaobject.jsonContent + "</script>")
@@ -143,6 +144,7 @@ class hook:
             else:
                 final_index = final_index.replace("{{MainCSS}}", "css/main.css")
                 final_index = final_index.replace("{{LogoLoading}}",  "img/xia.png")
+                final_index = final_index.replace("{{LogoHide}}",  "img/hide.png")
                 final_index = final_index.replace("{{LogoClose}}", "img/close.png")
                 final_index = final_index.replace("{{datasJS}}", "")
                 final_index = final_index.replace("{{lazyDatasJS}}", '.script("datas/data.js")')
