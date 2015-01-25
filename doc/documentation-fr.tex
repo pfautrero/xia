@@ -1,4 +1,4 @@
-% This file was generated with po4a. Translate the source file.
+  % This file was generated with po4a. Translate the source file.
 %
 \clearpage
 \documentclass[a4paper,12pt]{report}
@@ -101,6 +101,11 @@ xsep=1em,inner ysep=1ex]
  \selectlanguage{french}
  \maketitle
  \tableofcontents
+ 
+\renewcommand{\figurename}{Illustration}
+\renewcommand{\tablename}{Tableau}
+\renewcommand{\listfigurename}{Liste des illustrations}
+
   
 \section{Présentation de Xia}
 
@@ -218,7 +223,7 @@ dans l'image interactive: le titre, le créateur, les droits, \ldots. Il est
 donc fortement recommandé de renseigner ces informations (vous pouvez voir
 le résultat final sur l'illustration \ref{titre_ia})\footnote{Les champs
 «~auteur~» et «~droits~» apparaissent pour leur part dans la fenêtre «~À
-propos~», symbolisé par l'icône cliquable en forme de lettre «~i~».}.
+propos~», symbolisée par l'icône cliquable en forme de lettre «~i~».}.
 
 \begin{figure}[htp]
  \centering
@@ -235,7 +240,7 @@ en allant dans le menu \chemin{Fichier $\rightarrow$ Enregistrer
 sous\ldots}.
 
 Vous pouvez, par souci de clarté, supprimer l'extension d'origine de votre
-image dans le champs \chemin{Nom} de la fenêtre de dialogue. Enfin, dans le
+image dans le champ \chemin{Nom} de la fenêtre de dialogue. Enfin, dans le
 menu déroulant, choisissez le format de fichier Inkscape svg:
 
 \chemin{SVG Inkscape (*.svg)}.
@@ -256,12 +261,12 @@ outils\footnote{Pour cela, lire le
 \href{http://inkscape.org/doc/shapes/tutorial-shapes.fr.html}{manuel
 d'Inkscape} ou \href{http://en.flossmanuals.net/inkscape/}{le manuel
 Floss}.}, sachez que l'outil \chemin{Tracer des courbes de Bézier et des
-segments de droit} permet de détourer "clic par clic" (les points de
-construction du polygones sont alors appelés des «~nœuds~»). Vous pouvez
+segments de droite} permet de détourer "clic par clic" (les points de
+construction du polygone sont alors appelés des «~nœuds~»). Vous pouvez
 refermer votre polygone en cliquant sur le premier nœud de ce même
 polygone. Vous pouvez dessiner des \chemin{Courbes de Bézier} en gardant le
 clic de votre souris enfoncé après avoir créé un nœud, puis en déplaçant le
-curseur pour faire apparaître les poignets de contrôle afin de modifier la
+curseur pour faire apparaître les poignées de contrôle afin de modifier la
 forme de la courbe.
 
 
@@ -291,7 +296,7 @@ l'affaire, sauf noir et blanc (pour comprendre pourquoi, lisez la rubrique
 \end{astuce}
 
 
-Vous pouvez accéder au \chemin{Propriétés de l'objet} (voir l'illustration
+Vous pouvez accéder aux \chemin{Propriétés de l'objet} (voir l'illustration
 \ref{objet_properties}) par un clic-droit sur le détail détouré. À partir de
 là, vous accédez à une fenêtre de dialogue vous permettant d'ajouter le
 texte qui sera associé au détail dans l'image interactive.
@@ -340,7 +345,7 @@ above right = 5mm of exp_firefox] (exp_firefoxC) {Activer ou désactiver la
 création des fichiers pour l'export FirefoxOS (par défaut: désactivé)};
 \node[box, right = 5mm of exp_1file] (exp_1fileC) {Dans le cas d'un export
 avec fichier unique, vous aurez besoin d'une connexion internet pour accéder
-à la ressources. Le moteur de rendu de Xia est hébergé sur les serveurs de
+à la ressource. Le moteur de rendu de Xia est hébergé sur les serveurs de
 l'académie de Versailles, et est mis à jour automatiquement. Avec cette
 configuration, vous ne pouvez pas personnaliser le fond et les icônes (par
 défaut: désactivé)};
@@ -558,8 +563,8 @@ sur \\ ~$\ast$ 2 niveaux}; \node[box, right = 3.5cm of bullets.south east]
 L'insertion de ressources multimédias dans les commentaires est chose assez
 aisée: copiez-collez l'url de la ressource (qu'elle soit absolue ou
 relative) ou le code iframe du service web utilisé pour héberger votre
-ressources, et Xia créera automatiquement un lecteur multimédia, pour peu
-que celle-ci (image, son, vidéo) fasse partie des formats supportés: 
+ressource, et Xia créera automatiquement un lecteur multimédia, pour peu que
+celle-ci (image, son, vidéo) fasse partie des formats supportés: 
 \begin{description}
  \item[Images] jpg, jpeg, png, gif
  \item [Audio] ogg, mp3
@@ -574,7 +579,7 @@ Le lien doit être inséré dans le champ \chemin{Description} des
  \verb|http://web.crdp.ac-versailles.fr/02546.ogg|
  
 
- il suffit alors d'écrire cette url dans le champs \chemin{Description} des
+ il suffit alors d'écrire cette url dans le champ \chemin{Description} des
 \chemin{Propriétés de l'objet} dans Inkscape.
  
  \item[Lien relatif] Si le fichier de la ressource multimédia se trouve dans le répertoire
@@ -606,7 +611,7 @@ Ainsi, même si un format particulier est renseigné dans la description (si
 l'on suit l'exemple précédent, ce serait \verb|videos/video.ogv|), si le
 navigateur web est incapable de lire la ressource, il tentera
 automatiquement de lire les fichiers possédant le même nom mais une
-extension différnte.
+extension différente.
 
 La dernière possibilité consiste à insérer un code iframe. Celui-ci sera
 interprété et le lecteur du service web apparaîtra, donnant accès à la
@@ -750,7 +755,7 @@ une couleur de fond (blanc ou noir)
 création dans Inkscape. Cependant, on peut utiliser l'éditeur XML d'Inkscape
 pour modifier cet ordre
 \item Il est possible d'empêcher les utilisateurs d'accéder au commentaire en
-insérant une icône clicable et / ou un mot de passe
+insérant une icône cliquable et / ou un mot de passe
 \end{enumerate}
 
 \newpage
@@ -931,7 +936,7 @@ les erreurs commises par le joueur.
 Pour cela, il faudra prévoir les erreurs pouvant être commises, et placer
 sur l'image des éléments graphiques symbolisant l'erreur (croix rouge,
 etc.). Ces éléments pouvant être des images au format png importées ou des
-formes dessinés dans Inkscape, puis copier en bitmap. Ces éléments devront
+formes dessinées dans Inkscape, puis copiées en bitmap. Ces éléments devront
 posséder les caractéristiques suivantes:
 \begin{center}
 \chemin{Interactivité > OnClick} = \verb|disable-score| 
@@ -983,7 +988,7 @@ Voici comment créer un jeu basé sur le principe du glisser-déposer:
 déplacer et à déposer (autrement dit: des images, des mots ou groupes de
 mots)
  \item Créer la fenêtre surgissante de consignes en éditant les informations du
-champs \chemin{Fichier $\rightarrow$ Métadonnées du document $\rightarrow$
+champ \chemin{Fichier $\rightarrow$ Métadonnées du document $\rightarrow$
 Description}\footnote{Exactement comme dans le jeu game1clic}
  \item En renseignant les métadonnées, faites correspondre chaque élément à une
 zone de dépôt (ces zones de dépôts étant en réalité des détails détourés)
@@ -1114,7 +1119,7 @@ apparaître le message de fin du jeu\\
  \hline
  \multicolumn{3}{|l|}{\texttt{<message></message>} }\\
  \hline
-  & \emph{Rôle} & Fais apparaître le message de fin du jeu \\
+  & \emph{Rôle} & Fait apparaître le message de fin du jeu \\
   & \emph{Élément}  & Image de fond \\
   & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description}\\ 
   & \emph{Quoi?} & Un message que vous pouvez si nécessaire enrichir avec des ressources
@@ -1160,7 +1165,7 @@ apparaître le message de fin du jeu\\
  \hline
  \multicolumn{3}{|l|}{\texttt{<message2></message2>}}\\
  \hline
-  & \emph{Rôle} & Fais apparaître le second message de fin du jeu, dans le cas d'un jeu à
+  & \emph{Rôle} & Fait apparaître le second message de fin du jeu, dans le cas d'un jeu à
 double score \\
   & \emph{Élément}  & Image de fond \\
   & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description}\\ 
@@ -1186,7 +1191,7 @@ apparaître le message de fin du jeu\\
  \hline
  \multicolumn{3}{|l|}{\texttt{<message></message>} }\\
  \hline
-  & \emph{Rôle} & Fais apparaître le message de fin du jeu \\
+  & \emph{Rôle} & Fait apparaître le message de fin du jeu \\
   & \emph{Élément}  & Image de fond \\
   & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description}\\ 
   & \emph{Quoi?} & Un message que vous pouvez si nécessaire enrichir avec des ressources
