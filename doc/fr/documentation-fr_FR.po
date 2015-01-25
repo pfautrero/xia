@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr_FR\n"
 "POT-Creation-Date: 2015-01-25 14:37+0100\n"
-"PO-Revision-Date: 2015-01-25 14:33+0100\n"
+"PO-Revision-Date: 2015-01-25 14:54+0100\n"
 "Last-Translator: geoffrey <ggekiere@ac-versailles.fr>\n"
 "Language-Team: français <>\n"
 "Language: \n"
@@ -19,12 +19,12 @@ msgstr ""
 "X-Generator: Gtranslator 2.91.6\n"
 
 #. type: Plain text
-#: preambule.tex :47
+#: preambule.tex:47
 msgid "\\def\\purpledane{violet}"
 msgstr "\\def\\purpledane{violet}\n"
 
 #. type: hypersetup{#1}
-#: preambule.tex :57
+#: preambule.tex:57
 msgid ""
 "pdftitle={Xia}, pdfauthor={Énuma Logiciel Libre}, pdfsubject={Xia}, "
 "pdfkeywords={Xia, logiciel libre, html5, Inkscape}, colorlinks= true, "
@@ -35,36 +35,36 @@ msgstr ""
 "linkcolor = greendane, urlcolor = bluedane"
 
 #. type: title{#1}
-#: preambule.tex :65
+#: preambule.tex:65
 msgid "Xia"
 msgstr "Xia"
 
 #. type: title{#1}
-#: preambule.tex :65
+#: preambule.tex:65
 msgid "Create HTML5 interactive images"
 msgstr "Créer des images interactives au format HTML5"
 
 #.  pour unifier les indications relatives aux manipulation à effectuer dans les logiciels
 #.  à modifier au besoin
 #. type: newcommand{#4}
-#: preambule.tex :73
+#: preambule.tex:73
 msgid "\\texttt{\\textcolor{reddebian}{#1}}"
 msgstr "\\texttt{\\textcolor{reddebian}{#1}}"
 
 #.  L'environnement alerte                        
 #. type: newcommand{#4}
-#: preambule.tex :77
+#: preambule.tex:77
 msgid "\\textdbend"
 msgstr "\\textdbend"
 
 #. type: tikzpicture
-#: preambule.tex :84
+#: preambule.tex:84
 msgid "\\node{\\virageDanger};"
 msgstr "\\node{\\virageDanger};"
 
 #.  Style pour la boîte alerte
 #. type: Plain text
-#: preambule.tex :88
+#: preambule.tex:88
 msgid ""
 "\\tikzstyle{boitealerte}=[draw=red,rounded corners,inner xsep=1em,inner "
 "ysep=1ex]"
@@ -74,7 +74,7 @@ msgstr ""
 
 #.  Style pour la boule alerte
 #. type: Plain text
-#: preambule.tex :91
+#: preambule.tex:91
 msgid "\\tikzstyle{boulealerte}=[circle,ball color=red,text=white]"
 msgstr "\\tikzstyle{boulealerte}=[circle,ball color=red,text=white]"
 
@@ -82,12 +82,12 @@ msgstr "\\tikzstyle{boulealerte}=[circle,ball color=red,text=white]"
 #.  Fin. Attention lrbox stocke du contenu sur 1 ligne (pas de paragrpahe)
 #.  La boîte peut être utilisée via \usebox{\boiteBrouillon}
 #. type: lrbox
-#: preambule.tex :112 :146 documentation.tex:2
+#: preambule.tex:112 :146 documentation.tex:2
 msgid "{\\boiteBrouillon}"
 msgstr "{\\boiteBrouillon}"
 
 #. type: tikzpicture
-#: preambule.tex :112
+#: preambule.tex:112
 msgid ""
 "\\node [boitealerte] (cadre) {\\hspace{0.5\\LargeurBouleAlerte}\\usebox"
 "{\\boiteBrouillon}};\\node [boulealerte] (alerte) at (cadre.west) "
@@ -99,22 +99,22 @@ msgstr ""
 
 #.  L'environnement astuce
 #. type: newcommand{#4}
-#: preambule.tex :115
+#: preambule.tex:115
 msgid "\\large\\leftthumbsup"
 msgstr "\\large\\leftthumbsup"
 
 #. type: tikzpicture
-#: preambule.tex :122
+#: preambule.tex:122
 msgid "\\node{\\pouceOK};"
 msgstr "\\node{\\pouceOK};"
 
 #. type: Plain text
-#: preambule.tex :124
+#: preambule.tex:124
 msgid "\\tikzstyle{bouleastuce}=[circle,ball color=teal,text=white]"
 msgstr "\\tikzstyle{bouleastuce}=[circle,ball color=teal,text=white]"
 
 #. type: Plain text
-#: preambule.tex :126
+#: preambule.tex:126
 msgid ""
 "\\tikzstyle{boiteastuce}=[draw=teal,rounded corners,inner xsep=1em,inner "
 "ysep=1ex]"
@@ -123,7 +123,7 @@ msgstr ""
 "ysep=1ex]"
 
 #. type: tikzpicture
-#: preambule.tex :146
+#: preambule.tex:146
 msgid ""
 "\\node [boiteastuce] (cadre) {\\hspace{0.5\\LargeurBouleAstuce}\\usebox"
 "{\\boiteBrouillon}};\\node [bouleastuce] (astuce) at (cadre.west) "
@@ -135,22 +135,22 @@ msgstr ""
 
 #.  L'environnement links
 #. type: newcommand{#4}
-#: preambule.tex :149
+#: preambule.tex:149
 msgid "\\large\\leftpointright"
 msgstr "\\large\\leftpointright"
 
 #. type: tikzpicture
-#: preambule.tex :156
+#: preambule.tex:156
 msgid "\\node{\\mainDroite};"
 msgstr "\\node{\\mainDroite};"
 
 #. type: Plain text
-#: preambule.tex :158
+#: preambule.tex:158
 msgid "\\tikzstyle{boulelinks}=[circle,ball color=\\purpledane,text=white]"
 msgstr "\\tikzstyle{boulelinks}=[circle,ball color=\\purpledane,text=white]"
 
 #. type: Plain text
-#: preambule.tex :160
+#: preambule.tex:160
 msgid ""
 "\\tikzstyle{boitelinks}=[draw=\\purpledane,rounded corners,inner xsep=1em,"
 "inner ysep=1ex]"
@@ -2167,7 +2167,7 @@ msgid ""
 "Explore the \\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia5}"
 "{interactive image} created for this section of the documentation."
 msgstr ""
-"Visualisez l'\\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1}{image "
+"Visualisez l'\\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia5}{image "
 "interactive} créée pour cette partie de la documentation."
 
 #. type: links
