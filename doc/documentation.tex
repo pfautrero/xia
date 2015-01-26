@@ -106,20 +106,19 @@ When asked by the software if you wish to "\chemin{Link}" or "\chemin{Incorporat
 
 The information filled in the \chemin{document Metadata} (\chemin
 {File} menu) will be included in the interactive image once
-generated : title, creator, rights, \ldots. It is strongly recommended to type in this information
-(see what it looks like once generated on figure \ref{titre_ia})\footnote{The
+generated : title, creator, rights, \ldots. It is strongly recommended to type in this information.
+You can see what it looks like once generated on the image below\footnote{The
 fields "author" and "rights" appear in the window
-"About", symbolized by a clickable button shaped like the letter "i"}.
+"About", symbolized by a clickable button shaped like the letter "i"}:\\
 
-\begin{figure}[htp]
- \centering
- \includegraphics[width=\textwidth,clip=true,trim=0mm 120mm 55mm 0mm ]{images/titre_ia}
- \caption[How do metadata display in the html5 animation]{The title entered in the metadata of the document appears above 
+\begin{center}
+ \includegraphics[width=\textwidth]{images/titre_ia}\\
+\end{center}
+
+ The title entered in the metadata of the document appears above 
 the interactive image and gives its name to the web page. The creator and 
  rights appear in the pop up associated with the "i" button 
-on the right of the title of the interactive image.}
- \label{titre_ia}
-\end{figure}
+on the right of the title of the interactive image.
 
 You can save the image in svg format in the earlywork, 
 through  \chemin{File $\rightarrow$ Save as\ldots}.
@@ -169,16 +168,13 @@ apply a colour background to them. Choose whatever colour you like, except for b
 \end{astuce}
 
 
-You can access to the \chemin{Object properties} (see illustration 
-\ref{objet_properties}) by right-clicking on the cut-out detail. Thus you also access to the dialog window in which you add the text to be associated with the 
-detail in the interactive image.
+You can access to the \chemin{Object properties} by right-clicking on the cut-out detail.
+Thus you also access to the dialog window in which you add the text to be associated with the 
+detail in the interactive image:\\
 
-\begin{figure}[htp]
- \centering
- \includegraphics[width=0.5\textwidth, clip=true, trim=0mm 60mm 0mm 0mm]{./images/proprietes_objet}
- \caption[The "Object Properties" of the detail in Inkscape]{The "\chemin{Object properties}" allows to enter the text that will become a  comment on the detail in the interactive image}
- \label{objet_properties}
-\end{figure}
+\begin{center}
+ \includegraphics[width=0.5\textwidth]{./images/proprietes_objet}\\ 
+\end{center}
 
 The two fields to be filled in this window are \chemin{Title} and 
 \chemin{Description}.  The title filled in here will be that of the detail, 
@@ -475,15 +471,12 @@ Inkscape to incorporate your new image.
 
 The imported image will only appear in the html5 animation if you have applied white background in 
 Inkscape. Choose white in the horizontal colour palette at the bottom of 
-Inkscape interface (see figure \ref{remplissage_blanc}).
+Inkscape interface:\\
 
-\begin{figure}[htp!]
- \centering\includegraphics[width=0.6\textwidth] {images/remplissage_blanc}
- \caption[How to apply a white background to the details]{In Inkscape, select the embedded png then apply a white background 
- by selecting the color from the horizontal colour palette to make it 
- automatically visible.} 
- \label{remplissage_blanc}
-\end{figure}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/remplissage_blanc}\\ 
+\end{center}
+
 
 By indicating a url in the \chemin{Title} of \chemin{Object properties} field, 
 the embedded image becomes a clickable icon linking to a web page.
@@ -550,15 +543,15 @@ We will work with the \chemin{Edit $\rightarrow$ XML Editor} to change this defa
 A priori complex to manage, this dialogue window is in fact quite easy to use : 
 by selecting the input in the XML editor, the corresponding detail will be
 highlighted on the image and the only thing left 
-to do is to drag the files to the desired location (see figure \ref{ordre_couches}).
+to do is to drag the files to the desired location:\\
 
-\begin{figure}[htp]
- \centering
- \includegraphics[width=\textwidth]{images/ordre_couches}
- \caption[The Inkscape XML Editor and the display order of the details]{The Inkscape XML editor allows to control the display order of the details in the interactive image. Note the highlighting of an element  
-in the editor and on the background image by a single mouse click.}
- \label{ordre_couches}
-\end{figure}
+\begin{center}
+ \includegraphics[width=\textwidth]{images/ordre_couches}\\
+\end{center}
+ 
+ The Inkscape XML editor allows to control the display order of the details 
+in the interactive image. Note the highlighting of an element  
+in the editor and on the background image by a single mouse click.
 
 \subsection{Abstract}
 
@@ -608,9 +601,9 @@ has much more to do than simply clicking on details in order to read the comment
   %comments
   \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the svg source file};
   \node[box, above = 5mm of params] (paramsC) {Select the quality of the export};
-  \node[box, right = 5mm of guClic] (guClicC) {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia4}{game1clic}\\ selecting details on a background image \\ How-to in section \ref{game1clicsection}};
+  \node[box, right = 5mm of guClic] (guClicC) {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia3}{game1clic}\\ selecting details on a background image \\ How-to in section \ref{game1clicsection}};
   \node[box, left = 25mm of bBlue] (aBrownC) {audioBrown template \\ creation of interactive images in which details are associated with sounds \\ How-to in section \ref{audioBrownsection}};
-  \node[box, below left = 5mm of pBlue] (gDDropC) {\href{http://geoffrey-gekiere.ac-versailles.fr/xia1/popBlue}{gameDragAndDrop}\\ drag and drop graphical elements on the background image \\ How-to in section \ref{gameDragAndDropsection}};
+  \node[box, below left = 5mm of pBlue] (gDDropC) {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia5}{gameDragAndDrop}\\ drag and drop graphical elements on the background image \\ How-to in section \ref{gameDragAndDropsection}};
   
   %arrows
   \draw[-stealth] (guClicC.west) -- (guClic.east);
@@ -827,16 +820,18 @@ create the tooltip with a png imported file or a bitmap copy of a text created i
 Inkscape\footnote{Or a bitmap copy of a shape grouped with some text\ldots}, and 
 apply to this tooltip a specific \chemin{ID} in its \chemin{Object Properties}. Then, 
 just apply the tag \verb|<tooltip>specific_ID_of_the_tooltip</tooltip>| in the 
-\chemin{Description} field of the \chemin{Object Properties} of the detail (see figure \ref{tooltip_example}).
-Note that the tooltip tool is also available in the game1clic template.
+\chemin{Description} field of the \chemin{Object Properties} of the detail that is supposed 
+to make the tooltip appear (for example, in the image below: on mouse-over, the
+yellow square makes the tooltip ``Test'' appear):\\
 
-\begin{figure}[htp]
- \centering
- \includegraphics[width=0.5\textwidth]{images/tooltip_example}
- \caption[Tooltip]{When the user moves the mouse over the yellow square, the tooltip "Test" displays}
- \label{tooltip_example}
-\end{figure}
 
+\begin{center}
+ \includegraphics[width=0.5\textwidth]{images/tooltip_example}\\
+ \end{center}
+
+
+Note that the tooltip tool is also available in the game1clic template.\\
+ 
 Another method consists in inserting links in the \chemin{Title} field of the \chemin{Object Properties} 
 of the drop zones. The user can open the link by clicking on it or by dropping its corresponding detail on it.
 

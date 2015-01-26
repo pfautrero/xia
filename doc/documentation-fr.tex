@@ -101,10 +101,6 @@ xsep=1em,inner ysep=1ex]
  \selectlanguage{french}
  \maketitle
  \tableofcontents
- 
-\renewcommand{\figurename}{Illustration}
-\renewcommand{\tablename}{Tableau}
-\renewcommand{\listfigurename}{Liste des illustrations}
   
 \section{Présentation de Xia}
 
@@ -219,20 +215,19 @@ Quand Inkscape vous demande de choisir entre \chemin{Lier} ou
 Les informations renseignées dans la fenêtre de dialogue des
 \chemin{Métadonnées du document} (menu \chemin{Fichier}) seront incluses
 dans l'image interactive: le titre, le créateur, les droits, \ldots. Il est
-donc fortement recommandé de renseigner ces informations (vous pouvez voir
-le résultat final sur l'illustration \ref{titre_ia})\footnote{Les champs
-«~auteur~» et «~droits~» apparaissent pour leur part dans la fenêtre «~À
-propos~», symbolisée par l'icône cliquable en forme de lettre «~i~».}.
+donc fortement recommandé de renseigner ces informations. Vous pouvez voir
+le résultat final sur l'illustration ci-après\footnote{Les champs «~auteur~»
+et «~droits~» apparaissent dans la fenêtre «~À propos~», symbolisée par
+l'icône cliquable en forme de lettre «~i~».}:\\
 
-\begin{figure}[htp]
- \centering
- \includegraphics[width=\textwidth,clip=true,trim=0mm 120mm 55mm 0mm ]{images/titre_ia}
- \caption[Affichage des métadonnées dans l'animation html5]{Le titre renseigné dans les métadonnées du document apparaissent au-dessus
+\begin{center}
+ \includegraphics[width=\textwidth]{images/titre_ia}\\
+\end{center}
+
+ Le titre renseigné dans les métadonnées du document apparaissent au-dessus
 de l'image interactive et donnent son nom à la page web l'affichant. Le
 créateur et les droits associés apparaissent dans la pop up accessible via
-l'icône «~i~» située à droite du titre de l'image-active.}
- \label{titre_ia}
-\end{figure}
+l'icône «~i~» située à droite du titre de l'image-active.
 
 Vous pouvez sauvegarder votre projet au format svg dès le début du travail,
 en allant dans le menu \chemin{Fichier $\rightarrow$ Enregistrer
@@ -295,18 +290,14 @@ l'affaire, sauf noir et blanc (pour comprendre pourquoi, lisez la rubrique
 \end{astuce}
 
 
-Vous pouvez accéder aux \chemin{Propriétés de l'objet} (voir l'illustration
-\ref{objet_properties}) par un clic-droit sur le détail détouré. À partir de
-là, vous accédez à une fenêtre de dialogue vous permettant d'ajouter le
-texte qui sera associé au détail dans l'image interactive.
+Vous pouvez accéder aux \chemin{Propriétés de l'objet} par un clic-droit sur
+le détail détouré. À partir de là, vous accédez à une fenêtre de dialogue
+vous permettant d'ajouter le texte qui sera associé au détail dans l'image
+interactive:\\
 
-\begin{figure}[htp]
- \centering
- \includegraphics[width=0.5\textwidth, clip=true, trim=0mm 60mm 0mm 0mm]{./images/proprietes_objet}
- \caption[«~Propriétés de l'objet~» du détail détouré]{Les \chemin{Propriétés de l'objet} permettent de renseigner le texte qui
-deviendra le commentaire du détail dans l'image interactive}
- \label{objet_properties}
-\end{figure}
+\begin{center}
+ \includegraphics[width=0.5\textwidth]{./images/proprietes_objet}\\ 
+\end{center}
 
 Les deux champs devant nécessairement être renseignés dans cette fenêtre
 sont les champs \chemin{Titre} et \chemin{Description}. Le titre deviendra
@@ -641,16 +632,12 @@ afin d'incorporer votre image.
 
 L'image importée n'apparaîtra dans l'animation html5 qu'à une condition: que
 vous lui ayez appliqué un fond blanc dans Inkscape. Choisissez la couleur
-blanche dans la palette horizontale en bas de l'interface d'Inkscape (voir
-l'illustration \ref{remplissage_blanc}).
+blanche dans la palette horizontale en bas de l'interface d'Inkscape:\\
 
-\begin{figure}[htp!]
- \centering\includegraphics[width=0.6\textwidth]{images/remplissage_blanc}
- \caption[Appliquer un fond blanc aux détails]{Dans Inkscape, sélectionnez le png incorporé et appliquez-lui un fond blanc
-en sélectionnant cette couleur dans la palette horizontale, afin de le
-rendre visible une fois l'image interactive générée.} 
- \label{remplissage_blanc}
-\end{figure}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/remplissage_blanc}\\ 
+\end{center}
+
 
 En indiquant une url dans le champ \chemin{Titre} des \chemin{Propriétés de
 l'objet}, cette image incorporée deviendra un lien cliquable.
@@ -728,17 +715,15 @@ situé dans le menu \chemin{Édition}.
 A priori complexe, cette fenêtre de dialogue est en réalité assez simple à
 utiliser: en sélectionnant une entrée de l'éditeur XML, le détail
 correspondant à celle-ci sera mis en évidence sur l'image. Il ne reste plus
-qu'à glisser-déposer celle-ci à l'endroit désiré (voir l'illustration
-\ref{ordre_couches}).
+qu'à glisser-déposer celle-ci à l'endroit désiré:\\
 
-\begin{figure}[htp]
- \centering
- \includegraphics[width=\textwidth]{images/ordre_couches}
- \caption[L'éditeur XML et l'ordre d'affichage des détails]{L'éditeur XML d'Inkscape permet de contrôler l'ordre d'affichage des détails
+\begin{center}
+ \includegraphics[width=\textwidth]{images/ordre_couches}\\
+\end{center}
+ 
+ L'éditeur XML d'Inkscape permet de contrôler l'ordre d'affichage des détails
 dans l'image interactive. Remarquez la mise en évidence d'un élément sur
-l'image de fond par simple sélection dans l'éditeur.}
- \label{ordre_couches}
-\end{figure}
+l'image de fond par simple sélection dans l'éditeur.
 
 \subsection{En résumé}
 
@@ -799,14 +784,14 @@ aBlack] (params) {\includegraphics[scale=.35]{./images/params}}; \node[left
 {Sélectionner le fichier source au format svg file}; \node[box, above = 5mm
 of params] (paramsC) {Sélectionner la qualité de l'export}; \node[box, right
 = 5mm of guClic] (guClicC)
-{\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/accordionCloud}{game1clic}\\ 
+{\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia3}{game1clic}\\ 
 Sélectionner des éléments dans l'image. \\ Explications dans la rubrique
 \ref{game1clicsection}}; \node[box, left = 25mm of bBlue] (aBrownC)
 {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/buttonBlue}{audioBrown}\\ 
 Création d'une image interactive dans laquelle les détails sont associés à
 des sons. \\ Explications dans la rubrique \ref{audioBrownsection}};
 \node[box, below left = 5mm of pBlue] (gDDropC)
-{\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/popBlue}{gameDragAndDrop}\\ 
+{\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia5}{gameDragAndDrop}\\ 
 Glisser-déposer des éléments sur l'image de fond. \\ Explications dans la
 rubrique \ref{gameDragAndDropsection}};
   
@@ -971,7 +956,7 @@ fond. Quand tous les éléments ont été placés sur leur zone de dépôt, un
 message apparaît, annonçant la fin du jeu.
 
 \begin{links}
-Visualisez l'\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1}{image
+Visualisez l'\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia5}{image
 interactive} créée pour cette partie de la documentation.
 
 Téléchargez le fichier source au format
@@ -1058,17 +1043,20 @@ bitmap d'un texte créé dans Inkscape\footnote{Ou une copie bitmap d'un texte
 regroupé avec une forme\ldots}, et spécifez une \chemin{ID} pour cet objet
 (dans les \chemin{Propriétés de l'objet}). Ensuite, indiquez la balise
 \verb|<tooltip>ID_de_l_infobulle</tooltip>| dans le champ
-\chemin{Description} des \chemin{Propriétés de l'objet} du détail (voir
-l'illustration \ref{tooltip_example}).  Notez que cette fonctionnalité est
-également disponible dans le jeu game1clic.
+\chemin{Description} des \chemin{Propriétés de l'objet} du détail censé
+faire apparaître l'infobulle (par exemple, dans l'illustration ci-après: au
+survol de la souris, le carré jaune fait apparaître une infobulle indiquant
+"Test"):\\
 
-\begin{figure}[htp]
- \centering
- \includegraphics[width=0.5\textwidth]{images/tooltip_example}
- \caption[Infobulles]{Lorsque la souris survole le carré jaune, une infobulle «~Test~» apparaît}
- \label{tooltip_example}
-\end{figure}
 
+\begin{center}
+ \includegraphics[width=0.5\textwidth]{images/tooltip_example}\\
+ \end{center}
+
+
+Notez que cette fonctionnalité est également disponible dans le jeu
+game1clic.
+ 
 Une autre méthode consiste à insérer un lien dans le champ \chemin{Titre}
 des \chemin{Propriétés de l'objet} de la zone de dépôt. L'utilisateur peut
 cliquer sur cette zone ou y déposer l'étiquette correspondante pour suivre
