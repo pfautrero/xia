@@ -102,6 +102,11 @@ xsep=1em,inner ysep=1ex]
  \maketitle
  \tableofcontents
   
+  \renewcommand{\figurename}{Illustration}
+  \renewcommand{\tablename}{Tableau}
+  \renewcommand{\listfigurename}{Liste des illustrations}
+  
+  
 \section{Présentation de Xia}
 
 \subsection{Qu'est-ce que Xia?}
@@ -129,13 +134,12 @@ rappelle les points essentiels à retenir pour créer une image interactive.
 
 \subsection{Processus général}
 
-Xia n'est nécessaire qu'à la toute fin du processus de création. Comment
-vous pouvez le constater sur l'illustration \ref{workflowxia}, l'essentiel
-du travail est réalisé avec un logiciel de dessin vectoriel. Nous
-recommandons l'utilisation du logiciel libre et multi-plateforme
-\href{http://www.inkscape.org/}{Inkscape}, intuitif et simple (Inkscape sera
-d'ailleurs utilisé dans cette documentation)\footnote{Il est toutefois
-possible d'utiliser LibreOffice Draw.}.
+Xia is only needed at the end of the process.  As we can see on figure
+\ref{workflowxia}, most of the work is done with a vector graphics
+editor. We recommend using the free open-source and muliplatform software
+\href{http://www.inkscape.org/}{Inkscape}, which is really easy to use
+(Inkscape will be used in this document)\footnote{It is also possible to use
+LibreOffice Draw.}.
 
 \begin{figure}[htp]
  \centering
@@ -212,13 +216,12 @@ Une fois l'image choisie, ouvrez-la dans Inkscape
 Quand Inkscape vous demande de choisir entre \chemin{Lier} ou
 \chemin{Incorporer l'image}, choisissez \chemin{Incorporer}.
 
-Les informations renseignées dans la fenêtre de dialogue des
-\chemin{Métadonnées du document} (menu \chemin{Fichier}) seront incluses
-dans l'image interactive: le titre, le créateur, les droits, \ldots. Il est
-donc fortement recommandé de renseigner ces informations. Vous pouvez voir
-le résultat final sur l'illustration ci-après\footnote{Les champs «~auteur~»
-et «~droits~» apparaissent dans la fenêtre «~À propos~», symbolisée par
-l'icône cliquable en forme de lettre «~i~».}:\\
+The information filled in the \chemin{document Metadata} (\chemin {File}
+menu) will be included in the interactive image once generated : title,
+creator, rights, \ldots. It is strongly recommended to type in this
+information.  You can see what it looks like once generated on the image
+below\footnote{The fields "author" and "rights" appear in the window
+"About", symbolized by a clickable button shaped like the letter "i"}:\\
 
 \begin{center}
  \includegraphics[width=\textwidth]{images/titre_ia}\\
@@ -278,9 +281,11 @@ modèle boutons). Si vous souhaitez changer cet ordre sans avoir à recréer
 tous les détails, lisez la rubrique \ref{couche_XML}.
 \end{alerte}
 
-Une fois les détails détourés, vous pouvez les sélectionner avec l'outil
-\chemin{Sélectionner et transformer des objets} afin de les redimensionner,
-les déplacer, etc.\ldots
+Une fois les détails détourés\footnote{La couleur du contour des détails
+dans l'animation générée par Xia sera la même que celle choisie dans
+Inkscape.}, vous pouvez les sélectionner avec l'outil \chemin{Sélectionner
+et transformer des objets} afin de les redimensionner, les déplacer,
+etc.\ldots
 
 \begin{astuce}
 Si vous avez des difficultés pour sélectionner un détail que vous avez
@@ -714,8 +719,7 @@ situé dans le menu \chemin{Édition}.
 
 A priori complexe, cette fenêtre de dialogue est en réalité assez simple à
 utiliser: en sélectionnant une entrée de l'éditeur XML, le détail
-correspondant à celle-ci sera mis en évidence sur l'image. Il ne reste plus
-qu'à glisser-déposer celle-ci à l'endroit désiré:\\
+correspondant à celle-ci sera mis en évidence sur l'image. Il ne reste plus 
 
 \begin{center}
  \includegraphics[width=\textwidth]{images/ordre_couches}\\
@@ -780,20 +784,18 @@ aBlack] (params) {\includegraphics[scale=.35]{./images/params}}; \node[left
 {\includegraphics[scale=.47]{./images/xia}};
 
   
-  \node[box, text width=2.5cm,above left = 5mm of files] (filesC)
-{Sélectionner le fichier source au format svg file}; \node[box, above = 5mm
-of params] (paramsC) {Sélectionner la qualité de l'export}; \node[box, right
-= 5mm of guClic] (guClicC)
+  \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the
+svg source file}; \node[box, above = 5mm of params] (paramsC) {Select the
+quality of the export}; \node[box, right = 5mm of guClic] (guClicC)
 {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia3}{game1clic}\\ 
-Sélectionner des éléments dans l'image. \\ Explications dans la rubrique
+selecting details on a background image \\ How-to in section
 \ref{game1clicsection}}; \node[box, left = 25mm of bBlue] (aBrownC)
-{\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/buttonBlue}{audioBrown}\\ 
-Création d'une image interactive dans laquelle les détails sont associés à
-des sons. \\ Explications dans la rubrique \ref{audioBrownsection}};
+{audioBrown template \\ creation of interactive images in which details are
+associated with sounds \\ How-to in section \ref{audioBrownsection}};
 \node[box, below left = 5mm of pBlue] (gDDropC)
 {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia5}{gameDragAndDrop}\\ 
-Glisser-déposer des éléments sur l'image de fond. \\ Explications dans la
-rubrique \ref{gameDragAndDropsection}};
+drag and drop graphical elements on the background image \\ How-to in
+section \ref{gameDragAndDropsection}};
   
   \draw[-stealth] (guClicC.west) -- (guClic.east); \draw[-stealth]
 (gDDropC.north) -- (gDDrop.south); \draw[-stealth] (aBrownC.north east) --
@@ -1037,16 +1039,16 @@ le joueur déposera l'élément sur celle-ci.
 \subsubsection{Deux façons de donner des indices aux joueurs: les infobulles et les liens
 sur les zones de dépôt}
 
-On peut activer l'affichage d'infobulles lorsque la souris survole les
-détails. Pour cela, créez l'infobulle avec un png importé ou une copie
-bitmap d'un texte créé dans Inkscape\footnote{Ou une copie bitmap d'un texte
-regroupé avec une forme\ldots}, et spécifez une \chemin{ID} pour cet objet
-(dans les \chemin{Propriétés de l'objet}). Ensuite, indiquez la balise
-\verb|<tooltip>ID_de_l_infobulle</tooltip>| dans le champ
-\chemin{Description} des \chemin{Propriétés de l'objet} du détail censé
-faire apparaître l'infobulle (par exemple, dans l'illustration ci-après: au
-survol de la souris, le carré jaune fait apparaître une infobulle indiquant
-"Test"):\\
+It is possible to display tooltips of details on mouse-over. To do so,
+create the tooltip with a png imported file or a bitmap copy of a text
+created in Inkscape\footnote{Or a bitmap copy of a shape grouped with some
+text\ldots}, and apply to this tooltip a specific \chemin{ID} in its
+\chemin{Object Properties}. Then, just apply the tag
+\verb|<tooltip>specific_ID_of_the_tooltip</tooltip>| in the
+\chemin{Description} field of the \chemin{Object Properties} of the detail
+that is supposed to make the tooltip appear (for example, in the image
+below: on mouse-over, the yellow square makes the tooltip ``Test''
+appear):\\
 
 
 \begin{center}
