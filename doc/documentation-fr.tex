@@ -134,12 +134,13 @@ rappelle les points essentiels à retenir pour créer une image interactive.
 
 \subsection{Processus général}
 
-Xia is only needed at the end of the process.  As we can see on figure
-\ref{workflowxia}, most of the work is done with a vector graphics
-editor. We recommend using the free open-source and muliplatform software
-\href{http://www.inkscape.org/}{Inkscape}, which is really easy to use
-(Inkscape will be used in this document)\footnote{It is also possible to use
-LibreOffice Draw.}.
+Xia n'est nécessaire qu'à la fin du processus. Comme on peut le voir sur
+l'illustration \ref{workflowxia}, la plus grande partie du travail est
+réalisée avec un logiciel de dessin vectoriel. Nous recommandons
+l'utilisation du logiciel libre et multi-plateforme
+\href{http://www.inkscape.org/}{Inkscape}, très simple à utiliser (c'est ce
+logiciel qui sera utilisé dans ce tutoriel)\footnote{Il est cependant
+également possible d'utiliser LibreOffice Draw.}.
 
 \begin{figure}[htp]
  \centering
@@ -216,12 +217,12 @@ Une fois l'image choisie, ouvrez-la dans Inkscape
 Quand Inkscape vous demande de choisir entre \chemin{Lier} ou
 \chemin{Incorporer l'image}, choisissez \chemin{Incorporer}.
 
-The information filled in the \chemin{document Metadata} (\chemin {File}
-menu) will be included in the interactive image once generated : title,
-creator, rights, \ldots. It is strongly recommended to type in this
-information.  You can see what it looks like once generated on the image
-below\footnote{The fields "author" and "rights" appear in the window
-"About", symbolized by a clickable button shaped like the letter "i"}:\\
+Les informations renseignées dans les \chemin{Métadonnées du document} (menu
+\chemin{Fichier}) seront conservées dans l'animation générée: titre,
+créateur, droits, \ldots. Il est donc fortement conseillé de renseigner ces
+informations. Le rendu est visible sur l'image ci-dessous\footnote{Les
+champs "auteur" et "droits" apparaissent dans la fenêtre "À propos",
+symbolisée par une icône clicable en forme de lettre "i".}:\\
 
 \begin{center}
  \includegraphics[width=\textwidth]{images/titre_ia}\\
@@ -400,18 +401,19 @@ par Xia durant le processus d'export.}; \draw[-stealth] (textM.west) --
 \begin{figure}[htp]
 \tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]
 \begin{tikzpicture}
-  \node (bBlue) {\includegraphics[scale=.35]{./images/buttonBlue}};
-\node[left= .3mm of bBlue, opacity=.5] (aBrown)
-{\includegraphics[scale=.35]{./images/audioBrown}}; \node[right= .3mm of
-bBlue, opacity=.5] (guClic)
+  \node[opacity=.5] (bBlue)
+{\includegraphics[scale=.35]{./images/buttonBlue}}; \node[left= .3mm of
+bBlue] (aBrown) {\includegraphics[scale=.35]{./images/audioBrown}};
+\node[right= .3mm of bBlue] (guClic)
 {\includegraphics[scale=.35]{./images/game1clic}}; \node[below= .2mm of
-bBlue.south] (pBlue) {\includegraphics[scale=.35]{./images/popBlue}};
-\node[left= .3mm of pBlue, opacity=.5] (gDDrop)
-{\includegraphics[scale=.35]{./images/gameDragAndDrop}}; \node[right= .3mm
-of pBlue] (pYellow) {\includegraphics[scale=.35]{./images/popYellow}};
-\node[above = .2mm of guClic.north] (aCloud)
+bBlue.south, opacity=.5] (pBlue)
+{\includegraphics[scale=.35]{./images/popBlue}}; \node[left= .3mm of pBlue]
+(gDDrop) {\includegraphics[scale=.35]{./images/gameDragAndDrop}};
+\node[right= .3mm of pBlue, opacity=.5] (pYellow)
+{\includegraphics[scale=.35]{./images/popYellow}}; \node[above = .2mm of
+guClic.north, opacity=.5] (aCloud)
 {\includegraphics[scale=.35]{./images/accordionCloud}}; \node[above = .2mm
-of aCloud.north] (aBlack)
+of aCloud.north, opacity=.5] (aBlack)
 {\includegraphics[scale=.35]{./images/accordionBlack}}; \node[left = .3mm of
 aBlack] (params) {\includegraphics[scale=.35]{./images/params}}; \node[left
 = .3mm of params] (files) {\includegraphics[scale=.35]{./images/xia_open}};
@@ -784,18 +786,19 @@ aBlack] (params) {\includegraphics[scale=.35]{./images/params}}; \node[left
 {\includegraphics[scale=.47]{./images/xia}};
 
   
-  \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the
-svg source file}; \node[box, above = 5mm of params] (paramsC) {Select the
-quality of the export}; \node[box, right = 5mm of guClic] (guClicC)
+  \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Sélection
+du fichier source au formation svg}; \node[box, above = 5mm of params]
+(paramsC) {Sélection de la qualité de l'export}; \node[box, right = 5mm of
+guClic] (guClicC)
 {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia3}{game1clic}\\ 
-selecting details on a background image \\ How-to in section
+Sélectionner des détails sur une image de fond \\ Tutoriel dans la rubrique
 \ref{game1clicsection}}; \node[box, left = 25mm of bBlue] (aBrownC)
-{audioBrown template \\ creation of interactive images in which details are
-associated with sounds \\ How-to in section \ref{audioBrownsection}};
-\node[box, below left = 5mm of pBlue] (gDDropC)
+{audioBrown template \\ Création d'images interactives dans lesquelles des
+détails sont associés à des sons \\ Tutoriel dans la rubrique
+\ref{audioBrownsection}}; \node[box, below left = 5mm of pBlue] (gDDropC)
 {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia5}{gameDragAndDrop}\\ 
-drag and drop graphical elements on the background image \\ How-to in
-section \ref{gameDragAndDropsection}};
+Glisser et déposer des éléments sur l'image de fond \\ Tutoriel dans la
+rubrique \ref{gameDragAndDropsection}};
   
   \draw[-stealth] (guClicC.west) -- (guClic.east); \draw[-stealth]
 (gDDropC.north) -- (gDDrop.south); \draw[-stealth] (aBrownC.north east) --
@@ -1039,16 +1042,17 @@ le joueur déposera l'élément sur celle-ci.
 \subsubsection{Deux façons de donner des indices aux joueurs: les infobulles et les liens
 sur les zones de dépôt}
 
-It is possible to display tooltips of details on mouse-over. To do so,
-create the tooltip with a png imported file or a bitmap copy of a text
-created in Inkscape\footnote{Or a bitmap copy of a shape grouped with some
-text\ldots}, and apply to this tooltip a specific \chemin{ID} in its
-\chemin{Object Properties}. Then, just apply the tag
-\verb|<tooltip>specific_ID_of_the_tooltip</tooltip>| in the
-\chemin{Description} field of the \chemin{Object Properties} of the detail
-that is supposed to make the tooltip appear (for example, in the image
-below: on mouse-over, the yellow square makes the tooltip ``Test''
-appear):\\
+Il est possible de faire s'afficher des infobulles lorsque la souris survole
+certains détails. Pour cela, créez l'infobulle avec une image au format png
+importée ou une copie bitmap d'un texte créé dans Inkscape\footnote{Ou une
+copie bitmap d'une forme groupée avec du texte\ldots}, et appliquez à cette
+infobulle une \chemin{ID} spéicifique dans les \chemin{Propriétés de
+l'objet}. Ensuite, indiquez la balise
+\verb|<tooltip>ID_de_l_infobulle</tooltip>| dans le champ
+\chemin{Description} des \chemin{Propriétés de l'objet} du détail censé
+déclencher l'apparition de l'infobulle (par exemple, dans l'image
+ci-dessous: au survol de la souris, le carré jaune fait apparaître
+l'infobulle "Test"):\\
 
 
 \begin{center}
