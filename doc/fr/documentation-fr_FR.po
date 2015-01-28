@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fr_FR\n"
-"POT-Creation-Date: 2015-01-28 12:05+0100\n"
+"POT-Creation-Date: 2015-01-28 12:19+0100\n"
 "PO-Revision-Date: 2015-01-26 18:12+0100\n"
 "Last-Translator: Geoffrey <ggekiere@ac-versailles.fr>\n"
 "Language-Team: fr <>\n"
@@ -17,157 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Gtranslator 2.91.6\n"
-
-#. type: Plain text
-#: preambule.tex :47
-msgid "\\def\\purpledane{violet}"
-msgstr "\\def\\purpledane{violet}"
-
-#. type: hypersetup{#1}
-#: preambule.tex :57
-msgid ""
-"pdftitle={Xia}, pdfauthor={Énuma Logiciel Libre}, pdfsubject={Xia}, "
-"pdfkeywords={Xia, logiciel libre, html5, Inkscape}, colorlinks= true, "
-"linkcolor = greendane, urlcolor = bluedane"
-msgstr ""
-"pdftitle={Xia}, pdfauthor={Énuma Logiciel Libre}, pdfsubject={Xia}, "
-"pdfkeywords={Xia, logiciel libre, html5, Inkscape}, colorlinks= true, "
-"linkcolor = greendane, urlcolor = bluedane"
-
-#. type: title{#1}
-#: preambule.tex :65
-msgid "Xia"
-msgstr "Xia"
-
-#. type: title{#1}
-#: preambule.tex :65
-msgid "Create HTML5 interactive images"
-msgstr "Créer des images interactives au format HTML5"
-
-#.  pour unifier les indications relatives aux manipulation à effectuer dans les logiciels
-#.  à modifier au besoin
-#. type: newcommand{#4}
-#: preambule.tex :73
-msgid "\\texttt{\\textcolor{reddebian}{#1}}"
-msgstr "\\texttt{\\textcolor{reddebian}{#1}}"
-
-#.  L'environnement alerte                        
-#. type: newcommand{#4}
-#: preambule.tex :77
-msgid "\\textdbend"
-msgstr "\\textdbend"
-
-#. type: tikzpicture
-#: preambule.tex :84
-msgid "\\node{\\virageDanger};"
-msgstr "\\node{\\virageDanger};"
-
-#.  Style pour la boîte alerte
-#. type: Plain text
-#: preambule.tex :88
-msgid ""
-"\\tikzstyle{boitealerte}=[draw=red,rounded corners,inner xsep=1em,inner "
-"ysep=1ex]"
-msgstr ""
-"\\tikzstyle{boitealerte}=[draw=red,rounded corners,inner xsep=1em,inner "
-"ysep=1ex]"
-
-#.  Style pour la boule alerte
-#. type: Plain text
-#: preambule.tex :91
-msgid "\\tikzstyle{boulealerte}=[circle,ball color=red,text=white]"
-msgstr "\\tikzstyle{boulealerte}=[circle,ball color=red,text=white]"
-
-#.  On sauve dans \boiteBrouillon le contenu
-#.  Fin. Attention lrbox stocke du contenu sur 1 ligne (pas de paragrpahe)
-#.  La boîte peut être utilisée via \usebox{\boiteBrouillon}
-#. type: lrbox
-#: preambule.tex :112 :146 documentation.tex:2
-msgid "{\\boiteBrouillon}"
-msgstr "{\\boiteBrouillon}"
-
-#. type: tikzpicture
-#: preambule.tex :112
-msgid ""
-"\\node [boitealerte] (cadre) "
-"{\\hspace{0.5\\LargeurBouleAlerte}\\usebox{\\boiteBrouillon}};\\node "
-"[boulealerte] (alerte) at (cadre.west) {\\virageDanger};"
-msgstr ""
-"\\node [boitealerte] (cadre) "
-"{\\hspace{0.5\\LargeurBouleAlerte}\\usebox{\\boiteBrouillon}};\\node "
-"[boulealerte] (alerte) at (cadre.west) {\\virageDanger};"
-
-#.  L'environnement astuce
-#. type: newcommand{#4}
-#: preambule.tex :115
-msgid "\\large\\leftthumbsup"
-msgstr "\\large\\leftthumbsup"
-
-#. type: tikzpicture
-#: preambule.tex :122
-msgid "\\node{\\pouceOK};"
-msgstr "\\node{\\pouceOK};"
-
-#. type: Plain text
-#: preambule.tex :124
-msgid "\\tikzstyle{bouleastuce}=[circle,ball color=teal,text=white]"
-msgstr "\\tikzstyle{bouleastuce}=[circle,ball color=teal,text=white]"
-
-#. type: Plain text
-#: preambule.tex :126
-msgid ""
-"\\tikzstyle{boiteastuce}=[draw=teal,rounded corners,inner xsep=1em,inner "
-"ysep=1ex]"
-msgstr ""
-"\\tikzstyle{boiteastuce}=[draw=teal,rounded corners,inner xsep=1em,inner "
-"ysep=1ex]"
-
-#. type: tikzpicture
-#: preambule.tex :146
-msgid ""
-"\\node [boiteastuce] (cadre) "
-"{\\hspace{0.5\\LargeurBouleAstuce}\\usebox{\\boiteBrouillon}};\\node "
-"[bouleastuce] (astuce) at (cadre.west) {\\pouceOK};"
-msgstr ""
-"\\node [boiteastuce] (cadre) "
-"{\\hspace{0.5\\LargeurBouleAstuce}\\usebox{\\boiteBrouillon}};\\node "
-"[bouleastuce] (astuce) at (cadre.west) {\\pouceOK};"
-
-#.  L'environnement links
-#. type: newcommand{#4}
-#: preambule.tex :149
-msgid "\\large\\leftpointright"
-msgstr "\\large\\leftpointright"
-
-#. type: tikzpicture
-#: preambule.tex :156
-msgid "\\node{\\mainDroite};"
-msgstr "\\node{\\mainDroite};"
-
-#. type: Plain text
-#: preambule.tex :158
-msgid "\\tikzstyle{boulelinks}=[circle,ball color=\\purpledane,text=white]"
-msgstr "\\tikzstyle{boulelinks}=[circle,ball color=\\purpledane,text=white]"
-
-#. type: Plain text
-#: preambule.tex :160
-msgid ""
-"\\tikzstyle{boitelinks}=[draw=\\purpledane,rounded corners,inner xsep=1em,"
-"inner ysep=1ex]"
-msgstr ""
-"\\tikzstyle{boitelinks}=[draw=\\purpledane,rounded corners,inner xsep=1em,"
-"inner ysep=1ex]"
-
-#. type: tikzpicture
-#: documentation.tex:2
-msgid ""
-"\\node [boitelinks] (cadre) "
-"{\\hspace{0.5\\LargeurBouleLinks}\\usebox{\\boiteBrouillon}};\\node "
-"[boulelinks] (links) at (cadre.west) {\\mainDroite};"
-msgstr ""
-"\\node [boitelinks] (cadre) "
-"{\\hspace{0.5\\LargeurBouleLinks}\\usebox{\\boiteBrouillon}};\\node "
-"[boulelinks] (links) at (cadre.west) {\\mainDroite};"
 
 #. type: selectlanguage{#1}
 #: documentation.tex:9
@@ -2676,6 +2525,105 @@ msgstr "Balises à insérer en vue d'un export gameDragAndDrop"
 #: documentation.tex:989
 msgid "\\listoffigures \\listoftables"
 msgstr "\\listoffigures \\listoftables"
+
+#~ msgid "\\def\\purpledane{violet}"
+#~ msgstr "\\def\\purpledane{violet}"
+
+#~ msgid ""
+#~ "pdftitle={Xia}, pdfauthor={Énuma Logiciel Libre}, pdfsubject={Xia}, "
+#~ "pdfkeywords={Xia, logiciel libre, html5, Inkscape}, colorlinks= true, "
+#~ "linkcolor = greendane, urlcolor = bluedane"
+#~ msgstr ""
+#~ "pdftitle={Xia}, pdfauthor={Énuma Logiciel Libre}, pdfsubject={Xia}, "
+#~ "pdfkeywords={Xia, logiciel libre, html5, Inkscape}, colorlinks= true, "
+#~ "linkcolor = greendane, urlcolor = bluedane"
+
+#~ msgid "Xia"
+#~ msgstr "Xia"
+
+#~ msgid "Create HTML5 interactive images"
+#~ msgstr "Créer des images interactives au format HTML5"
+
+#~ msgid "\\texttt{\\textcolor{reddebian}{#1}}"
+#~ msgstr "\\texttt{\\textcolor{reddebian}{#1}}"
+
+#~ msgid "\\textdbend"
+#~ msgstr "\\textdbend"
+
+#~ msgid "\\node{\\virageDanger};"
+#~ msgstr "\\node{\\virageDanger};"
+
+#~ msgid ""
+#~ "\\tikzstyle{boitealerte}=[draw=red,rounded corners,inner xsep=1em,inner "
+#~ "ysep=1ex]"
+#~ msgstr ""
+#~ "\\tikzstyle{boitealerte}=[draw=red,rounded corners,inner xsep=1em,inner "
+#~ "ysep=1ex]"
+
+#~ msgid "\\tikzstyle{boulealerte}=[circle,ball color=red,text=white]"
+#~ msgstr "\\tikzstyle{boulealerte}=[circle,ball color=red,text=white]"
+
+#~ msgid "{\\boiteBrouillon}"
+#~ msgstr "{\\boiteBrouillon}"
+
+#~ msgid ""
+#~ "\\node [boitealerte] (cadre) "
+#~ "{\\hspace{0.5\\LargeurBouleAlerte}\\usebox{\\boiteBrouillon}};\\node "
+#~ "[boulealerte] (alerte) at (cadre.west) {\\virageDanger};"
+#~ msgstr ""
+#~ "\\node [boitealerte] (cadre) "
+#~ "{\\hspace{0.5\\LargeurBouleAlerte}\\usebox{\\boiteBrouillon}};\\node "
+#~ "[boulealerte] (alerte) at (cadre.west) {\\virageDanger};"
+
+#~ msgid "\\large\\leftthumbsup"
+#~ msgstr "\\large\\leftthumbsup"
+
+#~ msgid "\\node{\\pouceOK};"
+#~ msgstr "\\node{\\pouceOK};"
+
+#~ msgid "\\tikzstyle{bouleastuce}=[circle,ball color=teal,text=white]"
+#~ msgstr "\\tikzstyle{bouleastuce}=[circle,ball color=teal,text=white]"
+
+#~ msgid ""
+#~ "\\tikzstyle{boiteastuce}=[draw=teal,rounded corners,inner xsep=1em,inner "
+#~ "ysep=1ex]"
+#~ msgstr ""
+#~ "\\tikzstyle{boiteastuce}=[draw=teal,rounded corners,inner xsep=1em,inner "
+#~ "ysep=1ex]"
+
+#~ msgid ""
+#~ "\\node [boiteastuce] (cadre) "
+#~ "{\\hspace{0.5\\LargeurBouleAstuce}\\usebox{\\boiteBrouillon}};\\node "
+#~ "[bouleastuce] (astuce) at (cadre.west) {\\pouceOK};"
+#~ msgstr ""
+#~ "\\node [boiteastuce] (cadre) "
+#~ "{\\hspace{0.5\\LargeurBouleAstuce}\\usebox{\\boiteBrouillon}};\\node "
+#~ "[bouleastuce] (astuce) at (cadre.west) {\\pouceOK};"
+
+#~ msgid "\\large\\leftpointright"
+#~ msgstr "\\large\\leftpointright"
+
+#~ msgid "\\node{\\mainDroite};"
+#~ msgstr "\\node{\\mainDroite};"
+
+#~ msgid "\\tikzstyle{boulelinks}=[circle,ball color=\\purpledane,text=white]"
+#~ msgstr "\\tikzstyle{boulelinks}=[circle,ball color=\\purpledane,text=white]"
+
+#~ msgid ""
+#~ "\\tikzstyle{boitelinks}=[draw=\\purpledane,rounded corners,inner xsep=1em,"
+#~ "inner ysep=1ex]"
+#~ msgstr ""
+#~ "\\tikzstyle{boitelinks}=[draw=\\purpledane,rounded corners,inner xsep=1em,"
+#~ "inner ysep=1ex]"
+
+#~ msgid ""
+#~ "\\node [boitelinks] (cadre) "
+#~ "{\\hspace{0.5\\LargeurBouleLinks}\\usebox{\\boiteBrouillon}};\\node "
+#~ "[boulelinks] (links) at (cadre.west) {\\mainDroite};"
+#~ msgstr ""
+#~ "\\node [boitelinks] (cadre) "
+#~ "{\\hspace{0.5\\LargeurBouleLinks}\\usebox{\\boiteBrouillon}};\\node "
+#~ "[boulelinks] (links) at (cadre.west) {\\mainDroite};"
 
 #~ msgid "How do metadata display in the html5 animation"
 #~ msgstr "Affichage des métadonnées dans l'animation html5"
