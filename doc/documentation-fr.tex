@@ -325,35 +325,6 @@ la qualité de l'export (voir l'illustration \ref{xia_export_options}), et
 enfin choisir un modèle d'export et un répertoire d'enregistrement de
 l'image interactive.
 
-\begin{figure}[htp]
-\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]
-\begin{tikzpicture}
-  \node (exp_qual) {\includegraphics[scale=.5]{./images/exp_qual}};
-\node[right= .3mm of exp_qual] (exp_firefox)
-{\includegraphics[scale=.5]{./images/exp_firefox}}; \node[below= .2mm of
-exp_firefox.south] (exp_1file)
-{\includegraphics[scale=.5]{./images/exp_1file}}; \node[left= .3mm of
-exp_1file] (exp_params) {\includegraphics[scale=.5]{./images/params}};
-  
-  \node[box, text width=2.5cm, left = 5mm of exp_qual] (exp_qualC)
-{Sélectionner la qualité de l'export sur une échelle de 1 à 4}; \node[box,
-above right = 5mm of exp_firefox] (exp_firefoxC) {Activer ou désactiver la
-création des fichiers pour l'export FirefoxOS (par défaut: désactivé)};
-\node[box, right = 5mm of exp_1file] (exp_1fileC) {Dans le cas d'un export
-avec fichier unique, vous aurez besoin d'une connexion internet pour accéder
-à la ressource. Le moteur de rendu de Xia est hébergé sur les serveurs de
-l'académie de Versailles, et est mis à jour automatiquement. Avec cette
-configuration, vous ne pouvez pas personnaliser le fond et les icônes (par
-défaut: désactivé)};
-
-  \draw[-stealth] (exp_qualC.east) -- (exp_qual.west); \draw[-stealth]
-(exp_firefoxC.west) -- (exp_firefox.north east); \draw[-stealth]
-(exp_1fileC.west) -- (exp_1file.east);
-
-\end{tikzpicture}
-\caption{Les options d'export de Xia}
-\label{xia_export_options}
-\end{figure}
 
 En cliquant sur l'une des icônes des modèles d'export, vous générez une
 série de fichiers et de répertoires. Ouvrez le fichier \chemin{index.html}
@@ -368,35 +339,7 @@ répertoire (voir l'illustration \ref{xia_files}) pour que le fichier
 de dédier un répertoire spécifique à chaque image-active générée}.
 \end{alerte}
 
-\begin{figure}[htp]
-\tikzstyle{every node}=[draw=black,thick,anchor=west]
-\tikzstyle{auto}=[draw=reddebian,fill=reddebian!30, text height=2.5mm]
-\tikzstyle{manual}=[draw=bluedane,fill=bluedane!30, text height=2.5mm]
-\tikzstyle{manualT}=[fill=bluedane!30,draw=bluedane, rectangle,text
-width=5cm, rounded corners]
-\tikzstyle{autoT}=[fill=reddebian!30,draw=reddebian, rectangle,text
-width=5cm, rounded corners]
-\begin{tikzpicture}[grow via three points={one child at (0.5,-0.7) and two children at
-(0.5,-0.7) and (0.5,-1.4)}, edge from parent path={(\tikzparentnode.south)
-|- (\tikzchildnode.west)}] \node [manual] {mon\_projet/} child { node [auto]
-{index.html}}		 child { node [auto] {deploy.html}}		 child { node [auto]
-{manifest.webapp}}		 child { node [auto] {css/}} child { node [auto]
-{data/}} child { node [auto] {font/}} child { node [auto] {img/}} child {
-node [auto] {js/}} child { node [manual] {videos/} child { node [manual]
-{video.mp4}} child { node [manual] {video.ogv}} child { node [manual]
-{video.webm}} }; \node[manualT] (textM) at (10,-2) {Ces fichiers et
-répertoires ont été créés manuellement par le créateur de l'image
-interactive. Le répertoire \textcolor{bluedane} {videos} a également été
-créé manuellement, dans le but de stocker les vidéos insérées dans les
-commentaires de l'image interactive, à l'aide de liens relatifs.};
-\node[autoT] (textA) at (10,-6) {Ces fichiers et répertoires sont générés
-par Xia durant le processus d'export.}; \draw[-stealth] (textM.west) --
-(4,0); \draw[-stealth] (textM.west) -- (5.5,-7); \draw[-stealth]
-(textA.west) -- (4,-3);
-\end{tikzpicture}
-\caption{Fichiers d'une image interactive avec l'export Firefox OS activé}
-\label{xia_files}
-\end{figure}
+
 
 \begin{figure}[htp]
 \tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]
@@ -456,6 +399,67 @@ west); \draw[-stealth] (pBlueC.north east) -- (pBlue.south west);
 \end{tikzpicture}
 \caption{Les modèles d'export de Xia}
 \label{xia_interface}
+\end{figure}
+
+
+\begin{figure}[htp]
+\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]
+\begin{tikzpicture}
+  \node (exp_qual) {\includegraphics[scale=.5]{./images/exp_qual}};
+\node[right= .3mm of exp_qual] (exp_firefox)
+{\includegraphics[scale=.5]{./images/exp_firefox}}; \node[below= .2mm of
+exp_firefox.south] (exp_1file)
+{\includegraphics[scale=.5]{./images/exp_1file}}; \node[left= .3mm of
+exp_1file] (exp_params) {\includegraphics[scale=.5]{./images/params}};
+  
+  \node[box, text width=2.5cm, left = 5mm of exp_qual] (exp_qualC)
+{Sélectionner la qualité de l'export sur une échelle de 1 à 4}; \node[box,
+above right = 5mm of exp_firefox] (exp_firefoxC) {Activer ou désactiver la
+création des fichiers pour l'export FirefoxOS (par défaut: désactivé)};
+\node[box, right = 5mm of exp_1file] (exp_1fileC) {Dans le cas d'un export
+avec fichier unique, vous aurez besoin d'une connexion internet pour accéder
+à la ressource. Le moteur de rendu de Xia est hébergé sur les serveurs de
+l'académie de Versailles, et est mis à jour automatiquement. Avec cette
+configuration, vous ne pouvez pas personnaliser le fond et les icônes (par
+défaut: désactivé)};
+
+  \draw[-stealth] (exp_qualC.east) -- (exp_qual.west); \draw[-stealth]
+(exp_firefoxC.west) -- (exp_firefox.north east); \draw[-stealth]
+(exp_1fileC.west) -- (exp_1file.east);
+
+\end{tikzpicture}
+\caption{Les options d'export de Xia}
+\label{xia_export_options}
+\end{figure}
+
+\begin{figure}[htp]
+\tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{auto}=[draw=reddebian,fill=reddebian!30, text height=2.5mm]
+\tikzstyle{manual}=[draw=bluedane,fill=bluedane!30, text height=2.5mm]
+\tikzstyle{manualT}=[fill=bluedane!30,draw=bluedane, rectangle,text
+width=5cm, rounded corners]
+\tikzstyle{autoT}=[fill=reddebian!30,draw=reddebian, rectangle,text
+width=5cm, rounded corners]
+\begin{tikzpicture}[grow via three points={one child at (0.5,-0.7) and two children at
+(0.5,-0.7) and (0.5,-1.4)}, edge from parent path={(\tikzparentnode.south)
+|- (\tikzchildnode.west)}] \node [manual] {mon\_projet/} child { node [auto]
+{index.html}}		 child { node [auto] {deploy.html}}		 child { node [auto]
+{manifest.webapp}}		 child { node [auto] {css/}} child { node [auto]
+{data/}} child { node [auto] {font/}} child { node [auto] {img/}} child {
+node [auto] {js/}} child { node [manual] {videos/} child { node [manual]
+{video.mp4}} child { node [manual] {video.ogv}} child { node [manual]
+{video.webm}} }; \node[manualT] (textM) at (10,-2) {Ces fichiers et
+répertoires ont été créés manuellement par le créateur de l'image
+interactive. Le répertoire \textcolor{bluedane} {videos} a également été
+créé manuellement, dans le but de stocker les vidéos insérées dans les
+commentaires de l'image interactive, à l'aide de liens relatifs.};
+\node[autoT] (textA) at (10,-6) {Ces fichiers et répertoires sont générés
+par Xia durant le processus d'export.}; \draw[-stealth] (textM.west) --
+(4,0); \draw[-stealth] (textM.west) -- (5.5,-7); \draw[-stealth]
+(textA.west) -- (4,-3);
+\end{tikzpicture}
+\caption{Fichiers d'une image interactive avec l'export Firefox OS activé}
+\label{xia_files}
 \end{figure}
 
 En réalité, puisque Xia est également une extension d'Inkscape, vous pouvez
