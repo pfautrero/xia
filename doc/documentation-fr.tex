@@ -52,12 +52,12 @@ forme. Par la suite, vous apprendrez à créer des images interactives
 enrichies (voir la partie \ref{enriched_IA}). Dans les dernières parties
 (partie \ref{games_IA}), vous découvrirez comment créer des jeux.
 
-\begin{astuce}
+\begin{tip}
 Tous les exemples utilisés sont visibles en ligne (les liens pour visualiser
 les animations et télécharger les fichiers sources sont indiqués en début de
 chaque section). À la fin de chaque partie, une rubrique «~En résumé~»
 rappelle les points essentiels à retenir pour créer une image interactive. 
-\end{astuce}
+\end{tip}
 
 \subsection{Processus général}
 
@@ -97,13 +97,13 @@ html5}; \node[left of=createia,xshift=-.37\textwidth, rotate=90] (xia)
  \label{workflowxia}
 \end{figure}
 
-\begin{astuce}
+\begin{tip}
  Si vous possédez des projets créés avec le logiciel ImagesActives (fichiers
 possédant une extension .xia), vous pouvez changer l'extension de ces
 fichiers en .zip, les dézipper, récupérer le fichier svg se trouvant dans le
 répertoire ainsi obtenu et ouvrir celui-ci avec Inkscape. Si vous utilisez
 GNU/Linux, explorez le .xia et récupérez le fichier svg.
-\end{astuce}
+\end{tip}
 
 
 \subsection{Installer Inkscape et Xia}
@@ -139,20 +139,20 @@ permettront de créer une image interactive «~basique~», comprenant:
 
 Une fois l'image choisie, ouvrez-la dans Inkscape
 
-\chemin{Fichier $\rightarrow$ Ouvrir}  
+\softmenu{Fichier $\rightarrow$ Ouvrir}  
 
-Quand Inkscape vous demande de choisir entre \chemin{Lier} ou
-\chemin{Incorporer l'image}, choisissez \chemin{Incorporer}.
+Quand Inkscape vous demande de choisir entre \softmenu{Lier} ou
+\softmenu{Incorporer l'image}, choisissez \softmenu{Incorporer}.
 
-Les informations renseignées dans les \chemin{Métadonnées du document} (menu
-\chemin{Fichier}) seront conservées dans l'animation générée: titre,
+Les informations renseignées dans les \softmenu{Métadonnées du document}
+(menu \softmenu{Fichier}) seront conservées dans l'animation générée: titre,
 créateur, droits, \ldots. Il est donc fortement conseillé de renseigner ces
 informations. Le rendu est visible sur l'image ci-dessous\footnote{Les
 champs "auteur" et "droits" apparaissent dans la fenêtre "À propos",
 symbolisée par une icône clicable en forme de lettre "i".}:\\
 
 \begin{center}
- \includegraphics[width=\textwidth]{images/titre_ia}\\
+ \includegraphics[width=\textwidth]{images/ia_title}\\
 \end{center}
 
  Le titre renseigné dans les métadonnées du document apparaissent au-dessus
@@ -161,23 +161,23 @@ créateur et les droits associés apparaissent dans la pop up accessible via
 l'icône «~i~» située à droite du titre de l'image-active.
 
 Vous pouvez sauvegarder votre projet au format svg dès le début du travail,
-en allant dans le menu \chemin{Fichier $\rightarrow$ Enregistrer
+en allant dans le menu \softmenu{Fichier $\rightarrow$ Enregistrer
 sous\ldots}.
 
 Vous pouvez, par souci de clarté, supprimer l'extension d'origine de votre
-image dans le champ \chemin{Nom} de la fenêtre de dialogue. Enfin, dans le
+image dans le champ \softmenu{Nom} de la fenêtre de dialogue. Enfin, dans le
 menu déroulant, choisissez le format de fichier Inkscape svg:
 
-\chemin{SVG Inkscape (*.svg)}.
+\softmenu{SVG Inkscape (*.svg)}.
 
 De nombreux outils d'Inkscape peuvent être utilisés pour détourer les
 détails qui deviendront actifs dans l'animation générée par Xia. Parmi
 ceux-ci:
 \begin{itemize}
- \item \includegraphics[scale=0.5]{./images/rec_carre} \chemin{Créer des rectangles et des carrés}
- \item \includegraphics[scale=0.5]{./images/cercles} \chemin{Créer des cercles, des ellipses et des arcs}
- \item \includegraphics[scale=0.5]{./images/lignes} \chemin{Dessiner des lignes à main levée}
- \item \includegraphics[scale=0.5]{./images/bezier} \chemin{Tracer des courbes de
+ \item \includegraphics[scale=0.5]{./images/square} \softmenu{Créer des rectangles et des carrés}
+ \item \includegraphics[scale=0.5]{./images/circles} \softmenu{Créer des cercles, des ellipses et des arcs}
+ \item \includegraphics[scale=0.5]{./images/line} \softmenu{Dessiner des lignes à main levée}
+ \item \includegraphics[scale=0.5]{./images/bezier} \softmenu{Tracer des courbes de
 Bézier et des segments de droite}
 \end{itemize}
 
@@ -185,58 +185,58 @@ Sans rentrer dans le détail du fonctionnement de ces différents
 outils\footnote{Pour cela, lire le
 \href{http://inkscape.org/doc/shapes/tutorial-shapes.fr.html}{manuel
 d'Inkscape} ou \href{http://en.flossmanuals.net/inkscape/}{le manuel
-Floss}.}, sachez que l'outil \chemin{Tracer des courbes de Bézier et des
+Floss}.}, sachez que l'outil \softmenu{Tracer des courbes de Bézier et des
 segments de droite} permet de détourer "clic par clic" (les points de
 construction du polygone sont alors appelés des «~nœuds~»). Vous pouvez
 refermer votre polygone en cliquant sur le premier nœud de ce même
-polygone. Vous pouvez dessiner des \chemin{Courbes de Bézier} en gardant le
-clic de votre souris enfoncé après avoir créé un nœud, puis en déplaçant le
-curseur pour faire apparaître les poignées de contrôle afin de modifier la
-forme de la courbe.
+polygone. Vous pouvez dessiner des \softmenu{Courbes de Bézier} en gardant
+le clic de votre souris enfoncé après avoir créé un nœud, puis en déplaçant
+le curseur pour faire apparaître les poignées de contrôle afin de modifier
+la forme de la courbe.
 
 
-\begin{alerte}
+\begin{alert}
   Si vous laissez une forme ouverte dans Inkscape (une courbe par exemple),
 Xia refermera automatiquement celle-ci en joignant son point de départ et
 d'arrivée.
-\end{alerte}
+\end{alert}
 
-\begin{alerte}
+\begin{alert}
  L'ordre de création des détails dans Inkscape sera respecté dans l'image
 interactive au format html5 (par exemple, le premier détail détouré dans
 Inkscape apparaîtra en haut dans le modèle accordéon ou en numéro 1 dans le
 modèle boutons). Si vous souhaitez changer cet ordre sans avoir à recréer
 tous les détails, lisez la rubrique \ref{couche_XML}.
-\end{alerte}
+\end{alert}
 
 Une fois les détails détourés\footnote{La couleur du contour des détails
 dans l'animation générée par Xia sera la même que celle choisie dans
-Inkscape.}, vous pouvez les sélectionner avec l'outil \chemin{Sélectionner
+Inkscape.}, vous pouvez les sélectionner avec l'outil \softmenu{Sélectionner
 et transformer des objets} afin de les redimensionner, les déplacer,
 etc.\ldots
 
-\begin{astuce}
+\begin{tip}
 Si vous avez des difficultés pour sélectionner un détail que vous avez
 détouré, appliquez-lui une couleur de fond. N'importe quelle couleur fera
 l'affaire, sauf noir et blanc (pour comprendre pourquoi, lisez la rubrique
 \ref{white_black_background}).
-\end{astuce}
+\end{tip}
 
 
-Vous pouvez accéder aux \chemin{Propriétés de l'objet} par un clic-droit sur
-le détail détouré. À partir de là, vous accédez à une fenêtre de dialogue
-vous permettant d'ajouter le texte qui sera associé au détail dans l'image
-interactive:\\
+Vous pouvez accéder aux \softmenu{Propriétés de l'objet} par un clic-droit
+sur le détail détouré. À partir de là, vous accédez à une fenêtre de
+dialogue vous permettant d'ajouter le texte qui sera associé au détail dans
+l'image interactive:\\
 
 \begin{center}
- \includegraphics[width=0.5\textwidth]{./images/proprietes_objet}\\ 
+ \includegraphics[width=0.5\textwidth]{./images/object_properties}\\ 
 \end{center}
 
 Les deux champs devant nécessairement être renseignés dans cette fenêtre
-sont les champs \chemin{Titre} et \chemin{Description}. Le titre deviendra
-celui du détail, la description son commentaire. N'oubliez pas de cliquer
-sur le bouton \chemin{Définir} avant de fermer la fenêtre des
-\chemin{Propriétés de l'objet}.
+sont les champs \softmenu{Titre} et \softmenu{Description}. Le titre
+deviendra celui du détail, la description son commentaire. N'oubliez pas de
+cliquer sur le bouton \softmenu{Définir} avant de fermer la fenêtre des
+\softmenu{Propriétés de l'objet}.
 
 Le processus décrit ci-dessus doit également être effectué avec l'image de
 fond: le titre et la description de celle-ci serviront d'introduction
@@ -254,17 +254,17 @@ l'image interactive.
 
 
 En cliquant sur l'une des icônes des modèles d'export, vous générez une
-série de fichiers et de répertoires. Ouvrez le fichier \chemin{index.html}
+série de fichiers et de répertoires. Ouvrez le fichier \softmenu{index.html}
 dans un navigateur web pour voir votre image interactive au format html5.
 
-\begin{alerte}
+\begin{alert}
 Ce fichier ne peut être séparé des autres pour que l'image-active
 fonctionne. Tous les autres fichiers et répertoires générés durant le
 processus d'exportation doivent obligatoirement être localisés dans le même
 répertoire (voir l'illustration \ref{xia_files}) pour que le fichier
 \texttt{index.html} fonctionne correctement. \textbf{Il est donc impératif
 de dédier un répertoire spécifique à chaque image-active générée}.
-\end{alerte}
+\end{alert}
 
 
 
@@ -391,11 +391,11 @@ par Xia durant le processus d'export.}; \draw[-stealth] (textM.west) --
 
 En réalité, puisque Xia est également une extension d'Inkscape, vous pouvez
 générez vos projets directement depuis ce logiciel: cliquez sur
-\chemin{Extensions $\rightarrow$ Divers $\rightarrow$ Xia Édu}, et
+\softmenu{Extensions $\rightarrow$ Divers $\rightarrow$ Xia Édu}, et
 choisissez directement la qualité, le modèle d'export, et le répertoire de
 destination.
 
-\begin{astuce}
+\begin{tip}
  Si vous utilisez Xia avec GNU/Linux, vous pouvez générer vos animation html5
 en utilisant le terminal avec la commande \texttt{xia-converter}. Les
 paramètres à utiliser sont \texttt{-i} pour indiquer le fichier en entrée,
@@ -404,7 +404,7 @@ choisi. Ainsi:\\ \texttt{\$ xia-converter -i monfichier.svg -o
 ../dossier\_export/ -t accordionBlack}\\ Le template accordionBlack sera
 utilisé en cas d'erreur de syntaxe dans la désignation du template
 (paramètre \texttt{-t}).
-\end{astuce}
+\end{tip}
 
 
 \subsection{En résumé}
@@ -413,11 +413,11 @@ utilisé en cas d'erreur de syntaxe dans la désignation du template
  \item Une image interactive est construite dans Inkscape (au format svg). Xia ne
 fait que convertir ce fichier source svg en animation html5; 
  \item Le titre de l'image interactive doit être renseigné dans les
-\chemin{Métadonnées du document};
- \item Le texte des détails est renseigné dans les \chemin{Propriétés de l'objet},
-dans les champs \chemin{Titre} et \chemin{Description};
+\softmenu{Métadonnées du document};
+ \item Le texte des détails est renseigné dans les \softmenu{Propriétés de
+l'objet}, dans les champs \softmenu{Titre} et \softmenu{Description};
  \item La description générale de l'image interactive doit être renseignée dans les
-\chemin{Propriétés de l'objet} de l'image de fond.
+\softmenu{Propriétés de l'objet} de l'image de fond.
 \end{enumerate}
 
 \section{Images interactives enrichies}\label{enriched_IA}
@@ -486,7 +486,7 @@ sur \\ ~$\ast$ 2 niveaux}; \node[box, right = 3.5cm of bullets.south east]
 \label{xia_text_tags}
 \end{figure}
 
-\subsection{Insérer des ressources multimédias dans les commentaires}\label{enrichissement_multimedia}
+\subsection{Insérer des ressources multimédias dans les commentaires}\label{multimedia_enrichment}
 
 L'insertion de ressources multimédias dans les commentaires est chose assez
 aisée: copiez-collez l'url de la ressource (qu'elle soit absolue ou
@@ -499,16 +499,16 @@ celle-ci (image, son, vidéo) fasse partie des formats supportés:
  \item [Video] ogv, webm, mp4
 \end{description}
 
-Le lien doit être inséré dans le champ \chemin{Description} des
-\chemin{Propriétés de l'objet}:
+Le lien doit être inséré dans le champ \softmenu{Description} des
+\softmenu{Propriétés de l'objet}:
 \begin{description}
  \item[Lien absolu] Si l'url de la ressource est
  
  \verb|http://web.crdp.ac-versailles.fr/02546.ogg|
  
 
- il suffit alors d'écrire cette url dans le champ \chemin{Description} des
-\chemin{Propriétés de l'objet} dans Inkscape.
+ il suffit alors d'écrire cette url dans le champ \softmenu{Description} des
+\softmenu{Propriétés de l'objet} dans Inkscape.
  
  \item[Lien relatif] Si le fichier de la ressource multimédia se trouve dans le répertoire
 d'export de l'image interactive, ou dans un répertoire contenu dans
@@ -552,11 +552,11 @@ interactives dans lesquelles les détails sont associés à des sons plutôt
 qu'à du texte.
 
 Pour insérer des sons, vous utiliserez des liens absolus ou relatifs en
-suivant la méthode décrite dans la section
-\ref{enrichissement_multimedia}. Si vous souhaitez que le son soit joué
-automatiquement à la sélection du détail, ajoutez la balise \verb|autostart|
-après l'url de la ressource \footnote{La balise \texttt{autostart}
-fonctionne également avec les autres modèles d'export de Xia.}:\\
+suivant la méthode décrite dans la section \ref{multimedia_enrichment}. Si
+vous souhaitez que le son soit joué automatiquement à la sélection du
+détail, ajoutez la balise \verb|autostart| après l'url de la ressource
+\footnote{La balise \texttt{autostart} fonctionne également avec les autres
+modèles d'export de Xia.}:\\
 \begin{center}
  \verb|sons/son_detail_1.ogg autostart|
 \end{center}
@@ -565,7 +565,7 @@ fonctionne également avec les autres modèles d'export de Xia.}:\\
 \subsection{Insérer des images dans votre image interactive}\label{insertion_images}
 
 Des images au format png peuvent être ajoutées à l'image de fond. Pour faire
-cela, sélectionnez \chemin{Fichier $\rightarrow$ Importer} dans Inkscape
+cela, sélectionnez \softmenu{Fichier $\rightarrow$ Importer} dans Inkscape
 afin d'incorporer votre image.
 
 L'image importée n'apparaîtra dans l'animation html5 qu'à une condition: que
@@ -573,12 +573,12 @@ vous lui ayez appliqué un fond blanc dans Inkscape. Choisissez la couleur
 blanche dans la palette horizontale en bas de l'interface d'Inkscape:\\
 
 \begin{center}
-\includegraphics[width=0.6\textwidth]{images/remplissage_blanc}\\ 
+\includegraphics[width=0.6\textwidth]{images/white_fill}\\ 
 \end{center}
 
 
-En indiquant une url dans le champ \chemin{Titre} des \chemin{Propriétés de
-l'objet}, cette image incorporée deviendra un lien cliquable.
+En indiquant une url dans le champ \softmenu{Titre} des \softmenu{Propriétés
+de l'objet}, cette image incorporée deviendra un lien cliquable.
 
 \subsection{Faire apparaître une question et dévoiler une réponse}
 
@@ -614,7 +614,7 @@ caractères que vous souhaitez dans le code, sauf le \texttt{)}.}.
   
 \subsection{Contrôler le comportement des détails: affichage immédiat et désactivation
 du zoom}\label{white_black_background}
-\label{couche_XML}
+\label{XML_layer}
 
 Par défaut, le comportement des détails d'une image interactive est le
 suivant:
@@ -626,7 +626,7 @@ titre dans les commentaires
 
 Ces deux comportements par défaut peuvent être modifiés si vous appliquez un
 fond noir ou blanc aux détails détourés (voir la section
-\ref{insertion_images} et l'illustration \ref{remplissage_blanc}):
+\ref{insertion_images}):
 \begin{description}
  \item[Détail avec un fond blanc] Dans l'image interactive, ces détails seront visibles immédiatement, sous la
 forme d'un aplat de couleur opaque, cachant l'image de fond; une fois
@@ -647,15 +647,15 @@ verticalement en suivant l'ordre dans lequel ils ont été créés dans Inkscape
 (le premier détail créé dans Inkscape correspond à celui placé en haut dans
 la barre latérale de l'image interactive).
 
-Pour changer cet ordre par défaut, nous utiliserons l'\chemin{Éditeur XML},
-situé dans le menu \chemin{Édition}.
+Pour changer cet ordre par défaut, nous utiliserons l'\softmenu{Éditeur
+XML}, situé dans le menu \softmenu{Édition}.
 
 A priori complexe, cette fenêtre de dialogue est en réalité assez simple à
 utiliser: en sélectionnant une entrée de l'éditeur XML, le détail
 correspondant à celle-ci sera mis en évidence sur l'image. Il ne reste plus 
 
 \begin{center}
- \includegraphics[width=\textwidth]{images/ordre_couches}\\
+ \includegraphics[width=\textwidth]{images/layerorder}\\
 \end{center}
  
  L'éditeur XML d'Inkscape permet de contrôler l'ordre d'affichage des détails
@@ -763,8 +763,8 @@ sélectionner.
 
 Les consignes doivent être indiquées dans les métadonnées du document. Xia
 cherchera les informations relatives aux consignes dans le champ
-\chemin{Description} des métadonnées du document (voir la section
-\ref{preparation_svg}: \chemin{Fichier $\rightarrow$ Métadonnées du
+\softmenu{Description} des métadonnées du document (voir la section
+\ref{preparation_svg}: \softmenu{Fichier $\rightarrow$ Métadonnées du
 document}), et créera une pop up affichant ces consignes à l'ouverture du
 jeu. Le joueur pourra les lire, fermer la fenêtre puis jouer.
 
@@ -773,8 +773,8 @@ score nécessaire pour le déclenchement de ce message et le message en
 lui-même doivent être renseignés à l'intérieur de balises
 \texttt{<score></score>}\footnote{Il faut indiquer un nombre. Ce nombre n'a
 pas à être similaire au nombre de détails se trouvant sur l'image.} et
-\texttt{<message></message>} dans le champ \chemin{Description} des
-\chemin{Propriétés de l'objet} de l'image de fond\footnote{En créant une
+\texttt{<message></message>} dans le champ \softmenu{Description} des
+\softmenu{Propriétés de l'objet} de l'image de fond\footnote{En créant une
 image interactive traditionnelle, ce champ crée l'introduction de
 l'animation, non reliée à un détail particulier.}. 
 
@@ -797,19 +797,19 @@ informations dans le tableau \ref{tag1_sumup}.
 \label{tag1_sumup}
 \end{table}
  
-\begin{astuce}
+\begin{tip}
 Le texte inséré dans la balise \verb|<message></message>| peut être enrichi
 avec des images, des vidéos, du son. On peut aussi imaginer ajouter un lien
 vers un autre jeu, ce qui permettrait aux utilisateurs d'enchaîner les jeux
 par degré de difficulté.
-\end{astuce}
+\end{tip}
 
 \begin{wrapfigure}{r}{45mm}
   \centering
   \includegraphics[scale=0.7]{./images/game1clic} 
 \end{wrapfigure}
 
-Choisir le modèle d'export \chemin{game1clic} pour générer l'image
+Choisir le modèle d'export \softmenu{game1clic} pour générer l'image
 interactive.
 
 
@@ -824,7 +824,7 @@ transformer ces formes en utilisant l'outil «~copie bitmap~». Par exemple:
 \begin{enumerate}
  \item Dessinez une étoile aux bords jaunes et au fond jaune avec les outils de
 dessin d'Inkscape 
- \item Sélectionnez cette étoile, et cliquez sur \chemin{Édition $\rightarrow$
+ \item Sélectionnez cette étoile, et cliquez sur \softmenu{Édition $\rightarrow$
 Créer une copie bitmap}
  \item Supprimer l'étoile créée avec les outils de dessin
 \end{enumerate}
@@ -833,12 +833,12 @@ Une fois les éléments importés (format png) ou créés (copie bitmap des
 formes dessinées manuellement), appliquez-leurs les caractéristiques
 suivantes:
 \begin{center}
-\chemin{Interactivité > OnClick} = \verb|off|
+\softmenu{Interactivité > OnClick} = \verb|off|
 \end{center}
 Ensuite, groupez le détail cliquable et son élément graphique (en cliquant
 successivement sur le détail et l'élément en maintenant la touche \Shift
-enfoncée), puis en sélectionnant \chemin{Grouper} dans le menu
-\chemin{Objet} d'Inkscape.
+enfoncée), puis en sélectionnant \softmenu{Grouper} dans le menu
+\softmenu{Objet} d'Inkscape.
 
 \subsubsection{\emph{Astuces pour la création d'image interactive «~avancée~»\ldots} Mettre
 en évidence les erreurs du joueur}
@@ -859,7 +859,7 @@ etc.). Ces éléments pouvant être des images au format png importées ou des
 formes dessinées dans Inkscape, puis copiées en bitmap. Ces éléments devront
 posséder les caractéristiques suivantes:
 \begin{center}
-\chemin{Interactivité > OnClick} = \verb|disable-score| 
+\softmenu{Interactivité > OnClick} = \verb|disable-score| 
 \end{center}
 Une fois la balise \verb|disable-score| appliquée, le détail demeure
 cliquable, mais sa sélection n'ajoutera pas un point au compteur surveillant
@@ -868,17 +868,17 @@ le score pour délivrer le message de fin.
 \subsubsection{\emph{Astuces pour la création d'image interactive «~avancée~»\ldots} Deux
 compteurs de score}
 
-En indiquant \verb|score2| dans le champ \chemin{onclick}
-(\chemin{Propriétés de l'objet $\rightarrow$ Interactivité}) du détail, et
+En indiquant \verb|score2| dans le champ \softmenu{onclick}
+(\softmenu{Propriétés de l'objet $\rightarrow$ Interactivité}) du détail, et
 en utilisant les balises\\
 \texttt{<score2></score2>} et \texttt{<message2></message2>} dans les
-\chemin{Propriétés de l'objet} de l'image de fond, on peut créer un système
-de double comptage des points, dans lequel l'utilisateur peut sélectionner
-deux types de détails différents.
+\softmenu{Propriétés de l'objet} de l'image de fond, on peut créer un
+système de double comptage des points, dans lequel l'utilisateur peut
+sélectionner deux types de détails différents.
 
 Ainsi, vous pouvez créer un jeu où 3 détails comportent la balise
 \texttt{score2} (cette balise correspondant à des erreurs), et indiquez dans
-les \chemin{Propriétés de l'objet} de l'image de fond:\\ 
+les \softmenu{Propriétés de l'objet} de l'image de fond:\\ 
 \texttt{<score>4</score>\\ <message>Bravo!</message>\\ <score2>3</score2>\\ 
 <message2>3 erreurs... Ça fait beaucoup...\\
 Concentrez-vous et recommencez!...</message2>}\\
@@ -908,7 +908,7 @@ Voici comment créer un jeu basé sur le principe du glisser-déposer:
 déplacer et à déposer (autrement dit: des images, des mots ou groupes de
 mots)
  \item Créer la fenêtre surgissante de consignes en éditant les informations du
-champ \chemin{Fichier $\rightarrow$ Métadonnées du document $\rightarrow$
+champ \softmenu{Fichier $\rightarrow$ Métadonnées du document $\rightarrow$
 Description}\footnote{Exactement comme dans le jeu game1clic}
  \item En renseignant les métadonnées, faites correspondre chaque élément à une
 zone de dépôt (ces zones de dépôts étant en réalité des détails détourés)
@@ -930,7 +930,7 @@ copie bitmap de cet ensemble. Les éléments à déplacer doivent être associé
 qu'à \textbf{une} zone de dépôt.}.
 
 Vous trouverez dans le tableau \ref{tag2_sumup} un résumé des balises à
-renseigner dans les \chemin{Propriétés de l'objet} des éléments à déplacer
+renseigner dans les \softmenu{Propriétés de l'objet} des éléments à déplacer
 et des zones de dépôts afin de les faire correspondre les unes aux autres.
 
 \begin{table}
@@ -954,12 +954,12 @@ Champ description & \verb|<target>Titre_du_détail</target>| & \\
 
 
 Il faut donc «~jumeler~» les éléments à glisser-déposer avec leur zone de
-dépôt en faisant correspondre le champ \chemin{ID} de la zone de dépôt au
-champ \chemin{Description} de l'élément à glisser déposer. La seule
+dépôt en faisant correspondre le champ \softmenu{ID} de la zone de dépôt au
+champ \softmenu{Description} de l'élément à glisser déposer. La seule
 subtilité tient dans la balise \verb|<target></target>| devant être indiquée
-dans la \chemin{Description}.
+dans la \softmenu{Description}.
 
-Choisissez le modèle \chemin{gameDragAndDrop} pour générer l'image
+Choisissez le modèle \softmenu{gameDragAndDrop} pour générer l'image
 interactive.
 
 
@@ -967,8 +967,8 @@ interactive.
 \subsubsection{Comment ajouter un effet «~aimant~» dans le jeu gameDragAndDrop}
 
 Si vous indiquez \verb|<magnet>on</magnet>| dans le champ
-\chemin{Description} de la zone de dépôt, un effet aimant sera activé quand
-le joueur déposera l'élément sur celle-ci.
+\softmenu{Description} de la zone de dépôt, un effet aimant sera activé
+quand le joueur déposera l'élément sur celle-ci.
 
 \subsubsection{Deux façons de donner des indices aux joueurs: les infobulles et les liens
 sur les zones de dépôt}
@@ -977,10 +977,10 @@ Il est possible de faire s'afficher des infobulles lorsque la souris survole
 certains détails. Pour cela, créez l'infobulle avec une image au format png
 importée ou une copie bitmap d'un texte créé dans Inkscape\footnote{Ou une
 copie bitmap d'une forme groupée avec du texte\ldots}, et appliquez à cette
-infobulle une \chemin{ID} spéicifique dans les \chemin{Propriétés de
+infobulle une \softmenu{ID} spéicifique dans les \softmenu{Propriétés de
 l'objet}. Ensuite, indiquez la balise
 \verb|<tooltip>ID_de_l_infobulle</tooltip>| dans le champ
-\chemin{Description} des \chemin{Propriétés de l'objet} du détail censé
+\softmenu{Description} des \softmenu{Propriétés de l'objet} du détail censé
 déclencher l'apparition de l'infobulle (par exemple, dans l'image
 ci-dessous: au survol de la souris, le carré jaune fait apparaître
 l'infobulle "Test"):\\
@@ -994,8 +994,8 @@ l'infobulle "Test"):\\
 Notez que cette fonctionnalité est également disponible dans le jeu
 game1clic.
  
-Une autre méthode consiste à insérer un lien dans le champ \chemin{Titre}
-des \chemin{Propriétés de l'objet} de la zone de dépôt. L'utilisateur peut
+Une autre méthode consiste à insérer un lien dans le champ \softmenu{Titre}
+des \softmenu{Propriétés de l'objet} de la zone de dépôt. L'utilisateur peut
 cliquer sur cette zone ou y déposer l'étiquette correspondante pour suivre
 le lien.
 
@@ -1021,7 +1021,7 @@ sont donc les mêmes que dans le jeu gameDragAndDrop
 \texttt{<score></score>} sur l'image de fond: voir la section
 \ref{gameDragAndDropsection}.}, mais il faudra penser à appliquer la balise
 \verb|<collisions>off</collisions>| sur les zones de dépôts, dans le champ
-\chemin{Description}.
+\softmenu{Description}.
 \newpage
 \subsection{En résumé}
 
@@ -1031,21 +1031,21 @@ création de jeux avec Xia:
 \begin{table}[thp]
  \begin{tabular}{|p{.5cm}|p{2cm}|p{10cm}|}
  \hline
- \multicolumn{3}{|l|}{Modèle \chemin{game1clic}} \\
+ \multicolumn{3}{|l|}{Modèle \softmenu{game1clic}} \\
  \hline
  \multicolumn{3}{|l|}{\texttt{<score></score>}}\\
  \hline
  & \emph{Rôle} & Permet de régler le nombre de bonnes réponses nécessaires pour faire
 apparaître le message de fin du jeu\\
  & \emph{Élément}  & Image de fond \\
- & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description} \\
+ & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description} \\
  & \emph{Quoi?} & Le nombre de bonnes réponses nécessaires à la résolution du jeu\\
  \hline
  \multicolumn{3}{|l|}{\texttt{<message></message>} }\\
  \hline
   & \emph{Rôle} & Fait apparaître le message de fin du jeu \\
   & \emph{Élément}  & Image de fond \\
-  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description}\\ 
+  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\ 
   & \emph{Quoi?} & Un message que vous pouvez si nécessaire enrichir avec des ressources
 multimédias ou un lien hypertexte\\
   \hline
@@ -1053,7 +1053,7 @@ multimédias ou un lien hypertexte\\
   \hline
   & \emph{Rôle} & Rend un détail insensible au clic \\
   & \emph{Élément} & Détail \\
-  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Interactivité $\rightarrow$
+  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Interactivité $\rightarrow$
 Onclick}\\
  \hline
   \multicolumn{3}{|l|}{\texttt{disable-score}}\\
@@ -1061,14 +1061,14 @@ Onclick}\\
   & \emph{Rôle} & Rend un détail détouré cliquable, mais sa sélection n'ajoutera pas de point
 au compteur de score \\
   & \emph{Élément} & Détail \\
-  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Interactivité $\rightarrow$
+  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Interactivité $\rightarrow$
 Onclick}\\
   \hline
     \multicolumn{3}{|l|}{\texttt{score2}}\\
   \hline
   & \emph{Rôle} & Ajoute un point au deuxième compteur de score \\
   & \emph{Élément} & Détail \\
-  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Interactivité $\rightarrow$
+  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Interactivité $\rightarrow$
 Onclick}\\
   \hline
   \multicolumn{3}{|l|}{\texttt{<tooltip></tooltip>}}\\
@@ -1077,14 +1077,14 @@ Onclick}\\
   & \emph{Élément} & Détail \\
   & \emph{Quoi?} & Assurez-vous que ce champ est identique à l'ID de l'élément servant
 d'infobulle\\
-  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description}\\
+  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\
   \hline
  \multicolumn{3}{|l|}{\texttt{<score></score>}}\\
  \hline
  & \emph{Rôle} & Permet de régler le nombre de bonnes réponses nécessaires pour faire
 apparaître le message de fin du jeu\\
  & \emph{Élément}  & Image de fond \\
- & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description} \\
+ & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description} \\
  & \emph{Quoi?} & Le nombre de bonnes réponses nécessaires à la résolution du jeu\\
  \hline
  \multicolumn{3}{|l|}{\texttt{<message2></message2>}}\\
@@ -1092,7 +1092,7 @@ apparaître le message de fin du jeu\\
   & \emph{Rôle} & Fait apparaître le second message de fin du jeu, dans le cas d'un jeu à
 double score \\
   & \emph{Élément}  & Image de fond \\
-  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description}\\ 
+  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\ 
   & \emph{Quoi?} & Un message que vous pouvez si nécessaire enrichir avec des ressources
 multimédias ou un lien hypertexte\\
   \hline
@@ -1103,21 +1103,21 @@ multimédias ou un lien hypertexte\\
  \begin{table}[thp]
  \begin{tabular}{|p{.5cm}|p{2cm}|p{10cm}|}
  \hline
- \multicolumn{3}{|l|}{Modèle \chemin{gameDragAndDrop}} \\
+ \multicolumn{3}{|l|}{Modèle \softmenu{gameDragAndDrop}} \\
  \hline
  \multicolumn{3}{|l|}{\texttt{<score></score>}}\\
  \hline
  & \emph{Rôle} & Permet de régler le nombre de bonnes réponses nécessaires pour faire
 apparaître le message de fin du jeu\\
  & \emph{Élément}  & Image de fond \\
- & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description} \\
+ & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description} \\
  & \emph{Quoi?} & Le nombre de bonnes réponses nécessaires à la résolution du jeu\\
  \hline
  \multicolumn{3}{|l|}{\texttt{<message></message>} }\\
  \hline
   & \emph{Rôle} & Fait apparaître le message de fin du jeu \\
   & \emph{Élément}  & Image de fond \\
-  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description}\\ 
+  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\ 
   & \emph{Quoi?} & Un message que vous pouvez si nécessaire enrichir avec des ressources
 multimédias ou un lien hypertexte\\
   \hline
@@ -1125,26 +1125,26 @@ multimédias ou un lien hypertexte\\
   \hline
   & \emph{Rôle} & Indique la correspondance entre l'élément à déplacer et la zone de dépôt \\
   & \emph{Élément} & Élément à déplacer \\
-  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description}\\
+  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\
   & \emph{Quoi?} & Assurez-vous que ce champ est identique à l'ID de la zone de dépôt\\
   \hline
   \multicolumn{3}{|l|}{\texttt{<magnet>on</magnet>}}\\
   \hline
   & \emph{Rôle} & Ajoute un effet «~aimant~» \\
   & \emph{Élément} & Zone de dépôt \\
-  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description} \\
+  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description} \\
   \hline
   \multicolumn{3}{|l|}{\texttt{<collisions>on</collisions>}}\\
   \hline
   & \emph{Rôle} & Active le jeu de type "collisions" \\
   & \emph{Élément} & Image de fond \\
-  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description} \\
+  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description} \\
   \hline
   \multicolumn{3}{|l|}{\texttt{<collisions>off</collisions>}}\\
   \hline
   & \emph{Rôle} & Crée une zone de dépôt dans un jeu de type "collisions"\\
   & \emph{Élément} & Zone de dépôt\\
-  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description} \\
+  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description} \\
   \hline
     \multicolumn{3}{|l|}{\texttt{<tooltip></tooltip>}}\\
   \hline
@@ -1152,7 +1152,7 @@ multimédias ou un lien hypertexte\\
   & \emph{Élément} & Zone de dépôt, éléments à déplacer \\
   & \emph{Quoi?} & Assurez-vous que ce champ est identique à l'ID de l'élément servant
 d'infobulle\\
-  & \emph{Où?} & \chemin{Propriétés de l'objet $\rightarrow$ Description}\\
+  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\
   \hline
   \end{tabular}
   \caption{Balises à insérer en vue d'un export gameDragAndDrop}
