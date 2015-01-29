@@ -1,6 +1,5 @@
 ﻿# -*- coding: utf-8 -*-
 from __future__ import unicode_literals 
-from pyvirtualdisplay import Display
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -11,9 +10,10 @@ from selenium.webdriver.common.action_chains import ActionChains
 import unittest, time, re
 import os
 
-
-display = Display(visible=0, size=(1024, 768))
-display.start()
+if os.name != 'nt':
+    from pyvirtualdisplay import Display
+    display = Display(visible=0, size=(1024, 768))
+    display.start()
 
 class Test(unittest.TestCase):
     def setUp(self):
@@ -128,7 +128,7 @@ Réponse:LA réponse à la question<br>
         self.check_element()
         webdriver.common.action_chains.ActionChains(driver).move_to_element_with_offset(driver.find_element_by_css_selector("a.infos"), 5, 5).click().perform()
 #        time.sleep(2)
-        self.assertEqual("Michaël Nourry ", driver.find_element_by_xpath("//article[@id='popup_text']/p[2]").get_attribute('innerHTML'))
+        self.assertEqual("Michaël Nourry <br>", driver.find_element_by_xpath("//article[@id='popup_text']/p").get_attribute('innerHTML'))
 #        self.check_element("id('popup')")
 #        time.sleep(3)
            
