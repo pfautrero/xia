@@ -10,7 +10,6 @@ from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 import os
 
-
 if os.name != 'nt':
     from pyvirtualdisplay import Display
     display = Display(visible=0, size=(1024, 768))
@@ -128,7 +127,8 @@ Réponse:LA réponse à la question<br>
         self.assertTrue(self.is_element_present(By.XPATH, "id('collapse6')/div/audio"))
         self.check_element()
         driver.find_element_by_css_selector("a.infos").click()
-        self.assertEqual("Michaël Nourry", driver.find_element_by_xpath("//article[@id='popup_text']/p[2]").text)
+        self.assertEqual("Michaël Nourry", driver.find_element_by_xpath("//article[@id='popup_text']").text)
+
         self.check_element("id('popup')")
         
         
