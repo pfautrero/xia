@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: activit 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-03 11:40+0100\n"
-"PO-Revision-Date: 2015-01-29 10:32+0100\n"
+"PO-Revision-Date: 2015-01-29 12:49+0100\n"
 "Last-Translator: Louis-Maurice De Sousa <louis.de-sousa@ac-versailles.fr>\n"
 "Language-Team: portugais <>\n"
 "Language: \n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: share/themes/accordionCloud/hook.py:35
 msgid "export accordionCloud"
-msgstr "export in accordionCloud"
+msgstr "exportar em accordionCloud"
 
 #: share/themes/accordionCloud/hook.py:36 share/themes/popYellow/hook.py:36
 #: share/themes/game1clic/hook.py:43 share/themes/buttonBlue/hook.py:35
@@ -34,11 +34,11 @@ msgstr "Carregando..."
 
 #: share/themes/popYellow/hook.py:35
 msgid "export popYellow"
-msgstr ""
+msgstr "exportar em popYellow"
 
 #: share/themes/game1clic/hook.py:39
 msgid "export game1clic"
-msgstr ""
+msgstr "exportar em game1clic"
 
 #: share/themes/game1clic/hook.py:41 share/themes/gameDragAndDrop/hook.py:41
 msgid "You win !"
@@ -46,31 +46,31 @@ msgstr "Gagnou!"
 
 #: share/themes/buttonBlue/hook.py:34
 msgid "export buttonBlue"
-msgstr ""
+msgstr "exportar em buttonBlue"
 
 #: share/themes/gameDragAndDrop/hook.py:38
 msgid "export gameDragAndDrop"
-msgstr ""
+msgstr "exportar em gameDragAndDrop"
 
 #: share/themes/accordionBlack/hook.py:39
 msgid "export accordionBlack !"
-msgstr "export in accordionBlack"
+msgstr "exportar em accordionBlack"
 
 #: share/themes/popBlue/hook.py:35
 msgid "export popBlue"
-msgstr ""
+msgstr "exportar em popBlue"
 
 #: share/themes/audioBrown/hook.py:34
 msgid "export audioBrown"
-msgstr "export in audioBrown"
+msgstr "exportar em audioBrown"
 
 #: xiaconverter/mainwindow.py:90
 msgid "select svg file"
-msgstr "Seleçione un ficheiro svg"
+msgstr "Selecione un ficheiro svg"
 
 #: xiaconverter/mainwindow.py:103
 msgid "ajust parameters"
-msgstr ""
+msgstr "ajuste parametros"
 
 #: xiaconverter/mainwindow.py:167
 msgid "myfile.svg"
@@ -78,34 +78,34 @@ msgstr "meuficheiro.svg"
 
 #: xiaconverter/mainwindow.py:169
 msgid "Select a svg file"
-msgstr ""
+msgstr "Selecione um ficheiro svg"
 
 #: xiaconverter/mainwindow.py:179
 msgid "Select target folder"
-msgstr ""
+msgstr "Selectione o dossier de destino"
 
 #: xiaconverter/mainwindow.py:194
 #, python-brace-format
 msgid "Sorry, impossible to create the {0} directory"
-msgstr ""
+msgstr "Desculpe, é imposível criar o dossier {0}"
 
 #: xiaconverter/mainwindow.py:224
 msgid "Parameters"
-msgstr "Parameters"
+msgstr "Parametros"
 
 #: xiaconverter/paramswindow.py:79
 msgid "modify image resolution"
-msgstr ""
+msgstr "Modar a resolução da imagem"
 
 #: xiaconverter/paramswindow.py:87
 msgid "create firefox OS files"
-msgstr "enable/disable firefox OS files creation"
+msgstr "ativar/desativar a criação dos ficheiros para firefox OS "
 
 #: xiaconverter/paramswindow.py:95
 msgid "index standalone"
 msgstr ""
-"enable/disable unique file export.\n"
-"Unique file configuration needs internet connection to access the resource.\n"
-"xia engine used in unique file is hosted on Versailles academy servers and "
-"automatically updated.In this configuration, you can not control background "
-"image and icons."
+"ativar/desativar a exportação dum ficheiro único \n"
+"O uso dum ficheiro único necesita acesso à Internet.\n"
+"O motor xia utilizado com ficheiros únicos està hospedado nos servidores da "
+"academia de Versailles, e atualizados automáticamente. Nessa configuração, "
+"não pode controlar a imagem de fundo e os ícones."
