@@ -182,6 +182,26 @@ Réponse:LA réponse à la question<br>
         driver.find_element_by_id("collapse4-heading").click()
         self.check_element("collapse4")
 
+    def test_nav_1_1(self):
+        driver = self.driver
+        self.base_url = "file://"+os.path.dirname(os.path.abspath(__file__))+"/1_dev.html"
+        driver.get(self.base_url)
+        driver.find_element_by_id("collapsecomment-heading").click()
+        self.check_element("collapsecomment")
+        driver.find_element_by_id("collapse0-heading").click()
+        self.check_element("collapse0")
+        driver.execute_script(self.click_zone("Son 1"))
+        driver.execute_script(self.click_zone("Son 1"))
+        self.check_element("collapse6")
+        driver.find_element_by_xpath("//div[@id='canvas']/div/canvas[4]").click()
+        self.check_element("collapse6")
+        driver.find_element_by_id("collapse5-heading").click()
+        self.check_element("collapse5")
+        driver.find_element_by_id("collapse6-heading").click()
+        self.check_element("collapse6")
+
+
+
     def is_element_present(self, how, what):
         try: self.driver.find_element(by=how, value=what)
         except NoSuchElementException, e: return False
