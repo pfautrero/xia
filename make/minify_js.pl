@@ -30,7 +30,6 @@ open(OUTFILE, '>' . $file_noext . '.min.js') or die;
 minify(input => *INFILE, outfile => *OUTFILE);
 close(INFILE);
 close(OUTFILE);
-
 exit 0;
 
 

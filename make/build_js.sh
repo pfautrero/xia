@@ -64,6 +64,7 @@ do
     js_shortname=${js##*/}
     printf "Minify $js_shortname in vendors/ directory\n"
     perl "$script_dir/minify_js.pl" "$js"
+    rm $js
 done
 
 
