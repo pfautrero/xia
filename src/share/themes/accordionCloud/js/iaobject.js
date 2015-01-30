@@ -498,7 +498,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 that.alpha = 0;
                 that.step = 0.1;
                 for (k in that.kineticElement) {
-                   that.kineticElement[k].setStrokeWidth(parseFloat(that.strokeWidth(k) / that.agrandissement));
+                   that.kineticElement[k].setStrokeWidth(parseFloat(that.strokeWidth[k] / that.agrandissement));
                 }            
                 var personalTween = function(anim) {
                     // linear
