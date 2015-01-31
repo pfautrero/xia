@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-01-31 17:04+0100\n"
+"POT-Creation-Date: 2015-01-31 22:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -413,7 +413,7 @@ msgid ""
 msgstr ""
 
 #. type: figure
-#: documentation.tex:237 documentation.tex:277 documentation.tex:622
+#: documentation.tex:237 documentation.tex:277 documentation.tex:626
 msgid ""
 "\\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]"
 msgstr ""
@@ -446,8 +446,8 @@ msgstr ""
 #: documentation.tex:252
 msgid ""
 "\\node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the "
-"svg source file}; \\node[box, above = 5mm of params] (paramsC) {Select the "
-"quality of the export (see figure \\ref{xia_export_options})}; \\node[box,"
+"svg source file}; \\node[box, above = 5mm of params] (paramsC) {Define the "
+"options of the export (see figure \\ref{xia_export_options})}; \\node[box,"
 "above right = 5mm of aCloud.north east] (aBlackC) {\\href{http://xia.dane.ac-"
 "versailles.fr/demo/tuto/xia1/accordionBlack}{accordionBlack}\\\\ Large "
 "comment zone, suitable for the insertion of multimedia resources; to be used "
@@ -458,15 +458,15 @@ msgid ""
 "\\node[box, below right = 5mm of pYellow] (pYellowC) {\\href{http://xia.dane."
 "ac-versailles.fr/demo/tuto/xia1/popYellow}{popYellow}\\\\ No lateral comment "
 "zone ; a first click on the detail reveals it, and a second one "
-"simultaneously unveils the comment and the zoom function zooms in the "
-"detail}; \\node[box, left = 25mm of bBlue] (bBlueC) {\\href{http://xia.dane."
-"ac-versailles.fr/demo/tuto/xia1/buttonBlue}{buttonBlue}\\\\ No lateral "
-"comment zone ; comments appear above the image (suitable for long "
-"comments) ; the users access the comments through icons placed above the "
-"interactive image}; \\node[box, below left = 5mm of pBlue] (pBlueC) "
-"{\\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/popBlue}{popBlue}\\"
-"\\ No lateral comment zone; a first click on the detail reveals it, and a "
-"second one pops up the comment (no zoom)};"
+"simultaneously unveils the comment and triggers the zoom function}; "
+"\\node[box, left = 25mm of bBlue] (bBlueC) {\\href{http://xia.dane.ac-"
+"versailles.fr/demo/tuto/xia1/buttonBlue}{buttonBlue}\\\\ No lateral comment "
+"zone ; comments appear above the image (suitable for long comments) ; the "
+"users access the comments through icons placed above the interactive image}; "
+"\\node[box, below left = 5mm of pBlue] (pBlueC) {\\href{http://xia.dane.ac-"
+"versailles.fr/demo/tuto/xia1/popBlue}{popBlue}\\\\ No lateral comment zone; "
+"a first click on the detail reveals it, and a second one pops up the comment "
+"(no zoom)};"
 msgstr ""
 
 #. arrows
@@ -500,22 +500,22 @@ msgstr ""
 
 #. comments
 #. type: tikzpicture
-#: documentation.tex:282
+#: documentation.tex:287
 msgid ""
 "\\node[box, text width=2.5cm, left = 5mm of exp_qual] (exp_qualC) {Select "
 "the quality of the export on a scale from 1 to 4}; \\node[box, above right = "
 "5mm of exp_firefox] (exp_firefoxC) {Activate or Deactivate the creation of "
-"the FirefoxOS files (default: deactivated}; \\node[box, right = 5mm of "
+"the FirefoxOS files (default: deactivated)}; \\node[box, right = 5mm of "
 "exp_1file] (exp_1fileC) {In the unique file configuration, you will need an "
 "internet connection to access the resource. The xia engine used in the "
 "unique file configuration is hosted on Versailles academy servers and is "
 "automatically updated. In this configuration, you can not control the "
-"background image and icons (default: deactivated};"
+"background image and icons (default: deactivated)};"
 msgstr ""
 
 #. arrows
 #. type: tikzpicture
-#: documentation.tex:287
+#: documentation.tex:292
 msgid ""
 "\\draw[-stealth] (exp_qualC.east) -- (exp_qual.west); \\draw[-stealth] "
 "(exp_firefoxC.west) -- (exp_firefox.north east); \\draw[-stealth] "
@@ -523,12 +523,12 @@ msgid ""
 msgstr ""
 
 #. type: caption{#2}
-#: documentation.tex:292
+#: documentation.tex:297
 msgid "Xia's exportation options"
 msgstr ""
 
 #. type: figure
-#: documentation.tex:328
+#: documentation.tex:333
 msgid ""
 "\\tikzstyle{every node}=[draw=black,thick,anchor=west] \\tikzstyle{auto}"
 "=[draw=reddebian,fill=reddebian!30, text height=2.5mm] \\tikzstyle{manual}"
@@ -539,7 +539,7 @@ msgid ""
 msgstr ""
 
 #. type: tikzpicture
-#: documentation.tex:328
+#: documentation.tex:333
 msgid ""
 "[grow via three points={one child at (0.5,-0.7) and two children at "
 "(0.5,-0.7) and (0.5,-1.4)}, edge from parent path={(\\tikzparentnode.south) "
@@ -560,12 +560,12 @@ msgid ""
 msgstr ""
 
 #. type: caption{#2}
-#: documentation.tex:328
+#: documentation.tex:333
 msgid "Files of an interactive image with FirefoxOS export activated"
 msgstr ""
 
 #. type: document
-#: documentation.tex:332
+#: documentation.tex:337
 msgid ""
 "In fact, since Xia is also an Inkscape plugin, you can generate your project "
 "directly in Inkscape: just click on \\softmenu{Plugins $\\rightarrow$ "
@@ -574,7 +574,7 @@ msgid ""
 msgstr ""
 
 #. type: tip
-#: documentation.tex:341
+#: documentation.tex:346
 msgid ""
 "If you are using Xia for GNU/Linux, you can generate your html5 animation "
 "using the terminal with the command \\texttt{xia-converter}. The parameters "
@@ -586,59 +586,60 @@ msgid ""
 msgstr ""
 
 #. type: subsection{#2}
-#: documentation.tex:344 documentation.tex:580 documentation.tex:894
+#: documentation.tex:349 documentation.tex:584 documentation.tex:905
 msgid "Abstract"
 msgstr ""
 
 #. type: enumerate
-#: documentation.tex:355
+#: documentation.tex:360
 msgid ""
 "An interactive image is first built in Inkscape (svg format). Xia only "
 "converts the svg source file into an html5 animation ;"
 msgstr ""
 
 #. type: enumerate
-#: documentation.tex:355
+#: documentation.tex:360
 msgid ""
 "The title of the interactive image must be indicated in the "
 "\\softmenu{Metadata of the document} ;"
 msgstr ""
 
 #. type: enumerate
-#: documentation.tex:355
+#: documentation.tex:360
 msgid ""
-"The text of the details is filled in the \\softmenu{Object properties}, in "
-"the \\softmenu{Title} and \\softmenu{Description} fields ;"
+"The text of the details must be filled in the \\softmenu{Object properties}, "
+"in the \\softmenu{Title} and \\softmenu{Description} fields of the cut out "
+"details ;"
 msgstr ""
 
 #. type: enumerate
-#: documentation.tex:355
+#: documentation.tex:360
 msgid ""
 "The general description of the interactive image must be indicated in the "
 "\\softmenu {Object properties} of the background image."
 msgstr ""
 
 #. type: section{#2}
-#: documentation.tex:357
+#: documentation.tex:362
 msgid "Enriched interactive image"
 msgstr ""
 
 #. type: links
-#: documentation.tex:360
+#: documentation.tex:365
 msgid ""
 "Explore the \\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia2}"
 "{interactive image} created for this section of the documentation."
 msgstr ""
 
 #. type: links
-#: documentation.tex:363
+#: documentation.tex:368
 msgid ""
 "Download the \\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia2/svg/xia2."
 "svg}{svg} source file."
 msgstr ""
 
 #. type: document
-#: documentation.tex:367
+#: documentation.tex:372
 msgid ""
 "In this section, the goal is still to create a \"traditional\" interactive "
 "image (ie. in which a detail matches with a comment), but the content of the "
@@ -646,19 +647,19 @@ msgid ""
 msgstr ""
 
 #. type: subsection{#2}
-#: documentation.tex:371
+#: documentation.tex:376
 msgid "Formatting text"
 msgstr ""
 
 #. type: document
-#: documentation.tex:373
+#: documentation.tex:378
 msgid ""
 "In order to insert formatted text, the tags described in figure "
 "\\ref{xia_text_tags} should be used."
 msgstr ""
 
 #. type: figure
-#: documentation.tex:410
+#: documentation.tex:415
 msgid ""
 "\\tikzstyle{descrip}=[font=\\sffamily, anchor=north west, text width = "
 "4.3cm] \\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded "
@@ -666,7 +667,7 @@ msgid ""
 msgstr ""
 
 #. type: tikzpicture
-#: documentation.tex:410
+#: documentation.tex:415
 msgid ""
 "\\node[anchor=north west] (bold) {\\includegraphics[scale=.5]{./images/"
 "Description}}; \\node[descrip, below = -7mm of bold] (boldT) {This text is "
@@ -686,34 +687,35 @@ msgid ""
 "\\href{https://www.wikipedia.org/}{Wikipedia}}; \\node[anchor=north west, "
 "below = .2cm of link] (relativelinks) {\\includegraphics[scale=.5]{./images/"
 "Description}}; \\node[descrip, below = -7mm of relativelinks] "
-"(relativelinksT) {A link to a \\verb![../folder/file.pdf local file]!}; "
+"(relativelinksT) {A link to a \\verb![/home/foo/bar.pdf local file]!}; "
 "\\node[box, right = 3.5cm of relativelinks] (relativelinksR) {A link to a "
 "\\href{/home/foo/bar.pdf}{local file\\footnote{That does not work on your "
 "computer!}}}; \\node[anchor=north west, below = .8cm of relativelinks] "
 "(bullets) {\\includegraphics[scale=.5]{./images/Description}}; "
 "\\node[descrip, below = -7mm of bullets] (bulletsT) {Making a list \\\\ $"
-"\\ast$ of bullets \\\\ $\\ast$ out of \\\\ ~$\\ast$ 2 levels}; \\node[box, "
+"\\ast$ of bullets \\\\ $\\ast$ out of \\\\ ~$\\ast$ 2 levels"
+"\\footnote{Insert a \\Spacebar (space) before the $\\ast$}}; \\node[box, "
 "right = 3.5cm of bullets.south east] (bulletsR) {Making a list "
 "\\begin{itemize} \\item of bullets \\item out of \\begin{itemize} \\item2 "
-"levels \\end{itemize} \\end{itemize} }; \\node[anchor=north west, below = "
-"2cm of bullets] (line) {\\includegraphics[scale=.5]{./images/Description}}; "
+"levels \\end{itemize} \\end{itemize}}; \\node[anchor=north west, below = 3cm "
+"of bullets] (line) {\\includegraphics[scale=.5]{./images/Description}}; "
 "\\node[descrip, below = 7mm of line.north] (lineT) {Drawing \\\\ - - - - \\"
 "\\ a line}; \\node[box, right = 3.5cm of line] (lineR) {Drawing \\\\ "
 "\\hrulefill \\\\ a line};"
 msgstr ""
 
 #. type: caption{#2}
-#: documentation.tex:410
+#: documentation.tex:415
 msgid "Tags to format text"
 msgstr ""
 
 #. type: subsection{#2}
-#: documentation.tex:412
+#: documentation.tex:417
 msgid "Inserting multimedia resources into details"
 msgstr ""
 
 #. type: document
-#: documentation.tex:422
+#: documentation.tex:427
 msgid ""
 "Inserting multimedia resources into details comments is quite easy: just "
 "paste the resource url (relative or absolute link) or iframe tag of the web "
@@ -723,63 +725,63 @@ msgid ""
 msgstr ""
 
 #. type: item[#1]
-#: documentation.tex:422
+#: documentation.tex:427
 msgid "Images"
 msgstr ""
 
 #. type: description
-#: documentation.tex:422
+#: documentation.tex:427
 msgid "jpg, jpeg, png, gif"
 msgstr ""
 
 #. type: description
-#: documentation.tex:422
+#: documentation.tex:427
 msgid "[Audio] ogg, mp3"
 msgstr ""
 
 #. type: description
-#: documentation.tex:422
+#: documentation.tex:427
 msgid "[Video] ogv, webm, mp4"
 msgstr ""
 
 #. type: document
-#: documentation.tex:426
+#: documentation.tex:429
 msgid ""
 "The link has to be inserted into the \\softmenu{Description} field of the "
-"\\softmenu{Object Properties}:"
+"\\softmenu{Object Properties}."
 msgstr ""
 
 #. type: item[#1]
-#: documentation.tex:426
+#: documentation.tex:432
 msgid "Absolute link"
 msgstr ""
 
 #. type: description
-#: documentation.tex:426
+#: documentation.tex:432
 msgid "If the resource url is"
 msgstr ""
 
 #. \begin{center}
 #. \end{center}
 #. type: description
-#: documentation.tex:430
+#: documentation.tex:436
 msgid "\\verb|http://web.crdp.ac-versailles.fr/02546.ogg|"
 msgstr ""
 
 #. type: description
-#: documentation.tex:433
+#: documentation.tex:439
 msgid ""
 "just type it in the \\softmenu{Description} field of the \\softmenu{Object "
 "Properties} in Inkscape"
 msgstr ""
 
 #. type: item[#1]
-#: documentation.tex:439
+#: documentation.tex:445
 msgid "Relative link"
 msgstr ""
 
 #. type: description
-#: documentation.tex:439
+#: documentation.tex:445
 msgid ""
 "If the multimedia file is located in the interactive image folder or in a "
 "folder (see figure \\ref{xia_files}) within this one, just indicate its "
@@ -792,58 +794,53 @@ msgstr ""
 #. \begin{center}
 #. end{center}
 #. type: description
-#: documentation.tex:443
+#: documentation.tex:449
 msgid "\\verb|./videos/video.ogv|"
 msgstr ""
 
 #. type: description
-#: documentation.tex:448
+#: documentation.tex:454
 msgid ""
 "in order to create the player. The \\verb|./| means that the \\verb|videos| "
 "folder is located in the exportation folder. You can also use the "
 "\\verb|../| tag to indicate that the resource is located in a parent folder."
 msgstr ""
 
-#. type: document
-#: documentation.tex:453
+#. type: tip
+#: documentation.tex:466
 msgid ""
 "Since video formats supported by Xia are not natively supported by every web "
 "browsers, it is recommanded to export videos into the 3 supported formats, "
 "and to upload them into a single folder (from there, the only difference "
-"between these files is their extension (ie. .ogv or .mp4 or .webm).\\\\"
+"between these files is their extension, ie. .ogv or .mp4 or .webm).  Even if "
+"a particular format is indicated in the description (following the previous "
+"example : \\verb|videos/video.ogv|), if the browser is unable to read the "
+"resource, it will automatically attempt to read the files of the same name "
+"possessing a different extension (ie. \\verb|video.mp4| then \\verb|video."
+"webm|)."
 msgstr ""
 
 #. type: document
-#: documentation.tex:462
-msgid ""
-"Even if a particular format is indicated in the description (following the "
-"previous example : \\verb|videos/video.ogv|), if the browser is unable to "
-"read the resource, it will automatically attempt to read the files of the "
-"same name possessing a different extension (ie. \\verb|video.mp4| then "
-"\\verb|video.webm|)."
-msgstr ""
-
-#. type: document
-#: documentation.tex:466
+#: documentation.tex:470
 msgid ""
 "The last option is to insert an iframe tag.  It will be interpreted and the "
 "reader will appear in the comment, giving access to the resource."
 msgstr ""
 
 #. type: subsection{#2}
-#: documentation.tex:468
+#: documentation.tex:472
 msgid "The \"audioBrown\" template: sounds instead of text"
 msgstr ""
 
 #. type: links
-#: documentation.tex:471
+#: documentation.tex:475
 msgid ""
 "Explore the \\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia4}"
 "{interactive image} created for this section of the documentation."
 msgstr ""
 
 #. type: links
-#: documentation.tex:475
+#: documentation.tex:479
 msgid ""
 "Download the \\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia4/svg/xia4."
 "zip}{svg} source file (zip file containing the svg source file and the "
@@ -851,7 +848,7 @@ msgid ""
 msgstr ""
 
 #. type: document
-#: documentation.tex:478
+#: documentation.tex:482
 msgid ""
 "The \"audioBrown\" template is specifically dedicated to the creation of "
 "interactive images in which details are associated with sounds instead of "
@@ -859,7 +856,7 @@ msgid ""
 msgstr ""
 
 #. type: document
-#: documentation.tex:488
+#: documentation.tex:492
 msgid ""
 "The method to insert sounds using absolute or relative links is described in "
 "section \\ref{multimedia_enrichment}. If you wish the sound to play "
@@ -869,24 +866,24 @@ msgid ""
 msgstr ""
 
 #. type: center
-#: documentation.tex:488
+#: documentation.tex:492
 msgid "\\verb|sounds/detail_1_sound.ogg autostart|"
 msgstr ""
 
 #. type: subsection{#2}
-#: documentation.tex:491
+#: documentation.tex:495
 msgid "Inserting images into your interactive image"
 msgstr ""
 
 #. type: document
-#: documentation.tex:494
+#: documentation.tex:498
 msgid ""
 "Png images can be added to the background. To do so, select \\softmenu{File $"
 "\\rightarrow$ Import} in Inkscape to incorporate your new image."
 msgstr ""
 
 #. type: document
-#: documentation.tex:498
+#: documentation.tex:502
 msgid ""
 "The imported image will only appear in the html5 animation if you have "
 "applied white background in Inkscape. Choose white in the horizontal colour "
@@ -894,7 +891,7 @@ msgid ""
 msgstr ""
 
 #. type: document
-#: documentation.tex:506
+#: documentation.tex:510
 msgid ""
 "By indicating a url in the \\softmenu{Title} of \\softmenu{Object "
 "properties} field, the embedded image becomes a clickable icon linking to a "
@@ -902,12 +899,12 @@ msgid ""
 msgstr ""
 
 #. type: subsection{#2}
-#: documentation.tex:508
+#: documentation.tex:512
 msgid "Displaying a question and unveiling an answer"
 msgstr ""
 
 #. type: document
-#: documentation.tex:513
+#: documentation.tex:517
 msgid ""
 "You can create clickable icon which will momentarily prevent the user to "
 "read the end of the comment.  You can even ask the user to enter a password "
@@ -915,14 +912,14 @@ msgid ""
 msgstr ""
 
 #. type: document
-#: documentation.tex:515
+#: documentation.tex:519
 msgid ""
 "To do so, just indicate, in the description, the tags described in figure "
 "\\ref{xia_answer_tags}."
 msgstr ""
 
 #. type: figure
-#: documentation.tex:527
+#: documentation.tex:531
 msgid ""
 "\\tikzstyle{descrip}=[font=\\sffamily, anchor=north west, text width = "
 "4.3cm] \\tikzstyle{box}=[draw, text width=6cm, fill=lightgray!50, rounded "
@@ -930,7 +927,7 @@ msgid ""
 msgstr ""
 
 #. type: tikzpicture
-#: documentation.tex:527
+#: documentation.tex:531
 msgid ""
 "\\node[anchor=north west] (answer) {\\includegraphics[scale=.5]{./images/"
 "Description}}; \\node[descrip, below = -7mm of answer] (answerT) {[[Can I "
@@ -940,14 +937,14 @@ msgid ""
 msgstr ""
 
 #. type: caption{#2}
-#: documentation.tex:527
+#: documentation.tex:531
 msgid ""
 "Tags to insert a button which will momentarily prevent the user to read the "
 "end of the comment"
 msgstr ""
 
 #. type: document
-#: documentation.tex:533
+#: documentation.tex:537
 msgid ""
 "Use the double brackets tag \\texttt{[[ (...) ]]} to indicate you wish to "
 "create the icon, split the text between the question and the answer with the "
@@ -958,46 +955,46 @@ msgid ""
 msgstr ""
 
 #. type: subsection{#2}
-#: documentation.tex:536
+#: documentation.tex:540
 msgid "Controlling details behavior : automatic display and disabled zoom"
 msgstr ""
 
 #. type: document
-#: documentation.tex:544
+#: documentation.tex:548
 msgid "Default behavior of details in an interactive image consists in:"
 msgstr ""
 
 #. type: itemize
-#: documentation.tex:544
+#: documentation.tex:548
 msgid ""
 "highlighting details only on mouse over or with a click on the comment "
 "detail title"
 msgstr ""
 
 #. type: itemize
-#: documentation.tex:544
+#: documentation.tex:548
 msgid "zoom in effect when clicking again on the active detail"
 msgstr ""
 
 #. type: footnote{#2}
-#: documentation.tex:544
+#: documentation.tex:548
 msgid "Except for the popBlue template."
 msgstr ""
 
 #. type: document
-#: documentation.tex:554
+#: documentation.tex:558
 msgid ""
 "Both of these default behaviors can be modified if you apply a white or "
 "black background to cropped details (see section \\ref{insertion_images}):"
 msgstr ""
 
 #. type: item[#1]
-#: documentation.tex:554
+#: documentation.tex:558
 msgid "Detail with a white background"
 msgstr ""
 
 #. type: description
-#: documentation.tex:554
+#: documentation.tex:558
 msgid ""
 "In the generated image, details will be immediately visible as a flat area "
 "of opaque color, hiding the background image; once selected, it reveals the "
@@ -1005,14 +1002,14 @@ msgid ""
 msgstr ""
 
 #. type: description
-#: documentation.tex:554
+#: documentation.tex:558
 msgid ""
 "[Detail with a black background] Users still have to click on the detail to "
 "unveil it, but the zoom effect is disabled."
 msgstr ""
 
 #. type: document
-#: documentation.tex:557
+#: documentation.tex:561
 msgid ""
 "Logical consequence : you can not apply a white and a black background all "
 "together on the same detail.  A single detail can not be immediately "
@@ -1020,12 +1017,12 @@ msgid ""
 msgstr ""
 
 #. type: subsection{#2}
-#: documentation.tex:559
+#: documentation.tex:563
 msgid "Controlling order of details display in the lateral comment zone"
 msgstr ""
 
 #. type: document
-#: documentation.tex:563
+#: documentation.tex:567
 msgid ""
 "By default, in the interactive image, the details appear vertically "
 "following the order in which these details have been created (the first "
@@ -1034,14 +1031,14 @@ msgid ""
 msgstr ""
 
 #. type: document
-#: documentation.tex:565
+#: documentation.tex:569
 msgid ""
 "We will work with the \\softmenu{Edit $\\rightarrow$ XML Editor} to change "
 "this default order."
 msgstr ""
 
 #. type: document
-#: documentation.tex:570
+#: documentation.tex:574
 msgid ""
 "A priori complex to manage, this dialogue window is in fact quite easy to "
 "use : by selecting the input in the XML editor, the corresponding detail "
@@ -1050,7 +1047,7 @@ msgid ""
 msgstr ""
 
 #. type: document
-#: documentation.tex:578
+#: documentation.tex:582
 msgid ""
 "The Inkscape XML editor allows to control the display order of the details "
 "in the interactive image. Note the highlighting of an element in the editor "
@@ -1058,31 +1055,33 @@ msgid ""
 msgstr ""
 
 #. type: enumerate
-#: documentation.tex:592
+#: documentation.tex:596
 msgid "You can enrich and shaping text using tags"
 msgstr ""
 
 #. type: enumerate
-#: documentation.tex:592
+#: documentation.tex:596
 msgid ""
 "A multimedia enrichment is possible through a simple link (relative or "
 "absolute) to a file whose format is recognized by Xia"
 msgstr ""
 
 #. type: enumerate
-#: documentation.tex:592
-msgid "Adding images to the background image is possible by importing them"
+#: documentation.tex:596
+msgid ""
+"Adding images to the background image is possible by importing them and "
+"applying them a white background"
 msgstr ""
 
 #. type: enumerate
-#: documentation.tex:592
+#: documentation.tex:596
 msgid ""
 "It is possible to modify the default behavior of a detail by changing its "
 "color background (white, black)"
 msgstr ""
 
 #. type: enumerate
-#: documentation.tex:592
+#: documentation.tex:596
 msgid ""
 "The order of the details in the interactive image depends on the order of "
 "their creation in Inkscape. Nevertheless, the Inkscape XML editor allows to "
@@ -1090,19 +1089,19 @@ msgid ""
 msgstr ""
 
 #. type: enumerate
-#: documentation.tex:592
+#: documentation.tex:596
 msgid ""
 "It is possible prevent the user to access the comments by inserting a "
 "clickable icon and / or a password"
 msgstr ""
 
 #. type: section{#2}
-#: documentation.tex:596
+#: documentation.tex:600
 msgid "Creating games with Xia"
 msgstr ""
 
 #. type: document
-#: documentation.tex:599
+#: documentation.tex:603
 msgid ""
 "Until now, this document was only about creation of traditionnal "
 "\"interactive images\": background image enriched with cropped details "
@@ -1110,7 +1109,7 @@ msgid ""
 msgstr ""
 
 #. type: document
-#: documentation.tex:605
+#: documentation.tex:609
 msgid ""
 "This kind of interactive image can be used in class in various situations "
 "(students progressively discovering a document, or creating an interactive "
@@ -1122,7 +1121,7 @@ msgstr ""
 #. \draw[help lines] (0,0) grid (5,5);
 #. icons
 #. type: tikzpicture
-#: documentation.tex:622
+#: documentation.tex:626
 msgid ""
 "\\node[opacity=.5] (bBlue) {\\includegraphics[scale=.35]{./images/"
 "buttonBlue}}; \\node[left= .3mm of bBlue] (aBrown) "
@@ -1144,25 +1143,26 @@ msgstr ""
 
 #. comments
 #. type: tikzpicture
-#: documentation.tex:633
+#: documentation.tex:637
 msgid ""
 "\\node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the "
-"svg source file}; \\node[box, above = 5mm of params] (paramsC) {Select the "
-"quality of the export}; \\node[box, right = 5mm of guClic] (guClicC) "
-"{\\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia3}{game1clic}\\\\ "
-"selecting details on a background image \\\\ How-to in section "
-"\\ref{game1clicsection}}; \\node[box, left = 25mm of bBlue] (aBrownC) "
-"{\\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia4}{audioBrown} \\\\ "
-"creation of interactive images in which details are associated with sounds \\"
-"\\ How-to in section \\ref{audioBrownsection}}; \\node[box, below left = 5mm "
-"of pBlue] (gDDropC) {\\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia5}"
-"{gameDragAndDrop}\\\\ drag and drop graphical elements on the background "
-"images \\\\ How-to in section \\ref{gameDragAndDropsection}};"
+"svg source file}; \\node[box, above = 5mm of params] (paramsC) {Define the "
+"options of the export (see figure \\ref{xia_export_options})}; \\node[box, "
+"right = 5mm of guClic] (guClicC) {\\href{http://xia.dane.ac-versailles.fr/"
+"demo/tuto/xia3}{game1clic}\\\\ selecting details on a background image \\\\ "
+"How-to in section \\ref{game1clicsection}}; \\node[box, left = 25mm of "
+"bBlue] (aBrownC) {\\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia4}"
+"{audioBrown} \\\\ creation of interactive images in which details are "
+"associated with sounds \\\\ How-to in section \\ref{audioBrownsection}}; "
+"\\node[box, below left = 5mm of pBlue] (gDDropC) {\\href{http://xia.dane.ac-"
+"versailles.fr/demo/tuto/xia5}{gameDragAndDrop}\\\\ drag and drop graphical "
+"elements on the background images \\\\ How-to in section "
+"\\ref{gameDragAndDropsection}};"
 msgstr ""
 
 #. arrows
 #. type: tikzpicture
-#: documentation.tex:640
+#: documentation.tex:644
 msgid ""
 "\\draw[-stealth] (guClicC.west) -- (guClic.east); \\draw[-stealth] (gDDropC."
 "north) -- (gDDrop.south west); \\draw[-stealth] (aBrownC.east) -- (aBrown."
@@ -1171,17 +1171,17 @@ msgid ""
 msgstr ""
 
 #. type: caption{#2}
-#: documentation.tex:645
+#: documentation.tex:649
 msgid "Xia's games and multimedia templates"
 msgstr ""
 
 #. type: subsection{#2}
-#: documentation.tex:647
+#: documentation.tex:651
 msgid "First game principle: selecting, finding elements in the image"
 msgstr ""
 
 #. type: document
-#: documentation.tex:651
+#: documentation.tex:655
 msgid ""
 "\\textit{The game principle described in this section consists in selecting "
 "details on a background image. When the user has reached the goal described "
@@ -1189,28 +1189,28 @@ msgid ""
 msgstr ""
 
 #. type: links
-#: documentation.tex:656
+#: documentation.tex:660
 msgid ""
 "Explore the \\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia3}"
 "{interactive image} created for this section of the documentation."
 msgstr ""
 
 #. type: links
-#: documentation.tex:659
+#: documentation.tex:663
 msgid ""
 "Download the \\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia3/svg/xia3."
 "svg}{svg} source file."
 msgstr ""
 
 #. type: document
-#: documentation.tex:662
+#: documentation.tex:666
 msgid ""
 "This kind of game is almost the easiest way to create an interactive image.  "
 "You only have to crop the details that the final user will have to select."
 msgstr ""
 
 #. type: document
-#: documentation.tex:669
+#: documentation.tex:673
 msgid ""
 "The instructions must be completed in the metadata of the document. Xia will "
 "look into the informations filled in the \\softmenu{Description} field of "
@@ -1222,7 +1222,7 @@ msgid ""
 msgstr ""
 
 #. type: document
-#: documentation.tex:674
+#: documentation.tex:678
 msgid ""
 "When the user completes the game, a message automatically appears.  This "
 "message has to be filled in the \\softmenu{Description} field of the "
@@ -1232,7 +1232,7 @@ msgid ""
 msgstr ""
 
 #. type: document
-#: documentation.tex:679
+#: documentation.tex:683
 msgid ""
 "Two informations are needed in order for this message to pop up : the exact "
 "number of details that have to be selected\\footnote{This number does not "
@@ -1241,62 +1241,62 @@ msgid ""
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:695
+#: documentation.tex:699
 msgid "Goal"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:695
+#: documentation.tex:699
 msgid "Enter the number of correct answers needed to complete the game"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:695
+#: documentation.tex:699
 msgid "Display a message"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:695
+#: documentation.tex:699
 msgid "Tag"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:695
+#: documentation.tex:699
 msgid "\\texttt{<score></score>}|"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:695
+#: documentation.tex:699
 msgid "\\texttt{<message></message>}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:695
+#: documentation.tex:699
 msgid "Example"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:695
+#: documentation.tex:699
 msgid "\\multicolumn{2}{|l|}{\\texttt{<score>6</score>}}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:695
+#: documentation.tex:699
 msgid "\\multicolumn{2}{|l|}{\\texttt{<message>Congratulations!}}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:695
+#: documentation.tex:699
 msgid "\\multicolumn{2}{|l|}{\\texttt{You have completed the game!</message>}}"
 msgstr ""
 
 #. type: caption{#2}
-#: documentation.tex:695
+#: documentation.tex:699
 msgid "Sum up of tags in a game1clic game"
 msgstr ""
 
 #. type: tip
-#: documentation.tex:702
+#: documentation.tex:706
 msgid ""
 "Text inserted inside the \\verb|<message></message>| tag can be enriched. "
 "Images, videos or sounds can be inserted.  It is also possible to insert a "
@@ -1305,23 +1305,24 @@ msgid ""
 msgstr ""
 
 #. type: wrapfigure
-#: documentation.tex:707 documentation.tex:767
+#: documentation.tex:711 documentation.tex:777
 msgid "{r}{45mm}"
 msgstr ""
 
 #. type: document
-#: documentation.tex:709
+#: documentation.tex:713
 msgid ""
-"Choose the template \\softmenu{game1clic} to generate the interactive image."
+"Once your svg source file is created, choose the template "
+"\\softmenu{game1clic} to generate the interactive image."
 msgstr ""
 
 #. type: subsection{#2}
-#: documentation.tex:711
+#: documentation.tex:715
 msgid "Second game principle: classyfying, ordering, ranking"
 msgstr ""
 
 #. type: document
-#: documentation.tex:716
+#: documentation.tex:720
 msgid ""
 "\\textit{The second kind of game that can be created with Xia consists in "
 "dragging and dropping graphical elements on the background image. If all the "
@@ -1330,85 +1331,96 @@ msgid ""
 msgstr ""
 
 #. type: links
-#: documentation.tex:720
+#: documentation.tex:724
 msgid ""
 "Explore the \\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia5}"
 "{interactive image} created for this section of the documentation."
 msgstr ""
 
 #. type: links
-#: documentation.tex:724
+#: documentation.tex:728
 msgid ""
 "Download the \\href {http://xia.dane.ac-versailles.fr/demo/tuto/xia5/svg/"
 "xia5.svg}{svg} source file."
 msgstr ""
 
 #. type: document
-#: documentation.tex:739
+#: documentation.tex:743
 msgid ""
 "This is how you can create a game based on the drag and drop principle :"
 msgstr ""
 
 #. type: enumerate
-#: documentation.tex:739
+#: documentation.tex:743
 msgid "In Inkscape:"
 msgstr ""
 
 #. type: itemize
-#: documentation.tex:739
-msgid "Choose a background picture"
+#: documentation.tex:743
+msgid "Choose and import a background picture"
 msgstr ""
 
 #. type: itemize
-#: documentation.tex:739
+#: documentation.tex:743
 msgid ""
 "Create the graphical elements the users of the interactive image will have "
-"to drag and drop (ie. images or group of words)"
+"to drag and drop (ie. images or group of words: see below for a how-to)"
 msgstr ""
 
 #. type: itemize
-#: documentation.tex:739
+#: documentation.tex:743
 msgid ""
 "Create the instruction pop up in \\softmenu{File $\\rightarrow$ Metadata of "
 "the document $\\rightarrow$ Description}"
 msgstr ""
 
 #. type: footnote{#2}
-#: documentation.tex:739
+#: documentation.tex:743
 msgid "Exactly as in the game1clic template."
 msgstr ""
 
 #. type: itemize
-#: documentation.tex:739
+#: documentation.tex:743
 msgid ""
 "Using metadata, make each label match its drop zone (actually being cropped "
 "details)"
 msgstr ""
 
 #. type: enumerate
-#: documentation.tex:739
+#: documentation.tex:743
 msgid "In Xia"
 msgstr ""
 
 #. type: itemize
-#: documentation.tex:739
-msgid "Export the svg source file using the \"gameDragAndDrop\" template"
+#: documentation.tex:743
+msgid ""
+"Export the svg source file using the \\softmenu{gameDragAndDrop} template"
 msgstr ""
 
 #. type: document
-#: documentation.tex:745
+#: documentation.tex:748
 msgid ""
 "Two methods can be used to create the drag and drop \"graphical-elements\".  "
 "A very simple way is to use a screenshot tool, in order to create png files, "
 "and then import them in Inkscape.  It is also possible to create these "
 "elements directly in Inkscape, by creating a text, grouping it with a shape, "
-"and finally making a bitmap copy of this group.  The graphical elements then "
-"have to be associated with their drop zone \\footnote{\\textbf{One} object "
-"can only match \\textbf{one} drop zone.}."
+"and finally making a bitmap copy of this group (\\softmenu{Edition $"
+"\\rightarrow$ Make a bitmap copy})"
 msgstr ""
 
 #. type: document
-#: documentation.tex:748
+#: documentation.tex:755
+msgid ""
+"The graphical elements then have to be associated with their drop zone "
+"\\footnote{\\textbf{One} object can only match \\textbf{one} drop zone.}. In "
+"order to do that, make the \\softmenu{ID} field of the drop zone match the "
+"\\softmenu{Description} field of the drag and drop graphical element.  The "
+"only subtlety consists in the \\verb|<target></target>| tags which have to "
+"be filled in the \\softmenu {Description} field."
+msgstr ""
+
+#. type: document
+#: documentation.tex:758
 msgid ""
 "You will find in the table \\ref{tag2_sumup} an abstract of the metadata to "
 "be filled in the \\softmenu{Object Properties} of the drag and drop "
@@ -1416,72 +1428,76 @@ msgid ""
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:762
+#: documentation.tex:772
 msgid "Graphical element (drag and drop objects in the game)"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:762
+#: documentation.tex:772
 msgid "Cropped detail (drop zone)"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:762
+#: documentation.tex:772
 msgid "ID Field"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:762
+#: documentation.tex:772
 msgid "\\verb|Detail_Title|"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:762
+#: documentation.tex:772
 msgid "Description Field"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:762
+#: documentation.tex:772
 msgid "\\verb|<target>Detail_Title</target>|"
 msgstr ""
 
 #. type: caption{#2}
-#: documentation.tex:762
+#: documentation.tex:772
 msgid "Sum up of tags in the gameDragAndDrop template"
 msgstr ""
 
 #. type: document
-#: documentation.tex:774
+#: documentation.tex:779
 msgid ""
-"Make the graphical elements match the drop zones by making the "
-"\\softmenu{ID} field of the drop zone match the \\softmenu{Description} "
-"field of the drag and drop graphical element.  The only subtlety consists in "
-"the \\verb|<target></target>| tags which have to be filled in the \\softmenu "
-"{Description} field."
-msgstr ""
-
-#. type: document
-#: documentation.tex:776
-msgid ""
-"Choose the template \\softmenu{gameDragAndDrop} to generate the interactive "
-"image."
+"Once your svg source file is created, choose the template "
+"\\softmenu{gameDragAndDrop} to generate the interactive image."
 msgstr ""
 
 #. type: subsection{#2}
-#: documentation.tex:778
+#: documentation.tex:781
 msgid "Third game principle: collisions"
 msgstr ""
 
 #. type: document
-#: documentation.tex:782
+#: documentation.tex:785
 msgid ""
 "\\textit{The game principle described in this section consists in moving "
 "objects within bounds you defined. Typically, the \"collisions\" game "
 "principle can be used to create mazes or gem puzzle.}"
 msgstr ""
 
+#. type: links
+#: documentation.tex:789
+msgid ""
+"Explore the \\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia6/}"
+"{interactive image} created for this section of the documentation."
+msgstr ""
+
+#. type: links
+#: documentation.tex:793
+msgid ""
+"Download the \\href {http://xia.dane.ac-versailles.fr/demo/tuto/xia6/svg/"
+"xia6.svg}{svg} source file."
+msgstr ""
+
 #. type: document
-#: documentation.tex:786
+#: documentation.tex:797
 msgid ""
 "In order to create this kind of game, add the tag \\verb|<collisions>on</"
 "collisions>| to the background image. All the details will then become solid "
@@ -1490,7 +1506,7 @@ msgid ""
 msgstr ""
 
 #. type: document
-#: documentation.tex:791
+#: documentation.tex:802
 msgid ""
 "The \"collision\" game is in fact a gameDragAndDrop game, since the goal "
 "remains to drag one or several objects and drop them somewhere on the "
@@ -1503,19 +1519,19 @@ msgid ""
 msgstr ""
 
 #. type: subsection{#2}
-#: documentation.tex:793
+#: documentation.tex:804
 msgid ""
 "\\emph{Advanced interactive games creation tips}: Magnet effect, tooltips, "
 "double-scoring\\ldots"
 msgstr ""
 
 #. type: subsubsection{#2}
-#: documentation.tex:795
+#: documentation.tex:806
 msgid "Showing the player's score (game1clic template)"
 msgstr ""
 
 #. type: document
-#: documentation.tex:808
+#: documentation.tex:819
 msgid ""
 "It is possible to display graphical elements automatically when the user "
 "selects the correct answer. These elements can be png imported images or "
@@ -1526,25 +1542,25 @@ msgid ""
 msgstr ""
 
 #. type: enumerate
-#: documentation.tex:808
+#: documentation.tex:819
 msgid ""
 "Draw a star with yellow sides on a yellow background with the Inkscape tools"
 msgstr ""
 
 #. type: enumerate
-#: documentation.tex:808
+#: documentation.tex:819
 msgid ""
 "Select this star, and click on the \\softmenu{Edition $\\rightarrow$ Make a "
 "bitmap copy}"
 msgstr ""
 
 #. type: enumerate
-#: documentation.tex:808
+#: documentation.tex:819
 msgid "Delete the first star"
 msgstr ""
 
 #. type: document
-#: documentation.tex:818
+#: documentation.tex:829
 msgid ""
 "When the graphical elements are imported (png files) or created (bitmap copy "
 "of shapes created manually), just apply the following carasteristics to "
@@ -1552,12 +1568,12 @@ msgid ""
 msgstr ""
 
 #. type: center
-#: documentation.tex:818
+#: documentation.tex:829
 msgid "\\softmenu{Interactivity > OnClick} = \\verb|off|"
 msgstr ""
 
 #. type: document
-#: documentation.tex:818
+#: documentation.tex:829
 msgid ""
 "Then, group the clickable detail to its graphical element (by successively "
 "clicking on the detail and the graphical element with the \\Shift keystroke "
@@ -1565,12 +1581,12 @@ msgid ""
 msgstr ""
 
 #. type: subsubsection{#2}
-#: documentation.tex:820
+#: documentation.tex:831
 msgid "Showing the player's mistakes (game1clic template)"
 msgstr ""
 
 #. type: document
-#: documentation.tex:825
+#: documentation.tex:836
 msgid ""
 "Games based on the details selection principle are obviously very "
 "interesting educational games\\ldots but it is also quite obvious to guess "
@@ -1580,14 +1596,14 @@ msgid ""
 msgstr ""
 
 #. type: document
-#: documentation.tex:828
+#: documentation.tex:839
 msgid ""
 "This is why it may be interesting to be able to highlight the user's "
 "mistakes during the game."
 msgstr ""
 
 #. type: document
-#: documentation.tex:839
+#: documentation.tex:850
 msgid ""
 "To do so, you will anticipate the user's probable mistakes, and put explicit "
 "graphical elements symbolizing these errors on the background image.  This "
@@ -1598,12 +1614,12 @@ msgid ""
 msgstr ""
 
 #. type: center
-#: documentation.tex:839
+#: documentation.tex:850
 msgid "\\softmenu{Interactivity > OnClick} = \\verb|disable-score|"
 msgstr ""
 
 #. type: document
-#: documentation.tex:839
+#: documentation.tex:850
 msgid ""
 "When applied with a \\verb|disable-score| tag, a detail still remains "
 "clickable, but does not add a score to the counter that delivers the final "
@@ -1611,12 +1627,12 @@ msgid ""
 msgstr ""
 
 #. type: subsubsection{#2}
-#: documentation.tex:842
+#: documentation.tex:853
 msgid "How to add a \"magnet\" effect (gameDragAndDrop template)"
 msgstr ""
 
 #. type: document
-#: documentation.tex:845
+#: documentation.tex:856
 msgid ""
 "If you indicate \\verb|<magnet>on</magnet>| in the \\softmenu{Description} "
 "field of the drop zone, a magnet effect will then be active when the player "
@@ -1624,12 +1640,12 @@ msgid ""
 msgstr ""
 
 #. type: subsubsection{#2}
-#: documentation.tex:847
+#: documentation.tex:858
 msgid "Links on drop zones (gameDragAndDrop template)"
 msgstr ""
 
 #. type: document
-#: documentation.tex:851
+#: documentation.tex:862
 msgid ""
 "You can insert links in the \\softmenu{Title} field of the \\softmenu{Object "
 "Properties} of the drop zones. The user can then open the link by clicking "
@@ -1637,12 +1653,12 @@ msgid ""
 msgstr ""
 
 #. type: subsubsection{#2}
-#: documentation.tex:854
+#: documentation.tex:865
 msgid "Tooltips (game1clic and gameDragAndDrop templates)"
 msgstr ""
 
 #. type: document
-#: documentation.tex:864
+#: documentation.tex:875
 msgid ""
 "It is possible to display tooltips of details on mouse-over. To do so, "
 "create the tooltip with a png imported file or a bitmap copy (see section "
@@ -1657,19 +1673,19 @@ msgid ""
 msgstr ""
 
 #. type: document
-#: documentation.tex:871
+#: documentation.tex:882
 msgid ""
 "Note that the tooltip tool is available in the game1clic and in the "
 "gameDragAndDrop templates.\\\\"
 msgstr ""
 
 #. type: subsubsection{#2}
-#: documentation.tex:874
+#: documentation.tex:885
 msgid "Double scoring (game1clic and gameDragAndDrop templates)"
 msgstr ""
 
 #. type: document
-#: documentation.tex:883
+#: documentation.tex:894
 msgid ""
 "If you indicate \\verb|score2| in the \\softmenu{onclick} field "
 "(\\softmenu{Object Properties $\\rightarrow$ Interactivity}) of the detail, "
@@ -1681,7 +1697,7 @@ msgid ""
 msgstr ""
 
 #. type: document
-#: documentation.tex:891
+#: documentation.tex:902
 msgid ""
 "For example, you can create a game with 3 details tagged with "
 "\\texttt{score2} (corresponding to mistakes), and indicate in the "
@@ -1692,247 +1708,247 @@ msgid ""
 msgstr ""
 
 #. type: document
-#: documentation.tex:896
+#: documentation.tex:907
 msgid ""
 "These tables sum up the tags that have to be indicated when a game is "
 "created:"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958
+#: documentation.tex:969
 msgid "\\multicolumn{3}{|l|}{\\softmenu{game1clic} template}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958 documentation.tex:1013
+#: documentation.tex:969 documentation.tex:1024
 msgid "\\multicolumn{3}{|l|}{\\texttt{<score></score>}}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958 documentation.tex:1013
+#: documentation.tex:969 documentation.tex:1024
 msgid "\\emph{Role}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958 documentation.tex:1013
+#: documentation.tex:969 documentation.tex:1024
 msgid ""
 "Sets the amount of correct answers needed to pop up the end message of the "
 "game"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958 documentation.tex:1013
+#: documentation.tex:969 documentation.tex:1024
 msgid "\\emph{Element}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958 documentation.tex:1013
+#: documentation.tex:969 documentation.tex:1024
 msgid "Background picture"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958 documentation.tex:1013
+#: documentation.tex:969 documentation.tex:1024
 msgid "\\emph{Where ?}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958 documentation.tex:1013
+#: documentation.tex:969 documentation.tex:1024
 msgid "\\softmenu{Object properties $\\rightarrow$ Description}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958 documentation.tex:1013
+#: documentation.tex:969 documentation.tex:1024
 msgid "\\emph{What ?}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958 documentation.tex:1013
+#: documentation.tex:969 documentation.tex:1024
 msgid "A number corresponding to the required score"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958
+#: documentation.tex:969
 msgid "\\multicolumn{3}{|l|}{\\texttt{<message></message>}}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958 documentation.tex:1013
+#: documentation.tex:969 documentation.tex:1024
 msgid "Pops up the end message of the game"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958 documentation.tex:1013
+#: documentation.tex:969 documentation.tex:1024
 msgid ""
 "A personalized message if necessary enriched with multimedia or html links"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958
+#: documentation.tex:969
 msgid "\\multicolumn{3}{|l|}{\\texttt{off}}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958
+#: documentation.tex:969
 msgid "Makes a cropped detail unclickable"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958
+#: documentation.tex:969
 msgid "Detail"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958
+#: documentation.tex:969
 msgid ""
 "\\softmenu{Object properties $\\rightarrow$ Interactivity $\\rightarrow$ "
 "Onclick}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958
+#: documentation.tex:969
 msgid "\\multicolumn{3}{|l|}{\\texttt{disable-score}}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958
+#: documentation.tex:969
 msgid ""
 "Makes a cropped detail clickable, but when clicked, does not add a point to "
 "the score game counter"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958
+#: documentation.tex:969
 msgid "\\multicolumn{3}{|l|}{\\texttt{score2}}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958
+#: documentation.tex:969
 msgid "Makes a detail add a score to the score2 counter"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958 documentation.tex:1013
+#: documentation.tex:969 documentation.tex:1024
 msgid "\\multicolumn{3}{|l|}{\\texttt{<tooltip></tooltip>}}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958 documentation.tex:1013
+#: documentation.tex:969 documentation.tex:1024
 msgid "Displays a tooltip when moused-over"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958 documentation.tex:1013
+#: documentation.tex:969 documentation.tex:1024
 msgid "Make sure to match the ID of the element used as tooltip"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958
+#: documentation.tex:969
 msgid "\\multicolumn{3}{|l|}{\\texttt{<score2></score2>}}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958
+#: documentation.tex:969
 msgid ""
 "Sets the amount of correct answers needed to pop up the second end message "
 "in a double scoring game"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958
+#: documentation.tex:969
 msgid "\\multicolumn{3}{|l|}{\\texttt{<message2></message2>}}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:958
+#: documentation.tex:969
 msgid "Pops up the second end message in a double scoring game"
 msgstr ""
 
 #. type: caption{#2}
-#: documentation.tex:958
+#: documentation.tex:969
 msgid "Complete game1clic tags"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:1013
+#: documentation.tex:1024
 msgid "\\multicolumn{3}{|l|}{\\softmenu{gameDragAndDrop} template}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:1013
+#: documentation.tex:1024
 msgid "\\multicolumn{3}{|l|}{\\texttt{<message></message>} }"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:1013
+#: documentation.tex:1024
 msgid "\\multicolumn{3}{|l|}{\\texttt{<target></target>}}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:1013
+#: documentation.tex:1024
 msgid "Indicates the corresponding drag and drop element and drop zone"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:1013
+#: documentation.tex:1024
 msgid "Graphical element to move"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:1013
+#: documentation.tex:1024
 msgid "\\softmenu{Object Properties $\\rightarrow$ Description}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:1013
+#: documentation.tex:1024
 msgid "Make sure to match the ID field of the drop zone"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:1013
+#: documentation.tex:1024
 msgid "\\multicolumn{3}{|l|}{\\texttt{<magnet>on</magnet>}}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:1013
+#: documentation.tex:1024
 msgid "Adds a \"magnet\" effect"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:1013
+#: documentation.tex:1024
 msgid "Drop zone"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:1013
+#: documentation.tex:1024
 msgid "\\multicolumn{3}{|l|}{\\texttt{<collisions>on</collisions>}}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:1013
+#: documentation.tex:1024
 msgid "Activates the \"collisions\" game principle"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:1013
+#: documentation.tex:1024
 msgid "\\multicolumn{3}{|l|}{\\texttt{<collisions>off</collisions>}}"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:1013
+#: documentation.tex:1024
 msgid "Creates a drop zone in a \"collisions\" game"
 msgstr ""
 
 #. type: tabular
-#: documentation.tex:1013
+#: documentation.tex:1024
 msgid "Drop zone, Graphical element to move"
 msgstr ""
 
 #. type: caption{#2}
-#: documentation.tex:1013
+#: documentation.tex:1024
 msgid "Complete gameDragAndDrop tags"
 msgstr ""
 
 #. type: document
-#: documentation.tex:1016
+#: documentation.tex:1027
 msgid "\\listoffigures \\listoftables"
 msgstr ""

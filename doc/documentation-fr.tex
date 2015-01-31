@@ -295,7 +295,7 @@ aBlack] (params) {\includegraphics[scale=.35]{./images/params}}; \node[left
   
   \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Sélection
 du fichier source svg}; \node[box, above = 5mm of params] (paramsC)
-{Sélectionner la qualité de l'export (voir l'illustration
+{Définition des options d'exportation (voir l'illustration
 \ref{xia_export_options})}; \node[box,above right = 5mm of aCloud.north
 east] (aBlackC)
 {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/accordionBlack}{accordionBlack}\\ 
@@ -418,7 +418,8 @@ fait que convertir ce fichier source svg en animation html5;
  \item Le titre de l'image interactive doit être renseigné dans les
 \softmenu{Métadonnées du document};
  \item Le texte des détails est renseigné dans les \softmenu{Propriétés de
-l'objet}, dans les champs \softmenu{Titre} et \softmenu{Description};
+l'objet}, dans les champs \softmenu{Titre} et \softmenu{Description} des
+détails détourés;
  \item La description générale de l'image interactive doit être renseignée dans les
 \softmenu{Propriétés de l'objet} de l'image de fond.
 \end{enumerate}
@@ -477,13 +478,14 @@ local\footnote{Lien qui ne fonctionnera pas ici!}}}; \node[anchor=north
 west, below = .8cm of relativelinks] (bullets)
 {\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
 -7mm of bullets] (bulletsT) {Faire une liste \\ $\ast$ de puces \\ $\ast$
-sur \\ ~$\ast$ 2 niveaux}; \node[box, right = 3.5cm of bullets.south east]
-(bulletsR) {Faire une liste \begin{itemize} \item de puces \item sur
-\begin{itemize} \item 2 niveaux \end{itemize} \end{itemize} };
-\node[anchor=north west, below = 2cm of bullets] (line)
-{\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
-7mm of line.north] (lineT) {Tracer \\ - - - - \\ un trait}; \node[box, right
-= 3.5cm of line] (lineR) {Tracer \\ \hrulefill \\ un trait};
+sur \\ ~$\ast$ 2 niveaux\footnote{Insérez un \Spacebar (espace) avant les
+$\ast$}}; \node[box, right = 3.5cm of bullets.south east] (bulletsR) {Faire
+une liste \begin{itemize} \item de puces \item sur \begin{itemize} \item 2
+niveaux \end{itemize} \end{itemize} }; \node[anchor=north west, below = 3cm
+of bullets] (line) {\includegraphics[scale=.5]{./images/Description}};
+\node[descrip, below = 7mm of line.north] (lineT) {Tracer \\ - - - - \\ un
+trait}; \node[box, right = 3.5cm of line] (lineR) {Tracer \\ \hrulefill \\ 
+un trait};
 \end{tikzpicture}
 \caption{Balises de mise en forme du texte}
 \label{xia_text_tags}
@@ -503,7 +505,8 @@ celle-ci (image, son, vidéo) fasse partie des formats supportés:
 \end{description}
 
 Le lien doit être inséré dans le champ \softmenu{Description} des
-\softmenu{Propriétés de l'objet}:
+\softmenu{Propriétés de l'objet}.
+
 \begin{description}
  \item[Lien absolu] Si l'url de la ressource est
  
@@ -529,20 +532,17 @@ se trouve dans le répertoire d'exportation. On peut aussi utiliser
 parent.
 \end{description}
 
-Tous les formats vidéos supportés par Xia ne sont cependant pas supportés
-nativement par tous les navigateurs web. Il est recommandé d'exporter les
-vidéos dans les 3 formats supportés par Xia, et de les déposer dans un seul
-et même répertoire (la seule différence entre ces trois vidéos étant donc
-leur extension).\\
-
-
-
-
+\begin{tip}
 Ainsi, même si un format particulier est renseigné dans la description (si
 l'on suit l'exemple précédent, ce serait \verb|videos/video.ogv|), si le
 navigateur web est incapable de lire la ressource, il tentera
 automatiquement de lire les fichiers possédant le même nom mais une
-extension différente.
+extension différente. Même si un format spécifique est renseigné dans la
+description (si l'on suit l'exemple précédent: \verb|videos/video.ogv|), si
+le navigateur est incapable de lire la ressource, il cherchera
+automatiquement à lire les fichiers du même nom mais possédant une extension
+différente (c'est à dire, \verb|video.mp4| et \verb|video.webm|).
+\end{tip}
 
 La dernière possibilité consiste à insérer un code iframe. Celui-ci sera
 interprété et le lecteur du service web apparaîtra, donnant accès à la
@@ -664,7 +664,8 @@ XML}, situé dans le menu \softmenu{Édition}.
 
 A priori complexe, cette fenêtre de dialogue est en réalité assez simple à
 utiliser: en sélectionnant une entrée de l'éditeur XML, le détail
-correspondant à celle-ci sera mis en évidence sur l'image. Il ne reste plus 
+correspondant à celle-ci sera mis en évidence sur l'image. Il ne reste plus
+qu'à glisser-déposer l'entrée à l'endroit désiré:\\
 
 \begin{center}
  \includegraphics[width=\textwidth]{images/layerorder}\\
@@ -681,7 +682,7 @@ l'image de fond par simple sélection dans l'éditeur.
  \item L'enrichissement multimédia est possible par simple lien (relatif ou absolu)
 vers un fichier dont le format est reconnu par Xia
  \item On ajoute des images sur l'image de fond en les incorporant et en leur
-appliquant un fond blanc
+appliquant un fond blanc.
  \item On peut modifier le comportement par défaut des détails en leur appliquant
 une couleur de fond (blanc ou noir)
  \item L'ordre des détails de l'image interactive dépend de l'ordre de leur
@@ -731,8 +732,8 @@ aBlack] (params) {\includegraphics[scale=.35]{./images/params}}; \node[left
   
   \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Sélection
 du fichier source au formation svg}; \node[box, above = 5mm of params]
-(paramsC) {Sélection de la qualité de l'export}; \node[box, right = 5mm of
-guClic] (guClicC)
+(paramsC) {Définition des options d'exportation (voir l'illustration
+\ref{xia_export_options})}; \node[box, right = 5mm of guClic] (guClicC)
 {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia3}{game1clic}\\ 
 Sélectionner des détails sur une image de fond \\ Tutoriel dans la rubrique
 \ref{game1clicsection}}; \node[box, left = 25mm of bBlue] (aBrownC)
@@ -822,8 +823,8 @@ par degré de difficulté.
   \includegraphics[scale=0.7]{./images/game1clic} 
 \end{wrapfigure}
 
-Choisir le modèle d'export \softmenu{game1clic} pour générer l'image
-interactive.
+Une fois votre fichier svg préparé, choisir le modèle d'export
+\softmenu{game1clic} pour générer l'image interactive.
 
 \subsection{Second principe ludique: classer, organiser, hiérarchiser}\label{gameDragAndDropsection}
 
@@ -844,10 +845,10 @@ Voici comment créer un jeu basé sur le principe du glisser-déposer:
 \begin{enumerate}
  \item Dans Inkscape:
 \begin{itemize}
- \item Choisir une image de fond
+ \item Choisir et importer une image de fond
  \item Créer les éléments que les utilisateurs de votre image interactive auront à
 déplacer et à déposer (autrement dit: des images, des mots ou groupes de
-mots)
+mots: voir ci-dessous les explications)
  \item Créer la fenêtre surgissante de consignes en éditant les informations du
 champ \softmenu{Fichier $\rightarrow$ Métadonnées du document $\rightarrow$
 Description}\footnote{Exactement comme dans le jeu game1clic}
@@ -856,7 +857,8 @@ zone de dépôt (ces zones de dépôts étant en réalité des détails détour�
 \end{itemize}
  \item Dans Xia
  \begin{itemize}
-  \item Exporter le fichier source au format svg avec le modèle «~gameDragAndDrop~»
+  \item Exporter le fichier source au format svg avec le modèle
+\softmenu{gameDragAndDrop}
  \end{itemize}
 \end{enumerate}
 
@@ -866,9 +868,18 @@ un utilitaire de capture d'écran capable de créer des petites images au
 format png, puis d'importer celles-ci dans Inkscape. Il est également
 possible de créer ces éléments directement dans Inkscape. Par exemple, en
 créant un texte, en regroupant ce texte avec une forme puis en faisant une
-copie bitmap de cet ensemble. Les éléments à déplacer doivent être associés
-à leur zone de dépôt \footnote{\textbf{Un} objet ne pouvant être associé
-qu'à \textbf{une} zone de dépôt.}.
+copie bitmap de cet ensemble (\softmenu{Édition $\rightarrow$ Créer une
+copie bitmap}).
+
+
+Les éléments à déplacer doivent être associés à leur zone de dépôt
+\footnote{\textbf{Un} objet ne pouvant être associé qu'à \textbf{une} zone
+de dépôt.}. Pour faire cela, il faut «~jumeler~» les éléments à
+glisser-déposer avec leur zone de dépôt en faisant correspondre le champ
+\softmenu{ID} de la zone de dépôt au champ \softmenu{Description} de
+l'élément à glisser déposer. La seule subtilité tient dans la balise
+\verb|<target></target>| devant être indiquée dans la
+\softmenu{Description}.
 
 Vous trouverez dans le tableau \ref{tag2_sumup} un résumé des balises à
 renseigner dans les \softmenu{Propriétés de l'objet} des éléments à déplacer
@@ -893,15 +904,8 @@ Champ description & \verb|<target>Titre_du_détail</target>| & \\
   \includegraphics[scale=0.7]{./images/gameDragAndDrop} 
 \end{wrapfigure}
 
-
-Il faut donc «~jumeler~» les éléments à glisser-déposer avec leur zone de
-dépôt en faisant correspondre le champ \softmenu{ID} de la zone de dépôt au
-champ \softmenu{Description} de l'élément à glisser déposer. La seule
-subtilité tient dans la balise \verb|<target></target>| devant être indiquée
-dans la \softmenu{Description}.
-
-Choisissez le modèle \softmenu{gameDragAndDrop} pour générer l'image
-interactive.
+Une fois votre fichier svg préparé, choisir le modèle
+\softmenu{gameDragAndDrop} pour générer l'image interactive.
 
 \subsection{Troisième principe ludique: les collisions}
 
@@ -910,6 +914,14 @@ joueur doit déplacer des éléments vers des zones de dépôt, mais les
 déplacements de ces éléments ne peuvent avoir lieu que dans certaines
 limites. Le jeu de type «~collisions~» peut ainsi être utilisé pour créer
 des labyrinthes, des taquins.}
+
+\begin{links}
+Visualisez l'\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia6}{image
+interactive} créée pour cette partie de la documentation.
+
+Téléchargez le fichier source au format
+\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia6/svg/xia6.svg}{svg}.
+\end{links}
 
 Pour créer ce type de jeu, ajoutez la balise
 \verb|<collisions>on</collisions>| à l'image de fond. Une fois cela fait,

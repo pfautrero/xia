@@ -237,12 +237,12 @@ dedicate a specific directory for each exported image}.
   
   %comments
   \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the svg source file};
-  \node[box, above = 5mm of params] (paramsC) {Select the quality of the export (see figure \ref{xia_export_options})};
+  \node[box, above = 5mm of params] (paramsC) {Define the options of the export (see figure \ref{xia_export_options})};
   \node[box,above right = 5mm of aCloud.north east] (aBlackC) {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/accordionBlack}{accordionBlack}\\ Large comment zone, suitable for the insertion of multimedia resources; to be used with vertical images (portrait)};
   \node[box, right = 5mm of guClic] (aCloudC) {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/accordionCloud}{accordionCloud}\\ Narrow comment zone, with more space for the image itself ; to be used with horizontal images (landscape)};
   \node[box, below right = 5mm of pYellow] (pYellowC) {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/popYellow}{popYellow}\\ No lateral comment zone ; 
 a first click on the detail reveals it, and a second one simultaneously unveils 
-the comment and the zoom function zooms in the detail};
+the comment and triggers the zoom function};
   \node[box, left = 25mm of bBlue] (bBlueC) {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/buttonBlue}{buttonBlue}\\ No lateral comment zone ; 
 comments appear above the image (suitable for long comments) ; the users access  
 the comments through icons placed above the interactive image};
@@ -277,8 +277,13 @@ a first click on the detail reveals it, and a second one pops up the comment
   
   %comments
   \node[box, text width=2.5cm, left = 5mm of exp_qual] (exp_qualC) {Select the quality of the export on a scale from 1 to 4};
-  \node[box, above right = 5mm of exp_firefox] (exp_firefoxC) {Activate or Deactivate the creation of the FirefoxOS files (default: deactivated};
-  \node[box, right = 5mm of exp_1file] (exp_1fileC) {In the unique file configuration, you will need an internet connection to access the resource. The xia engine used in the unique file configuration is hosted on Versailles academy servers and is automatically updated. In this configuration, you can not control the background image and icons (default: deactivated};
+  \node[box, above right = 5mm of exp_firefox] (exp_firefoxC) {Activate or Deactivate the 
+  creation of the FirefoxOS files (default: deactivated)};
+  \node[box, right = 5mm of exp_1file] (exp_1fileC) {In the unique file configuration,
+  you will need an internet connection to access the resource. The xia engine
+  used in the unique file configuration is hosted on Versailles academy servers
+  and is automatically updated. In this configuration, you can not control the 
+  background image and icons (default: deactivated)};
 
   %arrows
   \draw[-stealth] (exp_qualC.east) -- (exp_qual.west);
@@ -347,8 +352,8 @@ and choose your template and destination folder.
  converts the svg source file into an html5 animation ;
  \item The title of the interactive image must be indicated in the \softmenu{Metadata of 
 the document} ;
- \item The text of the details is filled in the \softmenu{Object properties}, 
- in the \softmenu{Title} and \softmenu{Description} fields ;
+ \item The text of the details must be filled in the \softmenu{Object properties}, 
+ in the \softmenu{Title} and \softmenu{Description} fields of the cut out details ;
  \item The general description of the interactive image must be indicated in the \softmenu
 {Object properties} of the background image.
 \end{enumerate}
@@ -388,10 +393,10 @@ In order to insert formatted text, the tags described in figure \ref{xia_text_ta
   \node[descrip, below = 7mm of link.north] (linkT) {A link to \verb![https://www.wikipedia.org/ Wikipedia]!};
   \node[box, right = 3.5cm of link] (linkR) {A link to \href{https://www.wikipedia.org/}{Wikipedia}}; 
   \node[anchor=north west, below = .2cm of link] (relativelinks) {\includegraphics[scale=.5]{./images/Description}};
-  \node[descrip, below = -7mm of relativelinks] (relativelinksT) {A link to a \verb![../folder/file.pdf local file]!};
+  \node[descrip, below = -7mm of relativelinks] (relativelinksT) {A link to a \verb![/home/foo/bar.pdf local file]!};
   \node[box, right = 3.5cm of relativelinks] (relativelinksR) {A link to a \href{/home/foo/bar.pdf}{local file\footnote{That does not work on your computer!}}};
   \node[anchor=north west, below = .8cm of relativelinks] (bullets) {\includegraphics[scale=.5]{./images/Description}};
-  \node[descrip, below = -7mm of bullets] (bulletsT) {Making a list \\ $\ast$ of bullets \\  $\ast$ out of \\ ~$\ast$ 2 levels};
+  \node[descrip, below = -7mm of bullets] (bulletsT) {Making a list \\ $\ast$ of bullets \\  $\ast$ out of \\ ~$\ast$ 2 levels\footnote{Insert a \Spacebar (space) before the $\ast$}};
   \node[box, right = 3.5cm of bullets.south east] (bulletsR) {Making a list 
       \begin{itemize}
        \item of bullets
@@ -399,8 +404,8 @@ In order to insert formatted text, the tags described in figure \ref{xia_text_ta
        \begin{itemize}
          \item2 levels
        \end{itemize}
-      \end{itemize} };
-  \node[anchor=north west, below = 2cm of bullets] (line) {\includegraphics[scale=.5]{./images/Description}};
+      \end{itemize}};
+  \node[anchor=north west, below = 3cm of bullets] (line) {\includegraphics[scale=.5]{./images/Description}};
   \node[descrip, below = 7mm of line.north] (lineT) {Drawing \\ - - - - \\ a line};
   \node[box, right = 3.5cm of line] (lineR) {Drawing \\ \hrulefill \\ a line};
 \end{tikzpicture}
@@ -420,7 +425,8 @@ the resource (image, sound or video) matches its supported formats:
  \item [Video] ogv, webm, mp4
 \end{description}
 
-The link has to be inserted into the \softmenu{Description} field of the \softmenu{Object Properties}:
+The link has to be inserted into the \softmenu{Description} field of the \softmenu{Object Properties}.
+
 \begin{description}
  \item[Absolute link] If the resource url is
  
@@ -446,19 +452,17 @@ The link has to be inserted into the \softmenu{Description} field of the \softme
   that the resource is located in a parent folder.
 \end{description}
 
+\begin{tip}
 Since video formats supported by Xia are not natively supported by every web 
 browsers, it is recommanded to export videos into the 3 supported formats, 
 and to upload them into a single folder (from there, the only difference 
-between these files is their extension (ie. .ogv or .mp4 or .webm).\\
-
-
-
-
+between these files is their extension, ie. .ogv or .mp4 or .webm).
 Even if a particular format is indicated in the description (following 
 the previous example : \verb|videos/video.ogv|), if the browser is 
 unable to read the resource, it will automatically attempt to read the files 
 of the same name possessing a different extension (ie. \verb|video.mp4| 
 then \verb|video.webm|).
+\end{tip}
 
 The last option is to insert an iframe tag.
 It will be interpreted and the reader will appear in the comment, 
@@ -582,7 +586,7 @@ in the editor and on the background image by a single mouse click.
  \item You can enrich and shaping text using tags
  \item A multimedia enrichment is possible through a simple link (relative
 or absolute) to a file whose format is recognized by Xia
- \item Adding images to the background image is possible by importing them
+ \item Adding images to the background image is possible by importing them and applying them a white background
  \item It is possible to modify the default behavior of a detail by changing its color 
 background (white, black)
  \item The order of the details in the interactive image depends on the order
@@ -623,7 +627,7 @@ has much more to do than simply clicking on details in order to read the comment
   
   %comments
   \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the svg source file};
-  \node[box, above = 5mm of params] (paramsC) {Select the quality of the export};
+  \node[box, above = 5mm of params] (paramsC) {Define the options of the export (see figure \ref{xia_export_options})};
   \node[box, right = 5mm of guClic] (guClicC) {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia3}{game1clic}\\ 
   selecting details on a background image \\ How-to in section \ref{game1clicsection}};
   \node[box, left = 25mm of bBlue] (aBrownC) {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia4}{audioBrown} \\ creation of interactive images in
@@ -705,7 +709,7 @@ in order to "chain" activities up by degree of difficulty.
   \includegraphics[scale=0.7]{./images/game1clic} 
 \end{wrapfigure}
 
-Choose the template \softmenu{game1clic} to generate the interactive image.
+Once your svg source file is created, choose the template \softmenu{game1clic} to generate the interactive image.
 
 \subsection{Second game principle: classyfying, ordering, ranking}\label{gameDragAndDropsection}
 
@@ -726,22 +730,28 @@ This is how you can create a game based on the drag and drop principle :
 \begin{enumerate}
  \item In Inkscape:
 \begin{itemize}
- \item Choose a background picture
- \item Create the graphical elements the users of the interactive image will have to drag and drop (ie. images or group of words)
+ \item Choose and import a background picture
+ \item Create the graphical elements the users of the interactive image will have to drag and drop (ie. images or group of words: see below for a how-to)
  \item Create the instruction pop up in \softmenu{File $\rightarrow$ Metadata of the document $\rightarrow$ Description}\footnote{Exactly as in the game1clic template.}
  \item Using metadata, make each label match its drop zone (actually being cropped details)
 \end{itemize}
  \item In Xia
  \begin{itemize}
-  \item Export the svg source file using the "gameDragAndDrop" template
+  \item Export the svg source file using the \softmenu{gameDragAndDrop} template
  \end{itemize}
 \end{enumerate}
 
 Two methods can be used to create the drag and drop "graphical-elements".
 A very simple way is to use a screenshot tool, in order to create png files, and then import them in Inkscape.
 It is also possible to create these elements directly in Inkscape, by creating a text, grouping it with a shape,
-and finally making a bitmap copy of this group.
-The graphical elements then have to be associated with their drop zone \footnote{\textbf{One} object can only match \textbf{one} drop zone.}.
+and finally making a bitmap copy of this group (\softmenu{Edition $\rightarrow$ Make a bitmap copy})
+
+
+The graphical elements then have to be associated with their drop zone \footnote{\textbf{One} object
+can only match \textbf{one} drop zone.}. In order to do that, make the \softmenu{ID} field of the drop zone match
+the \softmenu{Description} field of the drag and drop graphical element. 
+The only subtlety consists in the  \verb|<target></target>| tags which have to be filled in the \softmenu
+{Description} field.
 
 You will find in the table \ref{tag2_sumup} an abstract of the metadata to be filled in the \softmenu{Object Properties} 
 of the drag and drop graphical elements and the corresponding details in order to make them match.
@@ -765,20 +775,21 @@ Description Field & \verb|<target>Detail_Title</target>| & \\
   \includegraphics[scale=0.7]{./images/gameDragAndDrop} 
 \end{wrapfigure}
 
-
-Make the graphical elements match the drop zones by 
-making the \softmenu{ID} field of the drop zone match
-the \softmenu{Description} field of the drag and drop graphical element. 
-The only subtlety consists in the  \verb|<target></target>| tags which have to be filled in the \softmenu
-{Description} field.
-
-Choose the template \softmenu{gameDragAndDrop} to generate the interactive image.
+Once your svg source file is created, choose the template \softmenu{gameDragAndDrop} to generate the interactive image.
 
 \subsection{Third game principle: collisions}
 
 \textit{The game principle described in this section consists in moving objects
 within bounds you defined. Typically, the "collisions" game principle
 can be used to create mazes or gem puzzle.}
+
+\begin{links}
+Explore the \href{http://xia.dane.ac-versailles.fr/demo/tuto/xia6/}{interactive image}
+created for this section of the documentation.
+
+Download the \href
+{http://xia.dane.ac-versailles.fr/demo/tuto/xia6/svg/xia6.svg}{svg} source file.
+\end{links}
 
 In order to create this kind of game, add the tag \verb|<collisions>on</collisions>| to the 
 background image. All the details will then become solid and will prevent objects 
