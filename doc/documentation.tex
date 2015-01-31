@@ -707,69 +707,6 @@ in order to "chain" activities up by degree of difficulty.
 
 Choose the template \softmenu{game1clic} to generate the interactive image.
 
-
-\subsubsection{\emph{Advanced interactive image creation tips\ldots} Showing the player's score}
-
-It is possible to display graphical elements automatically  when the user 
-selects the correct answer. These elements can be png imported images or shapes directly designed in
-Inkscape.
-But as Xia considers as a clickable 
-detail any shapes designed using Inkscape tools, you 
-will have to transform these shapes in bitmap, using the "bitmap copy" Inkscape tool. 
-For example :
-\begin{enumerate}
- \item Draw  a star with yellow sides on a yellow background with the Inkscape tools 
- \item Select this star, and click on the \softmenu{Edition $\rightarrow$ Make a bitmap copy}
- \item Delete the first star
-\end{enumerate}
-
-When the graphical elements are imported (png files) or created (bitmap copy 
-of shapes created manually), just apply the following 
-carasteristics to these elements:
-\begin{center}
-\softmenu{Interactivity > OnClick} = \verb|off|
-\end{center}
-Then, group the clickable detail to its graphical element (by successively 
-clicking on the detail and the graphical element with the \Shift keystroke on),
-then select \softmenu{Group} in the Inkscape \softmenu{Object} menu.
-
-\subsubsection{\emph{Advanced interactive image creation tips\ldots} Showing the player's mistakes}
-
-Games based on the details selection principle are obviously very
-interesting educational games\ldots but it is also quite obvious to guess how some 
-students may be tempted to cheat to achieve such games (for example, by 
-frenetically clicking everywhere on the image, until the final message pops up).
-
-This is why it may be interesting to be able to 
-highlight the user's mistakes during the game.
-
-To do so, you will anticipate the user's probable mistakes, and 
-put explicit graphical elements symbolizing these errors on the background image. 
-This graphical element may be an imported image 
-(png file) or a shape directly designed with the Inkscape tools, 
-then converted into bitmap. These elements will have to include the following caracteristics:
-\begin{center}
-\softmenu{Interactivity > OnClick} = \verb|disable-score| 
-\end{center}
-When applied with a \verb|disable-score| tag, a detail still remains clickable, but does not 
-add a score to the counter that delivers the final success message pop up.
-
-\subsubsection{\emph{Advanced interactive image creation tips\ldots} Double scoring}
-
-If you indicate \verb|score2| in the \softmenu{onclick} field (\softmenu{Object Properties $\rightarrow$ Interactivity}) of the detail,
-and if you use \texttt{<score2></score2>} and  \texttt{<message2></message2>} in the \softmenu{Object Properties} of the 
-background image, you create a double scoring game. In this kind of game, the user can select two different categories of details, 
-two messages can pop up at the end, depending on the category and number of details the user has selected.
-
-For example, you can create a game with 3 details tagged with \texttt{score2}
-(corresponding to mistakes), and indicate in the \softmenu{Object Properties}
-of the background image:\\
-\texttt{<score>4</score>\\
-<message>Hurray!</message>\\
-<score2>3</score2>\\
-<message2>Three mistakes... that is a bit too much... Concentrate more and do it again</message2>}\\
-
-
 \subsection{Second game principle: classyfying, ordering, ranking}\label{gameDragAndDropsection}
 
 \textit{The second kind of game that can be created with Xia consists in
@@ -837,35 +774,6 @@ The only subtlety consists in the  \verb|<target></target>| tags which have to b
 
 Choose the template \softmenu{gameDragAndDrop} to generate the interactive image.
 
-
-
-\subsubsection{How to add a "magnet" effect in the gameDragAndDrop template}
-
-If you indicate \verb|<magnet>on</magnet>| in the \softmenu{Description} field of the drop zone, a magnet effect will then be active when the player drops the 
-graphical element onto its matching drop zone.
-
-\subsubsection{Two ways to give the players a little help: tooltips and links on drop zones}
-
-It is possible to display tooltips of details on mouse-over. To do so, 
-create the tooltip with a png imported file or a bitmap copy of a text created in 
-Inkscape\footnote{Or a bitmap copy of a shape grouped with some text\ldots}, and 
-apply to this tooltip a specific \softmenu{ID} in its \softmenu{Object Properties}. Then, 
-just apply the tag \verb|<tooltip>specific_ID_of_the_tooltip</tooltip>| in the 
-\softmenu{Description} field of the \softmenu{Object Properties} of the detail that is supposed 
-to make the tooltip appear (for example, in the image below: on mouse-over, the
-yellow square makes the tooltip ``Test'' appear):\\
-
-
-\begin{center}
- \includegraphics[width=0.5\textwidth]{images/tooltip_example}\\
- \end{center}
-
-
-Note that the tooltip tool is also available in the game1clic template.\\
- 
-Another method consists in inserting links in the \softmenu{Title} field of the \softmenu{Object Properties} 
-of the drop zones. The user can open the link by clicking on it or by dropping its corresponding detail on it.
-
 \subsection{Third game principle: collisions}
 
 \textit{The game principle described in this section consists in moving objects
@@ -880,6 +788,107 @@ The "collision" game is in fact a gameDragAndDrop game, since the goal remains t
 drag one or several objects and drop them somewhere on the image.
 The requisite tags for this template are therefore the same as in the gameDragAndDrop template \footnote{\texttt{<target></target>} on the objects, \texttt{<score></score>} 
 on the background image: see section \ref{gameDragAndDropsection}.}, but you will apply the  \verb|<collisions>off</collisions>| tag to the drop zone's \softmenu{Description} field.
+
+\subsection{\emph{Advanced interactive games creation tips}: Magnet effect, tooltips, double-scoring\ldots}
+
+\subsubsection{Showing the player's score (game1clic template)}\label{playersscore}
+
+It is possible to display graphical elements automatically  when the user 
+selects the correct answer. These elements can be png imported images or shapes directly designed in
+Inkscape.
+But as Xia considers as a clickable 
+detail any shapes designed using Inkscape tools, you 
+will have to transform these shapes in bitmap, using the "bitmap copy" Inkscape tool. 
+For example :
+\begin{enumerate}
+ \item Draw  a star with yellow sides on a yellow background with the Inkscape tools 
+ \item Select this star, and click on the \softmenu{Edition $\rightarrow$ Make a bitmap copy}
+ \item Delete the first star
+\end{enumerate}
+
+When the graphical elements are imported (png files) or created (bitmap copy 
+of shapes created manually), just apply the following 
+carasteristics to these elements:
+\begin{center}
+\softmenu{Interactivity > OnClick} = \verb|off|
+\end{center}
+Then, group the clickable detail to its graphical element (by successively 
+clicking on the detail and the graphical element with the \Shift keystroke on),
+then select \softmenu{Group} in the Inkscape \softmenu{Object} menu.
+
+\subsubsection{Showing the player's mistakes (game1clic template)}
+
+Games based on the details selection principle are obviously very
+interesting educational games\ldots but it is also quite obvious to guess how some 
+students may be tempted to cheat to achieve such games (for example, by 
+frenetically clicking everywhere on the image, until the final message pops up).
+
+This is why it may be interesting to be able to 
+highlight the user's mistakes during the game.
+
+To do so, you will anticipate the user's probable mistakes, and 
+put explicit graphical elements symbolizing these errors on the background image. 
+This graphical element may be an imported image 
+(png file) or a shape directly designed with the Inkscape tools, 
+then converted into bitmap (see section \ref{playersscore}).. These elements will have to include the following caracteristics:
+\begin{center}
+\softmenu{Interactivity > OnClick} = \verb|disable-score| 
+\end{center}
+When applied with a \verb|disable-score| tag, a detail still remains clickable, but does not 
+add a score to the counter that delivers the final success message pop up.
+
+
+\subsubsection{How to add a "magnet" effect (gameDragAndDrop template)}
+
+If you indicate \verb|<magnet>on</magnet>| in the \softmenu{Description} field of the drop zone, a magnet effect will then be active when the player drops the 
+graphical element onto its matching drop zone.
+
+\subsubsection{Links on drop zones (gameDragAndDrop template)}
+ 
+You can insert links in the \softmenu{Title} field of the \softmenu{Object Properties} 
+of the drop zones. The user can then open the link by clicking on it or by dropping its 
+corresponding detail on it.
+
+
+\subsubsection{Tooltips (game1clic and gameDragAndDrop templates)}
+
+It is possible to display tooltips of details on mouse-over. To do so, 
+create the tooltip with a png imported file or a bitmap copy (see section \ref{playersscore})
+of a text created in 
+Inkscape\footnote{Or a bitmap copy of a shape grouped with some text\ldots}, and 
+apply to this tooltip a specific \softmenu{ID} in its \softmenu{Object Properties}. Then, 
+just apply the tag \verb|<tooltip>specific_ID_of_the_tooltip</tooltip>| in the 
+\softmenu{Description} field of the \softmenu{Object Properties} of the detail that is supposed 
+to make the tooltip appear (for example, in the image below: on mouse-over, the
+yellow square makes the tooltip ``Test'' appear):\\
+
+
+\begin{center}
+ \includegraphics[width=0.5\textwidth]{images/tooltip_example}\\
+ \end{center}
+
+Note that the tooltip tool is available in the game1clic and in the gameDragAndDrop templates.\\
+ 
+
+\subsubsection{Double scoring (game1clic and gameDragAndDrop templates)}
+
+If you indicate \verb|score2| in the \softmenu{onclick} field
+(\softmenu{Object Properties $\rightarrow$ Interactivity}) of the detail,
+and if you use \texttt{<score2></score2>} and  \texttt{<message2></message2>} 
+in the \softmenu{Object Properties} of the 
+background image, you create a double scoring game. In this kind of game, the
+user can select two different categories of details, 
+two messages can pop up at the end, depending on the category and number
+of details the user has selected.
+
+For example, you can create a game with 3 details tagged with \texttt{score2}
+(corresponding to mistakes), and indicate in the \softmenu{Object Properties}
+of the background image:\\
+\texttt{<score>4</score>\\
+<message>Hurray!</message>\\
+<score2>3</score2>\\
+<message2>Three mistakes... that is a bit too much... Concentrate more and do it again</message2>}\\
+
 \newpage
 \subsection{Abstract}
 

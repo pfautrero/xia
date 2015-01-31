@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fr_FR\n"
-"POT-Creation-Date: 2015-01-29 20:09+0100\n"
-"PO-Revision-Date: 2015-01-29 20:10+0100\n"
+"POT-Creation-Date: 2015-01-31 17:04+0100\n"
+"PO-Revision-Date: 2015-01-31 17:19+0100\n"
 "Last-Translator: Geoffrey <ggekiere@ac-versailles.fr>\n"
 "Language-Team: fr <>\n"
 "Language: \n"
@@ -827,7 +827,7 @@ msgstr ""
 "(paramètre \\texttt{-t})."
 
 #. type: subsection{#2}
-#: documentation.tex:344 documentation.tex:580 documentation.tex:885
+#: documentation.tex:344 documentation.tex:580 documentation.tex:894
 msgid "Abstract"
 msgstr "En résumé"
 
@@ -1164,9 +1164,6 @@ msgstr "Le modèle «~audioBrown~»: le son à la place du texte"
 
 #. type: links
 #: documentation.tex:471
-#| msgid ""
-#| "Explore the \\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1}"
-#| "{interactive image} created for this section of the documentation."
 msgid ""
 "Explore the \\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia4}"
 "{interactive image} created for this section of the documentation."
@@ -1176,9 +1173,6 @@ msgstr ""
 
 #. type: links
 #: documentation.tex:475
-#| msgid ""
-#| "Download the \\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/svg/"
-#| "xia1.svg}{svg} source file."
 msgid ""
 "Download the \\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia4/svg/xia4."
 "zip}{svg} source file (zip file containing the svg source file and the "
@@ -1590,19 +1584,6 @@ msgstr ""
 #. comments
 #. type: tikzpicture
 #: documentation.tex:633
-#| msgid ""
-#| "\\node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select "
-#| "the svg source file}; \\node[box, above = 5mm of params] (paramsC) "
-#| "{Select the quality of the export}; \\node[box, right = 5mm of guClic] "
-#| "(guClicC) {\\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia3}"
-#| "{game1clic}\\\\ selecting details on a background image \\\\ How-to in "
-#| "section \\ref{game1clicsection}}; \\node[box, left = 25mm of bBlue] "
-#| "(aBrownC) {audioBrown template \\\\ creation of interactive images in "
-#| "which details are associated with sounds \\\\ How-to in section "
-#| "\\ref{audioBrownsection}}; \\node[box, below left = 5mm of pBlue] "
-#| "(gDDropC) {\\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia5}"
-#| "{gameDragAndDrop}\\\\ drag and drop graphical elements on the background "
-#| "images \\\\ How-to in section \\ref{gameDragAndDropsection}};"
 msgid ""
 "\\node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the "
 "svg source file}; \\node[box, above = 5mm of params] (paramsC) {Select the "
@@ -1814,7 +1795,7 @@ msgstr ""
 "par degré de difficulté."
 
 #. type: wrapfigure
-#: documentation.tex:707 documentation.tex:830
+#: documentation.tex:707 documentation.tex:767
 msgid "{r}{45mm}"
 msgstr "{r}{45mm}"
 
@@ -1826,196 +1807,13 @@ msgstr ""
 "Choisir le modèle d'export \\softmenu{game1clic} pour générer l'image "
 "interactive."
 
-#. type: subsubsection{#2}
-#: documentation.tex:712
-msgid ""
-"\\emph{Advanced interactive image creation tips\\ldots} Showing the player's "
-"score"
-msgstr ""
-"\\emph{Astuces pour la création d'image interactive «~avancée~»\\ldots} "
-"Montrer la progression du joueur"
-
-#. type: document
-#: documentation.tex:725
-msgid ""
-"It is possible to display graphical elements automatically when the user "
-"selects the correct answer. These elements can be png imported images or "
-"shapes directly designed in Inkscape.  But as Xia considers as a clickable "
-"detail any shapes designed using Inkscape tools, you will have to transform "
-"these shapes in bitmap, using the \"bitmap copy\" Inkscape tool.  For "
-"example :"
-msgstr ""
-"Il est possible de faire s'afficher des éléments graphiques quand le joueur "
-"sélectionne une réponse correcte. Ces éléments peuvent être des png importés "
-"ou des formes directement dessinées dans Inkscape. Comme Xia considère "
-"qu'une forme dessinée avec les outils d'Inkscape est un détail, il faudra "
-"transformer ces formes en utilisant l'outil «~copie bitmap~». Par exemple:"
-
-#. type: enumerate
-#: documentation.tex:725
-msgid ""
-"Draw a star with yellow sides on a yellow background with the Inkscape tools"
-msgstr ""
-"Dessinez une étoile aux bords jaunes et au fond jaune avec les outils de "
-"dessin d'Inkscape"
-
-#. type: enumerate
-#: documentation.tex:725
-msgid ""
-"Select this star, and click on the \\softmenu{Edition $\\rightarrow$ Make a "
-"bitmap copy}"
-msgstr ""
-"Sélectionnez cette étoile, et cliquez sur \\softmenu{Édition $\\rightarrow$ "
-"Créer une copie bitmap}"
-
-#. type: enumerate
-#: documentation.tex:725
-msgid "Delete the first star"
-msgstr "Supprimer l'étoile créée avec les outils de dessin"
-
-#. type: document
-#: documentation.tex:735
-msgid ""
-"When the graphical elements are imported (png files) or created (bitmap copy "
-"of shapes created manually), just apply the following carasteristics to "
-"these elements:"
-msgstr ""
-"Une fois les éléments importés (format png) ou créés (copie bitmap des "
-"formes dessinées manuellement), appliquez-leurs les caractéristiques "
-"suivantes:"
-
-#. type: center
-#: documentation.tex:735
-msgid "\\softmenu{Interactivity > OnClick} = \\verb|off|"
-msgstr "\\softmenu{Interactivité > OnClick} = \\verb|off|"
-
-#. type: document
-#: documentation.tex:735
-msgid ""
-"Then, group the clickable detail to its graphical element (by successively "
-"clicking on the detail and the graphical element with the \\Shift keystroke "
-"on), then select \\softmenu{Group} in the Inkscape \\softmenu{Object} menu."
-msgstr ""
-"Ensuite, groupez le détail cliquable et son élément graphique (en cliquant "
-"successivement sur le détail et l'élément en maintenant la touche \\Shift "
-"enfoncée), puis en sélectionnant \\softmenu{Grouper} dans le menu "
-"\\softmenu{Objet} d'Inkscape."
-
-#. type: subsubsection{#2}
-#: documentation.tex:737
-msgid ""
-"\\emph{Advanced interactive image creation tips\\ldots} Showing the player's "
-"mistakes"
-msgstr ""
-"\\emph{Astuces pour la création d'image interactive «~avancée~»\\ldots} "
-"Mettre en évidence les erreurs du joueur"
-
-#. type: document
-#: documentation.tex:742
-msgid ""
-"Games based on the details selection principle are obviously very "
-"interesting educational games\\ldots but it is also quite obvious to guess "
-"how some students may be tempted to cheat to achieve such games (for "
-"example, by frenetically clicking everywhere on the image, until the final "
-"message pops up)."
-msgstr ""
-"On voit clairement l'intérêt pédagogique des jeux basés sur le principe de "
-"la sélection\\ldots mais on voit également rapidement comment des élèves "
-"peuvent être tentés de contourner le dispositif ludique pour terminer les "
-"jeux sans avoir à réfléchir (par exemple, en cliquant frénétiquement partout "
-"sur l'image, jusqu'à trouver par hasard tous les détails répondant à la "
-"consigne)."
-
-#. type: document
-#: documentation.tex:745
-msgid ""
-"This is why it may be interesting to be able to highlight the user's "
-"mistakes during the game."
-msgstr ""
-"C'est la raison pour laquelle il peut être intéressant de mettre en valeur "
-"les erreurs commises par le joueur."
-
-#. type: document
-#: documentation.tex:756
-msgid ""
-"To do so, you will anticipate the user's probable mistakes, and put explicit "
-"graphical elements symbolizing these errors on the background image.  This "
-"graphical element may be an imported image (png file) or a shape directly "
-"designed with the Inkscape tools, then converted into bitmap. These elements "
-"will have to include the following caracteristics:"
-msgstr ""
-"Pour cela, il faudra prévoir les erreurs pouvant être commises, et placer "
-"sur l'image des éléments graphiques symbolisant l'erreur (croix rouge, "
-"etc.). Ces éléments pouvant être des images au format png importées ou des "
-"formes dessinées dans Inkscape, puis copiées en bitmap. Ces éléments devront "
-"posséder les caractéristiques suivantes:"
-
-#. type: center
-#: documentation.tex:756
-msgid "\\softmenu{Interactivity > OnClick} = \\verb|disable-score|"
-msgstr "\\softmenu{Interactivité > OnClick} = \\verb|disable-score|"
-
-#. type: document
-#: documentation.tex:756
-msgid ""
-"When applied with a \\verb|disable-score| tag, a detail still remains "
-"clickable, but does not add a score to the counter that delivers the final "
-"success message pop up."
-msgstr ""
-"Une fois la balise \\verb|disable-score| appliquée, le détail demeure "
-"cliquable, mais sa sélection n'ajoutera pas un point au compteur surveillant "
-"le score pour délivrer le message de fin."
-
-#. type: subsubsection{#2}
-#: documentation.tex:758
-msgid "\\emph{Advanced interactive image creation tips\\ldots} Double scoring"
-msgstr ""
-"\\emph{Astuces pour la création d'image interactive «~avancée~»\\ldots} Deux "
-"compteurs de score"
-
-#. type: document
-#: documentation.tex:763
-msgid ""
-"If you indicate \\verb|score2| in the \\softmenu{onclick} field "
-"(\\softmenu{Object Properties $\\rightarrow$ Interactivity}) of the detail, "
-"and if you use \\texttt{<score2></score2>} and \\texttt{<message2></"
-"message2>} in the \\softmenu{Object Properties} of the background image, you "
-"create a double scoring game. In this kind of game, the user can select two "
-"different categories of details, two messages can pop up at the end, "
-"depending on the category and number of details the user has selected."
-msgstr ""
-"En indiquant \\verb|score2| dans le champ \\softmenu{onclick} "
-"(\\softmenu{Propriétés de l'objet $\\rightarrow$ Interactivité}) du détail, "
-"et en utilisant les balises\\\\\n"
-"\\texttt{<score2></score2>} et \\texttt{<message2></message2>} dans les "
-"\\softmenu{Propriétés de l'objet} de l'image de fond, on peut créer un "
-"système de double comptage des points, dans lequel l'utilisateur peut "
-"sélectionner deux types de détails différents."
-
-#. type: document
-#: documentation.tex:771
-msgid ""
-"For example, you can create a game with 3 details tagged with "
-"\\texttt{score2} (corresponding to mistakes), and indicate in the "
-"\\softmenu{Object Properties} of the background image:\\\\ "
-"\\texttt{<score>4</score>\\\\ <message>Hurray!</message>\\\\ <score2>3</"
-"score2>\\\\ <message2>Three mistakes... that is a bit too much... "
-"Concentrate more and do it again</message2>}\\\\"
-msgstr ""
-"Ainsi, vous pouvez créer un jeu où 3 détails comportent la balise "
-"\\texttt{score2} (cette balise correspondant à des erreurs), et indiquez "
-"dans les \\softmenu{Propriétés de l'objet} de l'image de fond:\\\\ "
-"\\texttt{<score>4</score>\\\\ <message>Bravo!</message>\\\\ <score2>3</"
-"score2>\\\\ <message2>3 erreurs... Ça fait beaucoup...\\\\\n"
-"Concentrez-vous et recommencez!...</message2>}\\\\"
-
 #. type: subsection{#2}
-#: documentation.tex:774
+#: documentation.tex:711
 msgid "Second game principle: classyfying, ordering, ranking"
 msgstr "Second principe ludique: classer, organiser, hiérarchiser"
 
 #. type: document
-#: documentation.tex:779
+#: documentation.tex:716
 msgid ""
 "\\textit{The second kind of game that can be created with Xia consists in "
 "dragging and dropping graphical elements on the background image. If all the "
@@ -2028,7 +1826,7 @@ msgstr ""
 "message apparaît, annonçant la fin du jeu."
 
 #. type: links
-#: documentation.tex:783
+#: documentation.tex:720
 msgid ""
 "Explore the \\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia5}"
 "{interactive image} created for this section of the documentation."
@@ -2037,7 +1835,7 @@ msgstr ""
 "interactive} créée pour cette partie de la documentation."
 
 #. type: links
-#: documentation.tex:787
+#: documentation.tex:724
 msgid ""
 "Download the \\href {http://xia.dane.ac-versailles.fr/demo/tuto/xia5/svg/"
 "xia5.svg}{svg} source file."
@@ -2046,23 +1844,23 @@ msgstr ""
 "fr/demo/tuto/xia5/svg/xia5.svg}{svg}."
 
 #. type: document
-#: documentation.tex:802
+#: documentation.tex:739
 msgid ""
 "This is how you can create a game based on the drag and drop principle :"
 msgstr "Voici comment créer un jeu basé sur le principe du glisser-déposer:"
 
 #. type: enumerate
-#: documentation.tex:802
+#: documentation.tex:739
 msgid "In Inkscape:"
 msgstr "Dans Inkscape:"
 
 #. type: itemize
-#: documentation.tex:802
+#: documentation.tex:739
 msgid "Choose a background picture"
 msgstr "Choisir une image de fond"
 
 #. type: itemize
-#: documentation.tex:802
+#: documentation.tex:739
 msgid ""
 "Create the graphical elements the users of the interactive image will have "
 "to drag and drop (ie. images or group of words)"
@@ -2072,7 +1870,7 @@ msgstr ""
 "mots)"
 
 #. type: itemize
-#: documentation.tex:802
+#: documentation.tex:739
 msgid ""
 "Create the instruction pop up in \\softmenu{File $\\rightarrow$ Metadata of "
 "the document $\\rightarrow$ Description}"
@@ -2082,12 +1880,12 @@ msgstr ""
 "$ Description}"
 
 #. type: footnote{#2}
-#: documentation.tex:802
+#: documentation.tex:739
 msgid "Exactly as in the game1clic template."
 msgstr "Exactement comme dans le jeu game1clic"
 
 #. type: itemize
-#: documentation.tex:802
+#: documentation.tex:739
 msgid ""
 "Using metadata, make each label match its drop zone (actually being cropped "
 "details)"
@@ -2096,18 +1894,18 @@ msgstr ""
 "zone de dépôt (ces zones de dépôts étant en réalité des détails détourés)"
 
 #. type: enumerate
-#: documentation.tex:802
+#: documentation.tex:739
 msgid "In Xia"
 msgstr "Dans Xia"
 
 #. type: itemize
-#: documentation.tex:802
+#: documentation.tex:739
 msgid "Export the svg source file using the \"gameDragAndDrop\" template"
 msgstr ""
 "Exporter le fichier source au format svg avec le modèle «~gameDragAndDrop~»"
 
 #. type: document
-#: documentation.tex:808
+#: documentation.tex:745
 msgid ""
 "Two methods can be used to create the drag and drop \"graphical-elements\".  "
 "A very simple way is to use a screenshot tool, in order to create png files, "
@@ -2128,7 +1926,7 @@ msgstr ""
 "qu'à \\textbf{une} zone de dépôt.}."
 
 #. type: document
-#: documentation.tex:811
+#: documentation.tex:748
 msgid ""
 "You will find in the table \\ref{tag2_sumup} an abstract of the metadata to "
 "be filled in the \\softmenu{Object Properties} of the drag and drop "
@@ -2140,42 +1938,42 @@ msgstr ""
 "autres."
 
 #. type: tabular
-#: documentation.tex:825
+#: documentation.tex:762
 msgid "Graphical element (drag and drop objects in the game)"
 msgstr "Élément à déplacer (objets à glisser et déposer)"
 
 #. type: tabular
-#: documentation.tex:825
+#: documentation.tex:762
 msgid "Cropped detail (drop zone)"
 msgstr "Détail détouré (zone de dépôt)"
 
 #. type: tabular
-#: documentation.tex:825
+#: documentation.tex:762
 msgid "ID Field"
 msgstr "Champ ID"
 
 #. type: tabular
-#: documentation.tex:825
+#: documentation.tex:762
 msgid "\\verb|Detail_Title|"
 msgstr "\\verb|Titre_du_détail|"
 
 #. type: tabular
-#: documentation.tex:825
+#: documentation.tex:762
 msgid "Description Field"
 msgstr "Champ description"
 
 #. type: tabular
-#: documentation.tex:825
+#: documentation.tex:762
 msgid "\\verb|<target>Detail_Title</target>|"
 msgstr "\\verb|<target>Titre_du_détail</target>|"
 
 #. type: caption{#2}
-#: documentation.tex:825
+#: documentation.tex:762
 msgid "Sum up of tags in the gameDragAndDrop template"
 msgstr "Résumé des balises à utiliser dans le jeu gameDragAndDrop"
 
 #. type: document
-#: documentation.tex:837
+#: documentation.tex:774
 msgid ""
 "Make the graphical elements match the drop zones by making the "
 "\\softmenu{ID} field of the drop zone match the \\softmenu{Description} "
@@ -2190,7 +1988,7 @@ msgstr ""
 "indiquée dans la \\softmenu{Description}."
 
 #. type: document
-#: documentation.tex:839
+#: documentation.tex:776
 msgid ""
 "Choose the template \\softmenu{gameDragAndDrop} to generate the interactive "
 "image."
@@ -2198,82 +1996,13 @@ msgstr ""
 "Choisissez le modèle \\softmenu{gameDragAndDrop} pour générer l'image "
 "interactive."
 
-#. type: subsubsection{#2}
-#: documentation.tex:843
-msgid "How to add a \"magnet\" effect in the gameDragAndDrop template"
-msgstr "Comment ajouter un effet «~aimant~» dans le jeu gameDragAndDrop"
-
-#. type: document
-#: documentation.tex:846
-msgid ""
-"If you indicate \\verb|<magnet>on</magnet>| in the \\softmenu{Description} "
-"field of the drop zone, a magnet effect will then be active when the player "
-"drops the graphical element onto its matching drop zone."
-msgstr ""
-"Si vous indiquez \\verb|<magnet>on</magnet>| dans le champ "
-"\\softmenu{Description} de la zone de dépôt, un effet aimant sera activé "
-"quand le joueur déposera l'élément sur celle-ci."
-
-#. type: subsubsection{#2}
-#: documentation.tex:848
-msgid ""
-"Two ways to give the players a little help: tooltips and links on drop zones"
-msgstr ""
-"Deux façons de donner des indices aux joueurs: les infobulles et les liens "
-"sur les zones de dépôt"
-
-#. type: document
-#: documentation.tex:857
-msgid ""
-"It is possible to display tooltips of details on mouse-over. To do so, "
-"create the tooltip with a png imported file or a bitmap copy of a text "
-"created in Inkscape\\footnote{Or a bitmap copy of a shape grouped with some "
-"text\\ldots}, and apply to this tooltip a specific \\softmenu{ID} in its "
-"\\softmenu{Object Properties}. Then, just apply the tag \\verb|"
-"<tooltip>specific_ID_of_the_tooltip</tooltip>| in the "
-"\\softmenu{Description} field of the \\softmenu{Object Properties} of the "
-"detail that is supposed to make the tooltip appear (for example, in the "
-"image below: on mouse-over, the yellow square makes the tooltip ``Test'' "
-"appear):\\\\"
-msgstr ""
-"Il est possible de faire s'afficher des infobulles lorsque la souris survole "
-"certains détails. Pour cela, créez l'infobulle avec une image au format png "
-"importée ou une copie bitmap d'un texte créé dans Inkscape\\footnote{Ou une "
-"copie bitmap d'une forme groupée avec du texte\\ldots}, et appliquez à cette "
-"infobulle une \\softmenu{ID} spéicifique dans les \\softmenu{Propriétés de "
-"l'objet}. Ensuite, indiquez la balise \\verb|<tooltip>ID_de_l_infobulle</"
-"tooltip>| dans le champ \\softmenu{Description} des \\softmenu{Propriétés de "
-"l'objet} du détail censé déclencher l'apparition de l'infobulle (par "
-"exemple, dans l'image ci-dessous: au survol de la souris, le carré jaune "
-"fait apparaître l'infobulle \"Test\"):\\\\"
-
-#. type: document
-#: documentation.tex:865
-msgid ""
-"Note that the tooltip tool is also available in the game1clic template.\\\\"
-msgstr ""
-"Notez que cette fonctionnalité est également disponible dans le jeu "
-"game1clic."
-
-#. type: document
-#: documentation.tex:868
-msgid ""
-"Another method consists in inserting links in the \\softmenu{Title} field of "
-"the \\softmenu{Object Properties} of the drop zones. The user can open the "
-"link by clicking on it or by dropping its corresponding detail on it."
-msgstr ""
-"Une autre méthode consiste à insérer un lien dans le champ \\softmenu{Titre} "
-"des \\softmenu{Propriétés de l'objet} de la zone de dépôt. L'utilisateur "
-"peut cliquer sur cette zone ou y déposer l'étiquette correspondante pour "
-"suivre le lien."
-
 #. type: subsection{#2}
-#: documentation.tex:870
+#: documentation.tex:778
 msgid "Third game principle: collisions"
 msgstr "Troisième principe ludique: les collisions"
 
 #. type: document
-#: documentation.tex:874
+#: documentation.tex:782
 msgid ""
 "\\textit{The game principle described in this section consists in moving "
 "objects within bounds you defined. Typically, the \"collisions\" game "
@@ -2286,7 +2015,7 @@ msgstr ""
 "des labyrinthes, des taquins.}"
 
 #. type: document
-#: documentation.tex:878
+#: documentation.tex:786
 msgid ""
 "In order to create this kind of game, add the tag \\verb|<collisions>on</"
 "collisions>| to the background image. All the details will then become solid "
@@ -2300,7 +2029,7 @@ msgstr ""
 "dessinées avec Inkscape)."
 
 #. type: document
-#: documentation.tex:885
+#: documentation.tex:791
 msgid ""
 "The \"collision\" game is in fact a gameDragAndDrop game, since the goal "
 "remains to drag one or several objects and drop them somewhere on the "
@@ -2321,8 +2050,296 @@ msgstr ""
 "\\verb|<collisions>off</collisions>| sur les zones de dépôts, dans le champ "
 "\\softmenu{Description}."
 
+#. type: subsection{#2}
+#: documentation.tex:793
+#| msgid ""
+#| "\\emph{Advanced interactive image creation tips\\ldots} Double scoring"
+msgid ""
+"\\emph{Advanced interactive games creation tips}: Magnet effect, tooltips, "
+"double-scoring\\ldots"
+msgstr ""
+"\\emph{Astuces pour la création de jeux interactifs}: effet aimant, "
+"infobulles, double compteur de score\\ldots"
+
+#. type: subsubsection{#2}
+#: documentation.tex:795
+msgid "Showing the player's score (game1clic template)"
+msgstr "Montrer la progression dans le jeu (thème game1clic)"
+
 #. type: document
-#: documentation.tex:887
+#: documentation.tex:808
+msgid ""
+"It is possible to display graphical elements automatically when the user "
+"selects the correct answer. These elements can be png imported images or "
+"shapes directly designed in Inkscape.  But as Xia considers as a clickable "
+"detail any shapes designed using Inkscape tools, you will have to transform "
+"these shapes in bitmap, using the \"bitmap copy\" Inkscape tool.  For "
+"example :"
+msgstr ""
+"Il est possible de faire s'afficher des éléments graphiques quand le joueur "
+"sélectionne une réponse correcte. Ces éléments peuvent être des png importés "
+"ou des formes directement dessinées dans Inkscape. Comme Xia considère "
+"qu'une forme dessinée avec les outils d'Inkscape est un détail, il faudra "
+"transformer ces formes en utilisant l'outil «~copie bitmap~». Par exemple:"
+
+#. type: enumerate
+#: documentation.tex:808
+msgid ""
+"Draw a star with yellow sides on a yellow background with the Inkscape tools"
+msgstr ""
+"Dessinez une étoile aux bords jaunes et au fond jaune avec les outils de "
+"dessin d'Inkscape"
+
+#. type: enumerate
+#: documentation.tex:808
+msgid ""
+"Select this star, and click on the \\softmenu{Edition $\\rightarrow$ Make a "
+"bitmap copy}"
+msgstr ""
+"Sélectionnez cette étoile, et cliquez sur \\softmenu{Édition $\\rightarrow$ "
+"Créer une copie bitmap}"
+
+#. type: enumerate
+#: documentation.tex:808
+msgid "Delete the first star"
+msgstr "Supprimer l'étoile créée avec les outils de dessin"
+
+#. type: document
+#: documentation.tex:818
+msgid ""
+"When the graphical elements are imported (png files) or created (bitmap copy "
+"of shapes created manually), just apply the following carasteristics to "
+"these elements:"
+msgstr ""
+"Une fois les éléments importés (format png) ou créés (copie bitmap des "
+"formes dessinées manuellement), appliquez-leurs les caractéristiques "
+"suivantes:"
+
+#. type: center
+#: documentation.tex:818
+msgid "\\softmenu{Interactivity > OnClick} = \\verb|off|"
+msgstr "\\softmenu{Interactivité > OnClick} = \\verb|off|"
+
+#. type: document
+#: documentation.tex:818
+msgid ""
+"Then, group the clickable detail to its graphical element (by successively "
+"clicking on the detail and the graphical element with the \\Shift keystroke "
+"on), then select \\softmenu{Group} in the Inkscape \\softmenu{Object} menu."
+msgstr ""
+"Ensuite, groupez le détail cliquable et son élément graphique (en cliquant "
+"successivement sur le détail et l'élément en maintenant la touche \\Shift "
+"enfoncée), puis en sélectionnant \\softmenu{Grouper} dans le menu "
+"\\softmenu{Objet} d'Inkscape."
+
+#. type: subsubsection{#2}
+#: documentation.tex:820
+#| msgid "Exactly as in the game1clic template."
+msgid "Showing the player's mistakes (game1clic template)"
+msgstr "Montrer les erreurs du joueur (thème game1clic)"
+
+#. type: document
+#: documentation.tex:825
+msgid ""
+"Games based on the details selection principle are obviously very "
+"interesting educational games\\ldots but it is also quite obvious to guess "
+"how some students may be tempted to cheat to achieve such games (for "
+"example, by frenetically clicking everywhere on the image, until the final "
+"message pops up)."
+msgstr ""
+"On voit clairement l'intérêt pédagogique des jeux basés sur le principe de "
+"la sélection\\ldots mais on voit également rapidement comment des élèves "
+"peuvent être tentés de contourner le dispositif ludique pour terminer les "
+"jeux sans avoir à réfléchir (par exemple, en cliquant frénétiquement partout "
+"sur l'image, jusqu'à trouver par hasard tous les détails répondant à la "
+"consigne)."
+
+#. type: document
+#: documentation.tex:828
+msgid ""
+"This is why it may be interesting to be able to highlight the user's "
+"mistakes during the game."
+msgstr ""
+"C'est la raison pour laquelle il peut être intéressant de mettre en valeur "
+"les erreurs commises par le joueur."
+
+#. type: document
+#: documentation.tex:839
+#| msgid ""
+#| "To do so, you will anticipate the user's probable mistakes, and put "
+#| "explicit graphical elements symbolizing these errors on the background "
+#| "image.  This graphical element may be an imported image (png file) or a "
+#| "shape directly designed with the Inkscape tools, then converted into "
+#| "bitmap. These elements will have to include the following caracteristics:"
+msgid ""
+"To do so, you will anticipate the user's probable mistakes, and put explicit "
+"graphical elements symbolizing these errors on the background image.  This "
+"graphical element may be an imported image (png file) or a shape directly "
+"designed with the Inkscape tools, then converted into bitmap (see section "
+"\\ref{playersscore}).. These elements will have to include the following "
+"caracteristics:"
+msgstr ""
+"Pour cela, il faudra prévoir les erreurs pouvant être commises, et placer "
+"sur l'image des éléments graphiques symbolisant l'erreur (croix rouge, "
+"etc.). Ces éléments pouvant être des images au format png importées ou des "
+"formes dessinées dans Inkscape, puis copiées en bitmap (voir la rubrique "
+"\\ref{playersscore}). Ces éléments devront posséder les caractéristiques "
+"suivantes:"
+
+#. type: center
+#: documentation.tex:839
+msgid "\\softmenu{Interactivity > OnClick} = \\verb|disable-score|"
+msgstr "\\softmenu{Interactivité > OnClick} = \\verb|disable-score|"
+
+#. type: document
+#: documentation.tex:839
+msgid ""
+"When applied with a \\verb|disable-score| tag, a detail still remains "
+"clickable, but does not add a score to the counter that delivers the final "
+"success message pop up."
+msgstr ""
+"Une fois la balise \\verb|disable-score| appliquée, le détail demeure "
+"cliquable, mais sa sélection n'ajoutera pas un point au compteur surveillant "
+"le score pour délivrer le message de fin."
+
+#. type: subsubsection{#2}
+#: documentation.tex:842
+#| msgid "How to add a \"magnet\" effect in the gameDragAndDrop template"
+msgid "How to add a \"magnet\" effect (gameDragAndDrop template)"
+msgstr "Comment ajouter un effet «~aimant~» (thème gameDragAndDrop)"
+
+#. type: document
+#: documentation.tex:845
+msgid ""
+"If you indicate \\verb|<magnet>on</magnet>| in the \\softmenu{Description} "
+"field of the drop zone, a magnet effect will then be active when the player "
+"drops the graphical element onto its matching drop zone."
+msgstr ""
+"Si vous indiquez \\verb|<magnet>on</magnet>| dans le champ "
+"\\softmenu{Description} de la zone de dépôt, un effet aimant sera activé "
+"quand le joueur déposera l'élément sur celle-ci."
+
+#. type: subsubsection{#2}
+#: documentation.tex:847
+#| msgid "Sum up of tags in the gameDragAndDrop template"
+msgid "Links on drop zones (gameDragAndDrop template)"
+msgstr "Liens sur les zones de dépôt (thème gameDragAndDrop)"
+
+#. type: document
+#: documentation.tex:851
+#| msgid ""
+#| "Another method consists in inserting links in the \\softmenu{Title} field "
+#| "of the \\softmenu{Object Properties} of the drop zones. The user can open "
+#| "the link by clicking on it or by dropping its corresponding detail on it."
+msgid ""
+"You can insert links in the \\softmenu{Title} field of the \\softmenu{Object "
+"Properties} of the drop zones. The user can then open the link by clicking "
+"on it or by dropping its corresponding detail on it."
+msgstr ""
+"Vous pouvez insérer un lien dans le champ \\softmenu{Titre} des "
+"\\softmenu{Propriétés de l'objet} de la zone de dépôt. L'utilisateur peut "
+"cliquer sur cette zone ou y déposer l'étiquette correspondante pour suivre "
+"le lien."
+
+#. type: subsubsection{#2}
+#: documentation.tex:854
+#| msgid "Sum up of tags in the gameDragAndDrop template"
+msgid "Tooltips (game1clic and gameDragAndDrop templates)"
+msgstr "Infobulles (thèmes game1clic et gameDragAndDrop)"
+
+#. type: document
+#: documentation.tex:864
+#| msgid ""
+#| "It is possible to display tooltips of details on mouse-over. To do so, "
+#| "create the tooltip with a png imported file or a bitmap copy of a text "
+#| "created in Inkscape\\footnote{Or a bitmap copy of a shape grouped with "
+#| "some text\\ldots}, and apply to this tooltip a specific \\softmenu{ID} in "
+#| "its \\softmenu{Object Properties}. Then, just apply the tag \\verb|"
+#| "<tooltip>specific_ID_of_the_tooltip</tooltip>| in the "
+#| "\\softmenu{Description} field of the \\softmenu{Object Properties} of the "
+#| "detail that is supposed to make the tooltip appear (for example, in the "
+#| "image below: on mouse-over, the yellow square makes the tooltip ``Test'' "
+#| "appear):\\\\"
+msgid ""
+"It is possible to display tooltips of details on mouse-over. To do so, "
+"create the tooltip with a png imported file or a bitmap copy (see section "
+"\\ref{playersscore})  of a text created in Inkscape\\footnote{Or a bitmap "
+"copy of a shape grouped with some text\\ldots}, and apply to this tooltip a "
+"specific \\softmenu{ID} in its \\softmenu{Object Properties}. Then, just "
+"apply the tag \\verb|<tooltip>specific_ID_of_the_tooltip</tooltip>| in the "
+"\\softmenu{Description} field of the \\softmenu{Object Properties} of the "
+"detail that is supposed to make the tooltip appear (for example, in the "
+"image below: on mouse-over, the yellow square makes the tooltip ``Test'' "
+"appear):\\\\"
+msgstr ""
+"Il est possible de faire s'afficher des infobulles lorsque la souris survole "
+"certains détails. Pour cela, créez l'infobulle avec une image au format png "
+"importée ou une copie bitmap (voir rubrique \\ref{playersscore}) d'un texte "
+"créé dans Inkscape\\footnote{Ou une copie bitmap d'une forme groupée avec du "
+"texte\\ldots}, et appliquez à cette infobulle une \\softmenu{ID} spéicifique "
+"dans les \\softmenu{Propriétés de l'objet}. Ensuite, indiquez la balise "
+"\\verb|<tooltip>ID_de_l_infobulle</tooltip>| dans le champ "
+"\\softmenu{Description} des \\softmenu{Propriétés de l'objet} du détail "
+"censé déclencher l'apparition de l'infobulle (par exemple, dans l'image ci-"
+"dessous: au survol de la souris, le carré jaune fait apparaître l'infobulle "
+"\"Test\"):\\\\"
+
+#. type: document
+#: documentation.tex:871
+#| msgid ""
+#| "Note that the tooltip tool is also available in the game1clic template.\\"
+#| "\\"
+msgid ""
+"Note that the tooltip tool is available in the game1clic and in the "
+"gameDragAndDrop templates.\\\\"
+msgstr ""
+"Notez que cette fonctionnalité est également disponible avec les thèmes "
+"game1clic et gameDragAndDrop.\\\\"
+
+#. type: subsubsection{#2}
+#: documentation.tex:874
+#| msgid "Sum up of tags in the gameDragAndDrop template"
+msgid "Double scoring (game1clic and gameDragAndDrop templates)"
+msgstr "Double compteur de score (thèmes game1clic et gameDragAndDrop)"
+
+#. type: document
+#: documentation.tex:883
+msgid ""
+"If you indicate \\verb|score2| in the \\softmenu{onclick} field "
+"(\\softmenu{Object Properties $\\rightarrow$ Interactivity}) of the detail, "
+"and if you use \\texttt{<score2></score2>} and \\texttt{<message2></"
+"message2>} in the \\softmenu{Object Properties} of the background image, you "
+"create a double scoring game. In this kind of game, the user can select two "
+"different categories of details, two messages can pop up at the end, "
+"depending on the category and number of details the user has selected."
+msgstr ""
+"En indiquant \\verb|score2| dans le champ \\softmenu{onclick} "
+"(\\softmenu{Propriétés de l'objet $\\rightarrow$ Interactivité}) du détail, "
+"et en utilisant les balises\\\\\n"
+"\\texttt{<score2></score2>} et \\texttt{<message2></message2>} dans les "
+"\\softmenu{Propriétés de l'objet} de l'image de fond, on peut créer un "
+"système de double comptage des points, dans lequel l'utilisateur peut "
+"sélectionner deux types de détails différents."
+
+#. type: document
+#: documentation.tex:891
+msgid ""
+"For example, you can create a game with 3 details tagged with "
+"\\texttt{score2} (corresponding to mistakes), and indicate in the "
+"\\softmenu{Object Properties} of the background image:\\\\ "
+"\\texttt{<score>4</score>\\\\ <message>Hurray!</message>\\\\ <score2>3</"
+"score2>\\\\ <message2>Three mistakes... that is a bit too much... "
+"Concentrate more and do it again</message2>}\\\\"
+msgstr ""
+"Ainsi, vous pouvez créer un jeu où 3 détails comportent la balise "
+"\\texttt{score2} (cette balise correspondant à des erreurs), et indiquez "
+"dans les \\softmenu{Propriétés de l'objet} de l'image de fond:\\\\ "
+"\\texttt{<score>4</score>\\\\ <message>Bravo!</message>\\\\ <score2>3</"
+"score2>\\\\ <message2>3 erreurs... Ça fait beaucoup...\\\\\n"
+"Concentrez-vous et recommencez!...</message2>}\\\\"
+
+#. type: document
+#: documentation.tex:896
 msgid ""
 "These tables sum up the tags that have to be indicated when a game is "
 "created:"
@@ -2331,22 +2348,22 @@ msgstr ""
 "création de jeux avec Xia:"
 
 #. type: tabular
-#: documentation.tex:949
+#: documentation.tex:958
 msgid "\\multicolumn{3}{|l|}{\\softmenu{game1clic} template}"
 msgstr "\\multicolumn{3}{|l|}{Modèle \\softmenu{game1clic}}"
 
 #. type: tabular
-#: documentation.tex:949 documentation.tex:1004
+#: documentation.tex:958 documentation.tex:1013
 msgid "\\multicolumn{3}{|l|}{\\texttt{<score></score>}}"
 msgstr "\\multicolumn{3}{|l|}{\\texttt{<score></score>}}"
 
 #. type: tabular
-#: documentation.tex:949 documentation.tex:1004
+#: documentation.tex:958 documentation.tex:1013
 msgid "\\emph{Role}"
 msgstr "\\emph{Rôle}"
 
 #. type: tabular
-#: documentation.tex:949 documentation.tex:1004
+#: documentation.tex:958 documentation.tex:1013
 msgid ""
 "Sets the amount of correct answers needed to pop up the end message of the "
 "game"
@@ -2355,47 +2372,47 @@ msgstr ""
 "apparaître le message de fin du jeu"
 
 #. type: tabular
-#: documentation.tex:949 documentation.tex:1004
+#: documentation.tex:958 documentation.tex:1013
 msgid "\\emph{Element}"
 msgstr "\\emph{Élément}"
 
 #. type: tabular
-#: documentation.tex:949 documentation.tex:1004
+#: documentation.tex:958 documentation.tex:1013
 msgid "Background picture"
 msgstr "Image de fond"
 
 #. type: tabular
-#: documentation.tex:949 documentation.tex:1004
+#: documentation.tex:958 documentation.tex:1013
 msgid "\\emph{Where ?}"
 msgstr "\\emph{Où?}"
 
 #. type: tabular
-#: documentation.tex:949 documentation.tex:1004
+#: documentation.tex:958 documentation.tex:1013
 msgid "\\softmenu{Object properties $\\rightarrow$ Description}"
 msgstr "\\softmenu{Propriétés de l'objet $\\rightarrow$ Description}"
 
 #. type: tabular
-#: documentation.tex:949 documentation.tex:1004
+#: documentation.tex:958 documentation.tex:1013
 msgid "\\emph{What ?}"
 msgstr "\\emph{Quoi?}"
 
 #. type: tabular
-#: documentation.tex:949 documentation.tex:1004
+#: documentation.tex:958 documentation.tex:1013
 msgid "A number corresponding to the required score"
 msgstr "Le nombre de bonnes réponses nécessaires à la résolution du jeu"
 
 #. type: tabular
-#: documentation.tex:949
+#: documentation.tex:958
 msgid "\\multicolumn{3}{|l|}{\\texttt{<message></message>}}"
 msgstr "\\multicolumn{3}{|l|}{\\texttt{<message></message>} }"
 
 #. type: tabular
-#: documentation.tex:949 documentation.tex:1004
+#: documentation.tex:958 documentation.tex:1013
 msgid "Pops up the end message of the game"
 msgstr "Fait apparaître le message de fin du jeu"
 
 #. type: tabular
-#: documentation.tex:949 documentation.tex:1004
+#: documentation.tex:958 documentation.tex:1013
 msgid ""
 "A personalized message if necessary enriched with multimedia or html links"
 msgstr ""
@@ -2403,22 +2420,22 @@ msgstr ""
 "multimédias ou un lien hypertexte"
 
 #. type: tabular
-#: documentation.tex:949
+#: documentation.tex:958
 msgid "\\multicolumn{3}{|l|}{\\texttt{off}}"
 msgstr "\\multicolumn{3}{|l|}{\\texttt{off}}"
 
 #. type: tabular
-#: documentation.tex:949
+#: documentation.tex:958
 msgid "Makes a cropped detail unclickable"
 msgstr "Rend un détail insensible au clic"
 
 #. type: tabular
-#: documentation.tex:949
+#: documentation.tex:958
 msgid "Detail"
 msgstr "Détail"
 
 #. type: tabular
-#: documentation.tex:949
+#: documentation.tex:958
 msgid ""
 "\\softmenu{Object properties $\\rightarrow$ Interactivity $\\rightarrow$ "
 "Onclick}"
@@ -2427,12 +2444,12 @@ msgstr ""
 "Onclick}"
 
 #. type: tabular
-#: documentation.tex:949
+#: documentation.tex:958
 msgid "\\multicolumn{3}{|l|}{\\texttt{disable-score}}"
 msgstr "\\multicolumn{3}{|l|}{\\texttt{disable-score}}"
 
 #. type: tabular
-#: documentation.tex:949
+#: documentation.tex:958
 msgid ""
 "Makes a cropped detail clickable, but when clicked, does not add a point to "
 "the score game counter"
@@ -2441,39 +2458,39 @@ msgstr ""
 "au compteur de score"
 
 #. type: tabular
-#: documentation.tex:949
+#: documentation.tex:958
 msgid "\\multicolumn{3}{|l|}{\\texttt{score2}}"
 msgstr "\\multicolumn{3}{|l|}{\\texttt{score2}}"
 
 #. type: tabular
-#: documentation.tex:949
+#: documentation.tex:958
 msgid "Makes a detail add a score to the score2 counter"
 msgstr "Ajoute un point au deuxième compteur de score"
 
 #. type: tabular
-#: documentation.tex:949 documentation.tex:1004
+#: documentation.tex:958 documentation.tex:1013
 msgid "\\multicolumn{3}{|l|}{\\texttt{<tooltip></tooltip>}}"
 msgstr "\\multicolumn{3}{|l|}{\\texttt{<tooltip></tooltip>}}"
 
 #. type: tabular
-#: documentation.tex:949 documentation.tex:1004
+#: documentation.tex:958 documentation.tex:1013
 msgid "Displays a tooltip when moused-over"
 msgstr "Affiche une infobulle au survol de la souris"
 
 #. type: tabular
-#: documentation.tex:949 documentation.tex:1004
+#: documentation.tex:958 documentation.tex:1013
 msgid "Make sure to match the ID of the element used as tooltip"
 msgstr ""
 "Assurez-vous que ce champ est identique à l'ID de l'élément servant "
 "d'infobulle"
 
 #. type: tabular
-#: documentation.tex:949
+#: documentation.tex:958
 msgid "\\multicolumn{3}{|l|}{\\texttt{<score2></score2>}}"
 msgstr "\\multicolumn{3}{|l|}{\\texttt{<score></score>}}"
 
 #. type: tabular
-#: documentation.tex:949
+#: documentation.tex:958
 msgid ""
 "Sets the amount of correct answers needed to pop up the second end message "
 "in a double scoring game"
@@ -2482,107 +2499,128 @@ msgstr ""
 "apparaître le message de fin du jeu"
 
 #. type: tabular
-#: documentation.tex:949
+#: documentation.tex:958
 msgid "\\multicolumn{3}{|l|}{\\texttt{<message2></message2>}}"
 msgstr "\\multicolumn{3}{|l|}{\\texttt{<message2></message2>}}"
 
 #. type: tabular
-#: documentation.tex:949
+#: documentation.tex:958
 msgid "Pops up the second end message in a double scoring game"
 msgstr ""
 "Fait apparaître le second message de fin du jeu, dans le cas d'un jeu à "
 "double score"
 
 #. type: caption{#2}
-#: documentation.tex:949
+#: documentation.tex:958
 msgid "Complete game1clic tags"
 msgstr "Balises à insérer pour un jeu de type game1clic"
 
 #. type: tabular
-#: documentation.tex:1004
+#: documentation.tex:1013
 msgid "\\multicolumn{3}{|l|}{\\softmenu{gameDragAndDrop} template}"
 msgstr "\\multicolumn{3}{|l|}{Modèle \\softmenu{gameDragAndDrop}}"
 
 #. type: tabular
-#: documentation.tex:1004
+#: documentation.tex:1013
 msgid "\\multicolumn{3}{|l|}{\\texttt{<message></message>} }"
 msgstr "\\multicolumn{3}{|l|}{\\texttt{<message></message>} }"
 
 #. type: tabular
-#: documentation.tex:1004
+#: documentation.tex:1013
 msgid "\\multicolumn{3}{|l|}{\\texttt{<target></target>}}"
 msgstr "\\multicolumn{3}{|l|}{\\texttt{<target></target>}}"
 
 #. type: tabular
-#: documentation.tex:1004
+#: documentation.tex:1013
 msgid "Indicates the corresponding drag and drop element and drop zone"
 msgstr ""
 "Indique la correspondance entre l'élément à déplacer et la zone de dépôt"
 
 #. type: tabular
-#: documentation.tex:1004
+#: documentation.tex:1013
 msgid "Graphical element to move"
 msgstr "Élément à déplacer"
 
 #. type: tabular
-#: documentation.tex:1004
+#: documentation.tex:1013
 msgid "\\softmenu{Object Properties $\\rightarrow$ Description}"
 msgstr "\\softmenu{Propriétés de l'objet $\\rightarrow$ Description}"
 
 #. type: tabular
-#: documentation.tex:1004
+#: documentation.tex:1013
 msgid "Make sure to match the ID field of the drop zone"
 msgstr "Assurez-vous que ce champ est identique à l'ID de la zone de dépôt"
 
 #. type: tabular
-#: documentation.tex:1004
+#: documentation.tex:1013
 msgid "\\multicolumn{3}{|l|}{\\texttt{<magnet>on</magnet>}}"
 msgstr "\\multicolumn{3}{|l|}{\\texttt{<magnet>on</magnet>}}"
 
 #. type: tabular
-#: documentation.tex:1004
+#: documentation.tex:1013
 msgid "Adds a \"magnet\" effect"
 msgstr "Ajoute un effet «~aimant~»"
 
 #. type: tabular
-#: documentation.tex:1004
+#: documentation.tex:1013
 msgid "Drop zone"
 msgstr "Zone de dépôt"
 
 #. type: tabular
-#: documentation.tex:1004
+#: documentation.tex:1013
 msgid "\\multicolumn{3}{|l|}{\\texttt{<collisions>on</collisions>}}"
 msgstr "\\multicolumn{3}{|l|}{\\texttt{<collisions>on</collisions>}}"
 
 #. type: tabular
-#: documentation.tex:1004
+#: documentation.tex:1013
 msgid "Activates the \"collisions\" game principle"
 msgstr "Active le jeu de type \"collisions\""
 
 #. type: tabular
-#: documentation.tex:1004
+#: documentation.tex:1013
 msgid "\\multicolumn{3}{|l|}{\\texttt{<collisions>off</collisions>}}"
 msgstr "\\multicolumn{3}{|l|}{\\texttt{<collisions>off</collisions>}}"
 
 #. type: tabular
-#: documentation.tex:1004
+#: documentation.tex:1013
 msgid "Creates a drop zone in a \"collisions\" game"
 msgstr "Crée une zone de dépôt dans un jeu de type \"collisions\""
 
 #. type: tabular
-#: documentation.tex:1004
+#: documentation.tex:1013
 msgid "Drop zone, Graphical element to move"
 msgstr "Zone de dépôt, éléments à déplacer"
 
 #. type: caption{#2}
-#: documentation.tex:1004
+#: documentation.tex:1013
 msgid "Complete gameDragAndDrop tags"
 msgstr "Balises à insérer en vue d'un export gameDragAndDrop"
 
 #. type: document
-#: documentation.tex:1007
+#: documentation.tex:1016
 msgid "\\listoffigures \\listoftables"
 msgstr "\\listoffigures \\listoftables"
+
+#~ msgid ""
+#~ "\\emph{Advanced interactive image creation tips\\ldots} Showing the "
+#~ "player's score"
+#~ msgstr ""
+#~ "\\emph{Astuces pour la création d'image interactive «~avancée~»\\ldots} "
+#~ "Montrer la progression du joueur"
+
+#~ msgid ""
+#~ "\\emph{Advanced interactive image creation tips\\ldots} Showing the "
+#~ "player's mistakes"
+#~ msgstr ""
+#~ "\\emph{Astuces pour la création d'image interactive «~avancée~»\\ldots} "
+#~ "Mettre en évidence les erreurs du joueur"
+
+#~ msgid ""
+#~ "Two ways to give the players a little help: tooltips and links on drop "
+#~ "zones"
+#~ msgstr ""
+#~ "Deux façons de donner des indices aux joueurs: les infobulles et les "
+#~ "liens sur les zones de dépôt"
 
 #~ msgid "\\def\\purpledane{violet}"
 #~ msgstr "\\def\\purpledane{violet}"
