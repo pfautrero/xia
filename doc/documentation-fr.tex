@@ -757,6 +757,7 @@ rubrique \ref{gameDragAndDropsection}};
 
 \subsection{Premier principe ludique: sélectionner, trouver des éléments dans une image}\label{game1clicsection}
 
+
 \textit{Le principe ludique décrit dans cette partie de la documentation est
 le suivant: le joueur doit sélectionner des détails dans une image, quand il
 a sélectionné les éléments indiqués dans la consigne, un message de fin
@@ -782,15 +783,9 @@ cherchera les informations relatives aux consignes dans le champ
 document}), et créera une pop up affichant ces consignes à l'ouverture du
 jeu. Le joueur pourra les lire, fermer la fenêtre puis jouer.
 
-Quand un joueur termine le jeu, un message apparaît automatiquement. Le
-score nécessaire pour le déclenchement de ce message et le message en
-lui-même doivent être renseignés à l'intérieur de balises
-\texttt{<score></score>}\footnote{Il faut indiquer un nombre. Ce nombre n'a
-pas à être similaire au nombre de détails se trouvant sur l'image.} et
-\texttt{<message></message>} dans le champ \softmenu{Description} des
-\softmenu{Propriétés de l'objet} de l'image de fond\footnote{En créant une
-image interactive traditionnelle, ce champ crée l'introduction de
-l'animation, non reliée à un détail particulier.}. 
+Quand un joueur termine le jeu, un message apparaît automatiquement. Ce
+message doit être renseigné dans le champ \softmenu{Description} des
+\softmenu{Propriétés de l'objet} de l'image de fond. 
 
 Vous trouverez tous les détails sur l'endroit et la manière d'indiquer ces
 informations dans le tableau \ref{tag1_sumup}.
@@ -818,15 +813,12 @@ vers un autre jeu, ce qui permettrait aux utilisateurs d'enchaîner les jeux
 par degré de difficulté.
 \end{tip}
 
-\begin{wrapfigure}{r}{45mm}
-  \centering
-  \includegraphics[scale=0.7]{./images/game1clic} 
-\end{wrapfigure}
 
 Une fois votre fichier svg préparé, choisir le modèle d'export
-\softmenu{game1clic} pour générer l'image interactive.
+\softmenu{game1clic} pour générer le jeu.
 
 \subsection{Second principe ludique: classer, organiser, hiérarchiser}\label{gameDragAndDropsection}
+
 
 Le second type de jeu pouvant être créé avec Xia est basé sur le principe du
 glisser-déposer. Des étiquettes déplaçables sont déposées sur l'image de
@@ -899,13 +891,8 @@ Champ description & \verb|<target>Titre_du_détail</target>| & \\
 \label{tag2_sumup}
 \end{table}
 
-\begin{wrapfigure}{r}{45mm}
-  \centering
-  \includegraphics[scale=0.7]{./images/gameDragAndDrop} 
-\end{wrapfigure}
-
 Une fois votre fichier svg préparé, choisir le modèle
-\softmenu{gameDragAndDrop} pour générer l'image interactive.
+\softmenu{gameDragAndDrop} pour générer le jeu.
 
 \subsection{Troisième principe ludique: les collisions}
 
@@ -934,10 +921,13 @@ puisque la résolution passe par le dépôt d'un ou plusieurs éléments à
 certains endroits de l'image. Les balises nécessaires dans ce type de jeu
 sont donc les mêmes que dans le jeu gameDragAndDrop
 \footnote{\texttt{<target></target>} sur les objets,
-\texttt{<score></score>} sur l'image de fond: voir la section
-\ref{gameDragAndDropsection}.}, mais il faudra penser à appliquer la balise
-\verb|<collisions>off</collisions>| sur les zones de dépôts, dans le champ
-\softmenu{Description}.
+\texttt{<score></score>} et \texttt{<message></message>}  sur l'image de
+fond: voir la section \ref{gameDragAndDropsection}.}, mais il faudra penser
+à appliquer la balise \verb|<collisions>off</collisions>| sur les zones de
+dépôts, dans le champ \softmenu{Description}.
+
+Une fois votre fichier svg préparé, choisir le modèle
+\softmenu{gameDragAndDrop} pour générer le jeu.
 
 \subsection{\emph{Astuces pour la création de jeux interactifs}: effet aimant,
 infobulles, double compteur de score\ldots}
@@ -1072,8 +1062,8 @@ apparaître le message de fin du jeu\\
   & \emph{Rôle} & Fait apparaître le message de fin du jeu \\
   & \emph{Élément}  & Image de fond \\
   & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\ 
-  & \emph{Quoi?} & Un message que vous pouvez si nécessaire enrichir avec des ressources
-multimédias ou un lien hypertexte\\
+  & \emph{Quoi?} & Message que vous pouvez enrichir avec des ressources multimédias ou un lien
+hypertexte\\
   \hline
   \multicolumn{3}{|l|}{\texttt{off}}\\
   \hline
@@ -1105,22 +1095,21 @@ Onclick}\\
 d'infobulle\\
   & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\
   \hline
- \multicolumn{3}{|l|}{\texttt{<score></score>}}\\
+ \multicolumn{3}{|l|}{\texttt{<score2></score2>}}\\
  \hline
- & \emph{Rôle} & Permet de régler le nombre de bonnes réponses nécessaires pour faire
-apparaître le message de fin du jeu\\
+ & \emph{Rôle} & Régler le nombre de bonnes réponses nécessaires à l'apparition du second
+message (jeu à double score)\\
  & \emph{Élément}  & Image de fond \\
  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description} \\
  & \emph{Quoi?} & Le nombre de bonnes réponses nécessaires à la résolution du jeu\\
  \hline
  \multicolumn{3}{|l|}{\texttt{<message2></message2>}}\\
  \hline
-  & \emph{Rôle} & Fait apparaître le second message de fin du jeu, dans le cas d'un jeu à
-double score \\
+  & \emph{Rôle} & Fait apparaître le second message de fin du jeu (jeu à double score) \\
   & \emph{Élément}  & Image de fond \\
   & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\ 
-  & \emph{Quoi?} & Un message que vous pouvez si nécessaire enrichir avec des ressources
-multimédias ou un lien hypertexte\\
+  & \emph{Quoi?} & Message que vous pouvez enrichir avec des ressources multimédias ou un lien
+hypertexte\\
   \hline
   \end{tabular}
   \caption{Balises à insérer pour un jeu de type game1clic}
@@ -1144,8 +1133,8 @@ apparaître le message de fin du jeu\\
   & \emph{Rôle} & Fait apparaître le message de fin du jeu \\
   & \emph{Élément}  & Image de fond \\
   & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\ 
-  & \emph{Quoi?} & Un message que vous pouvez si nécessaire enrichir avec des ressources
-multimédias ou un lien hypertexte\\
+  & \emph{Quoi?} & Message que vous pouvez enrichir avec des ressources multimédias ou un lien
+hypertexte\\
   \hline
   \multicolumn{3}{|l|}{\texttt{<target></target>}}\\
   \hline
@@ -1179,6 +1168,22 @@ multimédias ou un lien hypertexte\\
   & \emph{Quoi?} & Assurez-vous que ce champ est identique à l'ID de l'élément servant
 d'infobulle\\
   & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\
+  \hline
+ \multicolumn{3}{|l|}{\texttt{<score2></score2>}}\\
+ \hline
+ & \emph{Rôle} & Régler le nombre de bonnes réponses nécessaires à l'apparition du second
+message (jeu à double score)\\
+ & \emph{Élément}  & Image de fond \\
+ & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description} \\
+ & \emph{Quoi?} & Le nombre de bonnes réponses nécessaires à la résolution du jeu\\
+ \hline
+ \multicolumn{3}{|l|}{\texttt{<message2></message2>}}\\
+ \hline
+  & \emph{Rôle} & Fait apparaître le second message de fin du jeu (jeu à double score) \\
+  & \emph{Élément}  & Image de fond \\
+  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\ 
+  & \emph{Quoi?} & Message que vous pouvez enrichir avec des ressources multimédias ou un lien
+hypertexte\\
   \hline
   \end{tabular}
   \caption{Balises à insérer en vue d'un export gameDragAndDrop}

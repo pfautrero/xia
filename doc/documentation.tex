@@ -649,6 +649,11 @@ has much more to do than simply clicking on details in order to read the comment
 
 \subsection{First game principle: selecting, finding elements in the image}\label{game1clicsection}
 
+% \begin{wrapfigure}{r}{45mm}
+%   \centering
+%   \includegraphics[scale=0.7]{./images/game1clic} 
+% \end{wrapfigure}
+
 \textit{The game principle described in this section consists in selecting details 
 on a background image. When the user has reached the goal described in the 
 instructions, a message appears in a final pop up.}
@@ -673,8 +678,7 @@ will just have to read the instructions and close the pop up to play the game.
 
 When the user completes the game, a message automatically appears.
 This message has to be filled in the \softmenu{Description} field of the \softmenu{Object Properties} of the 
-background image\footnote{When creating a traditional interactive image, 
-this field creates the introduction text, not related with any detail.}. 
+background image. 
 
 Two informations are needed in order for this message to pop up :
 the exact number of details that have to be selected\footnote{This number does 
@@ -704,14 +708,15 @@ It is also possible to insert a link, allowing users to play another game,
 in order to "chain" activities up by degree of difficulty.
 \end{tip}
 
-\begin{wrapfigure}{r}{45mm}
-  \centering
-  \includegraphics[scale=0.7]{./images/game1clic} 
-\end{wrapfigure}
 
-Once your svg source file is created, choose the template \softmenu{game1clic} to generate the interactive image.
+Once your svg source file is created, choose the template \softmenu{game1clic} to generate the interactive game.
 
 \subsection{Second game principle: classyfying, ordering, ranking}\label{gameDragAndDropsection}
+
+% \begin{wrapfigure}{r}{45mm}
+%   \centering
+%   \includegraphics[scale=0.7]{./images/gameDragAndDrop} 
+% \end{wrapfigure}
 
 \textit{The second kind of game that can be created with Xia consists in
 dragging and dropping graphical elements on the background image. If all the
@@ -770,12 +775,7 @@ Description Field & \verb|<target>Detail_Title</target>| & \\
 \label{tag2_sumup}
 \end{table}
 
-\begin{wrapfigure}{r}{45mm}
-  \centering
-  \includegraphics[scale=0.7]{./images/gameDragAndDrop} 
-\end{wrapfigure}
-
-Once your svg source file is created, choose the template \softmenu{gameDragAndDrop} to generate the interactive image.
+Once your svg source file is created, choose the template \softmenu{gameDragAndDrop} to generate the interactive game.
 
 \subsection{Third game principle: collisions}
 
@@ -797,8 +797,12 @@ background image. All the details will then become solid and will prevent object
 
 The "collision" game is in fact a gameDragAndDrop game, since the goal remains to 
 drag one or several objects and drop them somewhere on the image.
-The requisite tags for this template are therefore the same as in the gameDragAndDrop template \footnote{\texttt{<target></target>} on the objects, \texttt{<score></score>} 
-on the background image: see section \ref{gameDragAndDropsection}.}, but you will apply the  \verb|<collisions>off</collisions>| tag to the drop zone's \softmenu{Description} field.
+The requisite tags for this template are therefore the same as in the gameDragAndDrop
+template \footnote{\texttt{<target></target>} on the objects, \texttt{<score></score>} 
+and \texttt{<message></message>} on the background image: see section \ref{gameDragAndDropsection}.}, but you 
+will apply the \verb|<collisions>off</collisions>| tag to the drop zone's \softmenu{Description} field.
+
+Once your svg source file is created, choose the template \softmenu{gameDragAndDrop} to generate the interactive game.
 
 \subsection{\emph{Advanced interactive games creation tips}: Magnet effect, tooltips, double-scoring\ldots}
 
@@ -1017,6 +1021,20 @@ These tables sum up the tags that have to be indicated when a game is created:
   & \emph{Element} & Drop zone, Graphical element to move \\
   & \emph{What ?} & Make sure to match the ID of the element used as tooltip\\
   & \emph{Where ?} & \softmenu{Object properties $\rightarrow$ Description}\\
+  \hline
+ \multicolumn{3}{|l|}{\texttt{<score2></score2>}}\\
+ \hline
+ & \emph{Role} & Sets the amount of correct answers needed to pop up the second end message in a double scoring game\\
+ & \emph{Element}  & Background picture \\
+ & \emph{Where ?} & \softmenu{Object properties $\rightarrow$ Description} \\
+ & \emph{What ?} & A number corresponding to the required score\\
+ \hline
+ \multicolumn{3}{|l|}{\texttt{<message2></message2>}}\\
+ \hline
+  & \emph{Role} & Pops up the second end message in a double scoring game \\
+  & \emph{Element}  & Background picture \\
+  & \emph{Where ?} & \softmenu{Object properties $\rightarrow$ Description}\\ 
+  & \emph{What ?} & A personalized message if necessary enriched with multimedia or html links\\
   \hline
   \end{tabular}
   \caption{Complete gameDragAndDrop tags}
