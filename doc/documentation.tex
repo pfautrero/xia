@@ -336,11 +336,15 @@ in Inkscape: just click on \softmenu{Plugins $\rightarrow$ Various $\rightarrow$
 and choose your template and destination folder.
 
 \begin{tip}
- If you are using Xia for GNU/Linux, you can generate your html5 animation
+ If you use GNU/Linux or Mac OS X, you can generate your html5 animation
  using the terminal with the command \texttt{xia-converter}. The parameters are
  \texttt{-i} to indicate the input file, \texttt{-o} to indicate the exportation folder, and
- \texttt{-t} to indicate the template. For example:\\
- \texttt{\$ xia-converter -i myfile.svg -o ../export\_folder/ -t accordionBlack}\\
+ \texttt{-t} to indicate the template.\\
+ \emph{GNU/Linux}\\
+ \texttt{\$ xia-converter -i myfile.svg -o export\_folder/ -t accordionBlack}\\
+ \emph{Mac OS X}\\
+ \texttt{\$ cd /Applications/xia.app/Contents/Resources/}\\
+ \texttt{\$ python xia.py -i myfile.svg -o export\_folder/ -t gameDragAndDrop}\\
  The template accordionBlack will be chosen if a syntax error is made in the \texttt{-t} parameter.
 \end{tip}
 
@@ -866,6 +870,13 @@ corresponding detail on it.
 
 
 \subsubsection{Tooltips (game1clic and gameDragAndDrop templates)}
+
+\begin{links}
+Explore the \href{http://xia.dane.ac-versailles.fr/demo/tuto/xia7}{interactive image}
+created for this section of the documentation.
+
+Download the \href{http://xia.dane.ac-versailles.fr/demo/tuto/xia7/svg/xia7.svg}{svg} source file.
+\end{links}
 
 It is possible to display tooltips of details on mouse-over. To do so, 
 create the tooltip with a png imported file or a bitmap copy (see section \ref{playersscore})

@@ -399,14 +399,16 @@ choisissez directement la qualité, le modèle d'export, et le répertoire de
 destination.
 
 \begin{tip}
- Si vous utilisez Xia avec GNU/Linux, vous pouvez générer vos animation html5
-en utilisant le terminal avec la commande \texttt{xia-converter}. Les
+ Si vous utilisez GNU/Linux ou Mac OS X, vous pouvez générer vos animation
+html5 en utilisant le terminal avec la commande \texttt{xia-converter}. Les
 paramètres à utiliser sont \texttt{-i} pour indiquer le fichier en entrée,
-\texttt{-o} pour indiquer le répertoire d'export, et \texttt{-t} le template
-choisi. Ainsi:\\ \texttt{\$ xia-converter -i monfichier.svg -o
-../dossier\_export/ -t accordionBlack}\\ Le template accordionBlack sera
-utilisé en cas d'erreur de syntaxe dans la désignation du template
-(paramètre \texttt{-t}).
+\texttt{-o} pour indiquer le répertoire d'export, et \texttt{-t} le thème
+choisi.\\ \emph{Avec GNU/Linux}\\ \texttt{\$ xia-converter -i monfichier.svg
+-o dossier\_export/ -t accordionBlack}\\ \emph{Avec Mac OS X}\\ \texttt{\$
+cd /Applications/xia.app/Contents/Resources/}\\ \texttt{\$ python xia.py -i
+monfichier.svg -o dossier\_export/ -t gameDragAndDrop}\\ Le thème
+accordionBlack sera choisi s'il y a une erreur de syntaxe dans le paramre
+\texttt{-t}.
 \end{tip}
 
 
@@ -465,13 +467,13 @@ below = .2cm of bold] (italic)
 right = 3.5cm of texttt] (textttR) {Bout de texte \texttt{brut}};
 \node[anchor=north west, below = .2cm of texttt] (link)
 {\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
-7mm of link.north] (linkT) {Un lien vers \verb![https://www.wikipedia.org/]!
-\verb![Wikipedia]!}; \node[box, right = 3.5cm of link] (linkR) {Un lien vers
+7mm of link.north] (linkT) {Un lien vers \verb![https://www.wikipedia.org/
+Wikipedia]}; \node[box, right = 3.5cm of link] (linkR) {Un lien vers
 \href{https://www.wikipedia.org/}{Wikipedia}}; \node[anchor=north west,
 below = .2cm of link] (relativelinks)
 {\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
 -7mm of relativelinks] (relativelinksT) {Un lien vers un
-\verb![../dossier/fichier.pdf fichier local]!}; \node[box, right = 3.5cm of
+\verb![/home/foo/bar.pdf fichier local]!}; \node[box, right = 3.5cm of
 relativelinks] (relativelinksR) {Un lien vers un
 \href{/home/geoffrey/ownCloud/DANE/DOSSIERS/XIA/tuto/dossier/fichier.pdf}{fichier
 local\footnote{Lien qui ne fonctionnera pas ici!}}}; \node[anchor=north
@@ -999,6 +1001,14 @@ le lien.
 
 
 \subsubsection{Infobulles (thèmes game1clic et gameDragAndDrop)}
+
+\begin{links}
+Visualisez l'\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia7}{image
+interactive} créée pour cette partie de la documentation.
+
+Téléchargez le fichier source au format
+\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia7/svg/xia7.svg}{svg}.
+\end{links}
 
 Il est possible de faire s'afficher des infobulles lorsque la souris survole
 certains détails. Pour cela, créez l'infobulle avec une image au format png
