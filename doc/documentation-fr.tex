@@ -161,7 +161,7 @@ symbolisée par une icône clicable en forme de lettre "i".}:\\
  Le titre renseigné dans les métadonnées du document apparaissent au-dessus
 de l'image interactive et donnent son nom à la page web l'affichant. Le
 créateur et les droits associés apparaissent dans la pop up accessible via
-l'icône «~i~» située à droite du titre de l'image-active.
+l'icône «~i~» située à droite du titre de l'image interactive.
 
 Vous pouvez sauvegarder votre projet au format svg dès le début du travail,
 en allant dans le menu \softmenu{Fichier $\rightarrow$ Enregistrer
@@ -209,7 +209,7 @@ d'arrivée.
 interactive au format html5 (par exemple, le premier détail détouré dans
 Inkscape apparaîtra en haut dans le modèle accordéon ou en numéro 1 dans le
 modèle boutons). Si vous souhaitez changer cet ordre sans avoir à recréer
-tous les détails, lisez la rubrique \ref{couche_XML}.
+tous les détails, lisez la rubrique \ref{XML_layer}.
 \end{alert}
 
 Une fois les détails détourés\footnote{La couleur du contour des détails
@@ -261,12 +261,12 @@ série de fichiers et de répertoires. Ouvrez le fichier \softmenu{index.html}
 dans un navigateur web pour voir votre image interactive au format html5.
 
 \begin{alert}
-Ce fichier ne peut être séparé des autres pour que l'image-active
+Ce fichier ne peut être séparé des autres pour que l'image interactive
 fonctionne. Tous les autres fichiers et répertoires générés durant le
 processus d'exportation doivent obligatoirement être localisés dans le même
 répertoire (voir l'illustration \ref{xia_files}) pour que le fichier
 \texttt{index.html} fonctionne correctement. \textbf{Il est donc impératif
-de dédier un répertoire spécifique à chaque image-active générée}.
+de dédier un répertoire spécifique à chaque image interactive générée}.
 \end{alert}
 
 
@@ -628,7 +628,6 @@ caractères que vous souhaitez dans le code, sauf le \texttt{)}.}.
   
 \subsection{Contrôler le comportement des détails: affichage immédiat et désactivation
 du zoom}\label{white_black_background}
-\label{XML_layer}
 
 Par défaut, le comportement des détails d'une image interactive est le
 suivant:
@@ -654,7 +653,7 @@ noir et un fond blanc, un détail ne peut donc être à la fois immédiatement
 visible et avoir le zoom désactivé.
 
 \subsection{Contrôler l'ordre d'affichage des détails dans la barre latérale des
-commentaires}
+commentaires}\label{XML_layer}
 
 Par défaut dans une image interactive, les détails apparaissent
 verticalement en suivant l'ordre dans lequel ils ont été créés dans Inkscape
