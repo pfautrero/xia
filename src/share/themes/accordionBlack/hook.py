@@ -89,6 +89,7 @@ class hook:
                 metadatas += self.iaobject.scene["contributor"] + "<br>"
 
             final_index = final_index.replace("{{METADATAS}}", metadatas)
+            final_index = final_index.replace("{{AUTHOR}}", self.iaobject.scene["creator"])
             final_index = final_index.replace("{{DESCRIPTION}}", self.iaobject.scene["description"])
             final_index = final_index.replace("{{KEYWORDS}}", self.iaobject.scene["keywords"])
             final_index = final_index.replace("{{TITLE}}", self.iaobject.scene["title"])
