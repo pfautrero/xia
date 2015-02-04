@@ -161,7 +161,7 @@ symbolisée par une icône clicable en forme de lettre "i".}:\\
  Le titre renseigné dans les métadonnées du document apparaissent au-dessus
 de l'image interactive et donnent son nom à la page web l'affichant. Le
 créateur et les droits associés apparaissent dans la pop up accessible via
-l'icône «~i~» située à droite du titre de l'image-active.
+l'icône «~i~» située à droite du titre de l'image interactive.
 
 Vous pouvez sauvegarder votre projet au format svg dès le début du travail,
 en allant dans le menu \softmenu{Fichier $\rightarrow$ Enregistrer
@@ -209,7 +209,7 @@ d'arrivée.
 interactive au format html5 (par exemple, le premier détail détouré dans
 Inkscape apparaîtra en haut dans le modèle accordéon ou en numéro 1 dans le
 modèle boutons). Si vous souhaitez changer cet ordre sans avoir à recréer
-tous les détails, lisez la rubrique \ref{couche_XML}.
+tous les détails, lisez la rubrique \ref{XML_layer}.
 \end{alert}
 
 Une fois les détails détourés\footnote{La couleur du contour des détails
@@ -261,12 +261,12 @@ série de fichiers et de répertoires. Ouvrez le fichier \softmenu{index.html}
 dans un navigateur web pour voir votre image interactive au format html5.
 
 \begin{alert}
-Ce fichier ne peut être séparé des autres pour que l'image-active
+Ce fichier ne peut être séparé des autres pour que l'image interactive
 fonctionne. Tous les autres fichiers et répertoires générés durant le
 processus d'exportation doivent obligatoirement être localisés dans le même
 répertoire (voir l'illustration \ref{xia_files}) pour que le fichier
 \texttt{index.html} fonctionne correctement. \textbf{Il est donc impératif
-de dédier un répertoire spécifique à chaque image-active générée}.
+de dédier un répertoire spécifique à chaque image interactive générée}.
 \end{alert}
 
 
@@ -295,7 +295,7 @@ aBlack] (params) {\includegraphics[scale=.35]{./images/params}}; \node[left
   
   \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Sélection
 du fichier source svg}; \node[box, above = 5mm of params] (paramsC)
-{Sélectionner la qualité de l'export (voir l'illustration
+{Définition des options d'exportation (voir l'illustration
 \ref{xia_export_options})}; \node[box,above right = 5mm of aCloud.north
 east] (aBlackC)
 {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/accordionBlack}{accordionBlack}\\ 
@@ -399,14 +399,16 @@ choisissez directement la qualité, le modèle d'export, et le répertoire de
 destination.
 
 \begin{tip}
- Si vous utilisez Xia avec GNU/Linux, vous pouvez générer vos animation html5
-en utilisant le terminal avec la commande \texttt{xia-converter}. Les
+ Si vous utilisez GNU/Linux ou Mac OS X, vous pouvez générer vos animation
+html5 en utilisant le terminal avec la commande \texttt{xia-converter}. Les
 paramètres à utiliser sont \texttt{-i} pour indiquer le fichier en entrée,
-\texttt{-o} pour indiquer le répertoire d'export, et \texttt{-t} le template
-choisi. Ainsi:\\ \texttt{\$ xia-converter -i monfichier.svg -o
-../dossier\_export/ -t accordionBlack}\\ Le template accordionBlack sera
-utilisé en cas d'erreur de syntaxe dans la désignation du template
-(paramètre \texttt{-t}).
+\texttt{-o} pour indiquer le répertoire d'export, et \texttt{-t} le thème
+choisi.\\ \emph{Avec GNU/Linux}\\ \texttt{\$ xia-converter -i monfichier.svg
+-o dossier\_export/ -t accordionBlack}\\ \emph{Avec Mac OS X}\\ \texttt{\$
+cd /Applications/xia.app/Contents/Resources/}\\ \texttt{\$ python xia.py -i
+monfichier.svg -o dossier\_export/ -t gameDragAndDrop}\\ Le thème
+accordionBlack sera choisi s'il y a une erreur de syntaxe dans le paramre
+\texttt{-t}.
 \end{tip}
 
 
@@ -418,7 +420,8 @@ fait que convertir ce fichier source svg en animation html5;
  \item Le titre de l'image interactive doit être renseigné dans les
 \softmenu{Métadonnées du document};
  \item Le texte des détails est renseigné dans les \softmenu{Propriétés de
-l'objet}, dans les champs \softmenu{Titre} et \softmenu{Description};
+l'objet}, dans les champs \softmenu{Titre} et \softmenu{Description} des
+détails détourés;
  \item La description générale de l'image interactive doit être renseignée dans les
 \softmenu{Propriétés de l'objet} de l'image de fond.
 \end{enumerate}
@@ -464,26 +467,27 @@ below = .2cm of bold] (italic)
 right = 3.5cm of texttt] (textttR) {Bout de texte \texttt{brut}};
 \node[anchor=north west, below = .2cm of texttt] (link)
 {\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
-7mm of link.north] (linkT) {Un lien vers \verb![https://www.wikipedia.org/]!
-\verb![Wikipedia]!}; \node[box, right = 3.5cm of link] (linkR) {Un lien vers
+7mm of link.north] (linkT) {Un lien vers \verb![https://www.wikipedia.org/
+Wikipedia]}; \node[box, right = 3.5cm of link] (linkR) {Un lien vers
 \href{https://www.wikipedia.org/}{Wikipedia}}; \node[anchor=north west,
 below = .2cm of link] (relativelinks)
 {\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
 -7mm of relativelinks] (relativelinksT) {Un lien vers un
-\verb![../dossier/fichier.pdf fichier local]!}; \node[box, right = 3.5cm of
+\verb![/home/foo/bar.pdf fichier local]!}; \node[box, right = 3.5cm of
 relativelinks] (relativelinksR) {Un lien vers un
 \href{/home/geoffrey/ownCloud/DANE/DOSSIERS/XIA/tuto/dossier/fichier.pdf}{fichier
 local\footnote{Lien qui ne fonctionnera pas ici!}}}; \node[anchor=north
 west, below = .8cm of relativelinks] (bullets)
 {\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
 -7mm of bullets] (bulletsT) {Faire une liste \\ $\ast$ de puces \\ $\ast$
-sur \\ ~$\ast$ 2 niveaux}; \node[box, right = 3.5cm of bullets.south east]
-(bulletsR) {Faire une liste \begin{itemize} \item de puces \item sur
-\begin{itemize} \item 2 niveaux \end{itemize} \end{itemize} };
-\node[anchor=north west, below = 2cm of bullets] (line)
-{\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
-7mm of line.north] (lineT) {Tracer \\ - - - - \\ un trait}; \node[box, right
-= 3.5cm of line] (lineR) {Tracer \\ \hrulefill \\ un trait};
+sur \\ ~$\ast$ 2 niveaux\footnote{Insérez un \Spacebar (espace) avant les
+$\ast$}}; \node[box, right = 3.5cm of bullets.south east] (bulletsR) {Faire
+une liste \begin{itemize} \item de puces \item sur \begin{itemize} \item 2
+niveaux \end{itemize} \end{itemize} }; \node[anchor=north west, below = 3cm
+of bullets] (line) {\includegraphics[scale=.5]{./images/Description}};
+\node[descrip, below = 7mm of line.north] (lineT) {Tracer \\ - - - - \\ un
+trait}; \node[box, right = 3.5cm of line] (lineR) {Tracer \\ \hrulefill \\ 
+un trait};
 \end{tikzpicture}
 \caption{Balises de mise en forme du texte}
 \label{xia_text_tags}
@@ -503,7 +507,8 @@ celle-ci (image, son, vidéo) fasse partie des formats supportés:
 \end{description}
 
 Le lien doit être inséré dans le champ \softmenu{Description} des
-\softmenu{Propriétés de l'objet}:
+\softmenu{Propriétés de l'objet}.
+
 \begin{description}
  \item[Lien absolu] Si l'url de la ressource est
  
@@ -529,20 +534,17 @@ se trouve dans le répertoire d'exportation. On peut aussi utiliser
 parent.
 \end{description}
 
-Tous les formats vidéos supportés par Xia ne sont cependant pas supportés
-nativement par tous les navigateurs web. Il est recommandé d'exporter les
-vidéos dans les 3 formats supportés par Xia, et de les déposer dans un seul
-et même répertoire (la seule différence entre ces trois vidéos étant donc
-leur extension).\\
-
-
-
-
+\begin{tip}
 Ainsi, même si un format particulier est renseigné dans la description (si
 l'on suit l'exemple précédent, ce serait \verb|videos/video.ogv|), si le
 navigateur web est incapable de lire la ressource, il tentera
 automatiquement de lire les fichiers possédant le même nom mais une
-extension différente.
+extension différente. Même si un format spécifique est renseigné dans la
+description (si l'on suit l'exemple précédent: \verb|videos/video.ogv|), si
+le navigateur est incapable de lire la ressource, il cherchera
+automatiquement à lire les fichiers du même nom mais possédant une extension
+différente (c'est à dire, \verb|video.mp4| et \verb|video.webm|).
+\end{tip}
 
 La dernière possibilité consiste à insérer un code iframe. Celui-ci sera
 interprété et le lecteur du service web apparaîtra, donnant accès à la
@@ -626,7 +628,6 @@ caractères que vous souhaitez dans le code, sauf le \texttt{)}.}.
   
 \subsection{Contrôler le comportement des détails: affichage immédiat et désactivation
 du zoom}\label{white_black_background}
-\label{XML_layer}
 
 Par défaut, le comportement des détails d'une image interactive est le
 suivant:
@@ -652,7 +653,7 @@ noir et un fond blanc, un détail ne peut donc être à la fois immédiatement
 visible et avoir le zoom désactivé.
 
 \subsection{Contrôler l'ordre d'affichage des détails dans la barre latérale des
-commentaires}
+commentaires}\label{XML_layer}
 
 Par défaut dans une image interactive, les détails apparaissent
 verticalement en suivant l'ordre dans lequel ils ont été créés dans Inkscape
@@ -664,7 +665,8 @@ XML}, situé dans le menu \softmenu{Édition}.
 
 A priori complexe, cette fenêtre de dialogue est en réalité assez simple à
 utiliser: en sélectionnant une entrée de l'éditeur XML, le détail
-correspondant à celle-ci sera mis en évidence sur l'image. Il ne reste plus 
+correspondant à celle-ci sera mis en évidence sur l'image. Il ne reste plus
+qu'à glisser-déposer l'entrée à l'endroit désiré:\\
 
 \begin{center}
  \includegraphics[width=\textwidth]{images/layerorder}\\
@@ -681,7 +683,7 @@ l'image de fond par simple sélection dans l'éditeur.
  \item L'enrichissement multimédia est possible par simple lien (relatif ou absolu)
 vers un fichier dont le format est reconnu par Xia
  \item On ajoute des images sur l'image de fond en les incorporant et en leur
-appliquant un fond blanc
+appliquant un fond blanc.
  \item On peut modifier le comportement par défaut des détails en leur appliquant
 une couleur de fond (blanc ou noir)
  \item L'ordre des détails de l'image interactive dépend de l'ordre de leur
@@ -731,8 +733,8 @@ aBlack] (params) {\includegraphics[scale=.35]{./images/params}}; \node[left
   
   \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Sélection
 du fichier source au formation svg}; \node[box, above = 5mm of params]
-(paramsC) {Sélection de la qualité de l'export}; \node[box, right = 5mm of
-guClic] (guClicC)
+(paramsC) {Définition des options d'exportation (voir l'illustration
+\ref{xia_export_options})}; \node[box, right = 5mm of guClic] (guClicC)
 {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia3}{game1clic}\\ 
 Sélectionner des détails sur une image de fond \\ Tutoriel dans la rubrique
 \ref{game1clicsection}}; \node[box, left = 25mm of bBlue] (aBrownC)
@@ -755,6 +757,7 @@ rubrique \ref{gameDragAndDropsection}};
 \end{figure}
 
 \subsection{Premier principe ludique: sélectionner, trouver des éléments dans une image}\label{game1clicsection}
+
 
 \textit{Le principe ludique décrit dans cette partie de la documentation est
 le suivant: le joueur doit sélectionner des détails dans une image, quand il
@@ -781,15 +784,9 @@ cherchera les informations relatives aux consignes dans le champ
 document}), et créera une pop up affichant ces consignes à l'ouverture du
 jeu. Le joueur pourra les lire, fermer la fenêtre puis jouer.
 
-Quand un joueur termine le jeu, un message apparaît automatiquement. Le
-score nécessaire pour le déclenchement de ce message et le message en
-lui-même doivent être renseignés à l'intérieur de balises
-\texttt{<score></score>}\footnote{Il faut indiquer un nombre. Ce nombre n'a
-pas à être similaire au nombre de détails se trouvant sur l'image.} et
-\texttt{<message></message>} dans le champ \softmenu{Description} des
-\softmenu{Propriétés de l'objet} de l'image de fond\footnote{En créant une
-image interactive traditionnelle, ce champ crée l'introduction de
-l'animation, non reliée à un détail particulier.}. 
+Quand un joueur termine le jeu, un message apparaît automatiquement. Ce
+message doit être renseigné dans le champ \softmenu{Description} des
+\softmenu{Propriétés de l'objet} de l'image de fond. 
 
 Vous trouverez tous les détails sur l'endroit et la manière d'indiquer ces
 informations dans le tableau \ref{tag1_sumup}.
@@ -817,17 +814,126 @@ vers un autre jeu, ce qui permettrait aux utilisateurs d'enchaîner les jeux
 par degré de difficulté.
 \end{tip}
 
-\begin{wrapfigure}{r}{45mm}
-  \centering
-  \includegraphics[scale=0.7]{./images/game1clic} 
-\end{wrapfigure}
 
-Choisir le modèle d'export \softmenu{game1clic} pour générer l'image
-interactive.
+Une fois votre fichier svg préparé, choisir le modèle d'export
+\softmenu{game1clic} pour générer le jeu.
+
+\subsection{Second principe ludique: classer, organiser, hiérarchiser}\label{gameDragAndDropsection}
 
 
-\subsubsection{\emph{Astuces pour la création d'image interactive «~avancée~»\ldots}
-Montrer la progression du joueur}
+Le second type de jeu pouvant être créé avec Xia est basé sur le principe du
+glisser-déposer. Des étiquettes déplaçables sont déposées sur l'image de
+fond. Quand tous les éléments ont été placés sur leur zone de dépôt, un
+message apparaît, annonçant la fin du jeu.
+
+\begin{links}
+Visualisez l'\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia5}{image
+interactive} créée pour cette partie de la documentation.
+
+Téléchargez le fichier source au format
+\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia5/svg/xia5.svg}{svg}.
+\end{links}
+
+Voici comment créer un jeu basé sur le principe du glisser-déposer:
+\begin{enumerate}
+ \item Dans Inkscape:
+\begin{itemize}
+ \item Choisir et importer une image de fond
+ \item Créer les éléments que les utilisateurs de votre image interactive auront à
+déplacer et à déposer (autrement dit: des images, des mots ou groupes de
+mots: voir ci-dessous les explications)
+ \item Créer la fenêtre surgissante de consignes en éditant les informations du
+champ \softmenu{Fichier $\rightarrow$ Métadonnées du document $\rightarrow$
+Description}\footnote{Exactement comme dans le jeu game1clic}
+ \item En renseignant les métadonnées, faites correspondre chaque élément à une
+zone de dépôt (ces zones de dépôts étant en réalité des détails détourés)
+\end{itemize}
+ \item Dans Xia
+ \begin{itemize}
+  \item Exporter le fichier source au format svg avec le modèle
+\softmenu{gameDragAndDrop}
+ \end{itemize}
+\end{enumerate}
+
+Deux méthodes peuvent être utilisées pour créer les éléments que les joueurs
+auront à glisser et déposer. La première, très simple, consiste à utiliser
+un utilitaire de capture d'écran capable de créer des petites images au
+format png, puis d'importer celles-ci dans Inkscape. Il est également
+possible de créer ces éléments directement dans Inkscape. Par exemple, en
+créant un texte, en regroupant ce texte avec une forme puis en faisant une
+copie bitmap de cet ensemble (\softmenu{Édition $\rightarrow$ Créer une
+copie bitmap}).
+
+
+Les éléments à déplacer doivent être associés à leur zone de dépôt
+\footnote{\textbf{Un} objet ne pouvant être associé qu'à \textbf{une} zone
+de dépôt.}. Pour faire cela, il faut «~jumeler~» les éléments à
+glisser-déposer avec leur zone de dépôt en faisant correspondre le champ
+\softmenu{ID} de la zone de dépôt au champ \softmenu{Description} de
+l'élément à glisser déposer. La seule subtilité tient dans la balise
+\verb|<target></target>| devant être indiquée dans la
+\softmenu{Description}.
+
+Vous trouverez dans le tableau \ref{tag2_sumup} un résumé des balises à
+renseigner dans les \softmenu{Propriétés de l'objet} des éléments à déplacer
+et des zones de dépôts afin de les faire correspondre les unes aux autres.
+
+\begin{table}
+\begin{tabular}{|p{1.in}|p{2.5in}|p{1.5in}|}
+\hline
+ & Élément à déplacer (objets à glisser et déposer) & Détail détouré (zone de dépôt)\\
+\hline
+Champ ID & & \verb|Titre_du_détail|\\
+\hline
+Champ description & \verb|<target>Titre_du_détail</target>| & \\
+\hline
+\end{tabular}
+\caption{Résumé des balises à utiliser dans le jeu gameDragAndDrop}
+\label{tag2_sumup}
+\end{table}
+
+Une fois votre fichier svg préparé, choisir le modèle
+\softmenu{gameDragAndDrop} pour générer le jeu.
+
+\subsection{Troisième principe ludique: les collisions}
+
+\textit{Le principe ludique documenté dans cette section est le suivant: le
+joueur doit déplacer des éléments vers des zones de dépôt, mais les
+déplacements de ces éléments ne peuvent avoir lieu que dans certaines
+limites. Le jeu de type «~collisions~» peut ainsi être utilisé pour créer
+des labyrinthes, des taquins.}
+
+\begin{links}
+Visualisez l'\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia6}{image
+interactive} créée pour cette partie de la documentation.
+
+Téléchargez le fichier source au format
+\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia6/svg/xia6.svg}{svg}.
+\end{links}
+
+Pour créer ce type de jeu, ajoutez la balise
+\verb|<collisions>on</collisions>| à l'image de fond. Une fois cela fait,
+tous les détails deviennent «~solides~», et bloquent le déplacement des
+objets qu'il faut déplacer (images au format png importées, ou copie bitmap
+de formes dessinées avec Inkscape).
+
+Le jeu de type «~collisions~» est en réalité un jeu de type gameDragAndDrop,
+puisque la résolution passe par le dépôt d'un ou plusieurs éléments à
+certains endroits de l'image. Les balises nécessaires dans ce type de jeu
+sont donc les mêmes que dans le jeu gameDragAndDrop
+\footnote{\texttt{<target></target>} sur les objets,
+\texttt{<score></score>} et \texttt{<message></message>}  sur l'image de
+fond: voir la section \ref{gameDragAndDropsection}.}, mais il faudra penser
+à appliquer la balise \verb|<collisions>off</collisions>| sur les zones de
+dépôts, dans le champ \softmenu{Description}.
+
+Une fois votre fichier svg préparé, choisir le modèle
+\softmenu{gameDragAndDrop} pour générer le jeu.
+
+\subsection{\emph{Astuces pour la création de jeux interactifs}: effet aimant,
+infobulles, double compteur de score\ldots}
+
+\subsubsection{Montrer la progression dans le jeu (thème game1clic)}\label{playersscore}
 
 Il est possible de faire s'afficher des éléments graphiques quand le joueur
 sélectionne une réponse correcte. Ces éléments peuvent être des png importés
@@ -853,8 +959,7 @@ successivement sur le détail et l'élément en maintenant la touche \Shift
 enfoncée), puis en sélectionnant \softmenu{Grouper} dans le menu
 \softmenu{Objet} d'Inkscape.
 
-\subsubsection{\emph{Astuces pour la création d'image interactive «~avancée~»\ldots} Mettre
-en évidence les erreurs du joueur}
+\subsubsection{Montrer les erreurs du joueur (thème game1clic)}
 
 On voit clairement l'intérêt pédagogique des jeux basés sur le principe de
 la sélection\ldots mais on voit également rapidement comment des élèves
@@ -869,8 +974,9 @@ les erreurs commises par le joueur.
 Pour cela, il faudra prévoir les erreurs pouvant être commises, et placer
 sur l'image des éléments graphiques symbolisant l'erreur (croix rouge,
 etc.). Ces éléments pouvant être des images au format png importées ou des
-formes dessinées dans Inkscape, puis copiées en bitmap. Ces éléments devront
-posséder les caractéristiques suivantes:
+formes dessinées dans Inkscape, puis copiées en bitmap (voir la rubrique
+\ref{playersscore}). Ces éléments devront posséder les caractéristiques
+suivantes:
 \begin{center}
 \softmenu{Interactivité > OnClick} = \verb|disable-score| 
 \end{center}
@@ -878,8 +984,53 @@ Une fois la balise \verb|disable-score| appliquée, le détail demeure
 cliquable, mais sa sélection n'ajoutera pas un point au compteur surveillant
 le score pour délivrer le message de fin.
 
-\subsubsection{\emph{Astuces pour la création d'image interactive «~avancée~»\ldots} Deux
-compteurs de score}
+
+\subsubsection{Comment ajouter un effet «~aimant~» (thème gameDragAndDrop)}
+
+Si vous indiquez \verb|<magnet>on</magnet>| dans le champ
+\softmenu{Description} de la zone de dépôt, un effet aimant sera activé
+quand le joueur déposera l'élément sur celle-ci.
+
+\subsubsection{Liens sur les zones de dépôt (thème gameDragAndDrop)}
+ 
+Vous pouvez insérer un lien dans le champ \softmenu{Titre} des
+\softmenu{Propriétés de l'objet} de la zone de dépôt. L'utilisateur peut
+cliquer sur cette zone ou y déposer l'étiquette correspondante pour suivre
+le lien.
+
+
+\subsubsection{Infobulles (thèmes game1clic et gameDragAndDrop)}
+
+\begin{links}
+Visualisez l'\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia7}{image
+interactive} créée pour cette partie de la documentation.
+
+Téléchargez le fichier source au format
+\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia7/svg/xia7.svg}{svg}.
+\end{links}
+
+Il est possible de faire s'afficher des infobulles lorsque la souris survole
+certains détails. Pour cela, créez l'infobulle avec une image au format png
+importée ou une copie bitmap (voir rubrique \ref{playersscore}) d'un texte
+créé dans Inkscape\footnote{Ou une copie bitmap d'une forme groupée avec du
+texte\ldots}, et appliquez à cette infobulle une \softmenu{ID} spéicifique
+dans les \softmenu{Propriétés de l'objet}. Ensuite, indiquez la balise
+\verb|<tooltip>ID_de_l_infobulle</tooltip>| dans le champ
+\softmenu{Description} des \softmenu{Propriétés de l'objet} du détail censé
+déclencher l'apparition de l'infobulle (par exemple, dans l'image
+ci-dessous: au survol de la souris, le carré jaune fait apparaître
+l'infobulle "Test"):\\
+
+
+\begin{center}
+ \includegraphics[width=0.5\textwidth]{images/tooltip_example}\\
+ \end{center}
+
+Notez que cette fonctionnalité est également disponible avec les thèmes
+game1clic et gameDragAndDrop.\\
+ 
+
+\subsubsection{Double compteur de score (thèmes game1clic et gameDragAndDrop)}
 
 En indiquant \verb|score2| dans le champ \softmenu{onclick}
 (\softmenu{Propriétés de l'objet $\rightarrow$ Interactivité}) du détail, et
@@ -896,145 +1047,6 @@ les \softmenu{Propriétés de l'objet} de l'image de fond:\\
 <message2>3 erreurs... Ça fait beaucoup...\\
 Concentrez-vous et recommencez!...</message2>}\\
 
-
-\subsection{Second principe ludique: classer, organiser, hiérarchiser}\label{gameDragAndDropsection}
-
-Le second type de jeu pouvant être créé avec Xia est basé sur le principe du
-glisser-déposer. Des étiquettes déplaçables sont déposées sur l'image de
-fond. Quand tous les éléments ont été placés sur leur zone de dépôt, un
-message apparaît, annonçant la fin du jeu.
-
-\begin{links}
-Visualisez l'\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia5}{image
-interactive} créée pour cette partie de la documentation.
-
-Téléchargez le fichier source au format
-\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia5/svg/xia5.svg}{svg}.
-\end{links}
-
-Voici comment créer un jeu basé sur le principe du glisser-déposer:
-\begin{enumerate}
- \item Dans Inkscape:
-\begin{itemize}
- \item Choisir une image de fond
- \item Créer les éléments que les utilisateurs de votre image interactive auront à
-déplacer et à déposer (autrement dit: des images, des mots ou groupes de
-mots)
- \item Créer la fenêtre surgissante de consignes en éditant les informations du
-champ \softmenu{Fichier $\rightarrow$ Métadonnées du document $\rightarrow$
-Description}\footnote{Exactement comme dans le jeu game1clic}
- \item En renseignant les métadonnées, faites correspondre chaque élément à une
-zone de dépôt (ces zones de dépôts étant en réalité des détails détourés)
-\end{itemize}
- \item Dans Xia
- \begin{itemize}
-  \item Exporter le fichier source au format svg avec le modèle «~gameDragAndDrop~»
- \end{itemize}
-\end{enumerate}
-
-Deux méthodes peuvent être utilisées pour créer les éléments que les joueurs
-auront à glisser et déposer. La première, très simple, consiste à utiliser
-un utilitaire de capture d'écran capable de créer des petites images au
-format png, puis d'importer celles-ci dans Inkscape. Il est également
-possible de créer ces éléments directement dans Inkscape. Par exemple, en
-créant un texte, en regroupant ce texte avec une forme puis en faisant une
-copie bitmap de cet ensemble. Les éléments à déplacer doivent être associés
-à leur zone de dépôt \footnote{\textbf{Un} objet ne pouvant être associé
-qu'à \textbf{une} zone de dépôt.}.
-
-Vous trouverez dans le tableau \ref{tag2_sumup} un résumé des balises à
-renseigner dans les \softmenu{Propriétés de l'objet} des éléments à déplacer
-et des zones de dépôts afin de les faire correspondre les unes aux autres.
-
-\begin{table}
-\begin{tabular}{|p{1.in}|p{2.5in}|p{1.5in}|}
-\hline
- & Élément à déplacer (objets à glisser et déposer) & Détail détouré (zone de dépôt)\\
-\hline
-Champ ID & & \verb|Titre_du_détail|\\
-\hline
-Champ description & \verb|<target>Titre_du_détail</target>| & \\
-\hline
-\end{tabular}
-\caption{Résumé des balises à utiliser dans le jeu gameDragAndDrop}
-\label{tag2_sumup}
-\end{table}
-
-\begin{wrapfigure}{r}{45mm}
-  \centering
-  \includegraphics[scale=0.7]{./images/gameDragAndDrop} 
-\end{wrapfigure}
-
-
-Il faut donc «~jumeler~» les éléments à glisser-déposer avec leur zone de
-dépôt en faisant correspondre le champ \softmenu{ID} de la zone de dépôt au
-champ \softmenu{Description} de l'élément à glisser déposer. La seule
-subtilité tient dans la balise \verb|<target></target>| devant être indiquée
-dans la \softmenu{Description}.
-
-Choisissez le modèle \softmenu{gameDragAndDrop} pour générer l'image
-interactive.
-
-
-
-\subsubsection{Comment ajouter un effet «~aimant~» dans le jeu gameDragAndDrop}
-
-Si vous indiquez \verb|<magnet>on</magnet>| dans le champ
-\softmenu{Description} de la zone de dépôt, un effet aimant sera activé
-quand le joueur déposera l'élément sur celle-ci.
-
-\subsubsection{Deux façons de donner des indices aux joueurs: les infobulles et les liens
-sur les zones de dépôt}
-
-Il est possible de faire s'afficher des infobulles lorsque la souris survole
-certains détails. Pour cela, créez l'infobulle avec une image au format png
-importée ou une copie bitmap d'un texte créé dans Inkscape\footnote{Ou une
-copie bitmap d'une forme groupée avec du texte\ldots}, et appliquez à cette
-infobulle une \softmenu{ID} spéicifique dans les \softmenu{Propriétés de
-l'objet}. Ensuite, indiquez la balise
-\verb|<tooltip>ID_de_l_infobulle</tooltip>| dans le champ
-\softmenu{Description} des \softmenu{Propriétés de l'objet} du détail censé
-déclencher l'apparition de l'infobulle (par exemple, dans l'image
-ci-dessous: au survol de la souris, le carré jaune fait apparaître
-l'infobulle "Test"):\\
-
-
-\begin{center}
- \includegraphics[width=0.5\textwidth]{images/tooltip_example}\\
- \end{center}
-
-
-Notez que cette fonctionnalité est également disponible dans le jeu
-game1clic.
- 
-Une autre méthode consiste à insérer un lien dans le champ \softmenu{Titre}
-des \softmenu{Propriétés de l'objet} de la zone de dépôt. L'utilisateur peut
-cliquer sur cette zone ou y déposer l'étiquette correspondante pour suivre
-le lien.
-
-\subsection{Troisième principe ludique: les collisions}
-
-\textit{Le principe ludique documenté dans cette section est le suivant: le
-joueur doit déplacer des éléments vers des zones de dépôt, mais les
-déplacements de ces éléments ne peuvent avoir lieu que dans certaines
-limites. Le jeu de type «~collisions~» peut ainsi être utilisé pour créer
-des labyrinthes, des taquins.}
-
-Pour créer ce type de jeu, ajoutez la balise
-\verb|<collisions>on</collisions>| à l'image de fond. Une fois cela fait,
-tous les détails deviennent «~solides~», et bloquent le déplacement des
-objets qu'il faut déplacer (images au format png importées, ou copie bitmap
-de formes dessinées avec Inkscape).
-
-Le jeu de type «~collisions~» est en réalité un jeu de type gameDragAndDrop,
-puisque la résolution passe par le dépôt d'un ou plusieurs éléments à
-certains endroits de l'image. Les balises nécessaires dans ce type de jeu
-sont donc les mêmes que dans le jeu gameDragAndDrop
-\footnote{\texttt{<target></target>} sur les objets,
-\texttt{<score></score>} sur l'image de fond: voir la section
-\ref{gameDragAndDropsection}.}, mais il faudra penser à appliquer la balise
-\verb|<collisions>off</collisions>| sur les zones de dépôts, dans le champ
-\softmenu{Description}.
 \newpage
 \subsection{En résumé}
 
@@ -1059,8 +1071,8 @@ apparaître le message de fin du jeu\\
   & \emph{Rôle} & Fait apparaître le message de fin du jeu \\
   & \emph{Élément}  & Image de fond \\
   & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\ 
-  & \emph{Quoi?} & Un message que vous pouvez si nécessaire enrichir avec des ressources
-multimédias ou un lien hypertexte\\
+  & \emph{Quoi?} & Message que vous pouvez enrichir avec des ressources multimédias ou un lien
+hypertexte\\
   \hline
   \multicolumn{3}{|l|}{\texttt{off}}\\
   \hline
@@ -1092,22 +1104,21 @@ Onclick}\\
 d'infobulle\\
   & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\
   \hline
- \multicolumn{3}{|l|}{\texttt{<score></score>}}\\
+ \multicolumn{3}{|l|}{\texttt{<score2></score2>}}\\
  \hline
- & \emph{Rôle} & Permet de régler le nombre de bonnes réponses nécessaires pour faire
-apparaître le message de fin du jeu\\
+ & \emph{Rôle} & Régler le nombre de bonnes réponses nécessaires à l'apparition du second
+message (jeu à double score)\\
  & \emph{Élément}  & Image de fond \\
  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description} \\
  & \emph{Quoi?} & Le nombre de bonnes réponses nécessaires à la résolution du jeu\\
  \hline
  \multicolumn{3}{|l|}{\texttt{<message2></message2>}}\\
  \hline
-  & \emph{Rôle} & Fait apparaître le second message de fin du jeu, dans le cas d'un jeu à
-double score \\
+  & \emph{Rôle} & Fait apparaître le second message de fin du jeu (jeu à double score) \\
   & \emph{Élément}  & Image de fond \\
   & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\ 
-  & \emph{Quoi?} & Un message que vous pouvez si nécessaire enrichir avec des ressources
-multimédias ou un lien hypertexte\\
+  & \emph{Quoi?} & Message que vous pouvez enrichir avec des ressources multimédias ou un lien
+hypertexte\\
   \hline
   \end{tabular}
   \caption{Balises à insérer pour un jeu de type game1clic}
@@ -1131,8 +1142,8 @@ apparaître le message de fin du jeu\\
   & \emph{Rôle} & Fait apparaître le message de fin du jeu \\
   & \emph{Élément}  & Image de fond \\
   & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\ 
-  & \emph{Quoi?} & Un message que vous pouvez si nécessaire enrichir avec des ressources
-multimédias ou un lien hypertexte\\
+  & \emph{Quoi?} & Message que vous pouvez enrichir avec des ressources multimédias ou un lien
+hypertexte\\
   \hline
   \multicolumn{3}{|l|}{\texttt{<target></target>}}\\
   \hline
@@ -1166,6 +1177,22 @@ multimédias ou un lien hypertexte\\
   & \emph{Quoi?} & Assurez-vous que ce champ est identique à l'ID de l'élément servant
 d'infobulle\\
   & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\
+  \hline
+ \multicolumn{3}{|l|}{\texttt{<score2></score2>}}\\
+ \hline
+ & \emph{Rôle} & Régler le nombre de bonnes réponses nécessaires à l'apparition du second
+message (jeu à double score)\\
+ & \emph{Élément}  & Image de fond \\
+ & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description} \\
+ & \emph{Quoi?} & Le nombre de bonnes réponses nécessaires à la résolution du jeu\\
+ \hline
+ \multicolumn{3}{|l|}{\texttt{<message2></message2>}}\\
+ \hline
+  & \emph{Rôle} & Fait apparaître le second message de fin du jeu (jeu à double score) \\
+  & \emph{Élément}  & Image de fond \\
+  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\ 
+  & \emph{Quoi?} & Message que vous pouvez enrichir avec des ressources multimédias ou un lien
+hypertexte\\
   \hline
   \end{tabular}
   \caption{Balises à insérer en vue d'un export gameDragAndDrop}
