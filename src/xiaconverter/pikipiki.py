@@ -32,8 +32,10 @@ class PageFormatter:
     some state is carried over between lines.
     """
     def __init__(self, raw):
-        if type(raw) != unicode:
+        if type(raw) == str:
             raw = raw.decode("utf-8")
+        elif type(raw) != unicode:
+            raw = unicode(raw)
         self.raw = raw
         self.is_em = self.is_b = 0
         self.list_indents = []
