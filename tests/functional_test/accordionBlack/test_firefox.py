@@ -22,6 +22,7 @@ class Test(unittest.TestCase):
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
         self.base_url = "file://"+os.path.dirname(os.path.abspath(__file__))+"/index.html"
+        self.maxDiff=5000
         self.verificationErrors = []
         self.accept_next_alert = True
     
@@ -54,7 +55,7 @@ class Test(unittest.TestCase):
 
         """, driver.find_element_by_xpath("//div[@id='collapsecomment']/div").get_attribute('innerHTML'))
         self.assertTrue(self.is_element_present(By.XPATH, "//div[@id='collapsecomment']/div/video"))
-        self.maxDiff=5000
+        
         self.assertEqual("""Description du rectangle <b>gras</b> <em>italique</em><div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-password="9b2c3280ccea0ba408270c45185bfbcd36164237" data-target="0aee803d1700c31841d669b4692f812e">Super ma question </a></div><form class="unlock" style="display:none;" id="form_0aee803d1700c31841d669b4692f812e"><input type="text"><input data-target="0aee803d1700c31841d669b4692f812e" value="" data-password="9b2c3280ccea0ba408270c45185bfbcd36164237" type="submit"></form><div class="response" id="response_0aee803d1700c31841d669b4692f812e">DRRdXztBfQARE/LIQQ5fElRBEF0eFF1fOw==</div>
 Voici la vidéo :<video controls="" preload="none" data-state="autostart">
 	            <source type="video/mp4" src="../media-share/1.mp4">
@@ -151,7 +152,36 @@ LA réponse à la question<br>
         self.check_element("collapse5")
         driver.find_element_by_id("collapse6-heading").click()
         self.check_element("collapse6")
-        
+        driver.find_element_by_id("collapsecomment-heading").click()
+        driver.find_element_by_id("collapse0-heading").click()
+        driver.find_element_by_link_text("Super ma question").click()
+        driver.find_element_by_xpath("//input[@type='text']").clear()
+        driver.find_element_by_xpath("//input[@type='text']").send_keys("147")
+        driver.find_element_by_css_selector("input[type=\"submit\"]").click()
+        driver.find_element_by_css_selector("input[type=\"submit\"]").click()
+        self.assertEqual("""Description du rectangle <b>gras</b> <em>italique</em><div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-password="9b2c3280ccea0ba408270c45185bfbcd36164237" data-target="0aee803d1700c31841d669b4692f812e">Super ma question </a></div><form class="unlock" style="" id="form_0aee803d1700c31841d669b4692f812e"><input type="text"><input data-target="0aee803d1700c31841d669b4692f812e" value="" data-password="9b2c3280ccea0ba408270c45185bfbcd36164237" type="submit"></form><div class="response" id="response_0aee803d1700c31841d669b4692f812e">DRRdXztBfQARE/LIQQ5fElRBEF0eFF1fOw==</div>
+Voici la vidéo :<video controls="" preload="none" data-state="autostart">
+	            <source type="video/mp4" src="../media-share/1.mp4">
+	            <source type="video/ogg" src="../media-share/1.ogv">
+	            <source type="video/webm" src="../media-share/1.webm">
+            </video>
+
+          """, driver.find_element_by_xpath("//div[@id='collapse0']/div").get_attribute('innerHTML'))
+        driver.find_element_by_xpath("//input[@type='text']").clear()
+        driver.find_element_by_xpath("//input[@type='text']").send_keys("1a")
+        driver.find_element_by_css_selector("input[type=\"submit\"]").click()
+        self.assertEqual("""Description du rectangle <b>gras</b> <em>italique</em><div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-password="9b2c3280ccea0ba408270c45185bfbcd36164237" data-target="0aee803d1700c31841d669b4692f812e">Super ma question </a></div><form class="unlock" style="display: none;" id="form_0aee803d1700c31841d669b4692f812e"><input type="text"><input data-target="0aee803d1700c31841d669b4692f812e" value="" data-password="9b2c3280ccea0ba408270c45185bfbcd36164237" type="submit"></form><div style="display: block;" class="response" id="response_0aee803d1700c31841d669b4692f812e"><ul>
+ La réponse !</ul>
+</div>
+Voici la vidéo :<video controls="" preload="none" data-state="autostart">
+	            <source type="video/mp4" src="../media-share/1.mp4">
+	            <source type="video/ogg" src="../media-share/1.ogv">
+	            <source type="video/webm" src="../media-share/1.webm">
+            </video>
+
+          """, driver.find_element_by_xpath("//div[@id='collapse0']/div").get_attribute('innerHTML'))
+
+
     def test_nav_2(self):
         driver = self.driver
         driver.get(self.base_url)
