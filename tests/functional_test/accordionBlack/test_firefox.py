@@ -54,15 +54,15 @@ class Test(unittest.TestCase):
 
         """, driver.find_element_by_xpath("//div[@id='collapsecomment']/div").get_attribute('innerHTML'))
         self.assertTrue(self.is_element_present(By.XPATH, "//div[@id='collapsecomment']/div/video"))
-        self.assertEqual("""
-          <div class="accordion-inner">Description du rectangle <b>gras</b> <em>italique</em>Réponse:Voici la vidéo :<video controls="" preload="none" data-state="none">
+        self.maxDiff=5000
+        self.assertEqual("""Description du rectangle <b>gras</b> <em>italique</em><div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-password="9b2c3280ccea0ba408270c45185bfbcd36164237" data-target="0aee803d1700c31841d669b4692f812e">Super ma question </a></div><form class="unlock" style="display:none;" id="form_0aee803d1700c31841d669b4692f812e"><input type="text"><input data-target="0aee803d1700c31841d669b4692f812e" value="" data-password="9b2c3280ccea0ba408270c45185bfbcd36164237" type="submit"></form><div class="response" id="response_0aee803d1700c31841d669b4692f812e">DRRdXztBfQARE/LIQQ5fElRBEF0eFF1fOw==</div>
+Voici la vidéo :<video controls="" preload="none" data-state="autostart">
 	            <source type="video/mp4" src="../media-share/1.mp4">
 	            <source type="video/ogg" src="../media-share/1.ogv">
 	            <source type="video/webm" src="../media-share/1.webm">
             </video>
 
-          </div>
-      """, driver.find_element_by_xpath("//div[@id='collapse0']").get_attribute('innerHTML'))
+          """, driver.find_element_by_xpath("//div[@id='collapse0']/div").get_attribute('innerHTML'))
         self.assertTrue(self.is_element_present(By.XPATH, "id('collapse0')/div/video"))
         self.assertEqual("""
           <div class="accordion-inner">Description de l'ellipse<ul>
@@ -111,7 +111,10 @@ une ligne<br>
 	            <source type="audio/ogg" src="../media-share/1.ogg">
 	            <source type="audio/mp3" src="../media-share/1.mp3">
             </audio>
-Réponse:LA réponse à la question<br>
+<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-target="16b631a261a2353cb8d191de4b9d20fb"> La question 2 </a></div><div class="response" id="response_16b631a261a2353cb8d191de4b9d20fb"><ul>
+ La réponse 2</ul>
+</div>
+LA réponse à la question<br>
 
           </div>
       """, driver.find_element_by_xpath("//div[@id='collapse5']").get_attribute('innerHTML'))
@@ -174,7 +177,9 @@ Réponse:LA réponse à la question<br>
         self.check_element("collapsecomment")
         driver.find_element_by_id("collapse0-heading").click()
         self.check_element("collapse0")
-        self.assertEqual("Description du rectangle gras italiqueRéponse:Voici la vidéo :", driver.find_element_by_css_selector("#collapse0 > div.accordion-inner").text)
+        self.assertEqual("""Description du rectangle gras italique
+Super ma question
+Voici la vidéo :""", driver.find_element_by_css_selector("#collapse0 > div.accordion-inner").text)
         driver.find_element_by_id("collapsecomment-heading").click()
         self.check_element("collapsecomment")
         driver.find_element_by_id("collapse0-heading").click()
