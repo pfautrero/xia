@@ -53,7 +53,7 @@
      showgrid="false"
      inkscape:zoom="0.61458333"
      inkscape:cx="153.06003"
-     inkscape:cy="444.06269"
+     inkscape:cy="-76.615279"
      inkscape:window-x="1920"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -67,7 +67,7 @@
      y="-1.6271186">
     <desc
        id="desc3003">Description de l'image
-../media-share/1.mp4</desc>
+../media-share/1.mp4 </desc>
     <title
        id="title3001">Titre de l'image</title>
   </image>
@@ -81,9 +81,9 @@
      inkscape:label="#rect2995">
     <desc
        id="desc2999">Description du rectangle ***gras*** **italique**
-Réponse:
+[[Super ma question (code=1a): La réponse !]]
 Voici la vidéo :
-../media-share/1.webm</desc>
+../media-share/1.webm autostart</desc>
     <title
        id="title2997">Titre du rectangle ***gras*** **italique**</title>
   </rect>
@@ -176,7 +176,7 @@ une ligne
     <desc
        id="desc3087">le son 2 ! 
 ../media-share/1.ogg autostart
-Réponse:
+[[ La question 2 : La réponse 2]]
 LA réponse à la question
 </desc>
     <title
