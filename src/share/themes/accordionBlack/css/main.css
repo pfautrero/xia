@@ -48,21 +48,23 @@ a {
 a:active, a:focus, a:hover {color:#DDD;}
 header {
     width:100%; 
-    padding:0; 
+    padding-top:5px;
+    padding-bottom:5px;
     margin:0 auto; 
-    background:#000;
+    background-color: #F07C19;
+    border-bottom: 2px solid white;
 }
 
 header h1 {    
     margin:0;
     top:0;
     left:0px;
-    background:url(../img/imagedoc-darknoise.png);
+    /*background:url(../img/imagedoc-darknoise.png);*/
     display:inline;
     max-width:20%;
-    padding: 0px 1em 0 5px;
+    padding: 5px 1em 5px 5px;
     margin-bottom:0; 
-    color:#00C6FF;
+    color:#FFFFFF;
     font-family: yanone_thin; 
 }
 
@@ -136,8 +138,8 @@ h1 {
 .accordion {
     position:absolute;
     top:50px; 
-    left:58%;
-    width:40%;
+    left:53%;
+    width:45%;
     color:black;
     /*font-size:1.2em;	*/
 
@@ -164,7 +166,7 @@ h1 {
 }
 a.accordion-toggle { 
     font-family:yanone_regular; 
-    color:#00c6ff;
+    color:#F07C19;
     font-size:2em;
     text-decoration:none;
     -webkit-transition: all 0.2s ease-in-out, color 1s ease-in-out;

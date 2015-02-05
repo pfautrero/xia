@@ -24,8 +24,16 @@
 html {
   margin:0;
   padding:0;
-  background: url('../img/background.jpg') no-repeat center center fixed;
-  background-size: cover;
+  /*background: url('../img/background.jpg') no-repeat center center fixed;
+  background-size: cover;*/
+background: rgb(3,96,130); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(3,96,130,1) 0%, rgba(3,96,130,1) 20%, rgba(35,158,202,1) 20%, rgba(35,158,202,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(3,96,130,1)), color-stop(20%,rgba(3,96,130,1)), color-stop(20%,rgba(35,158,202,1)), color-stop(100%,rgba(35,158,202,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, rgba(3,96,130,1) 0%,rgba(3,96,130,1) 20%,rgba(35,158,202,1) 20%,rgba(35,158,202,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, rgba(3,96,130,1) 0%,rgba(3,96,130,1) 20%,rgba(35,158,202,1) 20%,rgba(35,158,202,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, rgba(3,96,130,1) 0%,rgba(3,96,130,1) 20%,rgba(35,158,202,1) 20%,rgba(35,158,202,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom, rgba(3,96,130,1) 0%,rgba(3,96,130,1) 20%,rgba(35,158,202,1) 20%,rgba(35,158,202,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#036082', endColorstr='#239eca',GradientType=0 ); /* IE6-9 */
 }
 body{
     background: none;
@@ -306,30 +314,34 @@ ul {
     padding:0;
 }
 .button-unselected {
+    font-family: 'yanone_regular';
     list-style:none;
     background:#CCE8FF;
     display:inline-block;
     margin-left:2px;
     margin-right:2px;
     padding: 0.4em;
-    border:0.2em solid #263868;
-    width: 1em;
-    height: 1em;
+    padding-top:0.5em;
+    border:0px solid #263868;
+    width: 1.5em;
+    height: 1.5em;
     border-radius: 1.3em;
     text-align:center;
     transition: 0.5s;
     box-shadow: 3px 3px 4px rgba(0,0,0,0.6);
 }
 .button-selected {
+    font-family: 'yanone_regular';
     list-style:none;
     background:#1A2948;
     display:inline-block;
     margin-left:2px;
     margin-right:2px;
     padding: 0.4em;
-    border:0.2em solid #263868;
-    width: 1em;
-    height: 1em;
+    padding-top:0.5em;
+    border:0px solid #263868;
+    width: 1.5em;
+    height: 1.5em;
     border-radius: 1.3em;
     text-align:center;
     transition: 0.5s;
