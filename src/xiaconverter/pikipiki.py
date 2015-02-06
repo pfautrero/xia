@@ -55,9 +55,9 @@ class PageFormatter:
     def _rule_repl(self, word):
         s = self._undent()
         if len(word) <= 4:
-            s = s + u"\n<hr>\n"
+            s = s + u"\n<hr/>\n"
         else:
-            s = s + u"\n<hr size=%d>\n" % (len(word) - 2 )
+            s = s + u"\n<hr size=%d/>\n" % (len(word) - 2 )
         return s
 
     def _url_repl(self, word):
@@ -80,7 +80,7 @@ class PageFormatter:
               os.path.splitext(word)[0], os.path.splitext(word)[0])
 
     def _img_repl(self, word):
-        return u'<img src="%s">\n' % (word)
+        return u'<img src="%s"/>\n' % (word)
 
     def _iframe_repl(self, word):
         word_url = word.split("src=&quot;")[1].split("&quot;")[0]
@@ -291,7 +291,7 @@ class PageFormatter:
         indent_re = re.compile("^\s*")
         eol_re = re.compile(r'\r?\n')
         raw = string.expandtabs(self.raw)
-        html_feed = u'<br>\n'
+        html_feed = u'<br/>\n'
 
         # fix some elements
         fix_element = re.sub(r"\[\[(.*?):", r"[[\1:\n", raw)

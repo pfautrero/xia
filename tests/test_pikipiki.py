@@ -41,25 +41,25 @@ class TestPageFormatter:
 
     def test_print_html4(self):
         raw = "photo.jpg";
-        expected_output = '<img src="photo.jpg">\n';
+        expected_output = '<img src="photo.jpg"/>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)        
 
     def test_print_html5(self):
         raw = "photo.jpeg";
-        expected_output = '<img src="photo.jpeg">\n';
+        expected_output = '<img src="photo.jpeg"/>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output) 
 
     def test_print_html6(self):
         raw = "photo.png";
-        expected_output = '<img src="photo.png">\n';
+        expected_output = '<img src="photo.png"/>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output) 
 
     def test_print_html7(self):
         raw = "photo.gif";
-        expected_output = '<img src="photo.gif">\n';
+        expected_output = '<img src="photo.gif"/>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output) 
 
@@ -77,13 +77,13 @@ class TestPageFormatter:
 
     def test_print_html10(self):
         raw = "----";
-        expected_output = '\n<hr>\n';
+        expected_output = '\n<hr/>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)         
 
     def test_print_html11(self):
         raw = "-----";
-        expected_output = '\n<hr size=3>\n';
+        expected_output = '\n<hr size=3/>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)         
 
@@ -256,7 +256,7 @@ class TestPageFormatter:
 
     def test_print_html39(self):
         raw = "[[answer (code=123456):\nmy answer]]";
-        expected_output = '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b" data-target="##">answer </a></div><form class="unlock" style="display:none;" id="form_##"><input type="text"><input type="submit" data-target="##" value="" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b"></form><div class="response" id="response_##">DVBBCj9bSBJSWkZBVEA=</div>\n';
+        expected_output = '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b" data-target="##">answer </a></div><form class="unlock" style="display:none;" id="form_##"><input type="text"><input type="submit" data-target="##" value="" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b"></form><div class="response" id="response_##">DVBBGws8XEsTVVtFRldB</div>\n';
         output = PageFormatter(raw).print_html()
         target_id = ""
         target_entry = re.search('data-target="(.*?)"', output, re.IGNORECASE|re.DOTALL)
@@ -267,7 +267,7 @@ class TestPageFormatter:
 
     def test_print_html40(self):
         raw = "[[answer (code=123456):\nmy answer\n]]";
-        expected_output = '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b" data-target="##">answer </a></div><form class="unlock" style="display:none;" id="form_##"><input type="text"><input type="submit" data-target="##" value="" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b"></form><div class="response" id="response_##">DVBBCj9bSBJSWkZBVEAPVkcIOw==</div>\n';
+        expected_output = '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b" data-target="##">answer </a></div><form class="unlock" style="display:none;" id="form_##"><input type="text"><input type="submit" data-target="##" value="" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b"></form><div class="response" id="response_##">DVBBGws8XEsTVVtFRldBCFdEHgw5</div>\n';
         output = PageFormatter(raw).print_html()
         target_id = ""
         target_entry = re.search('data-target="(.*?)"', output, re.IGNORECASE|re.DOTALL)
