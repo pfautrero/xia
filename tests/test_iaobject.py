@@ -16,15 +16,21 @@
 # @author : pascal.fautrero@ac-versailles.fr
 
 from xiaconverter.iaobject import iaObject
+from xiaconverter.logger import Logger
 from nose.tools import *
 from xml.dom import minidom
 import tempfile
 import os
 import tempfile
 
+class LoggerMock(Logger):
+    def display(self, msg):
+        pass
+
 class TestiaObject:
     def test_analyzeSVG(self):
-        ia = iaObject()
+        console = LoggerMock()
+        ia = iaObject(console)
         maxNumPixels = 5 * 1024 * 1024
         currentDir  = os.path.dirname(os.path.realpath(__file__))
         ia.analyzeSVG(currentDir + "/fixtures/inkscape1.svg", maxNumPixels)
@@ -46,8 +52,8 @@ class TestiaObject:
 
         with open(tempDirSvg + "/generic1.svg", "w") as tempSvg:
             tempSvg.write(tempContent)
-
-        ia = iaObject()
+        console = LoggerMock()
+        ia = iaObject(console)
         ia.analyzeSVG(tempSvg.name, maxNumPixels)
         
         assert_equal(ia.scene['width'], '10')
@@ -56,14 +62,14 @@ class TestiaObject:
         assert_equal(ia.details[0]['height'], '161')
 
     def test_analyzeSVG3(self):
-
-        ia = iaObject()
+        console = LoggerMock()
+        ia = iaObject(console)
         dom1 = minidom.parseString("<?xml version='1.0' ?>\
             <desc>description</desc>")
         desc = dom1.getElementsByTagName('desc')
         assert_equal("description", ia.get_tag_value(desc[0]))
 
-        ia = iaObject()        
+        ia = iaObject(console)
         dom1 = minidom.parseString("<?xml version='1.0' ?><desc></desc>")
         desc = dom1.getElementsByTagName('desc')
         assert_equal("",ia.get_tag_value(desc[0]))
@@ -71,7 +77,8 @@ class TestiaObject:
     def test_analyzeSVG4(self):
 
         # check root path
-        ia = iaObject()
+        console = LoggerMock()
+        ia = iaObject(console)
         dom1 = minidom.parseString("<?xml version='1.0' ?>\
             <svg>\
                 <path d='M 0,0 L 10,0 L 10,10 L 0,10 L 0,0 z' />\
@@ -87,8 +94,8 @@ class TestiaObject:
         assert_equal(newrecord['y'], '0')
 
     def test_analyzeSVG4(self):
-
-        ia = iaObject()
+        console = LoggerMock()
+        ia = iaObject(console)
         dom1 = minidom.parseString("<?xml version='1.0' ?>\
             <svg>\
                 <path \
@@ -110,7 +117,8 @@ class TestiaObject:
     def test_analyzeSVG4(self):
 
         # check path included in a group
-        ia = iaObject()
+        console = LoggerMock()
+        ia = iaObject(console)
         dom1 = minidom.parseString("<?xml version='1.0' ?>\
             <g>\
                 <path \
@@ -131,7 +139,8 @@ class TestiaObject:
 
     def test_analyzeSVG5(self):
 
-        ia = iaObject()
+        console = LoggerMock()
+        ia = iaObject(console)
         dom1 = minidom.parseString("<?xml version='1.0' ?>\
             <g transform='rotate(40)'>\
                 <path \
@@ -153,7 +162,8 @@ class TestiaObject:
     def test_analyzeSVG6(self):
 
         # check image included in a group
-        ia = iaObject()
+        console = LoggerMock()
+        ia = iaObject(console)
         dom1 = minidom.parseString('<?xml version="1.0" ?> \
             <svg xmlns:xlink="http://www.w3.org/1999/xlink">\
                 <g>\
@@ -175,7 +185,8 @@ class TestiaObject:
     def test_analyzeSVG7(self):
 
         # check rect included in a group
-        ia = iaObject()
+        console = LoggerMock()
+        ia = iaObject(console)
         dom1 = minidom.parseString('<?xml version="1.0" ?>\
             <svg>\
                 <g>\
@@ -192,7 +203,8 @@ class TestiaObject:
     def test_analyzeSVG8(self):
 
         # check groups included in a group
-        ia = iaObject()
+        console = LoggerMock()
+        ia = iaObject(console)
         dom1 = minidom.parseString('<?xml version="1.0" ?> \
             <svg> \
                 <g> \
@@ -211,7 +223,8 @@ class TestiaObject:
     def test_analyzeSVG9(self):
 
         # check metadatas
-        ia = iaObject()
+        console = LoggerMock()
+        ia = iaObject(console)
         dom1 = minidom.parseString('<?xml version="1.0" ?> \
             <svg \
                 xmlns:dc="http://purl.org/dc/elements/1.1/" \
@@ -245,7 +258,8 @@ class TestiaObject:
     def test_analyzeSVG10(self):
 
         # check invalid path
-        ia = iaObject()
+        console = LoggerMock()
+        ia = iaObject(console)
         dom1 = minidom.parseString("<?xml version='1.0' ?>\
             <svg>\
                 <path d='' />\
@@ -257,7 +271,8 @@ class TestiaObject:
     def test_analyzeSVG11(self):
 
         # check invalid rectangle
-        ia = iaObject()
+        console = LoggerMock()
+        ia = iaObject(console)
         dom1 = minidom.parseString("<?xml version='1.0' ?>\
             <svg>\
                 <rect width='' height='' />\
@@ -279,7 +294,8 @@ class TestiaObject:
         with open(tempDirSvg + "/generic1.svg", "w") as tempSvg:
             tempSvg.write(tempContent)
 
-        ia = iaObject()
+        console = LoggerMock()
+        ia = iaObject(console)
         ia.analyzeSVG(tempSvg.name, maxNumPixels)
 
         ia.generateJSON()
