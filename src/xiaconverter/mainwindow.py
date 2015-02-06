@@ -35,7 +35,8 @@ if sys.platform.startswith('win32'):
 
 class IADialog(Tkinter.Frame):
 
-    def __init__(self, root, langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, svgfile=""):
+    def __init__(self, root, console, langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib,
+                 sha1Lib, svgfile=''):
 
         Tkinter.Frame.__init__(self, root)
 
@@ -77,7 +78,7 @@ class IADialog(Tkinter.Frame):
 
         # init Image Active Object
 
-        self.imageActive = iaObject()
+        self.imageActive = iaObject(console)
 
         # define buttons
 
@@ -184,8 +185,8 @@ class IADialog(Tkinter.Frame):
             try:
                 os.mkdir(self.config_dir, 0755)
             except Exception as e:
-                print(translate("Sorry, impossible to create the {0} directory") . format(self.config_dir))
-                print("Error({0}): {1}".format(e.errno, e.strerror))
+                console.display(translate("Sorry, impossible to create the {0} directory") . format(self.config_dir))
+                console.display("Error({0}): {1}".format(e.errno, e.strerror))
                 sys.exit(1)
                 
         if os.path.isfile(self.config_ini):

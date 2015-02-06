@@ -49,10 +49,11 @@ from pikipiki import PageFormatter
 class iaObject:
     """generate Image Active Object"""
 
-    def __init__(self):
+    def __init__(self, console):
         """Init"""
         self.details = []
         self.scene = {}
+        self.console = console
 
         # used to identify if background image must be resized for mobiles
         self.ratio = 1
@@ -330,7 +331,7 @@ class iaObject:
 
     def extract_circle(self, image, stackTransformations):
         """not yet implemented"""
-        print("circle is not implemented")
+        self.console.display("circle is not implemented")
 
     def extract_ellipse(self, rect, stackTransformations):
         """Analyze rectangles"""
@@ -465,15 +466,15 @@ class iaObject:
 
     def extract_line(self, image, stackTransformations):
         """not yet implemented"""
-        print("line is not implemented")
+        self.console.display("line is not implemented")
 
     def extract_polyline(self, image, stackTransformations):
         """not yet implemented"""
-        print("polyline is not implemented")
+        self.console.display("polyline is not implemented")
 
     def extract_polygon(self, image, stackTransformations):
         """not yet implemented"""
-        print("polygon is not implemented")
+        self.console.display("polygon is not implemented")
 
     def extract_image(self, image, stackTransformations):
         """Analyze images"""
@@ -1000,7 +1001,7 @@ class iaObject:
                             newraster = rasterPrefix + rasterFixedEncoded
 
         else:
-            print('ERROR : fixRaster() - image is not embedded')
+            self.console.display('ERROR : fixRaster() - image is not embedded')
         shutil.rmtree(dirname)
         return newraster
 
@@ -1098,7 +1099,7 @@ class iaObject:
                     newrasterHeight = int((h - y_delta2 - y_delta) * float(rasterHeight) / h)
                     newrasterWidth = int((w - x_delta - x_delta2) * float(rasterWidth) / w)
         else:
-            print('ERROR : cropImage() - image is not embedded ' + raster)
+            self.console.display('ERROR : cropImage() - image is not embedded ' + raster)
         shutil.rmtree(dirname)
         return [newraster, unicode(newrasterWidth), unicode(newrasterHeight), x_delta, y_delta]
 
@@ -1158,7 +1159,7 @@ class iaObject:
                         newrasterWidth = newwidth
                         newrasterHeight = newheight
         else:
-            print('ERROR : image is not embedded')
+            self.console.display('ERROR : image is not embedded')
         shutil.rmtree(dirname)
         return [newraster, unicode(newrasterWidth), unicode(newrasterHeight)]
 
@@ -1232,8 +1233,8 @@ class iaObject:
                                      replace("\r", " ") + \
                                  u'",\n'
                 else:
-                    if type(detail[entry]) is int:
-                        detail[entry] = str(detail[entry])
+                    if type(detail[entry]) is not str and type(detail[entry]) is not unicode:
+                        detail[entry] = unicode(detail[entry])
                     final_str += u'  "' + entry + u'":"' + \
                                  detail[entry]. \
                                      replace('"', "'"). \
