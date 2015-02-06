@@ -193,6 +193,22 @@ class CurrentTransformation:
             
         return d
 
+    def circleToPath(self,node):
+        """inspired from inkscape pathmodifier.py"""
+        cx = float(node['cx'])
+        cy = float(node['cy'])
+        r = 0
+        if 'r' in node:
+            r = float(node['r'])
+
+        d ='M %f,%f '%(cx-r,cy)
+        d+='A %f,%f 0 0 1 %f,%f'%(r,r,cx,cy-r)
+        d+='A %f,%f 0 0 1 %f,%f'%(r,r,cx+r,cy)
+        d+='A %f,%f 0 0 1 %f,%f'%(r,r,cx,cy+r)
+        d+='A %f,%f 0 0 1 %f,%f'%(r,r,cx-r,cy)
+
+        return d
+
     def ellipseToPath(self,node):
         """inspired from inkscape pathmodifier.py"""
         cx = float(node['cx'])
