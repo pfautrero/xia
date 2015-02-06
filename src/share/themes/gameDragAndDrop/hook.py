@@ -100,25 +100,25 @@ class hook:
 
             metadatas = ""
             if self.iaobject.scene["creator"]:
-                metadatas += self.iaobject.scene["creator"] + "<br>"
+                metadatas += self.iaobject.scene["creator"] + "<br/>"
             if self.iaobject.scene["rights"]:
-                metadatas += self.iaobject.scene["rights"] + "<br>"
+                metadatas += self.iaobject.scene["rights"] + "<br/>"
             if self.iaobject.scene["publisher"]:
-                metadatas += self.iaobject.scene["publisher"] + "<br>"
-            if self.iaobject.scene["date"]:
-                metadatas += self.iaobject.scene["date"] + "<br>"
+                metadatas += self.iaobject.scene["publisher"] + "<br/>"
             if self.iaobject.scene["identifier"]:
-                metadatas += self.iaobject.scene["identifier"] + "<br>"
+                metadatas += self.iaobject.scene["identifier"] + "<br/>"
             if self.iaobject.scene["coverage"]:
-                metadatas += self.iaobject.scene["coverage"] + "<br>"
+                metadatas += self.iaobject.scene["coverage"] + "<br/>"
             if self.iaobject.scene["source"]:
-                metadatas += self.iaobject.scene["source"] + "<br>"
+                metadatas += self.iaobject.scene["source"] + "<br/>"
             if self.iaobject.scene["relation"]:
-                metadatas += self.iaobject.scene["relation"] + "<br>"
+                metadatas += self.iaobject.scene["relation"] + "<br/>"
             if self.iaobject.scene["language"]:
-                metadatas += self.iaobject.scene["language"] + "<br>"
+                metadatas += self.iaobject.scene["language"] + "<br/>"
             if self.iaobject.scene["contributor"]:
-                metadatas += self.iaobject.scene["contributor"] + "<br>"
+                metadatas += self.iaobject.scene["contributor"] + "<br/>"
+            if self.iaobject.scene["date"]:
+                metadatas += self.iaobject.scene["date"] + "<br/>"
 
             final_index = final_index.replace("{{METADATAS}}", metadatas)
             final_index = final_index.replace("{{AUTHOR}}", self.iaobject.scene["creator"])

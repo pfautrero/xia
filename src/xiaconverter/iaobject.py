@@ -264,6 +264,18 @@ class iaObject:
                 self.scene['intro_title'] = self.get_tag_value(title.item(0))
 
             raster = self.extractRaster(image.attributes['xlink:href'].value)
+
+            if image.hasAttribute("transform"):
+                transformation = image.attributes['transform'].value
+                ctm = CurrentTransformation()
+                ctm.analyze(transformation)
+                #print str(ctm.scaleX) + " " + str(ctm.scaleY)
+                if ctm.scaleX != 1 or ctm.scaleY != 1:
+                    self.scene['image'], self.scene['width'], self.scene['height'] = self.resizeImage(
+                        raster,
+                        self.scene['width'] * ctm.scaleX,
+                        self.scene['height'] * ctm.scaleY)
+
             fixedRaster = self.fixRaster(raster, self.scene['width'], self.scene['height'])
             self.scene['image'] = fixedRaster
 
