@@ -67,7 +67,7 @@ function IaScene(originalWidth, originalHeight) {
 IaScene.prototype.scaleScene = function(mainScene){
     "use strict";
 
-    var viewportWidth = $(window).width();
+    var viewportWidth = $(window).width() * 0.98;
     var viewportHeight = $(window).height();
 
     var coeff_width = (viewportWidth * mainScene.ratio) / parseFloat(mainScene.originalWidth);

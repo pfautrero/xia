@@ -127,7 +127,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
             that.strokeWidth[i] = detail.strokewidth;
         }
         else {
-            that.strokeWidth[i] = '2';
+            that.strokeWidth[i] = '0';
         }
         that.persistent[i] = "off-image";
         if ((typeof(detail.fill) !== 'undefined') && 
@@ -319,7 +319,7 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         that.strokeWidth[i] = detail.strokewidth;
     }
     else {
-        that.strokeWidth[i] = '2';
+        that.strokeWidth[i] = '0';
     }
     that.persistent[i] = "off";
     if ((typeof(detail.fill) !== 'undefined') && 
