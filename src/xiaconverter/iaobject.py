@@ -584,15 +584,15 @@ class iaObject:
 
     def extract_line(self, image, stackTransformations):
         """not yet implemented"""
-        self.console.display("line is not implemented")
+        self.console.display("line is not implemented. Convert it to path.")
 
     def extract_polyline(self, image, stackTransformations):
         """not yet implemented"""
-        self.console.display("polyline is not implemented")
+        self.console.display("polyline is not implemented. Convert it to path.")
 
     def extract_polygon(self, image, stackTransformations):
         """not yet implemented"""
-        self.console.display("polygon is not implemented")
+        self.console.display("polygon is not implemented. Convert it to path.")
 
     def extract_image(self, image, stackTransformations):
         """Analyze images"""

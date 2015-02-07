@@ -116,7 +116,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         if ((typeof(detail.options) !== 'undefined')) {
             that.options[i] = detail.options;
         }
-        if ((typeof(detail.stroke) !== 'undefined')) {
+        if ((typeof(detail.stroke) !== 'undefined') && (detail.stroke != 'none')) {
             that.stroke[i] = detail.stroke;
         }
         else {
@@ -306,7 +306,7 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     if ((typeof(detail.options) !== 'undefined')) {
         that.options[i] = detail.options;
     }
-    if ((typeof(detail.stroke) !== 'undefined')) {
+    if ((typeof(detail.stroke) !== 'undefined') && (detail.stroke != 'none')) {
         that.stroke[i] = detail.stroke;
     }
     else {
