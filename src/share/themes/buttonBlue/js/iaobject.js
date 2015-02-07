@@ -484,36 +484,42 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 
                 that.alpha = 0;
                 that.step = 0.1;
-                var personalTween = function(anim) {
+                var personalTween = function(anim, thislayer) {
                     // linear
                     var tempX = that.originalX[0] + that.alpha.toFixed(2) * (that.tweenX - that.originalX[0]);
                     var tempY = that.originalY[0] + that.alpha.toFixed(2) * (that.tweenY - that.originalY[0]);
                     var tempScale = 1 + that.alpha.toFixed(2) * (that.agrandissement - 1);
-                    var t = null;                    
+                    var t = null;
                     if (that.alpha.toFixed(2) <= 1) {
                         that.alpha = that.alpha + that.step;
                         //that.group.hide();
                         //that.group.draw();
-                        that.group.x(tempX);
-                        that.group.y(tempY);
-                        that.group.scaleX(tempScale);
-                        that.group.scaleY(tempScale);
+                        that.group.setPosition({x:tempX, y:tempY});
+                        //that.group.x(tempX);
+                        //that.group.y(tempY);
+                        that.group.scale({x:tempScale,y:tempScale});
+                        //that.group.scaleX(tempScale);
+                        //that.group.scaleY(tempScale);
                         //that.group.show();
                         //that.group.draw();
                         //t = setTimeout(personalTween, 30);
                     }
                     else {
                         //clearTimeout(t);
+                        thislayer.hitGraphEnabled(true);
                         anim.stop();
+
+
+                        //thislayer.draw();
                     }
                 };
                 //var t = setTimeout(personalTween, 30);
-                
-                var anim = new Kinetic.Animation(function(frame) {
-                  personalTween(this);
-                }, that.layer);
 
-                anim.start();   
+                var anim = new Kinetic.Animation(function(frame) {
+                  personalTween(this, that.layer);
+                }, that.layer);
+                that.layer.hitGraphEnabled(false);
+                anim.start();
 
             }
             // let's unzoom
