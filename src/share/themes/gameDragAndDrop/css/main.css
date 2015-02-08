@@ -24,14 +24,17 @@
 html {
   margin:0;
   padding:0;
-    background: rgb(133,167,40); /* Old browsers */
-    background: -moz-linear-gradient(45deg, rgba(133,167,40,1) 0%, rgba(133,167,40,1) 50%, rgba(118,150,32,1) 50%, rgba(118,150,32,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(133,167,40,1)), color-stop(50%,rgba(133,167,40,1)), color-stop(50%,rgba(118,150,32,1)), color-stop(100%,rgba(118,150,32,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(45deg, rgba(133,167,40,1) 0%,rgba(133,167,40,1) 50%,rgba(118,150,32,1) 50%,rgba(118,150,32,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(45deg, rgba(133,167,40,1) 0%,rgba(133,167,40,1) 50%,rgba(118,150,32,1) 50%,rgba(118,150,32,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(45deg, rgba(133,167,40,1) 0%,rgba(133,167,40,1) 50%,rgba(118,150,32,1) 50%,rgba(118,150,32,1) 100%); /* IE10+ */
-    background: linear-gradient(45deg, rgba(133,167,40,1) 0%,rgba(133,167,40,1) 50%,rgba(118,150,32,1) 50%,rgba(118,150,32,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#85a728', endColorstr='#769620',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+    background: rgb(255,170,41); /* Old browsers */
+    background: -moz-linear-gradient(45deg, rgba(255,170,41,1) 0%, rgba(255,170,41,1) 50%, rgba(232,127,9,1) 50%, rgba(232,127,9,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(255,170,41,1)), color-stop(50%,rgba(255,170,41,1)), color-stop(50%,rgba(232,127,9,1)), color-stop(100%,rgba(232,127,9,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(45deg, rgba(255,170,41,1) 0%,rgba(255,170,41,1) 50%,rgba(232,127,9,1) 50%,rgba(232,127,9,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(45deg, rgba(255,170,41,1) 0%,rgba(255,170,41,1) 50%,rgba(232,127,9,1) 50%,rgba(232,127,9,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(45deg, rgba(255,170,41,1) 0%,rgba(255,170,41,1) 50%,rgba(232,127,9,1) 50%,rgba(232,127,9,1) 100%); /* IE10+ */
+    background: linear-gradient(45deg, rgba(255,170,41,1) 0%,rgba(255,170,41,1) 50%,rgba(232,127,9,1) 50%,rgba(232,127,9,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffaa29', endColorstr='#e87f09',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+
   /*background: url('../img/background.jpg') no-repeat center center fixed;
   background-size: cover;*/
 }
