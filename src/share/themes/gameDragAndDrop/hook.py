@@ -65,9 +65,12 @@ class hook:
             self.magnet = magnet.group(1)        
         
         final_str = u'<article class="message_success" id="message_success" data-magnet="' + self.magnet + '" data-collisions="' + self.collisions + '" data-score="' + self.score + '">\n'
+        final_str += '<div class="message_success_border">\n'
         final_str += '<img id="popup_toggle" src="{{LogoHide}}" alt="toggle"/>\n'
         final_str += u'  <div id="message_success_content">' + self.PageFormatter(self.message).print_html() + u'</div>\n'
+        final_str += '</div>\n'
         final_str += u'</article>\n'
+
         for i, detail in enumerate(self.iaobject.details):
 
             target_id = ""

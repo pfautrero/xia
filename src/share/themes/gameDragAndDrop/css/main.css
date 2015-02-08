@@ -120,7 +120,7 @@ header h1 {
 #canvas {
     width:55%;
     margin-top: 10px;
-    border:20px solid rgba(255,255,255,0.5);
+    border:10px solid rgba(255,255,255,0.3);
 
 }
 #detect {
@@ -237,15 +237,28 @@ header h1 {
     display:none;
     z-index:100;
     position:absolute;
-    border: 20px solid #ddd;
-    border-radius:20px;
-    
-    width: calc(100% - 40px);
+    border: 0px solid #ddd;
+    border-radius:0px;
+
+    width: 100%;
     margin: 0px auto;
-    background:rgba(255,255,255,1);
-    box-shadow: black 5px 5px 10px;
+    background:rgba(255,255,255,0);
+    box-shadow: none;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+.message_success_border {
+    position:relative;
+    width:60%;
+    border: 20px solid #ddd;
+    border-radius:20px;
+    margin: 20px auto;
+    background:rgba(255,255,255,1);
+    box-shadow: black 5px 5px 10px;
+    padding:10px;
+    font-family: yanone_thin;
+    font-size: 2em;
 }
 #content article p, h1 {
     margin: 10px;

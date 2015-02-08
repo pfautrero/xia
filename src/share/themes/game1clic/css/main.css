@@ -128,7 +128,7 @@ header h1 {
 #canvas {
     width:55%;
     margin-top: 10px;
-    border:20px solid rgba(255,255,255,0.5);
+    border:10px solid rgba(255,255,255,0.2);
 
 }
 #detect {
