@@ -15,39 +15,35 @@
 
 /*
  * 
- * @param {type} imageObj
- * @param {type} detail
- * @param {type} layer
- * @param {type} idText
- * @param {type} baseImage
- * @param {type} iaScene
+ * @param {object} params
  * @constructor create image active object
  */
-function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, myhooks) {
+function IaObject(params) {
     "use strict";
     var that = this;
     this.xiaDetail = [];
-    this.layer = layer;
-    this.imageObj = imageObj;
     this.minX = 10000;
     this.minY = 10000;
     this.maxX = -10000;
     this.maxY = -10000;
-    //this.group = 0;
-    this.idText = idText;
-    this.myhooks = myhooks;
     this.match = false;
     this.collisions = "on";
+
+    this.layer = params.layer;
+    this.imageObj = params.imageObj;
+    this.idText = params.idText;
+    this.myhooks = params.myhooks;
+
     // Create kineticElements and include them in a group
    
     //that.group = new Kinetic.Group();
     //that.layer.add(that.group);
     
-    if (typeof(detail.path) !== 'undefined') {
-        that.includePath(detail, 0, that, iaScene, baseImage, idText);
+    if (typeof(params.detail.path) !== 'undefined') {
+        that.includePath(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
     }
-    else if (typeof(detail.image) !== 'undefined') {
-        that.includeImage(detail, 0, that, iaScene, baseImage, idText);
+    else if (typeof(params.detail.image) !== 'undefined') {
+        that.includeImage(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
     }
     // actually, groups are not allowed because of boxsize restriction
     
@@ -63,10 +59,10 @@ function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, myhooks) 
         that.definePathBoxSize(detail, that);
     }*/
     else {
-        console.log(detail);
+        console.log(params.detail);
     }
-    this.scaleBox(this, iaScene);
-    this.myhooks.afterIaObjectConstructor(iaScene, idText, detail, this);
+    this.scaleBox(this, params.iaScene);
+    this.myhooks.afterIaObjectConstructor(params.iaScene, params.idText, params.detail, this);
 }
 
 /*

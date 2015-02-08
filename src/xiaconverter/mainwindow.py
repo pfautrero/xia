@@ -56,7 +56,7 @@ class IADialog(Tkinter.Frame):
         self.sha1Lib = sha1Lib
         self.jqueryLib = jqueryLib
         self.root = root
-        self.resize = 3
+        self.resize = 0
         self.firefoxos = 0
         self.index_standalone = 0
 
@@ -302,9 +302,9 @@ class IADialog(Tkinter.Frame):
 
     def defineMaxPixels(self, resizeCoeff):
         if resizeCoeff == 0:
-            return float(512 * 512)
+            return float(1024 * 1024)
         elif resizeCoeff == 1:
-            return float(1024 * 1024)            
+            return float(2 * 1024 * 1024)
         elif resizeCoeff == 2:
             return float(3 * 1024 * 1024)            
         elif resizeCoeff == 3:
