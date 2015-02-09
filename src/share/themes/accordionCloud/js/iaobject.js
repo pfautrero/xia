@@ -516,6 +516,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 };
                 that.zoomLayer.moveToTop();
                 that.group.moveTo(that.zoomLayer);
+                that.layer.draw();
                 var anim = new Kinetic.Animation(function(frame) {
                     personalTween(this, that.layer);
                 }, that.zoomLayer);
