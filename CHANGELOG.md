@@ -1,3 +1,21 @@
+Version 1.0-beta6 - 09/02/2015
+-------------------------------
+
+- nouveau : xia gère les ellipses et les cercles au sens SVG
+- bugfix : une image était hardcodée dans les thèmes de jeu
+- refactorisation de la documentation
+- mise à jour de la documentation
+- nouveau : documentation traduite en portugais
+- amélioration : images de fond supprimées et remplacées par des fonds bicolores.
+- amélioration : le moteur de wiki est compatible xhtml (préparation pour les exports epub3)
+- amélioration : ajout d'un logger qui s'adapte à la console voulue
+- amélioration : amélioration notoire des effets de zoom qui sont plus fluides et plus rapides
+- nouveau : changement de l'interface de XIA en ajoutant des logos plus significatifs
+- nouveau : simplification de l'interface paramètres
+- mise à jour des tests fonctionnels
+- amélioration : les thèmes de jeu ont été légèrement retouchés pour améliorer l'expérience utilisateur
+- bugfix : suppression des contours des détails s'ils sont mentionnés comme "none" dans inkscape
+
 Version 1.0-beta5 - 19/01/2015
 -------------------------------
 
