@@ -228,7 +228,7 @@ class IADialog(Tkinter.Frame):
         except:
             self.params = Tkinter.Toplevel()
             self.params.title(self.paramsTitle)
-            self.params.geometry("310x310")
+            self.params.geometry("465x155")
             self.params.resizable(0,0)
             img = Tkinter.PhotoImage(file=self.imagesPath + '/xia64.gif')
             self.params.tk.call('wm', 'iconphoto', self.params._w, img)    

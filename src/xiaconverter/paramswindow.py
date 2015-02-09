@@ -91,14 +91,14 @@ class IAParams(Tkinter.Frame):
           relief=Tkinter.FLAT, bd=0, height=150, width=150, \
           command=self.indexStandalone)
         self.button_indexStandalone.image = self.indexStandalone_img[self.indexStandalone_param]
-        self.button_indexStandalone.grid(row=1,column=1, columnspan=1,sticky='W')
+        self.button_indexStandalone.grid(row=0,column=2, columnspan=1,sticky='W')
         tooltip3 = ToolTip(self.button_indexStandalone,translate("index standalone"), None, 0.1)
 
         # title
 
-        label = Tkinter.Label(self, image=params_img)
-        label.photo = params_img
-        label.grid(row=1,column=0,columnspan=1, sticky='W')
+        #label = Tkinter.Label(self, image=params_img)
+        #label.photo = params_img
+        #label.grid(row=1,column=0,columnspan=1, sticky='W')
 
     def resize(self):
         self.resizeCoeff = (self.resizeCoeff + 1) % 4

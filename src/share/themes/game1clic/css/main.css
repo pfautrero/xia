@@ -33,7 +33,7 @@ html {
     background: -ms-linear-gradient(45deg, rgba(133,167,40,1) 0%,rgba(133,167,40,1) 50%,rgba(118,150,32,1) 50%,rgba(118,150,32,1) 100%); /* IE10+ */
     background: linear-gradient(45deg, rgba(133,167,40,1) 0%,rgba(133,167,40,1) 50%,rgba(118,150,32,1) 50%,rgba(118,150,32,1) 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#85a728', endColorstr='#769620',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-    
+
 
   /*background: url('../img/background.jpg') no-repeat center center fixed;
   background-size: cover;*/
