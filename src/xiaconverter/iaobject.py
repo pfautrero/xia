@@ -274,8 +274,8 @@ class iaObject:
                 if ctm.scaleX != 1 or ctm.scaleY != 1:
                     self.scene['image'], self.scene['width'], self.scene['height'] = self.resizeImage(
                         raster,
-                        self.scene['width'] * ctm.scaleX,
-                        self.scene['height'] * ctm.scaleY)
+                        int(float(self.scene['width'])) * ctm.scaleX,
+                        int(float(self.scene['height'])) * ctm.scaleY)
 
             fixedRaster = self.fixRaster(raster, self.scene['width'], self.scene['height'])
             self.scene['image'] = fixedRaster
