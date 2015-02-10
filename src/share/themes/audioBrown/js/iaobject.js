@@ -552,6 +552,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     }
                     that.group.moveTo(that.layer);
                     that.zoomLayer.moveToBottom();
+                    that.zoomLayer.drawScene();
                     that.layer.draw();
                     that.backgroundCache_layer.draw();
                 }
