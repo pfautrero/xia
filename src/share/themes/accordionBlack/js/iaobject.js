@@ -435,7 +435,8 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
         if (iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) {
 
         }
-        else if (iaScene.cursorState.indexOf("ZoomIn.cur") !== -1) {
+        else if ((iaScene.cursorState.indexOf("ZoomIn.cur") !== -1) ||
+           (iaScene.cursorState.indexOf("ZoomFocus.cur") !== -1)) {
 
         }
         else if (iaScene.cursorState.indexOf("HandPointer.cur") === -1) {
@@ -608,7 +609,9 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         document.body.style.cursor = "zoom-in";
                         iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
                     }
-
+                    else {
+                        iaScene.cursorState = 'url("img/ZoomFocus.cur"),auto';
+                    }
 
                     var cacheBackground = true;
                     for (i in that.kineticElement) {
@@ -637,7 +640,9 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
      * if we leave this element, just clear the scene
      */
     that.kineticElement[i].on('mouseleave', function() {
-        if ((iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) || (iaScene.cursorState.indexOf("ZoomIn.cur") !== -1)) {
+        if ((iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) ||
+         (iaScene.cursorState.indexOf("ZoomIn.cur") !== -1) ||
+           (iaScene.cursorState.indexOf("ZoomFocus.cur") !== -1)) {
 
         }
         else {

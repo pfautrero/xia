@@ -425,7 +425,8 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
         if (iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) {
 
         }
-        else if (iaScene.cursorState.indexOf("ZoomIn.cur") !== -1) {
+        else if ((iaScene.cursorState.indexOf("ZoomIn.cur") !== -1) ||
+           (iaScene.cursorState.indexOf("ZoomFocus.cur") !== -1)) {
 
         }
         else if (iaScene.cursorState.indexOf("HandPointer.cur") === -1) {
@@ -586,7 +587,9 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';
                         iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
                     }
-
+                    else {
+                        iaScene.cursorState = 'url("img/ZoomFocus.cur"),auto';
+                    }
                     var cacheBackground = true;
                     for (i in that.kineticElement) {
                         if (that.persistent[i] === "onImage") cacheBackground = false;
@@ -619,7 +622,8 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
     that.kineticElement[i].on('mouseleave', function() {
         //iaScene.noPropagation = true;
         if ((iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) ||
-                (iaScene.cursorState.indexOf("ZoomIn.cur") !== -1)){
+          (iaScene.cursorState.indexOf("ZoomIn.cur") !== -1) ||
+           (iaScene.cursorState.indexOf("ZoomFocus.cur") !== -1)) {
 
         }
         else {
