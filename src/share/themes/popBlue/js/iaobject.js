@@ -590,13 +590,13 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
      * if we leave this element, just clear the scene
      */
     that.kineticElement[i].on('mouseleave', function() {
-        if (iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) {
+        if ((iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) || (iaScene.cursorState.indexOf("ZoomIn.cur") !== -1)) {
 
         }
         else {
             var mouseXY = that.layer.getStage().getPointerPosition();
             if (typeof(mouseXY) == "undefined") {
-		mouseXY = {x:0,y:0};
+		        mouseXY = {x:0,y:0};
             }            
             if ((that.layer.getStage().getIntersection(mouseXY) != this)) {
                 that.backgroundCache_layer.moveToBottom();
