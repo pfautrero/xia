@@ -152,7 +152,7 @@ LA réponse à la question<br>
         self.check_element("collapse6")
         driver.find_element_by_id("collapsecomment-heading").click()
         driver.find_element_by_id("collapse0-heading").click()
-        driver.find_element_by_link_text("Super ma question").click()
+        driver.find_element_by_link_text("Super ma question ").click()
         driver.find_element_by_xpath("//input[@type='text']").clear()
         driver.find_element_by_xpath("//input[@type='text']").send_keys("147")
         driver.find_element_by_css_selector("input[type=\"submit\"]").click()
