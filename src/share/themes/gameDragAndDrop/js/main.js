@@ -22,6 +22,9 @@
 function main(myhooks) {
     "use strict";
 
+    // fix bug in retina and amoled screens
+    Kinetic.pixelRatio = 1;
+
     Kinetic.Util.addMethods(Kinetic.Path,{
         setIaObject: function(iaobject) {
             this.iaobject = iaobject;

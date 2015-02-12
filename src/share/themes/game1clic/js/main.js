@@ -28,6 +28,9 @@ function main(myhooks) {
     var that=window;
     that.canvas = document.getElementById("canvas");
 
+    // fix bug in retina and amoled screens
+    Kinetic.pixelRatio = 1;
+
     Kinetic.Util.addMethods(Kinetic.Path,{
         setIaObject: function(iaobject) {
             this.iaobject = iaobject;
@@ -88,7 +91,7 @@ function main(myhooks) {
             mainScene.currentShape = "";
         });
 
-        stage.on("click tap", function(){
+        stage.on("click touchstart", function(){
             mainScene.currentShape = "";
             if ((mainScene.currentShape == "") || (typeof(mainScene.currentShape) == "undefined")) {
                 var mousePos = this.getPointerPosition();
