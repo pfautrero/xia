@@ -91,7 +91,7 @@ function main(myhooks) {
             mainScene.currentShape = "";
         });
 
-        stage.on("click touchstart", function(){
+        stage.on("click tap", function(){
             mainScene.currentShape = "";
             if ((mainScene.currentShape == "") || (typeof(mainScene.currentShape) == "undefined")) {
                 var mousePos = this.getPointerPosition();
