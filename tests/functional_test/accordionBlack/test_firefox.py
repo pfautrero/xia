@@ -200,10 +200,20 @@ Voici la vidéo :""", driver.find_element_by_css_selector("#collapse0 > div.acco
         driver.find_element_by_id("collapse4-heading").click()
         self.check_element("collapse4")
 
+    def test_init_1(self):
+        driver = self.driver
+        self.base_url = "file://"+os.path.dirname(os.path.abspath(__file__))+"/1.html"
+        self.test_init()
+
     def test_nav_1_1(self):
         driver = self.driver
         self.base_url = "file://"+os.path.dirname(os.path.abspath(__file__))+"/1.html"
         self.test_nav_1()
+
+    def test_nav_2_1(self):
+        driver = self.driver
+        self.base_url = "file://"+os.path.dirname(os.path.abspath(__file__))+"/1.html"
+        self.test_nav_2()
 
 
     def is_element_present(self, how, what):
