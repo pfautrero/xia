@@ -274,24 +274,23 @@ de dédier un répertoire spécifique à chaque image interactive générée}.
 \begin{figure}[htp]
 \tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]
 \begin{tikzpicture}
-  \node[opacity=.5] (bBlue)
-{\includegraphics[scale=.35]{./images/buttonBlue}}; \node[left= .3mm of
-bBlue] (aBrown) {\includegraphics[scale=.35]{./images/audioBrown}};
-\node[right= .3mm of bBlue] (guClic)
-{\includegraphics[scale=.35]{./images/game1clic}}; \node[below= .2mm of
-bBlue.south, opacity=.5] (pBlue)
-{\includegraphics[scale=.35]{./images/popBlue}}; \node[left= .3mm of pBlue]
-(gDDrop) {\includegraphics[scale=.35]{./images/gameDragAndDrop}};
-\node[right= .3mm of pBlue, opacity=.5] (pYellow)
-{\includegraphics[scale=.35]{./images/popYellow}}; \node[above = .2mm of
-guClic.north, opacity=.5] (aCloud)
-{\includegraphics[scale=.35]{./images/accordionCloud}}; \node[above = .2mm
-of aCloud.north, opacity=.5] (aBlack)
-{\includegraphics[scale=.35]{./images/accordionBlack}}; \node[left = .3mm of
-aBlack] (params) {\includegraphics[scale=.35]{./images/params}}; \node[left
-= .3mm of params] (files) {\includegraphics[scale=.35]{./images/xia_open}};
-\node[left = .3mm of aCloud, opacity=.3] (xialogo)
-{\includegraphics[scale=.47]{./images/xia}};
+  \node (bBlue) {\includegraphics[width=2cm]{./images/buttonBlue}};
+\node[left= .3mm of bBlue, opacity=.5] (aBrown)
+{\includegraphics[width=2cm]{./images/audioBrown}}; \node[right= .3mm of
+bBlue, opacity=.5] (guClic)
+{\includegraphics[width=2cm]{./images/game1clic}}; \node[below= .2mm of
+bBlue.south] (pBlue) {\includegraphics[width=2cm]{./images/popBlue}};
+\node[left= .3mm of pBlue, opacity=.5] (gDDrop)
+{\includegraphics[width=2cm]{./images/gameDragAndDrop}}; \node[right= .3mm
+of pBlue] (pYellow) {\includegraphics[width=2cm]{./images/popYellow}};
+\node[above = .2mm of guClic.north] (aCloud)
+{\includegraphics[width=2cm]{./images/accordionCloud}}; \node[above = .2mm
+of aCloud.north] (aBlack)
+{\includegraphics[width=2cm]{./images/accordionBlack}}; \node[left = .3mm of
+aBlack] (params) {\includegraphics[width=2cm]{./images/params}}; \node[left
+= .3mm of params] (files) {\includegraphics[width=2cm]{./images/xia_open}};
+\node[left = 2mm of aCloud, opacity=.3] (xialogo)
+{\includegraphics[height=2cm]{./images/xia}};
   
   \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Sélection
 du fichier source svg}; \node[box, above = 5mm of params] (paramsC)
@@ -712,23 +711,23 @@ cliquer sur des détails et lire du texte.
 \tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]
 \begin{tikzpicture}
   \node[opacity=.5] (bBlue)
-{\includegraphics[scale=.35]{./images/buttonBlue}}; \node[left= .3mm of
-bBlue] (aBrown) {\includegraphics[scale=.35]{./images/audioBrown}};
+{\includegraphics[width=2cm]{./images/buttonBlue}}; \node[left= .3mm of
+bBlue] (aBrown) {\includegraphics[width=2cm]{./images/audioBrown}};
 \node[right= .3mm of bBlue] (guClic)
-{\includegraphics[scale=.35]{./images/game1clic}}; \node[below= .2mm of
+{\includegraphics[width=2cm]{./images/game1clic}}; \node[below= .2mm of
 bBlue.south, opacity=.5] (pBlue)
-{\includegraphics[scale=.35]{./images/popBlue}}; \node[left= .3mm of pBlue]
-(gDDrop) {\includegraphics[scale=.35]{./images/gameDragAndDrop}};
+{\includegraphics[width=2cm]{./images/popBlue}}; \node[left= .3mm of pBlue]
+(gDDrop) {\includegraphics[width=2cm]{./images/gameDragAndDrop}};
 \node[right= .3mm of pBlue, opacity=.5] (pYellow)
-{\includegraphics[scale=.35]{./images/popYellow}}; \node[above = .2mm of
+{\includegraphics[width=2cm]{./images/popYellow}}; \node[above = .2mm of
 guClic.north, opacity=.5] (aCloud)
-{\includegraphics[scale=.35]{./images/accordionCloud}}; \node[above = .2mm
+{\includegraphics[width=2cm]{./images/accordionCloud}}; \node[above = .2mm
 of aCloud.north, opacity=.5] (aBlack)
-{\includegraphics[scale=.35]{./images/accordionBlack}}; \node[left = .3mm of
-aBlack] (params) {\includegraphics[scale=.35]{./images/params}}; \node[left
-= .3mm of params] (files) {\includegraphics[scale=.35]{./images/xia_open}};
-\node[left = .3mm of aCloud, opacity=.3] (xialogo)
-{\includegraphics[scale=.47]{./images/xia}};
+{\includegraphics[width=2cm]{./images/accordionBlack}}; \node[left = .3mm of
+aBlack] (params) {\includegraphics[width=2cm]{./images/params}}; \node[left
+= .3mm of params] (files) {\includegraphics[width=2cm]{./images/xia_open}};
+\node[left = 2mm of aCloud, opacity=.3] (xialogo)
+{\includegraphics[height=2cm]{./images/xia}};
 
   
   \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Sélection
