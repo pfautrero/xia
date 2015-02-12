@@ -151,6 +151,7 @@ LA réponse à la question<br>
         driver.find_element_by_id("collapse6-heading").click()
         self.check_element("collapse6")
         driver.find_element_by_id("collapsecomment-heading").click()
+        time.sleep(1)
         driver.find_element_by_id("collapse0-heading").click()
         time.sleep(3)
         driver.find_element_by_link_text("Super ma question").click()
