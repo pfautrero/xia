@@ -128,9 +128,8 @@ LA réponse à la question<br>
         webdriver.common.action_chains.ActionChains(driver).move_to_element_with_offset(driver.find_element_by_css_selector("a.infos"), 5, 5).click().perform()
 #        time.sleep(2)
         self.assertEqual("Michaël Nourry <br>", driver.find_element_by_xpath("//article[@id='popup_text']/p").get_attribute('innerHTML'))
-        time.sleep(2)
-        self.check_element("id('popup')")
-
+#        self.check_element("id('popup')")
+#        time.sleep(3)
            
     def test_nav_1(self):
         driver = self.driver
@@ -138,10 +137,10 @@ LA réponse à la question<br>
         time.sleep(2)
         webdriver.common.action_chains.ActionChains(driver).move_to_element_with_offset(driver.find_element_by_id("collapsecomment-heading"), 5, 5).click().perform()
 #        time.sleep(2)
-        self.check_element("collapsecomment")
+#        self.check_element("collapsecomment")
 #        time.sleep(5)
         webdriver.common.action_chains.ActionChains(driver).move_to_element_with_offset(driver.find_element_by_id("collapse0-heading"), 5, 5).click().perform()
-        self.check_element("collapse0")
+#        self.check_element("collapse0")
 #        driver.execute_script(self.click_zone("Son 1"))
 #        driver.execute_script(self.click_zone("Son 1"))
 #        time.sleep(5)
