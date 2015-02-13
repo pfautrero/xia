@@ -199,6 +199,20 @@ une ligne<br>
         action.move_to_element_with_offset(driver.find_element_by_id("collapse4-heading"), 5, 5).click().perform()
         self.check_element("collapse4")
         """
+    def test_init_1(self):
+        driver = self.driver
+        self.base_url = "file://"+os.path.dirname(os.path.abspath(__file__))+"/1.html"
+        self.test_init()
+
+    def test_nav_1_1(self):
+        driver = self.driver
+        self.base_url = "file://"+os.path.dirname(os.path.abspath(__file__))+"/1.html"
+        self.test_nav_1()
+
+    def test_nav_2_1(self):
+        driver = self.driver
+        self.base_url = "file://"+os.path.dirname(os.path.abspath(__file__))+"/1.html"
+        self.test_nav_2()
         
     def is_element_present(self, how, what):
         try: self.driver.find_element(by=how, value=what)
