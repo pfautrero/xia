@@ -55,6 +55,7 @@ do
             rm "$js" # useless now.
         fi
     done
+    #perl "$script_dir/minify_js.pl" "$theme/js/xia.js"
 
 done
 

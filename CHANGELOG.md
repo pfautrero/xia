@@ -1,3 +1,11 @@
+Version 1.0 - 13/02/2015
+-------------------------------
+
+- bugfix : game1clic ne fonctionnait pas sur écrans retina et amoled
+- amélioration : le focus sur un détail est verrouillé même lorsque le pointeur sort de la zone
+
+
+
 Version 1.0-beta6 - 09/02/2015
 -------------------------------
 
