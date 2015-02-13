@@ -28,6 +28,9 @@ function main(myhooks) {
     var that=window;
     that.canvas = document.getElementById("canvas");
 
+    // fix bug in retina and amoled screens
+    Kinetic.pixelRatio = 1;
+
     Kinetic.Util.addMethods(Kinetic.Path,{
         setIaObject: function(iaobject) {
             this.iaobject = iaobject;

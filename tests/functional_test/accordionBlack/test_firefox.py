@@ -151,8 +151,10 @@ LA réponse à la question<br>
         driver.find_element_by_id("collapse6-heading").click()
         self.check_element("collapse6")
         driver.find_element_by_id("collapsecomment-heading").click()
+        time.sleep(1)
         driver.find_element_by_id("collapse0-heading").click()
-        driver.find_element_by_link_text("Super ma question ").click()
+        time.sleep(3)
+        driver.find_element_by_link_text("Super ma question").click()
         driver.find_element_by_xpath("//input[@type='text']").clear()
         driver.find_element_by_xpath("//input[@type='text']").send_keys("147")
         driver.find_element_by_css_selector("input[type=\"submit\"]").click()
@@ -200,10 +202,20 @@ Voici la vidéo :""", driver.find_element_by_css_selector("#collapse0 > div.acco
         driver.find_element_by_id("collapse4-heading").click()
         self.check_element("collapse4")
 
+    def test_init_1(self):
+        driver = self.driver
+        self.base_url = "file://"+os.path.dirname(os.path.abspath(__file__))+"/1.html"
+        self.test_init()
+
     def test_nav_1_1(self):
         driver = self.driver
         self.base_url = "file://"+os.path.dirname(os.path.abspath(__file__))+"/1.html"
         self.test_nav_1()
+
+    def test_nav_2_1(self):
+        driver = self.driver
+        self.base_url = "file://"+os.path.dirname(os.path.abspath(__file__))+"/1.html"
+        self.test_nav_2()
 
 
     def is_element_present(self, how, what):

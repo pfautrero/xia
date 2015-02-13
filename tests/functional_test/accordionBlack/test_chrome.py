@@ -54,15 +54,12 @@ class Test(unittest.TestCase):
 
         """, driver.find_element_by_xpath("//div[@id='collapsecomment']/div").get_attribute('innerHTML'))
         self.assertTrue(self.is_element_present(By.XPATH, "//div[@id='collapsecomment']/div/video"))
-        self.assertEqual("""
-          <div class="accordion-inner">Description du rectangle <b>gras</b> <em>italique</em>Réponse:Voici la vidéo :<video controls="" preload="none" data-state="none">
+        assert """Description du rectangle <b>gras</b> <em>italique</em><div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-password=""" in driver.find_element_by_xpath("//div[@id='collapse0']/div").get_attribute('innerHTML')
+        assert """Voici la vidéo :<video controls="" preload="none" data-state="autostart">
 	            <source type="video/mp4" src="../media-share/1.mp4">
 	            <source type="video/ogg" src="../media-share/1.ogv">
 	            <source type="video/webm" src="../media-share/1.webm">
-            </video>
-
-          </div>
-      """, driver.find_element_by_xpath("//div[@id='collapse0']").get_attribute('innerHTML'))
+            </video>""" in driver.find_element_by_xpath("//div[@id='collapse0']/div").get_attribute('innerHTML')
         self.assertTrue(self.is_element_present(By.XPATH, "id('collapse0')/div/video"))
         self.assertEqual("""
           <div class="accordion-inner">Description de l'ellipse<ul>
@@ -106,15 +103,17 @@ une ligne<br>
           </div>
       """, driver.find_element_by_xpath("//div[@id='collapse4']").get_attribute('innerHTML'))
         self.assertTrue(self.is_element_present(By.XPATH, "id('collapse4')/div/img"))
-        self.assertEqual("""
-          <div class="accordion-inner">le son 2 ! <audio controls="" data-state="autostart">
+        assert """<div class="accordion-inner">le son 2 ! <audio controls="" data-state="autostart">
 	            <source type="audio/ogg" src="../media-share/1.ogg">
 	            <source type="audio/mp3" src="../media-share/1.mp3">
             </audio>
-Réponse:LA réponse à la question<br>
+<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-target=""" in driver.find_element_by_xpath("//div[@id='collapse5']").get_attribute('innerHTML')
+        assert """La réponse 2</ul>
+</div>
+LA réponse à la question<br>
 
           </div>
-      """, driver.find_element_by_xpath("//div[@id='collapse5']").get_attribute('innerHTML'))
+      """ in driver.find_element_by_xpath("//div[@id='collapse5']").get_attribute('innerHTML')
         self.assertTrue(self.is_element_present(By.XPATH, "id('collapse5')/div/audio"))
         self.assertEqual("""
           <div class="accordion-inner">le son 1 !<audio controls="" data-state="none">
@@ -199,6 +198,20 @@ Réponse:LA réponse à la question<br>
         action.move_to_element_with_offset(driver.find_element_by_id("collapse4-heading"), 5, 5).click().perform()
         self.check_element("collapse4")
         """
+    def test_init_1(self):
+        driver = self.driver
+        self.base_url = "file://"+os.path.dirname(os.path.abspath(__file__))+"/1.html"
+        self.test_init()
+
+    def test_nav_1_1(self):
+        driver = self.driver
+        self.base_url = "file://"+os.path.dirname(os.path.abspath(__file__))+"/1.html"
+        self.test_nav_1()
+
+    def test_nav_2_1(self):
+        driver = self.driver
+        self.base_url = "file://"+os.path.dirname(os.path.abspath(__file__))+"/1.html"
+        self.test_nav_2()
         
     def is_element_present(self, how, what):
         try: self.driver.find_element(by=how, value=what)
