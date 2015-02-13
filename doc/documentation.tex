@@ -233,7 +233,7 @@ dedicate a specific directory for each exported image}.
   \node[above = .2mm of aCloud.north] (aBlack) {\includegraphics[width=2cm]{./images/accordionBlack}};  
   \node[left = .3mm of aBlack] (params) {\includegraphics[width=2cm]{./images/params}};  
   \node[left = .3mm of params] (files) {\includegraphics[width=2cm]{./images/xia_open}};
-  \node[left = 2mm of aCloud, opacity=.3] (xialogo) {\includegraphics[height=2cm]{./images/xia}};
+  \node[left = 1mm of aCloud, opacity=.3] (xialogo) {\includegraphics[height=2.1cm]{./images/xia}};
   
   %comments
   \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Select the svg source file};
@@ -251,7 +251,7 @@ a first click on the detail reveals it, and a second one pops up the comment
 (no zoom)};
   
   %arrows
-  \draw[-stealth] (aBlackC.west) -- (aBlack.north east);
+  \draw[-stealth] (aBlackC.west) -- (aBlack.east);
   \draw[-stealth] (aCloudC.west) -- (aCloud.south east);
   \draw[-stealth] (pYellowC.north west) -- (pYellow.south east);
   \draw[-stealth] (bBlueC.north east) -- (bBlue.north west);
@@ -271,15 +271,14 @@ a first click on the detail reveals it, and a second one pops up the comment
   %\draw[help lines] (0,0) grid (5,5);
   %icons
   \node (exp_qual) {\includegraphics[scale=.5]{./images/exp_qual}};
-  \node[right= .3mm of exp_qual] (exp_firefox) {\includegraphics[scale=.5]{./images/exp_firefox}};
-  \node[below= .2mm of exp_firefox.south] (exp_1file) {\includegraphics[scale=.5]{./images/exp_1file}};
-  \node[left= .3mm of exp_1file] (exp_params) {\includegraphics[scale=.5]{./images/params}};
+  \node[right= .2mm of exp_qual] (exp_firefox) {\includegraphics[scale=.5]{./images/exp_firefox}};
+  \node[right= .2mm of exp_firefox] (exp_1file) {\includegraphics[scale=.5]{./images/exp_1file}};
   
   %comments
   \node[box, text width=2.5cm, left = 5mm of exp_qual] (exp_qualC) {Select the quality of the export on a scale from 1 to 4};
-  \node[box, above right = 5mm of exp_firefox] (exp_firefoxC) {Activate or Deactivate the 
+  \node[box, above = 5mm of exp_firefox] (exp_firefoxC) {Activate or Deactivate the 
   creation of the FirefoxOS files (default: deactivated)};
-  \node[box, right = 5mm of exp_1file] (exp_1fileC) {In the unique file configuration,
+  \node[box, text width=10cm, below = 5mm of exp_1file] (exp_1fileC) {In the unique file configuration,
   you will need an internet connection to access the resource. The xia engine
   used in the unique file configuration is hosted on Versailles academy servers
   and is automatically updated. In this configuration, you can not control the 
@@ -287,8 +286,8 @@ a first click on the detail reveals it, and a second one pops up the comment
 
   %arrows
   \draw[-stealth] (exp_qualC.east) -- (exp_qual.west);
-  \draw[-stealth] (exp_firefoxC.west) -- (exp_firefox.north east);
-  \draw[-stealth] (exp_1fileC.west) -- (exp_1file.east);
+  \draw[-stealth] (exp_firefoxC.south) -- (exp_firefox.north);
+  \draw[-stealth] (exp_1fileC.north) -- (exp_1file.south);
 
 \end{tikzpicture}
 \caption{Xia's exportation options}
