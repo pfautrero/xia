@@ -54,15 +54,12 @@ class Test(unittest.TestCase):
 
         """, driver.find_element_by_xpath("//div[@id='collapsecomment']/div").get_attribute('innerHTML'))
         self.assertTrue(self.is_element_present(By.XPATH, "//div[@id='collapsecomment']/div/video"))
-        #self.assertEqual("""
-        #  <div class="accordion-inner">Description du rectangle <b>gras</b> <em>italique</em>Réponse:Voici la vidéo :<video controls="" preload="none" data-state="none">
-	    #        <source type="video/mp4" src="../media-share/1.mp4">
-	    #        <source type="video/ogg" src="../media-share/1.ogv">
-	    #        <source type="video/webm" src="../media-share/1.webm">
-        #   </video>
-#
-#          </div>
-#      """, driver.find_element_by_xpath("//div[@id='collapse0']").get_attribute('innerHTML'))
+        assert """Description du rectangle <b>gras</b> <em>italique</em><div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-password=""" in driver.find_element_by_xpath("//div[@id='collapse0']/div").get_attribute('innerHTML')
+        assert """Voici la vidéo :<video controls="" preload="none" data-state="autostart">
+	            <source type="video/mp4" src="../media-share/1.mp4">
+	            <source type="video/ogg" src="../media-share/1.ogv">
+	            <source type="video/webm" src="../media-share/1.webm">
+            </video>""" in driver.find_element_by_xpath("//div[@id='collapse0']/div").get_attribute('innerHTML')
         self.assertTrue(self.is_element_present(By.XPATH, "id('collapse0')/div/video"))
         self.assertEqual("""
           <div class="accordion-inner">Description de l'ellipse<ul>
@@ -106,15 +103,17 @@ une ligne<br>
           </div>
       """, driver.find_element_by_xpath("//div[@id='collapse4']").get_attribute('innerHTML'))
         self.assertTrue(self.is_element_present(By.XPATH, "id('collapse4')/div/img"))
-#        self.assertEqual("""
-#          <div class="accordion-inner">le son 2 ! <audio controls="" data-state="autostart">
-#	            <source type="audio/ogg" src="../media-share/1.ogg">
-#	            <source type="audio/mp3" src="../media-share/1.mp3">
-#            </audio>
-#Réponse:LA réponse à la question<br>
-#
-#          </div>
-#      """, driver.find_element_by_xpath("//div[@id='collapse5']").get_attribute('innerHTML'))
+        assert """<div class="accordion-inner">le son 2 ! <audio controls="" data-state="autostart">
+	            <source type="audio/ogg" src="../media-share/1.ogg">
+	            <source type="audio/mp3" src="../media-share/1.mp3">
+            </audio>
+<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-target=""" in driver.find_element_by_xpath("//div[@id='collapse5']").get_attribute('innerHTML')
+        assert """La réponse 2</ul>
+</div>
+LA réponse à la question<br>
+
+          </div>
+      """ in driver.find_element_by_xpath("//div[@id='collapse5']").get_attribute('innerHTML')
         self.assertTrue(self.is_element_present(By.XPATH, "id('collapse5')/div/audio"))
         self.assertEqual("""
           <div class="accordion-inner">le son 1 !<audio controls="" data-state="none">
@@ -129,8 +128,9 @@ une ligne<br>
         webdriver.common.action_chains.ActionChains(driver).move_to_element_with_offset(driver.find_element_by_css_selector("a.infos"), 5, 5).click().perform()
 #        time.sleep(2)
         self.assertEqual("Michaël Nourry <br>", driver.find_element_by_xpath("//article[@id='popup_text']/p").get_attribute('innerHTML'))
-#        self.check_element("id('popup')")
-#        time.sleep(3)
+        time.sleep(2)
+        self.check_element("id('popup')")
+
            
     def test_nav_1(self):
         driver = self.driver
@@ -138,10 +138,10 @@ une ligne<br>
         time.sleep(2)
         webdriver.common.action_chains.ActionChains(driver).move_to_element_with_offset(driver.find_element_by_id("collapsecomment-heading"), 5, 5).click().perform()
 #        time.sleep(2)
-#        self.check_element("collapsecomment")
+        self.check_element("collapsecomment")
 #        time.sleep(5)
         webdriver.common.action_chains.ActionChains(driver).move_to_element_with_offset(driver.find_element_by_id("collapse0-heading"), 5, 5).click().perform()
-#        self.check_element("collapse0")
+        self.check_element("collapse0")
 #        driver.execute_script(self.click_zone("Son 1"))
 #        driver.execute_script(self.click_zone("Son 1"))
 #        time.sleep(5)
