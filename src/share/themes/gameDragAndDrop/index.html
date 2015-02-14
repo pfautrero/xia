@@ -47,7 +47,7 @@
     </footer>
     {{datasJS}}
     <script>
-        document.body.onload = function() {
+        var loadLibs = function() {
             $LAB.setGlobalDefaults({CacheBust:true});
             $LAB{{lazyDatasJS}}
              .script("{{JqueryJS}}")
@@ -57,6 +57,8 @@
              .script("{{xiaJS}}")
              ;
         }
+        document.body.onload = loadLibs;
+
     </script>
 </body>
 </html>
