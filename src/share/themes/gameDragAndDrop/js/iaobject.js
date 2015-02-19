@@ -728,8 +728,9 @@ IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElemen
     this.maxY = event.target.y() + iaObject_height;
     var middle_coords = {x: event.target.x() + (this.maxX - this.minX)/2,y:event.target.y() + (this.maxY - this.minY)/2};
 
-    var mouseXY = kineticElement.getStage().getPointerPosition();
-    var droparea = kineticElement.getStage().getIntersection(mouseXY);
+    //var mouseXY = kineticElement.getStage().getPointerPosition();
+    //var droparea = kineticElement.getStage().getIntersection(mouseXY);
+    var droparea = kineticElement.getStage().getIntersection(middle_coords);
     var over_droparea = false;
     if (droparea) {
         if (droparea == kineticElement) {
@@ -741,7 +742,8 @@ IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElemen
             kineticElement.x(2000);
             kineticElement.getLayer().drawHit();
             kineticElement.getStage().completeImage = "redefine";
-            droparea = kineticElement.getStage().getIntersection(mouseXY);
+            //droparea = kineticElement.getStage().getIntersection(mouseXY);
+            droparea = kineticElement.getStage().getIntersection(middle_coords);
             if (droparea) {
                 if (droparea != kineticElement) {
                     over_droparea = true;
