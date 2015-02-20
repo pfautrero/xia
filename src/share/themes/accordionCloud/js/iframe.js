@@ -29,3 +29,18 @@ $(".videoWrapper4_3").each(function(){
     iframe.src = source;
     $(this).append(iframe);    
 });
+$(".flickr_oembed").each(function(){
+    var source = $(this).data("oembed");
+    var that = $(this);
+    $.ajax({
+        url: "http://www.flickr.com/services/oembed/?format=json&callback=?&jsoncallback=xia&url=" + source,
+        dataType: 'jsonp',
+        jsonpCallback: 'xia',
+        success: function (data) {
+            var url = data.url;
+            var newimg = document.createElement("img");
+            newimg.src = url;
+            that.append(newimg);
+        }
+    });
+});

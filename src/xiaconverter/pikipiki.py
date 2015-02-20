@@ -63,6 +63,9 @@ class PageFormatter:
     def _url_repl(self, word):
         return u'<a href="%s" target="_blank">%s</a>\n' % (word, word)
 
+    def _flicker_repl(self, word):
+        return u'<div class="flickr_oembed" data-oembed="%s"></div>\n' % (word)
+
     def _videostart_repl(self, word):
         return u'<video controls preload="none" data-state="autostart">\n\t\
             <source type="video/mp4" src="%s.mp4" />\n\t\
@@ -275,6 +278,7 @@ class PageFormatter:
             + r"|(?P<rule>-{4,})"
             + r"|(?P<videostart>[^\s'\"]+\.(ogv|mp4|webm)(\s*)autostart$)"
             + r"|(?P<video>[^\s'\"]+\.(ogv|mp4|webm)$)"
+            + r"|(?P<flicker>https\:\/\/flic\.kr\/p\/(.*))"
             + r"|(?P<link>\[(http|\.\.\/|\.\/)(.*)\])"
             + r"|(?P<img>[^\s'\"]+\.(jpg|jpeg|png|gif)$)"
             + r"|(?P<audiostart>[^\s'\"]+\.(ogg|mp3)(\s*)autostart$)"
