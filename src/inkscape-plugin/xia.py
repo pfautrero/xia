@@ -23,6 +23,7 @@ import Tkinter
 import os
 import ConfigParser
 from xiaconverter.mainwindow import IADialog
+from xiaconverter.loggerinkscape import LoggerInkscape
 
 class ImageActive(inkex.Effect):
     def __init__(self):
@@ -47,8 +48,8 @@ class ImageActive(inkex.Effect):
 
         config = ConfigParser.ConfigParser()
         config.read(inkexWorkingDir + "/xia.cnf")
-        numVersion = inkexWorkingDir + "/" + config.get('version', 'numVersion')
-        releaseVersion = inkexWorkingDir + "/" + config.get('version', 'releaseVersion')
+        numVersion = config.get('version', 'numVersion')
+        releaseVersion = config.get('version', 'releaseVersion')
         imagesPath = inkexWorkingDir + "/" + config.get('paths', 'imagesPath')
         langPath = inkexWorkingDir + "/" + config.get('paths', 'langPath')
         fontsPath = inkexWorkingDir + "/" + config.get('paths', 'fontsPath')
@@ -62,6 +63,7 @@ class ImageActive(inkex.Effect):
             filePath = tempfile.mkdtemp() + "/" + "temp.svg"
             with open(filePath,"w") as file:
                 self.document.write(filePath)
+            console = LoggerInkscape()
 
             root = Tkinter.Tk()
             root.title("XIA " + numVersion + releaseVersion)
@@ -69,7 +71,8 @@ class ImageActive(inkex.Effect):
             root.resizable(0,0)
             img = Tkinter.PhotoImage(file= imagesPath + '/xia64.gif')
             root.tk.call('wm', 'iconphoto', root._w, img)  
-            maindialog = IADialog(root,langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, filePath)
+            maindialog = IADialog(root, console, langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib,
+                                  kineticLib, sha1Lib, filePath)
             maindialog.pack(side="left")
             root.mainloop()
 

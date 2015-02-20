@@ -22,10 +22,10 @@
         </div>
     </div>    
     <div id="container">
-        <div id="detect"></div>
+        <div id="detect">&nbsp;</div>
         <header>
             <h1 id="title">{{TITLE}}</h1>
-            <a class="infos" href="#" title="à propos"></a>      
+            <a class="infos" href="#" title="à propos"></a>
         </header>
         <nav class="accordion" id="accordion2">{{ACCORDION}}</nav>
         <div id="canvas"></div>
@@ -35,15 +35,13 @@
             <img id="popup_close" src="{{LogoClose}}" alt="close"/>
             <article id="popup_text">
                 <img src="{{LogoLoading}}" alt="xia" />
-                <p>{{RIGHTS}}</p>
-                <p>{{CREATOR}}</p>
-                <p>{{PUBLISHER}}</p>
+                <p>{{METADATAS}}</p>
             </article>
         </section>
     </footer>
     {{datasJS}}
     <script>
-        document.body.onload = function() {
+        var loadLibs = function() {
             $LAB.setGlobalDefaults({CacheBust:true});
             $LAB{{lazyDatasJS}}
              .script("{{JqueryJS}}")
@@ -53,6 +51,7 @@
              .script("{{xiaJS}}")
              ;
         }
+        document.body.onload = loadLibs;
     </script>
 </body>
 </html>

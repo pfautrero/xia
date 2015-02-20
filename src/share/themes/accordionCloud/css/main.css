@@ -22,10 +22,21 @@
 /* override Wahid */
 
 html {
-  margin:0;
-  padding:0;
-  background: url('../img/background.jpg') no-repeat center center fixed;
-  background-size: cover;
+    margin:0;
+    padding:0;
+    /*background: url('../img/background.jpg') no-repeat center center fixed;
+    background-size: cover;*/
+
+    background: rgb(114,206,243); /* Old browsers */
+    background-image: -moz-linear-gradient(top, rgba(88,183,227,1) 1%, rgba(88,183,227,1) 10%, rgba(114,206,243,1) 10%, rgba(114,206,243,1) 100%); /* FF3.6+ */
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(1%,rgba(88,183,227,1)), color-stop(10%,rgba(88,183,227,1)), color-stop(10%,rgba(114,206,243,1)), color-stop(100%,rgba(114,206,243,1))); /* Chrome,Safari4+ */
+    background-image: -webkit-linear-gradient(top, rgba(88,183,227,1) 1%,rgba(88,183,227,1) 10%,rgba(114,206,243,1) 10%,rgba(114,206,243,1) 100%); /* Chrome10+,Safari5.1+ */
+    background-image: -o-linear-gradient(top, rgba(88,183,227,1) 1%,rgba(88,183,227,1) 10%,rgba(114,206,243,1) 10%,rgba(114,206,243,1) 100%); /* Opera 11.10+ */
+    background-image: -ms-linear-gradient(top, rgba(88,183,227,1) 1%,rgba(88,183,227,1) 10%,rgba(114,206,243,1) 10%,rgba(114,206,243,1) 100%); /* IE10+ */
+    background-image: linear-gradient(to bottom, rgba(88,183,227,1) 1%,rgba(88,183,227,1) 10%,rgba(114,206,243,1) 10%,rgba(114,206,243,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#58b7e3', endColorstr='#72cef3',GradientType=0 ); /* IE6-9 */
+    background-repeat: no-repeat;
+
 }
 body{
     background: none;
@@ -62,7 +73,7 @@ header h1 {
     max-width:20%;
     padding: 0px 1em 0 5px;
     margin-bottom:0; 
-    color:#115c99;
+    color:#0B3577;
     font-family: yanone_regular; 
     font-size: 3em;
 }
@@ -161,7 +172,7 @@ header h1 {
 }
 a.accordion-toggle { 
     font-family:yanone_regular; 
-    color:#115c99;
+    color:#0B3577;
     font-size:2em;
     text-decoration:none;
     -webkit-transition: all 0.2s ease-in-out;

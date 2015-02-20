@@ -12,7 +12,7 @@
     <meta property="og:image" content="http://xia.dane.ac-versailles.fr/img/logo.jpg"/>
     <title>{{TITLE}}</title>
     <link rel="stylesheet" type="text/css" href="{{MainCSS}}"/>
-    <script src="{{labJS}}"></script>        
+    <script src="{{labJS}}"></script>
 </head>
 <body id="image-active">
     <div id="loader">
@@ -35,15 +35,13 @@
             <img id="popup_close" src="{{LogoClose}}" alt="close"/>
             <article id="popup_text">
                 <img src="{{LogoLoading}}" alt="xia" />
-                <p>{{RIGHTS}}</p>
-                <p>{{CREATOR}}</p>
-                <p>{{PUBLISHER}}</p>
+                <p>{{METADATAS}}</p>
             </article>
         </section>
     </footer>
     {{datasJS}}
     <script>
-        document.body.onload = function() {
+        var loadLibs = function() {
             $LAB.setGlobalDefaults({CacheBust:true});
             $LAB{{lazyDatasJS}}
              .script("{{JqueryJS}}")
@@ -53,6 +51,7 @@
              .script("{{xiaJS}}")
              ;
         }
+        document.body.onload = loadLibs;
     </script>
 </body>
 </html>

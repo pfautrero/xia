@@ -24,7 +24,7 @@
  * @param {type} backgroundCache_layer
  * @constructor create image active object
  */
-function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, background_layer, backgroundCache_layer, myhooks) {
+function IaObject(params) {
     "use strict";
     var that = this;
     this.path = [];
@@ -36,50 +36,55 @@ function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     this.persistent = [];
     this.originalX = [];
     this.originalY = [];
-    this.options = [];    
-    this.layer = layer;
-    this.background_layer = background_layer;
-    this.backgroundCache_layer = backgroundCache_layer;
-    this.imageObj = imageObj;
+    this.options = [];
+    this.stroke = [];
+    this.strokeWidth = [];
+    this.tween = [];
     this.agrandissement = 0;
     this.zoomActive = 0;
     this.minX = 10000;
     this.minY = 10000;
     this.maxX = -10000;
     this.maxY = -10000;
-    this.tween = []; 
     this.tween_group = 0;
     this.group = 0;
-    this.idText = idText;    
-    this.myhooks = myhooks;
+
+    this.layer = params.layer;
+    this.background_layer = params.background_layer;
+    this.backgroundCache_layer = params.backgroundCache_layer;
+    this.imageObj = params.imageObj;
+    this.idText = params.idText;
+    this.myhooks = params.myhooks;
+    this.zoomLayer = params.zoomLayer;
+
     // Create kineticElements and include them in a group
    
     that.group = new Kinetic.Group();
     that.layer.add(that.group);
     
-    if (typeof(detail.path) !== 'undefined') {
-        that.includePath(detail, 0, that, iaScene, baseImage, idText);
+    if (typeof(params.detail.path) !== 'undefined') {
+        that.includePath(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
     }
-    else if (typeof(detail.image) !== 'undefined') {
-        that.includeImage(detail, 0, that, iaScene, baseImage, idText);
+    else if (typeof(params.detail.image) !== 'undefined') {
+        that.includeImage(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
     }
-    else if (typeof(detail.group) !== 'undefined') {
-        for (var i in detail.group) {
-            if (typeof(detail.group[i].path) !== 'undefined') {
-                that.includePath(detail.group[i], i, that, iaScene, baseImage, idText);
+    else if (typeof(params.detail.group) !== 'undefined') {
+        for (var i in params.detail.group) {
+            if (typeof(params.detail.group[i].path) !== 'undefined') {
+                that.includePath(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
             }
-            else if (typeof(detail.group[i].image) !== 'undefined') {
-                that.includeImage(detail.group[i], i, that, iaScene, baseImage, idText);
+            else if (typeof(params.detail.group[i].image) !== 'undefined') {
+                that.includeImage(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
             }
         }
-        that.definePathBoxSize(detail, that);
+        that.definePathBoxSize(params.detail, that);
     }
     else {
-        console.log(detail);
+        console.log(params.detail);
     }
 
-    this.defineTweens(this, iaScene);
-    this.myhooks.afterIaObjectConstructor(iaScene, idText, detail, this);
+    this.defineTweens(this, params.iaScene);
+    this.myhooks.afterIaObjectConstructor(params.iaScene, params.idText, params.detail, this);
 }
 
 /*
@@ -113,6 +118,18 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         }
         if ((typeof(detail.options) !== 'undefined')) {
             that.options[i] = detail.options;
+        }
+        if ((typeof(detail.stroke) !== 'undefined') && (detail.stroke != 'none')) {
+            that.stroke[i] = detail.stroke;
+        }
+        else {
+            that.stroke[i] = 'rgba(0, 0, 0, 0)';
+        }
+        if ((typeof(detail.strokewidth) !== 'undefined')) {
+            that.strokeWidth[i] = detail.strokewidth;
+        }
+        else {
+            that.strokeWidth[i] = '0';
         }
         that.persistent[i] = "off-image";
         if ((typeof(detail.fill) !== 'undefined') && 
@@ -258,8 +275,8 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     if (parseFloat(detail.minX) < 0) posX = parseFloat(detail.minX) * (-1);
     if (parseFloat(detail.minY) < 0) posY = parseFloat(detail.minY) * (-1);
     // bad workaround to avoid null dimensions
-    if (cropWidth == 0) cropWidth = 1;
-    if (cropHeight == 0) cropHeight = 1;    
+    if (cropWidth <= 0) cropWidth = 1;
+    if (cropHeight <= 0) cropHeight = 1;
     cropCtx.drawImage(
         that.imageObj,
         cropX * iaScene.scale,
@@ -291,7 +308,19 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     }
     if ((typeof(detail.options) !== 'undefined')) {
         that.options[i] = detail.options;
-    }    
+    }
+    if ((typeof(detail.stroke) !== 'undefined') && (detail.stroke != 'none')) {
+        that.stroke[i] = detail.stroke;
+    }
+    else {
+        that.stroke[i] = 'rgba(0, 0, 0, 0)';
+    }
+    if ((typeof(detail.strokewidth) !== 'undefined')) {
+        that.strokeWidth[i] = detail.strokewidth;
+    }
+    else {
+        that.strokeWidth[i] = '0';
+    }
     that.persistent[i] = "off";
     if ((typeof(detail.fill) !== 'undefined') && 
         (detail.fill === "#ffffff")) {
@@ -409,8 +438,10 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     that.kineticElement[i].fillPriority('color');
                     that.kineticElement[i].fill(iaScene.overColor);
                     that.kineticElement[i].scale(iaScene.coeff);
-                    that.kineticElement[i].stroke(iaScene.overColorStroke);
-                    that.kineticElement[i].strokeWidth(2);                    
+                    //that.kineticElement[i].stroke(iaScene.overColorStroke);
+                    //that.kineticElement[i].strokeWidth(2);
+                    that.kineticElement[i].stroke(that.stroke[i]);
+                    that.kineticElement[i].strokeWidth(that.strokeWidth[i]);
                 }
                 else if (that.persistent[i] == "onPath") {
                     that.kineticElement[i].fillPriority('color');
@@ -539,8 +570,10 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
                         that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale); 
                         that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
-                        that.kineticElement[i].stroke(iaScene.overColorStroke);
-                        that.kineticElement[i].strokeWidth(2);   
+                        //that.kineticElement[i].stroke(iaScene.overColorStroke);
+                        //that.kineticElement[i].strokeWidth(2);
+                        that.kineticElement[i].stroke(that.stroke[i]);
+                        that.kineticElement[i].strokeWidth(that.strokeWidth[i]);
                         that.kineticElement[i].moveToTop();
                     }
                     if (cacheBackground === true) that.backgroundCache_layer.moveToTop();
@@ -557,13 +590,13 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
      * if we leave this element, just clear the scene
      */
     that.kineticElement[i].on('mouseleave', function() {
-        if (iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) {
+        if ((iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) || (iaScene.cursorState.indexOf("ZoomIn.cur") !== -1)) {
 
         }
         else {
             var mouseXY = that.layer.getStage().getPointerPosition();
             if (typeof(mouseXY) == "undefined") {
-		mouseXY = {x:0,y:0};
+		        mouseXY = {x:0,y:0};
             }            
             if ((that.layer.getStage().getIntersection(mouseXY) != this)) {
                 that.backgroundCache_layer.moveToBottom();

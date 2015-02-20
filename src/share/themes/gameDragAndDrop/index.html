@@ -35,9 +35,7 @@
             <img id="popup_close" src="{{LogoClose}}" alt="close"/>
             <article id="popup_text">
                 <img src="{{LogoLoading}}" alt="xia" />
-                <p>{{RIGHTS}}</p>
-                <p>{{CREATOR}}</p>
-                <p>{{PUBLISHER}}</p>
+                <p>{{METADATAS}}</p>
             </article>
         </section>
         <section id="popup_intro">
@@ -49,7 +47,7 @@
     </footer>
     {{datasJS}}
     <script>
-        document.body.onload = function() {
+        var loadLibs = function() {
             $LAB.setGlobalDefaults({CacheBust:true});
             $LAB{{lazyDatasJS}}
              .script("{{JqueryJS}}")
@@ -59,6 +57,8 @@
              .script("{{xiaJS}}")
              ;
         }
+        document.body.onload = loadLibs;
+
     </script>
 </body>
 </html>

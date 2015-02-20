@@ -1,0 +1,111 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# geoffrey <ggekiere@ac-versailles.fr>, 2014.
+# Louis-Maurice De Sousa <louis.de-sousa@ac-versailles.fr>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: activit 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-02-06 22:05+0100\n"
+"PO-Revision-Date: 2015-01-29 12:49+0100\n"
+"Last-Translator: Louis-Maurice De Sousa <louis.de-sousa@ac-versailles.fr>\n"
+"Language-Team: portugais <>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.6\n"
+
+#: share/themes/accordionCloud/hook.py:35
+msgid "export accordionCloud"
+msgstr "exportar em accordionCloud"
+
+#: share/themes/accordionCloud/hook.py:36 share/themes/popYellow/hook.py:36
+#: share/themes/game1clic/hook.py:43 share/themes/buttonBlue/hook.py:35
+#: share/themes/gameDragAndDrop/hook.py:42
+#: share/themes/accordionBlack/hook.py:40 share/themes/popBlue/hook.py:36
+#: share/themes/audioBrown/hook.py:35
+msgid "loading"
+msgstr "Carregando..."
+
+#: share/themes/popYellow/hook.py:35
+msgid "export popYellow"
+msgstr "exportar em popYellow"
+
+#: share/themes/game1clic/hook.py:39
+msgid "export game1clic"
+msgstr "exportar em game1clic"
+
+#: share/themes/game1clic/hook.py:41 share/themes/gameDragAndDrop/hook.py:41
+msgid "You win !"
+msgstr "Gagnou!"
+
+#: share/themes/buttonBlue/hook.py:34
+msgid "export buttonBlue"
+msgstr "exportar em buttonBlue"
+
+#: share/themes/gameDragAndDrop/hook.py:38
+msgid "export gameDragAndDrop"
+msgstr "exportar em gameDragAndDrop"
+
+#: share/themes/accordionBlack/hook.py:39
+msgid "export accordionBlack !"
+msgstr "exportar em accordionBlack"
+
+#: share/themes/popBlue/hook.py:35
+msgid "export popBlue"
+msgstr "exportar em popBlue"
+
+#: share/themes/audioBrown/hook.py:34
+msgid "export audioBrown"
+msgstr "exportar em audioBrown"
+
+#: xiaconverter/mainwindow.py:91
+msgid "select svg file"
+msgstr "Selecione un ficheiro svg"
+
+#: xiaconverter/mainwindow.py:104
+msgid "ajust parameters"
+msgstr "ajuste parametros"
+
+#: xiaconverter/mainwindow.py:161
+msgid "myfile.svg"
+msgstr "meuficheiro.svg"
+
+#: xiaconverter/mainwindow.py:163
+msgid "Select a svg file"
+msgstr "Selecione um ficheiro svg"
+
+#: xiaconverter/mainwindow.py:173
+msgid "Select target folder"
+msgstr "Selectione o dossier de destino"
+
+#: xiaconverter/mainwindow.py:188
+#, python-brace-format
+msgid "Sorry, impossible to create the {0} directory"
+msgstr "Desculpe, é imposível criar o dossier {0}"
+
+#: xiaconverter/mainwindow.py:213
+msgid "Parameters"
+msgstr "Parametros"
+
+#: xiaconverter/paramswindow.py:79
+msgid "modify image resolution"
+msgstr "Modar a resolução da imagem"
+
+#: xiaconverter/paramswindow.py:87
+msgid "create firefox OS files"
+msgstr "ativar/desativar a criação dos ficheiros para firefox OS "
+
+#: xiaconverter/paramswindow.py:95
+msgid "index standalone"
+msgstr ""
+"ativar/desativar a exportação dum ficheiro único \n"
+"O uso dum ficheiro único necesita acesso à Internet.\n"
+"O motor xia utilizado com ficheiros únicos està hospedado nos servidores da "
+"academia de Versailles, e atualizados automáticamente. Nessa configuração, "
+"não pode controlar a imagem de fundo e os ícones."

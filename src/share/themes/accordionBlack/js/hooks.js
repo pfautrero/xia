@@ -116,7 +116,8 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
                     mainScene.element.kineticElement[0].fire("click");
                 }
             }
-            else if (mainScene.cursorState.indexOf("ZoomIn.cur") !== -1) {
+            else if ((mainScene.cursorState.indexOf("ZoomIn.cur") !== -1) ||
+              (mainScene.cursorState.indexOf("ZoomFocus.cur") !== -1)) {
                 document.body.style.cursor = "default";
                 mainScene.cursorState = "default";
                 if (typeof(mainScene.element.kineticElement) != "undefined") {

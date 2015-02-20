@@ -15,16 +15,10 @@
 
 /*
  * 
- * @param {type} imageObj
- * @param {type} detail
- * @param {type} layer
- * @param {type} idText
- * @param {type} baseImage
- * @param {type} iaScene
- * @param {type} backgroundCache_layer
+ * @param {object} params
  * @constructor create image active object
  */
-function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, background_layer, backgroundCache_layer, myhooks) {
+function IaObject(params) {
     "use strict";
     var that = this;
     this.path = [];
@@ -36,51 +30,56 @@ function IaObject(imageObj, detail, layer, idText, baseImage, iaScene, backgroun
     this.persistent = [];
     this.originalX = [];
     this.originalY = [];
-    this.options = [];    
-    this.layer = layer;
-    this.background_layer = background_layer;
-    this.backgroundCache_layer = backgroundCache_layer;
-    this.imageObj = imageObj;
+    this.options = [];
+    this.stroke = [];
+    this.strokeWidth = [];
+    this.tween = [];
     this.agrandissement = 0;
     this.zoomActive = 0;
     this.minX = 10000;
     this.minY = 10000;
     this.maxX = -10000;
     this.maxY = -10000;
-    this.tween = []; 
     this.tween_group = 0;
     this.group = 0;
-    this.myhooks = myhooks;
-    this.idText = idText;
+
+    this.layer = params.layer;
+    this.background_layer = params.background_layer;
+    this.backgroundCache_layer = params.backgroundCache_layer;
+    this.imageObj = params.imageObj;
+    this.myhooks = params.myhooks;
+    this.idText = params.idText;
+    this.zoomLayer = params.zoomLayer;
+
     // Create kineticElements and include them in a group
    
     that.group = new Kinetic.Group();
     that.layer.add(that.group);
     
-    if (typeof(detail.path) !== 'undefined') {
-        that.includePath(detail, 0, that, iaScene, baseImage, idText);
+    if (typeof(params.detail.path) !== 'undefined') {
+        that.includePath(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
     }
-    else if (typeof(detail.image) !== 'undefined') {
-        that.includeImage(detail, 0, that, iaScene, baseImage, idText);
+    else if (typeof(params.detail.image) !== 'undefined') {
+        that.includeImage(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
     }
-    else if (typeof(detail.group) !== 'undefined') {
-        for (var i in detail.group) {
-            if (typeof(detail.group[i].path) !== 'undefined') {
-                that.includePath(detail.group[i], i, that, iaScene, baseImage, idText);
+    else if (typeof(params.detail.group) !== 'undefined') {
+        for (var i in params.detail.group) {
+            if (typeof(params.detail.group[i].path) !== 'undefined') {
+                that.includePath(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
             }
-            else if (typeof(detail.group[i].image) !== 'undefined') {
-                that.includeImage(detail.group[i], i, that, iaScene, baseImage, idText);
+            else if (typeof(params.detail.group[i].image) !== 'undefined') {
+                that.includeImage(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
             }
         }
-        that.definePathBoxSize(detail, that);
+        that.definePathBoxSize(params.detail, that);
     }
     else {
-        console.log(detail);
+        console.log(params.detail);
     }
 
-    this.defineTweens(this, iaScene);
+    this.defineTweens(this, params.iaScene);
     
-    this.myhooks.afterIaObjectConstructor(iaScene, idText, detail, this);
+    this.myhooks.afterIaObjectConstructor(params.iaScene, params.idText, params.detail, this);
 
 }
 
@@ -116,7 +115,18 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         if ((typeof(detail.options) !== 'undefined')) {
             that.options[i] = detail.options;
         }
-
+        if ((typeof(detail.stroke) !== 'undefined') && detail.stroke != 'none') {
+            that.stroke[i] = detail.stroke;
+        }
+        else {
+            that.stroke[i] = 'rgba(0, 0, 0, 0)';
+        }
+        if ((typeof(detail.strokewidth) !== 'undefined')) {
+            that.strokeWidth[i] = detail.strokewidth;
+        }
+        else {
+            that.strokeWidth[i] = '0';
+        }
         that.persistent[i] = "off-image";
         if ((typeof(detail.fill) !== 'undefined') && 
             (detail.fill == "#ffffff")) {
@@ -272,8 +282,8 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     if (parseFloat(detail.minX) < 0) posX = parseFloat(detail.minX) * (-1);
     if (parseFloat(detail.minY) < 0) posY = parseFloat(detail.minY) * (-1);
     // bad workaround to avoid null dimensions
-    if (cropWidth == 0) cropWidth = 1;
-    if (cropHeight == 0) cropHeight = 1;
+    if (cropWidth <= 0) cropWidth = 1;
+    if (cropHeight <= 0) cropHeight = 1;
     cropCtx.drawImage(
         that.imageObj,
         cropX * iaScene.scale,
@@ -306,7 +316,19 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     }
     if ((typeof(detail.options) !== 'undefined')) {
         that.options[i] = detail.options;
-    }    
+    }
+    if ((typeof(detail.stroke) !== 'undefined') && detail.stroke != 'none') {
+        that.stroke[i] = detail.stroke;
+    }
+    else {
+        that.stroke[i] = 'rgba(0, 0, 0, 0)';
+    }
+    if ((typeof(detail.strokewidth) !== 'undefined')) {
+        that.strokeWidth[i] = detail.strokewidth;
+    }
+    else {
+        that.strokeWidth[i] = '0';
+    }
     that.persistent[i] = "off";
     if ((typeof(detail.fill) !== 'undefined') && 
         (detail.fill == "#ffffff")) {
@@ -413,7 +435,8 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
         if (iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) {
 
         }
-        else if (iaScene.cursorState.indexOf("ZoomIn.cur") !== -1) {
+        else if ((iaScene.cursorState.indexOf("ZoomIn.cur") !== -1) ||
+           (iaScene.cursorState.indexOf("ZoomFocus.cur") !== -1)) {
 
         }
         else if (iaScene.cursorState.indexOf("HandPointer.cur") === -1) {
@@ -423,8 +446,9 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             for (var i in that.kineticElement) {
                 if (that.persistent[i] == "off") {
                     that.kineticElement[i].fillPriority('color');
-                    that.kineticElement[i].stroke(iaScene.overColorStroke);
-                    that.kineticElement[i].strokeWidth(2);
+                    //that.kineticElement[i].stroke(iaScene.overColorStroke);
+                    that.kineticElement[i].stroke(that.stroke[i]);
+                    that.kineticElement[i].strokeWidth(that.strokeWidth[i]);
                     that.kineticElement[i].fill(iaScene.overColor);
                     that.kineticElement[i].scale(iaScene.coeff);
                 }
@@ -470,51 +494,36 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 that.group.zoomActive = 1;
                 that.originalX[0] = that.group.x();
                 that.originalY[0] = that.group.y();
-                /*that.tween_group = new Kinetic.Tween({
-                    node: that.group, 
-                    duration: 1,
-                    x: that.tweenX,
-                    y: that.tweenY,
-                    easing: iaScene.easing,
-                    scaleX: that.agrandissement,
-                    scaleY: that.agrandissement
-                });*/                
-                //that.tween_group.play();
+
                 that.alpha = 0;
                 that.step = 0.1;
                 for (i in that.kineticElement) {
-                   that.kineticElement[i].setStrokeWidth(parseFloat(6 / that.agrandissement));
+                   that.kineticElement[i].setStrokeWidth(parseFloat(that.strokeWidth[i] / that.agrandissement));
                 }            
-                var personalTween = function(anim) {
+                var personalTween = function(anim, thislayer) {
                     // linear
                     var tempX = that.originalX[0] + that.alpha.toFixed(2) * (that.tweenX - that.originalX[0]);
                     var tempY = that.originalY[0] + that.alpha.toFixed(2) * (that.tweenY - that.originalY[0]);
                     var tempScale = 1 + that.alpha.toFixed(2) * (that.agrandissement - 1);
-                    var t = null;                    
+                    var t = null;
                     if (that.alpha.toFixed(2) <= 1) {
                         that.alpha = that.alpha + that.step;
-                        //that.group.hide();
-                        //that.group.draw();
-                        that.group.x(tempX);
-                        that.group.y(tempY);
-                        that.group.scaleX(tempScale);
-                        that.group.scaleY(tempScale);
-                        //that.group.show();
-                        //that.group.draw();
-                        //t = setTimeout(personalTween, 30);
+                        that.group.setPosition({x:tempX, y:tempY});
+                        that.group.scale({x:tempScale,y:tempScale});
                     }
                     else {
-                        //clearTimeout(t);
+                        that.zoomLayer.hitGraphEnabled(true);
                         anim.stop();
                     }
                 };
-                //var t = setTimeout(personalTween, 30);
-                
+                that.zoomLayer.moveToTop();
+                that.group.moveTo(that.zoomLayer);
+                that.layer.draw();
                 var anim = new Kinetic.Animation(function(frame) {
-                  personalTween(this);
-                }, that.layer);
-
-                anim.start();                
+                    personalTween(this, that.layer);
+                }, that.zoomLayer);
+                that.zoomLayer.hitGraphEnabled(false);
+                anim.start();
                 
                 
                 
@@ -567,7 +576,10 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                             that.kineticElement[i].setStroke('rgba(0, 0, 0, 0)');
                             that.kineticElement[i].setStrokeWidth(0);   
                         }
-                    }                    
+                    }
+                    that.group.moveTo(that.layer);
+                    that.zoomLayer.moveToBottom();
+                    that.zoomLayer.draw();
                     that.layer.draw();
                     that.backgroundCache_layer.draw();
                 }
@@ -597,7 +609,9 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         document.body.style.cursor = "zoom-in";
                         iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
                     }
-
+                    else {
+                        iaScene.cursorState = 'url("img/ZoomFocus.cur"),auto';
+                    }
 
                     var cacheBackground = true;
                     for (i in that.kineticElement) {
@@ -606,8 +620,9 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
                         that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale); 
                         that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
-                        that.kineticElement[i].stroke(iaScene.overColorStroke);
-                        that.kineticElement[i].strokeWidth(2);
+                        //that.kineticElement[i].stroke(iaScene.overColorStroke);
+                        that.kineticElement[i].stroke(that.stroke[i]);
+                        that.kineticElement[i].strokeWidth(that.strokeWidth[i]);
                         that.kineticElement[i].moveToTop();
                     }
                     if (cacheBackground === true) that.backgroundCache_layer.moveToTop();
@@ -625,13 +640,15 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
      * if we leave this element, just clear the scene
      */
     that.kineticElement[i].on('mouseleave', function() {
-        if (iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) {
+        if ((iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) ||
+         (iaScene.cursorState.indexOf("ZoomIn.cur") !== -1) ||
+           (iaScene.cursorState.indexOf("ZoomFocus.cur") !== -1)) {
 
         }
         else {
             var mouseXY = that.layer.getStage().getPointerPosition();
             if (typeof(mouseXY) == "undefined") {
-		mouseXY = {x:0,y:0};
+		        mouseXY = {x:0,y:0};
             }            
             if ((that.layer.getStage().getIntersection(mouseXY) != this)) {
                 that.backgroundCache_layer.moveToBottom();

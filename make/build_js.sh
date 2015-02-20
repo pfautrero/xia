@@ -55,6 +55,7 @@ do
             rm "$js" # useless now.
         fi
     done
+    #perl "$script_dir/minify_js.pl" "$theme/js/xia.js"
 
 done
 
@@ -64,6 +65,7 @@ do
     js_shortname=${js##*/}
     printf "Minify $js_shortname in vendors/ directory\n"
     perl "$script_dir/minify_js.pl" "$js"
+    rm $js
 done
 
 

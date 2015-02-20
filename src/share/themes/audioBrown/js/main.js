@@ -11,6 +11,7 @@
 //   
 //   
 // @author : pascal.fautrero@ac-versailles.fr
+// @version=xxx
 
 /*
  * Main
@@ -105,6 +106,7 @@ function main(myhooks) {
         layers[0] = new Kinetic.FastLayer();	
         layers[1] = new Kinetic.FastLayer();	
         layers[2] = new Kinetic.Layer();
+        layers[3] = new Kinetic.Layer();
 
         layers[0].add(baseCache);
         layers[1].add(baseImage);
@@ -112,17 +114,31 @@ function main(myhooks) {
         stage.add(layers[0]);
         stage.add(layers[1]);
         stage.add(layers[2]);
+        stage.add(layers[3]);
 
         myhooks.beforeMainConstructor(mainScene, that.layers);
 
-        var indice = 3;
+        var indice = 4;
         layers[indice] = new Kinetic.Layer();
-        stage.add(layers[indice]);        
+        stage.add(layers[indice]);
+
         for (var i in details) {
             //var indice = parseInt(i+3);
             //layers[indice] = new Kinetic.Layer();
             //stage.add(layers[indice]);
-            var iaObj = new IaObject(that.imageObj, details[i], layers[indice], "article-" + i, baseImage, mainScene, layers[1], layers[0], myhooks);
+
+            var iaObj = new IaObject({
+                imageObj: that.imageObj,
+                detail: details[i],
+                layer: layers[indice],
+                idText: "article-" + i,
+                baseImage: baseImage,
+                iaScene: mainScene,
+                background_layer: layers[1],
+                backgroundCache_layer: layers[0],
+                zoomLayer: layers[3],
+                myhooks: myhooks
+            });
         }
         myhooks.afterMainConstructor(mainScene, that.layers);            
 

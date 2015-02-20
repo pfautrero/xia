@@ -43,4 +43,5 @@ App install : (must be used each time we want a new release)
 
 Application is then built in project/build
 
-
+# How to deploy on gitlab-ci
+[Doc](https://gitlab.crdp.ac-versailles.fr/pascal.fautrero/scripts/blob/master/gitlab-ci/xia/README.MD)

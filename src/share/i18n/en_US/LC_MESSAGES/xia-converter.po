@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: activit 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-03 11:40+0100\n"
+"POT-Creation-Date: 2015-02-06 22:05+0100\n"
 "PO-Revision-Date: 2014-11-24 19:10+0100\n"
 "Last-Translator: geoffrey <ggekiere@ac-versailles.fr>\n"
 "Language-Team: français <>\n"
@@ -62,32 +62,32 @@ msgstr ""
 msgid "export audioBrown"
 msgstr "export in audioBrown"
 
-#: xiaconverter/mainwindow.py:90
+#: xiaconverter/mainwindow.py:91
 msgid "select svg file"
 msgstr ""
 
-#: xiaconverter/mainwindow.py:103
+#: xiaconverter/mainwindow.py:104
 msgid "ajust parameters"
 msgstr ""
 
-#: xiaconverter/mainwindow.py:167
+#: xiaconverter/mainwindow.py:161
 msgid "myfile.svg"
 msgstr ""
 
-#: xiaconverter/mainwindow.py:169
+#: xiaconverter/mainwindow.py:163
 msgid "Select a svg file"
 msgstr ""
 
-#: xiaconverter/mainwindow.py:179
+#: xiaconverter/mainwindow.py:173
 msgid "Select target folder"
 msgstr ""
 
-#: xiaconverter/mainwindow.py:194
+#: xiaconverter/mainwindow.py:188
 #, python-brace-format
 msgid "Sorry, impossible to create the {0} directory"
 msgstr ""
 
-#: xiaconverter/mainwindow.py:224
+#: xiaconverter/mainwindow.py:213
 msgid "Parameters"
 msgstr "Parameters"
 

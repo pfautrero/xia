@@ -35,7 +35,8 @@ if sys.platform.startswith('win32'):
 
 class IADialog(Tkinter.Frame):
 
-    def __init__(self, root, langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, svgfile=""):
+    def __init__(self, root, console, langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib,
+                 sha1Lib, svgfile=''):
 
         Tkinter.Frame.__init__(self, root)
 
@@ -55,7 +56,7 @@ class IADialog(Tkinter.Frame):
         self.sha1Lib = sha1Lib
         self.jqueryLib = jqueryLib
         self.root = root
-        self.resize = 3
+        self.resize = 0
         self.firefoxos = 0
         self.index_standalone = 0
 
@@ -77,7 +78,7 @@ class IADialog(Tkinter.Frame):
 
         # init Image Active Object
 
-        self.imageActive = iaObject()
+        self.imageActive = iaObject(console)
 
         # define buttons
 
@@ -184,8 +185,8 @@ class IADialog(Tkinter.Frame):
             try:
                 os.mkdir(self.config_dir, 0755)
             except Exception as e:
-                print(translate("Sorry, impossible to create the {0} directory") . format(self.config_dir))
-                print("Error({0}): {1}".format(e.errno, e.strerror))
+                console.display(translate("Sorry, impossible to create the {0} directory") . format(self.config_dir))
+                console.display("Error({0}): {1}".format(e.errno, e.strerror))
                 sys.exit(1)
                 
         if os.path.isfile(self.config_ini):
@@ -227,7 +228,7 @@ class IADialog(Tkinter.Frame):
         except:
             self.params = Tkinter.Toplevel()
             self.params.title(self.paramsTitle)
-            self.params.geometry("310x310")
+            self.params.geometry("465x155")
             self.params.resizable(0,0)
             img = Tkinter.PhotoImage(file=self.imagesPath + '/xia64.gif')
             self.params.tk.call('wm', 'iconphoto', self.params._w, img)    
@@ -301,9 +302,9 @@ class IADialog(Tkinter.Frame):
 
     def defineMaxPixels(self, resizeCoeff):
         if resizeCoeff == 0:
-            return float(512 * 512)
+            return float(1024 * 1024)
         elif resizeCoeff == 1:
-            return float(1024 * 1024)            
+            return float(2 * 1024 * 1024)
         elif resizeCoeff == 2:
             return float(3 * 1024 * 1024)            
         elif resizeCoeff == 3:

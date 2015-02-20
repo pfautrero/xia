@@ -11,6 +11,7 @@
 //   
 //   
 // @author : pascal.fautrero@ac-versailles.fr
+// @version=xxx
 
 /*
  * Main
@@ -26,6 +27,9 @@ function main(myhooks) {
     "use strict";
     var that=window;
     that.canvas = document.getElementById("canvas");
+
+    // fix bug in retina and amoled screens
+    Kinetic.pixelRatio = 1;
 
     Kinetic.Util.addMethods(Kinetic.Path,{
         setIaObject: function(iaobject) {
@@ -79,7 +83,7 @@ function main(myhooks) {
             width: mainScene.width,
             height: mainScene.height
         });
-        stage.on("mouseout", function(){
+        stage.on("mouseout touchend", function(){
             var shape = Kinetic.shapes[mainScene.currentShape];
             if (typeof(shape) != "undefined") {
                 mainScene.mouseout(shape);    
@@ -102,7 +106,7 @@ function main(myhooks) {
             }
         });        
         
-        stage.on("mousemove", function(){
+        stage.on("mousemove touchstart", function(){
             var mousePos = this.getPointerPosition();
             var imageDest = mainScene.completeImage.data;
             var position1 = 0;
@@ -151,7 +155,16 @@ function main(myhooks) {
         stage.add(layers[indice]);
 
         for (var i in details) {
-            var iaObj = new IaObject(that.imageObj, details[i], layers[indice], "article-" + i, baseImage, mainScene, layers[0], myhooks);
+            var iaObj = new IaObject({
+                imageObj: that.imageObj,
+                detail: details[i],
+                layer: layers[indice],
+                idText: "article-" + i,
+                baseImage: baseImage,
+                iaScene: mainScene,
+                background_layer: layers[0],
+                myhooks: myhooks
+            });
         }
         
 	var hitCanvas = layers[indice].getHitCanvas();

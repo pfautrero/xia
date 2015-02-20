@@ -11,6 +11,7 @@
 //   
 //   
 // @author : pascal.fautrero@ac-versailles.fr
+// @version=xxx
 
 /*
  * Main
@@ -20,6 +21,9 @@
 
 function main(myhooks) {
     "use strict";
+
+    // fix bug in retina and amoled screens
+    Kinetic.pixelRatio = 1;
 
     Kinetic.Util.addMethods(Kinetic.Path,{
         setIaObject: function(iaobject) {
@@ -101,7 +105,15 @@ function main(myhooks) {
         stage.add(layers[indice]);
 
         for (var i in details) {
-            var iaObj = new IaObject(that.imageObj, details[i], layers[indice], "article-" + i, baseImage, mainScene, myhooks);
+            var iaObj = new IaObject({
+                imageObj: that.imageObj,
+                detail: details[i],
+                layer: layers[indice],
+                idText: "article-" + i,
+                baseImage: baseImage,
+                iaScene: mainScene,
+                myhooks: myhooks
+            });
             mainScene.shapes.push(iaObj);
         }
 
@@ -215,7 +227,9 @@ main.prototype.afterMainConstructor = function(mainScene, layers) {
         var general_border = $("#message_success").css("border-top-width").substr(0,$("#message_success").css("border-top-width").length - 2);
         var general_offset = $("#message_success").offset();
         var content_offset = $("#content").offset();
-        $("#message_success").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});
+        $("#message_success").css({
+            'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)
+        });
     }
 
     $(".overlay").hide();

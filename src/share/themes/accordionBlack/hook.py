@@ -65,13 +65,34 @@ class hook:
 
         with open(templatePath,"r") as template:
             final_index = template.read().decode("utf-8")
-            final_index = final_index.replace("{{DESCRIPTION}}", self.iaobject.scene["description"])            
+
+            metadatas = ""
+            if self.iaobject.scene["creator"]:
+                metadatas += self.iaobject.scene["creator"] + "<br/>"
+            if self.iaobject.scene["rights"]:
+                metadatas += self.iaobject.scene["rights"] + "<br/>"
+            if self.iaobject.scene["publisher"]:
+                metadatas += self.iaobject.scene["publisher"] + "<br/>"
+            if self.iaobject.scene["identifier"]:
+                metadatas += self.iaobject.scene["identifier"] + "<br/>"
+            if self.iaobject.scene["coverage"]:
+                metadatas += self.iaobject.scene["coverage"] + "<br/>"
+            if self.iaobject.scene["source"]:
+                metadatas += self.iaobject.scene["source"] + "<br/>"
+            if self.iaobject.scene["relation"]:
+                metadatas += self.iaobject.scene["relation"] + "<br/>"
+            if self.iaobject.scene["language"]:
+                metadatas += self.iaobject.scene["language"] + "<br/>"
+            if self.iaobject.scene["contributor"]:
+                metadatas += self.iaobject.scene["contributor"] + "<br/>"
+            if self.iaobject.scene["date"]:
+                metadatas += self.iaobject.scene["date"] + "<br/>"
+
+            final_index = final_index.replace("{{METADATAS}}", metadatas)
             final_index = final_index.replace("{{AUTHOR}}", self.iaobject.scene["creator"])
-            final_index = final_index.replace("{{KEYWORDS}}", self.iaobject.scene["keywords"])            
+            final_index = final_index.replace("{{DESCRIPTION}}", self.iaobject.scene["description"])
+            final_index = final_index.replace("{{KEYWORDS}}", self.iaobject.scene["keywords"])
             final_index = final_index.replace("{{TITLE}}", self.iaobject.scene["title"])
-            final_index = final_index.replace("{{RIGHTS}}", self.iaobject.scene["rights"])
-            final_index = final_index.replace("{{CREATOR}}", self.iaobject.scene["creator"])
-            final_index = final_index.replace("{{PUBLISHER}}", self.iaobject.scene["publisher"])            
             final_index = final_index.replace("{{ACCORDION}}", final_str)
             final_index = final_index.replace("{{LOADING}}", self.loading)
             if self.root.index_standalone:

@@ -22,10 +22,19 @@
 /* override Wahid */
 
 html {
-  margin:0;
-  padding:0;
-  background: url('../img/background.jpg') no-repeat center center fixed;
-  background-size: cover;
+    margin:0;
+    padding:0;
+  /*background: url('../img/background.jpg') no-repeat center center fixed;
+  background-size: cover;*/
+    background: rgb(130,76,48); /* Old browsers */
+    background-image: -moz-linear-gradient(top, rgba(100,57,38,1) 0%, rgba(100,57,38,1) 19%, rgba(130,76,48,1) 19%, rgba(130,76,48,1) 100%); /* FF3.6+ */
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(100,57,38,1)), color-stop(19%,rgba(100,57,38,1)), color-stop(19%,rgba(130,76,48,1)), color-stop(100%,rgba(130,76,48,1))); /* Chrome,Safari4+ */
+    background-image: -webkit-linear-gradient(top, rgba(100,57,38,1) 0%,rgba(100,57,38,1) 19%,rgba(130,76,48,1) 19%,rgba(130,76,48,1) 100%); /* Chrome10+,Safari5.1+ */
+    background-image: -o-linear-gradient(top, rgba(100,57,38,1) 0%,rgba(100,57,38,1) 19%,rgba(130,76,48,1) 19%,rgba(130,76,48,1) 100%); /* Opera 11.10+ */
+    background-image: -ms-linear-gradient(top, rgba(100,57,38,1) 0%,rgba(100,57,38,1) 19%,rgba(130,76,48,1) 19%,rgba(130,76,48,1) 100%); /* IE10+ */
+    background-image: linear-gradient(to bottom, rgba(100,57,38,1) 0%,rgba(100,57,38,1) 19%,rgba(130,76,48,1) 19%,rgba(130,76,48,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#643926', endColorstr='#824c30',GradientType=0 ); /* IE6-9 */
+    background-repeat: no-repeat;
 }
 body{
     background: none;

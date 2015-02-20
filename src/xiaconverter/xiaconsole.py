@@ -25,7 +25,8 @@ from pikipiki import PageFormatter
 
 class XIAConsole():
 
-    def __init__(self, langPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, svgfile, output_dir, selected_theme):
+    def __init__(self, langPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, svgfile, output_dir,
+                 selected_theme, console):
 
         self.themesPath = themesPath
         self.langPath = langPath
@@ -45,7 +46,7 @@ class XIAConsole():
             selected_theme = "accordionBlack"
         self.theme['name'] = selected_theme
 
-        self.imageActive = iaObject()
+        self.imageActive = iaObject(console)
 
         imp.load_source(selected_theme, themesPath + "/" + selected_theme + \
             "/hook.py")

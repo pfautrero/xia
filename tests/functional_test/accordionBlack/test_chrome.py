@@ -1,6 +1,5 @@
 ﻿# -*- coding: utf-8 -*-
 from __future__ import unicode_literals 
-from pyvirtualdisplay import Display
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -11,9 +10,10 @@ from selenium.webdriver.common.action_chains import ActionChains
 import unittest, time, re
 import os
 
-
-display = Display(visible=0, size=(1024, 768))
-display.start()
+if os.name != 'nt':
+    from pyvirtualdisplay import Display
+    display = Display(visible=0, size=(1024, 768))
+    display.start()
 
 class Test(unittest.TestCase):
     def setUp(self):
@@ -54,15 +54,12 @@ class Test(unittest.TestCase):
 
         """, driver.find_element_by_xpath("//div[@id='collapsecomment']/div").get_attribute('innerHTML'))
         self.assertTrue(self.is_element_present(By.XPATH, "//div[@id='collapsecomment']/div/video"))
-        self.assertEqual("""
-          <div class="accordion-inner">Description du rectangle <b>gras</b> <em>italique</em>Réponse:Voici la vidéo :<video controls="" preload="none" data-state="none">
+        assert """Description du rectangle <b>gras</b> <em>italique</em><div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-password=""" in driver.find_element_by_xpath("//div[@id='collapse0']/div").get_attribute('innerHTML')
+        assert """Voici la vidéo :<video controls="" preload="none" data-state="autostart">
 	            <source type="video/mp4" src="../media-share/1.mp4">
 	            <source type="video/ogg" src="../media-share/1.ogv">
 	            <source type="video/webm" src="../media-share/1.webm">
-            </video>
-
-          </div>
-      """, driver.find_element_by_xpath("//div[@id='collapse0']").get_attribute('innerHTML'))
+            </video>""" in driver.find_element_by_xpath("//div[@id='collapse0']/div").get_attribute('innerHTML')
         self.assertTrue(self.is_element_present(By.XPATH, "id('collapse0')/div/video"))
         self.assertEqual("""
           <div class="accordion-inner">Description de l'ellipse<ul>
@@ -106,15 +103,17 @@ une ligne<br>
           </div>
       """, driver.find_element_by_xpath("//div[@id='collapse4']").get_attribute('innerHTML'))
         self.assertTrue(self.is_element_present(By.XPATH, "id('collapse4')/div/img"))
-        self.assertEqual("""
-          <div class="accordion-inner">le son 2 ! <audio controls="" data-state="autostart">
+        assert """<div class="accordion-inner">le son 2 ! <audio controls="" data-state="autostart">
 	            <source type="audio/ogg" src="../media-share/1.ogg">
 	            <source type="audio/mp3" src="../media-share/1.mp3">
             </audio>
-Réponse:LA réponse à la question<br>
+<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-target=""" in driver.find_element_by_xpath("//div[@id='collapse5']").get_attribute('innerHTML')
+        assert """La réponse 2</ul>
+</div>
+LA réponse à la question<br>
 
           </div>
-      """, driver.find_element_by_xpath("//div[@id='collapse5']").get_attribute('innerHTML'))
+      """ in driver.find_element_by_xpath("//div[@id='collapse5']").get_attribute('innerHTML')
         self.assertTrue(self.is_element_present(By.XPATH, "id('collapse5')/div/audio"))
         self.assertEqual("""
           <div class="accordion-inner">le son 1 !<audio controls="" data-state="none">
@@ -128,7 +127,7 @@ Réponse:LA réponse à la question<br>
         self.check_element()
         webdriver.common.action_chains.ActionChains(driver).move_to_element_with_offset(driver.find_element_by_css_selector("a.infos"), 5, 5).click().perform()
 #        time.sleep(2)
-        self.assertEqual("Michaël Nourry ", driver.find_element_by_xpath("//article[@id='popup_text']/p[2]").get_attribute('innerHTML'))
+        self.assertEqual("Michaël Nourry <br>", driver.find_element_by_xpath("//article[@id='popup_text']/p").get_attribute('innerHTML'))
 #        self.check_element("id('popup')")
 #        time.sleep(3)
            
@@ -199,6 +198,20 @@ Réponse:LA réponse à la question<br>
         action.move_to_element_with_offset(driver.find_element_by_id("collapse4-heading"), 5, 5).click().perform()
         self.check_element("collapse4")
         """
+    def test_init_1(self):
+        driver = self.driver
+        self.base_url = "file://"+os.path.dirname(os.path.abspath(__file__))+"/1.html"
+        self.test_init()
+
+    def test_nav_1_1(self):
+        driver = self.driver
+        self.base_url = "file://"+os.path.dirname(os.path.abspath(__file__))+"/1.html"
+        self.test_nav_1()
+
+    def test_nav_2_1(self):
+        driver = self.driver
+        self.base_url = "file://"+os.path.dirname(os.path.abspath(__file__))+"/1.html"
+        self.test_nav_2()
         
     def is_element_present(self, how, what):
         try: self.driver.find_element(by=how, value=what)

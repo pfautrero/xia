@@ -40,6 +40,7 @@ from xiaconverter.mainwindow import IADialog
 import ConfigParser
 from xiaconverter.docopt import docopt
 from xiaconverter.xiaconsole import XIAConsole
+from xiaconverter.loggerconsole import LoggerConsole
 
 if __name__=='__main__':
     
@@ -57,7 +58,9 @@ if __name__=='__main__':
     sha1Lib = config.get('paths', 'sha1Lib')
 
     arguments = docopt(__doc__)
-    
+
+    console = LoggerConsole()
+
     if arguments["--version"]:
         print(numVersion + releaseVersion)
     elif arguments["-i"] and arguments["-o"] and arguments["-t"]:
@@ -65,7 +68,7 @@ if __name__=='__main__':
         output_dir = arguments["<output-dir>"]
         selected_theme = arguments["<theme>"]
         xia = XIAConsole(langPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, input_file,
-                         output_dir, selected_theme)
+                         output_dir, selected_theme, console)
         xia.createIA()
     else:
         filename = ""
@@ -77,6 +80,6 @@ if __name__=='__main__':
         root.resizable(0,0)
         img = Tkinter.PhotoImage(file=imagesPath + '/xia64.gif')
         root.tk.call('wm', 'iconphoto', root._w, img)    
-        IADialog(root,langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, filename)\
-            .pack(side="left")
+        IADialog(root, console, langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib,
+                 filename).pack(side="left")
         root.mainloop()

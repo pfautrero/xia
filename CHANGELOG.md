@@ -1,3 +1,44 @@
+Version 1.0 - 13/02/2015
+-------------------------------
+
+- bugfix : game1clic ne fonctionnait pas sur écrans retina et amoled
+- amélioration : le focus sur un détail est verrouillé même lorsque le pointeur sort de la zone
+
+
+
+Version 1.0-beta6 - 09/02/2015
+-------------------------------
+
+- nouveau : xia gère les ellipses et les cercles au sens SVG
+- bugfix : une image était hardcodée dans les thèmes de jeu
+- refactorisation de la documentation
+- mise à jour de la documentation
+- nouveau : documentation traduite en portugais
+- amélioration : images de fond supprimées et remplacées par des fonds bicolores.
+- amélioration : le moteur de wiki est compatible xhtml (préparation pour les exports epub3)
+- amélioration : ajout d'un logger qui s'adapte à la console voulue
+- amélioration : amélioration notoire des effets de zoom qui sont plus fluides et plus rapides
+- nouveau : changement de l'interface de XIA en ajoutant des logos plus significatifs
+- nouveau : simplification de l'interface paramètres
+- mise à jour des tests fonctionnels
+- amélioration : les thèmes de jeu ont été légèrement retouchés pour améliorer l'expérience utilisateur
+- bugfix : suppression des contours des détails s'ils sont mentionnés comme "none" dans inkscape
+
+Version 1.0-beta5 - 19/01/2015
+-------------------------------
+
+- bugfix : gestion des noms avec caractères accentués dans les sessions windows
+- amélioration : suppression des zones transparentes inutiles sur les images
+- gameDragAndDrop : si le clic est désactivé, le lien direct fonctionne encore
+- développeurs : les fichiers hook.js peuvent être édités pour ajouter des fonctionnalités
+- bugfix : suppression des détails qui contiennent des paramètres invalides
+- pikipiki : insensible à la casse
+- MAC OS X : PIL est utilisé de base.
+- Amélioration : toutes les metadatas sont prises en compte
+- IA 1 : prise en compte du facteur zoom sur les fichiers .xia
+- Amélioration : les contours des détails sont définis dans le svg et ne sont donc plus rouges par défaut.
+- bugfix : les chemins réseaux n'étaient pas gérés correctement
+
 Version 1.0-beta4 - 21/11/2014
 -------------------------------
 

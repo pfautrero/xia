@@ -69,12 +69,12 @@ class hook:
        
        
         final_str = u'<article class="message_success" id="message_success" data-score="' + self.score + '">\n'
-        final_str += '<img id="popup_toggle" src="img/hide.png" alt="toggle"/>\n'        
+        final_str += '<img id="popup_toggle" src="{{LogoHide}}" alt="toggle"/>\n'
         final_str += u'  <div id="message_success_content">' + self.PageFormatter(self.message).print_html() + u'</div>\n'
         final_str += u'</article>\n'
 
         final_str += u'<article class="message_success" id="message_success2" data-score="' + self.score2 + '">\n'
-        final_str += '<img id="popup_toggle2" src="img/hide.png" alt="toggle"/>\n'        
+        final_str += '<img id="popup_toggle2" src="{{LogoHide}}" alt="toggle"/>\n'
         final_str += u'  <div id="message_success_content2">' + self.PageFormatter(self.message2).print_html() + u'</div>\n'
         final_str += u'</article>\n'
             
@@ -92,20 +92,41 @@ class hook:
 
         with open(templatePath,"r") as template:
             final_index = template.read().decode("utf-8")
+            metadatas = ""
+            if self.iaobject.scene["creator"]:
+                metadatas += self.iaobject.scene["creator"] + "<br/>"
+            if self.iaobject.scene["rights"]:
+                metadatas += self.iaobject.scene["rights"] + "<br/>"
+            if self.iaobject.scene["publisher"]:
+                metadatas += self.iaobject.scene["publisher"] + "<br/>"
+            if self.iaobject.scene["identifier"]:
+                metadatas += self.iaobject.scene["identifier"] + "<br/>"
+            if self.iaobject.scene["coverage"]:
+                metadatas += self.iaobject.scene["coverage"] + "<br/>"
+            if self.iaobject.scene["source"]:
+                metadatas += self.iaobject.scene["source"] + "<br/>"
+            if self.iaobject.scene["relation"]:
+                metadatas += self.iaobject.scene["relation"] + "<br/>"
+            if self.iaobject.scene["language"]:
+                metadatas += self.iaobject.scene["language"] + "<br/>"
+            if self.iaobject.scene["contributor"]:
+                metadatas += self.iaobject.scene["contributor"] + "<br/>"
+            if self.iaobject.scene["date"]:
+                metadatas += self.iaobject.scene["date"] + "<br/>"
+
+            final_index = final_index.replace("{{METADATAS}}", metadatas)
+            final_index = final_index.replace("{{AUTHOR}}", self.iaobject.scene["creator"])
             final_index = final_index.replace("{{DESCRIPTION}}", self.iaobject.scene["description"])
             final_index = final_index.replace("{{INTRODUCTION}}", self.PageFormatter(self.iaobject.scene["description"]).print_html())
-            final_index = final_index.replace("{{AUTHOR}}", self.iaobject.scene["creator"])
             final_index = final_index.replace("{{KEYWORDS}}", self.iaobject.scene["keywords"])
             final_index = final_index.replace("{{TITLE}}", self.iaobject.scene["title"])
-            final_index = final_index.replace("{{RIGHTS}}", self.iaobject.scene["rights"])
-            final_index = final_index.replace("{{CREATOR}}", self.iaobject.scene["creator"])
-            final_index = final_index.replace("{{PUBLISHER}}", self.iaobject.scene["publisher"])
             final_index = final_index.replace("{{CONTENT}}", final_str)
             final_index = final_index.replace("{{LOADING}}", self.loading)
             if self.root.index_standalone:
                 xiaWebsite = "http://xia.dane.ac-versailles.fr/network/delivery/game1clic"
                 final_index = final_index.replace("{{MainCSS}}", xiaWebsite + "/css/main.css")
                 final_index = final_index.replace("{{LogoLoading}}",  xiaWebsite + "/img/xia.png")
+                final_index = final_index.replace("{{LogoHide}}",  xiaWebsite + "/img/hide.png")
                 final_index = final_index.replace("{{LogoClose}}", xiaWebsite + "/img/close.png")
                 final_index = final_index.replace("{{datasJS}}", "<script>" + self.iaobject.jsonContent + "</script>")
                 final_index = final_index.replace("{{lazyDatasJS}}", '')
@@ -118,6 +139,7 @@ class hook:
             else:
                 final_index = final_index.replace("{{MainCSS}}", "css/main.css")
                 final_index = final_index.replace("{{LogoLoading}}",  "img/xia.png")
+                final_index = final_index.replace("{{LogoHide}}", "img/hide.png")
                 final_index = final_index.replace("{{LogoClose}}", "img/close.png")
                 final_index = final_index.replace("{{datasJS}}", "")
                 final_index = final_index.replace("{{lazyDatasJS}}", '.script("datas/data.js")')

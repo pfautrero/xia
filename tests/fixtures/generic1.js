@@ -1,4 +1,5 @@
 var scene = {
+"keywords":"",
 "publisher":"",
 "rights":"",
 "description":"",
@@ -9,10 +10,13 @@ var scene = {
 "contributor":"",
 "height":"10",
 "width":"10",
+"relation":"",
 "intro_title":"title",
-"keywords":"",
+"coverage":"",
 "date":"",
+"identifier":"",
 "intro_detail":"description",
+"source":"",
 };
 var details = [
 {
