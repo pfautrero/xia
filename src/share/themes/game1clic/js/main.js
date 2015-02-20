@@ -83,7 +83,7 @@ function main(myhooks) {
             width: mainScene.width,
             height: mainScene.height
         });
-        stage.on("mouseout", function(){
+        stage.on("mouseout touchend", function(){
             var shape = Kinetic.shapes[mainScene.currentShape];
             if (typeof(shape) != "undefined") {
                 mainScene.mouseout(shape);    
@@ -106,7 +106,7 @@ function main(myhooks) {
             }
         });        
         
-        stage.on("mousemove", function(){
+        stage.on("mousemove touchstart", function(){
             var mousePos = this.getPointerPosition();
             var imageDest = mainScene.completeImage.data;
             var position1 = 0;
