@@ -316,6 +316,7 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
 
 
     if(that.xiaDetail[i].connectionStart) {
+        that.xiaDetail[i].kineticElement.moveToBottom();
         that.xiaDetail[i].connectorStart = that.xiaDetail[i].kineticElement.getStage().find(that.xiaDetail[i].connectionStart)[0];
         that.xiaDetail[i].connectorEnd = that.xiaDetail[i].kineticElement.getStage().find(that.xiaDetail[i].connectionEnd)[0];
         that.xiaDetail[i].connectorStart.getXiaParent().addObserver(that.xiaDetail[i]);
@@ -725,6 +726,7 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
             //if (that.xiaDetail[i].connectionStart) {
                 that.xiaDetail[i].kineticElement.on('dragmove', function(e) {
                     this.getXiaParent().notify();
+                    this.drawScene();
                 });
             //}
         }
@@ -768,6 +770,7 @@ IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElemen
             // and move current element to its original position
             var old_x = kineticElement.x();
             kineticElement.x(2000);
+            kineticElement.getXiaParent().notify();
             kineticElement.getLayer().drawHit();
             kineticElement.getStage().completeImage = "redefine";
             //droparea = kineticElement.getStage().getIntersection(mouseXY);
@@ -778,6 +781,7 @@ IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElemen
                 }
             }
             kineticElement.x(old_x);
+            kineticElement.getXiaParent().notify();
             kineticElement.getLayer().drawHit();
         }
         else if (droparea.getXiaParent().droparea) {
@@ -810,7 +814,8 @@ IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElemen
                 iaScene.currentScore -= 1;
             }
         }
-
+        kineticElement.getXiaParent().notify();
+        kineticElement.drawScene();
         if (droparea.getXiaParent().options.indexOf("direct-link") != -1) {
             location.href = droparea.getXiaParent().title;
         }
