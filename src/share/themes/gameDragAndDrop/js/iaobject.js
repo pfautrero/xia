@@ -182,8 +182,9 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
                             }
                         }
                     }
-                    if (pos.x >= shape.minX + 10 &&
-                      pos.y <= shape.maxY - 10 &&
+                    var delta = 15;
+                    if (pos.x >= shape.minX + delta &&
+                      pos.y <= shape.maxY - delta &&
                       objectLocatedAt.bottomLeft
                         ) {
 
@@ -195,8 +196,8 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
                         }
 
                     }
-                    if (pos.x >= shape.minX + 10 &&
-                      pos.y >= shape.minY + 10 &&
+                    if (pos.x >= shape.minX + delta &&
+                      pos.y >= shape.minY + delta &&
                       objectLocatedAt.topLeft
                         ) {
 
@@ -208,8 +209,8 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
                         }
 
                     }
-                    if (pos.x <= shape.maxX - 10 &&
-                      pos.y >= shape.minY + 10 &&
+                    if (pos.x <= shape.maxX - delta &&
+                      pos.y >= shape.minY + delta &&
                       objectLocatedAt.topRight
                         ) {
 
@@ -221,8 +222,8 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
                         }
 
                     }
-                    if (pos.x <= shape.maxX - 10 &&
-                      pos.y <= shape.maxY - 10 &&
+                    if (pos.x <= shape.maxX - delta &&
+                      pos.y <= shape.maxY - delta &&
                       objectLocatedAt.bottomRight
                         ) {
 
@@ -422,8 +423,9 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
                             }
                         }
                     }
-                    if (pos.x >= shape.minX + 10 &&
-                      pos.y <= shape.maxY - 10 &&
+                    var delta = 15;
+                    if (pos.x >= shape.minX + delta &&
+                      pos.y <= shape.maxY - delta &&
                       objectLocatedAt.bottomLeft
                         ) {
 
@@ -435,8 +437,8 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
                         }
 
                     }
-                    if (pos.x >= shape.minX + 10 &&
-                      pos.y >= shape.minY + 10 &&
+                    if (pos.x >= shape.minX + delta &&
+                      pos.y >= shape.minY + delta &&
                       objectLocatedAt.topLeft
                         ) {
 
@@ -448,8 +450,8 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
                         }
 
                     }
-                    if (pos.x <= shape.maxX - 10 &&
-                      pos.y >= shape.minY + 10 &&
+                    if (pos.x <= shape.maxX - delta &&
+                      pos.y >= shape.minY + delta &&
                       objectLocatedAt.topRight
                         ) {
 
@@ -461,8 +463,8 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
                         }
 
                     }
-                    if (pos.x <= shape.maxX - 10 &&
-                      pos.y <= shape.maxY - 10 &&
+                    if (pos.x <= shape.maxX - delta &&
+                      pos.y <= shape.maxY - delta &&
                       objectLocatedAt.bottomRight
                         ) {
 
