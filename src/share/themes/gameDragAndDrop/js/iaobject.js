@@ -632,7 +632,8 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
 
         }
         else if (iaScene.cursorState.indexOf("HandPointer.cur") === -1) {
-            if ((!this.getXiaParent().droparea) && (!this.tooltip_area)) {
+            if ((!this.getXiaParent().droparea) && (!this.tooltip_area)  &&
+               (this.getXiaParent().options.indexOf("disable-click") == -1)) {
                 document.body.style.cursor = "pointer";
             }
             iaScene.cursorState = "url(img/HandPointer.cur),auto";
