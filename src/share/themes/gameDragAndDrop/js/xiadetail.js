@@ -40,6 +40,7 @@ function XiaDetail(detail, idText) {
     this.style= "";
     this.stroke=null;
     this.strokeWidth=null;
+    this.lastDragPos = {x:0, y:0};
 
     // retrieve options
     if ((typeof(detail.options) !== 'undefined')) {

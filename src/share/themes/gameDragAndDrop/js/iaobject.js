@@ -45,19 +45,18 @@ function IaObject(params) {
     else if (typeof(params.detail.image) !== 'undefined') {
         that.includeImage(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
     }
-    // actually, groups are not allowed because of boxsize restriction
-    
-    /*else if (typeof(detail.group) !== 'undefined') {
-        for (var i in detail.group) {
-            if (typeof(detail.group[i].path) !== 'undefined') {
-                that.includePath(detail.group[i], i, that, iaScene, baseImage, idText);
+
+    else if (typeof(params.detail.group) !== 'undefined') {
+        for (var i in params.detail.group) {
+            if (typeof(params.detail.group[i].path) !== 'undefined') {
+                that.includePath(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
             }
-            else if (typeof(detail.group[i].image) !== 'undefined') {
-                that.includeImage(detail.group[i], i, that, iaScene, baseImage, idText);
+            else if (typeof(params.detail.group[i].image) !== 'undefined') {
+                that.includeImage(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
             }
         }
-        that.definePathBoxSize(detail, that);
-    }*/
+        that.definePathBoxSize(params.detail, that);
+    }
     else {
         console.log(params.detail);
     }
@@ -91,11 +90,14 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         draggable: that.xiaDetail[i].draggable_object
      
     });
+
     that.layer.add(that.xiaDetail[i].kineticElement);
     that.xiaDetail[i].kineticElement.setXiaParent(that.xiaDetail[i]);
     that.xiaDetail[i].kineticElement.setIaObject(that);
     that.xiaDetail[i].backgroundImage = rasterObj;
     that.xiaDetail[i].kineticElement.tooltip = "";
+    that.xiaDetail[i].lastDragPos.x = that.xiaDetail[i].kineticElement.x();
+    that.xiaDetail[i].lastDragPos.y = that.xiaDetail[i].kineticElement.y();
     
     var collision_state = $("#" + idText).data("collisions");
     if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
@@ -307,7 +309,9 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     that.xiaDetail[i].kineticElement.setIaObject(that);
     that.xiaDetail[i].kineticElement.setXiaParent(that.xiaDetail[i]);
     that.xiaDetail[i].kineticElement.tooltip = "";
-    
+    that.xiaDetail[i].lastDragPos.x = that.xiaDetail[i].kineticElement.x();
+    that.xiaDetail[i].lastDragPos.y = that.xiaDetail[i].kineticElement.y();
+
     var collision_state = $("#" + idText).data("collisions");
     if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
         collision_state = "off";
@@ -725,6 +729,20 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
             });
             //if (that.xiaDetail[i].connectionStart) {
                 that.xiaDetail[i].kineticElement.on('dragmove', function(e) {
+                    var other_elements = this.getIaObject().xiaDetail;
+                    if (other_elements.length > 1) {
+                        var delta = {x:this.x() - this.getXiaParent().lastDragPos.x,
+                            y:this.y() - this.getXiaParent().lastDragPos.y};
+                        for (var i=0;i<other_elements.length;i++) {
+                            if (other_elements[i].kineticElement != this) {
+                                other_elements[i].kineticElement.move(delta);
+                                other_elements[i].lastDragPos.x = other_elements[i].kineticElement.x();
+                                other_elements[i].lastDragPos.y = other_elements[i].kineticElement.y();
+                            }
+                        }
+                        this.getXiaParent().lastDragPos.x = this.x();
+                        this.getXiaParent().lastDragPos.y = this.y();
+                    }
                     this.getXiaParent().notify();
                     this.drawScene();
                 });
