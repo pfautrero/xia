@@ -867,9 +867,11 @@ IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElemen
                 (middle_coords.y > target_iaObject.minY) &
                 (middle_coords.y < target_iaObject.maxY)) {
             //if (!this.match && droparea == target_object) {
-            if (!kineticElement.getXiaParent().match) {
-                kineticElement.getXiaParent().match = true;
-                iaScene.currentScore += 1;
+            if (typeof(target_object) != "undefined") {
+                if (!kineticElement.getXiaParent().match && droparea == target_object.kineticElement) {
+                    kineticElement.getXiaParent().match = true;
+                    iaScene.currentScore += 1;
+                }
             }
             if (iaScene.global_magnet_enabled || droparea.getXiaParent().magnet_state=="on") {
                 kineticElement.x(target_iaObject.minX - (iaObject_width / 2) + (target_iaObject.maxX - target_iaObject.minX) / 2);
@@ -904,8 +906,8 @@ IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElemen
         });
     }
     else {
-        if (this.match) {
-            this.match = false;
+        if (kineticElement.getXiaParent().match) {
+            kineticElement.getXiaParent().match = false;
             iaScene.currentScore -= 1;
         }
     }
