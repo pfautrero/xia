@@ -47,11 +47,11 @@ function IaObject(params) {
     }
 
     else if (typeof(params.detail.group) !== 'undefined') {
-        that.group = new Kinetic.Group({
+        this.group = new Kinetic.Group({
             id: params.detail.id
         });
-        that.layer.add(that.group);
-
+        this.layer.add(this.group);
+        this.group.setIaObject(this);
         for (var i in params.detail.group) {
             if (typeof(params.detail.group[i].path) !== 'undefined') {
                 that.includePath(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
@@ -747,9 +747,9 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
                 for (var i = 0;i < all_elements.length;i++) {
 
                     var target_id = all_elements[i].kineticElement.getXiaParent().target_id;
-                    var target_object = all_elements[i].kineticElement.getStage().find("#" + target_id);
+                    var target_object = this.getStage().find("#" + target_id)[0];
                     if (target_object instanceof Kinetic.Group) {
-                        var xiaDetailsTarget = target_object.getIaObject.xiaDetail;
+                        var xiaDetailsTarget = target_object.getIaObject().xiaDetail;
                         for (var j=0;j < xiaDetailsTarget.length;j++) {
                             e.target = all_elements[i].kineticElement;
                             that.afterDragEnd(iaScene, all_elements[i].idText, e, all_elements[i].kineticElement, xiaDetailsTarget[j]);
@@ -761,7 +761,7 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
                         e.target = all_elements[i].kineticElement;
                         var target_id = all_elements[i].kineticElement.getXiaParent().target_id;
                         var target_object = all_elements[i].kineticElement.getStage().find("#" + target_id);
-                        that.afterDragEnd(iaScene, all_elements[i].idText, e, all_elements[i].kineticElement, target_object);
+                        that.afterDragEnd(iaScene, all_elements[i].idText, e, all_elements[i].kineticElement, target_object[0]);
                         that.myhooks.afterDragEnd(iaScene, all_elements[i].idText, all_elements[i].kineticElement);
                     }
                 }
@@ -804,13 +804,16 @@ IaObject.prototype.afterDragStart = function(iaScene, idText, kineticElement) {
     });
 };
 /*
- *
- *
+ *  This method is responsible of events occurring just after dragend event
+ *  (increasing score, applying magnet effect, displaying congratz message...)
+ *  event : mouse event
+ *  kineticElement : dropped object (Kinetic.Node)
+ *  targetObject : the expected drop zone object of kineticElement (Kinetic.Node)
  */
 IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElement, target_object) {
     //var target_id = $('#' + idText).data("target");
-    var target_id = kineticElement.getXiaParent().target_id;
-    var target_object = kineticElement.getStage().find("#" + target_id);
+    //var target_id = kineticElement.getXiaParent().target_id;
+    //var target_object = kineticElement.getStage().find("#" + target_id);
     var iaObject_width = kineticElement.getXiaParent().maxX - kineticElement.getXiaParent().minX;
     var iaObject_height = kineticElement.getXiaParent().maxY - kineticElement.getXiaParent().minY;
     kineticElement.getXiaParent().minX = event.target.x();
@@ -863,8 +866,9 @@ IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElemen
                 (middle_coords.x < target_iaObject.maxX) &
                 (middle_coords.y > target_iaObject.minY) &
                 (middle_coords.y < target_iaObject.maxY)) {
-            if (!this.match && droparea == target_object[0]) {
-                this.match = true;
+            //if (!this.match && droparea == target_object) {
+            if (!kineticElement.getXiaParent().match) {
+                kineticElement.getXiaParent().match = true;
                 iaScene.currentScore += 1;
             }
             if (iaScene.global_magnet_enabled || droparea.getXiaParent().magnet_state=="on") {
@@ -873,8 +877,8 @@ IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElemen
             }
         }
         else {
-            if (this.match) {
-                this.match = false;
+            if (kineticElement.getXiaParent().match) {
+                kineticElement.getXiaParent().match = false;
                 iaScene.currentScore -= 1;
             }
         }

@@ -43,6 +43,15 @@ function main(myhooks) {
         }
     });
 
+    Kinetic.Util.addMethods(Kinetic.Group,{
+        setIaObject: function(iaobject) {
+            this.iaobject = iaobject;
+        },
+        getIaObject: function() {
+            return this.iaobject;
+        }
+    });
+
     Kinetic.Util.addMethods(Kinetic.Path,{
         setXiaParent: function(xiaparent) {
             this.xiaparent = xiaparent;
