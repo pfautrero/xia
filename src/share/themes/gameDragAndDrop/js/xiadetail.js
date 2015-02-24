@@ -41,6 +41,12 @@ function XiaDetail(detail, idText) {
     this.stroke=null;
     this.strokeWidth=null;
     this.lastDragPos = {x:0, y:0};
+    this.minX = 10000;
+    this.minY = 10000;
+    this.maxX = -10000;
+    this.maxY = -10000;
+    // delta is used to remember delta between real coordinates and min,max ones. (useful for paths)
+    this.delta = {x:0, y:0};
 
     // retrieve options
     if ((typeof(detail.options) !== 'undefined')) {
