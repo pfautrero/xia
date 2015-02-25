@@ -14,14 +14,16 @@
 
 
 /*
- * 
+ * XiaDetail is a wrapper of a Kinetic Node to store xia specific informations
  */
 function XiaDetail(detail, idText) {
     "use strict";
     
     var that = this;
+    // observers are used to manage lines connectors
     this.observers = new ObserverList();
     this.title = detail.title;
+    this.onfailreturn = false;
     this.path = "";
     this.kineticElement = null;
     this.persistent = "";
@@ -33,6 +35,7 @@ function XiaDetail(detail, idText) {
     this.magnet_state = null;
     this.droparea = false;
     this.idText = idText;
+    // if this detail is a connector line, keep references to the start object and the end object
     this.connectionStart = null;
     this.connectionEnd = null;
     this.connectorStart = null;
@@ -41,11 +44,15 @@ function XiaDetail(detail, idText) {
     this.stroke=null;
     this.strokeWidth=null;
     this.lastDragPos = {x:0, y:0};
+    // used to force details to go home if onfailreturn is specified when dropped onwrong drop area
+    this.originalCoords = {x:0,y:0};
     this.minX = 10000;
     this.minY = 10000;
     this.maxX = -10000;
     this.maxY = -10000;
-    // delta is used to remember delta between real coordinates and min,max ones. (useful for paths)
+    // match is used to know if current detail has been dropped over the right drop area
+    this.match = false;
+    // delta is used to remember delta between real coordinates and min,max ones. (only useful for paths)
     this.delta = {x:0, y:0};
 
     // retrieve options
@@ -53,6 +60,10 @@ function XiaDetail(detail, idText) {
         this.options = detail.options;
     }
 
+    var onfail_state = $("#" + idText).data("onfail");
+    if (onfail_state == "return") {
+        this.onfailreturn = true;
+    }
     // retrieve styles
     if ((typeof(detail.style) !== 'undefined')) {
         this.style = detail.style;

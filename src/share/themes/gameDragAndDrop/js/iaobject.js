@@ -16,11 +16,12 @@
 /*
  * 
  * @param {object} params
- * @constructor create image active object
+ * @constructor this object is a group of details
  */
 function IaObject(params) {
     "use strict";
     var that = this;
+    // array to store details
     this.xiaDetail = [];
     this.minX = 10000;
     this.minY = 10000;
@@ -34,11 +35,6 @@ function IaObject(params) {
     this.idText = params.idText;
     this.myhooks = params.myhooks;
 
-    // Create kineticElements and include them in a group
-   
-    //that.group = new Kinetic.Group();
-    //that.layer.add(that.group);
-    
     if (typeof(params.detail.path) !== 'undefined') {
         that.includePath(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
     }
@@ -60,12 +56,10 @@ function IaObject(params) {
                 that.includeImage(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
             }
         }
-        //that.definePathBoxSize(params.detail, that);
     }
     else {
         console.log(params.detail);
     }
-    //this.scaleBox(this, params.iaScene);
     this.myhooks.afterIaObjectConstructor(params.iaScene, params.idText, params.detail, this);
 }
 
@@ -104,6 +98,8 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
     that.xiaDetail[i].kineticElement.tooltip = "";
     that.xiaDetail[i].lastDragPos.x = that.xiaDetail[i].kineticElement.x();
     that.xiaDetail[i].lastDragPos.y = that.xiaDetail[i].kineticElement.y();
+    that.xiaDetail[i].originalCoords.x = that.xiaDetail[i].kineticElement.x();
+    that.xiaDetail[i].originalCoords.y = that.xiaDetail[i].kineticElement.y();
     
     var collision_state = $("#" + idText).data("collisions");
     if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
@@ -871,6 +867,8 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     that.scaleBox(that.xiaDetail[i], iaScene);
     that.xiaDetail[i].lastDragPos.x = that.xiaDetail[i].kineticElement.x();
     that.xiaDetail[i].lastDragPos.y = that.xiaDetail[i].kineticElement.y();
+    that.xiaDetail[i].originalCoords.x = that.xiaDetail[i].kineticElement.x();
+    that.xiaDetail[i].originalCoords.y = that.xiaDetail[i].kineticElement.y();
     that.xiaDetail[i].delta = {
         x:that.xiaDetail[i].minX - that.xiaDetail[i].kineticElement.x(),
         y:that.xiaDetail[i].minY - that.xiaDetail[i].kineticElement.y()
@@ -1110,7 +1108,9 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
                 iaScene.element = that;
 
                 Kinetic.draggedshape = null;
-                // Kinetic hacking - speed up _getIntersection (for linux)
+
+                var match = false;
+                var onfailreturn = false;
                 var all_elements = this.getIaObject().xiaDetail;
                 for (var i = 0;i < all_elements.length;i++) {
 
@@ -1121,7 +1121,6 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
                         for (var j=0;j < xiaDetailsTarget.length;j++) {
                             e.target = all_elements[i].kineticElement;
                             that.afterDragEnd(iaScene, all_elements[i].idText, e, all_elements[i].kineticElement, xiaDetailsTarget[j]);
-                            that.afterDragEnd(iaScene, all_elements[i].idText, e, all_elements[i].kineticElement);
                             that.myhooks.afterDragEnd(iaScene, all_elements[i].idText, all_elements[i].kineticElement);
                         }
                     }
@@ -1129,11 +1128,41 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
                         e.target = all_elements[i].kineticElement;
                         var target_id = all_elements[i].kineticElement.getXiaParent().target_id;
                         var target_object = all_elements[i].kineticElement.getStage().find("#" + target_id);
-                        that.afterDragEnd(iaScene, all_elements[i].idText, e, all_elements[i].kineticElement, target_object[0]);
+                        if (typeof(target_object[0]) != "undefined") {
+                            var targetObj = target_object[0].getXiaParent();
+                        }
+                        else {
+                            var targetObj = null;
+                        }
+                        that.afterDragEnd(iaScene, all_elements[i].idText, e, all_elements[i].kineticElement, targetObj);
                         that.myhooks.afterDragEnd(iaScene, all_elements[i].idText, all_elements[i].kineticElement);
+                    }
+                    if (all_elements[i].match) match = true;
+                    if (all_elements[i].onfailreturn) onfailreturn = true;
+                }
+
+
+                // force draggable shape to come back home if option onfailreturn is active
+                if (!match && onfailreturn) {
+                    var XiaDetails = this.getIaObject().xiaDetail;
+                    for (var i =0; i < XiaDetails.length; i++) {
+                        XiaDetails[i].kineticElement.x(XiaDetails[i].originalCoords.x);
+                        XiaDetails[i].kineticElement.y(XiaDetails[i].originalCoords.y);
+                        XiaDetails[i].lastDragPos.x = XiaDetails[i].originalCoords.x;
+                        XiaDetails[i].lastDragPos.y = XiaDetails[i].originalCoords.y;
+                        var width = XiaDetails[i].maxX - XiaDetails[i].minX;
+                        var height = XiaDetails[i].maxY - XiaDetails[i].minY;
+                        XiaDetails[i].minX = XiaDetails[i].kineticElement.x() - XiaDetails[i].delta.x;
+                        XiaDetails[i].minY = XiaDetails[i].kineticElement.y() - XiaDetails[i].delta.y;
+                        XiaDetails[i].maxX = XiaDetails[i].minX + width;
+                        XiaDetails[i].maxY = XiaDetails[i].minY + height;
+                        XiaDetails[i].kineticElement.getXiaParent().notify();
+                        XiaDetails[i].kineticElement.drawScene();
                     }
                 }
 
+
+                // Kinetic hacking - speed up _getIntersection (for linux)
                 this.getStage().completeImage = "redefine";
 
                 that.layer.draw();
@@ -1235,15 +1264,26 @@ IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElemen
                 (middle_coords.y > target_iaObject.minY) &
                 (middle_coords.y < target_iaObject.maxY)) {
             //if (!this.match && droparea == target_object) {
-            if (typeof(target_object) != "undefined") {
+            if (typeof(target_object) != "undefined" && target_object != null) {
                 if (!kineticElement.getXiaParent().match && droparea == target_object.kineticElement) {
                     kineticElement.getXiaParent().match = true;
                     iaScene.currentScore += 1;
                 }
             }
             if (iaScene.global_magnet_enabled || droparea.getXiaParent().magnet_state=="on") {
-                kineticElement.x(target_iaObject.minX - (iaObject_width / 2) + (target_iaObject.maxX - target_iaObject.minX) / 2);
-                kineticElement.y(target_iaObject.minY - (iaObject_height / 2) + (target_iaObject.maxY - target_iaObject.minY) / 2);
+                var targetCoords = {
+                    x : target_iaObject.minX - (iaObject_width / 2) + (target_iaObject.maxX - target_iaObject.minX) / 2,
+                    y : target_iaObject.minY - (iaObject_height / 2) + (target_iaObject.maxY - target_iaObject.minY) / 2
+                };
+                var vector = {
+                    x : targetCoords.x - kineticElement.x(),
+                    y : targetCoords.y - kineticElement.y()
+                };
+                var XiaDetails = kineticElement.getIaObject().xiaDetail;
+                for (var i = 0;i < XiaDetails.length;i++) {
+                    XiaDetails[i].kineticElement.x(XiaDetails[i].kineticElement.x() + vector.x);
+                    XiaDetails[i].kineticElement.y(XiaDetails[i].kineticElement.y() + vector.y);
+                }
             }
         }
         else {
@@ -1252,6 +1292,8 @@ IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElemen
                 iaScene.currentScore -= 1;
             }
         }
+
+
         kineticElement.getXiaParent().notify();
         kineticElement.drawScene();
         if (droparea.getXiaParent().options.indexOf("direct-link") != -1) {
@@ -1279,4 +1321,7 @@ IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElemen
             iaScene.currentScore -= 1;
         }
     }
+
+
+
 };

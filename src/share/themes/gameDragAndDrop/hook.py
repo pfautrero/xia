@@ -93,7 +93,12 @@ class hook:
             if tooltip:
                 tooltip_state = tooltip.group(1)
 
-            final_str += u'<article class="detail_content" data-tooltip="'+ tooltip_state +'" data-collisions="'+ collision_state +'" data-magnet="'+ magnet_state +'" data-kinetic_id="'+detail["id"]+'" data-target="'+target_id+'" id="article-'+unicode(str(i), "utf8") + u'">\n'
+            onfail_state = ""
+            onfail = re.search('<onfail>(.*)</onfail>', detail["detail"], re.IGNORECASE|re.DOTALL)
+            if onfail:
+                onfail_state = onfail.group(1)
+
+            final_str += u'<article class="detail_content" data-tooltip="'+ tooltip_state +'" data-collisions="'+ collision_state + '" data-onfail="' + onfail_state + '" data-magnet="'+ magnet_state +'" data-kinetic_id="'+detail["id"]+'" data-target="'+target_id+'" id="article-'+unicode(str(i), "utf8") + u'">\n'
             final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
             final_str += u'  <p>' + self.PageFormatter(detail["detail"]).print_html() + u'<p>\n'
             final_str += u'</article>\n'
