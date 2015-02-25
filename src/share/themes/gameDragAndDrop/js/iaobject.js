@@ -108,169 +108,19 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
     that.collisions = collision_state;
     var global_collision_state = $("#message_success").data("collisions");
     if (global_collision_state == "on" && collision_state != "off") {
-
-
-
-        var dragFunc = function(pos, kineticElement) {
-
-            var x_value = pos.x;
-            var y_value = pos.y;
-            var len = iaScene.shapes.length;
-            var getAbsolutePosition = {
-                x : kineticElement.getAbsolutePosition().x,
-                y : kineticElement.getAbsolutePosition().y,
-            }
-            var objectWidth = kineticElement.getXiaParent().maxX - kineticElement.getXiaParent().minX;
-            var objectHeight = kineticElement.getXiaParent().maxY - kineticElement.getXiaParent().minY;
-            for(var i=0; i< len; i++) {
-                if (that != iaScene.shapes[i] && iaScene.shapes[i].collisions == "on") {
-
-                    for (var j=0; j< iaScene.shapes[i].xiaDetail.length;j++) {
-                        var shape = {
-                            maxX : iaScene.shapes[i].xiaDetail[j].maxX,
-                            maxY : iaScene.shapes[i].xiaDetail[j].maxY,
-                            minX : iaScene.shapes[i].xiaDetail[j].minX - objectWidth,
-                            minY : iaScene.shapes[i].xiaDetail[j].minY - objectHeight
-                        };
-
-                        var objectLocatedAt = {
-                            horizontal: (getAbsolutePosition.y < shape.maxY - 10) &&
-                              (getAbsolutePosition.y > shape.minY + 10),
-                            vertical: (getAbsolutePosition.x < shape.maxX - 10) &&
-                              (getAbsolutePosition.x > shape.minX + 10),
-                            bottomLeft: getAbsolutePosition.x <= shape.minX + 10 &&
-                              getAbsolutePosition.y >= shape.maxY - 10,
-                            topLeft: getAbsolutePosition.x <= shape.minX + 10 &&
-                              getAbsolutePosition.y <= shape.minY + 10,
-                            topRight: getAbsolutePosition.x >= shape.maxX - 10 &&
-                              getAbsolutePosition.y <= shape.minY + 10,
-                            bottomRight: getAbsolutePosition.x >= shape.maxX - 10 &&
-                              getAbsolutePosition.y >= shape.maxY - 10
-
-                        };
-                        if (objectLocatedAt.horizontal) {
-                            if (pos.x <= shape.maxX &&
-                              getAbsolutePosition.x >= shape.maxX - 10) {
-                                if (x_value == pos.x) {
-                                    x_value = shape.maxX;
-                                }
-                                else {
-                                    x_value = Math.max(shape.maxX, x_value);
-                                }
-                            }
-                            if (pos.x >= shape.minX &&
-                              getAbsolutePosition.x <= shape.minX + 10) {
-                                if (x_value == pos.x) {
-                                    x_value = shape.minX;
-                                }
-                                else {
-                                    x_value = Math.min(shape.minX, x_value);
-                                }
-                            }
-                        }
-                        if (objectLocatedAt.vertical) {
-                            if (pos.y <= shape.maxY &&
-                              getAbsolutePosition.y >= shape.maxY -10) {
-                                if (y_value == pos.y) {
-                                    y_value = shape.maxY;
-                                }
-                                else {
-                                    y_value = Math.max(shape.maxY, y_value);
-                                }
-                            }
-
-                            if (pos.y >= shape.minY &&
-                              getAbsolutePosition.y <= 10 + shape.minY) {
-                                if (y_value == pos.y) {
-                                    y_value = shape.minY;
-                                }
-                                else {
-                                    y_value = Math.min(shape.minY, y_value);
-                                }
-                            }
-                        }
-                        var delta = 15;
-                        if (pos.x >= shape.minX + delta &&
-                          pos.y <= shape.maxY - delta &&
-                          objectLocatedAt.bottomLeft
-                            ) {
-
-                            if (x_value == pos.x) {
-                                x_value = shape.minX;
-                            }
-                            else {
-                                x_value = Math.min(shape.minX, x_value);
-                            }
-
-                        }
-                        if (pos.x >= shape.minX + delta &&
-                          pos.y >= shape.minY + delta &&
-                          objectLocatedAt.topLeft
-                            ) {
-
-                            if (x_value == pos.x) {
-                                x_value = shape.minX;
-                            }
-                            else {
-                                x_value = Math.min(shape.minX, x_value);
-                            }
-
-                        }
-                        if (pos.x <= shape.maxX - delta &&
-                          pos.y >= shape.minY + delta &&
-                          objectLocatedAt.topRight
-                            ) {
-
-                            if (x_value == pos.x) {
-                                x_value = shape.maxX;
-                            }
-                            else {
-                                x_value = Math.max(shape.maxX, x_value);
-                            }
-
-                        }
-                        if (pos.x <= shape.maxX - delta &&
-                          pos.y <= shape.maxY - delta &&
-                          objectLocatedAt.bottomRight
-                            ) {
-
-                            if (x_value == pos.x) {
-                                x_value = shape.maxX;
-                            }
-                            else {
-                                x_value = Math.max(shape.maxX, x_value);
-                            }
-
-                        }
-                    }
-                }
-            }
-
-            return {
-              x: x_value,
-              y: y_value
-            };
-
-
-        };
-
-
-
         that.xiaDetail[i].kineticElement.dragBoundFunc(function(pos) {
             var XiaElements = this.getIaObject().xiaDetail;
             var delta = {x:0,y:0};
             var coords = {x:0,y:0};
             var delta_tmp = 0;
             for (var i = 0;i < XiaElements.length;i++) {
-                //console.log(pos);
-                coords = dragFunc(
+                coords = that.dragCollisions(
                     {
                         x:pos.x - this.x() + XiaElements[i].kineticElement.x(),
                         y:pos.y - this.y() + XiaElements[i].kineticElement.y()
                     },
                     XiaElements[i].kineticElement
                 );
-                //console.log(coords);
                 delta_tmp = coords.x - (pos.x - this.x() + XiaElements[i].kineticElement.x());
                 if (delta_tmp != 0) {
                     delta.x = Math.sign(delta_tmp) * Math.max(Math.abs(delta.x), Math.abs(delta_tmp));
@@ -279,161 +129,13 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
                 if (delta_tmp != 0) {
                     delta.y = Math.sign(delta_tmp) * Math.max(Math.abs(delta.y), Math.abs(delta_tmp));
                 }
-                //console.log(delta);
             }
-            //console.log(other_elements.length);
-
             return {
                 x: delta.x + (pos.x),
                 y: delta.y + (pos.y)
 
             };
-
         });
-
-
-
-    /*    that.xiaDetail[i].kineticElement.dragBoundFunc(function(pos) {
-            var x_value = pos.x;
-            var y_value = pos.y;
-            var len = iaScene.shapes.length;
-            var getAbsolutePosition = {
-                x : this.getAbsolutePosition().x,
-                y : this.getAbsolutePosition().y,
-            }    
-            var objectWidth = this.getXiaParent().maxX - this.getXiaParent().minX;
-            var objectHeight = this.getXiaParent().maxY - this.getXiaParent().minY;
-            for(var i=0; i< len; i++) {
-                if (that != iaScene.shapes[i] && iaScene.shapes[i].collisions == "on") {
-
-                    for (var j=0; j< iaScene.shapes[i].xiaDetail.length;j++) {
-                        var shape = {
-                            maxX : iaScene.shapes[i].xiaDetail[j].maxX,
-                            maxY : iaScene.shapes[i].xiaDetail[j].maxY,
-                            minX : iaScene.shapes[i].xiaDetail[j].minX - objectWidth,
-                            minY : iaScene.shapes[i].xiaDetail[j].minY - objectHeight
-                        };
-
-                        var objectLocatedAt = {
-                            horizontal: (getAbsolutePosition.y < shape.maxY - 10) &&
-                              (getAbsolutePosition.y > shape.minY + 10),
-                            vertical: (getAbsolutePosition.x < shape.maxX - 10) &&
-                              (getAbsolutePosition.x > shape.minX + 10),
-                            bottomLeft: getAbsolutePosition.x <= shape.minX + 10 &&
-                              getAbsolutePosition.y >= shape.maxY - 10,
-                            topLeft: getAbsolutePosition.x <= shape.minX + 10 &&
-                              getAbsolutePosition.y <= shape.minY + 10,
-                            topRight: getAbsolutePosition.x >= shape.maxX - 10 &&
-                              getAbsolutePosition.y <= shape.minY + 10,
-                            bottomRight: getAbsolutePosition.x >= shape.maxX - 10 &&
-                              getAbsolutePosition.y >= shape.maxY - 10
-
-                        };
-                        if (objectLocatedAt.horizontal) {
-                            if (pos.x <= shape.maxX &&
-                              getAbsolutePosition.x >= shape.maxX - 10) {
-                                if (x_value == pos.x) {
-                                    x_value = shape.maxX;
-                                }
-                                else {
-                                    x_value = Math.max(shape.maxX, x_value);
-                                }
-                            }
-                            if (pos.x >= shape.minX &&
-                              getAbsolutePosition.x <= shape.minX + 10) {
-                                if (x_value == pos.x) {
-                                    x_value = shape.minX;
-                                }
-                                else {
-                                    x_value = Math.min(shape.minX, x_value);
-                                }
-                            }
-                        }
-                        if (objectLocatedAt.vertical) {
-                            if (pos.y <= shape.maxY &&
-                              getAbsolutePosition.y >= shape.maxY -10) {
-                                if (y_value == pos.y) {
-                                    y_value = shape.maxY;
-                                }
-                                else {
-                                    y_value = Math.max(shape.maxY, y_value);
-                                }
-                            }
-
-                            if (pos.y >= shape.minY &&
-                              getAbsolutePosition.y <= 10 + shape.minY) {
-                                if (y_value == pos.y) {
-                                    y_value = shape.minY;
-                                }
-                                else {
-                                    y_value = Math.min(shape.minY, y_value);
-                                }
-                            }
-                        }
-                        var delta = 15;
-                        if (pos.x >= shape.minX + delta &&
-                          pos.y <= shape.maxY - delta &&
-                          objectLocatedAt.bottomLeft
-                            ) {
-
-                            if (x_value == pos.x) {
-                                x_value = shape.minX;
-                            }
-                            else {
-                                x_value = Math.min(shape.minX, x_value);
-                            }
-
-                        }
-                        if (pos.x >= shape.minX + delta &&
-                          pos.y >= shape.minY + delta &&
-                          objectLocatedAt.topLeft
-                            ) {
-
-                            if (x_value == pos.x) {
-                                x_value = shape.minX;
-                            }
-                            else {
-                                x_value = Math.min(shape.minX, x_value);
-                            }
-
-                        }
-                        if (pos.x <= shape.maxX - delta &&
-                          pos.y >= shape.minY + delta &&
-                          objectLocatedAt.topRight
-                            ) {
-
-                            if (x_value == pos.x) {
-                                x_value = shape.maxX;
-                            }
-                            else {
-                                x_value = Math.max(shape.maxX, x_value);
-                            }
-
-                        }
-                        if (pos.x <= shape.maxX - delta &&
-                          pos.y <= shape.maxY - delta &&
-                          objectLocatedAt.bottomRight
-                            ) {
-
-                            if (x_value == pos.x) {
-                                x_value = shape.maxX;
-                            }
-                            else {
-                                x_value = Math.max(shape.maxX, x_value);
-                            }
-
-                        }
-                    }
-                }
-            }
-
-            return {
-              x: x_value,
-              y: y_value
-            };
-        
-        });*/
-       
     }
     
     
@@ -533,13 +235,113 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
 
     if (global_collision_state == "on" && collision_state != "off") {
 
+        that.xiaDetail[i].kineticElement.dragBoundFunc(function(pos) {
+            var XiaElements = this.getIaObject().xiaDetail;
+            var delta = {x:0,y:0};
+            var coords = {x:0,y:0};
+            var delta_tmp = 0;
+            for (var i = 0;i < XiaElements.length;i++) {
+                coords = that.dragCollisions(
+                    {
+                        x:pos.x - this.x() + XiaElements[i].kineticElement.x(),
+                        y:pos.y - this.y() + XiaElements[i].kineticElement.y()
+                    },
+                    XiaElements[i].kineticElement
+                );
+                delta_tmp = coords.x - (pos.x - this.x() + XiaElements[i].kineticElement.x());
+                if (delta_tmp != 0) {
+                    delta.x = Math.sign(delta_tmp) * Math.max(Math.abs(delta.x), Math.abs(delta_tmp));
+                }
+                delta_tmp = coords.y - (pos.y - this.y() + XiaElements[i].kineticElement.y());
+                if (delta_tmp != 0) {
+                    delta.y = Math.sign(delta_tmp) * Math.max(Math.abs(delta.y), Math.abs(delta_tmp));
+                }
+            }
+            return {
+                x: delta.x + (pos.x),
+                y: delta.y + (pos.y)
+
+            };
+        });
+    }
+
+    that.definePathBoxSize(detail, that.xiaDetail[i]);
+    that.scaleBox(that.xiaDetail[i], iaScene);
+    that.xiaDetail[i].lastDragPos.x = that.xiaDetail[i].kineticElement.x();
+    that.xiaDetail[i].lastDragPos.y = that.xiaDetail[i].kineticElement.y();
+    that.xiaDetail[i].originalCoords.x = that.xiaDetail[i].kineticElement.x();
+    that.xiaDetail[i].originalCoords.y = that.xiaDetail[i].kineticElement.y();
+    that.xiaDetail[i].delta = {
+        x:that.xiaDetail[i].minX - that.xiaDetail[i].kineticElement.x(),
+        y:that.xiaDetail[i].minY - that.xiaDetail[i].kineticElement.y()
+    };
+    // crop background image to suit shape box
+
+    if (that.xiaDetail[i].options.indexOf("disable-click") == -1) {
+        var cropCanvas = document.createElement('canvas');
+        cropCanvas.setAttribute('width', parseFloat(detail.maxX) - parseFloat(detail.minX));
+        cropCanvas.setAttribute('height', parseFloat(detail.maxY) - parseFloat(detail.minY));
+        var cropCtx = cropCanvas.getContext('2d');
+        var cropX = Math.max(parseFloat(detail.minX), 0);
+        var cropY = Math.max(parseFloat(detail.minY), 0);
+        var cropWidth = (Math.min((parseFloat(detail.maxX) - parseFloat(detail.minX)) * iaScene.scale, Math.floor(parseFloat(iaScene.originalWidth) * iaScene.scale)));
+        var cropHeight = (Math.min((parseFloat(detail.maxY) - parseFloat(detail.minY)) * iaScene.scale, Math.floor(parseFloat(iaScene.originalHeight) * iaScene.scale)));
+        if (cropX * iaScene.scale + cropWidth > iaScene.originalWidth * iaScene.scale) {
+            cropWidth = iaScene.originalWidth * iaScene.scale - cropX * iaScene.scale;
+        }
+        if (cropY * iaScene.scale + cropHeight > iaScene.originalHeight * iaScene.scale) {
+            cropHeight = iaScene.originalHeight * iaScene.scale - cropY * iaScene.scale;
+        }
+        // bad workaround to avoid null dimensions
+        if (cropWidth <= 0) cropWidth = 1;
+        if (cropHeight <= 0) cropHeight = 1;
+        cropCtx.drawImage(
+            that.imageObj,
+            cropX * iaScene.scale,
+            cropY * iaScene.scale,
+            cropWidth,
+            cropHeight,
+            0,
+            0,
+            cropWidth,
+            cropHeight
+        );
+        var dataUrl = cropCanvas.toDataURL();
+        var cropedImage = new Image();
+        cropedImage.src = dataUrl;
+        cropedImage.onload = function() {
+            that.xiaDetail[i].backgroundImage = cropedImage;
+            that.xiaDetail[i].kineticElement.backgroundImageOwnScaleX = 1;
+            that.xiaDetail[i].kineticElement.backgroundImageOwnScaleY = 1;            
+            that.xiaDetail[i].kineticElement.fillPatternRepeat('no-repeat');
+            that.xiaDetail[i].kineticElement.fillPatternX(detail.minX);
+            that.xiaDetail[i].kineticElement.fillPatternY(detail.minY);
+        };
+    }
+
+    that.xiaDetail[i].persistent = "off";
+    if ((typeof(detail.fill) !== 'undefined') && 
+        (detail.fill === "#ffffff")) {
+        that.xiaDetail[i].persistent = "onPath";
+        that.xiaDetail[i].kineticElement.fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');
+    }    
+    that.addEventsManagement(i, that, iaScene, baseImage, idText);
+
+    that.layer.draw();
+};
 
 
-        var dragFunc = function(pos, kineticElement) {
-
+/*
+ * Detect AABB collisions
+ * @pos {object} current object expected position
+ * @kineticElement dragged object
+ * @returns {object} the new object position
+ */
+IaObject.prototype.dragCollisions = function(pos, kineticElement) {
+    "use strict";
             var x_value = pos.x;
             var y_value = pos.y;
-            var len = iaScene.shapes.length;
+            var len = this.mainScene.shapes.length;
             var getAbsolutePosition = {
                 x : kineticElement.getAbsolutePosition().x,
                 y : kineticElement.getAbsolutePosition().y,
@@ -547,14 +349,14 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
             var objectWidth = kineticElement.getXiaParent().maxX - kineticElement.getXiaParent().minX;
             var objectHeight = kineticElement.getXiaParent().maxY - kineticElement.getXiaParent().minY;
             for(var i=0; i< len; i++) {
-                if (that != iaScene.shapes[i] && iaScene.shapes[i].collisions == "on") {
+                if (this != this.mainScene.shapes[i] && this.mainScene.shapes[i].collisions == "on") {
 
-                    for (var j=0; j< iaScene.shapes[i].xiaDetail.length;j++) {
+                    for (var j=0; j< this.mainScene.shapes[i].xiaDetail.length;j++) {
                         var shape = {
-                            maxX : iaScene.shapes[i].xiaDetail[j].maxX,
-                            maxY : iaScene.shapes[i].xiaDetail[j].maxY,
-                            minX : iaScene.shapes[i].xiaDetail[j].minX - objectWidth,
-                            minY : iaScene.shapes[i].xiaDetail[j].minY - objectHeight
+                            maxX : this.mainScene.shapes[i].xiaDetail[j].maxX,
+                            maxY : this.mainScene.shapes[i].xiaDetail[j].maxY,
+                            minX : this.mainScene.shapes[i].xiaDetail[j].minX - objectWidth,
+                            minY : this.mainScene.shapes[i].xiaDetail[j].minY - objectHeight
                         };
 
                         var objectLocatedAt = {
@@ -675,258 +477,7 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
               y: y_value
             };
 
-
         };
-
-
-
-        that.xiaDetail[i].kineticElement.dragBoundFunc(function(pos) {
-            var XiaElements = this.getIaObject().xiaDetail;
-            var delta = {x:0,y:0};
-            var coords = {x:0,y:0};
-            var delta_tmp = 0;
-            for (var i = 0;i < XiaElements.length;i++) {
-                //console.log(pos);
-                coords = dragFunc(
-                    {
-                        x:pos.x - this.x() + XiaElements[i].kineticElement.x(),
-                        y:pos.y - this.y() + XiaElements[i].kineticElement.y()
-                    },
-                    XiaElements[i].kineticElement
-                );
-                //console.log(coords);
-                delta_tmp = coords.x - (pos.x - this.x() + XiaElements[i].kineticElement.x());
-                if (delta_tmp != 0) {
-                    delta.x = Math.sign(delta_tmp) * Math.max(Math.abs(delta.x), Math.abs(delta_tmp));
-                }
-                delta_tmp = coords.y - (pos.y - this.y() + XiaElements[i].kineticElement.y());
-                if (delta_tmp != 0) {
-                    delta.y = Math.sign(delta_tmp) * Math.max(Math.abs(delta.y), Math.abs(delta_tmp));
-                }
-                //console.log(delta);
-            }
-            //console.log(other_elements.length);
-
-            return {
-                x: delta.x + (pos.x),
-                y: delta.y + (pos.y)
-
-            };
-
-        });
-
-
-
-/*        that.xiaDetail[i].kineticElement.dragBoundFunc(function(pos) {
-            pos.x = pos.x + this.getXiaParent().delta.x;
-            pos.y = pos.y + this.getXiaParent().delta.y;
-            var x_value = pos.x;
-            var y_value = pos.y;
-            var len = iaScene.shapes.length;
-            var getAbsolutePosition = {
-                x : this.getAbsolutePosition().x + this.getXiaParent().delta.x,
-                y : this.getAbsolutePosition().y + this.getXiaParent().delta.y
-            }
-
-            var objectWidth = this.getXiaParent().maxX - this.getXiaParent().minX;
-            var objectHeight = this.getXiaParent().maxY - this.getXiaParent().minY;
-            for(var i=0; i< len; i++) {
-                if (that != iaScene.shapes[i] && iaScene.shapes[i].collisions == "on") {
-
-                    for (var j=0; j< iaScene.shapes[i].xiaDetail.length;j++) {
-                        var shape = {
-                            maxX : iaScene.shapes[i].xiaDetail[j].maxX,
-                            maxY : iaScene.shapes[i].xiaDetail[j].maxY,
-                            minX : iaScene.shapes[i].xiaDetail[j].minX - objectWidth,
-                            minY : iaScene.shapes[i].xiaDetail[j].minY - objectHeight
-                        };
-
-                        var objectLocatedAt = {
-                            horizontal: (getAbsolutePosition.y < shape.maxY - 10) &&
-                              (getAbsolutePosition.y > shape.minY + 10),
-                            vertical: (getAbsolutePosition.x < shape.maxX - 10) &&
-                              (getAbsolutePosition.x > shape.minX + 10),
-                            bottomLeft: getAbsolutePosition.x <= shape.minX + 10 &&
-                              getAbsolutePosition.y >= shape.maxY - 10,
-                            topLeft: getAbsolutePosition.x <= shape.minX + 10 &&
-                              getAbsolutePosition.y <= shape.minY + 10,
-                            topRight: getAbsolutePosition.x >= shape.maxX - 10 &&
-                              getAbsolutePosition.y <= shape.minY + 10,
-                            bottomRight: getAbsolutePosition.x >= shape.maxX - 10 &&
-                              getAbsolutePosition.y >= shape.maxY - 10
-
-                        };
-                        if (objectLocatedAt.horizontal) {
-                            if (pos.x <= shape.maxX &&
-                              getAbsolutePosition.x >= shape.maxX - 10) {
-                                if (x_value == pos.x) {
-                                    x_value = shape.maxX;
-                                }
-                                else {
-                                    x_value = Math.max(shape.maxX, x_value);
-                                }
-                            }
-                            if (pos.x >= shape.minX &&
-                              getAbsolutePosition.x <= shape.minX + 10) {
-                                if (x_value == pos.x) {
-                                    x_value = shape.minX;
-                                }
-                                else {
-                                    x_value = Math.min(shape.minX, x_value);
-                                }
-                            }
-                        }
-                        if (objectLocatedAt.vertical) {
-                            if (pos.y <= shape.maxY &&
-                              getAbsolutePosition.y >= shape.maxY -10) {
-                                if (y_value == pos.y) {
-                                    y_value = shape.maxY;
-                                }
-                                else {
-                                    y_value = Math.max(shape.maxY, y_value);
-                                }
-                            }
-
-                            if (pos.y >= shape.minY &&
-                              getAbsolutePosition.y <= 10 + shape.minY) {
-                                if (y_value == pos.y) {
-                                    y_value = shape.minY;
-                                }
-                                else {
-                                    y_value = Math.min(shape.minY, y_value);
-                                }
-                            }
-                        }
-                        var delta = 15;
-                        if (pos.x >= shape.minX + delta &&
-                          pos.y <= shape.maxY - delta &&
-                          objectLocatedAt.bottomLeft
-                            ) {
-
-                            if (x_value == pos.x) {
-                                x_value = shape.minX;
-                            }
-                            else {
-                                x_value = Math.min(shape.minX, x_value);
-                            }
-
-                        }
-                        if (pos.x >= shape.minX + delta &&
-                          pos.y >= shape.minY + delta &&
-                          objectLocatedAt.topLeft
-                            ) {
-
-                            if (x_value == pos.x) {
-                                x_value = shape.minX;
-                            }
-                            else {
-                                x_value = Math.min(shape.minX, x_value);
-                            }
-
-                        }
-                        if (pos.x <= shape.maxX - delta &&
-                          pos.y >= shape.minY + delta &&
-                          objectLocatedAt.topRight
-                            ) {
-
-                            if (x_value == pos.x) {
-                                x_value = shape.maxX;
-                            }
-                            else {
-                                x_value = Math.max(shape.maxX, x_value);
-                            }
-
-                        }
-                        if (pos.x <= shape.maxX - delta &&
-                          pos.y <= shape.maxY - delta &&
-                          objectLocatedAt.bottomRight
-                            ) {
-
-                            if (x_value == pos.x) {
-                                x_value = shape.maxX;
-                            }
-                            else {
-                                x_value = Math.max(shape.maxX, x_value);
-                            }
-
-                        }
-                    }
-                }
-            }
-
-            return {
-              x: x_value - this.getXiaParent().delta.x,
-              y: y_value - this.getXiaParent().delta.y
-            };
-
-        });*/
-
-    }
-
-    that.definePathBoxSize(detail, that.xiaDetail[i]);
-    that.scaleBox(that.xiaDetail[i], iaScene);
-    that.xiaDetail[i].lastDragPos.x = that.xiaDetail[i].kineticElement.x();
-    that.xiaDetail[i].lastDragPos.y = that.xiaDetail[i].kineticElement.y();
-    that.xiaDetail[i].originalCoords.x = that.xiaDetail[i].kineticElement.x();
-    that.xiaDetail[i].originalCoords.y = that.xiaDetail[i].kineticElement.y();
-    that.xiaDetail[i].delta = {
-        x:that.xiaDetail[i].minX - that.xiaDetail[i].kineticElement.x(),
-        y:that.xiaDetail[i].minY - that.xiaDetail[i].kineticElement.y()
-    };
-    // crop background image to suit shape box
-
-    if (that.xiaDetail[i].options.indexOf("disable-click") == -1) {
-        var cropCanvas = document.createElement('canvas');
-        cropCanvas.setAttribute('width', parseFloat(detail.maxX) - parseFloat(detail.minX));
-        cropCanvas.setAttribute('height', parseFloat(detail.maxY) - parseFloat(detail.minY));
-        var cropCtx = cropCanvas.getContext('2d');
-        var cropX = Math.max(parseFloat(detail.minX), 0);
-        var cropY = Math.max(parseFloat(detail.minY), 0);
-        var cropWidth = (Math.min((parseFloat(detail.maxX) - parseFloat(detail.minX)) * iaScene.scale, Math.floor(parseFloat(iaScene.originalWidth) * iaScene.scale)));
-        var cropHeight = (Math.min((parseFloat(detail.maxY) - parseFloat(detail.minY)) * iaScene.scale, Math.floor(parseFloat(iaScene.originalHeight) * iaScene.scale)));
-        if (cropX * iaScene.scale + cropWidth > iaScene.originalWidth * iaScene.scale) {
-            cropWidth = iaScene.originalWidth * iaScene.scale - cropX * iaScene.scale;
-        }
-        if (cropY * iaScene.scale + cropHeight > iaScene.originalHeight * iaScene.scale) {
-            cropHeight = iaScene.originalHeight * iaScene.scale - cropY * iaScene.scale;
-        }
-        // bad workaround to avoid null dimensions
-        if (cropWidth <= 0) cropWidth = 1;
-        if (cropHeight <= 0) cropHeight = 1;
-        cropCtx.drawImage(
-            that.imageObj,
-            cropX * iaScene.scale,
-            cropY * iaScene.scale,
-            cropWidth,
-            cropHeight,
-            0,
-            0,
-            cropWidth,
-            cropHeight
-        );
-        var dataUrl = cropCanvas.toDataURL();
-        var cropedImage = new Image();
-        cropedImage.src = dataUrl;
-        cropedImage.onload = function() {
-            that.xiaDetail[i].backgroundImage = cropedImage;
-            that.xiaDetail[i].kineticElement.backgroundImageOwnScaleX = 1;
-            that.xiaDetail[i].kineticElement.backgroundImageOwnScaleY = 1;            
-            that.xiaDetail[i].kineticElement.fillPatternRepeat('no-repeat');
-            that.xiaDetail[i].kineticElement.fillPatternX(detail.minX);
-            that.xiaDetail[i].kineticElement.fillPatternY(detail.minY);
-        };
-    }
-
-    that.xiaDetail[i].persistent = "off";
-    if ((typeof(detail.fill) !== 'undefined') && 
-        (detail.fill === "#ffffff")) {
-        that.xiaDetail[i].persistent = "onPath";
-        that.xiaDetail[i].kineticElement.fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');
-    }    
-    that.addEventsManagement(i, that, iaScene, baseImage, idText);
-
-    that.layer.draw();
-};
 
 /*
  * 
@@ -1293,7 +844,6 @@ IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElemen
             }
         }
 
-
         kineticElement.getXiaParent().notify();
         kineticElement.drawScene();
         if (droparea.getXiaParent().options.indexOf("direct-link") != -1) {
@@ -1321,7 +871,4 @@ IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElemen
             iaScene.currentScore -= 1;
         }
     }
-
-
-
 };
