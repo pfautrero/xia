@@ -88,6 +88,13 @@ installation of these softwares on their websites\footnote{See the site
 \href{http://www.inkscape.org/}{Inkscape} and \href
 {http://xia.dane.ac-versailles.fr/}{Xia}.}.
 
+\begin{alert}
+ Make sure to install Xia after Inkscape. Otherwise you will not be able
+ to access Xia directly in Inkscape.\\
+ If you work on a Windows system, use the portable version to access Xia outside of Inkscape.
+\end{alert}
+
+
 \section{Creating your first interactive image using Inkscape and Xia: \emph{Basic features}}\label{basic_imageactive}
 
 \subsection{Building the svg source file to generate an interactive image}\label{preparation_svg}
@@ -198,7 +205,9 @@ the interactive image (title and comment not related to a particular detail).
 \subsection{Generating the interactive image with Xia}
 
 When all the details are clipped and their metadata indicated, Xia can be launched (see figure \ref{xia_interface}).
-You must select the svg source file with the top left icon,
+You must select the svg source file with the top left icon\footnote{When launched as an Inkscape extension, the top
+left icon has a different look, and can not be selected, since Xia assumes
+you want to create the html5 animation from the image you are working on in Inkscape.},
 choose the export options (see figure \ref{xia_export_options}), and then choose a 
 template and the destination folder of the interactive image.
 
