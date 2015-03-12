@@ -113,10 +113,8 @@ GNU/Linux, explorez le .xia et récupérez le fichier svg.
 
 L'installation d'Inkscape et de Xia sont les seuls prérequis pour la
 poursuite de la lecture de cette documentation. Vous trouverez les
-informations nécessaires à l'installation de ces logiciels sur leurs sites
-web respectifs\footnote{Voir le site
-d'\href{http://www.inkscape.org/}{Inkscape} et celui de \href
-{http://xia.dane.ac-versailles.fr/}{Xia}.}.
+informations nécessaires à l'installation d'Inkscape sur le site web du
+projet\footnote{\href{http://www.inkscape.org/}{http://www.inkscape.org/}.}
 
 \begin{alert}
  Installez impérativement Inkscape en premier, puis Xia, sous peine de ne pas
@@ -124,6 +122,21 @@ d'\href{http://www.inkscape.org/}{Inkscape} et celui de \href
 travaillez sous Windows, utilisez la version portable de Xia pour accéder au
 logiciel en dehors d'Inkscape.
 \end{alert}
+
+\begin{description}
+ \item[GNU/Linux] Dans un terminal:\\ \texttt{\$ sudo echo "deb
+http://repository.crdp.ac-versailles.fr/debian xia main" | sudo tee
+/etc/apt/sources.list.d/xia.list}\\ \texttt{\$ wget -q
+http://repository.crdp.ac-versailles.fr/crdp.gpg -O - | sudo apt-key add
+-}\\ \texttt{\$ sudo apt-get update \&\& sudo apt-get install xia}
+ \item [Mac OS X] Téléchargez et installez le paquet:\\ 
+\href{http://xia.dane.ac-versailles.fr/download/xia.pkg}{http://xia.dane.ac-versailles.fr/download/xia.pkg}
+ \item [Windows] Téléchargez et installez l'extension Inkscape
+(\href{http://xia.dane.ac-versailles.fr/download/setup.exe}{http://xia.dane.ac-versailles.fr/download/setup.exe})
+ou Xia en version portable
+(\href{http://xia.dane.ac-versailles.fr/download/xia-windows.zip}{http://xia.dane.ac-versailles.fr/download/xia-windows.zip}).
+\end{description}
+
 
 
 \section{Création d'une première image interactive avec Inkscape et Xia:
