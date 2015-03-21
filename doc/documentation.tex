@@ -84,9 +84,28 @@ to use LibreOffice Draw.}.
 
 Having Inkscape and Xia installed on your computer is the only thing you need 
 to read this documentation. You will find any relevant information about the 
-installation of these softwares on their websites\footnote{See the site 
-\href{http://www.inkscape.org/}{Inkscape} and \href
-{http://xia.dane.ac-versailles.fr/}{Xia}.}.
+installation of Inkscape on its website\footnote{\href{http://www.inkscape.org/}{http://www.inkscape.org/}.}
+
+\begin{alert}
+ Make sure to install Xia after Inkscape. Otherwise you will not be able
+ to access Xia directly in Inkscape.\\
+ If you work on a Windows system, use the portable version to access Xia outside of Inkscape.
+\end{alert}
+
+\begin{description}
+ \item [GNU/Linux] In a terminal:\\
+ \texttt{\$ sudo echo "deb http://repository.crdp.ac-versailles.fr/debian xia main" | sudo tee /etc/apt/sources.list.d/xia.list}\\
+ \texttt{\$ wget -q http://repository.crdp.ac-versailles.fr/crdp.gpg -O - | sudo apt-key add -}\\
+ \texttt{\$ sudo apt-get update \&\& sudo apt-get install xia}
+ \item [Mac OS X] Download and install the package:\\
+ \href{http://xia.dane.ac-versailles.fr/download/xia.pkg}{http://xia.dane.ac-versailles.fr/download/xia.pkg}
+ \item [Windows] Download and install the Inkscape extension 
+ (\href{http://xia.dane.ac-versailles.fr/download/setup.exe}{http://xia.dane.ac-versailles.fr/download/setup.exe}) 
+ or the portable version
+ (\href{http://xia.dane.ac-versailles.fr/download/xia-windows.zip}{http://xia.dane.ac-versailles.fr/download/xia-windows.zip}).
+\end{description}
+
+
 
 \section{Creating your first interactive image using Inkscape and Xia: \emph{Basic features}}\label{basic_imageactive}
 
@@ -198,7 +217,9 @@ the interactive image (title and comment not related to a particular detail).
 \subsection{Generating the interactive image with Xia}
 
 When all the details are clipped and their metadata indicated, Xia can be launched (see figure \ref{xia_interface}).
-You must select the svg source file with the top left icon,
+You must select the svg source file with the top left icon\footnote{When launched as an Inkscape extension, the top
+left icon has a different look, and can not be selected, since Xia assumes
+you want to create the html5 animation from the image you are working on in Inkscape.},
 choose the export options (see figure \ref{xia_export_options}), and then choose a 
 template and the destination folder of the interactive image.
 
