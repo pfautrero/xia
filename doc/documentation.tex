@@ -1082,6 +1082,58 @@ These tables sum up the tags that have to be indicated when a game is created:
   \caption{Complete gameDragAndDrop tags}
 \end{table} 
 
+\section{Frequently asked questions and Inkscape tips}
+
+\subsection{Xia FAQ}
+
+\textbf{I can not see the Xia extension in Inkscape. Why is that?}\\
+$\rightarrow$ Have you  installed Inkscape first? If not, you have to re-install
+ Xia. If you use the portable version, Xia does not appear in the extension menu.
+ 
+ \textbf{The "source file"  icon does not appear when I launch Xia from the extension
+ menu of Inkscape. Why?}\\
+ $\rightarrow$ When you launch Xia as an Inkscape extension,
+ there is no "Source File" button, since Xia assumes you want 
+ to create the html5 animation from the image you are working on in Inkscape. 
+ Just choose the exportation options and the template.
+ 
+ \textbf{I have installed Xia but I can not find it. How can I launch it?}\\
+ $\rightarrow$ Xia can be found in the "Applications" of Mac OS X. 
+ On a GNU/Linux system, the Xia package is called "xia-converter". 
+ In Windows, Xia is only an Inkscape extension. If you wish to launch Xia
+ outside of Inkscape, use the portable version.
+ 
+ \textbf{I have added some text on my image with the Inkscape text tool
+ ("Create and Edit text objects"),
+ but it does not appear on my interactive image. Why?}\\
+ $\rightarrow$ Unless you make a bitmap copy of 
+ the text, Xia will consider the text created with the "Create and Edit text Objects"
+ as a detail, and not an image.
+
+\subsection{Inkscape tips}
+
+\begin{itemize}
+ \item Don't hesitate to fill your details with different colors. 
+The details will be easier to select and modify, and it will not 
+have any consequences on the html5 animation (unless you choose black or white as filling colors)
+ \item If you want to create one detail out of several, you can "Group" them 
+ (\softmenu{Object} $\rightarrow$ \softmenu{Group}, or \Ctrl + \keystroke{G}) or "unify" them 
+ (\softmenu{Path} $\rightarrow$ \softmenu{Union}, or \Ctrl + \keystroke{+}).
+ \item Once a detail is created, it is always possible to modify it: you can add or remove
+ nodes, move them, etc. Just double-click on the detail, and use the modifying tools:\\
+ \begin{center}
+ \includegraphics[width=0.8\textwidth]{./images/modifynodes}\\  
+ \end{center}
+ \item Some keyboard shortcuts are real time savers!
+ \begin{enumerate}
+  \item \fbox{\Shift + \Ctrl + \keystroke{a}} to access the \softmenu{Alignment and Distribution} tools
+  \item \fbox{\Shift + \Ctrl + \keystroke{o}} to access the \softmenu{Object Properties}
+  \item \fbox{\Alt + \keystroke{b}} to create a bitmap copy of a shape designed in Inkscape
+  \item \fbox{\Ctrl + \keystroke{g}} to group different objects or details 
+  and \fbox{\Ctrl + \Shift + \keystroke{g}} to ungroup them
+ \end{enumerate} 
+\end{itemize}
+
 \listoffigures
 \listoftables
 

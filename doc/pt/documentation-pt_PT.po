@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-03-22 12:26+0100\n"
+"POT-Creation-Date: 2015-03-22 13:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2015,7 +2015,128 @@ msgstr ""
 msgid "Complete gameDragAndDrop tags"
 msgstr ""
 
+#. type: section{#2}
+#: documentation.tex:1086
+msgid "Frequently asked questions and Inkscape tips"
+msgstr ""
+
+#. type: subsection{#2}
+#: documentation.tex:1088
+msgid "Xia FAQ"
+msgstr ""
+
 #. type: document
-#: documentation.tex:1087
+#: documentation.tex:1092
+msgid ""
+"\\textbf{I can not see the Xia extension in Inkscape. Why is that?}\\\\ $"
+"\\rightarrow$ Have you installed Inkscape first? If not, you have to re-"
+"install Xia. If you use the portable version, Xia does not appear in the "
+"extension menu."
+msgstr ""
+
+#. type: document
+#: documentation.tex:1099
+msgid ""
+"\\textbf{The \"source file\" icon does not appear when I launch Xia from the "
+"extension menu of Inkscape. Why?}\\\\ $\\rightarrow$ When you launch Xia as "
+"an Inkscape extension, there is no \"Source File\" button, since Xia assumes "
+"you want to create the html5 animation from the image you are working on in "
+"Inkscape.  Just choose the exportation options and the template."
+msgstr ""
+
+#. type: document
+#: documentation.tex:1105
+msgid ""
+"\\textbf{I have installed Xia but I can not find it. How can I launch it?}\\"
+"\\ $\\rightarrow$ Xia can be found in the \"Applications\" of Mac OS X.  On "
+"a GNU/Linux system, the Xia package is called \"xia-converter\".  In "
+"Windows, Xia is only an Inkscape extension. If you wish to launch Xia "
+"outside of Inkscape, use the portable version."
+msgstr ""
+
+#. type: document
+#: documentation.tex:1112
+msgid ""
+"\\textbf{I have added some text on my image with the Inkscape text tool "
+"(\"Create and Edit text objects\"), but it does not appear on my interactive "
+"image. Why?}\\\\ $\\rightarrow$ Unless you make a bitmap copy of the text, "
+"Xia will consider the text created with the \"Create and Edit text Objects\" "
+"as a detail, and not an image."
+msgstr ""
+
+#. type: subsection{#2}
+#: documentation.tex:1114
+msgid "Inkscape tips"
+msgstr ""
+
+#. type: itemize
+#: documentation.tex:1136
+msgid ""
+"Don't hesitate to fill your details with different colors.  The details will "
+"be easier to select and modify, and it will not have any consequences on the "
+"html5 animation (unless you choose black or white as filling colors)"
+msgstr ""
+
+#. type: itemize
+#: documentation.tex:1136
+msgid ""
+"If you want to create one detail out of several, you can \"Group\" them "
+"(\\softmenu{Object} $\\rightarrow$ \\softmenu{Group}, or \\Ctrl + "
+"\\keystroke{G}) or \"unify\" them (\\softmenu{Path} $\\rightarrow$ "
+"\\softmenu{Union}, or \\Ctrl + \\keystroke{+})."
+msgstr ""
+
+#. type: itemize
+#: documentation.tex:1136
+msgid ""
+"Once a detail is created, it is always possible to modify it: you can add or "
+"remove nodes, move them, etc. Just double-click on the detail, and use the "
+"modifying tools:\\\\"
+msgstr ""
+
+#. type: itemize
+#: documentation.tex:1136
+msgid "Some keyboard shortcuts are real time savers!"
+msgstr ""
+
+#. type: fbox{#1}
+#: documentation.tex:1136
+msgid "\\Shift + \\Ctrl + \\keystroke{a}"
+msgstr ""
+
+#. type: enumerate
+#: documentation.tex:1136
+msgid "to access the \\softmenu{Alignment and Distribution} tools"
+msgstr ""
+
+#. type: fbox{#1}
+#: documentation.tex:1136
+msgid "\\Shift + \\Ctrl + \\keystroke{o}"
+msgstr ""
+
+#. type: enumerate
+#: documentation.tex:1136
+msgid "to access the \\softmenu{Object Properties}"
+msgstr ""
+
+#. type: fbox{#1}
+#: documentation.tex:1136
+msgid "\\Alt + \\keystroke{b}"
+msgstr ""
+
+#. type: enumerate
+#: documentation.tex:1136
+msgid "to create a bitmap copy of a shape designed in Inkscape"
+msgstr ""
+
+#. type: enumerate
+#: documentation.tex:1136
+msgid ""
+"\\fbox{\\Ctrl + \\keystroke{g}} to group different objects or details and "
+"\\fbox{\\Ctrl + \\Shift + \\keystroke{g}} to ungroup them"
+msgstr ""
+
+#. type: document
+#: documentation.tex:1139
 msgid "\\listoffigures \\listoftables"
 msgstr ""

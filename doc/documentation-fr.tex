@@ -1234,6 +1234,62 @@ hypertexte\\
   \caption{Balises à insérer en vue d'un export gameDragAndDrop}
 \end{table} 
 
+\section{Foire aux questions et trucs et astuces pour le logiciel Inkscape}
+
+\subsection{Foire aux questions}
+
+\textbf{Je ne vois pas Xia dans le menu extensions d'Inkscape. Pourquoi?}\\ 
+$\rightarrow$ Avez-vous installé Inkscape avant Xia? Si ce n'est pas le cas,
+ré-installez Xia. Si vous utilisez la version portable de Xia, le fait que
+rien n'apparaisse dans le menu extension est tout à fait normal.
+ 
+ \textbf{L'icône «~Fichier source~» n'apparaît pas quand je lance Xia depuis
+le menu extension d'Inkscape. Pourquoi?}\\ $\rightarrow$ En lançant Xia
+depuis les extensions d'Inkscape, il n'y a pas d'icône «~Fichier source~»,
+puisque Xia considère que l'animation html5 que vous souhaitez générer est
+celle sur laquelle vous travaillez dans Inkscape... Choisissez donc
+uniquement les options d'exportation et le modèle.
+ 
+ \textbf{J'ai installé Inkscape mais je ne le retrouve pas dans mes
+programmes. Où se cache-t-il?}\\ $\rightarrow$ Xia se trouve dans le dossier
+des «~Applications~» de Mac OS X.  Sur un sytème GNU/Linux, le paquet Xia
+porte le nom «~xia-converter~».  Sur Windows, Xia ne fonctionne que comme
+extension d'Inkscape. Si vous souhaitez utiliser le logiciel seul, utilisez
+la version portable.
+ 
+ \textbf{J'ai ajouté du texte sur mon image avec l'outil «~Créer et éditer
+des objets textes~», mais je ne le vois pas apparaître dans mon image
+interactive. Pourquoi?}\\ $\rightarrow$ Si vous ne faites pas de copie
+bitmap du texte, Xia considèrera que le texte créé avec l'outil «~Créer et
+éditer des objets textes~» est un détail, et pas une image à affichier.
+
+\subsection{Astuces Inkscape}
+
+\begin{itemize}
+ \item Ajoutez des couleurs de fond à vos détails. Les détails seront ainsi plus
+faciles à sélectionner et modifier, et cela n'aura aucune conséquence sur
+l'animation html5 (sauf si vous choisissez le blanc ou le noir comme couleur
+de remplissage).
+ \item Si vous voulez créer un détail à partir de plusieurs, vous pouvez les
+«~Grouper~» (\softmenu{Objet} $\rightarrow$ \softmenu{Grouper}, ou \Ctrl +
+\keystroke{G}) ou les «~Unir~» (\softmenu{Chemin} $\rightarrow$
+\softmenu{Union}, or \Ctrl + \keystroke{+}).
+ \item Quand un détail est créé, il est toujours possible de les modifier: ajout ou
+suppression de nœuds, déplacement, etc. Il suffit de double-cliquer sur un
+détail et d'utiliser les outils de modification:\\
+ \begin{center}
+ \includegraphics[width=0.8\textwidth]{./images/modifynodes}\\  
+ \end{center}
+ \item Certains raccourcis claviers vous feront gagner énormément de temps!
+ \begin{enumerate}
+  \item \fbox{\Shift + \Ctrl + \keystroke{a}} pour accéder aux outils d'\softmenu{Alignement et de distribution}
+  \item \fbox{\Shift + \Ctrl + \keystroke{o}} pour accéder aux \softmenu{Propriétés de l'objet}
+  \item \fbox{\Alt + \keystroke{b}} pour créer une copie bitmap d'une forme dessinée dans Inkscape
+  \item \fbox{\Ctrl + \keystroke{g}} pour grouper différents objets ou détails et
+\fbox{\Ctrl + \Shift + \keystroke{g}} pour les dégrouper
+ \end{enumerate} 
+\end{itemize}
+
 \listoffigures \listoftables
 
 \end{document}

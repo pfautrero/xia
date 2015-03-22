@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fr_FR\n"
-"POT-Creation-Date: 2015-03-22 12:30+0100\n"
-"PO-Revision-Date: 2015-03-22 12:31+0100\n"
+"POT-Creation-Date: 2015-03-22 13:43+0100\n"
+"PO-Revision-Date: 2015-03-22 13:58+0100\n"
 "Last-Translator: Geoffrey <ggekiere@ac-versailles.fr>\n"
 "Language-Team: fr <>\n"
 "Language: \n"
@@ -2682,8 +2682,164 @@ msgstr "Zone de dépôt, éléments à déplacer"
 msgid "Complete gameDragAndDrop tags"
 msgstr "Balises à insérer en vue d'un export gameDragAndDrop"
 
+#. type: section{#2}
+#: documentation.tex:1086
+msgid "Frequently asked questions and Inkscape tips"
+msgstr "Foire aux questions et trucs et astuces pour le logiciel Inkscape"
+
+#. type: subsection{#2}
+#: documentation.tex:1088
+msgid "Xia FAQ"
+msgstr "Foire aux questions"
+
 #. type: document
-#: documentation.tex:1087
+#: documentation.tex:1092
+msgid ""
+"\\textbf{I can not see the Xia extension in Inkscape. Why is that?}\\\\ $"
+"\\rightarrow$ Have you installed Inkscape first? If not, you have to re-"
+"install Xia. If you use the portable version, Xia does not appear in the "
+"extension menu."
+msgstr ""
+"\\textbf{Je ne vois pas Xia dans le menu extensions d'Inkscape. Pourquoi?}\\"
+"\\ $\\rightarrow$ Avez-vous installé Inkscape avant Xia? Si ce n'est pas le "
+"cas, ré-installez Xia. Si vous utilisez la version portable de Xia, le fait "
+"que rien n'apparaisse dans le menu extension est tout à fait normal."
+
+#. type: document
+#: documentation.tex:1099
+msgid ""
+"\\textbf{The \"source file\" icon does not appear when I launch Xia from the "
+"extension menu of Inkscape. Why?}\\\\ $\\rightarrow$ When you launch Xia as "
+"an Inkscape extension, there is no \"Source File\" button, since Xia assumes "
+"you want to create the html5 animation from the image you are working on in "
+"Inkscape.  Just choose the exportation options and the template."
+msgstr ""
+"\\textbf{L'icône «~Fichier source~» n'apparaît pas quand je lance Xia depuis "
+"le menu extension d'Inkscape. Pourquoi?}\\\\ $\\rightarrow$ En lançant Xia "
+"depuis les extensions d'Inkscape, il n'y a pas d'icône «~Fichier source~», "
+"puisque Xia considère que l'animation html5 que vous souhaitez générer est "
+"celle sur laquelle vous travaillez dans Inkscape... Choisissez donc "
+"uniquement les options d'exportation et le modèle."
+
+#. type: document
+#: documentation.tex:1105
+msgid ""
+"\\textbf{I have installed Xia but I can not find it. How can I launch it?}\\"
+"\\ $\\rightarrow$ Xia can be found in the \"Applications\" of Mac OS X.  On "
+"a GNU/Linux system, the Xia package is called \"xia-converter\".  In "
+"Windows, Xia is only an Inkscape extension. If you wish to launch Xia "
+"outside of Inkscape, use the portable version."
+msgstr ""
+"\\textbf{J'ai installé Inkscape mais je ne le retrouve pas dans mes "
+"programmes. Où se cache-t-il?}\\\\ $\\rightarrow$ Xia se trouve dans le "
+"dossier des «~Applications~» de Mac OS X.  Sur un sytème GNU/Linux, le "
+"paquet Xia porte le nom «~xia-converter~».  Sur Windows, Xia ne fonctionne "
+"que comme extension d'Inkscape. Si vous souhaitez utiliser le logiciel seul, "
+"utilisez la version portable."
+
+#. type: document
+#: documentation.tex:1112
+msgid ""
+"\\textbf{I have added some text on my image with the Inkscape text tool "
+"(\"Create and Edit text objects\"), but it does not appear on my interactive "
+"image. Why?}\\\\ $\\rightarrow$ Unless you make a bitmap copy of the text, "
+"Xia will consider the text created with the \"Create and Edit text Objects\" "
+"as a detail, and not an image."
+msgstr ""
+"\\textbf{J'ai ajouté du texte sur mon image avec l'outil «~Créer et éditer "
+"des objets textes~», mais je ne le vois pas apparaître dans mon image "
+"interactive. Pourquoi?}\\\\ $\\rightarrow$ Si vous ne faites pas de copie "
+"bitmap du texte, Xia considèrera que le texte créé avec l'outil «~Créer et "
+"éditer des objets textes~» est un détail, et pas une image à affichier."
+
+#. type: subsection{#2}
+#: documentation.tex:1114
+#| msgid "In Inkscape:"
+msgid "Inkscape tips"
+msgstr "Astuces Inkscape"
+
+#. type: itemize
+#: documentation.tex:1136
+msgid ""
+"Don't hesitate to fill your details with different colors.  The details will "
+"be easier to select and modify, and it will not have any consequences on the "
+"html5 animation (unless you choose black or white as filling colors)"
+msgstr ""
+"Ajoutez des couleurs de fond à vos détails. Les détails seront ainsi plus "
+"faciles à sélectionner et modifier, et cela n'aura aucune conséquence sur "
+"l'animation html5 (sauf si vous choisissez le blanc ou le noir comme couleur "
+"de remplissage)."
+
+#. type: itemize
+#: documentation.tex:1136
+msgid ""
+"If you want to create one detail out of several, you can \"Group\" them "
+"(\\softmenu{Object} $\\rightarrow$ \\softmenu{Group}, or \\Ctrl + "
+"\\keystroke{G}) or \"unify\" them (\\softmenu{Path} $\\rightarrow$ "
+"\\softmenu{Union}, or \\Ctrl + \\keystroke{+})."
+msgstr ""
+"Si vous voulez créer un détail à partir de plusieurs, vous pouvez les "
+"«~Grouper~» (\\softmenu{Objet} $\\rightarrow$ \\softmenu{Grouper}, ou \\Ctrl "
+"+ \\keystroke{G}) ou les «~Unir~» (\\softmenu{Chemin} $\\rightarrow$ "
+"\\softmenu{Union}, or \\Ctrl + \\keystroke{+})."
+
+#. type: itemize
+#: documentation.tex:1136
+msgid ""
+"Once a detail is created, it is always possible to modify it: you can add or "
+"remove nodes, move them, etc. Just double-click on the detail, and use the "
+"modifying tools:\\\\"
+msgstr ""
+"Quand un détail est créé, il est toujours possible de les modifier: ajout ou "
+"suppression de nœuds, déplacement, etc. Il suffit de double-cliquer sur un "
+"détail et d'utiliser les outils de modification:\\\\"
+
+#. type: itemize
+#: documentation.tex:1136
+msgid "Some keyboard shortcuts are real time savers!"
+msgstr "Certains raccourcis claviers vous feront gagner énormément de temps!"
+
+#. type: fbox{#1}
+#: documentation.tex:1136
+msgid "\\Shift + \\Ctrl + \\keystroke{a}"
+msgstr "\\Shift + \\Ctrl + \\keystroke{a}"
+
+#. type: enumerate
+#: documentation.tex:1136
+msgid "to access the \\softmenu{Alignment and Distribution} tools"
+msgstr "pour accéder aux outils d'\\softmenu{Alignement et de distribution}"
+
+#. type: fbox{#1}
+#: documentation.tex:1136
+msgid "\\Shift + \\Ctrl + \\keystroke{o}"
+msgstr "\\Shift + \\Ctrl + \\keystroke{o}"
+
+#. type: enumerate
+#: documentation.tex:1136
+msgid "to access the \\softmenu{Object Properties}"
+msgstr "pour accéder aux \\softmenu{Propriétés de l'objet}"
+
+#. type: fbox{#1}
+#: documentation.tex:1136
+msgid "\\Alt + \\keystroke{b}"
+msgstr "\\Alt + \\keystroke{b}"
+
+#. type: enumerate
+#: documentation.tex:1136
+msgid "to create a bitmap copy of a shape designed in Inkscape"
+msgstr "pour créer une copie bitmap d'une forme dessinée dans Inkscape"
+
+#. type: enumerate
+#: documentation.tex:1136
+msgid ""
+"\\fbox{\\Ctrl + \\keystroke{g}} to group different objects or details and "
+"\\fbox{\\Ctrl + \\Shift + \\keystroke{g}} to ungroup them"
+msgstr ""
+"\\fbox{\\Ctrl + \\keystroke{g}} pour grouper différents objets ou détails et "
+"\\fbox{\\Ctrl + \\Shift + \\keystroke{g}} pour les dégrouper"
+
+#. type: document
+#: documentation.tex:1139
 msgid "\\listoffigures \\listoftables"
 msgstr "\\listoffigures \\listoftables"
 
