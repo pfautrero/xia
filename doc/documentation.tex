@@ -417,8 +417,9 @@ In order to insert formatted text, the tags described in figure \ref{xia_text_ta
   \node[descrip, below = 7mm of link.north] (linkT) {A link to \verb![https://www.wikipedia.org/ Wikipedia]!};
   \node[box, right = 3.5cm of link] (linkR) {A link to \href{https://www.wikipedia.org/}{Wikipedia}}; 
   \node[anchor=north west, below = .2cm of link] (relativelinks) {\includegraphics[scale=.5]{./images/Description}};
-  \node[descrip, below = -7mm of relativelinks] (relativelinksT) {A link to a \verb![/home/foo/bar.pdf local file]!};
-  \node[box, right = 3.5cm of relativelinks] (relativelinksR) {A link to a \href{/home/foo/bar.pdf}{local file\footnote{That does not work on your computer!}}};
+  \node[descrip, below = -7mm of relativelinks] (relativelinksT) {A link to a \verb![./foo/bar.pdf local file]!};
+  \node[box, right = 3.5cm of relativelinks] (relativelinksR) {A link to a \href{./foo/bar.pdf}{local file\footnote{This will
+  not work on your computer!}}};
   \node[anchor=north west, below = .8cm of relativelinks] (bullets) {\includegraphics[scale=.5]{./images/Description}};
   \node[descrip, below = -7mm of bullets] (bulletsT) {Making a list \\ $\ast$ of bullets \\  $\ast$ out of \\ ~$\ast$ 2 levels\footnote{Insert a \Spacebar (space) before the $\ast$}};
   \node[box, right = 3.5cm of bullets.south east] (bulletsR) {Making a list 
@@ -436,6 +437,13 @@ In order to insert formatted text, the tags described in figure \ref{xia_text_ta
 \caption{Tags to format text}
 \label{xia_text_tags}
 \end{figure}
+
+\begin{alert}
+ Links to local files must be relative links: \verb![./folder/file.pdf local file]!
+  for a pdf file contained inside the export folder, and \verb![../folder/file.pdf local file]!
+  for a pdf file contained in a parent folder.
+\end{alert}
+
 
 \subsection{Inserting multimedia resources into details}\label{multimedia_enrichment}
 

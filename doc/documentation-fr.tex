@@ -142,8 +142,8 @@ ou Xia en version portable
 \section{Création d'une première image interactive avec Inkscape et Xia:
 \emph{Fonctionnalités de base}}\label{basic_imageactive}
 
-\subsection{Création du fichier source au formation svg en vue de la génération de
-l'image interactive}\label{preparation_svg}
+\subsection{Création du fichier source au format svg en vue de la génération de l'image
+interactive}\label{preparation_svg}
 
 \begin{links}
 Visualisez l'\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1}{image
@@ -495,11 +495,10 @@ Wikipedia]}; \node[box, right = 3.5cm of link] (linkR) {Un lien vers
 below = .2cm of link] (relativelinks)
 {\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
 -7mm of relativelinks] (relativelinksT) {Un lien vers un
-\verb![/home/foo/bar.pdf fichier local]!}; \node[box, right = 3.5cm of
+\verb![./foo/bar.pdf fichier local]!}; \node[box, right = 3.5cm of
 relativelinks] (relativelinksR) {Un lien vers un
-\href{/home/geoffrey/ownCloud/DANE/DOSSIERS/XIA/tuto/dossier/fichier.pdf}{fichier
-local\footnote{Lien qui ne fonctionnera pas ici!}}}; \node[anchor=north
-west, below = .8cm of relativelinks] (bullets)
+\href{./foo/bar.pdf}{fichier local\footnote{Lien qui ne fonctionnera pas
+ici!}}}; \node[anchor=north west, below = .8cm of relativelinks] (bullets)
 {\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
 -7mm of bullets] (bulletsT) {Faire une liste \\ $\ast$ de puces \\ $\ast$
 sur \\ ~$\ast$ 2 niveaux\footnote{Insérez un \Spacebar (espace) avant les
@@ -514,6 +513,14 @@ un trait};
 \caption{Balises de mise en forme du texte}
 \label{xia_text_tags}
 \end{figure}
+
+\begin{alert}
+ Les liens vers les fichiers locaux doivent obligatoirement être des liens
+relatifs: \verb![./dossier/fichier.pdf]! pour un fichier pdf contenu dans le
+répertoire d'export, et \verb![../dossier/fichier.pdf]! pour un fichier pdf
+contenu dans un répertoire parent.
+\end{alert}
+
 
 \subsection{Insérer des ressources multimédias dans les commentaires}\label{multimedia_enrichment}
 
@@ -754,7 +761,7 @@ aBlack] (params) {\includegraphics[width=2cm]{./images/params}}; \node[left
 
   
   \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Sélection
-du fichier source au formation svg}; \node[box, above = 5mm of params]
+du fichier source au format svg}; \node[box, above = 5mm of params]
 (paramsC) {Définition des options d'exportation (voir l'illustration
 \ref{xia_export_options})}; \node[box, right = 5mm of guClic] (guClicC)
 {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia3}{game1clic}\\ 
