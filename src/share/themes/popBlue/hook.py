@@ -46,7 +46,7 @@ class hook:
         for i, detail in enumerate(self.iaobject.details):
             if detail['options'].find(u"direct-link") == -1:
                 dataState = "full"
-                if self.PageFormatter(detail["detail"]).print_html() == "":
+                if (self.PageFormatter(detail["detail"]).print_html() == "") and (detail["title"] == ""):
                     dataState = "void"                
                 final_str += u'<article data-state="'+ dataState +'" id="article-'+unicode(str(i), "utf8") + u'">\n'
                 final_str += '<img class="article_close" src="{{LogoClose}}" alt="close"/>'

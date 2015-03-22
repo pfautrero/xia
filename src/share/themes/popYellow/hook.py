@@ -45,7 +45,7 @@ class hook:
         for i, detail in enumerate(self.iaobject.details):
             if detail['options'].find(u"direct-link") == -1:
                 dataState = "full"
-                if self.PageFormatter(detail["detail"]).print_html() == "":
+                if (self.PageFormatter(detail["detail"]).print_html() == "") and (detail["title"] == ""):
                     dataState = "void"                
                 final_str += u'<article class="detail_content" data-state="'+ dataState +'" id="article-'+unicode(str(i), "utf8") + u'">\n'
                 final_str += u'  <h1>' + detail['title'] + u'</h1>\n'

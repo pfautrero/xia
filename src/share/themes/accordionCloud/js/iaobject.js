@@ -455,8 +455,8 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     that.kineticElement[k].fillPatternImage(that.backgroundImage[k]);                        
                 }                
             }
-            //that.layer.batchDraw();
-            this.draw();
+            that.layer.batchDraw();
+            //this.draw();
         }
     });
     /*
@@ -622,7 +622,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         that.kineticElement[k].moveToTop();
                     }
                     if (cacheBackground === true) that.backgroundCache_layer.moveToTop();
-                    that.group.moveToTop();
+                    //that.group.moveToTop();
                     that.layer.moveToTop();
                     that.layer.draw(); 
                     iaScene.element = that;
