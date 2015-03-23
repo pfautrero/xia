@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="description" content="{{DESCRIPTION}}" />
+    <meta name="author" content="{{AUTHOR}}" />
+    <meta name="keywords" content="{{KEYWORDS}}" />
+    <meta charset="utf-8" />
+    <meta property="og:title" content="{{TITLE}}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content=""/>
+    <meta property="og:description" content="{{DESCRIPTION}}"/>
+    <meta property="og:image" content="http://xia.dane.ac-versailles.fr/img/logo.jpg"/>
+    <title>{{TITLE}}</title>
+    <link rel="stylesheet" type="text/css" href="{{MainCSS}}"/>
+    <script src="{{labJS}}"></script>        
+</head>
+<body id="image-active">
+    <div id="loader">
+        <div id="splash">
+            <p><img src="{{LogoLoading}}" alt="xia"/></p>
+            <p>{{LOADING}}</p>
+        </div>
+    </div>    
+    <div id="container">
+        <header id="header">
+            <h1 id="title">{{TITLE}}</h1>
+            <a class="infos" href="#" title="à propos"></a>
+        </header>
+        <nav id="accordion2" class="accordion">
+            {{ACCORDION}}
+        </nav>
+        <div id="slide">
+            <img id="slide_close" src="{{LogoClose}}" alt="close"/>
+            <h1 id="slide_title"></h1>
+            <div id="slide_content"></div>
+        </div>
+        <div id="canvas"></div>
+    </div>
+    <footer id="overlay">
+        <section id="popup">
+            <img id="popup_close" src="{{LogoClose}}" alt="close"/>
+            <article id="popup_text">
+                <img src="{{LogoLoading}}" alt="xia" />
+                <p>{{METADATAS}}</p>
+            </article>
+        </section>
+    </footer>
+    {{datasJS}}
+    <script>
+        var loadLibs = function() {
+            $LAB.setGlobalDefaults({CacheBust:true});
+            $LAB{{lazyDatasJS}}
+             .script("{{JqueryJS}}")
+             .script("{{sha1JS}}")
+             .script("{{kineticJS}}").wait()
+             .script("{{hooksJS}}").wait()
+             .script("{{xiaJS}}")
+             ;
+        }
+        document.body.onload = loadLibs;
+    </script>
+</body>
+</html>
