@@ -446,7 +446,7 @@ will be enriched with  formatted text or multimedia resources.
 
 
 \newpage
-\subsection{Formatting text}
+\subsection{Formatting text}\label{formattingtext}
 
 In order to insert formatted text, the tags described in figure \ref{xia_text_tags} should be used.
 
@@ -576,7 +576,8 @@ The link has to be inserted into the \softmenu{Description} field of the \softme
  Inkscape
  
  \item [Relative link] If the multimedia file is located in the interactive image 
- folder or in a folder (see figure \ref{xia_files}) within this one, just indicate its location, keeping in 
+ folder or in a folder (see figure \ref{xia_files} and section \ref{formattingtext}) within this one,
+ just indicate its location, keeping in 
  mind that the interactive image folder has to be considered as the root folder. 
  For example, if the \verb|video.ogv| file is located in a \verb|videos| 
  folder located itself in the interactive image exportation folder, just indicate:
@@ -595,7 +596,7 @@ browsers, it is recommanded to export videos into the 3 supported formats,
 and to upload them into a single folder (from there, the only difference 
 between these files is their extension, ie. .ogv or .mp4 or .webm).
 Even if a particular format is indicated in the description (following 
-the previous example : \verb|videos/video.ogv|), if the browser is 
+the previous example : \verb|./videos/video.ogv|), if the browser is 
 unable to read the resource, it will automatically attempt to read the files 
 of the same name possessing a different extension (ie. \verb|video.mp4| 
 then \verb|video.webm|).
@@ -624,7 +625,7 @@ automatically as the user clicks on the comment, just add \verb|autostart| right
 after the url \footnote{The "\texttt{autostart}" tag also works with the other 
 Xia templates.}:\\
 \begin{center}
- \verb|sounds/detail_1_sound.ogg autostart|
+ \verb|./sounds/detail_1_sound.ogg autostart|
 \end{center}
 
 

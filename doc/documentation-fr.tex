@@ -521,7 +521,7 @@ en forme ou des ressources multimédias.
 
 
 \newpage
-\subsection{Mise en forme du texte}
+\subsection{Mise en forme du texte}\label{formattingtext}
 
 Afin de mettre en forme le texte, les balises indiquées dans l'illustration
 \ref{xia_text_tags} seront utilisées.
@@ -644,9 +644,10 @@ Le lien doit être inséré dans le champ \softmenu{Description} des
 \softmenu{Propriétés de l'objet} dans Inkscape.
  
  \item[Lien relatif] Si le fichier de la ressource multimédia se trouve dans le répertoire
-d'export de l'image interactive, ou dans un répertoire contenu dans
-celui-ci, indiquez simplement le chemin vers le fichier, en considérant le
-répertoire d'export comme répertoire racine. Par exemple, si le fichier
+d'export de l'image interactive, ou dans un répertoire contenu dans celui-ci
+(voir la rubrique \ref{formattingtext} et l'illustration \ref{xia_files}),
+indiquez simplement le chemin vers le fichier, en considérant le répertoire
+d'export comme répertoire racine. Par exemple, si le fichier
 \verb|video.ogv| se trouve dans le répertoire  \verb|videos| se trouvant
 lui-même dans le répertoire de l'image interactive, indiquez:
  
@@ -658,15 +659,14 @@ lui-même dans le répertoire de l'image interactive, indiquez:
 
 
 \begin{tip}
-Ainsi, même si un format particulier est renseigné dans la description (si
-l'on suit l'exemple précédent, ce serait \verb|videos/video.ogv|), si le
-navigateur web est incapable de lire la ressource, il tentera
-automatiquement de lire les fichiers possédant le même nom mais une
-extension différente. Même si un format spécifique est renseigné dans la
-description (si l'on suit l'exemple précédent: \verb|videos/video.ogv|), si
-le navigateur est incapable de lire la ressource, il cherchera
-automatiquement à lire les fichiers du même nom mais possédant une extension
-différente (c'est à dire, \verb|video.mp4| et \verb|video.webm|).
+Les formats vidéos gérés par Xia ne le sont pas par tous les navigateurs
+web. Il est donc recommandé d'exporter les vidéos dans les 3 formats
+supportés, et de les téléverser dans le même répertoire. Ainsi, même si un
+format spécifique est renseigné dans la description (si l'on suit l'exemple
+précédent: \verb|videos/video.ogv|), si le navigateur est incapable de lire
+la ressource, il cherchera automatiquement à lire les fichiers du même nom
+mais possédant une extension différente (c'est à dire, \verb|video.mp4| et
+\verb|video.webm|).
 \end{tip}
 
 La dernière possibilité consiste à insérer un code iframe. Celui-ci sera
@@ -695,7 +695,7 @@ détail, ajoutez la balise \verb|autostart| après l'url de la ressource
 \footnote{La balise \texttt{autostart} fonctionne également avec les autres
 modèles d'export de Xia.}:\\
 \begin{center}
- \verb|sons/son_detail_1.ogg autostart|
+ \verb|./sons/son_detail_1.ogg autostart|
 \end{center}
 
 
