@@ -440,11 +440,55 @@ accordionBlack sera choisi s'il y a une erreur de syntaxe dans le paramre
 \texttt{-t}.
 \end{tip}
 
-\subsection{L'export Firefox OS: comment ça marche?}
+\subsection{L'export Firefox OS: comment ça marche?}\label{FirefoxOS}
+
+\begin{alert}
+ Si vous ne comptez pas créer d'applications pour FirefoxOS, vous pouvez
+sauter cette partie de la documentation.
+\end{alert}
+
+
+Une fois l'image interactive générée avec l'option Firefox OS activée (voir
+l'illustration \ref{xia_export_options}), vous devez modifier le contenu des
+fichiers \texttt{deploy.html} et \texttt{manifest.webapp}.
+
+\begin{enumerate}
+ \item Dans le fichier \textbf{\texttt{deploy.html}}, modifiez cette ligne:
+
+ \begin{verbatim}
+      var manifestUrl = 'http://my-webserver.com/manifest.webapp';\end{verbatim}
+ 
+ Et indiquez l'url future du fichier \texttt{manifest.webapp}
+
+ \item  Dans le fichier \textbf{\texttt{manifest.webapp}}, modifiez ces lignes:
+ \begin{verbatim}
+    "name": "XIA",
+    "size" : define_package.zip_size_here,
+    "release_notes" : "generated with XIA", 
+    "launch_path": "/index.html",
+    "package_path" : "http://my-webserver.com/package.zip",
+    "developer": {
+        "name": "Académie de Versailles"\end{verbatim}
+
+Les lignes "name", "size", et "package\_path" doivent obligatoirement être
+modifiées\footnote{La difficulté tient dans la nécessité d'indiquer la
+taille du fichier zip avant même d'avoir créé ladite archive.}.
+\end{enumerate}
+
+
+Une fois ces modifications faites, zippez tous les fichiers issus de
+l'exportation et téléversez l'archive, les fichiers \texttt{deploy.html} et
+\texttt{manifest.webapp} sur un serveur web.
 
 L'utilisateur devra se servir du navigateur web de Firefox OS, et accéder à
 la ressource via le fichier \texttt{deploy.html}. Firefox OS lancera alors
 un processus dans lequel l'animation sera transformée en application html5.
+
+\begin{tip}
+ Les applications pour FirefoxOS peuvent également s'installer sur les
+systèmes d'exploitation GNU/Linux, Mac OS X et Windows.
+\end{tip}
+
 
 \subsection{En résumé}
 
@@ -502,25 +546,25 @@ right = 3.5cm of texttt] (textttR) {Bout de texte \texttt{brut}};
 \node[anchor=north west, below = .2cm of texttt] (link)
 {\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
 7mm of link.north] (linkT) {Un lien vers \verb![https://www.wikipedia.org/
-Wikipedia]}; \node[box, right = 3.5cm of link] (linkR) {Un lien vers
+Wikipedia]!}; \node[box, right = 3.5cm of link] (linkR) {Un lien vers
 \href{https://www.wikipedia.org/}{Wikipedia}}; \node[anchor=north west,
 below = .2cm of link] (relativelinks)
 {\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
 -7mm of relativelinks] (relativelinksT) {Un lien vers un
 \verb![./foo/bar.pdf fichier local]!}; \node[box, right = 3.5cm of
 relativelinks] (relativelinksR) {Un lien vers un
-\href{./foo/bar.pdf}{fichier local\footnote{Lien qui ne fonctionnera pas
-ici!}}}; \node[anchor=north west, below = .8cm of relativelinks] (bullets)
+\href{./foo/bar.pdf}{fichier local\footnote{Qui ne fonctionne pas dans cette
+documentation, évidemment!}}}; \node[anchor=north west, below = .8cm of
+relativelinks] (bullets) {\includegraphics[scale=.5]{./images/Description}};
+\node[descrip, below = -7mm of bullets] (bulletsT) {Liste de \\ $\ast$ puces
+\\ $\ast$ sur \\ ~$\ast$ 2 niveaux\footnote{Insérez un \Spacebar (espace)
+avant le $\ast$}}; \node[box, right = 3.5cm of bullets.south east]
+(bulletsR) {Une liste \begin{itemize} \item de puces \item sur
+\begin{itemize} \item 2 niveaux \end{itemize} \end{itemize}};
+\node[anchor=north west, below = 3cm of bullets] (line)
 {\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
--7mm of bullets] (bulletsT) {Faire une liste \\ $\ast$ de puces \\ $\ast$
-sur \\ ~$\ast$ 2 niveaux\footnote{Insérez un \Spacebar (espace) avant les
-$\ast$}}; \node[box, right = 3.5cm of bullets.south east] (bulletsR) {Faire
-une liste \begin{itemize} \item de puces \item sur \begin{itemize} \item 2
-niveaux \end{itemize} \end{itemize} }; \node[anchor=north west, below = 3cm
-of bullets] (line) {\includegraphics[scale=.5]{./images/Description}};
-\node[descrip, below = 7mm of line.north] (lineT) {Tracer \\ - - - - \\ un
-trait}; \node[box, right = 3.5cm of line] (lineR) {Tracer \\ \hrulefill \\ 
-un trait};
+7mm of line.north] (lineT) {Dessiner \\ - - - - \\ une ligne}; \node[box,
+right = 3.5cm of line] (lineR) {Dessiner \\ \hrulefill \\ une ligne};
 \end{tikzpicture}
 \caption{Balises de mise en forme du texte}
 \label{xia_text_tags}
@@ -528,9 +572,49 @@ un trait};
 
 \begin{alert}
  Les liens vers les fichiers locaux doivent obligatoirement être des liens
-relatifs: \verb![./dossier/fichier.pdf]! pour un fichier pdf contenu dans le
-répertoire d'export, et \verb![../dossier/fichier.pdf]! pour un fichier pdf
-contenu dans un répertoire parent.
+relatifs. Utilisez \verb!./! pour un fichier contenu dans le répertoire
+d'export, et \verb!../! pour un fichier pdf contenu dans un répertoire
+parent. Deux exemples:
+ \begin{itemize}
+  \item \verb!./dossier/fichier.pdf! signifie que votre fichier se trouve ici:
+
+\tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{auto}=[draw=reddebian,fill=reddebian!30, text height=2.5mm]
+\tikzstyle{manual}=[draw=bluedane,fill=bluedane!30, text height=2.5mm]
+\tikzstyle{manualT}=[fill=bluedane!30,draw=bluedane, rectangle,text
+width=3cm, rounded corners]
+\tikzstyle{autoT}=[fill=reddebian!30,draw=reddebian, rectangle,text
+width=3cm, rounded corners]
+\begin{tikzpicture}[grow via three points={one child at (0.5,-0.7) and two children at
+(0.5,-0.7) and (0.5,-1.4)}, edge from parent path={(\tikzparentnode.south)
+|- (\tikzchildnode.west)}] \node [auto] {dossier\_export	/} child { node
+[auto] {index.html}}			 child { node [auto] {css/}} child { node [auto]
+{data/}} child { node [auto] {font/}} child { node [auto] {img/}} child {
+node [auto] {js/}} child { node [manual] {dossier/} child { node [manual]
+{fichier.pdf}} }; \node[autoT] (textA) at (5,-2) {Dossiers et fichiers
+d'export}; \node[manualT] (textM) at (5,-4) {Fichier local}; \draw[-stealth]
+(textA.west) -- (4,-2); \draw[-stealth] (textM.west) -- (4.5,-5);
+\end{tikzpicture}
+ \item \verb!../fichier.pdf! signifie que votre fichier se trouve dans un
+répertoire parent: : \tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{auto}=[draw=reddebian,fill=reddebian!30, text height=2.5mm]
+\tikzstyle{manual}=[draw=bluedane,fill=bluedane!30, text height=2.5mm]
+\tikzstyle{manualT}=[fill=bluedane!30,draw=bluedane, rectangle,text
+width=3cm, rounded corners]
+\tikzstyle{autoT}=[fill=reddebian!30,draw=reddebian, rectangle,text
+width=3cm, rounded corners]
+\begin{tikzpicture}[grow via three points={one child at (0.5,-0.7) and two children at
+(0.5,-0.7) and (0.5,-1.4)}, edge from parent path={(\tikzparentnode.south)
+|- (\tikzchildnode.west)}] \node [manual] {folder/} child { node [manual]
+{fichier.pdf} child [missing] {} } child { node [auto] {dossier\_export/}
+child { node [auto] {index.html}}			 child { node [auto] {css/}} child {
+node [auto] {data/}} child { node [auto] {font/}} child { node [auto]
+{img/}} child { node [auto] {js/}} } ; \node[autoT] (textA) at (6,-4)
+{Dossiers et fichiers d'export}; \node[manualT] (textM) at (6,-0.5) {Fichier
+local}; \draw[-stealth] (textA.west) -- (5,-4); \draw[-stealth] (textM.west)
+-- (4,-0.5);
+\end{tikzpicture}
+ \end{itemize}
 \end{alert}
 
 
@@ -569,11 +653,9 @@ lui-même dans le répertoire de l'image interactive, indiquez:
  \verb|./videos/video.ogv|
  
 
-  pour créer le lecteur. Le \verb|./| signifie que le répertoire \verb|videos|
-se trouve dans le répertoire d'exportation. On peut aussi utiliser
-\verb|../| pour indiquer que la ressource se trouve dans le répertoire
-parent.
+  pour créer le lecteur multimédia.
 \end{description}
+
 
 \begin{tip}
 Ainsi, même si un format particulier est renseigné dans la description (si
@@ -1241,7 +1323,7 @@ hypertexte\\
 
 \section{Foire aux questions et trucs et astuces pour le logiciel Inkscape}
 
-\subsection{FAQ}
+\subsection{Foire aux questions}
 
 \textbf{Je ne vois pas Xia dans le menu extensions d'Inkscape. Pourquoi?}\\ 
 $\rightarrow$ Avez-vous installé Inkscape avant Xia? Si ce n'est pas le cas,
