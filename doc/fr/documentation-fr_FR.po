@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fr_FR\n"
-"POT-Creation-Date: 2015-04-03 23:15+0200\n"
-"PO-Revision-Date: 2015-04-03 23:19+0200\n"
+"POT-Creation-Date: 2015-04-03 23:32+0200\n"
+"PO-Revision-Date: 2015-04-03 23:34+0200\n"
 "Last-Translator: Geoffrey <ggekiere@ac-versailles.fr>\n"
 "Language-Team: fr <>\n"
 "Language: \n"
@@ -1265,7 +1265,7 @@ msgid ""
 "width=3cm, rounded corners]"
 msgstr ""
 "\\verb!../fichier.pdf! signifie que votre fichier se trouve dans un "
-"répertoire parent: : \\tikzstyle{every node}=[draw=black,thick,anchor=west] "
+"répertoire parent: \\tikzstyle{every node}=[draw=black,thick,anchor=west] "
 "\\tikzstyle{auto}=[draw=reddebian,fill=reddebian!30, text height=2.5mm] "
 "\\tikzstyle{manual}=[draw=bluedane,fill=bluedane!30, text height=2.5mm] "
 "\\tikzstyle{manualT}=[fill=bluedane!30,draw=bluedane, rectangle,text "
@@ -1379,13 +1379,6 @@ msgstr "Lien relatif"
 
 #. type: description
 #: documentation.tex:584
-#| msgid ""
-#| "If the multimedia file is located in the interactive image folder or in a "
-#| "folder (see figure \\ref{xia_files}) within this one, just indicate its "
-#| "location, keeping in mind that the interactive image folder has to be "
-#| "considered as the root folder.  For example, if the \\verb|video.ogv| "
-#| "file is located in a \\verb|videos| folder located itself in the "
-#| "interactive image exportation folder, just indicate:"
 msgid ""
 "If the multimedia file is located in the interactive image folder or in a "
 "folder (see figure \\ref{xia_files} and section \\ref{formattingtext}) "
@@ -1416,16 +1409,6 @@ msgstr "pour créer le lecteur multimédia."
 
 #. type: tip
 #: documentation.tex:604
-#| msgid ""
-#| "Since video formats supported by Xia are not natively supported by every "
-#| "web browsers, it is recommanded to export videos into the 3 supported "
-#| "formats, and to upload them into a single folder (from there, the only "
-#| "difference between these files is their extension, ie. .ogv or .mp4 or ."
-#| "webm).  Even if a particular format is indicated in the description "
-#| "(following the previous example : \\verb|videos/video.ogv|), if the "
-#| "browser is unable to read the resource, it will automatically attempt to "
-#| "read the files of the same name possessing a different extension (ie. "
-#| "\\verb|video.mp4| then \\verb|video.webm|)."
 msgid ""
 "Since video formats supported by Xia are not natively supported by every web "
 "browsers, it is recommanded to export videos into the 3 supported formats, "
@@ -1510,7 +1493,6 @@ msgstr ""
 
 #. type: center
 #: documentation.tex:630
-#| msgid "\\verb|sounds/detail_1_sound.ogg autostart|"
 msgid "\\verb|./sounds/detail_1_sound.ogg autostart|"
 msgstr "\\verb|./sons/son_detail_1.ogg autostart|"
 
@@ -2963,7 +2945,7 @@ msgstr ""
 "des objets textes~», mais je ne le vois pas apparaître dans mon image "
 "interactive. Pourquoi?}\\\\ $\\rightarrow$ Si vous ne faites pas de copie "
 "bitmap du texte, Xia considèrera que le texte créé avec l'outil «~Créer et "
-"éditer des objets textes~» est un détail, et pas une image à affichier."
+"éditer des objets textes~» est un détail, et pas une image à afficher."
 
 #. type: subsection{#2}
 #: documentation.tex:1216
