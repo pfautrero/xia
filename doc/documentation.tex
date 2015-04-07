@@ -372,58 +372,52 @@ and choose your template and destination folder.
  The template accordionBlack will be chosen if a syntax error is made in the \texttt{-t} parameter.
 \end{tip}
 
-\subsection{Firefox OS export: how does it work?}
+\subsection{Firefox OS export: how does it work?}\label{FirefoxOS}
 
-Once you have generated the interactive image with the Firefox OS option, you have to modify the content of 
+\begin{alert}
+ If you do not intend to create FirefoxOS applications, skip this section.
+\end{alert}
+
+
+Once you have generated the interactive image with the Firefox OS option (see figure \ref{xia_export_options}), you have to modify the content of 
 \texttt{deploy.html} and \texttt{manifest.webapp}.
 
- \begin{verbatim}
-  {
-  <html>
-  <body>
-    <h1>XIA installation package</h1>
-    <script>
-      // This URL must be a full url.
-      var manifestUrl = 'http://my-webserver.com/manifest.webapp';
-      var req = navigator.mozApps.installPackage(manifestUrl);
-      req.onsuccess = function() {
-        alert(this.result.origin);
-      };
-      req.onerror = function() {
-        alert(this.error.name);
-      };
-    </script>
-  </body>
-</html>
-  }
- \end{verbatim}
+\begin{enumerate}
+ \item In the \textbf{\texttt{deploy.html}} file, modify this line:
 
  \begin{verbatim}
-  { 
+      var manifestUrl = 'http://my-webserver.com/manifest.webapp';
+ \end{verbatim}
+ 
+ And indicate the future url of the \texttt{manifest.webapp} file.
+
+ \item  In the \textbf{\texttt{manifest.webapp}} file, modify these lines:
+ \begin{verbatim}
     "name": "XIA",
     "size" : define_package.zip_size_here,
-    "version" : "1.0",
     "release_notes" : "generated with XIA", 
     "launch_path": "/index.html",
     "package_path" : "http://my-webserver.com/package.zip",
     "developer": {
         "name": "Académie de Versailles"
-    },
-    "icons": { 
-        "16": "/img/xia16.png",
-        "48": "/img/xia48.png",
-        "64": "/img/xia64.png",
-        "128": "/img/xia128.png" 
-    }
-}
  \end{verbatim}
 
- 
-Zip the files and upload them to a web server.
+The "name", "size", and "package\_path" lines are mandatory\footnote{The tricky part is the
+"size" line, where you have to indicate the size of the package even before you 
+have zipped it.}.
+\end{enumerate}
 
-The user will access the ressource with the Firefox OS browser through the \texttt{deploy.html} file. 
-Firefox OS will then launch a process in which the animation will download the zip file and install the 
-interactive image as a html5 application.
+
+Once you have made these modifications, zip all the exportation files and upload the archive, 
+the \texttt{deploy.html} and the \texttt{manifest.webapp} files to a web server.
+
+When the user will open the \texttt{deploy.html} file in the Firefox OS browser, its phone will download 
+the interactive image and transform it in a html5 application.
+
+\begin{tip}
+ Applications made with the FirefoxOS export can also be installed on GNU/Linux, Mac OS X and Windows operating systems.
+\end{tip}
+
 
 \subsection{Abstract}
 
@@ -452,7 +446,7 @@ will be enriched with  formatted text or multimedia resources.
 
 
 \newpage
-\subsection{Formatting text}
+\subsection{Formatting text}\label{formattingtext}
 
 In order to insert formatted text, the tags described in figure \ref{xia_text_tags} should be used.
 
@@ -495,9 +489,65 @@ In order to insert formatted text, the tags described in figure \ref{xia_text_ta
 \end{figure}
 
 \begin{alert}
- Links to local files must be relative links: \verb![./folder/file.pdf local file]!
-  for a pdf file contained inside the export folder, and \verb![../folder/file.pdf local file]!
-  for a pdf file contained in a parent folder.
+ Links to local files must be relative links. Use \verb!./! if the file is 
+ contained in the exportation folder, and \verb!../! if the file is somewhere 
+ in a parent folder. Two examples:
+ \begin{itemize}
+  \item \verb!./folder/file.pdf! means that your file is dropped here:
+
+\tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{auto}=[draw=reddebian,fill=reddebian!30, text height=2.5mm]
+\tikzstyle{manual}=[draw=bluedane,fill=bluedane!30, text height=2.5mm]
+\tikzstyle{manualT}=[fill=bluedane!30,draw=bluedane, rectangle,text width=3cm, rounded corners]
+\tikzstyle{autoT}=[fill=reddebian!30,draw=reddebian, rectangle,text width=3cm, rounded corners]
+\begin{tikzpicture}[%
+  grow via three points={one child at (0.5,-0.7) and
+  two children at (0.5,-0.7) and (0.5,-1.4)},
+  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+  \node [auto] {exportation\_folder	/}
+    child { node [auto] {index.html}}			
+    child { node [auto] {css/}}
+    child { node [auto] {data/}}
+    child { node [auto] {font/}}
+    child { node [auto] {img/}}
+    child { node [auto] {js/}}
+    child { node [manual] {folder/}
+      child { node [manual] {file.pdf}}
+      };
+  \node[autoT] (textA) at (5,-2) {Exportation files and folder};
+  \node[manualT] (textM) at (5,-4) {Local file};
+  \draw[-stealth] (textA.west) -- (4,-2);
+  \draw[-stealth] (textM.west) -- (4.5,-5);
+\end{tikzpicture}
+ \item \verb!../file.pdf! means that your file is in a parent folder:
+ \tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{auto}=[draw=reddebian,fill=reddebian!30, text height=2.5mm]
+\tikzstyle{manual}=[draw=bluedane,fill=bluedane!30, text height=2.5mm]
+\tikzstyle{manualT}=[fill=bluedane!30,draw=bluedane, rectangle,text width=3cm, rounded corners]
+\tikzstyle{autoT}=[fill=reddebian!30,draw=reddebian, rectangle,text width=3cm, rounded corners]
+\begin{tikzpicture}[%
+  grow via three points={one child at (0.5,-0.7) and
+  two children at (0.5,-0.7) and (0.5,-1.4)},
+  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+  \node [manual] {folder/}
+       child { node [manual] {file.pdf}
+       child [missing] {}
+       }
+       child { node [auto] {exportation\_folder/}
+       child { node [auto] {index.html}}			
+       child { node [auto] {css/}}
+       child { node [auto] {data/}}
+       child { node [auto] {font/}}
+       child { node [auto] {img/}}
+       child { node [auto] {js/}}
+       }
+    ;
+  \node[autoT] (textA) at (6,-4) {Exportation files and folders};
+  \node[manualT] (textM) at (6,-0.5) {Local file};
+  \draw[-stealth] (textA.west) -- (5,-4);
+  \draw[-stealth] (textM.west) -- (3,-0.5);
+\end{tikzpicture}
+ \end{itemize}
 \end{alert}
 
 
@@ -526,7 +576,8 @@ The link has to be inserted into the \softmenu{Description} field of the \softme
  Inkscape
  
  \item [Relative link] If the multimedia file is located in the interactive image 
- folder or in a folder (see figure \ref{xia_files}) within this one, just indicate its location, keeping in 
+ folder or in a folder (see figure \ref{xia_files} and section \ref{formattingtext}) within this one,
+ just indicate its location, keeping in 
  mind that the interactive image folder has to be considered as the root folder. 
  For example, if the \verb|video.ogv| file is located in a \verb|videos| 
  folder located itself in the interactive image exportation folder, just indicate:
@@ -535,10 +586,9 @@ The link has to be inserted into the \softmenu{Description} field of the \softme
   \verb|./videos/video.ogv|
  %end{center}
  
-  in order to create the player. The \verb|./| means that the \verb|videos| folder
-  is located in the exportation folder. You can also use the \verb|../| tag to indicate
-  that the resource is located in a parent folder.
+  in order to create the player.
 \end{description}
+
 
 \begin{tip}
 Since video formats supported by Xia are not natively supported by every web 
@@ -546,7 +596,7 @@ browsers, it is recommanded to export videos into the 3 supported formats,
 and to upload them into a single folder (from there, the only difference 
 between these files is their extension, ie. .ogv or .mp4 or .webm).
 Even if a particular format is indicated in the description (following 
-the previous example : \verb|videos/video.ogv|), if the browser is 
+the previous example : \verb|./videos/video.ogv|), if the browser is 
 unable to read the resource, it will automatically attempt to read the files 
 of the same name possessing a different extension (ie. \verb|video.mp4| 
 then \verb|video.webm|).
@@ -575,7 +625,7 @@ automatically as the user clicks on the comment, just add \verb|autostart| right
 after the url \footnote{The "\texttt{autostart}" tag also works with the other 
 Xia templates.}:\\
 \begin{center}
- \verb|sounds/detail_1_sound.ogg autostart|
+ \verb|./sounds/detail_1_sound.ogg autostart|
 \end{center}
 
 
