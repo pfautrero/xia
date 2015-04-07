@@ -32,9 +32,11 @@ var hooks = function() {
 hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
 
     var buttons = "<ul>";
+    var indices = 0;
     for (var i in details) {
         if (details[i].options.indexOf("direct-link") == -1) {
-            buttons += '<li class="button-unselected button-li" id="li-article-' + i + '">' + (parseInt(i)+1) + '</li>';
+            buttons += '<li class="button-unselected button-li" id="li-article-' + i + '">' + (parseInt(indices)+1) + '</li>';
+            indices++;
         }
     }
     buttons += '</ul>';
