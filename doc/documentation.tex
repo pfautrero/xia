@@ -133,7 +133,7 @@ When asked by the software if you wish to "\softmenu{Link}" or "\softmenu{Incorp
 
 The information filled in the \softmenu{document Metadata} (\softmenu
 {File} menu) will be included in the interactive image once
-generated : title, creator, rights, \ldots. It is strongly recommended to type in this information.
+generated : title, creator, rights, \ldots. It is highly recommended to type in this information.
 You can see what it looks like once generated on the image below\footnote{The
 fields "author" and "rights" appear in the window
 "About", symbolized by a clickable button shaped like the letter "i"}:\\
@@ -403,7 +403,7 @@ Once you have generated the interactive image with the Firefox OS option (see fi
  \end{verbatim}
 
 The "name", "size", and "package\_path" lines are mandatory\footnote{The tricky part is the
-"size" line, where you have to indicate the size of the package even before you 
+"size" line, where you must indicate the size of the package even before you 
 have zipped it.}.
 \end{enumerate}
 
@@ -411,8 +411,8 @@ have zipped it.}.
 Once you have made these modifications, zip all the exportation files and upload the archive, 
 the \texttt{deploy.html} and the \texttt{manifest.webapp} files to a web server.
 
-When the user will open the \texttt{deploy.html} file in the Firefox OS browser, its phone will download 
-the interactive image and transform it in a html5 application.
+When the user opens the \texttt{deploy.html} file in the Firefox OS browser, their phone will download 
+the interactive image and transform into a html5 application.
 
 \begin{tip}
  Applications made with the FirefoxOS export can also be installed on GNU/Linux, Mac OS X and Windows operating systems.
@@ -1188,8 +1188,8 @@ These tables sum up the tags that have to be indicated when a game is created:
 
 \subsection{FAQ}
 
-\textbf{I can not see the Xia extension in Inkscape. Why is that?}\\
-$\rightarrow$ Have you  installed Inkscape first? If not, you have to re-install
+\textbf{I can not see the Xia extension in Inkscape. Why?}\\
+$\rightarrow$ Have you  installed Inkscape first? If not, you must install
  Xia. If you use the portable version, Xia does not appear in the extension menu.
  
  \textbf{The "source file"  icon does not appear when I launch Xia from the extension
@@ -1203,7 +1203,7 @@ $\rightarrow$ Have you  installed Inkscape first? If not, you have to re-install
  $\rightarrow$ Xia can be found in the "Applications" of Mac OS X. 
  On a GNU/Linux system, the Xia package is called "xia-converter". 
  In Windows, Xia is only an Inkscape extension. If you wish to launch Xia
- outside of Inkscape, use the portable version.
+ without Inkscape, use the portable version.
  
  \textbf{I have added some text on my image with the Inkscape text tool
  ("Create and Edit text objects"),
@@ -1215,11 +1215,11 @@ $\rightarrow$ Have you  installed Inkscape first? If not, you have to re-install
 \subsection{Inkscape tips}
 
 \begin{itemize}
- \item Don't hesitate to fill your details with different colors. 
+ \item Don't hesitate to fill your details with different colours. 
 The details will be easier to select and modify, and it will not 
 have any consequences on the html5 animation (unless you choose black or white as filling colors)
  \item If you want to create one detail out of several, you can "Group" them 
- (\softmenu{Object} $\rightarrow$ \softmenu{Group}, or \Ctrl + \keystroke{G}) or "unify" them 
+ (\softmenu{Object} $\rightarrow$ \softmenu{Group}, or \Ctrl + \keystroke{G}) or "Unify" them 
  (\softmenu{Path} $\rightarrow$ \softmenu{Union}, or \Ctrl + \keystroke{+}).
  \item Once a detail is created, it is always possible to modify it: you can add or remove
  nodes, move them, etc. Just double-click on the detail, and use the modifying tools:\\
@@ -1234,6 +1234,11 @@ have any consequences on the html5 animation (unless you choose black or white a
   \item \fbox{\Ctrl + \keystroke{g}} to group different objects or details 
   and \fbox{\Ctrl + \Shift + \keystroke{g}} to ungroup them
  \end{enumerate} 
+ \item If you create your interactive image directly with the Inkscape drawing tools (with bitmap copies of shapes or 
+ imported images), it is highly recommended to group all the objects, make a bitmap copy of them, and use 
+ this bitmap copy as a background image. Otherwise, some images or bitmap copies may disappear in the interactive image when 
+ details in top of them are selected (since the main purpose of a detail is to 
+ let the user see the background image when selected).
 \end{itemize}
 
 \listoffigures
