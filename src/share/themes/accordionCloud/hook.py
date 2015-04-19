@@ -109,7 +109,7 @@ class hook:
                 final_index = final_index.replace("{{LogoLoading}}",  "img/xia.png")
                 final_index = final_index.replace("{{LogoClose}}", "img/close.png")
                 final_index = final_index.replace("{{datasJS}}", "")
-                final_index = final_index.replace("{{lazyDatasJS}}", '.script("datas/data.js")')
+                final_index = final_index.replace("{{lazyDatasJS}}", 'datas/data.js')
                 final_index = final_index.replace("{{JqueryJS}}", "js/jquery.min.js")
                 final_index = final_index.replace("{{sha1JS}}", "js/git-sha1.min.js")
                 final_index = final_index.replace("{{kineticJS}}", "js/kinetic.min.js")

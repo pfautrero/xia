@@ -18,7 +18,12 @@
     <div id="loader">
         <div id="splash">
             <p><img src="{{LogoLoading}}" alt="xia"/></p>
-            <p>{{LOADING}}</p>
+            <div id="progressbar-wrap">
+                <div class="meter">
+                    <span id="progressbar"></span>
+                </div>
+            </div>
+
         </div>
     </div>
     <div id="container">
@@ -44,15 +49,35 @@
     {{datasJS}}
     <script>
         var loadLibs = function() {
+            var lazyDatas = "datas/data.js";
+            var embedded_scripts = [];
+            var progressbar = document.getElementById("progressbar");
+            var updateProgressbar = function(i) {
+                var percentage = Math.floor((100 / embedded_scripts.length) * i);
+                progressbar.style.width = percentage + "%";
+                if (i + 1 < embedded_scripts.length) {
+                    $LAB.script(embedded_scripts[i+1]).wait(function(){
+                       updateProgressbar(i+1);
+                    });
+                }
+                else {
+                    $LAB.script(embedded_scripts[i+1]);
+                }
+            };
+
+            embedded_scripts.push("{{kineticJS}}");
+            if (lazyDatas !== "") embedded_scripts.push(lazyDatas);
+            embedded_scripts.push("{{JqueryJS}}");
+            embedded_scripts.push("{{sha1JS}}");
+            embedded_scripts.push("{{hooksJS}}");
+            embedded_scripts.push("{{xiaJS}}");
+
             $LAB.setGlobalDefaults({CacheBust:true});
-            $LAB{{lazyDatasJS}}
-             .script("{{JqueryJS}}")
-             .script("{{sha1JS}}")
-             .script("{{kineticJS}}").wait()
-             .script("{{hooksJS}}").wait()
-             .script("{{xiaJS}}")
-             ;
+            $LAB.script(embedded_scripts[0]).wait(function(){
+                updateProgressbar(0);
+            });
         }
+
         document.body.onload = loadLibs;
     </script>
 </body>
