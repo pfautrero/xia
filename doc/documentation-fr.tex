@@ -142,8 +142,8 @@ ou Xia en version portable
 \section{Création d'une première image interactive avec Inkscape et Xia:
 \emph{Fonctionnalités de base}}\label{basic_imageactive}
 
-\subsection{Création du fichier source au formation svg en vue de la génération de
-l'image interactive}\label{preparation_svg}
+\subsection{Création du fichier source au format svg en vue de la génération de l'image
+interactive}\label{preparation_svg}
 
 \begin{links}
 Visualisez l'\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1}{image
@@ -388,27 +388,34 @@ le fond et les icônes (par défaut: désactivé)};
 \tikzstyle{every node}=[draw=black,thick,anchor=west]
 \tikzstyle{auto}=[draw=reddebian,fill=reddebian!30, text height=2.5mm]
 \tikzstyle{manual}=[draw=bluedane,fill=bluedane!30, text height=2.5mm]
+\tikzstyle{firefoxOS}=[draw=orange,fill=orange!30, text height=2.5mm]
 \tikzstyle{manualT}=[fill=bluedane!30,draw=bluedane, rectangle,text
 width=5cm, rounded corners]
 \tikzstyle{autoT}=[fill=reddebian!30,draw=reddebian, rectangle,text
 width=5cm, rounded corners]
+\tikzstyle{autoT}=[fill=reddebian!30,draw=reddebian, rectangle,text
+width=5cm, rounded corners]
+\tikzstyle{firefoxOST}=[fill=orange!30,draw=orange, rectangle,text
+width=5cm, rounded corners]
 \begin{tikzpicture}[grow via three points={one child at (0.5,-0.7) and two children at
 (0.5,-0.7) and (0.5,-1.4)}, edge from parent path={(\tikzparentnode.south)
 |- (\tikzchildnode.west)}] \node [manual] {mon\_projet/} child { node [auto]
-{index.html}}		 child { node [auto] {deploy.html}}		 child { node [auto]
-{manifest.webapp}}		 child { node [auto] {css/}} child { node [auto]
-{data/}} child { node [auto] {font/}} child { node [auto] {img/}} child {
-node [auto] {js/}} child { node [manual] {videos/} child { node [manual]
-{video.mp4}} child { node [manual] {video.ogv}} child { node [manual]
-{video.webm}} }; \node[manualT] (textM) at (10,-2) {Ces fichiers et
+{index.html}}		 child { node [firefoxOS] {deploy.html}}		 child { node
+[firefoxOS] {manifest.webapp}}		 child { node [auto] {css/}} child { node
+[auto] {data/}} child { node [auto] {font/}} child { node [auto] {img/}}
+child { node [auto] {js/}} child { node [manual] {videos/} child { node
+[manual] {video.mp4}} child { node [manual] {video.ogv}} child { node
+[manual] {video.webm}} }; \node[manualT] (textM) at (10,-2) {Ces fichiers et
 répertoires ont été créés manuellement par le créateur de l'image
 interactive. Le répertoire \textcolor{bluedane} {videos} a également été
 créé manuellement, dans le but de stocker les vidéos insérées dans les
 commentaires de l'image interactive, à l'aide de liens relatifs.};
-\node[autoT] (textA) at (10,-6) {Ces fichiers et répertoires sont générés
-par Xia durant le processus d'export.}; \draw[-stealth] (textM.west) --
-(4,0); \draw[-stealth] (textM.west) -- (5.5,-7); \draw[-stealth]
-(textA.west) -- (4,-3);
+\node[autoT] (textA) at (10,-8) {Ces fichiers et répertoires sont générés
+par Xia durant le processus d'export.}; \node[firefoxOST] (textFOS) at
+(10,-6) {Fichiers générés en cas d'activation de l'export Firefox
+OS};\draw[-stealth] (textM.west) -- (4,0); \draw[-stealth] (textM.west) --
+(5.5,-7); \draw[-stealth] (textA.west) -- (4,-4); \draw[-stealth]
+(textFOS.west) -- (5.5,-2);
 \end{tikzpicture}
 \caption{Fichiers d'une image interactive avec l'export Firefox OS activé}
 \label{xia_files}
@@ -431,6 +438,55 @@ cd /Applications/xia.app/Contents/Resources/}\\ \texttt{\$ python xia.py -i
 monfichier.svg -o dossier\_export/ -t gameDragAndDrop}\\ Le thème
 accordionBlack sera choisi s'il y a une erreur de syntaxe dans le paramre
 \texttt{-t}.
+\end{tip}
+
+\subsection{L'export Firefox OS: comment ça marche?}\label{FirefoxOS}
+
+\begin{alert}
+ Si vous ne comptez pas créer d'applications pour FirefoxOS, vous pouvez
+sauter cette partie de la documentation.
+\end{alert}
+
+
+Une fois l'image interactive générée avec l'option Firefox OS activée (voir
+l'illustration \ref{xia_export_options}), vous devez modifier le contenu des
+fichiers \texttt{deploy.html} et \texttt{manifest.webapp}.
+
+\begin{enumerate}
+ \item Dans le fichier \textbf{\texttt{deploy.html}}, modifiez cette ligne:
+
+ \begin{verbatim}
+      var manifestUrl = 'http://my-webserver.com/manifest.webapp';\end{verbatim}
+ 
+ Et indiquez l'url future du fichier \texttt{manifest.webapp}
+
+ \item  Dans le fichier \textbf{\texttt{manifest.webapp}}, modifiez ces lignes:
+ \begin{verbatim}
+    "name": "XIA",
+    "size" : define_package.zip_size_here,
+    "release_notes" : "generated with XIA", 
+    "launch_path": "/index.html",
+    "package_path" : "http://my-webserver.com/package.zip",
+    "developer": {
+        "name": "Académie de Versailles"\end{verbatim}
+
+Les lignes "name", "size", et "package\_path" doivent obligatoirement être
+modifiées\footnote{La difficulté tient dans la nécessité d'indiquer la
+taille du fichier zip avant même d'avoir créé ladite archive.}.
+\end{enumerate}
+
+
+Une fois ces modifications faites, zippez tous les fichiers issus de
+l'exportation et téléversez l'archive, les fichiers \texttt{deploy.html} et
+\texttt{manifest.webapp} sur un serveur web.
+
+L'utilisateur devra se servir du navigateur web de Firefox OS, et accéder à
+la ressource via le fichier \texttt{deploy.html}. Firefox OS lancera alors
+un processus dans lequel l'animation sera transformée en application html5.
+
+\begin{tip}
+ Les applications pour FirefoxOS peuvent également s'installer sur les
+systèmes d'exploitation GNU/Linux, Mac OS X et Windows.
 \end{tip}
 
 
@@ -465,7 +521,7 @@ en forme ou des ressources multimédias.
 
 
 \newpage
-\subsection{Mise en forme du texte}
+\subsection{Mise en forme du texte}\label{formattingtext}
 
 Afin de mettre en forme le texte, les balises indiquées dans l'illustration
 \ref{xia_text_tags} seront utilisées.
@@ -490,30 +546,77 @@ right = 3.5cm of texttt] (textttR) {Bout de texte \texttt{brut}};
 \node[anchor=north west, below = .2cm of texttt] (link)
 {\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
 7mm of link.north] (linkT) {Un lien vers \verb![https://www.wikipedia.org/
-Wikipedia]}; \node[box, right = 3.5cm of link] (linkR) {Un lien vers
+Wikipedia]!}; \node[box, right = 3.5cm of link] (linkR) {Un lien vers
 \href{https://www.wikipedia.org/}{Wikipedia}}; \node[anchor=north west,
 below = .2cm of link] (relativelinks)
 {\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
 -7mm of relativelinks] (relativelinksT) {Un lien vers un
-\verb![/home/foo/bar.pdf fichier local]!}; \node[box, right = 3.5cm of
+\verb![./foo/bar.pdf fichier local]!}; \node[box, right = 3.5cm of
 relativelinks] (relativelinksR) {Un lien vers un
-\href{/home/geoffrey/ownCloud/DANE/DOSSIERS/XIA/tuto/dossier/fichier.pdf}{fichier
-local\footnote{Lien qui ne fonctionnera pas ici!}}}; \node[anchor=north
-west, below = .8cm of relativelinks] (bullets)
+\href{./foo/bar.pdf}{fichier local\footnote{Qui ne fonctionne pas dans cette
+documentation, évidemment!}}}; \node[anchor=north west, below = .8cm of
+relativelinks] (bullets) {\includegraphics[scale=.5]{./images/Description}};
+\node[descrip, below = -7mm of bullets] (bulletsT) {Liste de \\ $\ast$ puces
+\\ $\ast$ sur \\ ~$\ast$ 2 niveaux\footnote{Insérez un \Spacebar (espace)
+avant le $\ast$}}; \node[box, right = 3.5cm of bullets.south east]
+(bulletsR) {Une liste \begin{itemize} \item de puces \item sur
+\begin{itemize} \item 2 niveaux \end{itemize} \end{itemize}};
+\node[anchor=north west, below = 3cm of bullets] (line)
 {\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
--7mm of bullets] (bulletsT) {Faire une liste \\ $\ast$ de puces \\ $\ast$
-sur \\ ~$\ast$ 2 niveaux\footnote{Insérez un \Spacebar (espace) avant les
-$\ast$}}; \node[box, right = 3.5cm of bullets.south east] (bulletsR) {Faire
-une liste \begin{itemize} \item de puces \item sur \begin{itemize} \item 2
-niveaux \end{itemize} \end{itemize} }; \node[anchor=north west, below = 3cm
-of bullets] (line) {\includegraphics[scale=.5]{./images/Description}};
-\node[descrip, below = 7mm of line.north] (lineT) {Tracer \\ - - - - \\ un
-trait}; \node[box, right = 3.5cm of line] (lineR) {Tracer \\ \hrulefill \\ 
-un trait};
+7mm of line.north] (lineT) {Dessiner \\ - - - - \\ une ligne}; \node[box,
+right = 3.5cm of line] (lineR) {Dessiner \\ \hrulefill \\ une ligne};
 \end{tikzpicture}
 \caption{Balises de mise en forme du texte}
 \label{xia_text_tags}
 \end{figure}
+
+\begin{alert}
+ Les liens vers les fichiers locaux doivent obligatoirement être des liens
+relatifs. Utilisez \verb!./! pour un fichier contenu dans le répertoire
+d'export, et \verb!../! pour un fichier pdf contenu dans un répertoire
+parent. Deux exemples:
+ \begin{itemize}
+  \item \verb!./dossier/fichier.pdf! signifie que votre fichier se trouve ici:
+
+\tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{auto}=[draw=reddebian,fill=reddebian!30, text height=2.5mm]
+\tikzstyle{manual}=[draw=bluedane,fill=bluedane!30, text height=2.5mm]
+\tikzstyle{manualT}=[fill=bluedane!30,draw=bluedane, rectangle,text
+width=3cm, rounded corners]
+\tikzstyle{autoT}=[fill=reddebian!30,draw=reddebian, rectangle,text
+width=3cm, rounded corners]
+\begin{tikzpicture}[grow via three points={one child at (0.5,-0.7) and two children at
+(0.5,-0.7) and (0.5,-1.4)}, edge from parent path={(\tikzparentnode.south)
+|- (\tikzchildnode.west)}] \node [auto] {dossier\_export	/} child { node
+[auto] {index.html}}			 child { node [auto] {css/}} child { node [auto]
+{data/}} child { node [auto] {font/}} child { node [auto] {img/}} child {
+node [auto] {js/}} child { node [manual] {dossier/} child { node [manual]
+{fichier.pdf}} }; \node[autoT] (textA) at (5,-2) {Dossiers et fichiers
+d'export}; \node[manualT] (textM) at (5,-4) {Fichier local}; \draw[-stealth]
+(textA.west) -- (4,-2); \draw[-stealth] (textM.west) -- (4.5,-5);
+\end{tikzpicture}
+ \item \verb!../fichier.pdf! signifie que votre fichier se trouve dans un
+répertoire parent: \tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{auto}=[draw=reddebian,fill=reddebian!30, text height=2.5mm]
+\tikzstyle{manual}=[draw=bluedane,fill=bluedane!30, text height=2.5mm]
+\tikzstyle{manualT}=[fill=bluedane!30,draw=bluedane, rectangle,text
+width=3cm, rounded corners]
+\tikzstyle{autoT}=[fill=reddebian!30,draw=reddebian, rectangle,text
+width=3cm, rounded corners]
+\begin{tikzpicture}[grow via three points={one child at (0.5,-0.7) and two children at
+(0.5,-0.7) and (0.5,-1.4)}, edge from parent path={(\tikzparentnode.south)
+|- (\tikzchildnode.west)}] \node [manual] {folder/} child { node [manual]
+{fichier.pdf} child [missing] {} } child { node [auto] {dossier\_export/}
+child { node [auto] {index.html}}			 child { node [auto] {css/}} child {
+node [auto] {data/}} child { node [auto] {font/}} child { node [auto]
+{img/}} child { node [auto] {js/}} } ; \node[autoT] (textA) at (6,-4)
+{Dossiers et fichiers d'export}; \node[manualT] (textM) at (6,-0.5) {Fichier
+local}; \draw[-stealth] (textA.west) -- (5,-4); \draw[-stealth] (textM.west)
+-- (4,-0.5);
+\end{tikzpicture}
+ \end{itemize}
+\end{alert}
+
 
 \subsection{Insérer des ressources multimédias dans les commentaires}\label{multimedia_enrichment}
 
@@ -541,31 +644,29 @@ Le lien doit être inséré dans le champ \softmenu{Description} des
 \softmenu{Propriétés de l'objet} dans Inkscape.
  
  \item[Lien relatif] Si le fichier de la ressource multimédia se trouve dans le répertoire
-d'export de l'image interactive, ou dans un répertoire contenu dans
-celui-ci, indiquez simplement le chemin vers le fichier, en considérant le
-répertoire d'export comme répertoire racine. Par exemple, si le fichier
+d'export de l'image interactive, ou dans un répertoire contenu dans celui-ci
+(voir la rubrique \ref{formattingtext} et l'illustration \ref{xia_files}),
+indiquez simplement le chemin vers le fichier, en considérant le répertoire
+d'export comme répertoire racine. Par exemple, si le fichier
 \verb|video.ogv| se trouve dans le répertoire  \verb|videos| se trouvant
 lui-même dans le répertoire de l'image interactive, indiquez:
  
  \verb|./videos/video.ogv|
  
 
-  pour créer le lecteur. Le \verb|./| signifie que le répertoire \verb|videos|
-se trouve dans le répertoire d'exportation. On peut aussi utiliser
-\verb|../| pour indiquer que la ressource se trouve dans le répertoire
-parent.
+  pour créer le lecteur multimédia.
 \end{description}
 
+
 \begin{tip}
-Ainsi, même si un format particulier est renseigné dans la description (si
-l'on suit l'exemple précédent, ce serait \verb|videos/video.ogv|), si le
-navigateur web est incapable de lire la ressource, il tentera
-automatiquement de lire les fichiers possédant le même nom mais une
-extension différente. Même si un format spécifique est renseigné dans la
-description (si l'on suit l'exemple précédent: \verb|videos/video.ogv|), si
-le navigateur est incapable de lire la ressource, il cherchera
-automatiquement à lire les fichiers du même nom mais possédant une extension
-différente (c'est à dire, \verb|video.mp4| et \verb|video.webm|).
+Les formats vidéos gérés par Xia ne le sont pas par tous les navigateurs
+web. Il est donc recommandé d'exporter les vidéos dans les 3 formats
+supportés, et de les téléverser dans le même répertoire. Ainsi, même si un
+format spécifique est renseigné dans la description (si l'on suit l'exemple
+précédent: \verb|videos/video.ogv|), si le navigateur est incapable de lire
+la ressource, il cherchera automatiquement à lire les fichiers du même nom
+mais possédant une extension différente (c'est à dire, \verb|video.mp4| et
+\verb|video.webm|).
 \end{tip}
 
 La dernière possibilité consiste à insérer un code iframe. Celui-ci sera
@@ -594,7 +695,7 @@ détail, ajoutez la balise \verb|autostart| après l'url de la ressource
 \footnote{La balise \texttt{autostart} fonctionne également avec les autres
 modèles d'export de Xia.}:\\
 \begin{center}
- \verb|sons/son_detail_1.ogg autostart|
+ \verb|./sons/son_detail_1.ogg autostart|
 \end{center}
 
 
@@ -754,7 +855,7 @@ aBlack] (params) {\includegraphics[width=2cm]{./images/params}}; \node[left
 
   
   \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Sélection
-du fichier source au formation svg}; \node[box, above = 5mm of params]
+du fichier source au format svg}; \node[box, above = 5mm of params]
 (paramsC) {Définition des options d'exportation (voir l'illustration
 \ref{xia_export_options})}; \node[box, right = 5mm of guClic] (guClicC)
 {\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia3}{game1clic}\\ 
@@ -1219,6 +1320,71 @@ hypertexte\\
   \end{tabular}
   \caption{Balises à insérer en vue d'un export gameDragAndDrop}
 \end{table} 
+
+\section{Foire aux questions et trucs et astuces pour le logiciel Inkscape}
+
+\subsection{Foire aux questions}
+
+\textbf{Je ne vois pas Xia dans le menu extensions d'Inkscape. Pourquoi?}\\ 
+$\rightarrow$ Avez-vous installé Inkscape avant Xia? Si ce n'est pas le cas,
+ré-installez Xia. Si vous utilisez la version portable de Xia, le fait que
+rien n'apparaisse dans le menu extension est tout à fait normal.
+ 
+ \textbf{L'icône «~Fichier source~» n'apparaît pas quand je lance Xia depuis
+le menu extension d'Inkscape. Pourquoi?}\\ $\rightarrow$ En lançant Xia
+depuis les extensions d'Inkscape, il n'y a pas d'icône «~Fichier source~»,
+puisque Xia considère que l'animation html5 que vous souhaitez générer est
+celle sur laquelle vous travaillez dans Inkscape... Choisissez donc
+uniquement les options d'exportation et le modèle.
+ 
+ \textbf{J'ai installé Inkscape mais je ne le retrouve pas dans mes
+programmes. Où se cache-t-il?}\\ $\rightarrow$ Xia se trouve dans le dossier
+des «~Applications~» de Mac OS X.  Sur un sytème GNU/Linux, le paquet Xia
+porte le nom «~xia-converter~».  Sur Windows, Xia ne fonctionne que comme
+extension d'Inkscape. Si vous souhaitez utiliser le logiciel seul, utilisez
+la version portable.
+ 
+ \textbf{J'ai ajouté du texte sur mon image avec l'outil «~Créer et éditer
+des objets textes~», mais je ne le vois pas apparaître dans mon image
+interactive. Pourquoi?}\\ $\rightarrow$ Si vous ne faites pas de copie
+bitmap du texte, Xia considèrera que le texte créé avec l'outil «~Créer et
+éditer des objets textes~» est un détail, et pas une image à afficher.
+
+\subsection{Astuces Inkscape}
+
+\begin{itemize}
+ \item Ajoutez des couleurs de fond à vos détails. Les détails seront ainsi plus
+faciles à sélectionner et modifier, et cela n'aura aucune conséquence sur
+l'animation html5 (sauf si vous choisissez le blanc ou le noir comme couleur
+de remplissage).
+ \item Si vous voulez créer un détail à partir de plusieurs, vous pouvez les
+«~Grouper~» (\softmenu{Objet} $\rightarrow$ \softmenu{Grouper}, ou \Ctrl +
+\keystroke{G}) ou les «~Unir~» (\softmenu{Chemin} $\rightarrow$
+\softmenu{Union}, ou \Ctrl + \keystroke{+}).
+ \item Quand un détail est créé, il est toujours possible de les modifier: ajout ou
+suppression de nœuds, déplacement, etc. Il suffit de double-cliquer sur un
+détail et d'utiliser les outils de modification:\\
+ \begin{center}
+ \includegraphics[width=0.8\textwidth]{./images/modifynodes}\\  
+ \end{center}
+ \item Certains raccourcis claviers vous feront gagner énormément de temps!
+ \begin{enumerate}
+  \item \fbox{\Shift + \Ctrl + \keystroke{a}} pour accéder aux outils d'\softmenu{Alignement et de distribution}
+  \item \fbox{\Shift + \Ctrl + \keystroke{o}} pour accéder aux \softmenu{Propriétés de l'objet}
+  \item \fbox{\Alt + \keystroke{b}} pour créer une copie bitmap d'une forme dessinée dans Inkscape
+  \item \fbox{\Ctrl + \keystroke{g}} pour grouper différents objets ou détails et
+\fbox{\Ctrl + \Shift + \keystroke{g}} pour les dégrouper
+ \end{enumerate} 
+ \item Si vous créez votre image interactive uniquement avec les outils de dessin
+d'Inkscape (en faisant des copies bitmap de formes ou d'images importés),
+nous vous recommandons fortement de grouper tous les objets (y compris
+l'image de fond), de faire une copie bitmap de cet ensemble, et d'utiliser
+cette copie bitmap comme image de fond. Si vous ne le faites pas, certaines
+images ou copies bitmap risque de disparaître dans l'image interactive
+lorsque des détails situés au-dessus d'eux seront sélectionnés (ce qui est
+logique: le rôle principal d'un détail est de permettre à l'utilisateur de
+voir ce qui se trouve sur l'image de fond).
+\end{itemize}
 
 \listoffigures \listoftables
 

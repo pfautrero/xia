@@ -1,3 +1,14 @@
+Version 1.1 - 23/03/2015
+-------------------------------
+
+- bugfix : chrome et chromium ne gérait pas correctement document.onload
+- popBlue et popYellow : les popup s'affichent si la description ou le titre sont présents
+- buttonBlue : le titre est désormais blanc
+- tous les thèmes : respect de la superposition des détails au moment du survol ou du focus
+- ajout des tests fonctionnels sur audioBrown, popBlue, popYellow, buttonBlue
+- Correctifs sur la documentation + ajout d'une section sur firefox OS
+
+
 Version 1.0 - 13/02/2015
 -------------------------------
 
