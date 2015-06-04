@@ -1206,7 +1206,8 @@ class iaObject:
                         else:
                             x_delta2 += 1
 
-                    croppedBg = im.crop((x_delta, y_delta, w - x_delta2, h - y_delta2))
+                    croppedBg = im.crop((min(x_delta,w - x_delta2), min(y_delta,h - y_delta2), \
+                                         max(x_delta,w - x_delta2), max(y_delta,h - y_delta2)))
                     croppedBg.save(imageFileSmall)
 
                     with open(imageFileSmall, 'rb') as bgSmallImage:
