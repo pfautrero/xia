@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fr_FR\n"
-"POT-Creation-Date: 2015-04-03 23:32+0200\n"
-"PO-Revision-Date: 2015-04-03 23:34+0200\n"
+"POT-Creation-Date: 2015-04-09 14:34+0200\n"
+"PO-Revision-Date: 2015-04-09 14:34+0200\n"
 "Last-Translator: Geoffrey <ggekiere@ac-versailles.fr>\n"
 "Language-Team: fr <>\n"
 "Language: \n"
@@ -357,10 +357,18 @@ msgstr ""
 
 #. type: document
 #: documentation.tex:140
+#| msgid ""
+#| "The information filled in the \\softmenu{document Metadata} (\\softmenu "
+#| "{File} menu) will be included in the interactive image once generated : "
+#| "title, creator, rights, \\ldots. It is strongly recommended to type in "
+#| "this information.  You can see what it looks like once generated on the "
+#| "image below\\footnote{The fields \"author\" and \"rights\" appear in the "
+#| "window \"About\", symbolized by a clickable button shaped like the letter "
+#| "\"i\"}:\\\\"
 msgid ""
 "The information filled in the \\softmenu{document Metadata} (\\softmenu "
 "{File} menu) will be included in the interactive image once generated : "
-"title, creator, rights, \\ldots. It is strongly recommended to type in this "
+"title, creator, rights, \\ldots. It is highly recommended to type in this "
 "information.  You can see what it looks like once generated on the image "
 "below\\footnote{The fields \"author\" and \"rights\" appear in the window "
 "\"About\", symbolized by a clickable button shaped like the letter \"i\"}:\\"
@@ -978,8 +986,8 @@ msgstr ""
 #: documentation.tex:409
 msgid ""
 "The \"name\", \"size\", and \"package\\_path\" lines are mandatory"
-"\\footnote{The tricky part is the \"size\" line, where you have to indicate "
-"the size of the package even before you have zipped it.}."
+"\\footnote{The tricky part is the \"size\" line, where you must indicate the "
+"size of the package even before you have zipped it.}."
 msgstr ""
 "Les lignes \"name\", \"size\", et \"package\\_path\" doivent obligatoirement "
 "être modifiées\\footnote{La difficulté tient dans la nécessité d'indiquer la "
@@ -999,9 +1007,9 @@ msgstr ""
 #. type: document
 #: documentation.tex:416
 msgid ""
-"When the user will open the \\texttt{deploy.html} file in the Firefox OS "
-"browser, its phone will download the interactive image and transform it in a "
-"html5 application."
+"When the user opens the \\texttt{deploy.html} file in the Firefox OS "
+"browser, their phone will download the interactive image and transform into "
+"a html5 application."
 msgstr ""
 "L'utilisateur devra se servir du navigateur web de Firefox OS, et accéder à "
 "la ressource via le fichier \\texttt{deploy.html}. Firefox OS lancera alors "
@@ -2890,10 +2898,9 @@ msgstr "Foire aux questions"
 #. type: document
 #: documentation.tex:1194
 msgid ""
-"\\textbf{I can not see the Xia extension in Inkscape. Why is that?}\\\\ $"
-"\\rightarrow$ Have you installed Inkscape first? If not, you have to re-"
-"install Xia. If you use the portable version, Xia does not appear in the "
-"extension menu."
+"\\textbf{I can not see the Xia extension in Inkscape. Why?}\\\\ $\\rightarrow"
+"$ Have you installed Inkscape first? If not, you must install Xia. If you "
+"use the portable version, Xia does not appear in the extension menu."
 msgstr ""
 "\\textbf{Je ne vois pas Xia dans le menu extensions d'Inkscape. Pourquoi?}\\"
 "\\ $\\rightarrow$ Avez-vous installé Inkscape avant Xia? Si ce n'est pas le "
@@ -2923,7 +2930,7 @@ msgid ""
 "\\ $\\rightarrow$ Xia can be found in the \"Applications\" of Mac OS X.  On "
 "a GNU/Linux system, the Xia package is called \"xia-converter\".  In "
 "Windows, Xia is only an Inkscape extension. If you wish to launch Xia "
-"outside of Inkscape, use the portable version."
+"without Inkscape, use the portable version."
 msgstr ""
 "\\textbf{J'ai installé Inkscape mais je ne le retrouve pas dans mes "
 "programmes. Où se cache-t-il?}\\\\ $\\rightarrow$ Xia se trouve dans le "
@@ -2953,11 +2960,11 @@ msgid "Inkscape tips"
 msgstr "Astuces Inkscape"
 
 #. type: itemize
-#: documentation.tex:1238
+#: documentation.tex:1243
 msgid ""
-"Don't hesitate to fill your details with different colors.  The details will "
-"be easier to select and modify, and it will not have any consequences on the "
-"html5 animation (unless you choose black or white as filling colors)"
+"Don't hesitate to fill your details with different colours.  The details "
+"will be easier to select and modify, and it will not have any consequences "
+"on the html5 animation (unless you choose black or white as filling colors)"
 msgstr ""
 "Ajoutez des couleurs de fond à vos détails. Les détails seront ainsi plus "
 "faciles à sélectionner et modifier, et cela n'aura aucune conséquence sur "
@@ -2965,11 +2972,11 @@ msgstr ""
 "de remplissage)."
 
 #. type: itemize
-#: documentation.tex:1238
+#: documentation.tex:1243
 msgid ""
 "If you want to create one detail out of several, you can \"Group\" them "
 "(\\softmenu{Object} $\\rightarrow$ \\softmenu{Group}, or \\Ctrl + "
-"\\keystroke{G}) or \"unify\" them (\\softmenu{Path} $\\rightarrow$ "
+"\\keystroke{G}) or \"Unify\" them (\\softmenu{Path} $\\rightarrow$ "
 "\\softmenu{Union}, or \\Ctrl + \\keystroke{+})."
 msgstr ""
 "Si vous voulez créer un détail à partir de plusieurs, vous pouvez les "
@@ -2978,7 +2985,7 @@ msgstr ""
 "\\softmenu{Union}, or \\Ctrl + \\keystroke{+})."
 
 #. type: itemize
-#: documentation.tex:1238
+#: documentation.tex:1243
 msgid ""
 "Once a detail is created, it is always possible to modify it: you can add or "
 "remove nodes, move them, etc. Just double-click on the detail, and use the "
@@ -2989,42 +2996,42 @@ msgstr ""
 "détail et d'utiliser les outils de modification:\\\\"
 
 #. type: itemize
-#: documentation.tex:1238
+#: documentation.tex:1243
 msgid "Some keyboard shortcuts are real time savers!"
 msgstr "Certains raccourcis claviers vous feront gagner énormément de temps!"
 
 #. type: fbox{#1}
-#: documentation.tex:1238
+#: documentation.tex:1243
 msgid "\\Shift + \\Ctrl + \\keystroke{a}"
 msgstr "\\Shift + \\Ctrl + \\keystroke{a}"
 
 #. type: enumerate
-#: documentation.tex:1238
+#: documentation.tex:1243
 msgid "to access the \\softmenu{Alignment and Distribution} tools"
 msgstr "pour accéder aux outils d'\\softmenu{Alignement et de distribution}"
 
 #. type: fbox{#1}
-#: documentation.tex:1238
+#: documentation.tex:1243
 msgid "\\Shift + \\Ctrl + \\keystroke{o}"
 msgstr "\\Shift + \\Ctrl + \\keystroke{o}"
 
 #. type: enumerate
-#: documentation.tex:1238
+#: documentation.tex:1243
 msgid "to access the \\softmenu{Object Properties}"
 msgstr "pour accéder aux \\softmenu{Propriétés de l'objet}"
 
 #. type: fbox{#1}
-#: documentation.tex:1238
+#: documentation.tex:1243
 msgid "\\Alt + \\keystroke{b}"
 msgstr "\\Alt + \\keystroke{b}"
 
 #. type: enumerate
-#: documentation.tex:1238
+#: documentation.tex:1243
 msgid "to create a bitmap copy of a shape designed in Inkscape"
 msgstr "pour créer une copie bitmap d'une forme dessinée dans Inkscape"
 
 #. type: enumerate
-#: documentation.tex:1238
+#: documentation.tex:1243
 msgid ""
 "\\fbox{\\Ctrl + \\keystroke{g}} to group different objects or details and "
 "\\fbox{\\Ctrl + \\Shift + \\keystroke{g}} to ungroup them"
@@ -3032,8 +3039,37 @@ msgstr ""
 "\\fbox{\\Ctrl + \\keystroke{g}} pour grouper différents objets ou détails et "
 "\\fbox{\\Ctrl + \\Shift + \\keystroke{g}} pour les dégrouper"
 
+#. type: itemize
+#: documentation.tex:1243
+#| msgid ""
+#| "If you create your interactive image directly with the Inkscape drawing "
+#| "tools (with bitmap copies of shapes or imported images), it is strongly "
+#| "recommended to group all the objects, make a bitmap copy of them, and use "
+#| "this bitmap copy as a background image. Otherwise, some images or bitmap "
+#| "copies may disappear in the interactive image when details in top of them "
+#| "are selected (since the main purpose of a detail is to let the user see "
+#| "the background image when selected)."
+msgid ""
+"If you create your interactive image directly with the Inkscape drawing "
+"tools (with bitmap copies of shapes or imported images), it is highly "
+"recommended to group all the objects, make a bitmap copy of them, and use "
+"this bitmap copy as a background image. Otherwise, some images or bitmap "
+"copies may disappear in the interactive image when details in top of them "
+"are selected (since the main purpose of a detail is to let the user see the "
+"background image when selected)."
+msgstr ""
+"Si vous créez votre image interactive uniquement avec les outils de dessin "
+"d'Inkscape (en faisant des copies bitmap de formes ou d'images importés), "
+"nous vous recommandons fortement de grouper tous les objets (y compris "
+"l'image de fond), de faire une copie bitmap de cet ensemble, et d'utiliser "
+"cette copie bitmap comme image de fond. Si vous ne le faites pas, certaines "
+"images ou copies bitmap risque de disparaître dans l'image interactive "
+"lorsque des détails situés au-dessus d'eux seront sélectionnés (ce qui est "
+"logique: le rôle principal d'un détail est de permettre à l'utilisateur de "
+"voir ce qui se trouve sur l'image de fond)."
+
 #. type: document
-#: documentation.tex:1241
+#: documentation.tex:1246
 msgid "\\listoffigures \\listoftables"
 msgstr "\\listoffigures \\listoftables"
 

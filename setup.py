@@ -108,7 +108,7 @@ with open(readme, 'r') as f:
 setup(
     name='xia',
     version=version,
-    packages=['xiaconverter'],
+    packages=['xia'],
     package_dir={ '': 'src'},
     cmdclass={
         'buildstandalone': BuildStandalone,

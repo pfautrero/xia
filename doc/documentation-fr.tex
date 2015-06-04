@@ -1360,7 +1360,7 @@ de remplissage).
  \item Si vous voulez créer un détail à partir de plusieurs, vous pouvez les
 «~Grouper~» (\softmenu{Objet} $\rightarrow$ \softmenu{Grouper}, ou \Ctrl +
 \keystroke{G}) ou les «~Unir~» (\softmenu{Chemin} $\rightarrow$
-\softmenu{Union}, or \Ctrl + \keystroke{+}).
+\softmenu{Union}, ou \Ctrl + \keystroke{+}).
  \item Quand un détail est créé, il est toujours possible de les modifier: ajout ou
 suppression de nœuds, déplacement, etc. Il suffit de double-cliquer sur un
 détail et d'utiliser les outils de modification:\\
@@ -1375,6 +1375,15 @@ détail et d'utiliser les outils de modification:\\
   \item \fbox{\Ctrl + \keystroke{g}} pour grouper différents objets ou détails et
 \fbox{\Ctrl + \Shift + \keystroke{g}} pour les dégrouper
  \end{enumerate} 
+ \item Si vous créez votre image interactive uniquement avec les outils de dessin
+d'Inkscape (en faisant des copies bitmap de formes ou d'images importés),
+nous vous recommandons fortement de grouper tous les objets (y compris
+l'image de fond), de faire une copie bitmap de cet ensemble, et d'utiliser
+cette copie bitmap comme image de fond. Si vous ne le faites pas, certaines
+images ou copies bitmap risque de disparaître dans l'image interactive
+lorsque des détails situés au-dessus d'eux seront sélectionnés (ce qui est
+logique: le rôle principal d'un détail est de permettre à l'utilisateur de
+voir ce qui se trouve sur l'image de fond).
 \end{itemize}
 
 \listoffigures \listoftables
