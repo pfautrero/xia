@@ -12,7 +12,7 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>
-#   
+#
 # @author : pascal.fautrero@ac-versailles.fr
 
 import Tkinter
@@ -60,7 +60,7 @@ class IADialog(Tkinter.Frame):
         self.firefoxos = 0
         self.index_standalone = 0
 
-        # Don't show hidden files and directories 
+        # Don't show hidden files and directories
         # (with tkinter, by default, it's the opposite).
         root.tk.call('namespace', 'import', '::tk::dialog::file::')
         root.call('set', '::tk::dialog::file::showHiddenVar', '0')
@@ -69,10 +69,10 @@ class IADialog(Tkinter.Frame):
         # define images
 
         import_img= Tkinter.PhotoImage(file=self.imagesPath + "/open.gif")
-        ia_img= Tkinter.PhotoImage(file=self.imagesPath + "/ia.gif")    
-        file_locked= Tkinter.PhotoImage(file=self.imagesPath + "/file_locked.gif")    
+        ia_img= Tkinter.PhotoImage(file=self.imagesPath + "/ia.gif")
+        file_locked= Tkinter.PhotoImage(file=self.imagesPath + "/file_locked.gif")
         void_img= Tkinter.PhotoImage(file=self.imagesPath + "/void.gif")
-        params_img= Tkinter.PhotoImage(file=self.imagesPath + "/params.gif")            
+        params_img= Tkinter.PhotoImage(file=self.imagesPath + "/params.gif")
 
         self.filename = svgfile
 
@@ -104,7 +104,7 @@ class IADialog(Tkinter.Frame):
         tooltip2 = ToolTip(button2,translate("ajust parameters"), None, 0.1)
 
         # Automatic import of themes
-        
+
         self.themes = []
 
         if os.path.isdir(themesPath):
@@ -188,7 +188,7 @@ class IADialog(Tkinter.Frame):
                 console.display(translate("Sorry, impossible to create the {0} directory") . format(self.config_dir))
                 console.display("Error({0}): {1}".format(e.errno, e.strerror))
                 sys.exit(1)
-                
+
         if os.path.isfile(self.config_ini):
             self.config = ConfigParser.ConfigParser()
             self.config.read(self.config_ini)
@@ -218,9 +218,9 @@ class IADialog(Tkinter.Frame):
         """
         buf = ctypes.create_unicode_buffer(1024)
         ctypes.windll.kernel32.GetEnvironmentVariableW(u"USERPROFILE", buf, 1024)
-        return buf.value        
-    
-    
+        return buf.value
+
+
     def openparams(self):
         try:
             self.params.focus()
@@ -228,12 +228,12 @@ class IADialog(Tkinter.Frame):
         except:
             self.params = Tkinter.Toplevel()
             self.params.title(self.paramsTitle)
-            self.params.geometry("465x155")
+            self.params.geometry("310x155")
             self.params.resizable(0,0)
             img = Tkinter.PhotoImage(file=self.imagesPath + '/xia64.gif')
-            self.params.tk.call('wm', 'iconphoto', self.params._w, img)    
+            self.params.tk.call('wm', 'iconphoto', self.params._w, img)
             IAParams(self.params, self, self.langPath, self.imagesPath).pack(side="left")
-        
+
     def askopenfilename(self):
         self.filename = tkFileDialog.askopenfilename(**self.file_opt)
         if self.filename:
@@ -252,12 +252,12 @@ class IADialog(Tkinter.Frame):
                   self.config.write(config_file)
 
                 mysplash = Splash(self.root, self.imagesPath + '/processing.gif', 0)
-                mysplash.enter()              
+                mysplash.enter()
 
                 self.dir_opt['initialdir'] = self.dirname
                 if not self.index_standalone:
                     if os.path.isdir(self.dirname + '/font'):
-                        shutil.rmtree(self.dirname + '/font')              
+                        shutil.rmtree(self.dirname + '/font')
                     if os.path.isdir(self.dirname + '/img'):
                         shutil.rmtree(self.dirname + '/img')
                     if os.path.isdir(self.dirname + '/css'):
@@ -267,7 +267,7 @@ class IADialog(Tkinter.Frame):
                     if os.path.isdir(self.dirname + '/datas'):
                         shutil.rmtree(self.dirname + '/datas')
                     os.mkdir(self.dirname + '/datas')
-                    shutil.copytree(self.fontsPath , self.dirname + '/font/')              
+                    shutil.copytree(self.fontsPath , self.dirname + '/font/')
                     shutil.copytree(self.themesPath + '/' + theme['name'] + '/css/', self.dirname + '/css/')
                     shutil.copytree(self.themesPath + '/' + theme['name'] + '/img/', self.dirname + '/img/')
                     shutil.copytree(self.themesPath + '/' + theme['name'] + '/js/', self.dirname + '/js/')
@@ -285,7 +285,7 @@ class IADialog(Tkinter.Frame):
 
                 maxNumPixels = self.defineMaxPixels(self.resize)
                 self.imageActive.analyzeSVG(self.filename, maxNumPixels)
-                
+
                 self.imageActive.generateJSON()
                 if not self.index_standalone:
                     with open(self.dirname + '/datas/data.js',"w") as jsonfile:
@@ -293,7 +293,7 @@ class IADialog(Tkinter.Frame):
 
                 theme['object'].generateIndex(self.dirname + "/index.html",
                                               self.themesPath + '/' + theme['name'] + '/index.html')
-                    
+
                 mysplash.exit()
 
                 if self.keep_alive == "no":
@@ -306,11 +306,11 @@ class IADialog(Tkinter.Frame):
         elif resizeCoeff == 1:
             return float(2 * 1024 * 1024)
         elif resizeCoeff == 2:
-            return float(3 * 1024 * 1024)            
+            return float(3 * 1024 * 1024)
         elif resizeCoeff == 3:
-            return float(5 * 1024 * 1024)            
+            return float(5 * 1024 * 1024)
         else:
-            return float(512 * 1024)            
-            
+            return float(512 * 1024)
+
     def quit(self):
         self.root.destroy()
