@@ -27,7 +27,6 @@ function hooks() {
 hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
 
 
-
 };
 
 /*
@@ -36,13 +35,10 @@ hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
  */
 hooks.prototype.afterMainConstructor = function(mainScene, layers) {
 
-    var that = this;
-    $(".infos").on("click", function(){
-        $("#overlay").show();
-    });
-    $("#popup_close").on("click", function(){
-        $("#overlay").hide();
-    });
+    // some stuff to manage popin windows
+
+    var viewportHeight = $(window).height();
+
     var button_click = function() {
         var target = $(this).data("target");
         if ($("#response_" + target).is(":hidden")) {
@@ -85,25 +81,33 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
     $(".button").on("click", button_click);
     $(".unlock input[type=submit]").on("click", unlock_input);
 
-    /*$(".accordion-toggle").on("click tap", function(){
-        $('.accordion-body').removeClass("slidedown").addClass("collapse");
-        $(this).parent().children(".accordion-body").removeClass("collapse").addClass("slidedown");              
-    });*/
+    $(".meta-doc").on("click", function(){
+        $("#content").show();
+        $("#general").show();
+        var general_border = $("#general").css("border-top-width").substr(0,$("#general").css("border-top-width").length - 2);
+        var general_offset = $("#general").offset();
+        var content_offset = $("#content").offset();
+        $("#general").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});
+    });
 
-    $("#collapsecomment-heading").on('click tap',function(){
-        if (mainScene.zoomActive === 0) {
-            if ((mainScene.element !== 0) && (typeof(mainScene.element) !== 'undefined')) {
-                for (var i in mainScene.element.kineticElement) {
-                    mainScene.element.kineticElement[i].fillPriority('color');
-                    mainScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
-                    mainScene.element.kineticElement[i].setStroke('rgba(0, 0, 0, 0)');
-                    mainScene.element.kineticElement[i].setStrokeWidth(0);                                         
-                    mainScene.element.layer.draw();
-                }
-            }
-            mainScene.element = that;
-            layers[0].moveToBottom();
-        }
+    $(".overlay").hide();
+
+    $(".infos").on("click", function(){
+        $("#rights").show();
+    });
+    $("#popup_close").on("click", function(){
+        $("#rights").hide();
+    });
+
+    $(".article_close").on("click", function(){
+        $(this).parent().hide();
+        $("#content").hide();
+        $(this).parent().children("audio").each(function(){
+            $(this)[0].pause();
+        });
+        $(this).parent().children("video").each(function(){
+            $(this)[0].pause();
+        });                
     });
     document.addEventListener("click", function(ev){
         if (mainScene.noPropagation) {
@@ -116,21 +120,13 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
                     mainScene.element.kineticElement[0].fire("click");
                 }
             }
-            else if ((mainScene.cursorState.indexOf("ZoomIn.cur") !== -1) ||
-              (mainScene.cursorState.indexOf("ZoomFocus.cur") !== -1)) {
+            else if (mainScene.cursorState.indexOf("ZoomIn.cur") !== -1) {
                 document.body.style.cursor = "default";
                 mainScene.cursorState = "default";
-                if (typeof(mainScene.element.kineticElement) != "undefined") {
-                    mainScene.element.kineticElement[0].fire("mouseleave");
-                }
+                mainScene.element.kineticElement[0].fire("mouseleave");
             }
         }
-    });    
-
-    $("#slide_close").on("click tap", function(){
-        $("#slide").css({'margin-left':"100%"});
     });
-    $("#slide").css({"top": $("#header").height() + "px"});
 };
 /*
  *
@@ -138,58 +134,34 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
  */
 hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaObject) {
 
-    /*
-     *  manage accordion events related to this element
-     */
-    $("#" + idText + "-heading").on('click touchstart',function(ev){
-        ev.preventDefault();
-        if ($("#slide").css("margin-left") == "50%") {
-            $("#slide").css({"margin-left": "100%"});
-        }
-        var currentHeader = $(this).html();
-        $("#slide_title").html(currentHeader);
-        $("#slide").css({
-            "margin-left": "50%",
-            "height": $("#accordion2").css('max-height')
-        });
-        iaObject.kineticElement[0].fire("click");
-
-        /*if ($('#' + idText).css("height") == "0px") {
-            iaObject.kineticElement[0].fire("click");
-        }
-        else {
-            iaObject.kineticElement[0].fire("mouseleave");
-        }*/
-    });
 };
-/*
- *
- *  
- */
-hooks.prototype.afterIaObjectZoom = function(iaScene, idText, iaObject) {
 
-};
-    
 /*
  *
  *  
  */
 hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
-    //$('.accordion-body').removeClass("slidedown").addClass("collapse");
-    //$('#' + idText).parent().children(".accordion-body").removeClass("collapse").addClass("slidedown");
 
-    var currentHeader = $('#' + idText + "-heading").html();
-    $("#slide_title").html(currentHeader);
-    $("#slide").css({
-        "margin-left": "50%",
-        //"height": $("#accordion2").css('max-height')
-        "height": iaScene.height
-    });
+};
 
 
-    $('#' + idText + " audio").each(function(){
-        if ($(this).data("state") === "autostart") {
-            $(this)[0].play();
-        }
-    }); 
+/*
+ *
+ *  
+ */
+hooks.prototype.afterIaObjectZoom = function(iaScene, idText, iaObject) {
+    if ($('#' + idText).data("state") != "void") {    
+        var viewportHeight = $(window).height();
+        $("#content").show();
+        $('#' + idText).show();
+        $('#' + idText + " audio").each(function(){
+            if ($(this).data("state") === "autostart") {
+                $(this)[0].play();
+            }
+        });            
+        var article_border = $('#' + idText).css("border-top-width").substr(0,$('#' + idText).css("border-top-width").length - 2);
+        var article_offset = $('#' + idText).offset();
+        var content_offset = $("#content").offset();
+        $('#' + idText).css({'max-height':(viewportHeight - article_offset.top - content_offset.top - 2 * article_border)});  
+    }
 };

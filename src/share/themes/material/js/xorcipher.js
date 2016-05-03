@@ -137,7 +137,6 @@ String.prototype.decode = function(encoding) {
  
     return result;
 };
-
 String.prototype.encode = function(encoding) {
     var result = "";
  

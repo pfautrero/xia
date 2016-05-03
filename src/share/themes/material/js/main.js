@@ -12,6 +12,7 @@
 //   
 // @author : pascal.fautrero@ac-versailles.fr
 // @version=xxx
+
 /*
  * Main
  * Initialization
@@ -25,16 +26,14 @@
 function main(myhooks) {
     "use strict";
     var that=window;
-
     that.canvas = document.getElementById("canvas");
 
     // area located under the canvas. If mouse over is detected, 
     // we must re-activate mouse events on canvas
-    /*var detect = document.getElementById("detect");
+    var detect = document.getElementById("detect");
     detect.addEventListener("mouseover", function()
         {
             that.canvas.style.pointerEvents="auto";
-
             if ((IaScene.element !== 0) && (typeof(IaScene.element) !== 'undefined')) {
                 for (var i in IaScene.element.kineticElement) {
                     IaScene.element.kineticElement[i].fillPriority('color');
@@ -45,7 +44,6 @@ function main(myhooks) {
     detect.addEventListener("touchstart", function()
         {   
             that.canvas.style.pointerEvents="auto";
-
             if ((IaScene.element !== 0) && (typeof(IaScene.element) !== 'undefined')) {
                 for (var i in IaScene.element.kineticElement) {
                     IaScene.element.kineticElement[i].fillPriority('color');
@@ -53,9 +51,6 @@ function main(myhooks) {
                 }
             }
         }, false);	
-    */
-    //$("#collapsecomment").collapse("show");
-
 
     // Load background image
 
@@ -64,13 +59,12 @@ function main(myhooks) {
     that.imageObj.onload = function() {
 
         var mainScene = new IaScene(scene.width,scene.height);
-        that.mainScene = mainScene;
         mainScene.scale = 1; 
         mainScene.scaleScene(mainScene);
 
         var stage = new Kinetic.Stage({
             container: 'canvas',
-            width: mainScene.width * mainScene.ratio,
+            width: mainScene.width,
             height: mainScene.height
         });
 
@@ -94,10 +88,9 @@ function main(myhooks) {
             fill: mainScene.backgroundCacheColor
         });
 
-
         // define area to disable canvas events management when
         // mouse is over. Thus, we can reach div located under canvas 
-        /*var disableArea = new Kinetic.Rect({
+        var disableArea = new Kinetic.Rect({
             x: mainScene.width  * mainScene.ratio,
             y: mainScene.y,
             width: mainScene.width * (1 - mainScene.ratio),
@@ -105,26 +98,26 @@ function main(myhooks) {
         });		
         disableArea.on('mouseover touchstart', function() {
             canvas.style.pointerEvents="none";
-        });*/
+        });
         var layers = [];
         that.layers = layers;
         layers[0] = new Kinetic.FastLayer();	
         layers[1] = new Kinetic.FastLayer();	
-        //layers[2] = new Kinetic.Layer();
+        layers[2] = new Kinetic.Layer();
         layers[3] = new Kinetic.Layer();
 
         layers[0].add(baseCache);
         layers[1].add(baseImage);
-        //layers[2].add(disableArea);
+        layers[2].add(disableArea);	
         stage.add(layers[0]);
         stage.add(layers[1]);
-        //stage.add(layers[2]);
+        stage.add(layers[2]);
         stage.add(layers[3]);
 
-        myhooks.beforeMainConstructor(that.mainScene, that.layers);
+        myhooks.beforeMainConstructor(mainScene, that.layers);
         var indice = 4;
         layers[indice] = new Kinetic.Layer();
-        stage.add(layers[indice]);
+        stage.add(layers[indice]);        
         for (var i in details) {
             //var indice = parseInt(i+3);
             //layers[indice] = new Kinetic.Layer();
@@ -133,7 +126,7 @@ function main(myhooks) {
                 imageObj: that.imageObj,
                 detail: details[i],
                 layer: layers[indice],
-                idText: "collapse" + i,
+                idText: "article-" + i,
                 baseImage: baseImage,
                 iaScene: mainScene,
                 background_layer: layers[1],
@@ -142,13 +135,10 @@ function main(myhooks) {
                 myhooks: myhooks
             });
         }
-
+        myhooks.afterMainConstructor(mainScene, that.layers); 
         $("#splash").fadeOut("slow", function(){
                 $("#loader").hide();	
         });
-
-        myhooks.afterMainConstructor(that.mainScene, that.layers);
-
         // FullScreen ability
         // source code from http://blogs.sitepointstatic.com/examples/tech/full-screen/index.html
         var e = document.getElementById("title");
@@ -161,15 +151,6 @@ function main(myhooks) {
                 runPrefixMethod(div_container, "RequestFullScreen");
             }
             mainScene.fullScreen = mainScene.fullScreen == "on" ? "off": "on";
-            /*mainScene.scaleScene(mainScene);
-            baseImage.scale({x:mainScene.coeff,y:mainScene.coeff});
-            baseCache.scale({x:mainScene.coeff,y:mainScene.coeff});
-            disableArea.x(mainScene.width  * mainScene.ratio);
-            disableArea.width(mainScene.width * (1 - mainScene.ratio));
-            disableArea.height(mainScene.height);
-            for (var i in layers) {
-                layers[i].draw();
-            }*/
         };
 
         var pfx = ["webkit", "moz", "ms", "o", ""];
@@ -188,10 +169,8 @@ function main(myhooks) {
                 }
                 p++;
             }
-        }        
-
+        }
     };    
-    
 }
 
 myhooks = new hooks();

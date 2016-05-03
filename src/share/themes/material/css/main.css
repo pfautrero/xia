@@ -24,27 +24,15 @@
 html {
   margin:0;
   padding:0;
-
-    background: rgb(255,170,41); /* Old browsers */
-    background: -moz-linear-gradient(45deg, rgba(255,170,41,1) 0%, rgba(255,170,41,1) 50%, rgba(232,127,9,1) 50%, rgba(232,127,9,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(255,170,41,1)), color-stop(50%,rgba(255,170,41,1)), color-stop(50%,rgba(232,127,9,1)), color-stop(100%,rgba(232,127,9,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(45deg, rgba(255,170,41,1) 0%,rgba(255,170,41,1) 50%,rgba(232,127,9,1) 50%,rgba(232,127,9,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(45deg, rgba(255,170,41,1) 0%,rgba(255,170,41,1) 50%,rgba(232,127,9,1) 50%,rgba(232,127,9,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(45deg, rgba(255,170,41,1) 0%,rgba(255,170,41,1) 50%,rgba(232,127,9,1) 50%,rgba(232,127,9,1) 100%); /* IE10+ */
-    background: linear-gradient(45deg, rgba(255,170,41,1) 0%,rgba(255,170,41,1) 50%,rgba(232,127,9,1) 50%,rgba(232,127,9,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffaa29', endColorstr='#e87f09',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-
-
-
-  /*background: url('../img/background.jpg') no-repeat center center fixed;
-  background-size: cover;*/
+  background: url('../img/background.jpg') no-repeat center center fixed;
+  background-size: cover;
 }
 body{
     background: none;
     margin:0;
     border:none;
-    margin-top:0px;
     padding:0px;
+    border-image-width: 0;
 }
 video {
     width:100%;
@@ -60,10 +48,9 @@ a {
 a:active, a:focus, a:hover {color:#DDD;}
 header {
     width:100%; 
-    padding:0px;
-    margin:0 auto;
-    background-color: #F07C19;
-    /*border-bottom: 2px solid white;*/
+    padding:0; 
+    margin:0 auto; 
+    /*background:#000;*/
 }
 
 header h1 {    
@@ -72,18 +59,16 @@ header h1 {
     left:0px;
     /*background:url(../img/imagedoc-darknoise.png);*/
     display:inline;
-    max-width:20%;
-    padding: 5px 1em 5px 5px;
+    /*max-width:20%;*/
+    padding: 0px 1em 0 5px;
     margin-bottom:0; 
-    color:#FFFFFF;
-    font-family: yanone_thin;
-
+    color:black;
+    font-family: yanone_thin; 
 }
-
 
 .eyes { 
     background:url(../img/eyes.png) center bottom no-repeat;
-    margin-left: 10px;
+    /*margin-left: 10px;*/
     padding:.3em 1em;
 }
 .eyes:hover {
@@ -91,14 +76,15 @@ header h1 {
 }
 .meta-doc {
     background:url(../img/meta-doc.png) center bottom  no-repeat;
-    margin-left: 10px;padding:.3em 1em
+    /*margin-left: 10px;*/
+    padding:.3em 1em
 }
 .meta-doc:hover{
     background:url(../img/meta-doc2.png) center bottom  no-repeat;
 }
 .infos {
-   background:url(../img/infos.png) center bottom no-repeat;
-    margin-left: 10px;
+    background:url(../img/infos.png) center bottom no-repeat;
+    /*margin-left: 10px;*/
     padding:.3em 1em; 
 }
 .infos:hover{
@@ -106,18 +92,12 @@ header h1 {
 }
 .title-document {display: block;}
 
-h1 {
-    font-size:2em;
-}
 @media screen and (max-width: 640px) {
     body {
         font-size:0.7em;
     }
-    h1 {
-        font-size:1.5em;
-    }
     h3 {
-        font-size:0.5em;
+        font-size:20px;
     }
 }
 #detect, #canvas {
@@ -127,105 +107,30 @@ h1 {
 #container {
     position: relative;
     padding:0px;
-    width:1000px;
-    margin:20px auto;
+    width:100%;
+    margin:10px auto;
     border:0px solid #FFF3B2;
-    background: #000000; /* Old browsers */
-    overflow: hidden;
+
+    border-image-width: 0;
 }
+
 #canvas {
     width:55%;
-    border:0px solid white;
-    border-radius:5px;
+    margin-top: 0px;
+    border:20px solid rgba(255,255,255,0.5);
+
 }
 #detect {
     position:absolute;
-    top:50px;
+    /*top:50px;*/
     left:0;
     width:100%;
     height:655px;
-
-}
-
-.accordion {
-    position:absolute;
-    top:50px;
-    left:50%;
-    width:50%;
-    color:black;
-    /*font-size:1.2em;	*/
-
-}
-#accordion2 {
-    overflow-y:auto;
-    overflow-x:hidden;
-    max-height:655px;
-}
-
-#slide {
-    margin-left: 100%;
-    position: absolute;
-    top: 50px;
-    transition: 1s;
-    background-color: #ffffff;
-    width:50%;
-    cursor: default;
-}
-#slide h1 {
-    background-color:#3F51B5;
-    padding:20px;
-    margin:0px;
-}
-#slide_close{
-    float:left;
-}
-.accordion-body a{
-    text-decoration:none;
-    color:black;
-    font-style: italic;
-}
-.accordion-body a:hover{
-    text-decoration:none;
-    color:black;
-    background:#DDDDDD;
-    border-radius: 5px;
-    -webkit-transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-    -ms-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;    
-}
-.accordion-body a{
-    text-decoration:none;
-    color:black;
-}
-a.accordion-toggle { 
-    font-family:yanone_regular; 
-    color:#F07C19;
-    font-size:2em;
-    text-decoration:none;
-    -webkit-transition: all 0.2s ease-in-out, color 1s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out, color 1s ease-in-out;
-    -o-transition: all 0.2s ease-in-out, color 1s ease-in-out;
-    -ms-transition: all 0.2s ease-in-out, color 1s ease-in-out;
-    transition: all 0.2s ease-in-out, color 1s ease-in-out;
-}
-.accordion-toggle:hover {
-    color:#FFF;
-}
-.accordion-group {
-    border:0px;
-}
-
-.accordion-inner {
-    position: relative;
-    background:white;
 }
 
 .response {
     display:none;
 }
-
 .unlock {
     width: 80%;
     margin:0px auto;
@@ -290,8 +195,7 @@ a.accordion-toggle {
 }
 
 /* popup */
-#overlay {
-    display:none;
+.overlay {
     position:fixed;
     top:0;
     right:0;
@@ -309,11 +213,41 @@ a.accordion-toggle {
     min-height: 100px;
     box-shadow: black 5px 5px 10px;
 }
+#content article {
+    display:none;
+    position:relative;
+    border: 20px solid #ddd;
+    border-radius:20px;
+    
+    width: 60%;
+    margin: 50px auto;
+    background:white;
+    min-height: 100px;
+    box-shadow: black 5px 5px 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+#content article p, h1 {
+    margin: 10px;
+}
+
+#content article h1 {
+    font-family: yanone_thin; 
+}
+
+.article_close {
+    cursor: pointer;
+    position:absolute;
+    top:0px;
+    right:0px;
+    width:40px;
+}
 #popup_text {
     text-align:center;
 }
 #popup_text img{
     float:left;
+    width:20%;
     max-width: 60px;
     margin: 10px;
 }
@@ -374,31 +308,6 @@ a.accordion-toggle {
     width: 100%;
     height: 100%;
 }
-
-.collapse, .slidedown {
-
-    max-height: 0;            
-    overflow-y: hidden;
-    -webkit-transition: max-height 0.5s ease-in-out;
-    -moz-transition: max-height 0.5s ease-in-out;
-    -o-transition: max-height 0.5s ease-in-out;
-    transition: max-height 0.5s ease-in-out;
-}
-.accordion-heading{
-    margin-left: 20px;
-}
-.accordion-inner {
-    padding:10px;
-}
-.accordion-inner img{
-    width: 100%;
-}
-    
-.slidedown {            
-    max-height: 1000px ; 
-    overflow-y: auto;                   
-}
-
 
 
 /* thanks to Chris Coyier on https://css-tricks.com/css3-progress-bars/ */

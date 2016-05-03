@@ -21,7 +21,6 @@ $(".videoWrapper16_9").each(function(){
     var iframe = document.createElement("iframe");
     iframe.src = source;
     $(this).append(iframe);    
-    $(this).data("iframe", "");
 });
 
 $(".videoWrapper4_3").each(function(){
@@ -29,7 +28,6 @@ $(".videoWrapper4_3").each(function(){
     var iframe = document.createElement("iframe");
     iframe.src = source;
     $(this).append(iframe);    
-    $(this).data("iframe", "");
 });
 $(".flickr_oembed").each(function(){
     var source = $(this).data("oembed");

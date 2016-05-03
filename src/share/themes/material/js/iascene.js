@@ -37,7 +37,7 @@ function IaScene(originalWidth, originalHeight) {
     this.colorPersistent = {red:124, green:154, blue:174, opacity:1};
 
     // Image ratio on the scene
-    this.ratio = 0.50;  
+    this.ratio = 1.00;  
     
     // padding-top in the canvas
     this.y = 0;
@@ -48,8 +48,8 @@ function IaScene(originalWidth, originalHeight) {
     // internal
     this.fullScreen = "off";
     this.backgroundCacheColor = 'rgba(' + _colorCache.red + ',' + _colorCache.green + ',' + _colorCache.blue + ',' + _colorCache.opacity + ')';
-    this.overColor = 'rgba(' + _colorOver.red + ',' + _colorOver.green + ',' + _colorOver.blue + ',' + _colorOver.opacity + ')';    
-    this.overColorStroke = 'rgba(' + _colorOverStroke.red + ',' + _colorOverStroke.green + ',' + _colorOverStroke.blue + ',' + _colorOverStroke.opacity + ')';        
+    this.overColor = 'rgba(' + _colorOver.red + ',' + _colorOver.green + ',' + _colorOver.blue + ',' + _colorOver.opacity + ')'; 
+    this.overColorStroke = 'rgba(' + _colorOverStroke.red + ',' + _colorOverStroke.green + ',' + _colorOverStroke.blue + ',' + _colorOverStroke.opacity + ')';
     this.scale = 1;
     this.zoomActive = 0;
     this.element = 0;
@@ -57,7 +57,7 @@ function IaScene(originalWidth, originalHeight) {
     this.originalHeight = originalHeight;
     this.coeff = (this.width * this.ratio) / parseFloat(originalWidth);
     this.cursorState="";
-    this.noPropagation = false;
+    this.noPropagation = false;    
 }
 
 /*
@@ -66,31 +66,33 @@ function IaScene(originalWidth, originalHeight) {
  */
 IaScene.prototype.scaleScene = function(mainScene){
     "use strict";
-
-    var viewportWidth = $(window).width() * 0.9;
+    var viewportWidth = $(window).width();
     var viewportHeight = $(window).height();
 
     var coeff_width = (viewportWidth * mainScene.ratio) / parseFloat(mainScene.originalWidth);
     var coeff_height = (viewportHeight) / (parseFloat(mainScene.originalHeight) + $('#canvas').offset().top + $('#container').offset().top);
+
+    var canvas_border_left = parseFloat($("#canvas").css("border-left-width").substr(0,$("#canvas").css("border-left-width").length - 2));
+    var canvas_border_right = parseFloat($("#canvas").css("border-right-width").substr(0,$("#canvas").css("border-right-width").length - 2));
+    var canvas_border_top = parseFloat($("#canvas").css("border-top-width").substr(0,$("#canvas").css("border-top-width").length - 2));
+    var canvas_border_bottom = parseFloat($("#canvas").css("border-bottom-width").substr(0,$("#canvas").css("border-bottom-width").length - 2));    
+    
     if ((viewportWidth >= parseFloat(mainScene.originalWidth) * coeff_width) && (viewportHeight >= ((parseFloat(mainScene.originalHeight) + $('#canvas').offset().top) * coeff_width))) {
-        mainScene.width = viewportWidth * mainScene.ratio;
-        mainScene.coeff = (mainScene.width) / parseFloat(mainScene.originalWidth);
+        mainScene.width = viewportWidth - canvas_border_left - canvas_border_right;
+        mainScene.coeff = (mainScene.width * mainScene.ratio) / parseFloat(mainScene.originalWidth);
         mainScene.height = parseFloat(mainScene.originalHeight) * mainScene.coeff;
     }
     else if ((viewportWidth >= parseFloat(mainScene.originalWidth) * coeff_height) && (viewportHeight >= (parseFloat(mainScene.originalHeight) + $('#canvas').offset().top) * coeff_height)) {
-        mainScene.height = viewportHeight - $('#container').offset().top - $('#canvas').offset().top -5;
+        mainScene.height = viewportHeight - $('#container').offset().top - $('#canvas').offset().top - canvas_border_top - canvas_border_bottom - 2;
         mainScene.coeff = (mainScene.height) / parseFloat(mainScene.originalHeight);
         mainScene.width = parseFloat(mainScene.originalWidth) * mainScene.coeff;
     }
 
-    mainScene.width = mainScene.width / mainScene.ratio;
-    $('#container').css({"width": mainScene.width + 'px'});
-    $('#container').css({"height": (mainScene.height + $('#canvas').offset().top - $('#container').offset().top) + 'px'});
-    $('#canvas').css({"height": (mainScene.height) + 'px'});
-    $('#canvas').css({"width": (mainScene.width  * mainScene.ratio) + 'px'});
-    //$('#detect').css({"height": (mainScene.height) + 'px'});
-    var headerHeight = $("#header").height();
-    $('#accordion2').css({"max-height": (mainScene.height - $('#accordion2').offset().top + $('#container').offset().top + headerHeight) + 'px'});
-    //$('#detect').css({"top": ($('#canvas').offset().top - $('#container').offset().top) + 'px'});
- 
+
+    $('#container').css({"width": (mainScene.width + canvas_border_left + canvas_border_right) + 'px'});
+    $('#container').css({"height": (mainScene.height + $('#canvas').offset().top - $('#container').offset().top + canvas_border_top + canvas_border_bottom) + 'px'});
+    $('#canvas').css({"height": (mainScene.height) + 'px'});    
+    $('#canvas').css({"width": mainScene.width + 'px'});     
+    $('#detect').css({"height": (mainScene.height) + 'px'});
+    $('#detect').css({"top": ($('#canvas').offset().top) + 'px'});
 };

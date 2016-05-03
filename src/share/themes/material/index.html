@@ -27,21 +27,16 @@
         </div>
     </div>
     <div id="container">
-        <header id="header">
+        <div id="detect"></div>
+        <header>
             <h1 id="title">{{TITLE}}</h1>
-            <a class="infos" href="#" title="à propos"></a>
+            <a class="meta-doc" href="#" title="information générale"></a> 
+            <a class="infos" href="#" title="à propos"></a>      
         </header>
-        <nav id="accordion2" class="accordion">
-            {{ACCORDION}}
-        </nav>
-        <div id="slide">
-            <img id="slide_close" src="{{LogoClose}}" alt="close"/>
-            <h1 id="slide_title"></h1>
-            <div id="slide_content"></div>
-        </div>
         <div id="canvas"></div>
+        <section id="content" class="overlay">{{CONTENT}}</section>
     </div>
-    <footer id="overlay">
+    <footer class="overlay" id="rights">
         <section id="popup">
             <img id="popup_close" src="{{LogoClose}}" alt="close"/>
             <article id="popup_text">
@@ -84,5 +79,6 @@
 
         document.body.onload = loadLibs;
     </script>
+
 </body>
 </html>

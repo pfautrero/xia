@@ -13,13 +13,10 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>
 #   
-# @author : pascal.fautrero@ac-versailles.fr
-
-
+# @author : pascal.fautrero@crdp.ac-versailles.fr
 
 import gettext
 import locale
-
 
 class hook:
     """do some stuff during image active generations"""
@@ -32,32 +29,30 @@ class hook:
         except:
             t = gettext.translation("xia-converter", langPath, languages=['en_US'])
         translate = t.ugettext
-        
         self.root = root
         self.iaobject = iaobject
         self.PageFormatter = PageFormatter
-        self.tooltip = translate("export slide")
+        self.tooltip = translate("export material")
         self.loading = translate("loading")
 
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""
         
-        final_str = u'  <div class="accordion-heading">\n';
-        final_str += u'    <a id="collapsecomment-heading" class="accordion-toggle" href="#collapsecomment">' + self.iaobject.scene["intro_title"] + '</a>\n';
-        final_str += u'      <div id="collapsecomment" class="accordion-body collapse">\n';
-        final_str += u'        <div class="accordion-inner">' + self.PageFormatter(self.iaobject.scene["intro_detail"]).print_html() + u'\n';
-        final_str += u'        </div>\n'
-        final_str += u'      </div>\n'
-        final_str += u'  </div>\n'
+        final_str  = u'<article id="general">\n'
+        final_str += '<img class="article_close" src="{{LogoClose}}" alt="close"/>'
+        final_str += u'  <h1>' + self.iaobject.scene["intro_title"] + '</h1>\n'
+        final_str += u'  <p>' + self.PageFormatter(self.iaobject.scene["intro_detail"]).print_html() + u'</p>\n'
+        final_str += u'</article>\n'
         for i, detail in enumerate(self.iaobject.details):
             if detail['options'].find(u"direct-link") == -1:
-                final_str += u'  <div class="accordion-heading">\n'
-                final_str += u'      <a id="collapse' + unicode(str(i), "utf8") + u'-heading" class="accordion-toggle" href="#collapse' + unicode(str(i), "utf8") + u'">' + detail['title'] + u'</a>\n'
-                final_str += u'      <div id="collapse' + unicode(str(i), "utf8") + u'" class="accordion-body collapse">\n'
-                final_str += u'          <div class="accordion-inner">' + self.PageFormatter(detail["detail"]).print_html() + u'\n'
-                final_str += u'          </div>\n'
-                final_str += u'      </div>\n'
-                final_str += u'  </div>\n'
+                dataState = "full"
+                if (self.PageFormatter(detail["detail"]).print_html() == "") and (detail["title"] == ""):
+                    dataState = "void"                
+                final_str += u'<article data-state="'+ dataState +'" id="article-'+unicode(str(i), "utf8") + u'">\n'
+                final_str += '<img class="article_close" src="{{LogoClose}}" alt="close"/>'
+                final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
+                final_str += u'  <div>' + self.PageFormatter(detail["detail"]).print_html() + u'</div>\n'
+                final_str += u'</article>\n'
 
         with open(templatePath,"r") as template:
             final_index = template.read().decode("utf-8")
@@ -89,10 +84,10 @@ class hook:
             final_index = final_index.replace("{{DESCRIPTION}}", self.iaobject.scene["description"])
             final_index = final_index.replace("{{KEYWORDS}}", self.iaobject.scene["keywords"])
             final_index = final_index.replace("{{TITLE}}", self.iaobject.scene["title"])
-            final_index = final_index.replace("{{ACCORDION}}", final_str)
+            final_index = final_index.replace("{{CONTENT}}", final_str)
             final_index = final_index.replace("{{LOADING}}", self.loading)
             if self.root.index_standalone:
-                xiaWebsite = "http://xia.dane.ac-versailles.fr/network/delivery/accordionBlack"
+                xiaWebsite = "http://xia.dane.ac-versailles.fr/network/delivery/popBlue"
                 final_index = final_index.replace("{{MainCSS}}", xiaWebsite + "/css/main.css")
                 final_index = final_index.replace("{{LogoLoading}}",  xiaWebsite + "/img/xia.png")
                 final_index = final_index.replace("{{LogoClose}}", xiaWebsite + "/img/close.png")
@@ -115,6 +110,6 @@ class hook:
                 final_index = final_index.replace("{{kineticJS}}", "js/kinetic.min.js")
                 final_index = final_index.replace("{{xiaJS}}", "js/xia.js")
                 final_index = final_index.replace("{{hooksJS}}", "js/hooks.js")
-                final_index = final_index.replace("{{labJS}}", "js/LAB.min.js")                
+                final_index = final_index.replace("{{labJS}}", "js/LAB.min.js")  
         with open(filePath,"w") as indexfile:
             indexfile.write(final_index.encode("utf-8"))

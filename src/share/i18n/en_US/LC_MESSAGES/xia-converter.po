@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: activit 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-06 22:05+0100\n"
+"POT-Creation-Date: 2016-05-03 19:42+0200\n"
 "PO-Revision-Date: 2014-11-24 19:10+0100\n"
 "Last-Translator: geoffrey <ggekiere@ac-versailles.fr>\n"
 "Language-Team: français <>\n"
@@ -24,7 +24,7 @@ msgstr "export in accordionCloud"
 
 #: share/themes/accordionCloud/hook.py:36 share/themes/popYellow/hook.py:36
 #: share/themes/game1clic/hook.py:43 share/themes/buttonBlue/hook.py:35
-#: share/themes/gameDragAndDrop/hook.py:42
+#: share/themes/material/hook.py:36 share/themes/gameDragAndDrop/hook.py:42
 #: share/themes/accordionBlack/hook.py:40 share/themes/popBlue/hook.py:36
 #: share/themes/audioBrown/hook.py:35
 msgid "loading"
@@ -44,6 +44,10 @@ msgstr ""
 
 #: share/themes/buttonBlue/hook.py:34
 msgid "export buttonBlue"
+msgstr ""
+
+#: share/themes/material/hook.py:35
+msgid "export material"
 msgstr ""
 
 #: share/themes/gameDragAndDrop/hook.py:38
@@ -95,10 +99,6 @@ msgstr "Parameters"
 msgid "modify image resolution"
 msgstr ""
 
-#: xiaconverter/paramswindow.py:87
-msgid "create firefox OS files"
-msgstr "enable/disable firefox OS files creation"
-
 #: xiaconverter/paramswindow.py:95
 msgid "index standalone"
 msgstr ""
@@ -107,3 +107,6 @@ msgstr ""
 "xia engine used in unique file is hosted on Versailles academy servers and "
 "automatically updated.In this configuration, you can not control background "
 "image and icons."
+
+#~ msgid "create firefox OS files"
+#~ msgstr "enable/disable firefox OS files creation"
