@@ -8,19 +8,18 @@
 //   GNU General Public License for more details.
 //   You should have received a copy of the GNU General Public License
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
-//   
-//   
+//
+//
 // @author : pascal.fautrero@ac-versailles.fr
-// @version=xxx
 
 /*
  * Main
  * Initialization
- * 
+ *
  * 1rst layer : div "detect" - if clicked, enable canvas events
  * 2nd layer : bootstrap accordion
  * 3rd layer : div "canvas" containing images and paths
- * 4th layer : div "disablearea" - if clicked, disable events canvas  
+ * 4th layer : div "disablearea" - if clicked, disable events canvas
  */
 
 function main(myhooks) {
@@ -28,29 +27,29 @@ function main(myhooks) {
     var that=window;
     that.canvas = document.getElementById("canvas");
 
-    // area located under the canvas. If mouse over is detected, 
+    // area located under the canvas. If mouse over is detected,
     // we must re-activate mouse events on canvas
     var detect = document.getElementById("detect");
     detect.addEventListener("mouseover", function()
-        {
-            that.canvas.style.pointerEvents="auto";
-            if ((IaScene.element !== 0) && (typeof(IaScene.element) !== 'undefined')) {
-                for (var i in IaScene.element.kineticElement) {
-                    IaScene.element.kineticElement[i].fillPriority('color');
-                    IaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
-                }
+      {
+        that.canvas.style.pointerEvents="auto";
+        if ((IaScene.element !== 0) && (typeof(IaScene.element) !== 'undefined')) {
+            for (var i in IaScene.element.kineticElement) {
+                IaScene.element.kineticElement[i].fillPriority('color');
+                IaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
             }
-        }, false);			
+        }
+      }, false);
     detect.addEventListener("touchstart", function()
-        {   
-            that.canvas.style.pointerEvents="auto";
-            if ((IaScene.element !== 0) && (typeof(IaScene.element) !== 'undefined')) {
-                for (var i in IaScene.element.kineticElement) {
-                    IaScene.element.kineticElement[i].fillPriority('color');
-                    IaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
-                }
-            }
-        }, false);	
+      {
+        that.canvas.style.pointerEvents="auto";
+        if ((IaScene.element !== 0) && (typeof(IaScene.element) !== 'undefined')) {
+          for (var i in IaScene.element.kineticElement) {
+            IaScene.element.kineticElement[i].fillPriority('color');
+            IaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
+          }
+        }
+      }, false);
 
     // Load background image
 
@@ -59,7 +58,7 @@ function main(myhooks) {
     that.imageObj.onload = function() {
 
         var mainScene = new IaScene(scene.width,scene.height);
-        mainScene.scale = 1; 
+        mainScene.scale = 1;
         mainScene.scaleScene(mainScene);
 
         var stage = new Kinetic.Stage({
@@ -68,7 +67,7 @@ function main(myhooks) {
             height: mainScene.height
         });
 
-        // area containing image background    
+        // area containing image background
         var baseImage = new Kinetic.Image({
             x: 0,
             y: mainScene.y,
@@ -89,43 +88,39 @@ function main(myhooks) {
         });
 
         // define area to disable canvas events management when
-        // mouse is over. Thus, we can reach div located under canvas 
+        // mouse is over. Thus, we can reach div located under canvas
         var disableArea = new Kinetic.Rect({
             x: mainScene.width  * mainScene.ratio,
             y: mainScene.y,
             width: mainScene.width * (1 - mainScene.ratio),
             height: mainScene.height
-        });		
+        });
         disableArea.on('mouseover touchstart', function() {
             canvas.style.pointerEvents="none";
         });
         var layers = [];
         that.layers = layers;
-        layers[0] = new Kinetic.FastLayer();	
-        layers[1] = new Kinetic.FastLayer();	
+        layers[0] = new Kinetic.FastLayer();
+        layers[1] = new Kinetic.FastLayer();
         layers[2] = new Kinetic.Layer();
         layers[3] = new Kinetic.Layer();
+        layers[4] = new Kinetic.Layer();
 
         layers[0].add(baseCache);
         layers[1].add(baseImage);
-        layers[2].add(disableArea);	
+        layers[2].add(disableArea);
         stage.add(layers[0]);
         stage.add(layers[1]);
         stage.add(layers[2]);
         stage.add(layers[3]);
-
+        stage.add(layers[4]);
         myhooks.beforeMainConstructor(mainScene, that.layers);
-        var indice = 4;
-        layers[indice] = new Kinetic.Layer();
-        stage.add(layers[indice]);        
+
         for (var i in details) {
-            //var indice = parseInt(i+3);
-            //layers[indice] = new Kinetic.Layer();
-            //stage.add(layers[indice]);
             var iaObj = new IaObject({
                 imageObj: that.imageObj,
                 detail: details[i],
-                layer: layers[indice],
+                layer: layers[4],
                 idText: "article-" + i,
                 baseImage: baseImage,
                 iaScene: mainScene,
@@ -135,9 +130,31 @@ function main(myhooks) {
                 myhooks: myhooks
             });
         }
-        myhooks.afterMainConstructor(mainScene, that.layers); 
+
+        myhooks.afterMainConstructor(mainScene, that.layers);
+
+        // define popup position
+
+        $("canvas").last().before($("#popup_material_background"))
+
+        var popupMaterialTopOrigin = ($("#popup_material_background").height() - $("#popup_material").height()) / 2
+        var popupMaterialLeftOrigin = ($("#popup_material_background").width() - $("#popup_material").width()) / 2
+
+        $("#popup_material").css({
+          "position": "absolute",
+          "top": (popupMaterialTopOrigin * 2 + $("#popup_material").height()) + 'px',
+          "left" : popupMaterialLeftOrigin + "px",
+          "transition" : "1s"
+        });
+
+
         $("#splash").fadeOut("slow", function(){
-                $("#loader").hide();	
+                $("#loader").hide();
+
+                $("#popup_material").css({
+                  "top": (popupMaterialTopOrigin) + 'px',
+                });
+
         });
         // FullScreen ability
         // source code from http://blogs.sitepointstatic.com/examples/tech/full-screen/index.html
@@ -170,7 +187,7 @@ function main(myhooks) {
                 p++;
             }
         }
-    };    
+    };
 }
 
 myhooks = new hooks();

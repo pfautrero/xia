@@ -24,8 +24,7 @@
 html {
   margin:0;
   padding:0;
-  background: url('../img/background.jpg') no-repeat center center fixed;
-  background-size: cover;
+  background-color : black;
 }
 body{
     background: none;
@@ -42,18 +41,18 @@ audio {
 }
 a {
     color:#00c6ff;
-  font-family: yanone_thin; 
-  font-size:1.4em;    
+  font-family: yanone_thin;
+  font-size:1.4em;
 }
 a:active, a:focus, a:hover {color:#DDD;}
 header {
-    width:100%; 
-    padding:0; 
-    margin:0 auto; 
+    width:100%;
+    padding:0;
+    margin:0 auto;
     /*background:#000;*/
 }
 
-header h1 {    
+header h1 {
     margin:0;
     top:0;
     left:0px;
@@ -61,12 +60,12 @@ header h1 {
     display:inline;
     /*max-width:20%;*/
     padding: 0px 1em 0 5px;
-    margin-bottom:0; 
-    color:black;
-    font-family: yanone_thin; 
+    margin-bottom:0;
+    color: white;
+    font-family: yanone_thin;
 }
 
-.eyes { 
+.eyes {
     background:url(../img/eyes.png) center bottom no-repeat;
     /*margin-left: 10px;*/
     padding:.3em 1em;
@@ -85,7 +84,7 @@ header h1 {
 .infos {
     background:url(../img/infos.png) center bottom no-repeat;
     /*margin-left: 10px;*/
-    padding:.3em 1em; 
+    padding:.3em 1em;
 }
 .infos:hover{
     background:url(../img/infos2.png) center bottom  no-repeat;
@@ -117,8 +116,6 @@ header h1 {
 #canvas {
     width:55%;
     margin-top: 0px;
-    border:20px solid rgba(255,255,255,0.5);
-
 }
 #detect {
     position:absolute;
@@ -218,7 +215,7 @@ header h1 {
     position:relative;
     border: 20px solid #ddd;
     border-radius:20px;
-    
+
     width: 60%;
     margin: 50px auto;
     background:white;
@@ -232,7 +229,7 @@ header h1 {
 }
 
 #content article h1 {
-    font-family: yanone_thin; 
+    font-family: yanone_thin;
 }
 
 .article_close {
@@ -277,20 +274,20 @@ header h1 {
 }
 #loader div{
     font-family: yanone_thin, Arial;
-    font-size: 2em;    
+    font-size: 2em;
     display:table-cell;
     vertical-align: middle;
     color:white;
 }
 .videoWrapper16_9 {
     position: relative;
-    padding-bottom: 56.25%; 
+    padding-bottom: 56.25%;
     padding-top: 5px;
     height: 0;
 }
 .videoWrapper4_3 {
     position: relative;
-    padding-bottom: 75%; 
+    padding-bottom: 75%;
     padding-top: 5px;
     height: 0;
 }
@@ -388,4 +385,3 @@ header h1 {
     border-bottom-left-radius: 20px;
     overflow: hidden;
 }
-
