@@ -466,6 +466,8 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             if ((iaScene.cursorState.indexOf("ZoomIn.cur") !== -1) &&
                 (iaScene.element === that)) {
 
+
+
                 iaScene.zoomActive = 1;
                 //document.body.style.cursor = "url(img/ZoomOut.cur),auto";
                 document.body.style.cursor = "zoom-out";
@@ -513,8 +515,26 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             // let's unzoom
             else if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
 
-                if ((that.group.zoomActive == 1) &&
-                    (that.group.scaleX().toFixed(5) == (that.agrandissement).toFixed(5))) {
+              var popupMaterialTopOrigin = ($("#popup_material_background").height() - $("#popup_material").height()) / 2
+              var popupMaterialLeftOrigin = ($("#popup_material_background").width() - $("#popup_material").width()) / 2
+
+              $("#popup_material").css({
+                "position": "absolute",
+                "top": (popupMaterialTopOrigin * 2 + $("#popup_material").height()) + 'px',
+                "left" : popupMaterialLeftOrigin + "px",
+                "transition" : "1s"
+              });
+
+              $("#popup_material_image").css({
+                "position": "absolute",
+                "top": (popupMaterialTopOrigin * 2 + $("#popup_material").height()) + 'px',
+                "left" : popupMaterialLeftOrigin + "px",
+                "transition" : "1s"
+              });
+
+                //if ((that.group.zoomActive == 1) &&
+                //    (that.group.scaleX().toFixed(5) == (that.agrandissement).toFixed(5))) {
+                if (that.group.zoomActive == 1) {
                     iaScene.zoomActive = 0;
                     that.group.zoomActive = 0;
                     that.group.scaleX(1);
@@ -568,6 +588,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     if ((iaScene.element !== 0) &&
                         (typeof(iaScene.element) !== 'undefined')) {
 
+
                         for (i in iaScene.element.kineticElement) {
                             iaScene.element.kineticElement[i].fillPriority('color');
                             iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
@@ -582,6 +603,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                             $(this)[0].pause();
                         });
                     }
+                    $("#popup_material_image").attr("src", "")
                     if (zoomable === true) {
                         //document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';
                         document.body.style.cursor = "zoom-in";
@@ -591,21 +613,133 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         iaScene.cursorState = 'url("img/ZoomFocus.cur"),auto';
                     }
 
+                    iaScene.zoomActive = 1;
+                    //document.body.style.cursor = "url(img/ZoomOut.cur),auto";
+                    document.body.style.cursor = "default";
+                    iaScene.cursorState = "url(img/ZoomOut.cur),auto";
+                    that.group.zoomActive = 1;
+
+
                     var cacheBackground = true;
                     for (i in that.kineticElement) {
-                        if (that.persistent[i] === "onImage") cacheBackground = false;
-                        that.kineticElement[i].fillPriority('pattern');
-                        that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
-                        that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);
-                        that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
+                        if (that.persistent[i] === "onImage") cacheBackground = false
+                        that.kineticElement[i].fillPriority('pattern')
+                        that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale)
+                        that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale)
+                        that.kineticElement[i].fillPatternImage(that.backgroundImage[i])
+                        that.kineticElement[i].x(that.kineticElement[i].x() - that.minX)
+                        that.kineticElement[i].y(that.kineticElement[i].y() - that.minY)
                         //that.kineticElement[i].stroke(iaScene.overColorStroke);
                         //that.kineticElement[i].stroke(that.stroke[i]);
                         //that.kineticElement[i].strokeWidth(that.strokeWidth[i]);
-                        that.kineticElement[i].moveToTop();
+                        that.kineticElement[i].moveToTop()
                     }
                     if (cacheBackground === true) that.backgroundCache_layer.moveToTop();
                     //that.group.moveToTop();
                     that.layer.moveToTop();
+
+                    //$("#popup_material_image").last().before($("#popup_material_background"))
+
+                    var mouseXY = that.layer.getStage().getPointerPosition();
+                    var $div = $('<div/>'),
+                        btnOffset = $(this).offset(),
+                    		xPos = mouseXY.x,
+                    		yPos = mouseXY.y;
+
+
+
+                    $div.addClass('ripple-effect');
+                    var $ripple = $(".ripple-effect");
+
+                    $ripple.css("height", 50);
+                    $ripple.css("width", 50);
+                    $div
+                      .css({
+                        top: yPos - ($ripple.height()/2),
+                        left: xPos - ($ripple.width()/2),
+                        background: "#0099CC"
+                      })
+                      .appendTo($("#ripple_background"));
+
+                    window.setTimeout(function(){
+                      $div.remove();
+                    }, 1000);
+
+
+
+
+                    var tempStage = new Kinetic.Stage({
+                        container: 'invisible',
+                        width: that.maxX - that.minX,
+                        height: that.maxY - that.minY
+                    });
+
+                    $("#popup_material_image").css({
+                      'position' : 'absolute',
+                      'display' : 'block',
+                      'top' : that.minY + 'px',
+                      'left' : that.minX + 'px',
+                      'height' : (that.maxY - that.minY) + 'px',
+                      'transition' : '0s'
+                    })
+
+                    var layerClone = that.layer.clone()
+                    tempStage.add(layerClone)
+
+                    for (i in that.kineticElement) {
+                      that.kineticElement[i].x(that.kineticElement[i].x() + that.minX)
+                      that.kineticElement[i].y(that.kineticElement[i].y() + that.minY)
+
+                        if (that.persistent[i] == "off") {
+                            that.kineticElement[i].fillPriority('color');
+                            that.kineticElement[i].fill('rgba(0, 0, 0, 0)');
+                            //that.kineticElement[i].setStroke('rgba(0, 0, 0, 0)');
+                            //that.kineticElement[i].setStrokeWidth(0);
+                        }
+                        else if (that.persistent[i] == "onPath") {
+                            that.kineticElement[i].fillPriority('color');
+                            that.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');
+                            //that.kineticElement[i].setStroke('rgba(0, 0, 0, 0)');
+                            //that.kineticElement[i].setStrokeWidth(0);
+                        }
+                        else if (that.persistent[i] == "onImage") {
+                            that.kineticElement[i].fillPriority('pattern');
+                            that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
+                            that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);
+                            that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
+                            //that.kineticElement[i].setStroke('rgba(0, 0, 0, 0)');
+                            //that.kineticElement[i].setStrokeWidth(0);
+                        }
+                    }
+                    tempStage.toDataURL({
+                        callback : function(data) {
+
+                          var popupMaterialTopOrigin = ($("#popup_material_background").height() - $("#popup_material").height()) / 2
+                          var popupMaterialLeftOrigin = ($("#popup_material_background").width() - $("#popup_material").width()) / 2
+
+                          $("#popup_material_image").attr("src", data).load(function(){
+                            $("#popup_material_image").css({
+                              'position' : 'absolute',
+                              'display' : 'block',
+                              'top' : popupMaterialTopOrigin + 'px',
+                              'left' : popupMaterialLeftOrigin + 'px',
+                              'height' : $("#popup_material_title").height() + 'px',
+                              'transition' : '1s'
+                            })
+
+                            $("#popup_material").css({
+                              "top": (popupMaterialTopOrigin) + 'px',
+                            });
+                          })
+
+
+
+
+
+                        }
+                    });
+
+
                     that.layer.draw();
                     iaScene.element = that;
 

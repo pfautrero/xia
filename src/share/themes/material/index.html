@@ -26,12 +26,7 @@
 
         </div>
     </div>
-    <div id="popup_material_background" style="overflow: hidden;position: absolute; top:0;left:0;width:100%;height:100%;display: flex;align-items:center;justify-content:center;">
-      <div id="popup_material" style="background-color: #efefef;height:70%;width:70%;box-shadow: 0px 0px 21px 7px rgba(0,0,0,0.43);">
-        <div class="title_material" style="background-color: #0099CC;height:10%;width:100%;">TITLE</div>
-        <div>YO</div>
-      </div>
-    </div>
+    <div id='invisible' style='display:none;'></div>
     <div id="container">
         <div id="detect"></div>
         <header>
@@ -39,8 +34,23 @@
             <a class="meta-doc" href="#" title="information générale"></a>
             <a class="infos" href="#" title="à propos"></a>
         </header>
-        <div id="canvas"></div>
-        <section id="content" class="overlay">{{CONTENT}}</section>
+        <section style="position:relative;overflow: hidden;">
+          <div id="canvas"></div>
+          <section id="content" class="overlay">{{CONTENT}}</section>
+
+          <div id="ripple_background" style="pointer-events:none;overflow: hidden;position: absolute; top:0;left:0;width:100%;height:100%;">
+
+          </div>
+
+          <div id="popup_material_background" style="pointer-events:none;overflow: hidden;position: absolute; top:0;left:0;width:100%;height:100%;display: flex;align-items:center;justify-content:center;">
+            <div id="popup_material" style="pointer-events:auto;background-color: #efefef;height:70%;width:70%;box-shadow: 0px 0px 21px 7px rgba(0,0,0,0.43);">
+              <div id="popup_material_title" class="title_material" style="background-color: #0099CC;height:30%;width:100%;">
+                TITLE</div>
+              <div>YO</div>
+            </div>
+          </div>
+          <img id="popup_material_image" src="#" style='display:none;' alt="detail" />
+        </section>
     </div>
     <footer class="overlay" id="rights">
         <section id="popup">

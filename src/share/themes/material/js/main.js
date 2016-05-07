@@ -135,7 +135,8 @@ function main(myhooks) {
 
         // define popup position
 
-        $("canvas").last().before($("#popup_material_background"))
+        //$("#popup_material_image").last().before($("#popup_material_background"))
+
 
         var popupMaterialTopOrigin = ($("#popup_material_background").height() - $("#popup_material").height()) / 2
         var popupMaterialLeftOrigin = ($("#popup_material_background").width() - $("#popup_material").width()) / 2
@@ -147,13 +148,9 @@ function main(myhooks) {
           "transition" : "1s"
         });
 
-
         $("#splash").fadeOut("slow", function(){
                 $("#loader").hide();
 
-                $("#popup_material").css({
-                  "top": (popupMaterialTopOrigin) + 'px',
-                });
 
         });
         // FullScreen ability
