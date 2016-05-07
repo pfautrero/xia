@@ -534,7 +534,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 
                 //if ((that.group.zoomActive == 1) &&
                 //    (that.group.scaleX().toFixed(5) == (that.agrandissement).toFixed(5))) {
-                if (that.group.zoomActive == 1) {
+              //  if (that.group.zoomActive == 1) {
                     iaScene.zoomActive = 0;
                     that.group.zoomActive = 0;
                     that.group.scaleX(1);
@@ -580,7 +580,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     that.zoomLayer.draw();
                     that.layer.draw();
                     that.backgroundCache_layer.draw();
-                }
+                //}
             }
             // let's focus
             else {

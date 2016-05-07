@@ -29,7 +29,7 @@ function main(myhooks) {
 
     // area located under the canvas. If mouse over is detected,
     // we must re-activate mouse events on canvas
-    var detect = document.getElementById("detect");
+    /*var detect = document.getElementById("detect");
     detect.addEventListener("mouseover", function()
       {
         that.canvas.style.pointerEvents="auto";
@@ -50,7 +50,7 @@ function main(myhooks) {
           }
         }
       }, false);
-
+      */
     // Load background image
 
     that.imageObj = new Image();
