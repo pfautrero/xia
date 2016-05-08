@@ -75,8 +75,9 @@ header h1 {
 }
 .meta-doc {
     background:url(../img/meta-doc.png) center bottom  no-repeat;
-    /*margin-left: 10px;*/
-    padding:.3em 1em
+    height: 100%;
+    width: 100%;
+    display: block;
 }
 .meta-doc:hover{
     background:url(../img/meta-doc2.png) center bottom  no-repeat;
@@ -84,7 +85,10 @@ header h1 {
 .infos {
     background:url(../img/infos.png) center bottom no-repeat;
     /*margin-left: 10px;*/
-    padding:.3em 1em;
+    height: 100%;
+    width: 100%;
+    display: block;
+
 }
 .infos:hover{
     background:url(../img/infos2.png) center bottom  no-repeat;
@@ -400,10 +404,20 @@ header h1 {
 @keyframes ripple-animation {
     from {
       transform: scale(1);
-      opacity: 0.7;
+      opacity: 0.8;
     }
     to {
       transform: scale(100);
       opacity: 0;
     }
+}
+
+#ripple-background {
+  pointer-events:none;
+  overflow: hidden;
+  position: absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
 }
