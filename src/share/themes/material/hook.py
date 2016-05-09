@@ -12,7 +12,7 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>
-#   
+#
 # @author : pascal.fautrero@crdp.ac-versailles.fr
 
 import gettext
@@ -37,9 +37,8 @@ class hook:
 
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""
-        
+
         final_str  = u'<article id="general">\n'
-        final_str += '<img class="article_close" src="{{LogoClose}}" alt="close"/>'
         final_str += u'  <h1>' + self.iaobject.scene["intro_title"] + '</h1>\n'
         final_str += u'  <p>' + self.PageFormatter(self.iaobject.scene["intro_detail"]).print_html() + u'</p>\n'
         final_str += u'</article>\n'
@@ -47,9 +46,8 @@ class hook:
             if detail['options'].find(u"direct-link") == -1:
                 dataState = "full"
                 if (self.PageFormatter(detail["detail"]).print_html() == "") and (detail["title"] == ""):
-                    dataState = "void"                
+                    dataState = "void"
                 final_str += u'<article data-state="'+ dataState +'" id="article-'+unicode(str(i), "utf8") + u'">\n'
-                final_str += '<img class="article_close" src="{{LogoClose}}" alt="close"/>'
                 final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
                 final_str += u'  <div>' + self.PageFormatter(detail["detail"]).print_html() + u'</div>\n'
                 final_str += u'</article>\n'
@@ -110,6 +108,6 @@ class hook:
                 final_index = final_index.replace("{{kineticJS}}", "js/kinetic.min.js")
                 final_index = final_index.replace("{{xiaJS}}", "js/xia.js")
                 final_index = final_index.replace("{{hooksJS}}", "js/hooks.js")
-                final_index = final_index.replace("{{labJS}}", "js/LAB.min.js")  
+                final_index = final_index.replace("{{labJS}}", "js/LAB.min.js")
         with open(filePath,"w") as indexfile:
             indexfile.write(final_index.encode("utf-8"))

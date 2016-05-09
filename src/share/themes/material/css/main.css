@@ -64,7 +64,11 @@ header h1 {
     color: white;
     font-family: yanone_thin;
 }
-
+h1 {
+  margin:0px;
+  font-family: yanone_thin;
+  color: white;
+}
 .eyes {
     background:url(../img/eyes.png) center bottom no-repeat;
     /*margin-left: 10px;*/
@@ -227,9 +231,6 @@ header h1 {
     box-shadow: black 5px 5px 10px;
     overflow-y: auto;
     overflow-x: hidden;
-}
-#content article p, h1 {
-    margin: 10px;
 }
 
 #content article h1 {

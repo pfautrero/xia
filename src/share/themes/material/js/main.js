@@ -27,30 +27,6 @@ function main(myhooks) {
     var that=window;
     that.canvas = document.getElementById("canvas");
 
-    // area located under the canvas. If mouse over is detected,
-    // we must re-activate mouse events on canvas
-    /*var detect = document.getElementById("detect");
-    detect.addEventListener("mouseover", function()
-      {
-        that.canvas.style.pointerEvents="auto";
-        if ((IaScene.element !== 0) && (typeof(IaScene.element) !== 'undefined')) {
-            for (var i in IaScene.element.kineticElement) {
-                IaScene.element.kineticElement[i].fillPriority('color');
-                IaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
-            }
-        }
-      }, false);
-    detect.addEventListener("touchstart", function()
-      {
-        that.canvas.style.pointerEvents="auto";
-        if ((IaScene.element !== 0) && (typeof(IaScene.element) !== 'undefined')) {
-          for (var i in IaScene.element.kineticElement) {
-            IaScene.element.kineticElement[i].fillPriority('color');
-            IaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
-          }
-        }
-      }, false);
-      */
     // Load background image
 
     that.imageObj = new Image();
@@ -133,57 +109,10 @@ function main(myhooks) {
 
         myhooks.afterMainConstructor(mainScene, that.layers);
 
-        // define popup position
-
-        //$("#popup_material_image").last().before($("#popup_material_background"))
-
-
-        var popupMaterialTopOrigin = ($("#popup_material_background").height() - $("#popup_material").height()) / 2
-        var popupMaterialLeftOrigin = ($("#popup_material_background").width() - $("#popup_material").width()) / 2
-
-        $("#popup_material").css({
-          "position": "absolute",
-          "top": (popupMaterialTopOrigin * 2 + $("#popup_material").height()) + 'px',
-          "left" : popupMaterialLeftOrigin + "px",
-          "transition" : "1s"
-        });
-
         $("#splash").fadeOut("slow", function(){
                 $("#loader").hide();
-
-
         });
-        // FullScreen ability
-        // source code from http://blogs.sitepointstatic.com/examples/tech/full-screen/index.html
-        var e = document.getElementById("title");
-        var div_container = document.getElementById("image-active");
-        e.onclick = function() {
-            if (runPrefixMethod(document, "FullScreen") || runPrefixMethod(document, "IsFullScreen")) {
-                runPrefixMethod(document, "CancelFullScreen");
-            }
-            else {
-                runPrefixMethod(div_container, "RequestFullScreen");
-            }
-            mainScene.fullScreen = mainScene.fullScreen == "on" ? "off": "on";
-        };
-
-        var pfx = ["webkit", "moz", "ms", "o", ""];
-        function runPrefixMethod(obj, method) {
-            var p = 0, m, t;
-            while (p < pfx.length && !obj[m]) {
-                m = method;
-                if (pfx[p] === "") {
-                    m = m.substr(0,1).toLowerCase() + m.substr(1);
-                }
-                m = pfx[p] + m;
-                t = typeof obj[m];
-                if (t != "undefined") {
-                    pfx = [pfx[p]];
-                    return (t == "function" ? obj[m]() : obj[m]);
-                }
-                p++;
-            }
-        }
+        
     };
 }
 

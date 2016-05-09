@@ -636,16 +636,29 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                           var popupMaterialTopOrigin = ($("#popup_material_background").height() - $("#popup_material").height()) / 2
                           var popupMaterialLeftOrigin = ($("#popup_material_background").width() - $("#popup_material").width()) / 2
 
+                          var backgroundWidth = Math.min($("#popup_material_title").height(), $("#popup_material").width() / 2)
+                          var backgroundHeight = $("#popup_material_title").height()
+                          var imageWidth = (that.maxX - that.minX)
+                          var imageHeight = (that.maxY - that.minY)
+                          var a = Math.min(
+                                  backgroundWidth / imageWidth,
+                                  backgroundHeight / imageHeight)
+
+                          var x = popupMaterialLeftOrigin
+                          var y = ((backgroundHeight - a * imageHeight) / 2) + popupMaterialTopOrigin
+
                           $("#popup_material_image").attr("src", data).load(function(){
                             $("#popup_material_image").css({
                               'position' : 'absolute',
                               'display' : 'block',
-                              'top' : popupMaterialTopOrigin + 'px',
-                              'left' : popupMaterialLeftOrigin + 'px',
-                              'height' : $("#popup_material_title").height() + 'px',
+                              'top' : y + 'px',
+                              'left' : x + 'px',
+                              'height' : (a * imageHeight) + 'px',
                               'transition' : '1s'
                             })
-
+                            $("#popup_material_title_text").css({
+                              "margin-left" : ($("#popup_material_image").get(0).naturalWidth * a) + 'px'
+                            })
                             $("#popup_material").css({
                               "top": (popupMaterialTopOrigin) + 'px',
                             });

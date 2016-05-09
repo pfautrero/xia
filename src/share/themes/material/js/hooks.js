@@ -8,13 +8,13 @@
 //   GNU General Public License for more details.
 //   You should have received a copy of the GNU General Public License
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
-//   
-//   
+//
+//
 // @author : pascal.fautrero@ac-versailles.fr
 
 
 /*
- * 
+ *
  * @constructor init specific hooks
  */
 function hooks() {
@@ -57,7 +57,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
             }
             $("#response_" + target).toggle();
         }
-       
+
     };
     var unlock_input = function(e) {
         e.preventDefault();
@@ -76,7 +76,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
             $(".button").on("click", button_click);
             $(".unlock input[type=submit]").off("click");
             $(".unlock input[type=submit]").on("click", unlock_input);
-        }        
+        }
     };
     $(".button").on("click", button_click);
     $(".unlock input[type=submit]").on("click", unlock_input);
@@ -107,7 +107,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         });
         $(this).parent().children("video").each(function(){
             $(this)[0].pause();
-        });                
+        });
     });
     document.addEventListener("click", function(ev){
         if (mainScene.noPropagation) {
@@ -115,7 +115,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         }
         else {
             if (mainScene.zoomActive === 1) {
-                if ((mainScene.element !== 0) && 
+                if ((mainScene.element !== 0) &&
                 (typeof(mainScene.element) !== 'undefined')) {
                     mainScene.element.kineticElement[0].fire("click");
                 }
@@ -126,11 +126,110 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
                 mainScene.element.kineticElement[0].fire("mouseleave");
             }
         }
+    })
+
+    var popupMaterialTopOrigin = ($("#popup_material_background").height() - $("#popup_material").height()) / 2
+    var popupMaterialLeftOrigin = ($("#popup_material_background").width() - $("#popup_material").width()) / 2
+
+    $("#popup_material").css({
+      "position": "absolute",
+      "top": (popupMaterialTopOrigin * 2 + $("#popup_material").height()) + 'px',
+      "left" : popupMaterialLeftOrigin + "px",
+      "transition" : "1s"
     });
+
+    $("#popup_material_image").on("click tap", function(ev){
+      // let's zoom the image
+      if (mainScene.cursorState.indexOf("ZoomOut.cur") != -1) {
+        mainScene.cursorState = 'url("img/ZoomImage.cur"),auto'
+        var backgroundWidth = $("#popup_material_background").width()
+        var backgroundHeight = $("#popup_material_background").height()
+        var imageWidth = $("#popup_material_image").width()
+        var imageHeight = $("#popup_material_image").height()
+        var a = Math.min(
+                3,
+                backgroundWidth / imageWidth,
+                backgroundHeight / imageHeight)
+
+        var x = (backgroundWidth - a * imageWidth) / 2
+        var y = (backgroundHeight - a * imageHeight) / 2
+        $("#popup_material_image_background").fadeIn()
+        $("#popup_material_image").css({
+          "position": "absolute",
+          "top": y + 'px',
+          "left" : x + "px",
+          "height" : (a * imageHeight) + 'px',
+          "transition" : "1s"
+        });
+      }
+      // let's unzoom the image
+      else {
+        mainScene.cursorState = 'url("img/ZoomOut.cur"),auto'
+        var popupMaterialTopOrigin = ($("#popup_material_background").height() - $("#popup_material").height()) / 2
+        var popupMaterialLeftOrigin = ($("#popup_material_background").width() - $("#popup_material").width()) / 2
+
+        var backgroundWidth = Math.min($("#popup_material_title").height(), $("#popup_material").width() / 2)
+        var backgroundHeight = $("#popup_material_title").height()
+        var imageWidth = $("#popup_material_image").width()
+        var imageHeight = $("#popup_material_image").height()
+        var a = Math.min(
+                backgroundWidth / imageWidth,
+                backgroundHeight / imageHeight)
+
+        var x = popupMaterialLeftOrigin
+        var y = ((backgroundHeight - a * imageHeight) / 2) + popupMaterialTopOrigin
+
+
+        $("#popup_material_image_background").fadeOut()
+        $("#popup_material_image").css({
+          'position' : 'absolute',
+          'display' : 'block',
+          'top' : y + 'px',
+          'left' : x + 'px',
+          'height' : (a * imageHeight) + 'px',
+          'transition' : '1s'
+        })
+      }
+
+    })
+
+
+    // FullScreen ability
+    // source code from http://blogs.sitepointstatic.com/examples/tech/full-screen/index.html
+    var e = document.getElementById("title");
+    var div_container = document.getElementById("image-active");
+    e.onclick = function() {
+        if (runPrefixMethod(document, "FullScreen") || runPrefixMethod(document, "IsFullScreen")) {
+            runPrefixMethod(document, "CancelFullScreen");
+        }
+        else {
+            runPrefixMethod(div_container, "RequestFullScreen");
+        }
+        mainScene.fullScreen = mainScene.fullScreen == "on" ? "off": "on";
+    };
+
+    var pfx = ["webkit", "moz", "ms", "o", ""];
+    function runPrefixMethod(obj, method) {
+        var p = 0, m, t;
+        while (p < pfx.length && !obj[m]) {
+            m = method;
+            if (pfx[p] === "") {
+                m = m.substr(0,1).toLowerCase() + m.substr(1);
+            }
+            m = pfx[p] + m;
+            t = typeof obj[m];
+            if (t != "undefined") {
+                pfx = [pfx[p]];
+                return (t == "function" ? obj[m]() : obj[m]);
+            }
+            p++;
+        }
+    }
+
 };
 /*
  *
- *  
+ *
  */
 hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaObject) {
 
@@ -138,30 +237,25 @@ hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaO
 
 /*
  *
- *  
+ *
  */
 hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
-
+  if ($('#' + idText).data("state") != "void") {
+      $("#popup_material_title h1").html($("#" + idText + " h1").html())
+      $("#popup_material_content").html($("#" + idText + " div").html())
+      $('#' + idText + " audio").each(function(){
+          if ($(this).data("state") === "autostart") {
+              $(this)[0].play();
+          }
+      });
+  }
 };
 
 
 /*
  *
- *  
+ *
  */
 hooks.prototype.afterIaObjectZoom = function(iaScene, idText, iaObject) {
-    if ($('#' + idText).data("state") != "void") {    
-        var viewportHeight = $(window).height();
-        $("#content").show();
-        $('#' + idText).show();
-        $('#' + idText + " audio").each(function(){
-            if ($(this).data("state") === "autostart") {
-                $(this)[0].play();
-            }
-        });            
-        var article_border = $('#' + idText).css("border-top-width").substr(0,$('#' + idText).css("border-top-width").length - 2);
-        var article_offset = $('#' + idText).offset();
-        var content_offset = $("#content").offset();
-        $('#' + idText).css({'max-height':(viewportHeight - article_offset.top - content_offset.top - 2 * article_border)});  
-    }
+
 };
