@@ -109,7 +109,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
             $(this)[0].pause();
         });
     });
-    document.addEventListener("click", function(ev){
+    /*document.addEventListener("click", function(ev){
         if (mainScene.noPropagation) {
             mainScene.noPropagation = false;
         }
@@ -126,7 +126,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
                 mainScene.element.kineticElement[0].fire("mouseleave");
             }
         }
-    })
+    })*/
 
     var popupMaterialTopOrigin = ($("#popup_material_background").height() - $("#popup_material").height()) / 2
     var popupMaterialLeftOrigin = ($("#popup_material_background").width() - $("#popup_material").width()) / 2
@@ -159,7 +159,8 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
           "top": y + 'px',
           "left" : x + "px",
           "height" : (a * imageHeight) + 'px',
-          "transition" : "1s"
+          "width" : (a * imageWidth) + 'px',
+          "transition" : "top 1s, left 1s, height 1s, width 1s"
         });
       }
       // let's unzoom the image
@@ -187,7 +188,8 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
           'top' : y + 'px',
           'left' : x + 'px',
           'height' : (a * imageHeight) + 'px',
-          'transition' : '1s'
+          'width' : (a * imageWidth) + 'px',
+          'transition' : 'top 1s, left 1s, height 1s, width 1s'
         })
       }
 

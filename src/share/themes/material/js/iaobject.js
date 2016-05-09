@@ -604,7 +604,9 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                       'display' : 'block',
                       'top' : that.minY + 'px',
                       'left' : that.minX + 'px',
+                      'z-index' : -100,
                       'height' : (that.maxY - that.minY) + 'px',
+                      'width' : (that.maxX - that.minX) + 'px',
                       'transition' : '0s'
                     })
 
@@ -653,7 +655,9 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                               'display' : 'block',
                               'top' : y + 'px',
                               'left' : x + 'px',
+                              'z-index' : 1000,
                               'height' : (a * imageHeight) + 'px',
+                              'width' : (a * imageWidth) + 'px',
                               'transition' : '1s'
                             })
                             $("#popup_material_title_text").css({
