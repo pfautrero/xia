@@ -51,18 +51,37 @@ function IaObject(params) {
     this.idText = params.idText;
     this.zoomLayer = params.zoomLayer;
 
+    this.nbImages = 0
+    this.nbImagesDone = 0
+    this.allImagesLoaded = $.Deferred()
+    this.allImagesLoaded.done(function(value){
+      params.iaScene.nbDetailsLoaded++
+      if (params.iaScene.nbDetails == params.iaScene.nbDetailsLoaded) params.iaScene.allDetailsLoaded.resolve()
+      that.myhooks.afterIaObjectConstructor(params.iaScene, params.idText, params.detail, that);
+    })
+
     // Create kineticElements and include them in a group
 
     that.group = new Kinetic.Group();
     that.layer.add(that.group);
 
     if (typeof(params.detail.path) !== 'undefined') {
+        that.nbImages = 1
         that.includePath(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
     }
     else if (typeof(params.detail.image) !== 'undefined') {
+        that.nbImages = 1
         that.includeImage(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
     }
     else if (typeof(params.detail.group) !== 'undefined') {
+        for (var i in params.detail.group) {
+            if (typeof(params.detail.group[i].path) !== 'undefined') {
+              that.nbImages++
+            }
+            else if (typeof(params.detail.group[i].image) !== 'undefined') {
+              that.nbImages++
+            }
+        }
         for (var i in params.detail.group) {
             if (typeof(params.detail.group[i].path) !== 'undefined') {
                 that.includePath(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
@@ -78,8 +97,6 @@ function IaObject(params) {
     }
 
     this.defineTweens(this, params.iaScene);
-
-    this.myhooks.afterIaObjectConstructor(params.iaScene, params.idText, params.detail, this);
 
 }
 
@@ -147,7 +164,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         if (cropY * 1 + cropHeight > iaScene.originalHeight * 1) {
             cropHeight = iaScene.originalHeight * 1 - cropY * 1;
         }
-	var hitCanvas = that.layer.getHitCanvas();
+	      var hitCanvas = that.layer.getHitCanvas();
         iaScene.completeImage = hitCanvas.getContext().getImageData(0,0,Math.floor(hitCanvas.width),Math.floor(hitCanvas.height));
 
         var canvas_source = document.createElement('canvas');
@@ -197,6 +214,9 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         })(len, imageDataSource);
 
         that.group.draw();
+        that.nbImagesDone++
+        if (that.nbImages == that.nbImagesDone) that.allImagesLoaded.resolve()
+
     };
 
 };
@@ -223,6 +243,9 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         scale: {x:iaScene.coeff,y:iaScene.coeff},
         fill: 'rgba(0, 0, 0, 0)'
     });
+    that.group.add(that.kineticElement[i]);
+
+
     that.definePathBoxSize(detail, that);
     // crop background image to suit shape box
     that.cropCanvas = document.createElement('canvas');
@@ -268,6 +291,9 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         that.kineticElement[i].fillPatternRepeat('no-repeat');
         that.kineticElement[i].fillPatternX(detail.minX);
         that.kineticElement[i].fillPatternY(detail.minY);
+        that.nbImagesDone++
+        if (that.nbImages == that.nbImagesDone) that.allImagesLoaded.resolve()
+
     };
 
     var zoomable = true;
@@ -287,10 +313,10 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         that.persistent[i] = "onPath";
         that.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');
     }
+    that.group.draw();
     that.addEventsManagement(i, zoomable, that, iaScene, baseImage, idText);
 
-    that.group.add(that.kineticElement[i]);
-    that.group.draw();
+
 };
 
 /*
@@ -487,7 +513,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 "transition" : "1s"
               });
 
-              $("#popup_material_image").css({
+              $("#popup_material_image_" + that.idText ).css({
                 "position": "absolute",
                 "top": (popupMaterialTopOrigin * 2 + $("#popup_material").height()) + 'px',
                 "left" : popupMaterialLeftOrigin + "px",
@@ -541,7 +567,6 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     if ((iaScene.element !== 0) &&
                         (typeof(iaScene.element) !== 'undefined')) {
 
-
                         for (i in iaScene.element.kineticElement) {
                             iaScene.element.kineticElement[i].fillPriority('color');
                             iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
@@ -554,7 +579,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                             $(this)[0].pause();
                         });
                     }
-                    $("#popup_material_image").attr("src", "")
+                    //$("#popup_material_image").attr("src", "")
                     if (zoomable === true) {
                         document.body.style.cursor = "zoom-in";
                         iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
@@ -562,6 +587,28 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     else {
                         iaScene.cursorState = 'url("img/ZoomFocus.cur"),auto';
                     }
+
+                    var rippleEffect = true
+                    if (rippleEffect) {
+                        var mouseXY = that.layer.getStage().getPointerPosition();
+                        var div = document.createElement("div")
+                        var newdiv = '<div class="ripple-effect" style="top:' + (mouseXY.y - 25) + 'px;left:'+ (mouseXY.x - 25) +'px;"></div>'
+                        $("#ripple_background").append(newdiv)
+                        window.setTimeout(function(){
+                          $(".ripple-effect").remove();
+                        }, 1100);
+                    }
+
+                    $("#popup_material_image_" + that.idText).css({
+                      'position' : 'absolute',
+                      'display' : 'block',
+                      'top' : that.minY + 'px',
+                      'left' : that.minX + 'px',
+                      'z-index' : -100,
+                      'height' : (that.maxY - that.minY) + 'px',
+                      'width' : (that.maxX - that.minX) + 'px',
+                      'transition' : '0s'
+                    })
 
                     iaScene.zoomActive = 1;
                     document.body.style.cursor = "default";
@@ -575,47 +622,25 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale)
                         that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale)
                         that.kineticElement[i].fillPatternImage(that.backgroundImage[i])
-                        that.kineticElement[i].x(that.kineticElement[i].x() - that.minX)
-                        that.kineticElement[i].y(that.kineticElement[i].y() - that.minY)
+                    //    that.kineticElement[i].x(that.kineticElement[i].x() - that.minX)
+                  //      that.kineticElement[i].y(that.kineticElement[i].y() - that.minY)
                         that.kineticElement[i].moveToTop()
                     }
                     if (cacheBackground === true) that.backgroundCache_layer.moveToTop();
                     that.layer.moveToTop();
 
-                    var rippleEffect = true
-                    if (rippleEffect) {
-                        var mouseXY = that.layer.getStage().getPointerPosition();
-                        var div = document.createElement("div")
-                        var newdiv = '<div class="ripple-effect" style="top:' + (mouseXY.y - 25) + 'px;left:'+ (mouseXY.x - 25) +'px;"></div>'
-                        $("#ripple_background").append(newdiv)
-                        window.setTimeout(function(){
-                          $(".ripple-effect").remove();
-                        }, 1100);
-                    }
-
-                    var tempStage = new Kinetic.Stage({
+                    /*var tempStage = new Kinetic.Stage({
                         container: 'invisible',
                         width: that.maxX - that.minX,
                         height: that.maxY - that.minY
                     });
 
-                    $("#popup_material_image").css({
-                      'position' : 'absolute',
-                      'display' : 'block',
-                      'top' : that.minY + 'px',
-                      'left' : that.minX + 'px',
-                      'z-index' : -100,
-                      'height' : (that.maxY - that.minY) + 'px',
-                      'width' : (that.maxX - that.minX) + 'px',
-                      'transition' : '0s'
-                    })
-
                     var layerClone = that.layer.clone()
                     tempStage.add(layerClone)
-
+                    */
                     for (i in that.kineticElement) {
-                      that.kineticElement[i].x(that.kineticElement[i].x() + that.minX)
-                      that.kineticElement[i].y(that.kineticElement[i].y() + that.minY)
+                  //    that.kineticElement[i].x(that.kineticElement[i].x() + that.minX)
+                  //    that.kineticElement[i].y(that.kineticElement[i].y() + that.minY)
 
                         if (that.persistent[i] == "off") {
                             that.kineticElement[i].fillPriority('color');
@@ -632,43 +657,54 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                             that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
                         }
                     }
+
+
+                    var popupMaterialTopOrigin = ($("#popup_material_background").height() - $("#popup_material").height()) / 2
+                    var popupMaterialLeftOrigin = ($("#popup_material_background").width() - $("#popup_material").width()) / 2
+
+                    var backgroundWidth = Math.min($("#popup_material_title").height(), $("#popup_material").width() / 2)
+                    var backgroundHeight = $("#popup_material_title").height()
+                    var imageWidth = (that.maxX - that.minX)
+                    var imageHeight = (that.maxY - that.minY)
+                    var a = Math.min(
+                            backgroundWidth / imageWidth,
+                            backgroundHeight / imageHeight)
+
+                    var x = popupMaterialLeftOrigin
+                    var y = ((backgroundHeight - a * imageHeight) / 2) + popupMaterialTopOrigin
+
+
+                      $("#popup_material_image_" + that.idText).css({
+                        'position' : 'absolute',
+                        'display' : 'block',
+                        'top' : y + 'px',
+                        'left' : x + 'px',
+                        'z-index' : 1000,
+                        'height' : (a * imageHeight) + 'px',
+                        'width' : (a * imageWidth) + 'px',
+                        'transition' : '1s'
+                      })
+                      $("#popup_material_title_text").css({
+                        "margin-left" : ($("#popup_material_image_" + that.idText).get(0).naturalWidth * a) + 'px'
+                      })
+                      $("#popup_material").css({
+                        "top": (popupMaterialTopOrigin) + 'px',
+                      });
+
+
+
+
+
+
+/*
                     tempStage.toDataURL({
                         callback : function(data) {
 
-                          var popupMaterialTopOrigin = ($("#popup_material_background").height() - $("#popup_material").height()) / 2
-                          var popupMaterialLeftOrigin = ($("#popup_material_background").width() - $("#popup_material").width()) / 2
 
-                          var backgroundWidth = Math.min($("#popup_material_title").height(), $("#popup_material").width() / 2)
-                          var backgroundHeight = $("#popup_material_title").height()
-                          var imageWidth = (that.maxX - that.minX)
-                          var imageHeight = (that.maxY - that.minY)
-                          var a = Math.min(
-                                  backgroundWidth / imageWidth,
-                                  backgroundHeight / imageHeight)
-
-                          var x = popupMaterialLeftOrigin
-                          var y = ((backgroundHeight - a * imageHeight) / 2) + popupMaterialTopOrigin
-
-                          $("#popup_material_image").attr("src", data).load(function(){
-                            $("#popup_material_image").css({
-                              'position' : 'absolute',
-                              'display' : 'block',
-                              'top' : y + 'px',
-                              'left' : x + 'px',
-                              'z-index' : 1000,
-                              'height' : (a * imageHeight) + 'px',
-                              'width' : (a * imageWidth) + 'px',
-                              'transition' : '1s'
-                            })
-                            $("#popup_material_title_text").css({
-                              "margin-left" : ($("#popup_material_image").get(0).naturalWidth * a) + 'px'
-                            })
-                            $("#popup_material").css({
-                              "top": (popupMaterialTopOrigin) + 'px',
-                            });
                           })
                         }
                     });
+  */
                     that.layer.draw();
                     iaScene.element = that;
 

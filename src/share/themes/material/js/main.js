@@ -91,6 +91,15 @@ function main(myhooks) {
         stage.add(layers[3]);
         stage.add(layers[4]);
         myhooks.beforeMainConstructor(mainScene, that.layers);
+        mainScene.nbDetails = details.length
+        mainScene.nbDetailsLoaded = 0
+        mainScene.allDetailsLoaded = $.Deferred()
+        mainScene.allDetailsLoaded.done(function(value){
+          myhooks.afterMainConstructor(mainScene, that.layers);
+          $("#splash").fadeOut("slow", function(){
+                  $("#loader").hide();
+          });
+        })
 
         for (var i in details) {
             var iaObj = new IaObject({
@@ -104,15 +113,10 @@ function main(myhooks) {
                 backgroundCache_layer: layers[0],
                 zoomLayer: layers[3],
                 myhooks: myhooks
-            });
+            })
+            mainScene.shapes.push(iaObj);
         }
 
-        myhooks.afterMainConstructor(mainScene, that.layers);
-
-        $("#splash").fadeOut("slow", function(){
-                $("#loader").hide();
-        });
-        
     };
 }
 
