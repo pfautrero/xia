@@ -424,8 +424,13 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             for (var i in that.kineticElement) {
                 if (that.persistent[i] == "off") {
                     that.kineticElement[i].fillPriority('color');
-                    that.kineticElement[i].fill(iaScene.overColor);
-                    that.kineticElement[i].scale(iaScene.coeff);
+                    //that.kineticElement[i].fill(iaScene.overColor);
+                    //that.kineticElement[i].scale(iaScene.coeff);
+                    that.kineticElement[i].stroke(iaScene.overColorStroke);
+                    that.kineticElement[i].strokeWidth(5);
+                    that.kineticElement[i].dashEnabled()
+                    that.kineticElement[i].dash([10,10]);
+
                 }
                 else if (that.persistent[i] == "onPath") {
                     that.kineticElement[i].fillPriority('color');
@@ -541,8 +546,11 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 
               for (i in that.kineticElement) {
                   if (that.persistent[i] == "off") {
-                      that.kineticElement[i].fillPriority('color');
-                      that.kineticElement[i].fill('rgba(0, 0, 0, 0)');
+//                      that.kineticElement[i].fillPriority('color');
+//                      that.kineticElement[i].fill('rgba(0, 0, 0, 0)');
+                      that.kineticElement[i].stroke('rgba(0, 0, 0, 0)');
+                      that.kineticElement[i].strokeWidth(0);
+
                   }
                   else if (that.persistent[i] == "onPath") {
                       that.kineticElement[i].fillPriority('color');
@@ -555,9 +563,9 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                       that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
                   }
               }
-              that.group.moveTo(that.layer);
-              that.zoomLayer.moveToBottom();
-              that.zoomLayer.draw();
+              //that.group.moveTo(that.layer);
+              //that.zoomLayer.moveToBottom();
+              //that.zoomLayer.draw();
               that.layer.draw();
               that.backgroundCache_layer.draw();
 
@@ -569,8 +577,10 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         (typeof(iaScene.element) !== 'undefined')) {
 
                         for (i in iaScene.element.kineticElement) {
-                            iaScene.element.kineticElement[i].fillPriority('color');
-                            iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
+                            //iaScene.element.kineticElement[i].fillPriority('color');
+                            //iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
+                            iaScene.element.kineticElement[i].stroke('rgba(0, 0, 0, 0)');
+                            iaScene.element.kineticElement[i].strokeWidth(0);
                         }
                         if (iaScene.element.layer) iaScene.element.layer.draw();
                         $('#' + iaScene.element.idText + " audio").each(function(){
@@ -582,11 +592,15 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     }
 
                     if (zoomable === true) {
-                        document.body.style.cursor = "zoom-in";
-                        iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
+                        //document.body.style.cursor = "zoom-in";
+                        //iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
+                        $("#popup_material_image_" + that.idText).data('zoomable', true)
+                        $("#popup_material_image_" + that.idText).css('cursor', 'pointer')
                     }
                     else {
-                        iaScene.cursorState = 'url("img/ZoomFocus.cur"),auto';
+                        //iaScene.cursorState = 'url("img/ZoomFocus.cur"),auto';
+                        $("#popup_material_image_" + that.idText).data('zoomable', false)
+                        $("#popup_material_image_" + that.idText).css('cursor', 'default')
                     }
 
                     var rippleEffect = true
@@ -628,8 +642,10 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     for (i in that.kineticElement) {
 
                         if (that.persistent[i] == "off") {
-                            that.kineticElement[i].fillPriority('color');
-                            that.kineticElement[i].fill('rgba(0, 0, 0, 0)');
+                            //that.kineticElement[i].fillPriority('color');
+                            //that.kineticElement[i].fill('rgba(0, 0, 0, 0)');
+                            that.kineticElement[i].stroke('rgba(0, 0, 0, 0)');
+                            that.kineticElement[i].strokeWidth(0);
                         }
                         else if (that.persistent[i] == "onPath") {
                             that.kineticElement[i].fillPriority('color');
@@ -716,8 +732,10 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 that.backgroundCache_layer.moveToBottom();
                 for (var i in that.kineticElement) {
                     if ((that.persistent[i] == "off") || (that.persistent[i] == "off-image")) {
-                        that.kineticElement[i].fillPriority('color');
-                        that.kineticElement[i].fill('rgba(0, 0, 0, 0)');
+                        //that.kineticElement[i].fillPriority('color');
+                        //that.kineticElement[i].fill('rgba(0, 0, 0, 0)');
+                        that.kineticElement[i].stroke('rgba(0, 0, 0, 0)');
+                        that.kineticElement[i].strokeWidth(0);
                     }
                     else if (that.persistent[i] == "onPath") {
                         that.kineticElement[i].fillPriority('color');

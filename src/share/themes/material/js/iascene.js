@@ -31,7 +31,7 @@ function IaScene(originalWidth, originalHeight) {
     var _colorOver = {red:66, green:133, blue:244, opacity:0.6};
 
     // default color used to fill stroke around shapes during mouseover
-    var _colorOverStroke = {red:255, green:0, blue:0, opacity:1};
+    var _colorOverStroke = {red:0, green:153, blue:204, opacity:1};
 
     // default color used to fill shapes if defined as cache
     this.colorPersistent = {red:124, green:154, blue:174, opacity:1};

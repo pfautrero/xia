@@ -267,7 +267,10 @@ hooks.prototype.convertDetail2Image = function(index, iaScene) {
 
   $("#popup_material_image_" + iaObject.idText).on("click tap", function(ev){
     // let's zoom the image
-    if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
+    if ($(this).data("zoomable") != true) {
+      return
+    }
+    else if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
       iaScene.cursorState = 'url("img/ZoomImage.cur"),auto'
       var backgroundWidth = $("#popup_material_background").width()
       var backgroundHeight = $("#popup_material_background").height()
