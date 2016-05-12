@@ -609,7 +609,10 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                       'width' : (that.maxX - that.minX) + 'px',
                       'transition' : '0s'
                     })
-
+                    $("#popup_material").css({
+                      "position": "absolute",
+                      "transition" : "0s"
+                    });
                     iaScene.zoomActive = 1;
                     document.body.style.cursor = "default";
                     iaScene.cursorState = "url(img/ZoomOut.cur),auto";
@@ -618,13 +621,11 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     var cacheBackground = true;
                     for (i in that.kineticElement) {
                         if (that.persistent[i] === "onImage") cacheBackground = false
-                        that.kineticElement[i].fillPriority('pattern')
-                        that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale)
-                        that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale)
-                        that.kineticElement[i].fillPatternImage(that.backgroundImage[i])
-                    //    that.kineticElement[i].x(that.kineticElement[i].x() - that.minX)
-                  //      that.kineticElement[i].y(that.kineticElement[i].y() - that.minY)
-                        that.kineticElement[i].moveToTop()
+                        //that.kineticElement[i].fillPriority('pattern')
+                        //that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale)
+                        //that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale)
+                        //that.kineticElement[i].fillPatternImage(that.backgroundImage[i])
+                        //that.kineticElement[i].moveToTop()
                     }
                     if (cacheBackground === true) that.backgroundCache_layer.moveToTop();
                     that.layer.moveToTop();
@@ -639,8 +640,6 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     tempStage.add(layerClone)
                     */
                     for (i in that.kineticElement) {
-                  //    that.kineticElement[i].x(that.kineticElement[i].x() + that.minX)
-                  //    that.kineticElement[i].y(that.kineticElement[i].y() + that.minY)
 
                         if (that.persistent[i] == "off") {
                             that.kineticElement[i].fillPriority('color');
@@ -674,7 +673,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     var y = ((backgroundHeight - a * imageHeight) / 2) + popupMaterialTopOrigin
 
 
-                      $("#popup_material_image_" + that.idText).css({
+                      /*$("#popup_material_image_" + that.idText).css({
                         'position' : 'absolute',
                         'display' : 'block',
                         'top' : y + 'px',
@@ -682,13 +681,44 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         'height' : (a * imageHeight) + 'px',
                         'width' : (a * imageWidth) + 'px',
                         'transition' : '1s'
+                      })*/
+                      $.easing.custom = function (x, t, b, c, d) {
+                        return c*(t/=d)*t*t*t*t + b;
+                      }
+                      $("#popup_material_content").html()
+                      $("#popup_material_content").hide()
+                      $("#popup_material").animate({
+                        'top': (popupMaterialTopOrigin) + 'px',
+                      },{
+                        duration : 1000,
+                        easing : "custom",
+                        queue : false,
+                        complete : function(){
+                          $("#popup_material_content").html($("#" + that.idText + " div").html())
+                          $("#popup_material_content").fadeIn()
+                        }
                       })
+
+                      $("#popup_material_image_" + that.idText).animate({
+                        'top' : y + 'px',
+                        'left' : x + 'px',
+                        'height' : (a * imageHeight) + 'px',
+                        'width' : (a * imageWidth) + 'px',
+
+                      },{
+                        duration : 1000,
+                        easing : "linear",
+                        queue : false
+                      })
+
                       $("#popup_material_title_text").css({
                         "margin-left" : ($("#popup_material_image_" + that.idText).get(0).naturalWidth * a) + 'px'
                       })
-                      $("#popup_material").css({
+
+                      /*$("#popup_material").css({
                         "top": (popupMaterialTopOrigin) + 'px',
-                      });
+                      })*/
+
 
                     that.layer.draw();
                     iaScene.element = that;

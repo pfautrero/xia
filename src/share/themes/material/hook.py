@@ -86,10 +86,11 @@ class hook:
             final_index = final_index.replace("{{CONTENT}}", final_str)
             final_index = final_index.replace("{{LOADING}}", self.loading)
             if self.root.index_standalone:
-                xiaWebsite = "http://xia.dane.ac-versailles.fr/network/delivery/popBlue"
+                xiaWebsite = "http://xia.dane.ac-versailles.fr/network/delivery/material"
                 final_index = final_index.replace("{{MainCSS}}", xiaWebsite + "/css/main.css")
                 final_index = final_index.replace("{{LogoLoading}}",  xiaWebsite + "/img/xia.png")
                 final_index = final_index.replace("{{LogoClose}}", xiaWebsite + "/img/close.png")
+                final_index = final_index.replace("{{LogoDelete}}", xiaWebsite + "/img/delete.png")
                 final_index = final_index.replace("{{datasJS}}", "<script>" + self.iaobject.jsonContent + "</script>")
                 final_index = final_index.replace("{{lazyDatasJS}}", '')
                 final_index = final_index.replace("{{JqueryJS}}", "https://code.jquery.com/jquery-1.11.1.min.js")
@@ -102,6 +103,7 @@ class hook:
                 final_index = final_index.replace("{{MainCSS}}", "css/main.css")
                 final_index = final_index.replace("{{LogoLoading}}",  "img/xia.png")
                 final_index = final_index.replace("{{LogoClose}}", "img/close.png")
+                final_index = final_index.replace("{{LogoDelete}}", "img/delete.png")
                 final_index = final_index.replace("{{datasJS}}", "")
                 final_index = final_index.replace("{{lazyDatasJS}}", 'datas/data.js')
                 final_index = final_index.replace("{{JqueryJS}}", "js/jquery.min.js")

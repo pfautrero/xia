@@ -175,6 +175,9 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
 
     this.convertDetail2Image(0, mainScene)
 
+    $("#popup_material_delete").on("click tap", function(){
+      mainScene.element.kineticElement[0].fire("click")
+    })
 
 }
 
@@ -338,7 +341,7 @@ hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaO
 hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
   if ($('#' + idText).data("state") != "void") {
       $("#popup_material_title h1").html($("#" + idText + " h1").html())
-      $("#popup_material_content").html($("#" + idText + " div").html())
+
       $('#' + idText + " audio").each(function(){
           if ($(this).data("state") === "autostart") {
               $(this)[0].play();
