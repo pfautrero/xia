@@ -55,7 +55,7 @@ function IaObject(params) {
     this.nbImagesDone = 0
     this.allImagesLoaded = $.Deferred()
     this.allImagesLoaded.done(function(value){
-      params.iaScene.nbDetailsLoaded++
+      params.iaScene.nbDetailsLoaded+=value
       if (params.iaScene.nbDetails == params.iaScene.nbDetailsLoaded) params.iaScene.allDetailsLoaded.resolve()
       that.myhooks.afterIaObjectConstructor(params.iaScene, params.idText, params.detail, that);
     })
@@ -95,7 +95,7 @@ function IaObject(params) {
     else {
         console.log(params.detail);
     }
-
+    if (that.nbImages == 0) that.allImagesLoaded.resolve(0)
     this.defineTweens(this, params.iaScene);
 
 }
@@ -215,7 +215,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
 
         that.group.draw();
         that.nbImagesDone++
-        if (that.nbImages == that.nbImagesDone) that.allImagesLoaded.resolve()
+        if (that.nbImages == that.nbImagesDone) that.allImagesLoaded.resolve(1)
 
     };
 
@@ -292,7 +292,7 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         that.kineticElement[i].fillPatternX(detail.minX);
         that.kineticElement[i].fillPatternY(detail.minY);
         that.nbImagesDone++
-        if (that.nbImages == that.nbImagesDone) that.allImagesLoaded.resolve()
+        if (that.nbImages == that.nbImagesDone) that.allImagesLoaded.resolve(1)
 
     };
 
@@ -506,20 +506,20 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
               var popupMaterialTopOrigin = ($("#popup_material_background").height() - $("#popup_material").height()) / 2
               var popupMaterialLeftOrigin = ($("#popup_material_background").width() - $("#popup_material").width()) / 2
 
-              $("#popup_material").css({
-                "position": "absolute",
+              $("#popup_material").animate({
                 "top": (popupMaterialTopOrigin * 2 + $("#popup_material").height()) + 'px',
                 "left" : popupMaterialLeftOrigin + "px",
-                "transition" : "1s"
-              });
+              },
+              {queue : false});
 
-              //$("#popup_material_image_" + that.idText ).css({
-              $(".popup_material_image").css({
-                "position": "absolute",
+              $("#popup_material_image_" + that.idText ).css({
+                'transition' : '0s'
+              })
+              $(".popup_material_image").animate({
                 "top": (popupMaterialTopOrigin * 2 + $("#popup_material").height()) + 'px',
                 "left" : popupMaterialLeftOrigin + "px",
-                "transition" : "1s"
-              });
+              },
+              {queue : false});
 
               iaScene.zoomActive = 0;
               that.group.zoomActive = 0;
@@ -580,7 +580,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                             $(this)[0].pause();
                         });
                     }
-                    //$("#popup_material_image").attr("src", "")
+
                     if (zoomable === true) {
                         document.body.style.cursor = "zoom-in";
                         iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
@@ -621,24 +621,10 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     var cacheBackground = true;
                     for (i in that.kineticElement) {
                         if (that.persistent[i] === "onImage") cacheBackground = false
-                        //that.kineticElement[i].fillPriority('pattern')
-                        //that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale)
-                        //that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale)
-                        //that.kineticElement[i].fillPatternImage(that.backgroundImage[i])
-                        //that.kineticElement[i].moveToTop()
                     }
                     if (cacheBackground === true) that.backgroundCache_layer.moveToTop();
                     that.layer.moveToTop();
 
-                    /*var tempStage = new Kinetic.Stage({
-                        container: 'invisible',
-                        width: that.maxX - that.minX,
-                        height: that.maxY - that.minY
-                    });
-
-                    var layerClone = that.layer.clone()
-                    tempStage.add(layerClone)
-                    */
                     for (i in that.kineticElement) {
 
                         if (that.persistent[i] == "off") {
@@ -657,7 +643,6 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         }
                     }
 
-
                     var popupMaterialTopOrigin = ($("#popup_material_background").height() - $("#popup_material").height()) / 2
                     var popupMaterialLeftOrigin = ($("#popup_material_background").width() - $("#popup_material").width()) / 2
 
@@ -672,29 +657,19 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     var x = popupMaterialLeftOrigin
                     var y = ((backgroundHeight - a * imageHeight) / 2) + popupMaterialTopOrigin
 
-
-                      /*$("#popup_material_image_" + that.idText).css({
-                        'position' : 'absolute',
-                        'display' : 'block',
-                        'top' : y + 'px',
-                        'left' : x + 'px',
-                        'height' : (a * imageHeight) + 'px',
-                        'width' : (a * imageWidth) + 'px',
-                        'transition' : '1s'
-                      })*/
                       $.easing.custom = function (x, t, b, c, d) {
                         return c*(t/=d)*t*t*t*t + b;
                       }
-                      $("#popup_material_content").html()
                       $("#popup_material_content").hide()
+                      $("#content article").hide()
                       $("#popup_material").animate({
                         'top': (popupMaterialTopOrigin) + 'px',
                       },{
-                        duration : 1000,
+                        duration : 500,
                         easing : "custom",
                         queue : false,
                         complete : function(){
-                          $("#popup_material_content").html($("#" + that.idText + " div").html())
+                          $("#" + that.idText).show()
                           $("#popup_material_content").fadeIn()
                         }
                       })
@@ -706,19 +681,14 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         'width' : (a * imageWidth) + 'px',
 
                       },{
-                        duration : 1000,
-                        easing : "linear",
+                        duration : 500,
+                        easing : "custom",
                         queue : false
                       })
 
                       $("#popup_material_title_text").css({
                         "margin-left" : ($("#popup_material_image_" + that.idText).get(0).naturalWidth * a) + 'px'
                       })
-
-                      /*$("#popup_material").css({
-                        "top": (popupMaterialTopOrigin) + 'px',
-                      })*/
-
 
                     that.layer.draw();
                     iaScene.element = that;

@@ -92,6 +92,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
 
     $(".overlay").hide();
 
+
     $(".infos").on("click", function(){
         $("#rights").show();
     });
