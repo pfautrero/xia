@@ -513,7 +513,8 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 "transition" : "1s"
               });
 
-              $("#popup_material_image_" + that.idText ).css({
+              //$("#popup_material_image_" + that.idText ).css({
+              $(".popup_material_image").css({
                 "position": "absolute",
                 "top": (popupMaterialTopOrigin * 2 + $("#popup_material").height()) + 'px',
                 "left" : popupMaterialLeftOrigin + "px",
@@ -604,7 +605,6 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                       'display' : 'block',
                       'top' : that.minY + 'px',
                       'left' : that.minX + 'px',
-                      'z-index' : -100,
                       'height' : (that.maxY - that.minY) + 'px',
                       'width' : (that.maxX - that.minX) + 'px',
                       'transition' : '0s'
@@ -679,7 +679,6 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         'display' : 'block',
                         'top' : y + 'px',
                         'left' : x + 'px',
-                        'z-index' : 1000,
                         'height' : (a * imageHeight) + 'px',
                         'width' : (a * imageWidth) + 'px',
                         'transition' : '1s'
@@ -691,20 +690,6 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         "top": (popupMaterialTopOrigin) + 'px',
                       });
 
-
-
-
-
-
-/*
-                    tempStage.toDataURL({
-                        callback : function(data) {
-
-
-                          })
-                        }
-                    });
-  */
                     that.layer.draw();
                     iaScene.element = that;
 

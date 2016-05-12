@@ -173,13 +173,19 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         }
     }
 
-};
+    this.convertDetail2Image(0, mainScene)
+
+
+}
+
 /*
  *  fired once all images are loaded
  *
  */
-hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaObject) {
+hooks.prototype.convertDetail2Image = function(index, iaScene) {
 
+  var iaObject = iaScene.shapes[index]
+  var myhooks = this
   var newContainer = document.createElement('div')
   $(newContainer).attr("id", "stage_" + iaObject.idText)
   $(newContainer).css({"display" : "none"})
@@ -201,97 +207,128 @@ hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaO
     iaObject.kineticElement[i].moveToTop()
   }
 
-
   var layerClone = iaObject.layer.clone()
-
   tempStage.add(layerClone)
-
-  //var data = iaObject.layer.toDataURL()
-
-  tempStage.toDataURL({
-  //layerClone.toImage({
-      callback: function(data) {
-
-          var newImage = document.createElement('img')
-          $("#popup_material_image_background").after(newImage)
-          $(newImage).attr("id", "popup_material_image_" + iaObject.idText)
-          $(newImage).attr("src", data)
-
-          $("#popup_material_image_" + iaObject.idText).css({
-            'position' : 'absolute',
-            'display' : 'block',
-            'top' : iaObject.minY + 'px',
-            'left' : iaObject.minX + 'px',
-            'z-index' : -100,
-            'height' : (iaObject.maxY - iaObject.minY) + 'px',
-            'width' : (iaObject.maxX - iaObject.minX) + 'px',
-            'transition' : '0s'
-          })
-
-          $("#popup_material_image_" + iaObject.idText).on("click tap", function(ev){
-            // let's zoom the image
-            if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
-              iaScene.cursorState = 'url("img/ZoomImage.cur"),auto'
-              var backgroundWidth = $("#popup_material_background").width()
-              var backgroundHeight = $("#popup_material_background").height()
-              var imageWidth = $("#popup_material_image_" + iaObject.idText).width()
-              var imageHeight = $("#popup_material_image_" + iaObject.idText).height()
-              var a = Math.min(
-                      3,
-                      backgroundWidth / imageWidth,
-                      backgroundHeight / imageHeight)
-
-              var x = (backgroundWidth - a * imageWidth) / 2
-              var y = (backgroundHeight - a * imageHeight) / 2
-              $("#popup_material_image_background").fadeIn()
-              $("#popup_material_image_" + iaObject.idText).css({
-                "position": "absolute",
-                "top": y + 'px',
-                "left" : x + "px",
-                "height" : (a * imageHeight) + 'px',
-                "width" : (a * imageWidth) + 'px',
-                "transition" : "top 1s, left 1s, height 1s, width 1s"
-              });
-            }
-            // let's unzoom the image
-            else {
-              iaScene.cursorState = 'url("img/ZoomOut.cur"),auto'
-              var popupMaterialTopOrigin = ($("#popup_material_background").height() - $("#popup_material").height()) / 2
-              var popupMaterialLeftOrigin = ($("#popup_material_background").width() - $("#popup_material").width()) / 2
-
-              var backgroundWidth = Math.min($("#popup_material_title").height(), $("#popup_material").width() / 2)
-              var backgroundHeight = $("#popup_material_title").height()
-              var imageWidth = $("#popup_material_image_" + iaObject.idText).width()
-              var imageHeight = $("#popup_material_image_" + iaObject.idText).height()
-              var a = Math.min(
-                      backgroundWidth / imageWidth,
-                      backgroundHeight / imageHeight)
-
-              var x = popupMaterialLeftOrigin
-              var y = ((backgroundHeight - a * imageHeight) / 2) + popupMaterialTopOrigin
-
-              $("#popup_material_image_background").fadeOut()
-              $("#popup_material_image_" + iaObject.idText).css({
-                'position' : 'absolute',
-                'display' : 'block',
-                'top' : y + 'px',
-                'left' : x + 'px',
-                'height' : (a * imageHeight) + 'px',
-                'width' : (a * imageWidth) + 'px',
-                'transition' : 'top 1s, left 1s, height 1s, width 1s'
-              })
-            }
-          })
-      }
-  })
-
   layerClone.draw()
 
-  for (i in iaObject.kineticElement) {
-    iaObject.kineticElement[i].x(iaObject.kineticElement[i].x() + iaObject.minX)
-    iaObject.kineticElement[i].y(iaObject.kineticElement[i].y() + iaObject.minY)
-  }
-  iaObject.layer.draw();
+  var data = layerClone.toDataURL()
+
+  var newImage = document.createElement('img')
+  $("#popup_material_image_background").after(newImage)
+  $(newImage).attr("id", "popup_material_image_" + iaObject.idText)
+  $(newImage).addClass("popup_material_image")
+  $(newImage).attr("src", data).load(function(){
+    /*for (i in iaObject.kineticElement) {
+
+    }*/
+
+    for (i in iaObject.kineticElement) {
+      iaObject.kineticElement[i].x(iaObject.kineticElement[i].x() + iaObject.minX)
+      iaObject.kineticElement[i].y(iaObject.kineticElement[i].y() + iaObject.minY)
+        if (iaObject.persistent[i] == "off") {
+            iaObject.kineticElement[i].fillPriority('color');
+            iaObject.kineticElement[i].fill('rgba(0, 0, 0, 0)');
+        }
+        else if (iaObject.persistent[i] == "onPath") {
+            iaObject.kineticElement[i].fillPriority('color');
+            iaObject.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');
+        }
+        else if (iaObject.persistent[i] == "onImage") {
+            iaObject.kineticElement[i].fillPriority('pattern');
+            iaObject.kineticElement[i].fillPatternScaleX(iaObject.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
+            iaObject.kineticElement[i].fillPatternScaleY(iaObject.backgroundImageOwnScaleY[i] * 1/iaScene.scale);
+            iaObject.kineticElement[i].fillPatternImage(iaObject.backgroundImage[i]);
+        }
+    }
+
+
+    iaObject.layer.draw();
+    (function(index){
+      if ((index+1) in iaScene.shapes) myhooks.convertDetail2Image(index+1, iaScene)
+    })(index)
+  })
+
+  var popupMaterialTopOrigin = ($("#popup_material_background").height() - $("#popup_material").height()) / 2
+
+  $("#popup_material_image_" + iaObject.idText).css({
+    'position' : 'absolute',
+    'display' : 'block',
+    //'top' : iaObject.minY + 'px',
+    'top' : '2000px',
+    'left' : iaObject.minX + 'px',
+    'height' : (iaObject.maxY - iaObject.minY) + 'px',
+    'width' : (iaObject.maxX - iaObject.minX) + 'px',
+    'transition' : '0s'
+  })
+
+  $("#popup_material_image_" + iaObject.idText).on("click tap", function(ev){
+    // let's zoom the image
+    if (iaScene.cursorState.indexOf("ZoomOut.cur") != -1) {
+      iaScene.cursorState = 'url("img/ZoomImage.cur"),auto'
+      var backgroundWidth = $("#popup_material_background").width()
+      var backgroundHeight = $("#popup_material_background").height()
+      var imageWidth = $("#popup_material_image_" + iaObject.idText).width()
+      var imageHeight = $("#popup_material_image_" + iaObject.idText).height()
+      var a = Math.min(
+              3,
+              backgroundWidth / imageWidth,
+              backgroundHeight / imageHeight)
+
+      var x = (backgroundWidth - a * imageWidth) / 2
+      var y = (backgroundHeight - a * imageHeight) / 2
+      $("#popup_material_image_background").fadeIn()
+      $(this).css({
+        "position": "absolute",
+        "top": y + 'px',
+        "left" : x + "px",
+        "height" : (a * imageHeight) + 'px',
+        "width" : (a * imageWidth) + 'px',
+        "transition" : "top 1s, left 1s, height 1s, width 1s"
+      });
+    }
+    // let's unzoom the image
+    else {
+      iaScene.cursorState = 'url("img/ZoomOut.cur"),auto'
+      var popupMaterialTopOrigin = ($("#popup_material_background").height() - $("#popup_material").height()) / 2
+      var popupMaterialLeftOrigin = ($("#popup_material_background").width() - $("#popup_material").width()) / 2
+
+      var backgroundWidth = Math.min($("#popup_material_title").height(), $("#popup_material").width() / 2)
+      var backgroundHeight = $("#popup_material_title").height()
+      var imageWidth = $(this).width()
+      var imageHeight = $(this).height()
+      var a = Math.min(
+              backgroundWidth / imageWidth,
+              backgroundHeight / imageHeight)
+
+      var x = popupMaterialLeftOrigin
+      var y = ((backgroundHeight - a * imageHeight) / 2) + popupMaterialTopOrigin
+
+      $("#popup_material_image_background").fadeOut()
+      $(this).css({
+        'position' : 'absolute',
+        'display' : 'block',
+        'top' : y + 'px',
+        'left' : x + 'px',
+        'height' : (a * imageHeight) + 'px',
+        'width' : (a * imageWidth) + 'px',
+        'transition' : 'top 1s, left 1s, height 1s, width 1s'
+      })
+    }
+  })
+
+
+
+
+}
+
+
+/*
+ *  fired once all images are loaded
+ *
+ */
+hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaObject) {
+
+
 };
 
 /*
