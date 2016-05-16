@@ -122,8 +122,8 @@ class IAParams(Tkinter.Frame):
 
         if self.indexStandalone_param == 1:
             self.firefoxos_param = 0
-            self.parent.firefoxos = self.firefoxos_param
-            self.button_firefox.configure(image=self.firefoxos_img[self.firefoxos_param])
+#            self.parent.firefoxos = self.firefoxos_param
+#            self.button_firefox.configure(image=self.firefoxos_img[self.firefoxos_param])
 
 
     def quit(self):

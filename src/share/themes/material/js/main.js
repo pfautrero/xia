@@ -27,13 +27,140 @@ function main(myhooks) {
     var that=window;
     that.canvas = document.getElementById("canvas");
 
+    var newImage = document.createElement('img')
+    $("#popup_material_image_background").after(newImage)
+    $(newImage).attr("id", "popup_material_image_general")
+    $(newImage).addClass("popup_material_image")
+    $(newImage).attr("src", scene.image).load(function(){
+        $("#popup_material_image_general").css({
+          'position' : 'absolute',
+          'display' : 'block',
+          //'top' : iaObject.minY + 'px',
+          'top' : '2000px',
+          'left' : '0px',
+          'transition' : '0s',
+          'cursor' : 'pointer'
+        })
+    })
+
     // Load background image
 
     that.imageObj = new Image();
-    that.imageObj.src = scene.image;
+    that.imageObj.src = scene.image
     that.imageObj.onload = function() {
 
         var mainScene = new IaScene(scene.width,scene.height);
+
+        $(".meta-doc").on("click tap", function(){
+          console.log("yo")
+          mainScene.cursorState = 'url("img/ZoomOut.cur"),auto'
+          var popupMaterialTopOrigin = ($("#popup_material_background").height() - $("#popup_material").height()) / 2
+          var popupMaterialLeftOrigin = ($("#popup_material_background").width() - $("#popup_material").width()) / 2
+
+          var backgroundWidth = Math.min($("#popup_material_title").height(), $("#popup_material").width() / 2)
+          var backgroundHeight = $("#popup_material_title").height()
+          var imageWidth = scene.width
+          var imageHeight = scene.height
+          var a = Math.min(
+                  backgroundWidth / imageWidth,
+                  backgroundHeight / imageHeight)
+
+          var x = popupMaterialLeftOrigin
+          var y = ((backgroundHeight - a * imageHeight) / 2) + popupMaterialTopOrigin
+
+          $.easing.custom = function (x, t, b, c, d) {
+            return c*(t/=d)*t*t*t*t + b;
+          }
+          $("#popup_material_content").hide()
+          $("#content article").hide()
+          $("#popup_material").animate({
+            'top': (popupMaterialTopOrigin) + 'px',
+          },{
+            duration : 500,
+            easing : "custom",
+            queue : false,
+            complete : function(){
+              $("#general").show()
+              $("#popup_material_content").fadeIn()
+            }
+          })
+          $("#popup_material_image_general").css({
+            'transition' : '0s'
+          })
+          $("#popup_material_image_general").animate({
+            'top' : y + 'px',
+            'left' : x + 'px',
+            'height' : (a * imageHeight) + 'px',
+            'width' : (a * imageWidth) + 'px'
+
+          },{
+            duration : 500,
+            easing : "custom",
+            queue : false
+          })
+
+          $("#popup_material_title_text").css({
+            "margin-left" : ($("#popup_material_image_general").get(0).naturalWidth * a) + 'px'
+          })
+          $("#popup_material_title h1").html($("#general h1").html())
+        })
+        $("#popup_material_image_general").on("click tap", function(ev){
+          // let's zoom the image
+          if (mainScene.cursorState.indexOf("ZoomOut.cur") != -1) {
+            mainScene.cursorState = 'url("img/ZoomImage.cur"),auto'
+            var backgroundWidth = $("#popup_material_background").width()
+            var backgroundHeight = $("#popup_material_background").height()
+            var imageWidth = $("#popup_material_image_general").width()
+            var imageHeight = $("#popup_material_image_general").height()
+            var a = Math.min(
+                    3,
+                    backgroundWidth / imageWidth,
+                    backgroundHeight / imageHeight)
+
+            var x = (backgroundWidth - a * imageWidth) / 2
+            var y = (backgroundHeight - a * imageHeight) / 2
+            $("#popup_material_image_background").fadeIn()
+            $(this).css({
+              "position": "absolute",
+              "top": y + 'px',
+              "left" : x + "px",
+              "height" : (a * imageHeight) + 'px',
+              "width" : (a * imageWidth) + 'px',
+              "transition" : "top 1s, left 1s, height 1s, width 1s"
+            });
+          }
+          // let's unzoom the image
+          else {
+            mainScene.cursorState = 'url("img/ZoomOut.cur"),auto'
+            var popupMaterialTopOrigin = ($("#popup_material_background").height() - $("#popup_material").height()) / 2
+            var popupMaterialLeftOrigin = ($("#popup_material_background").width() - $("#popup_material").width()) / 2
+
+            var backgroundWidth = Math.min($("#popup_material_title").height(), $("#popup_material").width() / 2)
+            var backgroundHeight = $("#popup_material_title").height()
+            var imageWidth = $(this).width()
+            var imageHeight = $(this).height()
+            var a = Math.min(
+                    backgroundWidth / imageWidth,
+                    backgroundHeight / imageHeight)
+
+            var x = popupMaterialLeftOrigin
+            var y = ((backgroundHeight - a * imageHeight) / 2) + popupMaterialTopOrigin
+
+            $("#popup_material_image_background").fadeOut()
+            $(this).css({
+              'position' : 'absolute',
+              'display' : 'block',
+              'top' : y + 'px',
+              'left' : x + 'px',
+              'height' : (a * imageHeight) + 'px',
+              'width' : (a * imageWidth) + 'px',
+              'transition' : 'top 1s, left 1s, height 1s, width 1s'
+            })
+          }
+        })
+
+
+
         mainScene.scale = 1;
         mainScene.scaleScene(mainScene);
 
@@ -65,7 +192,7 @@ function main(myhooks) {
 
         // define area to disable canvas events management when
         // mouse is over. Thus, we can reach div located under canvas
-        var disableArea = new Kinetic.Rect({
+        /*var disableArea = new Kinetic.Rect({
             x: mainScene.width  * mainScene.ratio,
             y: mainScene.y,
             width: mainScene.width * (1 - mainScene.ratio),
@@ -73,21 +200,21 @@ function main(myhooks) {
         });
         disableArea.on('mouseover touchstart', function() {
             canvas.style.pointerEvents="none";
-        });
+        });*/
         var layers = [];
         that.layers = layers;
         layers[0] = new Kinetic.FastLayer();
         layers[1] = new Kinetic.FastLayer();
-        layers[2] = new Kinetic.Layer();
+        //layers[2] = new Kinetic.Layer();
         layers[3] = new Kinetic.Layer();
         layers[4] = new Kinetic.Layer();
 
         layers[0].add(baseCache);
         layers[1].add(baseImage);
-        layers[2].add(disableArea);
+        //layers[2].add(disableArea);
         stage.add(layers[0]);
         stage.add(layers[1]);
-        stage.add(layers[2]);
+        //stage.add(layers[2]);
         stage.add(layers[3]);
         stage.add(layers[4]);
         myhooks.beforeMainConstructor(mainScene, that.layers);
@@ -116,6 +243,7 @@ function main(myhooks) {
             })
             mainScene.shapes.push(iaObj);
         }
+        if (0 in mainScene.shapes) mainScene.element = mainScene.shapes[0]
 
     };
 }

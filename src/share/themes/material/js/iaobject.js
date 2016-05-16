@@ -284,6 +284,7 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     delete that.cropCanvas;
     var cropedImage = new Image();
     cropedImage.src = dataUrl;
+
     cropedImage.onload = function() {
         that.backgroundImage[i] = cropedImage;
         that.backgroundImageOwnScaleX[i] = 1;
@@ -520,6 +521,9 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
               $("#popup_material_image_" + that.idText ).css({
                 'transition' : '0s'
               })
+              $("#popup_material_image_general").css({
+                'transition' : '0s'
+              })
               $(".popup_material_image").animate({
                 "top": (popupMaterialTopOrigin * 2 + $("#popup_material").height()) + 'px',
                 "left" : popupMaterialLeftOrigin + "px",
@@ -703,7 +707,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                       })
 
                       $("#popup_material_title_text").css({
-                        "margin-left" : ($("#popup_material_image_" + that.idText).get(0).naturalWidth * a) + 'px'
+                        "margin-left" : (a * imageWidth) + 'px'
                       })
 
                     that.layer.draw();

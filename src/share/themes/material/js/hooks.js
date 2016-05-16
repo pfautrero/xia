@@ -81,14 +81,14 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
     $(".button").on("click", button_click);
     $(".unlock input[type=submit]").on("click", unlock_input);
 
-    $(".meta-doc").on("click", function(){
+    /*$(".meta-doc").on("click", function(){
         $("#content").show();
         $("#general").show();
         var general_border = $("#general").css("border-top-width").substr(0,$("#general").css("border-top-width").length - 2);
         var general_offset = $("#general").offset();
         var content_offset = $("#content").offset();
         $("#general").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});
-    });
+    });*/
 
     $(".overlay").hide();
 
@@ -197,14 +197,14 @@ hooks.prototype.convertDetail2Image = function(index, iaScene) {
 
   var tempStage = new Kinetic.Stage({
       container: "stage_" + iaObject.idText,
-      width: iaObject.maxX - iaObject.minX,
-      height: iaObject.maxY - iaObject.minY
+      width: (iaObject.maxX - iaObject.minX),
+      height: (iaObject.maxY - iaObject.minY)
   })
 
   for (i in iaObject.kineticElement) {
     iaObject.kineticElement[i].fillPriority('pattern')
-    iaObject.kineticElement[i].fillPatternScaleX(iaObject.backgroundImageOwnScaleX[i] * 1/iaScene.scale)
-    iaObject.kineticElement[i].fillPatternScaleY(iaObject.backgroundImageOwnScaleY[i] * 1/iaScene.scale)
+    //iaObject.kineticElement[i].fillPatternScaleX(iaObject.backgroundImageOwnScaleX[i] * 1/iaScene.scale)
+    //iaObject.kineticElement[i].fillPatternScaleY(iaObject.backgroundImageOwnScaleY[i] * 1/iaScene.scale)
     iaObject.kineticElement[i].fillPatternImage(iaObject.backgroundImage[i])
     iaObject.kineticElement[i].x(iaObject.kineticElement[i].x() - iaObject.minX)
     iaObject.kineticElement[i].y(iaObject.kineticElement[i].y() - iaObject.minY)
@@ -217,6 +217,9 @@ hooks.prototype.convertDetail2Image = function(index, iaScene) {
 
   var data = layerClone.toDataURL()
 
+
+  //var data = iaObject.backgroundImage[0].src
+
   var newImage = document.createElement('img')
   $("#popup_material_image_background").after(newImage)
   $(newImage).attr("id", "popup_material_image_" + iaObject.idText)
@@ -225,7 +228,6 @@ hooks.prototype.convertDetail2Image = function(index, iaScene) {
     /*for (i in iaObject.kineticElement) {
 
     }*/
-
     for (i in iaObject.kineticElement) {
       iaObject.kineticElement[i].x(iaObject.kineticElement[i].x() + iaObject.minX)
       iaObject.kineticElement[i].y(iaObject.kineticElement[i].y() + iaObject.minY)
@@ -277,7 +279,7 @@ hooks.prototype.convertDetail2Image = function(index, iaScene) {
       var imageWidth = $("#popup_material_image_" + iaObject.idText).width()
       var imageHeight = $("#popup_material_image_" + iaObject.idText).height()
       var a = Math.min(
-              3,
+              10,
               backgroundWidth / imageWidth,
               backgroundHeight / imageHeight)
 
