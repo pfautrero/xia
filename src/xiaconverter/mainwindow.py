@@ -56,7 +56,7 @@ class IADialog(Tkinter.Frame):
         self.sha1Lib = sha1Lib
         self.jqueryLib = jqueryLib
         self.root = root
-        self.resize = 0
+        self.resize = 3
         self.firefoxos = 0
         self.index_standalone = 0
 

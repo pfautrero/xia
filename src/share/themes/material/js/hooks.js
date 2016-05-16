@@ -81,15 +81,6 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
     $(".button").on("click", button_click);
     $(".unlock input[type=submit]").on("click", unlock_input);
 
-    /*$(".meta-doc").on("click", function(){
-        $("#content").show();
-        $("#general").show();
-        var general_border = $("#general").css("border-top-width").substr(0,$("#general").css("border-top-width").length - 2);
-        var general_offset = $("#general").offset();
-        var content_offset = $("#content").offset();
-        $("#general").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});
-    });*/
-
     $(".overlay").hide();
 
 
@@ -110,24 +101,6 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
             $(this)[0].pause();
         });
     });
-    /*document.addEventListener("click", function(ev){
-        if (mainScene.noPropagation) {
-            mainScene.noPropagation = false;
-        }
-        else {
-            if (mainScene.zoomActive === 1) {
-                if ((mainScene.element !== 0) &&
-                (typeof(mainScene.element) !== 'undefined')) {
-                    mainScene.element.kineticElement[0].fire("click");
-                }
-            }
-            else if (mainScene.cursorState.indexOf("ZoomIn.cur") !== -1) {
-                document.body.style.cursor = "default";
-                mainScene.cursorState = "default";
-                mainScene.element.kineticElement[0].fire("mouseleave");
-            }
-        }
-    })*/
 
     var popupMaterialTopOrigin = ($("#popup_material_background").height() - $("#popup_material").height()) / 2
     var popupMaterialLeftOrigin = ($("#popup_material_background").width() - $("#popup_material").width()) / 2
@@ -138,9 +111,6 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
       "left" : popupMaterialLeftOrigin + "px",
       "transition" : "1s"
     });
-
-
-
 
     // FullScreen ability
     // source code from http://blogs.sitepointstatic.com/examples/tech/full-screen/index.html
@@ -190,47 +160,15 @@ hooks.prototype.convertDetail2Image = function(index, iaScene) {
 
   var iaObject = iaScene.shapes[index]
   var myhooks = this
-  var newContainer = document.createElement('div')
-  $(newContainer).attr("id", "stage_" + iaObject.idText)
-  $(newContainer).css({"display" : "none"})
-  $("#invisible").append(newContainer)
 
-  var tempStage = new Kinetic.Stage({
-      container: "stage_" + iaObject.idText,
-      width: (iaObject.maxX - iaObject.minX),
-      height: (iaObject.maxY - iaObject.minY)
-  })
-
-  for (i in iaObject.kineticElement) {
-    iaObject.kineticElement[i].fillPriority('pattern')
-    //iaObject.kineticElement[i].fillPatternScaleX(iaObject.backgroundImageOwnScaleX[i] * 1/iaScene.scale)
-    //iaObject.kineticElement[i].fillPatternScaleY(iaObject.backgroundImageOwnScaleY[i] * 1/iaScene.scale)
-    iaObject.kineticElement[i].fillPatternImage(iaObject.backgroundImage[i])
-    iaObject.kineticElement[i].x(iaObject.kineticElement[i].x() - iaObject.minX)
-    iaObject.kineticElement[i].y(iaObject.kineticElement[i].y() - iaObject.minY)
-    iaObject.kineticElement[i].moveToTop()
-  }
-
-  var layerClone = iaObject.layer.clone()
-  tempStage.add(layerClone)
-  layerClone.draw()
-
-  var data = layerClone.toDataURL()
-
-
-  //var data = iaObject.backgroundImage[0].src
+  var data = iaObject.finalBackground.src
 
   var newImage = document.createElement('img')
   $("#popup_material_image_background").after(newImage)
   $(newImage).attr("id", "popup_material_image_" + iaObject.idText)
   $(newImage).addClass("popup_material_image")
   $(newImage).attr("src", data).load(function(){
-    /*for (i in iaObject.kineticElement) {
-
-    }*/
     for (i in iaObject.kineticElement) {
-      iaObject.kineticElement[i].x(iaObject.kineticElement[i].x() + iaObject.minX)
-      iaObject.kineticElement[i].y(iaObject.kineticElement[i].y() + iaObject.minY)
         if (iaObject.persistent[i] == "off") {
             iaObject.kineticElement[i].fillPriority('color');
             iaObject.kineticElement[i].fill('rgba(0, 0, 0, 0)');
@@ -241,14 +179,12 @@ hooks.prototype.convertDetail2Image = function(index, iaScene) {
         }
         else if (iaObject.persistent[i] == "onImage") {
             iaObject.kineticElement[i].fillPriority('pattern');
-            iaObject.kineticElement[i].fillPatternScaleX(iaObject.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
-            iaObject.kineticElement[i].fillPatternScaleY(iaObject.backgroundImageOwnScaleY[i] * 1/iaScene.scale);
+            //iaObject.kineticElement[i].fillPatternScaleX(iaObject.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
+            //iaObject.kineticElement[i].fillPatternScaleY(iaObject.backgroundImageOwnScaleY[i] * 1/iaScene.scale);
             iaObject.kineticElement[i].fillPatternImage(iaObject.backgroundImage[i]);
         }
     }
 
-
-    iaObject.layer.draw();
     (function(index){
       if ((index+1) in iaScene.shapes) myhooks.convertDetail2Image(index+1, iaScene)
     })(index)
@@ -324,10 +260,6 @@ hooks.prototype.convertDetail2Image = function(index, iaScene) {
       })
     }
   })
-
-
-
-
 }
 
 
@@ -338,7 +270,7 @@ hooks.prototype.convertDetail2Image = function(index, iaScene) {
 hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaObject) {
 
 
-};
+}
 
 /*
  *
@@ -350,11 +282,11 @@ hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
 
       $('#' + idText + " audio").each(function(){
           if ($(this).data("state") === "autostart") {
-              $(this)[0].play();
+              $(this)[0].play()
           }
-      });
+      })
   }
-};
+}
 
 
 /*
@@ -363,4 +295,4 @@ hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
  */
 hooks.prototype.afterIaObjectZoom = function(iaScene, idText, iaObject) {
 
-};
+}
