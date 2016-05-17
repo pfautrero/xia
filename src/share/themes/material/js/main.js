@@ -100,7 +100,7 @@ function main(myhooks) {
           })
 
           $("#popup_material_title_text").css({
-            "margin-left" : ($("#popup_material_image_general").get(0).naturalWidth * a) + 'px'
+            "margin-left" : (a * imageWidth) + 'px'
           })
           $("#popup_material_title h1").html($("#general h1").html())
         })

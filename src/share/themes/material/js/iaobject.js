@@ -57,7 +57,18 @@ function IaObject(params) {
     this.nbImagesDone = 0
     this.allImagesLoaded = $.Deferred()
     this.allImagesLoaded.done(function(value){
-      params.iaScene.nbDetailsLoaded+=value
+      //params.iaScene.nbDetailsLoaded+=value
+
+      var dataUrl = that.cropCanvas.toDataURL()
+      var cropedImage = new Image()
+
+      cropedImage.onload = function() {
+          that.finalBackground = cropedImage
+          //document.body.appendChild(this)
+          //that.allImagesLoaded.resolve(that.nbImages)
+      }
+      cropedImage.src = dataUrl
+
       if (params.iaScene.nbDetails == params.iaScene.nbDetailsLoaded) params.iaScene.allDetailsLoaded.resolve()
       that.myhooks.afterIaObjectConstructor(params.iaScene, params.idText, params.detail, that);
     })
@@ -90,7 +101,7 @@ function IaObject(params) {
     that.layer.add(that.group);
 
     if (typeof(params.detail.path) !== 'undefined') {
-        that.nbImages = 1
+        that.nbImages = 0
         that.includePath(
           params.detail,
           0,
@@ -113,10 +124,7 @@ function IaObject(params) {
     }
     else if (typeof(params.detail.group) !== 'undefined') {
         for (var i in params.detail.group) {
-            if (typeof(params.detail.group[i].path) !== 'undefined') {
-              that.nbImages++
-            }
-            else if (typeof(params.detail.group[i].image) !== 'undefined') {
+            if (typeof(params.detail.group[i].image) !== 'undefined') {
               that.nbImages++
             }
         }
@@ -148,15 +156,7 @@ function IaObject(params) {
         console.log(params.detail);
     }
 
-    var dataUrl = that.cropCanvas.toDataURL()
-    var cropedImage = new Image()
-
-    cropedImage.onload = function() {
-        that.finalBackground = cropedImage
-        //document.body.appendChild(this)
-        that.allImagesLoaded.resolve(that.nbImages)
-    }
-    cropedImage.src = dataUrl
+    console.log(that.nbImages)
 
     if (that.nbImages == 0) that.allImagesLoaded.resolve(0)
     this.defineTweens(this, params.iaScene);
@@ -171,6 +171,22 @@ function IaObject(params) {
  */
 IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, idText) {
     //that.defineImageBoxSize(detail, that)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     var rasterObj = new Image()
     that.title[i] = detail.title
     that.backgroundImage[i] = rasterObj
@@ -183,7 +199,25 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         scale: {x:iaScene.coeff,y:iaScene.coeff}
     });
 
+
+
+
+
     rasterObj.onload = function() {
+        //var cropCtx = that.cropCanvas.getContext('2d')
+        //console.log(rasterObj.src)
+        //cropCtx.drawImage(that.imageObj,100,100)
+
+
+
+
+
+
+
+
+
+
+
 
         that.backgroundImageOwnScaleX[i] = iaScene.scale * detail.width / this.width;
         that.backgroundImageOwnScaleY[i] = iaScene.scale * detail.height / this.height;
@@ -211,7 +245,6 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
 
         that.group.add(that.kineticElement[i]);
         that.addEventsManagement(i,zoomable, that, iaScene, baseImage, idText);
-
 
         // define hit area excluding transparent pixels
         // =============================================================
@@ -264,28 +297,79 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
                         }
                     }
                 }
-                context.putImageData(iaScene.completeImage, 0, 0);
+                context.putImageData(iaScene.completeImage, 0, 0)
             }
             else {
-                context.beginPath();
-                context.rect(0,0,this.width(),this.height());
-                context.closePath();
-                context.fillStrokeShape(this);
+                context.beginPath()
+                context.rect(0,0,this.width(),this.height())
+                context.closePath()
+                context.fillStrokeShape(this)
             }
         });
-        })(len, imageDataSource);
+        })(len, imageDataSource)
 
         var cropCtx = that.cropCanvas.getContext('2d')
-        cropCtx.drawImage(this,0,0)
 
-        that.group.draw();
+        var crop = {
+          x : Math.max(parseFloat(detail.minX), 0),
+          y : Math.max(parseFloat(detail.minY), 0),
+          width : Math.min(
+                  (parseFloat(detail.maxX) - cropX) * iaScene.scale,
+                  Math.floor(parseFloat(iaScene.originalWidth) * iaScene.scale)
+                ),
+          height : Math.min(
+                  (parseFloat(detail.maxY) - cropY) * iaScene.scale,
+                  Math.floor(parseFloat(iaScene.originalHeight) * iaScene.scale)
+                )
+        }
+
+        if (crop.x + crop.width > iaScene.originalWidth ) {
+    	     crop.width = iaScene.originalWidth - crop.x
+        }
+        if (crop.y + crop.height > iaScene.originalHeight) {
+    	     crop.height = iaScene.originalHeight - crop.y
+        }
+        var pos = {
+          x : detail.minX - that.minX,
+          y : detail.minY - that.minY
+        }
+
+        if (parseFloat(detail.minX) < 0) pos.x = parseFloat(detail.minX) * (-1);
+        if (parseFloat(detail.minY) < 0) pos.y = parseFloat(detail.minY) * (-1);
+        // bad workaround to avoid null dimensions
+        if (crop.width <= 0) crop.width = 1
+        if (crop.height <= 0) crop.height = 1
+        console.log(detail)
+        console.log(crop)
+        console.log(pos)
+        console.log(that.minY)
+        cropCtx.drawImage(
+            rasterObj,
+            0,
+            0,
+            crop.width,
+            crop.height,
+            pos.x,
+            pos.y,
+            crop.width,
+            crop.height
+        );
+
+
+
+
+
+        that.group.draw()
         that.nbImagesDone++
-        if (that.nbImages == that.nbImagesDone) that.allImagesLoaded.resolve(1)
+        iaScene.nbDetailsLoaded++
+        if (that.nbImages == that.nbImagesDone) that.allImagesLoaded.resolve(that.nbImages)
 
-    };
+
+    }
     rasterObj.src = detail.image
-};
 
+
+}
 
 /*
  *
@@ -376,6 +460,7 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         that.persistent[i] = "onPath";
         that.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');
     }
+    iaScene.nbDetailsLoaded++
     that.group.draw();
     that.addEventsManagement(i, zoomable, that, iaScene, baseImage, idText);
 
@@ -389,10 +474,10 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
  */
 IaObject.prototype.defineImageBoxSize = function(detail, that) {
     "use strict";
-    that.minX = Math.min(parseFloat(detail.x), that.minX)
-    that.maxX = Math.max(parseFloat(detail.x) + parseFloat(detail.width), that.maxX)
-    that.minY = Math.min(parseFloat(detail.y), that.minY)
-    that.maxY = Math.max(parseFloat(detail.y) + parseFloat(detail.height), that.maxY)
+    that.minX = Math.min(parseFloat(detail.minX), that.minX)
+    that.maxX = Math.max(parseFloat(detail.minX) + parseFloat(detail.width), that.maxX)
+    that.minY = Math.min(parseFloat(detail.minY), that.minY)
+    that.maxY = Math.max(parseFloat(detail.minY) + parseFloat(detail.height), that.maxY)
 };
 
 
@@ -407,10 +492,10 @@ IaObject.prototype.definePathBoxSize = function(detail, that) {
           (typeof(detail.minY) !== 'undefined') &&
           (typeof(detail.maxX) !== 'undefined') &&
           (typeof(detail.maxY) !== 'undefined')) {
-        that.minX = Math.min(that.minX, detail.minX)
-        that.minY = Math.min(that.minY, detail.minY)
-        that.maxX = Math.max(that.maxX, detail.maxX)
-        that.maxY = Math.max(that.maxY, detail.maxY)
+        that.minX = Math.min(that.minX, parseFloat(detail.minX))
+        that.minY = Math.min(that.minY, parseFloat(detail.minY))
+        that.maxX = Math.max(that.maxX, parseFloat(detail.maxX))
+        that.maxY = Math.max(that.maxY, parseFloat(detail.maxY))
     }
     else {
         console.log('definePathBoxSize failure');
@@ -488,8 +573,8 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 }
                 else if ((that.persistent[i] == "onImage") || (that.persistent[i] == "off-image")) {
                     that.kineticElement[i].fillPriority('pattern');
-              //      that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
-              //      that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);
+                    that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
+                    that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);
                     that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
                 }
             }
