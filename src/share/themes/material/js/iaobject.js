@@ -114,12 +114,12 @@ function IaObject(params) {
     else if (typeof(params.detail.image) !== 'undefined') {
         that.nbImages = 1
         that.includeImage(
-          params.detail,
-          0,
-          that,
-          params.iaScene,
-          params.baseImage,
-          params.idText
+            params.detail,
+            0,
+            that,
+            params.iaScene,
+            params.baseImage,
+            params.idText
         )
     }
     else if (typeof(params.detail.group) !== 'undefined') {
@@ -150,17 +150,13 @@ function IaObject(params) {
                 )
             }
         }
-
     }
     else {
         console.log(params.detail);
     }
 
-    console.log(that.nbImages)
-
     if (that.nbImages == 0) that.allImagesLoaded.resolve(0)
     this.defineTweens(this, params.iaScene);
-
 }
 
 /*
@@ -314,11 +310,11 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
           x : Math.max(parseFloat(detail.minX), 0),
           y : Math.max(parseFloat(detail.minY), 0),
           width : Math.min(
-                  (parseFloat(detail.maxX) - cropX) * iaScene.scale,
+                  (parseFloat(detail.maxX) - Math.max(parseFloat(detail.minX), 0)) * iaScene.scale,
                   Math.floor(parseFloat(iaScene.originalWidth) * iaScene.scale)
                 ),
           height : Math.min(
-                  (parseFloat(detail.maxY) - cropY) * iaScene.scale,
+                  (parseFloat(detail.maxY) - Math.max(parseFloat(detail.minY), 0)) * iaScene.scale,
                   Math.floor(parseFloat(iaScene.originalHeight) * iaScene.scale)
                 )
         }
@@ -330,8 +326,8 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
     	     crop.height = iaScene.originalHeight - crop.y
         }
         var pos = {
-          x : detail.minX - that.minX,
-          y : detail.minY - that.minY
+          x : detail.minX - (that.minX / iaScene.coeff),
+          y : detail.minY - (that.minY / iaScene.coeff)
         }
 
         if (parseFloat(detail.minX) < 0) pos.x = parseFloat(detail.minX) * (-1);
@@ -339,16 +335,16 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         // bad workaround to avoid null dimensions
         if (crop.width <= 0) crop.width = 1
         if (crop.height <= 0) crop.height = 1
-        console.log(detail)
-        console.log(crop)
-        console.log(pos)
-        console.log(that.minY)
+        //console.log(detail)
+        console.log(detail.width + " " + detail.height)
+        console.log(this.width + " " + this.height)
+
         cropCtx.drawImage(
             rasterObj,
             0,
             0,
-            crop.width,
-            crop.height,
+            crop.width / that.backgroundImageOwnScaleX[i],
+            crop.height / that.backgroundImageOwnScaleY[i],
             pos.x,
             pos.y,
             crop.width,
@@ -478,7 +474,8 @@ IaObject.prototype.defineImageBoxSize = function(detail, that) {
     that.maxX = Math.max(parseFloat(detail.minX) + parseFloat(detail.width), that.maxX)
     that.minY = Math.min(parseFloat(detail.minY), that.minY)
     that.maxY = Math.max(parseFloat(detail.minY) + parseFloat(detail.height), that.maxY)
-};
+
+}
 
 
 /*
@@ -500,7 +497,8 @@ IaObject.prototype.definePathBoxSize = function(detail, that) {
     else {
         console.log('definePathBoxSize failure');
     }
-};
+
+}
 
 
 
@@ -696,8 +694,8 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                   }
                   else if (that.persistent[i] == "onImage") {
                       that.kineticElement[i].fillPriority('pattern');
-  //                    that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
-  //                    that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);
+                      that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
+                      that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);
                       that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
                   }
               }
@@ -791,8 +789,8 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         }
                         else if (that.persistent[i] == "onImage") {
                             that.kineticElement[i].fillPriority('pattern');
-    //                        that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
-    //                        that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);
+                            that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
+                            that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);
                             that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
                         }
                     }
@@ -881,8 +879,8 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     }
                     else if (that.persistent[i] == "onImage") {
                         that.kineticElement[i].fillPriority('pattern');
-      //                  that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
-      //                  that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);
+                        that.kineticElement[i].fillPatternScaleX(that.backgroundImageOwnScaleX[i] * 1/iaScene.scale);
+                        that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);
                         that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
                     }
                 }

@@ -12,7 +12,7 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>
-#   
+#
 # @author : pascal.fautrero@ac-versailles.fr
 
 
@@ -187,7 +187,7 @@ class iaObject:
         self.translation = 0
         self.ratio = 1
 
-        # workaround to be able to read svg files 
+        # workaround to be able to read svg files
         # generated with images actives 1
         # (xlink namespace is not available and must be added)
 
@@ -628,7 +628,9 @@ class iaObject:
                 record_image['image'], \
                 record_image['width'], \
                 record_image['height'], \
-                newx, newy = self.cropImage(record_image['image'], record_image['width'], record_image['height'])
+                newx, newy, \
+                record_image['original_width'], \
+                record_image['original_height'] = self.cropImage(record_image['image'], record_image['width'], record_image['height'])
                 record_image['y'] = unicode(int(float(record_image['y']) + float(newy)))
                 record_image['x'] = unicode(int(float(record_image['x']) + float(newx)))
 
@@ -766,7 +768,7 @@ class iaObject:
             if 'stroke-width' in style:
                 record_rect['strokewidth'] = style['stroke-width']
 
-        # ObjectToPath                    
+        # ObjectToPath
         ctm = CurrentTransformation()
         record_rect['path'] = ctm.rectToPath(record_rect)
 
@@ -1154,6 +1156,7 @@ class iaObject:
                     im = im.convert("RGBA")
                     pix_val = list(im.getdata())
                     (w, h) = im.size
+
                     alpha_threshold = 100
                     y_delta = 0
                     stop_scan = 0
@@ -1222,13 +1225,14 @@ class iaObject:
                                     rasterSmallEncoded
                     newrasterHeight = int((h - y_delta2 - y_delta) * float(rasterHeight) / h)
                     newrasterWidth = int((w - x_delta - x_delta2) * float(rasterWidth) / w)
+
         else:
             self.console.display('ERROR : cropImage() - image is not embedded ' + raster)
         shutil.rmtree(dirname)
-        return [newraster, unicode(newrasterWidth), unicode(newrasterHeight), x_delta, y_delta]
+        return [newraster, unicode(newrasterWidth), unicode(newrasterHeight), x_delta, y_delta, w, h]
 
     def resizeImage(self, raster, rasterWidth, rasterHeight):
-        """ 
+        """
         if needed, we must resize background image to be usable
         on tablets and mobiles. iPad limitation is approximatly 5Mb.
         """
