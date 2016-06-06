@@ -59,6 +59,8 @@ function IaScene(originalWidth, originalHeight) {
     this.cursorState="";
     this.noPropagation = false;
     this.nbDetails = 0
+    this.nbRootDetails = 0
+    this.nbCropedImage = 0
     this.nbDetailsAnalyzed = 0
     this.shapes = []
 }

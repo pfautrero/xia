@@ -58,19 +58,21 @@ function IaObject(params) {
     this.allImagesLoaded = $.Deferred()
     this.allImagesLoaded.done(function(value){
       //params.iaScene.nbDetailsLoaded+=value
-
+      params.iaScene.nbRootDetails++
       var dataUrl = that.cropCanvas.toDataURL()
       var cropedImage = new Image()
 
       cropedImage.onload = function() {
-          that.finalBackground = cropedImage
-          //document.body.appendChild(this)
-          //that.allImagesLoaded.resolve(that.nbImages)
+          that.finalBackground = this
+          params.iaScene.nbCropedImage++
+          if ((params.iaScene.nbDetails == params.iaScene.nbDetailsLoaded) &&
+            (params.iaScene.nbRootDetails == params.iaScene.nbCropedImage)){
+             params.iaScene.allDetailsLoaded.resolve()
+          }
       }
       cropedImage.src = dataUrl
-
-      if (params.iaScene.nbDetails == params.iaScene.nbDetailsLoaded) params.iaScene.allDetailsLoaded.resolve()
       that.myhooks.afterIaObjectConstructor(params.iaScene, params.idText, params.detail, that);
+
     })
 
     that.cropCanvas = document.createElement('canvas');
@@ -101,7 +103,7 @@ function IaObject(params) {
     that.layer.add(that.group);
 
     if (typeof(params.detail.path) !== 'undefined') {
-        that.nbImages = 0
+        that.nbImages = 1
         that.includePath(
           params.detail,
           0,
@@ -124,9 +126,9 @@ function IaObject(params) {
     }
     else if (typeof(params.detail.group) !== 'undefined') {
         for (var i in params.detail.group) {
-            if (typeof(params.detail.group[i].image) !== 'undefined') {
+            //if (typeof(params.detail.group[i].image) !== 'undefined') {
               that.nbImages++
-            }
+            //}
         }
         for (var i in params.detail.group) {
             if (typeof(params.detail.group[i].path) !== 'undefined') {
@@ -167,22 +169,6 @@ function IaObject(params) {
  */
 IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, idText) {
     //that.defineImageBoxSize(detail, that)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     var rasterObj = new Image()
     that.title[i] = detail.title
     that.backgroundImage[i] = rasterObj
@@ -194,27 +180,10 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         height: detail.height,
         scale: {x:iaScene.coeff,y:iaScene.coeff}
     });
-
-
-
-
-
     rasterObj.onload = function() {
         //var cropCtx = that.cropCanvas.getContext('2d')
         //console.log(rasterObj.src)
         //cropCtx.drawImage(that.imageObj,100,100)
-
-
-
-
-
-
-
-
-
-
-
-
         that.backgroundImageOwnScaleX[i] = iaScene.scale * detail.width / this.width;
         that.backgroundImageOwnScaleY[i] = iaScene.scale * detail.height / this.height;
         var zoomable = true;
@@ -247,22 +216,23 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
 
         var cropX = Math.max(parseFloat(detail.minX), 0);
         var cropY = Math.max(parseFloat(detail.minY), 0);
-        var cropWidth = (Math.min(parseFloat(detail.maxX) - parseFloat(detail.minX), Math.floor(parseFloat(iaScene.originalWidth) * 1)));
-        var cropHeight = (Math.min(parseFloat(detail.maxY) - parseFloat(detail.minY), Math.floor(parseFloat(iaScene.originalHeight) * 1)));
+        var cropWidth = (Math.abs(Math.min(parseFloat(detail.maxX) - parseFloat(detail.minX)), Math.floor(parseFloat(iaScene.originalWidth) * 1)));
+        var cropHeight = (Math.abs(Math.min(parseFloat(detail.maxY) - parseFloat(detail.minY)), Math.floor(parseFloat(iaScene.originalHeight) * 1)));
         if (cropX + cropWidth > iaScene.originalWidth * 1) {
-            cropWidth = iaScene.originalWidth * 1 - cropX * 1;
+            cropWidth = Math.abs(iaScene.originalWidth * 1 - cropX * 1);
         }
         if (cropY * 1 + cropHeight > iaScene.originalHeight * 1) {
-            cropHeight = iaScene.originalHeight * 1 - cropY * 1;
+            cropHeight = Math.abs(iaScene.originalHeight * 1 - cropY * 1);
         }
 	      var hitCanvas = that.layer.getHitCanvas();
         iaScene.completeImage = hitCanvas.getContext().getImageData(0,0,Math.floor(hitCanvas.width),Math.floor(hitCanvas.height));
 
         var canvas_source = document.createElement('canvas');
-        canvas_source.setAttribute('width', cropWidth * iaScene.coeff);
-        canvas_source.setAttribute('height', cropHeight * iaScene.coeff);
+        canvas_source.setAttribute('width', Math.min(rasterObj.width, cropWidth * iaScene.coeff));
+        canvas_source.setAttribute('height', Math.min(rasterObj.height, cropHeight * iaScene.coeff));
         var context_source = canvas_source.getContext('2d');
-        context_source.drawImage(rasterObj,0,0, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);
+
+        context_source.drawImage(rasterObj,0,0, Math.min(rasterObj.width, cropWidth * iaScene.coeff), Math.min(rasterObj.height, cropHeight * iaScene.coeff));
         imageDataSource = context_source.getImageData(0, 0, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);
         len = imageDataSource.data.length;
         that.group.zoomActive = 0;
@@ -335,9 +305,6 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         // bad workaround to avoid null dimensions
         if (crop.width <= 0) crop.width = 1
         if (crop.height <= 0) crop.height = 1
-        //console.log(detail)
-        console.log(detail.width + " " + detail.height)
-        console.log(this.width + " " + this.height)
 
         cropCtx.drawImage(
             rasterObj,
@@ -422,18 +389,26 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     // bad workaround to avoid null dimensions
     if (cropWidth <= 0) cropWidth = 1;
     if (cropHeight <= 0) cropHeight = 1;
+    var path = new Path2D(detail.path)
+
+    cropCtx.beginPath()
+    cropCtx.save()
+    cropCtx.translate((-1) * that.minX, (-1) * that.minY)
+    cropCtx.clip(path)
+
     cropCtx.drawImage(
         that.imageObj,
         cropX,
         cropY,
         cropWidth,
         cropHeight,
-        posX,
-        posY,
+        detail.minX,
+        detail.minY,
         cropWidth,
         cropHeight
-    );
 
+    )
+    cropCtx.restore()
     that.kineticElement[i].fillPatternRepeat('no-repeat')
     //that.kineticElement[i].fillPatternX(detail.minX)
     //that.kineticElement[i].fillPatternY(detail.minY)
@@ -457,9 +432,10 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         that.kineticElement[i].fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');
     }
     iaScene.nbDetailsLoaded++
+    that.nbImagesDone++
     that.group.draw();
     that.addEventsManagement(i, zoomable, that, iaScene, baseImage, idText);
-
+    if (that.nbImages == that.nbImagesDone) that.allImagesLoaded.resolve(that.nbImages)
 
 };
 

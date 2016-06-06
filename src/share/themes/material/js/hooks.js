@@ -160,13 +160,13 @@ hooks.prototype.convertDetail2Image = function(index, iaScene) {
 
   var iaObject = iaScene.shapes[index]
   var myhooks = this
-
   var data = iaObject.finalBackground.src
 
   var newImage = document.createElement('img')
-  $("#popup_material_image_background").after(newImage)
   $(newImage).attr("id", "popup_material_image_" + iaObject.idText)
   $(newImage).addClass("popup_material_image")
+  $("#popup_material_image_background").after(newImage)
+
   $(newImage).attr("src", data).load(function(){
     for (i in iaObject.kineticElement) {
         if (iaObject.persistent[i] == "off") {

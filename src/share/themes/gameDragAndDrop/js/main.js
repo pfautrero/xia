@@ -8,15 +8,15 @@
 //   GNU General Public License for more details.
 //   You should have received a copy of the GNU General Public License
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
-//   
-//   
+//
+//
 // @author : pascal.fautrero@ac-versailles.fr
 // @version=xxx
 
 /*
  * Main
  * Initialization
- * 
+ *
  */
 
 function main(myhooks) {
@@ -32,8 +32,8 @@ function main(myhooks) {
         getIaObject: function() {
             return this.iaobject;
         }
-    });    
-    
+    });
+
     Kinetic.Util.addMethods(Kinetic.Image,{
         setIaObject: function(iaobject) {
             this.iaobject = iaobject;
@@ -59,126 +59,145 @@ function main(myhooks) {
         getXiaParent: function() {
             return this.xiaparent;
         }
-    });    
-    
+    });
+
     Kinetic.Util.addMethods(Kinetic.Image,{
         setXiaParent: function(xiaparent) {
             this.xiaparent = xiaparent;
         },
         getXiaParent: function() {
             return this.xiaparent;
-        }    });    
-    
+        }    });
+
     Kinetic.draggedshape = null;
-    
+
     //var that=window;
     var that=this;
     that.canvas = document.getElementById("canvas");
 
-    // Load background image
+    this.backgroundLoaded = $.Deferred()
 
-    that.imageObj = new Image();
-    that.imageObj.src = scene.image;
-    that.imageObj.onload = function() {
+    this.backgroundLoaded.done(function(value){
 
-        var mainScene = new IaScene(scene.width,scene.height);
-        mainScene.scale = 1; 
-        mainScene.scaleScene(mainScene);
+      // Load background image
 
-        var stage = new Kinetic.Stage({
-            container: 'canvas',
-            width: mainScene.width,
-            height: mainScene.height
-        });
+      that.imageObj = new Image();
+      that.imageObj.src = scene.image;
+      that.imageObj.onload = function() {
 
-        // area containing image background    
-        var baseImage = new Kinetic.Image({
-            x: 0,
-            y: mainScene.y,
-            width: scene.width,
-            height: scene.height,
-            scale: {x:mainScene.coeff,y:mainScene.coeff},
-            image: that.imageObj
-        });
+          var mainScene = new IaScene(scene.width,scene.height);
+          mainScene.scale = 1;
+          mainScene.scaleScene(mainScene);
 
-        var layers = [];
-        that.layers = layers;
-        layers[0] = new Kinetic.FastLayer();	
-        layers[0].add(baseImage);
-        stage.add(layers[0]);
+          var stage = new Kinetic.Stage({
+              container: 'canvas',
+              width: mainScene.width,
+              height: mainScene.height
+          });
 
-        myhooks.beforeMainConstructor(mainScene, that.layers);
+          // area containing image background
+          var baseImage = new Kinetic.Image({
+              x: 0,
+              y: mainScene.y,
+              width: scene.width,
+              height: scene.height,
+              scale: {x:mainScene.coeff,y:mainScene.coeff},
+              image: that.imageObj
+          });
 
-        var indice = 1;
-        layers[indice] = new Kinetic.Layer();
-        stage.add(layers[indice]);
+          var layers = [];
+          that.layers = layers;
+          layers[0] = new Kinetic.FastLayer();
+          layers[0].add(baseImage);
+          stage.add(layers[0]);
 
-        for (var i in details) {
-            var iaObj = new IaObject({
-                imageObj: that.imageObj,
-                detail: details[i],
-                layer: layers[indice],
-                idText: "article-" + i,
-                baseImage: baseImage,
-                iaScene: mainScene,
-                myhooks: myhooks
-            });
-            mainScene.shapes.push(iaObj);
-        }
+          myhooks.beforeMainConstructor(mainScene, that.layers);
 
-        that.afterMainConstructor(mainScene, that.layers);
-        myhooks.afterMainConstructor(mainScene, that.layers);             
+          var indice = 1;
+          layers[indice] = new Kinetic.Layer();
+          stage.add(layers[indice]);
 
-        $("#loader").hide();
+          for (var i in details) {
+              var iaObj = new IaObject({
+                  imageObj: that.imageObj,
+                  detail: details[i],
+                  layer: layers[indice],
+                  idText: "article-" + i,
+                  baseImage: baseImage,
+                  iaScene: mainScene,
+                  myhooks: myhooks
+              });
+              mainScene.shapes.push(iaObj);
+          }
 
-        var viewportHeight = $(window).height();
-        if (scene.description != "") {
-            $("#rights").show();
-            var content_offset = $("#rights").offset();
-            var message_height = $("#popup_intro").css('height').substr(0,$("#popup_intro").css("height").length - 2);
-            $("#popup_intro").css({'top':(viewportHeight - content_offset.top - message_height)/ 2 - 40});
-            $("#popup_intro").show();
-            $("#popup").hide();
-            $("#popup_close_intro").on("click", function(){
-                $("#rights").hide();
-            });            
-        }
+          that.afterMainConstructor(mainScene, that.layers);
+          myhooks.afterMainConstructor(mainScene, that.layers);
+
+          $("#loader").hide();
+
+          var viewportHeight = $(window).height();
+          if (scene.description != "") {
+              $("#rights").show();
+              var content_offset = $("#rights").offset();
+              var message_height = $("#popup_intro").css('height').substr(0,$("#popup_intro").css("height").length - 2);
+              $("#popup_intro").css({'top':(viewportHeight - content_offset.top - message_height)/ 2 - 40});
+              $("#popup_intro").show();
+              $("#popup").hide();
+              $("#popup_close_intro").on("click", function(){
+                  $("#rights").hide();
+              });
+          }
 
 
-        // FullScreen ability
-        // source code from http://blogs.sitepointstatic.com/examples/tech/full-screen/index.html
-        var e = document.getElementById("title");
-        var div_container = document.getElementById("image-active");
-        e.onclick = function() {
-            if (runPrefixMethod(document, "FullScreen") || runPrefixMethod(document, "IsFullScreen")) {
-                runPrefixMethod(document, "CancelFullScreen");
-            }
-            else {
-                runPrefixMethod(div_container, "RequestFullScreen");
-            }
-            mainScene.fullScreen = mainScene.fullScreen == "on" ? "off": "on";
-        };
+          // FullScreen ability
+          // source code from http://blogs.sitepointstatic.com/examples/tech/full-screen/index.html
+          var e = document.getElementById("title");
+          var div_container = document.getElementById("image-active");
+          e.onclick = function() {
+              if (runPrefixMethod(document, "FullScreen") || runPrefixMethod(document, "IsFullScreen")) {
+                  runPrefixMethod(document, "CancelFullScreen");
+              }
+              else {
+                  runPrefixMethod(div_container, "RequestFullScreen");
+              }
+              mainScene.fullScreen = mainScene.fullScreen == "on" ? "off": "on";
+          };
 
-        var pfx = ["webkit", "moz", "ms", "o", ""];
-        function runPrefixMethod(obj, method) {
-            var p = 0, m, t;
-            while (p < pfx.length && !obj[m]) {
-                m = method;
-                if (pfx[p] === "") {
-                    m = m.substr(0,1).toLowerCase() + m.substr(1);
-                }
-                m = pfx[p] + m;
-                t = typeof obj[m];
-                if (t != "undefined") {
-                    pfx = [pfx[p]];
-                    return (t == "function" ? obj[m]() : obj[m]);
-                }
-                p++;
-            }
-        }       
-        
-        
-    };    
+          var pfx = ["webkit", "moz", "ms", "o", ""];
+          function runPrefixMethod(obj, method) {
+              var p = 0, m, t;
+              while (p < pfx.length && !obj[m]) {
+                  m = method;
+                  if (pfx[p] === "") {
+                      m = m.substr(0,1).toLowerCase() + m.substr(1);
+                  }
+                  m = pfx[p] + m;
+                  t = typeof obj[m];
+                  if (t != "undefined") {
+                      pfx = [pfx[p]];
+                      return (t == "function" ? obj[m]() : obj[m]);
+                  }
+                  p++;
+              }
+          }
+
+
+      };
+    })
+
+    if (scene.path !== "") {
+      var tempCanvas = this.convertPath2Image(scene)
+      scene.image = tempCanvas.toDataURL()
+      this.backgroundLoaded.resolve(0)
+    }
+    else if (typeof(scene.group) !== "undefined") {
+      this.convertGroup2Image(scene)
+    }
+    else {
+      this.backgroundLoaded.resolve(0)
+    }
+
+
 }
 main.prototype.afterMainConstructor = function(mainScene, layers) {
 
@@ -261,6 +280,72 @@ main.prototype.afterMainConstructor = function(mainScene, layers) {
         }
     });
 };
+
+/*
+ * convert path to image if this path is used as background
+ * transform scene.path to scene.image
+ */
+main.prototype.convertPath2Image = function(scene) {
+  var tempCanvas = document.createElement('canvas')
+  tempCanvas.setAttribute('width', scene.width)
+  tempCanvas.setAttribute('height', scene.height)
+  var tempContext = tempCanvas.getContext('2d')
+  // Arghh...forced to remove single quotes from scene.path...
+  var currentPath = new Path2D(scene.path.replace(/'/g, ""))
+  tempContext.beginPath()
+  tempContext.fillStyle = scene.fill
+  tempContext.fill(currentPath)
+  tempContext.strokeStyle = scene.stroke
+  tempContext.lineWidth = scene.strokewidth
+  tempContext.stroke(currentPath)
+  //scene.image = tempCanvas.toDataURL()
+  return tempCanvas
+}
+main.prototype.convertGroup2Image = function(scene) {
+  var nbImages = 0
+  var nbImagesLoaded = 0
+  var tempCanvas = document.createElement('canvas')
+  tempCanvas.setAttribute('width', scene.width)
+  tempCanvas.setAttribute('height', scene.height)
+  var tempContext = tempCanvas.getContext('2d')
+  tempContext.beginPath()
+  for (var i in scene['group']) {
+    if (typeof(scene['group'][i].image) != "undefined") {
+      nbImages++
+    }
+  }
+  for (var i in scene['group']) {
+      if (typeof(scene['group'][i].path) != "undefined") {
+        // Arghh...forced to remove single quotes from scene.path...
+        var currentPath = new Path2D(scene['group'][i].path.replace(/'/g, ""))
+        tempContext.fillStyle = scene['group'][i].fill
+        tempContext.fill(currentPath)
+        tempContext.strokeStyle = scene['group'][i].stroke
+        tempContext.lineWidth = scene['group'][i].strokewidth
+        tempContext.stroke(currentPath)
+      }
+      else if (typeof(scene['group'][i].image) != "undefined") {
+        var tempImage = new Image()
+        tempImage.onload = (function(main, imageItem){
+          return function(){
+              tempContext.drawImage(this, 0, 0, this.width, this.height, imageItem.x, imageItem.y, this.width, this.height)
+              nbImagesLoaded++
+              if (nbImages == nbImagesLoaded) {
+                  scene.image = tempCanvas.toDataURL()
+                  main.backgroundLoaded.resolve(0)
+              }
+          }
+        })(this, scene['group'][i])
+
+        tempImage.src = scene['group'][i].image
+      }
+  }
+  if (nbImages == 0) {
+    scene.image = tempCanvas.toDataURL()
+    this.backgroundLoaded.resolve(0)
+  }
+}
+
 
 myhooks = new hooks();
 launch = new main(myhooks);

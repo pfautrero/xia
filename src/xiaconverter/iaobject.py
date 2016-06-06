@@ -28,7 +28,7 @@ import commands
 # import PIL for windows and Linux
 # For MAC OS X, use internal tool called "sips"
 try:
-    from PIL import Image
+    from PIL import Image, ImageDraw
     HANDLE_PIL = True
 except ImportError:
     if not sys.platform.startswith('darwin'):
@@ -210,6 +210,7 @@ class iaObject:
         self.scene['intro_title'] = u"Description"
         self.scene['intro_detail'] = u"XIA - DANE Versailles"
         self.scene['image'] = ""
+        self.scene['path'] = ""
         self.scene['width'] = ""
         self.scene['height'] = ""
         self.scene['title'] = os.path.splitext(tail)[0]
@@ -231,8 +232,6 @@ class iaObject:
             if image.hasAttribute('y'):
                 self.backgroundY = float(image.attributes['y'].value)
 
-            #print self.backgroundX
-            #print self.backgroundY
             if (self.backgroundX != 0) or (self.backgroundY != 0):
                 ctm = CurrentTransformation()
                 ctm.extractTranslate([self.backgroundX * (-1), self.backgroundY * (-1)])
@@ -322,6 +321,108 @@ class iaObject:
                                         mainSVG[0] = childnode
                                         break
 
+            # replace image by svg path if defined as background element
+            linearizedChilds = []
+            stackTransform = []
+            self.linearize_childs(mainSVG[0], linearizedChilds, stackTransform)
+            svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'image']
+            firstNode = None
+            for childnode in linearizedChilds:
+                if childnode['node'].nodeName in svgElements:
+                    firstNode = childnode['node']
+                    break
+            if firstNode is not None and firstNode.nodeName != 'image':
+                self.translation = 0
+                self.backgroundX = 0
+                self.backgroundY = 0
+                if firstNode.nodeName == 'path':
+                    minX, minY, maxX, maxY = self.getExtrema(firstNode.attributes['d'].value)
+                    self.backgroundX = float(minX)
+                    self.backgroundY = float(minY)
+                else:
+                    if firstNode.hasAttribute('x'):
+                        self.backgroundX = float(firstNode.attributes['x'].value)
+                    if firstNode.hasAttribute('y'):
+                        self.backgroundY = float(firstNode.attributes['y'].value)
+
+                if (self.backgroundX != 0) or (self.backgroundY != 0):
+                    ctm = CurrentTransformation()
+                    ctm.extractTranslate([self.backgroundX * (-1), self.backgroundY * (-1)])
+                    self.translation = ctm.matrix
+
+                newrecord = getattr(self, 'extract_' + firstNode.nodeName)(firstNode, "")
+                if newrecord is not None:
+                    self.backgroundNode = firstNode
+                    self.scene['width'] = float(newrecord['maxX']) - float(newrecord['minX'])
+                    self.scene['height'] = float(newrecord['maxY']) - float(newrecord['minY'])
+                    self.scene['path'] = newrecord['path']
+                    self.scene['image'] = ""
+
+                    if 'fill' in newrecord:
+                        self.scene['fill'] = newrecord['fill']
+                    else:
+                        self.scene['fill'] = '#00000000'
+                    if 'stroke' in newrecord:
+                        self.scene['stroke'] = newrecord['stroke']
+                    else:
+                        self.scene['stroke'] = '#000000'
+                    if 'strokewidth' in newrecord:
+                        self.scene['strokewidth'] = newrecord['strokewidth']
+                    else:
+                        self.scene['strokewidth'] = 0
+
+            if firstNode.parentNode.nodeName == 'g':
+                print "background group detected"
+                self.backgroundNode = ""
+                self.scene['path'] = ""
+                self.scene['image'] = ""
+                self.backgroundX = 0
+                self.backgroundY = 0
+
+                svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'image']
+                group_childs = []
+                stackTransform = []
+                self.linearize_childs(firstNode.parentNode, group_childs, stackTransform)
+
+                extrema = {}
+                extrema['minX'] = []
+                extrema['minY'] = []
+                extrema['maxX'] = []
+                extrema['maxY'] = []
+
+                for childentry in group_childs:
+                    childnode = childentry['node']
+                    if childnode.nodeName in svgElements:
+                        if childnode.hasAttribute('d'):
+                            minX, minY, maxX, maxY = self.getExtrema(childnode.attributes['d'].value)
+
+                            extrema['minX'].append(float(minX))
+                            extrema['minY'].append(float(minY))
+
+                        else:
+                            extrema['minX'].append(float(childnode.attributes['x'].value))
+                            extrema['minY'].append(float(childnode.attributes['y'].value))
+
+                self.backgroundX = min(extrema['minX'])
+                self.backgroundY = min(extrema['minY'])
+
+                if (self.backgroundX != 0) or (self.backgroundY != 0):
+                    ctm = CurrentTransformation()
+                    ctm.extractTranslate([self.backgroundX * (-1), self.backgroundY * (-1)])
+                    self.translation = ctm.matrix
+
+                newrecord = getattr(self, 'extract_g')(firstNode.parentNode, "")
+                if newrecord is not None:
+
+                    self.backgroundNode = firstNode.parentNode
+                    self.scene['width'] = float(newrecord['maxX']) - float(newrecord['minX'])
+                    self.scene['height'] = float(newrecord['maxY']) - float(newrecord['minY'])
+
+                    self.scene['group'] = newrecord
+
+            # main loop on svg elements
+
+            svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'image', 'g']
             for childnode in mainSVG[0].childNodes:
                 if childnode.parentNode.nodeName == mainSVG[0].nodeName:
                     if childnode.nodeName in svgElements:
@@ -331,6 +432,8 @@ class iaObject:
 
     def extract_circle(self, circle, stackTransformations):
         """Analyze circle"""
+        if circle.isSameNode(self.backgroundNode):
+            return
         record_circle = {}
         record_circle['id'] = hashlib.md5(str(uuid.uuid1())).hexdigest()
         if circle.hasAttribute("id"):
@@ -430,35 +533,41 @@ class iaObject:
             ctm.applyTransformToPath(ctm.matrix, p)
             record_circle['path'] = cubicsuperpath.formatPath(p)
 
-        minX = 10000
-        minY = 10000
-        maxX = -10000
-        maxY = -10000
-        for cmd, params in cubicsuperpath.unCubicSuperPath(p):
-            i = 0
-            for p in params:
-                if (i % 2 == 0):
-                    if float(p) < float(minX):
-                        minX = float(p)
-                    if float(p) > float(maxX):
-                        maxX = float(p)
-                else:
-                    if float(p) < float(minY):
-                        minY = float(p)
-                    if float(p) > float(maxY):
-                        maxY = float(p)
-                i = i + 1
-        record_circle["minX"] = unicode(minX)
-        record_circle["minY"] = unicode(minY)
-        record_circle["maxX"] = unicode(maxX)
-        record_circle["maxY"] = unicode(maxY)
+#        minX = 10000
+#        minY = 10000
+#        maxX = -10000
+#        maxY = -10000
+#        for cmd, params in cubicsuperpath.unCubicSuperPath(p):
+#            i = 0
+#            for p in params:
+#                if (i % 2 == 0):
+#                    if float(p) < float(minX):
+#                        minX = float(p)
+#                    if float(p) > float(maxX):
+#                        maxX = float(p)
+#                else:
+#                    if float(p) < float(minY):
+#                        minY = float(p)
+#                    if float(p) > float(maxY):
+#                        maxY = float(p)
+#                i = i + 1
+#        record_circle["minX"] = unicode(minX)
+#        record_circle["minY"] = unicode(minY)
+#        record_circle["maxX"] = unicode(maxX)
+#        record_circle["maxY"] = unicode(maxY)
+
+        record_circle["minX"], \
+        record_circle["minY"], \
+        record_circle["maxX"], \
+        record_circle['maxY'] = self.getExtrema(cubicsuperpath.formatPath(p))
 
         record_circle['path'] = '"' + record_circle['path'] + ' z"'
         return record_circle
 
     def extract_ellipse(self, ellipse, stackTransformations):
         """Analyze ellipse"""
-
+        if ellipse.isSameNode(self.backgroundNode):
+            return
         record_ellipse = {}
         record_ellipse['id'] = hashlib.md5(str(uuid.uuid1())).hexdigest()
         if ellipse.hasAttribute("id"):
@@ -556,28 +665,33 @@ class iaObject:
             ctm.applyTransformToPath(ctm.matrix, p)
             record_ellipse['path'] = cubicsuperpath.formatPath(p)
 
-        minX = 10000
-        minY = 10000
-        maxX = -10000
-        maxY = -10000
-        for cmd, params in cubicsuperpath.unCubicSuperPath(p):
-            i = 0
-            for p in params:
-                if (i % 2 == 0):
-                    if float(p) < float(minX):
-                        minX = float(p)
-                    if float(p) > float(maxX):
-                        maxX = float(p)
-                else:
-                    if float(p) < float(minY):
-                        minY = float(p)
-                    if float(p) > float(maxY):
-                        maxY = float(p)
-                i = i + 1
-        record_ellipse["minX"] = unicode(minX)
-        record_ellipse["minY"] = unicode(minY)
-        record_ellipse["maxX"] = unicode(maxX)
-        record_ellipse["maxY"] = unicode(maxY)
+#        minX = 10000
+#        minY = 10000
+#        maxX = -10000
+#        maxY = -10000
+#        for cmd, params in cubicsuperpath.unCubicSuperPath(p):
+#            i = 0
+#            for p in params:
+#                if (i % 2 == 0):
+#                    if float(p) < float(minX):
+#                        minX = float(p)
+#                    if float(p) > float(maxX):
+#                        maxX = float(p)
+#                else:
+#                    if float(p) < float(minY):
+#                        minY = float(p)
+#                    if float(p) > float(maxY):
+#                        maxY = float(p)
+#                i = i + 1
+#        record_ellipse["minX"] = unicode(minX)
+#        record_ellipse["minY"] = unicode(minY)
+#        record_ellipse["maxX"] = unicode(maxX)
+#        record_ellipse["maxY"] = unicode(maxY)
+
+        record_ellipse["minX"], \
+        record_ellipse["minY"], \
+        record_ellipse["maxX"], \
+        record_ellipse['maxY'] = self.getExtrema(cubicsuperpath.formatPath(p))
 
         record_ellipse['path'] = '"' + record_ellipse['path'] + ' z"'
         return record_ellipse
@@ -699,7 +813,8 @@ class iaObject:
 
     def extract_rect(self, rect, stackTransformations):
         """Analyze rectangles"""
-
+        if rect.isSameNode(self.backgroundNode):
+            return
         record_rect = {}
         record_rect['id'] = hashlib.md5(str(uuid.uuid1())).hexdigest()
         if rect.hasAttribute("id"):
@@ -808,35 +923,40 @@ class iaObject:
             ctm.applyTransformToPath(ctm.matrix, p)
             record_rect['path'] = cubicsuperpath.formatPath(p)
 
-        minX = 10000
-        minY = 10000
-        maxX = -10000
-        maxY = -10000
-        for cmd, params in cubicsuperpath.unCubicSuperPath(p):
-            i = 0
-            for p in params:
-                if (i % 2 == 0):
-                    if float(p) < float(minX):
-                        minX = float(p)
-                    if float(p) > float(maxX):
-                        maxX = float(p)
-                else:
-                    if float(p) < float(minY):
-                        minY = float(p)
-                    if float(p) > float(maxY):
-                        maxY = float(p)
-                i = i + 1
-        record_rect["minX"] = unicode(minX)
-        record_rect["minY"] = unicode(minY)
-        record_rect["maxX"] = unicode(maxX)
-        record_rect["maxY"] = unicode(maxY)
+#        minX = 10000
+#        minY = 10000
+#        maxX = -10000
+#        maxY = -10000
+#        for cmd, params in cubicsuperpath.unCubicSuperPath(p):
+#            i = 0
+#            for p in params:
+#                if (i % 2 == 0):
+#                    if float(p) < float(minX):
+#                        minX = float(p)
+#                    if float(p) > float(maxX):
+#                        maxX = float(p)
+#                else:
+#                    if float(p) < float(minY):
+#                        minY = float(p)
+#                    if float(p) > float(maxY):
+#                        maxY = float(p)
+#                i = i + 1
+#        record_rect["minX"] = unicode(minX)
+#        record_rect["minY"] = unicode(minY)
+#        record_rect["maxX"] = unicode(maxX)
+#        record_rect["maxY"] = unicode(maxY)
 
+        record_rect["minX"], \
+        record_rect["minY"], \
+        record_rect["maxX"], \
+        record_rect['maxY'] = self.getExtrema(cubicsuperpath.formatPath(p))
         record_rect['path'] = '"' + record_rect['path'] + ' z"'
         return record_rect
 
     def extract_path(self, path, stackTransformations):
         """Analyze paths"""
-
+        if path.isSameNode(self.backgroundNode):
+            return
         record = {}
         record["path"] = ""
         record["fill"] = ""
@@ -949,30 +1069,68 @@ class iaObject:
         if record["path"].lower().find("z") == -1:
             record["path"] += " z"
         record['path'] = '"' + record['path'] + '"'
-        minX = 10000
-        minY = 10000
-        maxX = -10000
-        maxY = -10000
+#        minX = 10000
+#        minY = 10000
+#        maxX = -10000
+#        maxY = -10000
+#        for cmd, params in cubicsuperpath.unCubicSuperPath(p):
+#            i = 0
+#            for p in params:
+#                if (i % 2 == 0):
+#                    if float(p) < float(minX):
+#                        minX = float(p)
+#                    if float(p) > float(maxX):
+#                        maxX = float(p)
+#                else:
+#                    if float(p) < float(minY):
+#                        minY = float(p)
+#                    if float(p) > float(maxY):
+#                        maxY = float(p)
+#                i = i + 1
+#        record["minX"] = unicode(minX)
+#        record["minY"] = unicode(minY)
+#        record["maxX"] = unicode(maxX)
+#        record["maxY"] = unicode(maxY)
+        #record["minX"] = unicode(0)
+        #record["minY"] = unicode(0)
+        #record["maxX"] = unicode(0)
+        #record["maxY"] = unicode(0)
+        record["minX"], \
+        record["minY"], \
+        record["maxX"], \
+        record['maxY'] = self.getExtrema(cubicsuperpath.formatPath(p))
+        if record["path"]:
+            return record
+
+    def getExtrema(self, path):
+        """ Return MinX, MinY, maxX, maxY """
+        p = cubicsuperpath.parsePath(path)
+        #minX = 10000
+        #minY = 10000
+        #maxX = -10000
+        #maxY = -10000
+
+        extrema = {}
+        extrema['x'] = []
+        extrema['y'] = []
+
         for cmd, params in cubicsuperpath.unCubicSuperPath(p):
             i = 0
             for p in params:
                 if (i % 2 == 0):
-                    if float(p) < float(minX):
-                        minX = float(p)
-                    if float(p) > float(maxX):
-                        maxX = float(p)
+                    extrema['x'].append(p)
+                    #if float(p) < float(minX):
+                    #    minX = float(p)
+                    #if float(p) > float(maxX):
+                    #    maxX = float(p)
                 else:
-                    if float(p) < float(minY):
-                        minY = float(p)
-                    if float(p) > float(maxY):
-                        maxY = float(p)
+                    extrema['y'].append(p)
+                    #if float(p) < float(minY):
+                    #    minY = float(p)
+                    #if float(p) > float(maxY):
+                    #    maxY = float(p)
                 i = i + 1
-        record["minX"] = unicode(minX)
-        record["minY"] = unicode(minY)
-        record["maxX"] = unicode(maxX)
-        record["maxY"] = unicode(maxY)
-        if record["path"]:
-            return record
+        return [unicode(min(extrema['x'])), unicode(min(extrema['y'])), unicode(max(extrema['x'])), unicode(max(extrema['y']))]
 
     def getText(self, type, element):
         """ type can be 'desc' or 'title' """
@@ -1010,6 +1168,9 @@ class iaObject:
     def extract_g(self, group, stackTransformations):
         """Analyze a svg group"""
 
+        if group.isSameNode(self.backgroundNode):
+            return
+
         record = {}
         record["id"] = hashlib.md5(str(uuid.uuid1())).hexdigest()
         if group.hasAttribute("id"):
@@ -1046,6 +1207,7 @@ class iaObject:
                 if newrecord is not None:
                     #newrecord["options"] += record["options"]
                     #record["options"] =  newrecord["options"]
+
                     record["group"].append(newrecord)
 
                     if record["detail"] == "":
@@ -1303,6 +1465,8 @@ class iaObject:
                                  replace("\n", ""). \
                                  replace("\t", ""). \
                                  replace("\r", "") + u'",\n'
+            elif entry == 'group':
+                final_str += self.generateJSONGroup(self.scene['group']['group'])
             else:
                 final_str += u'"' + entry + u'":"' + \
                              PageFormatter(self.scene[entry]).print_html(). \
@@ -1317,33 +1481,35 @@ class iaObject:
             final_str += u'{\n'
             for entry in detail:
                 if entry == "group":
-                    final_str += u'  "' + entry + u'": [\n'
-                    for element in detail['group']:
-                        final_str += '  {\n'
-                        for entry2 in element:
-                            if entry2 == "path":
-                                final_str += u'  "' + entry2 + u'":' + \
-                                             element[entry2]. \
-                                                 replace('"', "'"). \
-                                                 replace("\n", " "). \
-                                                 replace("\t", " "). \
-                                                 replace("\r", " ") + u',\n'
-                            elif entry2 == "image" or entry2 == "title":
-                                final_str += u'  "' + entry2 + u'":"' + \
-                                             element[entry2]. \
-                                                 replace('"', "'"). \
-                                                 replace("\n", " "). \
-                                                 replace("\t", " "). \
-                                                 replace("\r", " ") + u'",\n'
-                            else:
-                                final_str += u'      "' + entry2 + u'":"' + \
-                                             PageFormatter(element[entry2]).print_html(). \
-                                                 replace('"', "'"). \
-                                                 replace("\n", " "). \
-                                                 replace("\t", " "). \
-                                                 replace("\r", " ") + u'",\n'
-                        final_str += u'  },\n'
-                    final_str += u'  ],\n'
+
+                    final_str += self.generateJSONGroup(detail['group'])
+#                    final_str += u'  "' + entry + u'": [\n'
+#                    for element in detail['group']:
+#                        final_str += '  {\n'
+#                        for entry2 in element:
+#                            if entry2 == "path":
+#                                final_str += u'  "' + entry2 + u'":' + \
+#                                             element[entry2]. \
+#                                                 replace('"', "'"). \
+#                                                 replace("\n", " "). \
+#                                                 replace("\t", " "). \
+#                                                 replace("\r", " ") + u',\n'
+#                            elif entry2 == "image" or entry2 == "title":
+#                                final_str += u'  "' + entry2 + u'":"' + \
+#                                             element[entry2]. \
+#                                                 replace('"', "'"). \
+#                                                 replace("\n", " "). \
+#                                                 replace("\t", " "). \
+#                                                 replace("\r", " ") + u'",\n'
+#                            else:
+#                                final_str += u'      "' + entry2 + u'":"' + \
+#                                             PageFormatter(element[entry2]).print_html(). \
+#                                                 replace('"', "'"). \
+#                                                 replace("\n", " "). \
+#                                                 replace("\t", " "). \
+#                                                 replace("\r", " ") + u'",\n'
+#                        final_str += u'  },\n'
+#                    final_str += u'  ],\n'
                 elif entry == "path":
                     final_str += u'  "' + entry + u'":' + detail[entry] + ',\n'
                 elif entry == "image":
@@ -1373,3 +1539,36 @@ class iaObject:
             final_str += u'},\n'
         final_str += u'];\n'
         self.jsonContent = final_str
+
+    def generateJSONGroup(self, group):
+        """ generate json file"""
+        final_str = ""
+        final_str += u'  "group": [\n'
+        for element in group:
+            final_str += '  {\n'
+            for entry2 in element:
+                if entry2 == "path":
+                    final_str += u'  "' + entry2 + u'":' + \
+                                 element[entry2]. \
+                                     replace('"', "'"). \
+                                     replace("\n", " "). \
+                                     replace("\t", " "). \
+                                     replace("\r", " ") + u',\n'
+                elif entry2 == "image" or entry2 == "title":
+                    final_str += u'  "' + entry2 + u'":"' + \
+                                 element[entry2]. \
+                                     replace('"', "'"). \
+                                     replace("\n", " "). \
+                                     replace("\t", " "). \
+                                     replace("\r", " ") + u'",\n'
+                else:
+                    final_str += u'      "' + entry2 + u'":"' + \
+                                 PageFormatter(element[entry2]).print_html(). \
+                                     replace('"', "'"). \
+                                     replace("\n", " "). \
+                                     replace("\t", " "). \
+                                     replace("\r", " ") + u'",\n'
+            final_str += u'  },\n'
+        final_str += u'  ],\n'
+
+        return final_str
