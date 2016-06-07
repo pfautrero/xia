@@ -15,6 +15,7 @@
 #
 # @author : pascal.fautrero@ac-versailles.fr
 
+import re
 import Tkinter
 import tkFileDialog
 import os
@@ -68,11 +69,11 @@ class IADialog(Tkinter.Frame):
 
         # define images
 
-        import_img= Tkinter.PhotoImage(file=self.imagesPath + "/open.gif")
-        ia_img= Tkinter.PhotoImage(file=self.imagesPath + "/ia.gif")
-        file_locked= Tkinter.PhotoImage(file=self.imagesPath + "/file_locked.gif")
+        import_img= Tkinter.PhotoImage(file=self.imagesPath + "/open2.gif")
+        ia_img= Tkinter.PhotoImage(file=self.imagesPath + "/xia2.gif")
+        file_locked= Tkinter.PhotoImage(file=self.imagesPath + "/file_locked2.gif")
         void_img= Tkinter.PhotoImage(file=self.imagesPath + "/void.gif")
-        params_img= Tkinter.PhotoImage(file=self.imagesPath + "/params.gif")
+        params_img= Tkinter.PhotoImage(file=self.imagesPath + "/params2.gif")
 
         self.filename = svgfile
 
@@ -83,24 +84,31 @@ class IADialog(Tkinter.Frame):
         # define buttons
 
         if self.filename == "":
+            # standalone version
+
+            label = Tkinter.Label(self, image=ia_img)
+            label.photo = ia_img
+            label.grid(row=0,column=0,columnspan=1, sticky='W')
+
             button1 = Tkinter.Button(self, image=import_img,
                                      relief=Tkinter.FLAT, bd=0, height=150, width=150,
                                      command=self.askopenfilename)
             button1.image = import_img
-            button1.grid(row=0,column=0, columnspan=1,sticky='W')
+            button1.grid(row=0,column=1, columnspan=1,sticky='W')
             tooltip = ToolTip(button1,translate("select svg file"), None, 0.1)
             self.keep_alive = "yes"
         else:
+            # inkscape version
             label1 = Tkinter.Label(self, image=file_locked)
             label1.photo = file_locked
-            label1.grid(row=0,column=0,columnspan=1, sticky='W')
+            label1.grid(row=0,column=0,columnspan=2, sticky='W')
             self.keep_alive = "no"
 
         button2 = Tkinter.Button(self, image=params_img,
                                  relief=Tkinter.FLAT, bd=0, height=150, width=150,
                                  command=self.openparams)
         button2.image = params_img
-        button2.grid(row=0,column=1, columnspan=1,sticky='W')
+        button2.grid(row=0,column=2, columnspan=1,sticky='W')
         tooltip2 = ToolTip(button2,translate("ajust parameters"), None, 0.1)
 
         # Automatic import of themes
@@ -108,7 +116,7 @@ class IADialog(Tkinter.Frame):
         self.themes = []
 
         if os.path.isdir(themesPath):
-            theme_index = 2
+            theme_index = 3
             themes_folders = sorted(os.listdir(themesPath))
             for filename in themes_folders:
                 theme = {}
@@ -125,8 +133,8 @@ class IADialog(Tkinter.Frame):
                 button.grid(row=theme_index // 3,column=theme_index % 3)
                 tooltip = ToolTip(button,theme['object'].tooltip, None, 0.1)
                 theme_index += 1
-                if theme_index == 3:
-                    theme_index = 5
+                #if theme_index == 3:
+                #    theme_index = 5
 
         # padding
 
@@ -142,11 +150,7 @@ class IADialog(Tkinter.Frame):
 
         root.geometry("465x" + str((theme_index // 3) * 155))
 
-        # title
 
-        label = Tkinter.Label(self, image=ia_img)
-        label.photo = ia_img
-        label.grid(row=1,column=0,columnspan=2, sticky='W')
 
         # define options for opening or saving a file
 
@@ -291,7 +295,11 @@ class IADialog(Tkinter.Frame):
                     with open(self.dirname + '/datas/data.js',"w") as jsonfile:
                         jsonfile.write(self.imageActive.jsonContent.encode('utf8'))
 
-                theme['object'].generateIndex(self.dirname + "/index.html",
+                #theme['object'].generateIndex(self.dirname + "/index.html",
+                head, tail = os.path.split(self.filename)
+                filenamewithoutext = os.path.splitext(tail)[0]
+                filenamewithoutext = re.sub(r"\s+", "", filenamewithoutext, flags=re.UNICODE)
+                theme['object'].generateIndex(self.dirname + "/" + filenamewithoutext + "_" + theme['name'] + ".html",
                                               self.themesPath + '/' + theme['name'] + '/index.html')
 
                 mysplash.exit()

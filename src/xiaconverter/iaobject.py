@@ -15,8 +15,6 @@
 #
 # @author : pascal.fautrero@ac-versailles.fr
 
-
-
 import os
 import math
 import re
