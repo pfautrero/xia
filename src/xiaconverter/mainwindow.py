@@ -143,8 +143,8 @@ class IADialog(Tkinter.Frame):
             label.photo = void_img
             label.grid(row=theme_index // 3, column=theme_index % 3, columnspan=1, sticky='W')
             theme_index += 1
-            if theme_index == 3:
-                theme_index = 5
+            #if theme_index == 3:
+            #    theme_index = 5
 
         # redefine window height if necessary
 
