@@ -13,7 +13,7 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>
-#   
+#
 # @author : pascal.fautrero@ac-versailles.fr
 
 import os
@@ -40,8 +40,8 @@ class XIAConsole():
         self.dirname = output_dir
         self.theme = {}
         self.index_standalone = 0
-        self.firefoxos = 0 
-        
+        self.firefoxos = 0
+
         if not os.path.isdir(self.themesPath + "/" + selected_theme):
             selected_theme = "accordionBlack"
         self.theme['name'] = selected_theme
@@ -59,7 +59,7 @@ class XIAConsole():
 
         if not self.index_standalone:
             if os.path.isdir(self.dirname + '/font'):
-                shutil.rmtree(self.dirname + '/font')              
+                shutil.rmtree(self.dirname + '/font')
             if os.path.isdir(self.dirname + '/img'):
                 shutil.rmtree(self.dirname + '/img')
             if os.path.isdir(self.dirname + '/css'):
@@ -69,7 +69,7 @@ class XIAConsole():
             if os.path.isdir(self.dirname + '/datas'):
                 shutil.rmtree(self.dirname + '/datas')
             os.mkdir(self.dirname + '/datas')
-            shutil.copytree(self.fontsPath , self.dirname + '/font/')              
+            shutil.copytree(self.fontsPath , self.dirname + '/font/')
             shutil.copytree(self.themesPath + '/' + self.theme['name'] + \
                 '/css/', self.dirname + '/css/')
             shutil.copytree(self.themesPath + '/' + self.theme['name'] + \
@@ -92,24 +92,28 @@ class XIAConsole():
 
         self.imageActive.generateJSON()
 
+        head, tail = os.path.split(self.filename)
+        filenamewithoutext = os.path.splitext(tail)[0]
+        filenamewithoutext = re.sub(r"\s+", "", filenamewithoutext, flags=re.UNICODE)
+
         if not self.index_standalone:
             with open(self.dirname + '/datas/data.js',"w") as jsonfile:
                 jsonfile.write(self.imageActive.jsonContent.encode('utf8'))
-            self.theme['object'].generateIndex(self.dirname + "/index.html", \
+            self.theme['object'].generateIndex(self.dirname + "/" + filenamewithoutext + "_" + self.theme['name'] + ".html", \
                 self.themesPath + '/' + self.theme['name'] + '/index.html')
         else:
-            self.theme['object'].generateIndex(self.dirname + "/index.html", \
-                self.themesPath + '/' + self.theme['name'] + '/index_standalone.html')
+            self.theme['object'].generateIndex(self.dirname + "/" + filenamewithoutext + "_" + self.theme['name'] + ".html", \
+                self.themesPath + '/' + self.theme['name'] + '/index.html')
 
 
     def defineMaxPixels(self, resizeCoeff):
         if resizeCoeff == 0:
             return float(512 * 512)
         elif resizeCoeff == 1:
-            return float(1024 * 1024)            
+            return float(1024 * 1024)
         elif resizeCoeff == 2:
-            return float(3 * 1024 * 1024)            
+            return float(3 * 1024 * 1024)
         elif resizeCoeff == 3:
-            return float(5 * 1024 * 1024)            
+            return float(5 * 1024 * 1024)
         else:
-            return float(512 * 1024)     
+            return float(512 * 1024)
