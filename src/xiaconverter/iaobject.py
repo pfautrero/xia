@@ -420,7 +420,7 @@ class iaObject:
 
             # main loop on svg elements
 
-            svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'image', 'g']
+            svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'image', 'g', 'text', 'flowRoot']
             for childnode in mainSVG[0].childNodes:
                 if childnode.parentNode.nodeName == mainSVG[0].nodeName:
                     if childnode.nodeName in svgElements:
@@ -531,29 +531,6 @@ class iaObject:
             ctm.applyTransformToPath(ctm.matrix, p)
             record_circle['path'] = cubicsuperpath.formatPath(p)
 
-#        minX = 10000
-#        minY = 10000
-#        maxX = -10000
-#        maxY = -10000
-#        for cmd, params in cubicsuperpath.unCubicSuperPath(p):
-#            i = 0
-#            for p in params:
-#                if (i % 2 == 0):
-#                    if float(p) < float(minX):
-#                        minX = float(p)
-#                    if float(p) > float(maxX):
-#                        maxX = float(p)
-#                else:
-#                    if float(p) < float(minY):
-#                        minY = float(p)
-#                    if float(p) > float(maxY):
-#                        maxY = float(p)
-#                i = i + 1
-#        record_circle["minX"] = unicode(minX)
-#        record_circle["minY"] = unicode(minY)
-#        record_circle["maxX"] = unicode(maxX)
-#        record_circle["maxY"] = unicode(maxY)
-
         record_circle["minX"], \
         record_circle["minY"], \
         record_circle["maxX"], \
@@ -663,29 +640,6 @@ class iaObject:
             ctm.applyTransformToPath(ctm.matrix, p)
             record_ellipse['path'] = cubicsuperpath.formatPath(p)
 
-#        minX = 10000
-#        minY = 10000
-#        maxX = -10000
-#        maxY = -10000
-#        for cmd, params in cubicsuperpath.unCubicSuperPath(p):
-#            i = 0
-#            for p in params:
-#                if (i % 2 == 0):
-#                    if float(p) < float(minX):
-#                        minX = float(p)
-#                    if float(p) > float(maxX):
-#                        maxX = float(p)
-#                else:
-#                    if float(p) < float(minY):
-#                        minY = float(p)
-#                    if float(p) > float(maxY):
-#                        maxY = float(p)
-#                i = i + 1
-#        record_ellipse["minX"] = unicode(minX)
-#        record_ellipse["minY"] = unicode(minY)
-#        record_ellipse["maxX"] = unicode(maxX)
-#        record_ellipse["maxY"] = unicode(maxY)
-
         record_ellipse["minX"], \
         record_ellipse["minY"], \
         record_ellipse["maxX"], \
@@ -697,6 +651,14 @@ class iaObject:
     def extract_line(self, image, stackTransformations):
         """not yet implemented"""
         self.console.display("line is not implemented. Convert it to path.")
+
+    def extract_text(self, image, stackTransformations):
+        """not yet implemented"""
+        self.console.display("text is not implemented. Convert it to path.")
+
+    def extract_flowRoot(self, image, stackTransformations):
+        """not yet implemented"""
+        self.console.display("flowRoot is not implemented. Convert it to path.")
 
     def extract_polyline(self, image, stackTransformations):
         """not yet implemented"""
@@ -921,29 +883,6 @@ class iaObject:
             ctm.applyTransformToPath(ctm.matrix, p)
             record_rect['path'] = cubicsuperpath.formatPath(p)
 
-#        minX = 10000
-#        minY = 10000
-#        maxX = -10000
-#        maxY = -10000
-#        for cmd, params in cubicsuperpath.unCubicSuperPath(p):
-#            i = 0
-#            for p in params:
-#                if (i % 2 == 0):
-#                    if float(p) < float(minX):
-#                        minX = float(p)
-#                    if float(p) > float(maxX):
-#                        maxX = float(p)
-#                else:
-#                    if float(p) < float(minY):
-#                        minY = float(p)
-#                    if float(p) > float(maxY):
-#                        maxY = float(p)
-#                i = i + 1
-#        record_rect["minX"] = unicode(minX)
-#        record_rect["minY"] = unicode(minY)
-#        record_rect["maxX"] = unicode(maxX)
-#        record_rect["maxY"] = unicode(maxY)
-
         record_rect["minX"], \
         record_rect["minY"], \
         record_rect["maxX"], \
@@ -1067,32 +1006,6 @@ class iaObject:
         if record["path"].lower().find("z") == -1:
             record["path"] += " z"
         record['path'] = '"' + record['path'] + '"'
-#        minX = 10000
-#        minY = 10000
-#        maxX = -10000
-#        maxY = -10000
-#        for cmd, params in cubicsuperpath.unCubicSuperPath(p):
-#            i = 0
-#            for p in params:
-#                if (i % 2 == 0):
-#                    if float(p) < float(minX):
-#                        minX = float(p)
-#                    if float(p) > float(maxX):
-#                        maxX = float(p)
-#                else:
-#                    if float(p) < float(minY):
-#                        minY = float(p)
-#                    if float(p) > float(maxY):
-#                        maxY = float(p)
-#                i = i + 1
-#        record["minX"] = unicode(minX)
-#        record["minY"] = unicode(minY)
-#        record["maxX"] = unicode(maxX)
-#        record["maxY"] = unicode(maxY)
-        #record["minX"] = unicode(0)
-        #record["minY"] = unicode(0)
-        #record["maxX"] = unicode(0)
-        #record["maxY"] = unicode(0)
         record["minX"], \
         record["minY"], \
         record["maxX"], \
@@ -1103,10 +1016,6 @@ class iaObject:
     def getExtrema(self, path):
         """ Return MinX, MinY, maxX, maxY """
         p = cubicsuperpath.parsePath(path)
-        #minX = 10000
-        #minY = 10000
-        #maxX = -10000
-        #maxY = -10000
 
         extrema = {}
         extrema['x'] = []
@@ -1117,16 +1026,8 @@ class iaObject:
             for p in params:
                 if (i % 2 == 0):
                     extrema['x'].append(p)
-                    #if float(p) < float(minX):
-                    #    minX = float(p)
-                    #if float(p) > float(maxX):
-                    #    maxX = float(p)
                 else:
                     extrema['y'].append(p)
-                    #if float(p) < float(minY):
-                    #    minY = float(p)
-                    #if float(p) > float(maxY):
-                    #    maxY = float(p)
                 i = i + 1
         return [unicode(min(extrema['x'])), unicode(min(extrema['y'])), unicode(max(extrema['x'])), unicode(max(extrema['y']))]
 
@@ -1190,7 +1091,7 @@ class iaObject:
             else:
                 record['options'] += " " + str_onclick + " "
 
-        svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'image']
+        svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'image', 'text', 'flowRoot']
         group_childs = []
         stackTransform = []
         self.linearize_childs(group, group_childs, stackTransform)
@@ -1479,35 +1380,7 @@ class iaObject:
             final_str += u'{\n'
             for entry in detail:
                 if entry == "group":
-
                     final_str += self.generateJSONGroup(detail['group'])
-#                    final_str += u'  "' + entry + u'": [\n'
-#                    for element in detail['group']:
-#                        final_str += '  {\n'
-#                        for entry2 in element:
-#                            if entry2 == "path":
-#                                final_str += u'  "' + entry2 + u'":' + \
-#                                             element[entry2]. \
-#                                                 replace('"', "'"). \
-#                                                 replace("\n", " "). \
-#                                                 replace("\t", " "). \
-#                                                 replace("\r", " ") + u',\n'
-#                            elif entry2 == "image" or entry2 == "title":
-#                                final_str += u'  "' + entry2 + u'":"' + \
-#                                             element[entry2]. \
-#                                                 replace('"', "'"). \
-#                                                 replace("\n", " "). \
-#                                                 replace("\t", " "). \
-#                                                 replace("\r", " ") + u'",\n'
-#                            else:
-#                                final_str += u'      "' + entry2 + u'":"' + \
-#                                             PageFormatter(element[entry2]).print_html(). \
-#                                                 replace('"', "'"). \
-#                                                 replace("\n", " "). \
-#                                                 replace("\t", " "). \
-#                                                 replace("\r", " ") + u'",\n'
-#                        final_str += u'  },\n'
-#                    final_str += u'  ],\n'
                 elif entry == "path":
                     final_str += u'  "' + entry + u'":' + detail[entry] + ',\n'
                 elif entry == "image":
