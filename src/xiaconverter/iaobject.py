@@ -81,7 +81,13 @@ class iaObject:
         self.scene['keywords'] = ""
         self.scene['description'] = ""
         self.scene['contributor'] = ""
+        self.scene['license'] = ""
         if metadatas.item(0) is not None:
+
+            metadata = metadatas.item(0).getElementsByTagName('cc:license')
+            if metadata.item(0) is not None:
+                if metadata.item(0).hasAttribute("rdf:resource"):
+                    self.scene['license'] = metadata.item(0).attributes["rdf:resource"].value
 
             metadata = metadatas.item(0).getElementsByTagName('dc:title')
             if metadata.item(0) is not None:

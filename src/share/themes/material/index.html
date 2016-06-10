@@ -62,12 +62,44 @@
         </section>
     </div>
     <footer class="overlay" id="rights">
-        <section id="popup">
-            <img id="popup_close" src="{{LogoDelete}}" alt="close"/>
-            <article id="popup_text">
-                <img src="{{LogoLoading}}" alt="xia" />
-                <p>{{METADATAS}}</p>
-            </article>
+        <section id="popup" style='display:flex;flex-direction:column;'>
+            <div id="popup_meta_title" class="title_material" style='flex-basis:auto;'>
+              <div  id="popup_meta_title_text">
+                <div style="padding:10px;">
+                  <h1>{{TITLE}}</h1>
+                  <h3>{{CREATOR}}</h3>
+                </div>
+                <img id="popup_close" src="{{LogoDelete}}" alt="close"/>
+                <!-- <div style="position:absolute;bottom:0;background : #0077AA;height:10%;width:100%;"></div> -->
+              </div>
+            </div>
+            <div id="popup_text" style="display: flex;flex-direction:column;height:100%;flex-basis:auto;">
+                <!-- <p>{{METADATAS}}</p> -->
+                <div style="flex-basis:80%;overflow:auto;text-align:left;font-family: yanone_thin;font-size:1.2em;">
+                  <div style='padding:10px;'>
+                    {{DESCRIPTION}}
+                  </div>
+                </div>
+                <div style="flex-basis:20%;text-align:left;font-family: yanone_thin;font-size:1.2em;">
+                    <p id='license' style="background-color:#0099CC;color:white;padding:7px;">Licence : {{LICENSE}}</p>
+                    <div style="display:flex;">
+                    <ul style="flex-basis:50%;margin:0;padding:-left:10px;list-style:none;">
+                      <li>Date : {{DATE}}</li>
+                      <li>Droit : {{RIGHTS}}</li>
+                      <li>Éditeur : {{PUBLISHER}}</li>
+                      <li>Source : {{SOURCE}}</li>
+                      <li>Identifiant : {{IDENTIFIER}}</li>
+                    </ul>
+                    <ul style="flex-basis:auto;margin:0;padding:-left:10px;list-style:none;">
+                      <li>Langues : {{LANGUAGES}}</li>
+                      <li>Mots clés : {{KEYWORDS}}</li>
+                      <li>Contributeurs : {{CONTRIBUTOR}}</li>
+                      <li>Relation : {{RELATION}}</li>
+                      <li>Portée : {{COVERAGE}}</li>
+                    </ul>
+                  </div>
+                </div>
+            </div>
         </section>
     </footer>
     {{datasJS}}

@@ -188,22 +188,7 @@ h1 {
     bottom:0;
     background: rgba(0,0,0,0.6);
 }
-#popup {
-    /*position:relative;
-    border-radius: 20px;
-    border: 20px solid #ddd;
-    width: 60%;
-    margin: 50px auto;
-    background:white;
-    min-height: 100px;
-    box-shadow: black 5px 5px 10px;*/
-    position:relative;
-    pointer-events:auto;
-    background-color: #efefef;
-    height:70%;
-    width:70%;
-    box-shadow: 0px 0px 21px 7px rgba(0,0,0,0.43);
-}
+
 #rights {
   overflow: hidden;
   position: absolute;
@@ -233,15 +218,7 @@ h1 {
     right:0px;
     width:40px;
 }
-#popup_text {
-    text-align:center;
-}
-#popup_text img{
-    float:left;
-    width:20%;
-    max-width: 60px;
-    margin: 10px;
-}
+
 #content #message_success {
     overflow-x:visible;
     overflow-y:visible;
@@ -256,9 +233,9 @@ h1 {
 #popup_close {
     cursor: pointer;
     position:absolute;
-    top:0px;
-    right:0px;
-    width:50px;
+    top:10px;
+    right:10px;
+    width:30px;
 }
 
 #loader {
@@ -460,4 +437,59 @@ h1 {
   top:0px;
   right:0px;
   cursor:pointer;
+}
+
+#popup_meta_title {
+  background-color: #999999;
+  /*height:30%;*/
+  width:100%;
+}
+
+#popup_meta_title_text {
+  position:relative;
+  height:100%;
+  background-color:#0099CC;
+}
+
+#popup_meta_title_text h3 {
+
+    margin:0px;
+    font-family: yanone_thin;
+    color: white;
+
+}
+@media (max-width:490px) {
+  #popup {
+      position:relative;
+      pointer-events:auto;
+      background-color: white;
+      height:100%;
+      width:100%;
+      box-shadow: 0px 0px 21px 7px rgba(0,0,0,0.43);
+  }
+}
+@media (min-width:490px) {
+  #popup {
+      position:relative;
+      pointer-events:auto;
+      background-color: white;
+      height:70%;
+      width:60%;
+      box-shadow: 0px 0px 21px 7px rgba(0,0,0,0.43);
+  }
+}
+#popup_text {
+    text-align:center;
+    /* hack for firefox */
+    min-height:0px;
+}
+#popup_text img{
+    float:left;
+    width:20%;
+    max-width: 60px;
+    margin: 10px;
+}
+#license a {
+  text-decoration: none;
+  color: white
 }
