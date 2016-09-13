@@ -12,7 +12,7 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>
-#   
+#
 # @author : pascal.fautrero@ac-versailles.fr
 
 
@@ -32,7 +32,7 @@ class hook:
         except:
             t = gettext.translation("xia-converter", langPath, languages=['en_US'])
         translate = t.ugettext
-        
+
         self.root = root
         self.iaobject = iaobject
         self.PageFormatter = PageFormatter
@@ -41,7 +41,7 @@ class hook:
 
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""
-        
+
         final_str  = u'<div class="accordion-group">\n';
         final_str += u'  <div class="accordion-heading">\n';
         final_str += u'    <a id="collapsecomment-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsecomment">' + self.iaobject.scene["intro_title"] + '</a>\n';
@@ -61,7 +61,7 @@ class hook:
                 final_str += u'          </div>\n'
                 final_str += u'      </div>\n'
                 final_str += u'  </div>\n'
-                final_str += u'</div>\n'        
+                final_str += u'</div>\n'
 
         with open(templatePath,"r") as template:
             final_index = template.read().decode("utf-8")
@@ -96,7 +96,7 @@ class hook:
             final_index = final_index.replace("{{ACCORDION}}", final_str)
             final_index = final_index.replace("{{LOADING}}", self.loading)
             if self.root.index_standalone:
-                xiaWebsite = "http://xia.dane.ac-versailles.fr/network/delivery/accordionBlack"
+                xiaWebsite = "http://xia.dane.ac-versailles.fr/network/delivery/xia20/accordionBlack"
                 final_index = final_index.replace("{{MainCSS}}", xiaWebsite + "/css/main.css")
                 final_index = final_index.replace("{{LogoLoading}}",  xiaWebsite + "/img/xia.png")
                 final_index = final_index.replace("{{LogoClose}}", xiaWebsite + "/img/close.png")
@@ -119,6 +119,6 @@ class hook:
                 final_index = final_index.replace("{{kineticJS}}", "js/kinetic.min.js")
                 final_index = final_index.replace("{{xiaJS}}", "js/xia.js")
                 final_index = final_index.replace("{{hooksJS}}", "js/hooks.js")
-                final_index = final_index.replace("{{labJS}}", "js/LAB.min.js")                
+                final_index = final_index.replace("{{labJS}}", "js/LAB.min.js")
         with open(filePath,"w") as indexfile:
             indexfile.write(final_index.encode("utf-8"))

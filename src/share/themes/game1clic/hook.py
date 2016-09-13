@@ -12,7 +12,7 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>
-#   
+#
 # @author : pascal.fautrero@crdp.ac-versailles.fr
 
 # dom manipulation
@@ -44,13 +44,13 @@ class hook:
 
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""
-        
+
         self.score = "0"
         self.message = self.game_not_configured
 
         self.score2 = "0"
         self.message2 = self.game_not_configured
-        
+
         score = re.search('<score>(.*?)</score>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
         if score:
             self.score = score.group(1)
@@ -66,8 +66,8 @@ class hook:
         message2 = re.search('<message2>(.*?)</message2>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
         if message2:
             self.message2 = message2.group(1)
-       
-       
+
+
         final_str = u'<article class="message_success" id="message_success" data-score="' + self.score + '">\n'
         final_str += '<img id="popup_toggle" src="{{LogoHide}}" alt="toggle"/>\n'
         final_str += u'  <div id="message_success_content">' + self.PageFormatter(self.message).print_html() + u'</div>\n'
@@ -77,13 +77,13 @@ class hook:
         final_str += '<img id="popup_toggle2" src="{{LogoHide}}" alt="toggle"/>\n'
         final_str += u'  <div id="message_success_content2">' + self.PageFormatter(self.message2).print_html() + u'</div>\n'
         final_str += u'</article>\n'
-            
+
         for i, detail in enumerate(self.iaobject.details):
 
             tooltip_state = ""
             tooltip = re.search('<tooltip>(.*)</tooltip>', detail["detail"], re.IGNORECASE|re.DOTALL)
             if tooltip:
-                tooltip_state = tooltip.group(1)            
+                tooltip_state = tooltip.group(1)
 
             final_str += u'<article class="detail_content" data-kinetic_id="'+detail["id"]+'" data-tooltip="' + tooltip_state + '" data-options="' + detail['options'] + u'" id="article-'+unicode(str(i), "utf8") + u'">\n'
             final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
@@ -123,7 +123,7 @@ class hook:
             final_index = final_index.replace("{{CONTENT}}", final_str)
             final_index = final_index.replace("{{LOADING}}", self.loading)
             if self.root.index_standalone:
-                xiaWebsite = "http://xia.dane.ac-versailles.fr/network/delivery/game1clic"
+                xiaWebsite = "http://xia.dane.ac-versailles.fr/network/delivery/xia20/game1clic"
                 final_index = final_index.replace("{{MainCSS}}", xiaWebsite + "/css/main.css")
                 final_index = final_index.replace("{{LogoLoading}}",  xiaWebsite + "/img/xia.png")
                 final_index = final_index.replace("{{LogoHide}}",  xiaWebsite + "/img/hide.png")
@@ -148,6 +148,6 @@ class hook:
                 final_index = final_index.replace("{{kineticJS}}", "js/kinetic-xia.min.js")
                 final_index = final_index.replace("{{xiaJS}}", "js/xia.js")
                 final_index = final_index.replace("{{hooksJS}}", "js/hooks.js")
-                final_index = final_index.replace("{{labJS}}", "js/LAB.min.js")  
+                final_index = final_index.replace("{{labJS}}", "js/LAB.min.js")
         with open(filePath,"w") as indexfile:
             indexfile.write(final_index.encode("utf-8"))

@@ -8,12 +8,12 @@
 //   GNU General Public License for more details.
 //   You should have received a copy of the GNU General Public License
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
-//   
-//   
+//
+//
 // @author : pascal.fautrero@crdp.ac-versailles.fr
 
 /**
- * 
+ *
  * @param {type} originalWidth
  * @param {type} originalHeight
  * @constructor create image active scene
@@ -23,33 +23,40 @@ function IaScene(originalWidth, originalHeight) {
     var that = this;
     //  canvas width
     this.width = 1000;
-    
+
     // canvas height
-    this.height = 800;  
-    
+    this.height = 800;
+
     // default color used to fill shapes during mouseover
     var _colorOver = {red:66, green:133, blue:244, opacity:0.6};
 
     // default color used to fill stroke around shapes during mouseover
     var _colorOverStroke = {red:255, green:0, blue:0, opacity:1};
-    
+
     // default color used to fill shapes if defined as cache
     this.colorPersistent = {red:124, green:154, blue:174, opacity:1};
-    
+
     // Image width ratio on the scene
-    this.ratio = 0.65;  
-    
+    // Warning : hack to suit css media-queries rules !!
+    if ($(window).width() >= '768') {
+      this.ratio = 0.65;
+    }
+    else {
+      this.ratio = 1.00;
+    }
+
+
     // padding-top in the canvas
     this.y = 0;
 
     // color used over background image during focus
     var _colorCache = {red:255, green:255, blue:255, opacity:0.6};
- 
+
     // internal
     this.fullScreen = "off";
     this.backgroundCacheColor = 'rgba(' + _colorCache.red + ',' + _colorCache.green + ',' + _colorCache.blue + ',' + _colorCache.opacity + ')';
-    this.overColor = 'rgba(' + _colorOver.red + ',' + _colorOver.green + ',' + _colorOver.blue + ',' + _colorOver.opacity + ')'; 
-    this.overColorStroke = 'rgba(' + _colorOverStroke.red + ',' + _colorOverStroke.green + ',' + _colorOverStroke.blue + ',' + _colorOverStroke.opacity + ')';     
+    this.overColor = 'rgba(' + _colorOver.red + ',' + _colorOver.green + ',' + _colorOver.blue + ',' + _colorOver.opacity + ')';
+    this.overColorStroke = 'rgba(' + _colorOverStroke.red + ',' + _colorOverStroke.green + ',' + _colorOverStroke.blue + ',' + _colorOverStroke.opacity + ')';
     this.scale = 1;
     this.zoomActive = 0;
     this.element = 0;
@@ -62,7 +69,7 @@ function IaScene(originalWidth, originalHeight) {
 
 /*
  * Scale entire scene
- *  
+ *
  */
 IaScene.prototype.scaleScene = function(mainScene){
     "use strict";
@@ -86,13 +93,12 @@ IaScene.prototype.scaleScene = function(mainScene){
     mainScene.width = mainScene.width / mainScene.ratio;
     $('#container').css({"width": mainScene.width + 'px'});
     $('#container').css({"height": (mainScene.height + $('#canvas').offset().top - $('#container').offset().top) + 'px'});
-    $('#canvas').css({"height": (mainScene.height) + 'px'});    
-    $('#canvas').css({"width": mainScene.width * mainScene.ratio + 'px'});     
+    $('#canvas').css({"height": (mainScene.height) + 'px'});
+    $('#canvas').css({"width": mainScene.width * mainScene.ratio + 'px'});
     $('#detect').css({"height": (mainScene.height) + 'px'});
     $('#accordion2').css({"max-height": (mainScene.height) + 'px'});
-    $('#detect').css({"top": ($('#canvas').offset().top - $('#container').offset().top) + 'px'});       
-    
-    
-    
-};
+    $('#detect').css({"top": ($('#canvas').offset().top - $('#container').offset().top) + 'px'});
 
+
+
+};

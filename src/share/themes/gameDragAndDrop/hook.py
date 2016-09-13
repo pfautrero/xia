@@ -12,7 +12,7 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>
-#   
+#
 # @author : pascal.fautrero@crdp.ac-versailles.fr
 
 # dom manipulation
@@ -35,7 +35,7 @@ class hook:
         self.root = root
         self.iaobject = iaobject
         self.PageFormatter = PageFormatter
-        self.tooltip = translate("export gameDragAndDrop")        
+        self.tooltip = translate("export gameDragAndDrop")
         self.score = "0"
         self.collisions = "off"
         self.message = translate("You win !")
@@ -47,7 +47,7 @@ class hook:
         self.score = "0"
         self.collisions = "off"
         self.magnet = "off"
-        
+
         score = re.search('<score>(.*)</score>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
         if score:
             self.score = score.group(1)
@@ -58,12 +58,12 @@ class hook:
 
         collisions = re.search('<collisions>(.*)</collisions>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
         if collisions:
-            self.collisions = collisions.group(1)        
+            self.collisions = collisions.group(1)
 
         magnet = re.search('<magnet>(.*)</magnet>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
         if magnet:
-            self.magnet = magnet.group(1)        
-        
+            self.magnet = magnet.group(1)
+
         final_str = u'<article class="message_success" id="message_success" data-magnet="' + self.magnet + '" data-collisions="' + self.collisions + '" data-score="' + self.score + '">\n'
         final_str += '<div class="message_success_border">\n'
         final_str += '<img id="popup_toggle" src="{{LogoHide}}" alt="toggle"/>\n'
@@ -131,13 +131,13 @@ class hook:
             final_index = final_index.replace("{{METADATAS}}", metadatas)
             final_index = final_index.replace("{{AUTHOR}}", self.iaobject.scene["creator"])
             final_index = final_index.replace("{{DESCRIPTION}}", self.iaobject.scene["description"])
-            final_index = final_index.replace("{{INTRODUCTION}}", self.PageFormatter(self.iaobject.scene["description"]).print_html())            
+            final_index = final_index.replace("{{INTRODUCTION}}", self.PageFormatter(self.iaobject.scene["description"]).print_html())
             final_index = final_index.replace("{{KEYWORDS}}", self.iaobject.scene["keywords"])
             final_index = final_index.replace("{{TITLE}}", self.iaobject.scene["title"])
             final_index = final_index.replace("{{CONTENT}}", final_str)
             final_index = final_index.replace("{{LOADING}}", self.loading)
             if self.root.index_standalone:
-                xiaWebsite = "http://xia.dane.ac-versailles.fr/network/delivery/gameDragAndDrop"
+                xiaWebsite = "http://xia.dane.ac-versailles.fr/network/delivery/xia20/gameDragAndDrop"
                 final_index = final_index.replace("{{MainCSS}}", xiaWebsite + "/css/main.css")
                 final_index = final_index.replace("{{LogoHide}}",  xiaWebsite + "/img/hide.png")
                 final_index = final_index.replace("{{LogoLoading}}",  xiaWebsite + "/img/xia.png")
