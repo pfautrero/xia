@@ -1,12 +1,12 @@
 {
   "name": "XIA",
-  "version": "1.0",
+  "version": "2.0",
   "authors": [
-    "Pascal Fautrero <pascal.fautrero@crdp.ac-versailles.fr>"
+    "Pascal Fautrero <pascal.fautrero@ac-versailles.fr>"
   ],
   "description": "XIA is a svg to html5 converter to generate interactives resources",
   "license": "GPL3.0",
-  "homepage": "http://images-actives.crdp-versailles.fr/beta",
+  "homepage": "http://xia.dane.ac-versailles.fr/",
   "ignore": [
     "**/.*",
     "node_modules",

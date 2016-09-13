@@ -118,10 +118,8 @@ setup(
     },
     author='Pascal Fautrero',
     author_email='pascal.fautrero@ac-versailles.fr',
-    description='Convert svg to full html5 interactive pictures',
+    description='Convert svg to full html5 interactive images',
     long_description=long_description,
     url='http://xia.dane.ac-versailles.fr',
     license='GPL-3',
 )
-
-
