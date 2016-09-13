@@ -582,7 +582,6 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     that.layer.draw();
                     iaScene.element = that;
                     that.myhooks.afterIaObjectFocus(iaScene, idText, that);
-                    that.myhooks.afterIaObjectZoom(iaScene, idText, that);
                 }
             }
         });
