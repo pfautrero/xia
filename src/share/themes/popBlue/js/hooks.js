@@ -8,13 +8,13 @@
 //   GNU General Public License for more details.
 //   You should have received a copy of the GNU General Public License
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
-//   
-//   
+//
+//
 // @author : pascal.fautrero@ac-versailles.fr
 
 
 /*
- * 
+ *
  * @constructor init specific hooks
  */
 function hooks() {
@@ -57,7 +57,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
             }
             $("#response_" + target).toggle();
         }
-       
+
     };
     var unlock_input = function(e) {
         e.preventDefault();
@@ -76,7 +76,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
             $(".button").on("click", button_click);
             $(".unlock input[type=submit]").off("click");
             $(".unlock input[type=submit]").on("click", unlock_input);
-        }        
+        }
     };
     $(".button").on("click", button_click);
     $(".unlock input[type=submit]").on("click", unlock_input);
@@ -107,7 +107,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         });
         $(this).parent().children("video").each(function(){
             $(this)[0].pause();
-        });                
+        });
     });
     document.addEventListener("click", function(ev){
         if (mainScene.noPropagation) {
@@ -115,7 +115,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         }
         else {
             if (mainScene.zoomActive === 1) {
-                if ((mainScene.element !== 0) && 
+                if ((mainScene.element !== 0) &&
                 (typeof(mainScene.element) !== 'undefined')) {
                     mainScene.element.kineticElement[0].fire("click");
                 }
@@ -130,7 +130,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
 };
 /*
  *
- *  
+ *
  */
 hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaObject) {
 
@@ -138,19 +138,32 @@ hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaO
 
 /*
  *
- *  
+ *
  */
 hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
-
+  if ($('#' + idText).data("state") != "void") {
+      var viewportHeight = $(window).height();
+      $("#content").show();
+      $('#' + idText).show();
+      $('#' + idText + " audio").each(function(){
+          if ($(this).data("state") === "autostart") {
+              $(this)[0].play();
+          }
+      });
+      var article_border = $('#' + idText).css("border-top-width").substr(0,$('#' + idText).css("border-top-width").length - 2);
+      var article_offset = $('#' + idText).offset();
+      var content_offset = $("#content").offset();
+      $('#' + idText).css({'max-height':(viewportHeight - article_offset.top - content_offset.top - 2 * article_border)});
+  }
 };
 
 
 /*
  *
- *  
+ *
  */
 hooks.prototype.afterIaObjectZoom = function(iaScene, idText, iaObject) {
-    if ($('#' + idText).data("state") != "void") {    
+    if ($('#' + idText).data("state") != "void") {
         var viewportHeight = $(window).height();
         $("#content").show();
         $('#' + idText).show();
@@ -158,10 +171,10 @@ hooks.prototype.afterIaObjectZoom = function(iaScene, idText, iaObject) {
             if ($(this).data("state") === "autostart") {
                 $(this)[0].play();
             }
-        });            
+        });
         var article_border = $('#' + idText).css("border-top-width").substr(0,$('#' + idText).css("border-top-width").length - 2);
         var article_offset = $('#' + idText).offset();
         var content_offset = $("#content").offset();
-        $('#' + idText).css({'max-height':(viewportHeight - article_offset.top - content_offset.top - 2 * article_border)});  
+        $('#' + idText).css({'max-height':(viewportHeight - article_offset.top - content_offset.top - 2 * article_border)});
     }
 };
