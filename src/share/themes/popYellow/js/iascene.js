@@ -8,12 +8,12 @@
 //   GNU General Public License for more details.
 //   You should have received a copy of the GNU General Public License
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
-//   
-//   
+//
+//
 // @author : pascal.fautrero@crdp.ac-versailles.fr
 
 /**
- * 
+ *
  * @param {type} originalWidth
  * @param {type} originalHeight
  * @constructor create image active scene
@@ -23,32 +23,32 @@ function IaScene(originalWidth, originalHeight) {
     var that = this;
     //  canvas width
     this.width = 1000;
-    
+
     // canvas height
-    this.height = 800;  
-    
+    this.height = 800;
+
     // default color used to fill shapes during mouseover
     var _colorOver = {red:66, green:133, blue:244, opacity:0.6};
 
     // default color used to fill stroke around shapes during mouseover
     var _colorOverStroke = {red:255, green:0, blue:0, opacity:1};
-    
+
     // default color used to fill shapes if defined as cache
     this.colorPersistent = {red:124, green:154, blue:174, opacity:1};
 
     // Image ratio on the scene
-    this.ratio = 1.00;  
-    
+    this.ratio = 1.00;
+
     // padding-top in the canvas
     this.y = 0;
 
     // color used over background image during focus
     var _colorCache = {red:0, green:0, blue:0, opacity:0.6};
- 
+
     // internal
     this.fullScreen = "off";
     this.backgroundCacheColor = 'rgba(' + _colorCache.red + ',' + _colorCache.green + ',' + _colorCache.blue + ',' + _colorCache.opacity + ')';
-    this.overColor = 'rgba(' + _colorOver.red + ',' + _colorOver.green + ',' + _colorOver.blue + ',' + _colorOver.opacity + ')';   
+    this.overColor = 'rgba(' + _colorOver.red + ',' + _colorOver.green + ',' + _colorOver.blue + ',' + _colorOver.opacity + ')';
     this.overColorStroke = 'rgba(' + _colorOverStroke.red + ',' + _colorOverStroke.green + ',' + _colorOverStroke.blue + ',' + _colorOverStroke.opacity + ')';
     this.scale = 1;
     this.zoomActive = 0;
@@ -62,12 +62,14 @@ function IaScene(originalWidth, originalHeight) {
 
 /*
  * Scale entire scene
- *  
+ *
  */
 IaScene.prototype.scaleScene = function(mainScene){
     "use strict";
     var viewportWidth = $(window).width();
     var viewportHeight = $(window).height();
+
+    if ($(window).width()<=768) {var viewportWidth = $(window).width()*0.98;};
 
     var coeff_width = (viewportWidth * mainScene.ratio) / parseFloat(mainScene.originalWidth);
     var coeff_height = (viewportHeight) / (parseFloat(mainScene.originalHeight) + $('#canvas').offset().top + $('#container').offset().top);
@@ -75,8 +77,8 @@ IaScene.prototype.scaleScene = function(mainScene){
     var canvas_border_left = parseFloat($("#canvas").css("border-left-width").substr(0,$("#canvas").css("border-left-width").length - 2));
     var canvas_border_right = parseFloat($("#canvas").css("border-right-width").substr(0,$("#canvas").css("border-right-width").length - 2));
     var canvas_border_top = parseFloat($("#canvas").css("border-top-width").substr(0,$("#canvas").css("border-top-width").length - 2));
-    var canvas_border_bottom = parseFloat($("#canvas").css("border-bottom-width").substr(0,$("#canvas").css("border-bottom-width").length - 2));    
-    
+    var canvas_border_bottom = parseFloat($("#canvas").css("border-bottom-width").substr(0,$("#canvas").css("border-bottom-width").length - 2));
+
     if ((viewportWidth >= parseFloat(mainScene.originalWidth) * coeff_width) && (viewportHeight >= ((parseFloat(mainScene.originalHeight) + $('#canvas').offset().top) * coeff_width))) {
         mainScene.width = viewportWidth - canvas_border_left - canvas_border_right;
         mainScene.coeff = (mainScene.width * mainScene.ratio) / parseFloat(mainScene.originalWidth);
@@ -91,8 +93,8 @@ IaScene.prototype.scaleScene = function(mainScene){
 
     $('#container').css({"width": (mainScene.width + canvas_border_left + canvas_border_right) + 'px'});
     $('#container').css({"height": (mainScene.height + $('#canvas').offset().top - $('#container').offset().top + canvas_border_top + canvas_border_bottom) + 'px'});
-    $('#canvas').css({"height": (mainScene.height) + 'px'});    
-    $('#canvas').css({"width": mainScene.width + 'px'});     
+    $('#canvas').css({"height": (mainScene.height) + 'px'});
+    $('#canvas').css({"width": mainScene.width + 'px'});
     $('#detect').css({"height": (mainScene.height) + 'px'});
     $('#detect').css({"top": ($('#canvas').offset().top) + 'px'});
 };

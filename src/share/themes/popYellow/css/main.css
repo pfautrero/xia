@@ -24,8 +24,12 @@
 html {
   margin:0;
   padding:0;
-  background: url('../img/background.jpg') no-repeat center center fixed;
+  background: url('../img/background.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
   background-size: cover;
+  overflow-y: scroll;
 }
 body{
     background: none;
@@ -33,6 +37,7 @@ body{
     border:none;
     padding:0px;
     border-image-width: 0;
+
 }
 video {
     width:100%;
@@ -42,18 +47,18 @@ audio {
 }
 a {
     color:#00c6ff;
-  font-family: yanone_thin; 
-  font-size:1.4em;    
+  font-family: yanone_thin;
+  font-size:1.4em;
 }
 a:active, a:focus, a:hover {color:#DDD;}
 header {
-    width:100%; 
-    padding:0; 
-    margin:0 auto; 
-    /*background:#000;*/
+    width:100%;
+    padding:0;
+    margin:0 auto;
+    margin-bottom: 10px;
 }
 
-header h1 {    
+header h1 {
     margin:0;
     top:0;
     left:0px;
@@ -61,13 +66,15 @@ header h1 {
     display:inline;
     /*max-width:20%;*/
     padding: 0px 1em 0 5px;
-    margin-bottom:0; 
-    color:black;
-    font-family: yanone_thin; 
-    font-size: 1.5em;
+    margin-bottom:0;
+    color:white;
+    font-family: yanone_thin;
+    font-size: 1.5vw;
+    font-variant: small-caps;
+    font-weight: bolder;
 }
 
-.eyes { 
+.eyes {
     background:url(../img/eyes.png) center bottom no-repeat;
     /*margin-left: 10px;*/
     padding:.3em 1em;
@@ -86,7 +93,7 @@ header h1 {
 .infos {
     background:url(../img/infos.png) center bottom no-repeat;
     /*margin-left: 10px;*/
-    padding:.3em 1em; 
+    padding:.3em 1em;
 }
 .infos:hover{
     background:url(../img/infos2.png) center bottom  no-repeat;
@@ -101,6 +108,7 @@ header h1 {
         font-size:20px;
     }
 }
+section{z-index: 1;}
 #detect, #canvas {
     margin:0;
     padding:0;
@@ -109,7 +117,7 @@ header h1 {
     position: relative;
     padding:0px;
     width:100%;
-    margin:10px auto;
+    margin:20px auto;
     border:0px solid #FFF3B2;
 
     border-image-width: 0;
@@ -118,7 +126,6 @@ header h1 {
 #canvas {
     width:55%;
     margin-top: 40px;
-    border:20px solid rgba(255,255,255,0.5);
 
 }
 #detect {
@@ -155,40 +162,23 @@ header h1 {
 }
 
 .button {
-	-moz-box-shadow: 0px 1px 0px 0px #fff6af;
-	-webkit-box-shadow: 0px 1px 0px 0px #fff6af;
-	box-shadow: 0px 1px 0px 0px #fff6af;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
-	background:-moz-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-	background:-webkit-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-	background:-o-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-	background:-ms-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-	background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffec64', endColorstr='#ffab23',GradientType=0);
-	background-color:#ffec64;
+  box-shadow: black 2px 2px 2px;
+	background-color:#3498DB;
 	-moz-border-radius:6px;
 	-webkit-border-radius:6px;
 	border-radius:6px;
-	border:1px solid #ffaa22;
 	display:inline-block;
 	cursor:pointer;
-	color:#333333;
+	color:white;
 	font-family:arial;
 	font-size:15px;
 	font-weight:bold;
 	padding:6px 24px;
 	text-decoration:none;
-	text-shadow:0px 1px 0px #ffee66;
 }
 .button:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffab23), color-stop(1, #ffec64));
-	background:-moz-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-	background:-webkit-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-	background:-o-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-	background:-ms-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-	background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffab23', endColorstr='#ffec64',GradientType=0);
-	background-color:#ffab23;
+	background-color:#6BB9F0;
+  color:white;
 }
 .button:active {
 	position:relative;
@@ -206,35 +196,38 @@ header h1 {
 }
 #popup {
     position:relative;
-    border-radius: 20px;
-    border: 20px solid #ddd;
+    border-radius: 5px;
     width: 60%;
     margin: 50px auto;
     background:white;
     min-height: 100px;
-    box-shadow: black 5px 5px 10px;
 }
-
+#content {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
 #content article {
+  position: relative;
     display:none;
     z-index:100;
-    position:absolute;
-    border: 20px solid #ddd;
-    border-radius:20px;
-    
-    width: calc(100% - 40px);
-    margin: 0px auto;
+    padding:20px;
+    border-radius:5px;
+    width: calc(100% - 80px);
+    margin: auto auto;
     background:rgba(255,255,255,1);
-    box-shadow: black 5px 5px 10px;
     overflow-y: auto;
     overflow-x: hidden;
 }
-#content article p, h1 {
+#content article div, h1 {
     margin: 10px;
 }
-
-#content article h1 {
-    font-family: yanone_thin; 
+#content article div {
+    font-size: 1.1em;
+}
+#content article img {max-width: 60%;}
+#content article h1, div{
+    font-family: yanone_thin;
 }
 
 .article_close {
@@ -242,12 +235,14 @@ header h1 {
     display: none;
     cursor: pointer;
     position:absolute;
-    top:0px;
     height:40px;
-    text-align:center;
 }
 #popup_text {
     text-align:center;
+    font-family: yanone_regular;
+    margin-top: 30px;
+    padding: 5px;
+
 }
 #popup_text img{
     float:left;
@@ -262,10 +257,11 @@ header h1 {
 #popup_close, #popup_close_intro, #popup_toggle {
     cursor: pointer;
     position:absolute;
-    top:-40px;
-    right:-40px;
-    width:50px;
+    top:-20px;
+    right:-20px;
+    width:40px;
 }
+iframe {border:none;}
 #loader {
     position:fixed;
     display: table;
@@ -281,20 +277,20 @@ header h1 {
 }
 #loader div{
     font-family: yanone_thin, Arial;
-    font-size: 2em;    
+    font-size: 2em;
     display:table-cell;
     vertical-align: middle;
     color:white;
 }
 .videoWrapper16_9 {
     position: relative;
-    padding-bottom: 56.25%; 
+    padding-bottom: 56.25%;
     padding-top: 5px;
     height: 0;
 }
 .videoWrapper4_3 {
     position: relative;
-    padding-bottom: 75%; 
+    padding-bottom: 75%;
     padding-top: 5px;
     height: 0;
 }
@@ -312,7 +308,17 @@ header h1 {
     width: 100%;
     height: 100%;
 }
+@media (max-width:768px) {
+  html {
+    /*Hack pour avoir le background en cover sur Android*/
+    height: 100%;
+    min-height: 100%;
+  }
 
+  #content {position:relative;}
+  #content article {width:100%;}
+
+}
 
 
 /* thanks to Chris Coyier on https://css-tricks.com/css3-progress-bars/ */
@@ -393,4 +399,3 @@ header h1 {
     border-bottom-left-radius: 20px;
     overflow: hidden;
 }
-

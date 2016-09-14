@@ -8,13 +8,13 @@
 //   GNU General Public License for more details.
 //   You should have received a copy of the GNU General Public License
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
-//   
-//   
+//
+//
 // @author : pascal.fautrero@ac-versailles.fr
 
 
 /*
- * 
+ *
  * @constructor init specific hooks
  */
 function hooks() {
@@ -58,7 +58,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
             }
             $("#response_" + target).toggle();
         }
-       
+
     };
     var unlock_input = function(e) {
         e.preventDefault();
@@ -77,7 +77,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
             $(".button").on("click", button_click);
             $(".unlock input[type=submit]").off("click");
             $(".unlock input[type=submit]").on("click", unlock_input);
-        }        
+        }
     };
     $(".button").on("click", button_click);
     $(".unlock input[type=submit]").on("click", unlock_input);
@@ -91,8 +91,9 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         var content_offset = $("#content").offset();
         $("#general").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});
         $('.article_close').show();
-        $('.article_close').css({"top":$('#general').offset().top - 20});
-        $('.article_close').css({"left":($('#content').width() - 40) / 2});    
+        $('.article_close').css({"top":$('#general').offset().top -40});
+        $('.article_close').css({"left":($('#content').width() - 40) / 2});
+        if ($(window).width()<=768) {$('.article_close').css({"top":$('#general').offset().top - 90});};
     });
 
     $(".overlay").hide();
@@ -106,23 +107,23 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
 
     $(".article_close").on("click", function(){
         $(this).hide();
-        $(".detail_content").hide();
-        $("#content").hide();
+        $(".detail_content").slideUp('slow');
+        $("#content").slideUp('slow');
         $(this).parent().children("audio").each(function(){
             $(this)[0].pause();
         });
         $(this).parent().children("video").each(function(){
             $(this)[0].pause();
-        });                
+        });
     });
-    
+
     document.addEventListener("click", function(ev){
         if (mainScene.noPropagation) {
             mainScene.noPropagation = false;
         }
         else {
             if (mainScene.zoomActive === 1) {
-                if ((mainScene.element !== 0) && 
+                if ((mainScene.element !== 0) &&
                 (typeof(mainScene.element) !== 'undefined')) {
                     mainScene.element.kineticElement[0].fire("click");
                 }
@@ -138,7 +139,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
 };
 /*
  *
- *  
+ *
  */
 hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaObject) {
 
@@ -146,7 +147,7 @@ hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaO
 };
 /*
  *
- *  
+ *
  */
 hooks.prototype.afterIaObjectZoom = function(iaScene, idText, iaObject) {
 
@@ -154,22 +155,23 @@ hooks.prototype.afterIaObjectZoom = function(iaScene, idText, iaObject) {
 
 /*
  *
- *  
+ *
  */
 hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
-    if ($('#' + idText).data("state") != "void") {    
+    if ($('#' + idText).data("state") != "void") {
         var viewportHeight = $(window).height();
         $("#content").show();
         $(".detail_content").hide();
-        $('#' + idText).show();
+        $('#' + idText).slideDown('slow');
         $('.article_close').show();
-        $('.article_close').css({"top":$('#' + idText).offset().top - 20});
+        $('.article_close').css({"top":$('#' + idText).offset().top - 40});
         $('.article_close').css({"left":($('#content').width() - 40) / 2});
+        if ($(window).width()<=768) {$('.article_close').css({"top":$('#general').offset().top - 20});};
         $('#' + idText + " audio").each(function(){
             if ($(this).data("state") === "autostart") {
                 $(this)[0].play();
             }
-        });                
+        });
         var article_border = $('#' + idText).css("border-top-width").substr(0,$('#' + idText).css("border-top-width").length - 2);
         var article_offset = $('#' + idText).offset();
         var content_offset = $("#content").offset();
