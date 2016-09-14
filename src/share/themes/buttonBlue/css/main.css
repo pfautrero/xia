@@ -51,32 +51,40 @@ audio {
 }
 a {
     color:#00c6ff;
-  font-family: yanone_thin; 
-  font-size:1.4em;    
+  font-family: yanone_thin;
+  font-size:1.4em;
+  display: block;
 }
 a:active, a:focus, a:hover {color:#DDD;}
 header {
-    width:100%; 
-    padding:0; 
-    margin:0 auto; 
+    display: flex;
+    justify-content: center;
+    width:100%;
+    padding:0;
+    margin:0 auto;
     /*background:#000;*/
 }
 
-header h1 {    
-    margin:0;
-    top:0;
-    left:0px;
+header h1 {
+    margin:auto;
     /*background:url(../img/imagedoc-darknoise.png);*/
-    display:inline;
+    display:block;
     /*max-width:20%;*/
-    padding: 0px 1em 0 5px;
-    margin-bottom:0; 
+    margin-bottom:0;
     color:white;
-    font-family: yanone_thin; 
-    font-size: 1.5em;
+    font-family: yanone_thin;
+    font-size: 1.5vw;
+    text-align: center;
+}
+header a {
+  position: absolute;
+  min-height: 50px;
+  top: 20px;
 }
 
-.eyes { 
+.meta-doc {left: 0;}
+.infos {left:40px;}
+.eyes {
     background:url(../img/eyes.png) center bottom no-repeat;
     /*margin-left: 10px;*/
     padding:.3em 1em;
@@ -95,7 +103,7 @@ header h1 {
 .infos {
     background:url(../img/infos.png) center bottom no-repeat;
     /*margin-left: 10px;*/
-    padding:.3em 1em; 
+    padding:.3em 1em;
 }
 .infos:hover{
     background:url(../img/infos2.png) center bottom  no-repeat;
@@ -118,7 +126,7 @@ header h1 {
     position: relative;
     padding:0px;
     width:100%;
-    margin:10px auto;
+    margin:0 auto;
     border:0px solid #FFF3B2;
 
     border-image-width: 0;
@@ -164,40 +172,23 @@ header h1 {
 }
 
 .button {
-	-moz-box-shadow: 0px 1px 0px 0px #fff6af;
-	-webkit-box-shadow: 0px 1px 0px 0px #fff6af;
-	box-shadow: 0px 1px 0px 0px #fff6af;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
-	background:-moz-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-	background:-webkit-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-	background:-o-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-	background:-ms-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-	background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffec64', endColorstr='#ffab23',GradientType=0);
-	background-color:#ffec64;
+  box-shadow: black 2px 2px 2px;
+	background-color:#3498DB;
 	-moz-border-radius:6px;
 	-webkit-border-radius:6px;
 	border-radius:6px;
-	border:1px solid #ffaa22;
 	display:inline-block;
 	cursor:pointer;
-	color:#333333;
+	color:white;
 	font-family:arial;
 	font-size:15px;
 	font-weight:bold;
 	padding:6px 24px;
 	text-decoration:none;
-	text-shadow:0px 1px 0px #ffee66;
 }
 .button:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffab23), color-stop(1, #ffec64));
-	background:-moz-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-	background:-webkit-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-	background:-o-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-	background:-ms-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-	background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffab23', endColorstr='#ffec64',GradientType=0);
-	background-color:#ffab23;
+	background-color:#6BB9F0;
+  color:white;
 }
 .button:active {
 	position:relative;
@@ -215,34 +206,35 @@ header h1 {
 }
 #popup {
     position:relative;
-    border-radius: 20px;
-    border: 20px solid #ddd;
+    border-radius: 5px;
     width: 60%;
     margin: 50px auto;
     background:white;
     min-height: 100px;
     box-shadow: black 5px 5px 10px;
 }
+
 #content article {
     display:none;
+    position: absolute;
     z-index:100;
-    position:absolute;
-    border: 20px solid #ddd;
-    border-radius:20px;
-    
-    width: calc(100% - 40px);
+    border-radius:5px;
+    width: 100%;
     margin: 0px auto;
     background:rgba(255,255,255,1);
     box-shadow: black 5px 5px 10px;
     overflow-y: auto;
     overflow-x: hidden;
+    font-family: yanone_thin;
+    font-size: 1.2em;
+    padding:10px;
 }
 #content article p, h1 {
     margin: 10px;
 }
 
 #content article h1 {
-    font-family: yanone_thin; 
+    font-family: yanone_thin;
 }
 
 #article_move {
@@ -250,8 +242,8 @@ header h1 {
     background-repeat: no-repeat;
     z-index:500;
     cursor: pointer;
-    height:40px;
-    width:40px;
+    height:48px;
+    width:48px;
     display:inline-block;
 }
 #article_close {
@@ -259,8 +251,8 @@ header h1 {
     background-repeat: no-repeat;
     z-index:500;
     cursor: pointer;
-    height:40px;
-    width:40px;
+    height:48px;
+    width:48px;
     display:inline-block;
 }
 .buttons_container {
@@ -271,6 +263,8 @@ header h1 {
 }
 #popup_text {
     text-align:center;
+    font-family: yanone_regular;
+    padding:5px;
 }
 #popup_text img{
     float:left;
@@ -285,9 +279,13 @@ header h1 {
 #popup_close, #popup_toggle {
     cursor: pointer;
     position:absolute;
-    top:-40px;
-    right:-40px;
-    width:50px;
+    top:-20px;
+    right:-20px;
+    width:40px;
+}
+iframe {
+  border:none;
+  width:60%.
 }
 #loader {
     position:fixed;
@@ -304,25 +302,25 @@ header h1 {
 }
 #loader div{
     font-family: yanone_thin, Arial;
-    font-size: 2em;    
+    font-size: 2em;
     display:table-cell;
     vertical-align: middle;
     color:white;
 }
 ul {
-    margin:0;
-    margin-top: 5px;
+    margin:10px 0 40px 0;
     padding:0;
 }
 .button-unselected {
     font-family: 'yanone_regular';
+    font-size: 1.2em;
     list-style:none;
     background:#CCE8FF;
     display:inline-block;
-    margin-left:2px;
-    margin-right:2px;
-    padding: 0.4em;
-    padding-top:0.5em;
+    margin-left:5px;
+    margin-right:5px;
+    padding: 0.2em;
+    padding-top:0.3em;
     border:0px solid #263868;
     width: 1.5em;
     height: 1.5em;
@@ -334,12 +332,12 @@ ul {
 .button-selected {
     font-family: 'yanone_regular';
     list-style:none;
-    background:#1A2948;
+    background:#01384D;
     display:inline-block;
-    margin-left:2px;
-    margin-right:2px;
-    padding: 0.4em;
-    padding-top:0.5em;
+    margin-left:5px;
+    margin-right:5px;
+    padding: 0.2em;
+    padding-top:0.3em;
     border:0px solid #263868;
     width: 1.5em;
     height: 1.5em;
@@ -352,7 +350,7 @@ ul {
 li:hover {
     cursor:pointer;
     color:white;
-    background:#4A6FC7;
+    background:#024D69;
     box-shadow: 0px 0px 3px rgba(0,0,0,0.9);
 }
 
@@ -361,13 +359,13 @@ li:hover {
 }
 .videoWrapper16_9 {
     position: relative;
-    padding-bottom: 56.25%; 
+    padding-bottom: 56.25%;
     padding-top: 5px;
     height: 0;
 }
 .videoWrapper4_3 {
     position: relative;
-    padding-bottom: 75%; 
+    padding-bottom: 75%;
     padding-top: 5px;
     height: 0;
 }
@@ -385,6 +383,15 @@ li:hover {
     width: 100%;
     height: 100%;
 }
+@media (max-width:768px) {
+  #content article {
+    width: auto;
+    position: relative;
+  }
+  #article_move {display: none;}
+  #popup_text img {position: relative;}
+}
+
 
 
 /* thanks to Chris Coyier on https://css-tricks.com/css3-progress-bars/ */
@@ -465,4 +472,3 @@ li:hover {
     border-bottom-left-radius: 20px;
     overflow: hidden;
 }
-

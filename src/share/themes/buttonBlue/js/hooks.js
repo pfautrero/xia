@@ -8,13 +8,13 @@
 //   GNU General Public License for more details.
 //   You should have received a copy of the GNU General Public License
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
-//   
-//   
+//
+//
 // @author : pascal.fautrero@ac-versailles.fr
 
 
 /*
- * 
+ *
  * @constructor init specific hooks
  */
 var hooks = function() {
@@ -32,11 +32,9 @@ var hooks = function() {
 hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
 
     var buttons = "<ul>";
-    var indices = 0;
     for (var i in details) {
         if (details[i].options.indexOf("direct-link") == -1) {
-            buttons += '<li class="button-unselected button-li" id="li-article-' + i + '">' + (parseInt(indices)+1) + '</li>';
-            indices++;
+            buttons += '<li class="button-unselected button-li" id="li-article-' + i + '">' + (parseInt(i)+1) + '</li>';
         }
     }
     buttons += '</ul>';
@@ -72,7 +70,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
             }
             $("#response_" + target).toggle();
         }
-       
+
     };
     var unlock_input = function(e) {
         e.preventDefault();
@@ -91,12 +89,12 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
             $(".button").on("click", button_click);
             $(".unlock input[type=submit]").off("click");
             $(".unlock input[type=submit]").on("click", unlock_input);
-        }        
+        }
     };
     $(".button").on("click", button_click);
-    $(".unlock input[type=submit]").on("click", unlock_input);    
-    
-    
+    $(".unlock input[type=submit]").on("click", unlock_input);
+
+
     $(".meta-doc").on("click", function(){
         $(".detail_content").hide();
         that.popvisible = "general";
@@ -107,8 +105,8 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         var content_offset = $("#content").offset();
         $("#general").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});
         $('.buttons_container').show();
-        $('.buttons_container').css({"top":$('#general').offset().top - 10});
-        $('.buttons_container').css({"left": $('#general').offset().left + ($('#content').width() - $('.buttons_container').width()) / 2});   
+        $('.buttons_container').css({"top":$('#general').offset().top - 25});
+        $('.buttons_container').css({"left": $('#general').offset().left + ($('#content').width() - $('.buttons_container').width()) / 2});
     });
 
     $(".overlay").hide();
@@ -129,7 +127,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         });
         $(this).parent().children("video").each(function(){
             $(this)[0].pause();
-        });                
+        });
     });
     $("#article_move").on("mousedown", function(evt){
         that.dragwindow = true;
@@ -143,9 +141,9 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
     $(document).on("mousemove", function(evt){
          if (that.dragwindow) {
             $("#" + that.popvisible).css({"top":evt.pageY});
-            $("#" + that.popvisible).css({"left":evt.pageX - $("#container").offset().left - ($('#content').width() - $('.buttons_container').width()) / 2  - that.deltaX}); 
+            $("#" + that.popvisible).css({"left":evt.pageX - $("#container").offset().left - ($('#content').width() - $('.buttons_container').width()) / 2  - that.deltaX});
             $(".buttons_container").css({"top":evt.pageY - 10});
-            $(".buttons_container").css({"left":evt.pageX - that.deltaX}); 
+            $(".buttons_container").css({"left":evt.pageX - that.deltaX});
         }
     });
     $(document).on("mouseup", function(evt){
@@ -157,7 +155,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         }
         else {
             if (mainScene.zoomActive === 1) {
-                if ((mainScene.element !== 0) && 
+                if ((mainScene.element !== 0) &&
                 (typeof(mainScene.element) !== 'undefined')) {
                     mainScene.element.kineticElement[0].fire("click");
                 }
@@ -169,12 +167,12 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
                 mainScene.element.kineticElement[0].fire("mouseleave");
             }
         }
-    });     
+    });
 };
 
 /*
  *
- *  
+ *
  */
 hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaObject) {
     $("#li-" + idText).on("click", function(){
@@ -186,15 +184,15 @@ hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaO
 
 /*
  *
- *  
+ *
  */
 hooks.prototype.afterIaObjectZoom = function(iaScene, idText, iaObject) {
 
 };
-    
+
 /*
  *
- *  
+ *
  */
 hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
     if ($('#' + idText).data("state") != "void") {
@@ -203,15 +201,15 @@ hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
         that.popvisible = idText;
         $("#content").show();
         $(".detail_content").hide();
-        $('#' + idText).show();
+        $('#' + idText).slideDown('slow');
         $('.buttons_container').show();
-        $('.buttons_container').css({"top":$('#' + idText).offset().top - 10});
+        $('.buttons_container').css({"top":$('#' + idText).offset().top - 25});
         $('.buttons_container').css({"left":$('#' + idText).offset().left + ($('#content').width() - $('.buttons_container').width()) / 2});
         $('#' + idText + " audio").each(function(){
             if ($(this).data("state") === "autostart") {
                 $(this)[0].play();
             }
-        });                
+        });
         var article_border = $('#' + idText).css("border-top-width").substr(0,$('#' + idText).css("border-top-width").length - 2);
         var article_offset = $('#' + idText).offset();
         var content_offset = $("#content").offset();
