@@ -7,7 +7,7 @@
   <effect>
     <object-type>all</object-type>
     <effects-menu>
-      <submenu _name="Misc"/>
+      <submenu _name="Export"/>
     </effects-menu>
   </effect>
   <script>
