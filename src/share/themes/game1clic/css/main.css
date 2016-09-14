@@ -25,18 +25,18 @@ html {
     margin:0;
     padding:0;
 
-    background: rgb(133,167,40); /* Old browsers */
-    background: -moz-linear-gradient(45deg, rgba(133,167,40,1) 0%, rgba(133,167,40,1) 50%, rgba(118,150,32,1) 50%, rgba(118,150,32,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(133,167,40,1)), color-stop(50%,rgba(133,167,40,1)), color-stop(50%,rgba(118,150,32,1)), color-stop(100%,rgba(118,150,32,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(45deg, rgba(133,167,40,1) 0%,rgba(133,167,40,1) 50%,rgba(118,150,32,1) 50%,rgba(118,150,32,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(45deg, rgba(133,167,40,1) 0%,rgba(133,167,40,1) 50%,rgba(118,150,32,1) 50%,rgba(118,150,32,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(45deg, rgba(133,167,40,1) 0%,rgba(133,167,40,1) 50%,rgba(118,150,32,1) 50%,rgba(118,150,32,1) 100%); /* IE10+ */
-    background: linear-gradient(45deg, rgba(133,167,40,1) 0%,rgba(133,167,40,1) 50%,rgba(118,150,32,1) 50%,rgba(118,150,32,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#85a728', endColorstr='#769620',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    /*background: rgb(133,167,40); /* Old browsers */
+    /*background: -moz-linear-gradient(45deg, rgba(133,167,40,1) 0%, rgba(133,167,40,1) 50%, rgba(118,150,32,1) 50%, rgba(118,150,32,1) 100%); /* FF3.6+ */
+    /*background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(133,167,40,1)), color-stop(50%,rgba(133,167,40,1)), color-stop(50%,rgba(118,150,32,1)), color-stop(100%,rgba(118,150,32,1))); /* Chrome,Safari4+ */
+    /*background: -webkit-linear-gradient(45deg, rgba(133,167,40,1) 0%,rgba(133,167,40,1) 50%,rgba(118,150,32,1) 50%,rgba(118,150,32,1) 100%); /* Chrome10+,Safari5.1+ */
+    /*background: -o-linear-gradient(45deg, rgba(133,167,40,1) 0%,rgba(133,167,40,1) 50%,rgba(118,150,32,1) 50%,rgba(118,150,32,1) 100%); /* Opera 11.10+ */
+    /*background: -ms-linear-gradient(45deg, rgba(133,167,40,1) 0%,rgba(133,167,40,1) 50%,rgba(118,150,32,1) 50%,rgba(118,150,32,1) 100%); /* IE10+ */
+    /*background: linear-gradient(45deg, rgba(133,167,40,1) 0%,rgba(133,167,40,1) 50%,rgba(118,150,32,1) 50%,rgba(118,150,32,1) 100%); /* W3C */
+    /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#85a728', endColorstr='#769620',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 
 
-  /*background: url('../img/background.jpg') no-repeat center center fixed;
-  background-size: cover;*/
+  background: url('../img/background.jpg') no-repeat center center fixed;
+  background-size: cover;
 }
 body{
     background: none;
@@ -53,32 +53,33 @@ audio {
 }
 a {
     color:#00c6ff;
-  font-family: yanone_thin; 
-  font-size:1.4em;    
+  font-family: yanone_thin;
+  font-size:1.4em;
 }
 a:active, a:focus, a:hover {color:#ddd;}
 header {
-    width:100%; 
-    padding:0; 
-    margin:0 auto; 
+    width:100%;
+    padding:0;
+    margin:0 auto;
     /*background:#000;*/
 }
 
-header h1 {    
+header h1 {
     margin:0;
     top:0;
     left:0px;
     /*background:url(../img/imagedoc-darknoise.png);*/
     display:inline;
     /*max-width:20%;*/
-    padding: 0px 1em 0 5px;
-    margin-bottom:0; 
+    padding: 0px 1em 0 40px;
+    margin-bottom:0;
     color:black;
-    font-family: yanone_thin; 
-    font-size: 1.5em;
+    font-family: yanone_regular;
+    font-weight: bolder;
+    font-size: 2.2em;
 }
 
-.eyes { 
+.eyes {
     background:url(../img/eyes.png) center bottom no-repeat;
     /*margin-left: 10px;*/
     padding:.3em 1em;
@@ -97,7 +98,7 @@ header h1 {
 .infos {
     background:url(../img/infos.png) center bottom no-repeat;
     /*margin-left: 10px;*/
-    padding:.3em 1em; 
+    padding:.1em 1em;
 }
 .infos:hover{
     background:url(../img/infos2.png) center bottom  no-repeat;
@@ -129,7 +130,6 @@ header h1 {
 #canvas {
     width:55%;
     margin-top: 10px;
-    border:10px solid rgba(255,255,255,0.2);
 
 }
 #detect {
@@ -167,40 +167,23 @@ header h1 {
 }
 
 .button {
-	-moz-box-shadow: 0px 1px 0px 0px #fff6af;
-	-webkit-box-shadow: 0px 1px 0px 0px #fff6af;
-	box-shadow: 0px 1px 0px 0px #fff6af;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
-	background:-moz-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-	background:-webkit-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-	background:-o-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-	background:-ms-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-	background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffec64', endColorstr='#ffab23',GradientType=0);
-	background-color:#ffec64;
+  box-shadow: black 2px 2px 2px;
+	background-color:#3498DB;
 	-moz-border-radius:6px;
 	-webkit-border-radius:6px;
 	border-radius:6px;
-	border:1px solid #ffaa22;
 	display:inline-block;
 	cursor:pointer;
-	color:#333333;
+	color:white;
 	font-family:arial;
 	font-size:15px;
 	font-weight:bold;
 	padding:6px 24px;
 	text-decoration:none;
-	text-shadow:0px 1px 0px #ffee66;
 }
 .button:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffab23), color-stop(1, #ffec64));
-	background:-moz-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-	background:-webkit-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-	background:-o-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-	background:-ms-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-	background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffab23', endColorstr='#ffec64',GradientType=0);
-	background-color:#ffab23;
+	background-color:#6BB9F0;
+  color:white;
 }
 .button:active {
 	position:relative;
@@ -219,8 +202,7 @@ header h1 {
 #popup {
     z-index:200;
     position:relative;
-    border-radius: 20px;
-    border: 20px solid #ddd;
+    border-radius: 5px;
     width: 60%;
     margin: 50px auto;
     background:white;
@@ -230,8 +212,7 @@ header h1 {
 #popup_intro {
     z-index:200;
     position:relative;
-    border-radius: 20px;
-    border: 20px solid #ddd;
+    border-radius: 5px;
     width: 40%;
     margin: 0px auto;
     background:white;
@@ -241,28 +222,39 @@ header h1 {
     font-family: yanone_thin;
     font-size: 2em;
     text-align:center;
-    
+
+}
+#content {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: absolute;
 }
 #content article {
     display:none;
     z-index:100;
-    position:absolute;
-    border: 20px solid #ddd;
-    border-radius:20px;
-    
-    width: calc(100% - 40px);
     margin: 0px auto;
-    background:rgba(255,255,255,1);
-    box-shadow: black 5px 5px 10px;
     overflow-y: auto;
     overflow-x: hidden;
+    font-family: yanone_thin;
+    font-size:1.5em;
 }
 #content article p, h1 {
     margin: 10px;
 }
-
+#message_success {width:80%;}
+#message_success_content, #message_success_content2 {
+  font-family: yanone_regular;
+  font-size:1.2em;
+  text-align: center;
+  padding:20px;
+  padding-top: 40px;
+  border-radius:5px;
+  background:rgba(250,250,250,0.97);
+  box-shadow: black 5px 5px 10px;
+}
 #content article h1 {
-    font-family: yanone_thin; 
+    font-family: yanone_thin;
 }
 
 .article_close {
@@ -276,6 +268,8 @@ header h1 {
 }
 #popup_text {
     text-align:center;
+    font-family: yanone_regular;
+    padding-top:5px;
 }
 #popup_text img{
     float:left;
@@ -290,13 +284,20 @@ header h1 {
 #content #message_success_content, #content #message_success_content2 {
     margin:10px;
 }
-#popup_close, #popup_close_intro, #popup_toggle, #popup_toggle2 {
+#popup_close, #popup_close_intro{
     cursor: pointer;
     position:absolute;
-    top:-40px;
-    right:-40px;
-    width:50px;
+    top:-20px;
+    right:-20px;
+    width:40px;
 }
+#popup_toggle, #popup_toggle2 {
+  cursor: pointer;
+  position: absolute;
+  top:-10px;
+  left:49%;
+}
+iframe {border:none;}
 #loader {
     position:fixed;
     display: table;
@@ -312,20 +313,20 @@ header h1 {
 }
 #loader div{
     font-family: yanone_thin, Arial;
-    font-size: 2em;    
+    font-size: 2em;
     display:table-cell;
     vertical-align: middle;
     color:white;
 }
 .videoWrapper16_9 {
     position: relative;
-    padding-bottom: 56.25%; 
+    padding-bottom: 56.25%;
     padding-top: 5px;
     height: 0;
 }
 .videoWrapper4_3 {
     position: relative;
-    padding-bottom: 75%; 
+    padding-bottom: 75%;
     padding-top: 5px;
     height: 0;
 }
@@ -343,6 +344,7 @@ header h1 {
     width: 100%;
     height: 100%;
 }
+
 
 
 /* thanks to Chris Coyier on https://css-tricks.com/css3-progress-bars/ */
@@ -423,4 +425,3 @@ header h1 {
     border-bottom-left-radius: 20px;
     overflow: hidden;
 }
-

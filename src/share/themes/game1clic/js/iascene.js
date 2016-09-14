@@ -8,12 +8,12 @@
 //   GNU General Public License for more details.
 //   You should have received a copy of the GNU General Public License
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
-//   
-//   
+//
+//
 // @author : pascal.fautrero@crdp.ac-versailles.fr
 
 /**
- * 
+ *
  * @param {type} originalWidth
  * @param {type} originalHeight
  * @constructor create image active scene
@@ -23,25 +23,25 @@ function IaScene(originalWidth, originalHeight) {
     var that = this;
     //  canvas width
     this.width = 1000;
-    
+
     // canvas height
-    this.height = 800;  
-    
+    this.height = 800;
+
     // default color used to fill shapes during mouseover
-    var _colorOver = {red:66, green:133, blue:244, opacity:0.6};
+    var _colorOver = {red:0, green:0, blue:0, opacity:0.7};
 
     // default color used to fill stroke around shapes during mouseover
-    var _colorOverStroke = {red:255, green:0, blue:0, opacity:1};
-    
+    var _colorOverStroke = {red:207, green:0, blue:15, opacity:1};
+
     // default color used to fill shapes if defined as cache
     this.colorPersistent = {red:124, green:154, blue:174, opacity:1};
 
     // Image ratio on the scene
-    this.ratio = 1.00;  
-    
+    this.ratio = 1.00;
+
     // padding-top in the canvas
     this.y = 0;
- 
+
     // internal
     this.score = 0;
     this.score2 = 0;
@@ -49,9 +49,9 @@ function IaScene(originalWidth, originalHeight) {
     this.currentShape = "";
 
     this.currentScore = 0;
-    this.currentScore2 = 0;    
+    this.currentScore2 = 0;
     this.fullScreen = "off";
-    this.overColor = 'rgba(' + _colorOver.red + ',' + _colorOver.green + ',' + _colorOver.blue + ',' + _colorOver.opacity + ')';   
+    this.overColor = 'rgba(' + _colorOver.red + ',' + _colorOver.green + ',' + _colorOver.blue + ',' + _colorOver.opacity + ')';
     this.overColorStroke = 'rgba(' + _colorOverStroke.red + ',' + _colorOverStroke.green + ',' + _colorOverStroke.blue + ',' + _colorOverStroke.opacity + ')';
     this.scale = 1;
     this.zoomActive = 0;
@@ -65,7 +65,7 @@ function IaScene(originalWidth, originalHeight) {
 
 /*
  * Scale entire scene
- *  
+ *
  */
 IaScene.prototype.scaleScene = function(mainScene){
     "use strict";
@@ -78,8 +78,8 @@ IaScene.prototype.scaleScene = function(mainScene){
     var canvas_border_left = parseFloat($("#canvas").css("border-left-width").substr(0,$("#canvas").css("border-left-width").length - 2));
     var canvas_border_right = parseFloat($("#canvas").css("border-right-width").substr(0,$("#canvas").css("border-right-width").length - 2));
     var canvas_border_top = parseFloat($("#canvas").css("border-top-width").substr(0,$("#canvas").css("border-top-width").length - 2));
-    var canvas_border_bottom = parseFloat($("#canvas").css("border-bottom-width").substr(0,$("#canvas").css("border-bottom-width").length - 2));    
-    
+    var canvas_border_bottom = parseFloat($("#canvas").css("border-bottom-width").substr(0,$("#canvas").css("border-bottom-width").length - 2));
+
     if ((viewportWidth >= parseFloat(mainScene.originalWidth) * coeff_width) && (viewportHeight >= ((parseFloat(mainScene.originalHeight) + $('#canvas').offset().top) * coeff_width))) {
         mainScene.width = viewportWidth - canvas_border_left - canvas_border_right;
         mainScene.coeff = (mainScene.width * mainScene.ratio) / parseFloat(mainScene.originalWidth);
@@ -94,8 +94,8 @@ IaScene.prototype.scaleScene = function(mainScene){
 
     $('#container').css({"width": (mainScene.width + canvas_border_left + canvas_border_right) + 'px'});
     $('#container').css({"height": (mainScene.height + $('#canvas').offset().top - $('#container').offset().top + canvas_border_top + canvas_border_bottom) + 'px'});
-    $('#canvas').css({"height": (mainScene.height) + 'px'});    
-    $('#canvas').css({"width": mainScene.width + 'px'});     
+    $('#canvas').css({"height": (mainScene.height) + 'px'});
+    $('#canvas').css({"width": mainScene.width + 'px'});
     $('#detect').css({"height": (mainScene.height) + 'px'});
     $('#detect').css({"top": ($('#canvas').offset().top) + 'px'});
 };
@@ -111,7 +111,7 @@ IaScene.prototype.mouseover = function(kineticElement) {
         if ((kineticElement.getXiaParent().options.indexOf("pointer") !== -1) && (!this.tooltip_area)) {
             document.body.style.cursor = "pointer";
         }
-        this.cursorState = "url(img/HandPointer.cur),auto";   
+        this.cursorState = "url(img/HandPointer.cur),auto";
 
         // manage tooltips if present
         var tooltip = false;
@@ -126,7 +126,7 @@ IaScene.prototype.mouseover = function(kineticElement) {
         if (tooltip) {
             kineticElement.tooltip.clearCache();
             kineticElement.tooltip.fillPriority('pattern');
-            if ((kineticElement.tooltip.backgroundImageOwnScaleX != "undefined") && 
+            if ((kineticElement.tooltip.backgroundImageOwnScaleX != "undefined") &&
                     (kineticElement.tooltip.backgroundImageOwnScaleY != "undefined")) {
                 kineticElement.tooltip.fillPatternScaleX(kineticElement.tooltip.backgroundImageOwnScaleX * 1/this.scale);
                 kineticElement.tooltip.fillPatternScaleY(kineticElement.tooltip.backgroundImageOwnScaleY * 1/this.scale);
@@ -135,13 +135,13 @@ IaScene.prototype.mouseover = function(kineticElement) {
             kineticElement.tooltip.getParent().moveToTop();
             //that.group.draw();
             kineticElement.tooltip.draw();
-        }            
+        }
 
         //kineticElement.getIaObject().layer.batchDraw();
         //kineticElement.draw();
     }
 
-    
+
 };
 
 IaScene.prototype.mouseout = function(kineticElement) {
@@ -151,11 +151,11 @@ IaScene.prototype.mouseout = function(kineticElement) {
 
     }
     else {
-        
+
         var mouseXY = kineticElement.getStage().getPointerPosition();
         if (typeof(mouseXY) == "undefined") {
             mouseXY = {x:0,y:0};
-        }            
+        }
         //if ((kineticElement.getStage().getIntersection(mouseXY) != kineticElement)) {
 
             // manage tooltips if present
@@ -167,26 +167,26 @@ IaScene.prototype.mouseout = function(kineticElement) {
                 var tooltip_id = $("#" + kineticElement.getXiaParent().idText).data("tooltip");
                 kineticElement.tooltip = kineticElement.getStage().find("#" + tooltip_id)[0];
                 tooltip = true;
-            }         
+            }
             if (tooltip) {
                 kineticElement.tooltip.fillPriority('color');
                 kineticElement.tooltip.fill('rgba(0, 0, 0, 0)');
                 kineticElement.tooltip.getParent().moveToBottom();
                 kineticElement.tooltip.draw();
                 kineticElement.getIaObject().layer.draw();
-            }                     
+            }
 
             document.body.style.cursor = "default";
             this.cursorState = "default";
-            						
+
         //}
         document.body.style.cursor = "default";
     }
-    
+
 };
 
 IaScene.prototype.click = function(kineticElement) {
-  
+
     if (kineticElement.getXiaParent().click == "off") return;
 
     /*
@@ -195,7 +195,7 @@ IaScene.prototype.click = function(kineticElement) {
     if (kineticElement.getXiaParent().options.indexOf("direct-link") !== -1) {
         location.href = kineticElement.getXiaParent().title;
     }
-    else {    
+    else {
 
         this.noPropagation = true;
         var iaobject = kineticElement.getIaObject();
@@ -204,40 +204,39 @@ IaScene.prototype.click = function(kineticElement) {
                 if (iaobject.xiaDetail[i].kineticElement instanceof Kinetic.Image) {
                     iaobject.xiaDetail[i].kineticElement.fillPriority('pattern');
                     iaobject.xiaDetail[i].kineticElement.fillPatternScaleX(iaobject.xiaDetail[i].kineticElement.backgroundImageOwnScaleX * 1/this.scale);
-                    iaobject.xiaDetail[i].kineticElement.fillPatternScaleY(iaobject.xiaDetail[i].kineticElement.backgroundImageOwnScaleY * 1/this.scale); 
-                    iaobject.xiaDetail[i].kineticElement.fillPatternImage(iaobject.xiaDetail[i].kineticElement.backgroundImage);                        
+                    iaobject.xiaDetail[i].kineticElement.fillPatternScaleY(iaobject.xiaDetail[i].kineticElement.backgroundImageOwnScaleY * 1/this.scale);
+                    iaobject.xiaDetail[i].kineticElement.fillPatternImage(iaobject.xiaDetail[i].kineticElement.backgroundImage);
                 }
                 else {
                     iaobject.xiaDetail[i].kineticElement.fillPriority('color');
                     iaobject.xiaDetail[i].kineticElement.fill(this.overColor);
                     iaobject.xiaDetail[i].kineticElement.scale(this.coeff);
                     iaobject.xiaDetail[i].kineticElement.stroke(this.overColorStroke);
-                    iaobject.xiaDetail[i].kineticElement.strokeWidth(2);                                                
+                    iaobject.xiaDetail[i].kineticElement.strokeWidth(2);
                 }
 
             }
             else if (iaobject.persistent[i] == "onPath") {
                 iaobject.xiaDetail[i].kineticElement.fillPriority('color');
-                iaobject.xiaDetail[i].kineticElement.fill('rgba(' + this.colorPersistent.red + ',' + this.colorPersistent.green + ',' + this.colorPersistent.blue + ',' + this.colorPersistent.opacity + ')');                       
+                iaobject.xiaDetail[i].kineticElement.fill('rgba(' + this.colorPersistent.red + ',' + this.colorPersistent.green + ',' + this.colorPersistent.blue + ',' + this.colorPersistent.opacity + ')');
             }
             else if (iaobject.persistent[i] == "onImage") {
                 iaobject.xiaDetail[i].kineticElement.fillPriority('pattern');
                 iaobject.xiaDetail[i].kineticElement.fillPatternScaleX(iaobject.xiaDetail[i].kineticElement.backgroundImageOwnScaleX * 1/this.scale);
-                iaobject.xiaDetail[i].kineticElement.fillPatternScaleY(iaobject.xiaDetail[i].kineticElement.backgroundImageOwnScaleY * 1/this.scale); 
-                iaobject.xiaDetail[i].kineticElement.fillPatternImage(iaobject.xiaDetail[i].kineticElement.backgroundImage);                        
-            }                
+                iaobject.xiaDetail[i].kineticElement.fillPatternScaleY(iaobject.xiaDetail[i].kineticElement.backgroundImageOwnScaleY * 1/this.scale);
+                iaobject.xiaDetail[i].kineticElement.fillPatternImage(iaobject.xiaDetail[i].kineticElement.backgroundImage);
+            }
             iaobject.xiaDetail[i].kineticElement.moveToTop();
             iaobject.xiaDetail[i].kineticElement.draw();
-        }                
+        }
 
         iaobject.group.moveToTop();
-        //iaobject.layer.draw(); 
+        //iaobject.layer.draw();
         this.element = iaobject;
         iaobject.myhooks.afterIaObjectFocus(this, kineticElement.getXiaParent().idText, iaobject, kineticElement);
         iaobject.layer.getStage().completeImage = "redefine";
 
 
-    }    
+    }
 
 };
-
