@@ -1,6 +1,19 @@
-Version 2.0 - 12/09/2016
+Version 2.0-beta1 - 15/09/2016
 -------------------------------
 
+- plugin inkscape : changement d'arborescence, plugin accessible dans Export (Nouveauté)
+- Une image avec une transparence de moins de 40% faisait planter xia (Nouveauté)
+- Thème de jeu drag&drop : connecteurs entre éléments (Nouveauté)
+- gamedragandrop : un élément déplaçable peut avoir plusieurs target (Nouveauté)
+- gamedraganddrop : groupement de cibles (Nouveauté)
+- Tous les thèmes : Un groupe peut être défini comme image de fond (Nouveauté)
+- Tous les thèmes : Un path peut être défini comme image de fond (Nouveauté)
+- Application : Nouveau thème "Material" (Nouveauté)
+- Application : Interface utilisateur revue (Nouveauté)
+- Application : Suppression de l'export Firefox OS (Nouveauté)
+- Tous les thèmes : Thèmes relookés (Nouveauté)
+- Application : Nom du fichier html d'export identique à celui du fichier svg (Nouveauté)
+- Tous les thèmes : oembed flicker (Nouveauté)
 
 
 Version 1.1 - 23/03/2015
