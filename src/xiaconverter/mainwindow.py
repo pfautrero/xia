@@ -59,7 +59,7 @@ class IADialog(Tkinter.Frame):
         self.root = root
         self.resize = 3
         self.firefoxos = 0
-        self.index_standalone = 0
+        self.index_standalone = 1
 
         # Don't show hidden files and directories
         # (with tkinter, by default, it's the opposite).

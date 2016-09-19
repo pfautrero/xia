@@ -375,8 +375,7 @@ class iaObject:
                     else:
                         self.scene['strokewidth'] = 0
 
-            if firstNode.parentNode.nodeName == 'g':
-                print "background group detected"
+            if firstNode.nodeName == 'g':
                 self.backgroundNode = ""
                 self.scene['path'] = ""
                 self.scene['image'] = ""
@@ -426,7 +425,8 @@ class iaObject:
 
             # main loop on svg elements
 
-            svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'image', 'g', 'text', 'flowRoot']
+            svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'image', 'g', 'text']
+
             for childnode in mainSVG[0].childNodes:
                 if childnode.parentNode.nodeName == mainSVG[0].nodeName:
                     if childnode.nodeName in svgElements:
