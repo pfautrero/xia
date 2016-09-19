@@ -750,6 +750,9 @@ class iaObject:
                 str_onmouseover = image.attributes['onmouseover'].value
                 record_image['options'] += " " + str_onmouseover + " "
 
+            # only apply translate transformation
+            # TODO : implement other transformations
+
             if image.hasAttribute("transform"):
                 transformation = image.attributes['transform'].value
                 ctm = CurrentTransformation()
@@ -757,10 +760,20 @@ class iaObject:
                 record_image['x'] = ctm.translateX
                 record_image['y'] = ctm.translateY
 
+            # apply group transformations
+            if stackTransformations != "":
+                transformations = stackTransformations.split("#")
+                for transformation in transformations[::-1]:
+                    ctm = CurrentTransformation()
+                    ctm.analyze(transformation)
+                    record_image['x'] = float(record_image['x']) + float(ctm.translateX)
+                    record_image['y'] = float(record_image['y']) + float(ctm.translateY)
+
             minX = 10000
             minY = 10000
             maxX = -10000
             maxY = -10000
+
             if float(record_image['x']) < float(minX):
                 minX = float(record_image['x'])
             if (float(record_image['x']) + float(record_image['width'])) > float(maxX):
@@ -1105,6 +1118,7 @@ class iaObject:
         for childentry in group_childs:
             childnode = childentry['node']
             #print childentry['node']
+
             #print childentry['transform']
             if childnode.nodeName in svgElements:
                 newrecord = getattr(self, 'extract_' + \
@@ -1221,17 +1235,20 @@ class iaObject:
                 if HANDLE_PIL:
                     im = Image.open(imageFile, 'r')
                     im = im.convert("RGBA")
-                    pix_val = list(im.getdata())
+                    red, green, blue, alpha = im.split()
+                    alpha = alpha.convert("L")
+                    #pix_val = list(im.getdata())
                     (w, h) = im.size
 
-                    alpha_threshold = 100
+                    alpha_threshold = 20
                     y_delta = 0
                     stop_scan = 0
                     for y in range(h):
                         row = y * w
                         for x in range(w):
-                            transparency = pix_val[x + row][3] - alpha_threshold
-                            if transparency >= 0:
+                            transparency = max(alpha.getpixel((x,y)) - alpha_threshold, 0)
+
+                            if transparency != 0:
                                 stop_scan = 1
                                 break
                         if stop_scan:
@@ -1244,8 +1261,8 @@ class iaObject:
                     for y in range(h - 1, 0, -1):
                         row = y * w
                         for x in range(w - 1, 0, -1):
-                            transparency = pix_val[x + row][3] - alpha_threshold
-                            if transparency >= 0:
+                            transparency = max(alpha.getpixel((x,y)) - alpha_threshold, 0)
+                            if transparency != 0:
                                 stop_scan = 1
                                 break
                         if stop_scan:
@@ -1258,8 +1275,8 @@ class iaObject:
                     for x in range(0, w - 1):
                         for y in range(0, h - 1):
                             row = y * w
-                            transparency = pix_val[x + row][3] - alpha_threshold
-                            if transparency >= 0:
+                            transparency = max(alpha.getpixel((x,y)) - alpha_threshold, 0)
+                            if transparency != 0:
                                 stop_scan = 1
                                 break
                         if stop_scan:
@@ -1272,8 +1289,8 @@ class iaObject:
                     for x in range(w - 1, 0, -1):
                         for y in range(h - 1, 0, -1):
                             row = y * w
-                            transparency = pix_val[x + row][3] - alpha_threshold
-                            if transparency >= 0:
+                            transparency = max(alpha.getpixel((x,y)) - alpha_threshold, 0)
+                            if transparency != 0:
                                 stop_scan = 1
                                 break
                         if stop_scan:
@@ -1296,7 +1313,8 @@ class iaObject:
         else:
             self.console.display('ERROR : cropImage() - image is not embedded ' + raster)
         shutil.rmtree(dirname)
-        return [newraster, unicode(newrasterWidth), unicode(newrasterHeight), x_delta, y_delta, w, h]
+        return [newraster, unicode(newrasterWidth), unicode(newrasterHeight), x_delta * float(rasterWidth) / w, y_delta * float(rasterHeight) / h, w, h]
+
 
     def resizeImage(self, raster, rasterWidth, rasterHeight):
         """
