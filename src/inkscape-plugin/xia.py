@@ -12,7 +12,7 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>
-#   
+#
 # @author : pascal.fautrero@ac-versailles.fr
 
 
@@ -31,15 +31,15 @@ class ImageActive(inkex.Effect):
 
     def effect(self):
 
-        # fix inkscape bug 
+        # fix inkscape bug
         # https://bugs.launchpad.net/ubuntu/+source/inkscape/+bug/944077/comments/11
         pathNodes = self.document.xpath('//sodipodi:namedview',namespaces=inkex.NSS)
-        pathNodes[0].set('id','base')        
+        pathNodes[0].set('id','base')
 
         # workaround - fix path according to working dir
         # inkscape 0.47 extensions working dir is inkscape/
         # inkscape 0.48 extensions working dir is inkscape/share/extensions
-        
+
         inkexWorkingDir = "."
         if not os.getcwd().endswith("extensions"):
             inkexWorkingDir = "share/extensions"
@@ -53,16 +53,18 @@ class ImageActive(inkex.Effect):
         imagesPath = inkexWorkingDir + "/" + config.get('paths', 'imagesPath')
         langPath = inkexWorkingDir + "/" + config.get('paths', 'langPath')
         fontsPath = inkexWorkingDir + "/" + config.get('paths', 'fontsPath')
-        themesPath = inkexWorkingDir + "/" + config.get('paths', 'themesPath')        
+        themesPath = inkexWorkingDir + "/" + config.get('paths', 'themesPath')
         labjsLib = inkexWorkingDir + "/" + config.get('paths', 'labjsLib')
         jqueryLib = inkexWorkingDir + "/" + config.get('paths', 'jqueryLib')
         kineticLib = inkexWorkingDir + "/" + config.get('paths', 'kineticLib')
-        sha1Lib = inkexWorkingDir + "/" + config.get('paths', 'sha1Lib')       
-        
+        sha1Lib = inkexWorkingDir + "/" + config.get('paths', 'sha1Lib')
+
         try:
+
             filePath = tempfile.mkdtemp() + "/" + "temp.svg"
             with open(filePath,"w") as file:
                 self.document.write(filePath)
+
             console = LoggerInkscape()
 
             root = Tkinter.Tk()
@@ -70,7 +72,7 @@ class ImageActive(inkex.Effect):
             root.geometry("465x310")
             root.resizable(0,0)
             img = Tkinter.PhotoImage(file= imagesPath + '/xia64.gif')
-            root.tk.call('wm', 'iconphoto', root._w, img)  
+            root.tk.call('wm', 'iconphoto', root._w, img)
             maindialog = IADialog(root, console, langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib,
                                   kineticLib, sha1Lib, filePath)
             maindialog.pack(side="left")
@@ -79,7 +81,6 @@ class ImageActive(inkex.Effect):
         except ValueError:
            #inkex.debug(ValueError)
            pass
-                              
+
 ia = ImageActive()
 ia.affect()
-          			

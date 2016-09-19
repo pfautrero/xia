@@ -23,6 +23,7 @@ import shutil
 import imp
 import sys
 import ConfigParser
+import unicodedata
 from iaobject import iaObject
 from pikipiki import PageFormatter
 from splashscreen import Splash
@@ -299,6 +300,12 @@ class IADialog(Tkinter.Frame):
                 head, tail = os.path.split(self.filename)
                 filenamewithoutext = os.path.splitext(tail)[0]
                 filenamewithoutext = re.sub(r"\s+", "", filenamewithoutext, flags=re.UNICODE)
+                if filenamewithoutext == 'temp':
+                    if self.imageActive.scene['title'] != "":
+                        filenamewithoutext = re.sub(r"\s+", "_", self.clean_unicode(self.imageActive.scene['title']), flags=re.UNICODE)
+                        filenamewithoutext = re.sub(r"[^-a-z0-9A-Z_]", "", filenamewithoutext, flags=re.UNICODE)
+                        filenamewithoutext = filenamewithoutext[0:min(len(filenamewithoutext), 15)]
+
                 theme['object'].generateIndex(self.dirname + "/" + filenamewithoutext + "_" + theme['name'] + ".html",
                                               self.themesPath + '/' + theme['name'] + '/index.html')
 
@@ -307,6 +314,13 @@ class IADialog(Tkinter.Frame):
                 if self.keep_alive == "no":
                     # destroy method generates error in inkscape
                     sys.exit()
+
+    def clean_unicode(self,u):
+        #assert isinstance(u, unicode)
+        result = u''
+        for c in u:
+            result = result + unicodedata.normalize('NFD', c)[0]
+        return result
 
     def defineMaxPixels(self, resizeCoeff):
         if resizeCoeff == 0:
