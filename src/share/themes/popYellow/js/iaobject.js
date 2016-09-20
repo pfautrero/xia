@@ -430,7 +430,8 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
 
         }
         else if (iaScene.cursorState.indexOf("HandPointer.cur") === -1) {
-            document.body.style.cursor = "url(img/HandPointer.cur),auto";
+            //document.body.style.cursor = "url(img/HandPointer.cur),auto";
+            document.body.style.cursor = "pointer";
             iaScene.cursorState = "url(img/HandPointer.cur),auto";
             for (var i in that.kineticElement) {
                 if (that.persistent[i] == "off") {
@@ -474,7 +475,8 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 (iaScene.element === that)) {
 
                iaScene.zoomActive = 1;
-                document.body.style.cursor = "url(img/ZoomOut.cur),auto";
+                //document.body.style.cursor = "url(img/ZoomOut.cur),auto";
+                document.body.style.cursor = "zoom-out";
                 iaScene.cursorState = "url(img/ZoomOut.cur),auto";
                 this.moveToTop();
                 that.group.moveToTop();                
@@ -584,7 +586,8 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         });                        
                     }                    
                     if (zoomable === true) {
-                        document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';
+                        //document.body.style.cursor = 'url("img/ZoomIn.cur"),auto';
+                        document.body.style.cursor = 'zoom-in';
                         iaScene.cursorState = 'url("img/ZoomIn.cur"),auto';
                     }
                     else {

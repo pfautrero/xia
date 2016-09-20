@@ -335,7 +335,8 @@ class iaObject:
                 if childnode['node'].nodeName in svgElements:
                     firstNode = childnode['node']
                     break
-            if firstNode is not None and firstNode.nodeName != 'image':
+            if firstNode is not None and firstNode.nodeName != 'image' and firstNode.parentNode.nodeName != 'clipPath':
+
                 self.translation = 0
                 self.backgroundX = 0
                 self.backgroundY = 0
