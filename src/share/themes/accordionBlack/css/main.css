@@ -148,7 +148,7 @@ h1 {
     left:53%;
     width:45%;
     color:black;
-    font-family: yanone_thin;
+    font-family: sans-serif;
     font-size:1.2em;
 }
 .accordion-body a{
@@ -194,8 +194,7 @@ a.accordion-toggle {
     position: relative;
     color:white;
     line-height: 1.7em;
-    font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1em;
 }
 #accordion2 {
     overflow:auto;
@@ -482,7 +481,7 @@ footer {z-index:2;}
   header h1 {font-size: 1.5em;}
   a.accordion-toggle {font-size: 1.5em;}
 }
-/* 
+/*
  * Warning : Verify iascene.js to suit following rules
  *
  *

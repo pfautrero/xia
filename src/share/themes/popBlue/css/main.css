@@ -387,7 +387,9 @@ iframe {border:none;}
     margin:0;
     padding: 0;
   }
-  #content article div {padding:10px;}
+  #content article div:not(.videoWrapper16_9):not(.videoWrapper4_3) {padding:10px;}
+
+
 }
 @media (max-width:768px) {
   html {
