@@ -94,22 +94,31 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
 
     $("#popup_toggle").on("click", function(){
         $("#message_success_content").toggle();
-        if ($(this).attr('src') == 'img/hide.png') {
-            $(this).attr('src', 'img/show.png');
+        
+        var strSource = $(this).attr('src')
+        if (strSource.indexOf('hide.png') !== -1) {
+            strSource.replace('hide.png', 'show.png')
         }
         else {
-            $(this).attr('src', 'img/hide.png');
+            strSource.replace('show.png', 'hide.png')    
         }
+        $(this).attr('src', strSource)
+        
     });
 
     $("#popup_toggle2").on("click", function(){
         $("#message_success_content2").toggle();
-        if ($(this).attr('src') == 'img/hide.png') {
-            $(this).attr('src', 'img/show.png');
+
+        var strSource = $(this).attr('src')
+        if (strSource.indexOf('hide.png') !== -1) {
+            strSource.replace('hide.png', 'show.png')
         }
         else {
-            $(this).attr('src', 'img/hide.png');
+            strSource.replace('show.png', 'hide.png')    
         }
+        $(this).attr('src', strSource)
+
+
     });
     
     
