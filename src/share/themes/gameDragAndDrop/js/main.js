@@ -272,13 +272,13 @@ main.prototype.afterMainConstructor = function(mainScene, layers) {
     });
     $("#popup_toggle").on("click", function(){
         $("#message_success_content").toggle();
-        
+
         var strSource = $(this).attr('src')
         if (strSource.indexOf('hide.png') !== -1) {
-            strSource.replace('hide.png', 'show.png')
+            strSource = strSource.replace('hide.png', 'show.png')
         }
         else {
-            strSource.replace('show.png', 'hide.png')    
+            strSource = strSource.replace('show.png', 'hide.png')    
         }
         $(this).attr('src', strSource)
 

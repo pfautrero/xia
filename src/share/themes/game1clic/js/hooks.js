@@ -8,13 +8,13 @@
 //   GNU General Public License for more details.
 //   You should have received a copy of the GNU General Public License
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
-//   
-//   
+//
+//
 // @author : pascal.fautrero@ac-versailles.fr
 
 
 /*
- * 
+ *
  * @constructor init specific hooks
  */
 function hooks() {
@@ -54,7 +54,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
             }
             $("#response_" + target).toggle();
         }
-       
+
     };
     var unlock_input = function(e) {
         e.preventDefault();
@@ -73,7 +73,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
             $(".button").on("click", button_click);
             $(".unlock input[type=submit]").off("click");
             $(".unlock input[type=submit]").on("click", unlock_input);
-        }        
+        }
     };
     $(".button").on("click", button_click);
     $(".unlock input[type=submit]").on("click", unlock_input);
@@ -94,16 +94,16 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
 
     $("#popup_toggle").on("click", function(){
         $("#message_success_content").toggle();
-        
+
         var strSource = $(this).attr('src')
         if (strSource.indexOf('hide.png') !== -1) {
-            strSource.replace('hide.png', 'show.png')
+            strSource = strSource.replace('hide.png', 'show.png')
         }
         else {
-            strSource.replace('show.png', 'hide.png')    
+            strSource = strSource.replace('show.png', 'hide.png')    
         }
         $(this).attr('src', strSource)
-        
+
     });
 
     $("#popup_toggle2").on("click", function(){
@@ -114,18 +114,18 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
             strSource.replace('hide.png', 'show.png')
         }
         else {
-            strSource.replace('show.png', 'hide.png')    
+            strSource.replace('show.png', 'hide.png')
         }
         $(this).attr('src', strSource)
 
 
     });
-    
-    
+
+
 };
 /*
  *
- *  
+ *
  */
 hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaObject) {
 
@@ -133,7 +133,7 @@ hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaO
 };
 /*
  *
- *  
+ *
  */
 hooks.prototype.afterIaObjectZoom = function(iaScene, idText, iaObject) {
 
@@ -141,7 +141,7 @@ hooks.prototype.afterIaObjectZoom = function(iaScene, idText, iaObject) {
 
 /*
  *
- *  
+ *
  */
 hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject, kineticElement) {
     var viewportHeight = $(window).height();
@@ -149,16 +149,16 @@ hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject, kinetic
         if ($(this).data("state") === "autostart") {
             $(this)[0].play();
         }
-    }); 
-    
+    });
+
     //var options = $('#' + idText).data("options");
     var options = kineticElement.getXiaParent().options;
-    if (typeof(options) != "undefined") { 
+    if (typeof(options) != "undefined") {
         if (options.indexOf("score2") != -1) {
             iaScene.currentScore2 += 1;
         }
         else if (options.indexOf("disable-score") == -1) {
-            iaScene.currentScore += 1;    
+            iaScene.currentScore += 1;
         }
     }
     if ((iaScene.score2 == iaScene.currentScore2) && (iaScene.score2 != 0)) {
@@ -168,7 +168,7 @@ hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject, kinetic
         var general_border = $("#message_success2").css("border-top-width").substr(0,$("#message_success").css("border-top-width").length - 2);
         var general_offset = $("#message_success2").offset();
         var content_offset = $("#content").offset();
-        $("#message_success2").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});        
+        $("#message_success2").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});
     }
     if ((iaScene.score == iaScene.currentScore) && (iaScene.score != 0)) {
         $("#content").show();
@@ -176,13 +176,13 @@ hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject, kinetic
         var general_border = $("#message_success").css("border-top-width").substr(0,$("#message_success").css("border-top-width").length - 2);
         var general_offset = $("#message_success").offset();
         var content_offset = $("#content").offset();
-        $("#message_success").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});        
+        $("#message_success").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});
     }
 
     if ((iaScene.score != 0) || (iaScene.score2 != 0)) {
-        for (var i in iaObject.xiaDetail) {    
+        for (var i in iaObject.xiaDetail) {
             iaObject.xiaDetail[i].click = "off";
         }
     }
-                
+
 };
