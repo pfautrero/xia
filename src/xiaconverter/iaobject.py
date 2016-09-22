@@ -1178,7 +1178,7 @@ class iaObject:
             if extension.group(1):
                 imageFile = dirname + os.path.sep + "image." + extension.group(1)
                 imageFileFixed = dirname + \
-                                 os.path.sep + "image_small." + extension.group(1)
+                                 os.path.sep + "image_small.jpg"
                 with open(imageFile, "wb") as bgImage:
                     bgImage.write(rasterEncoded.decode("base64"))
 
@@ -1201,8 +1201,8 @@ class iaObject:
                     if w != rasterWidth:
                         newwidth = int(float(rasterWidth))
                         newheight = int(float(rasterHeight))
-                        resizedImg = currentImg.resize((newwidth, newheight), Image.BICUBIC)
-                        resizedImg.save(imageFileFixed)
+                        resizedImg = currentImg.resize((newwidth, newheight), Image.ANTIALIAS)
+                        resizedImg.save(imageFileFixed, 'JPEG', quality=100)
 
                         with open(imageFileFixed, 'rb') as fixedImage:
                             rasterFixedEncoded = fixedImage.read().encode("base64")
@@ -1336,7 +1336,7 @@ class iaObject:
             if extension.group(1):
                 imageFile = dirname + os.path.sep + "image." + extension.group(1)
                 imageFileSmall = dirname + \
-                                 os.path.sep + "image_small." + extension.group(1)
+                                 os.path.sep + "image_small.jpg"
                 with open(imageFile, "wb") as bgImage:
                     bgImage.write(rasterEncoded.decode("base64"))
                 if self.ratio != 1:
@@ -1365,7 +1365,8 @@ class iaObject:
                         newwidth = int(oldwidth * self.ratio)
                         newheight = int(oldheight * self.ratio)
                         resizedBg = currentBg.resize((newwidth, newheight), Image.ANTIALIAS)
-                        resizedBg.save(imageFileSmall)
+                        #resizedBg.save(imageFileSmall)
+                        resizedBg.save(imageFileSmall, 'JPEG', quality=100)
 
                         with open(imageFileSmall, 'rb') as bgSmallImage:
                             rasterSmallEncoded = bgSmallImage.read().encode("base64")
