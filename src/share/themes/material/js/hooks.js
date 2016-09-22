@@ -160,6 +160,7 @@ hooks.prototype.convertDetail2Image = function(index, iaScene) {
 
   var iaObject = iaScene.shapes[index]
   var myhooks = this
+  if (typeof(iaObject) == "undefined") return
   var data = iaObject.finalBackground.src
 
   var newImage = document.createElement('img')

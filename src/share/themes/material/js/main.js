@@ -219,7 +219,7 @@ function main(myhooks) {
                     $("#loader").hide();
             });
           })
-
+          if (details.length == 0) mainScene.allDetailsLoaded.resolve(0)
           for (var i in details) {
               var iaObj = new IaObject({
                   imageObj: that.imageObj,
