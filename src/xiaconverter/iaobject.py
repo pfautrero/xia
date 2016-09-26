@@ -28,12 +28,14 @@ import commands
 try:
     from PIL import Image, ImageDraw
     HANDLE_PIL = True
+    Image.MAX_IMAGE_PIXELS = None
 except ImportError:
     if not sys.platform.startswith('darwin'):
         print "Requirement : Please, install python-pil package"
         sys.exit(1)
     else:
         HANDLE_PIL = False
+
 
 import hashlib
 import uuid
@@ -755,12 +757,54 @@ class iaObject:
             # only apply translate transformation
             # TODO : implement other transformations
 
+            oldwidth = record_image['width']
+            oldheight =  record_image['height']
+
             if image.hasAttribute("transform"):
                 transformation = image.attributes['transform'].value
                 ctm = CurrentTransformation()
                 ctm.analyze(transformation)
-                record_image['x'] = ctm.translateX
-                record_image['y'] = ctm.translateY
+                record_image['x'] = float(record_image['x']) + float(ctm.translateX)
+                record_image['y'] = float(record_image['y']) + float(ctm.translateY)
+                if ctm.rotate != 0:
+                    record_image['image'], \
+                    record_image['width'], \
+                    record_image['height'] = \
+                        self.rotateImage(record_image['image'], ctm.rotate, ctm.rX, ctm.rY)
+
+                    # apply rotation on the 4 corners A (x,y), B (x+w,y), C (x+w,y+h), D (x, y+h)
+                    # respectively called A2, B2, C2 and D2
+                    # and keep X =  min(A2.x, B2.x, C2.x, D2.x)
+                    # and Y = min(A2.y, B2.y, C2.y, D2.y)
+
+                    cornerA = {}
+                    cornerA['x'] = float(record_image['x'])
+                    cornerA['y'] = float(record_image['y'])
+                    cornerA['x2'] = cornerA['x'] * math.cos(ctm.rotate) - cornerA['y'] * math.sin(ctm.rotate)
+                    cornerA['y2'] = cornerA['x'] * math.sin(ctm.rotate) + cornerA['y'] * math.cos(ctm.rotate)
+
+                    cornerB = {}
+                    cornerB['x'] = float(record_image['x']) + float(oldwidth)
+                    cornerB['y'] = float(record_image['y'])
+                    cornerB['x2'] = cornerB['x'] * math.cos(ctm.rotate) - cornerB['y'] * math.sin(ctm.rotate)
+                    cornerB['y2'] = cornerB['x'] * math.sin(ctm.rotate) + cornerB['y'] * math.cos(ctm.rotate)
+
+                    cornerC = {}
+                    cornerC['x'] = float(record_image['x'])
+                    cornerC['y'] = float(record_image['y']) + float(oldheight)
+                    cornerC['x2'] = cornerC['x'] * math.cos(ctm.rotate) - cornerC['y'] * math.sin(ctm.rotate)
+                    cornerC['y2'] = cornerC['x'] * math.sin(ctm.rotate) + cornerC['y'] * math.cos(ctm.rotate)
+
+                    cornerD = {}
+                    cornerD['x'] = float(record_image['x']) + float(oldwidth)
+                    cornerD['y'] = float(record_image['y']) + float(oldheight)
+                    cornerD['x2'] = cornerD['x'] * math.cos(ctm.rotate) - cornerD['y'] * math.sin(ctm.rotate)
+                    cornerD['y2'] = cornerD['x'] * math.sin(ctm.rotate) + cornerD['y'] * math.cos(ctm.rotate)
+
+                    record_image['x'] = min(cornerA['x2'], cornerB['x2'], cornerC['x2'], cornerD['x2'])
+                    record_image['y'] = min(cornerA['y2'], cornerB['y2'], cornerC['y2'], cornerD['y2'])
+                    record_image['height'] = max(cornerA['y2'], cornerB['y2'], cornerC['y2'], cornerD['y2']) - min(cornerA['y2'], cornerB['y2'], cornerC['y2'], cornerD['y2'])
+                    record_image['width'] = max(cornerA['x2'], cornerB['x2'], cornerC['x2'], cornerD['x2']) - min(cornerA['x2'], cornerB['x2'], cornerC['x2'], cornerD['x2'])
 
             # apply group transformations
             if stackTransformations != "":
@@ -1316,6 +1360,43 @@ class iaObject:
             self.console.display('ERROR : cropImage() - image is not embedded ' + raster)
         shutil.rmtree(dirname)
         return [newraster, unicode(newrasterWidth), unicode(newrasterHeight), x_delta * float(rasterWidth) / w, y_delta * float(rasterHeight) / h, w, h]
+
+
+
+    def rotateImage(self, raster, angle, x, y):
+        """
+        if needed, we must rotate image to be usable
+        """
+
+        dirname = tempfile.mkdtemp()
+        newraster = raster
+        rasterStartPosition = raster.find('base64,') + 7
+        rasterEncoded = raster[rasterStartPosition:]
+        rasterPrefix = raster[0:rasterStartPosition]
+        extension = re.search('image/(.*);base64', rasterPrefix)
+        if extension is not None:
+            if extension.group(1):
+                imageFile = dirname + os.path.sep + "image." + extension.group(1)
+                imageFileSmall = dirname + \
+                                 os.path.sep + "image_small." + extension.group(1)
+                with open(imageFile, "wb") as bgImage:
+                    bgImage.write(rasterEncoded.decode("base64"))
+
+                if HANDLE_PIL:
+                    currentImage = Image.open(imageFile)
+                    rotatedImage = currentImage.rotate( (-1) * 180 * angle / math.pi, expand=1 )
+                    rotatedImage.save(imageFileSmall)
+
+                    with open(imageFileSmall, 'rb') as bgSmallImage:
+                        rasterSmallEncoded = bgSmallImage.read().encode("base64")
+                        newraster = rasterPrefix + rasterSmallEncoded
+
+                    newrasterWidth, newrasterHeight = rotatedImage.size
+        else:
+            self.console.display('ERROR : image is not embedded')
+        shutil.rmtree(dirname)
+        return [newraster, unicode(newrasterWidth), unicode(newrasterHeight)]
+
 
 
     def resizeImage(self, raster, rasterWidth, rasterHeight):
