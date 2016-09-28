@@ -167,10 +167,7 @@ h1 {
     -ms-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
 }
-.accordion-body a{
-    text-decoration:none;
-    color:black;
-}
+
 a.accordion-toggle {
     font-family:yanone_regular;
     color:#F07C19;

@@ -61,6 +61,7 @@ class iaObject:
         self.translation = 0
         self.jsonContent = ""
         self.filePath = ""
+        self.backgroundNode = ""
 
     def get_tag_value(self, node):
         if node.childNodes:

@@ -12,7 +12,7 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>
-#   
+#
 # @author : pascal.fautrero@ac-versailles.fr
 
 from xiaconverter.pikipiki import PageFormatter
@@ -43,31 +43,31 @@ class TestPageFormatter:
         raw = "photo.jpg";
         expected_output = '<img src="photo.jpg"/>\n';
         output = PageFormatter(raw).print_html()
-        assert_equal(expected_output, output)        
+        assert_equal(expected_output, output)
 
     def test_print_html5(self):
         raw = "photo.jpeg";
         expected_output = '<img src="photo.jpeg"/>\n';
         output = PageFormatter(raw).print_html()
-        assert_equal(expected_output, output) 
+        assert_equal(expected_output, output)
 
     def test_print_html6(self):
         raw = "photo.png";
         expected_output = '<img src="photo.png"/>\n';
         output = PageFormatter(raw).print_html()
-        assert_equal(expected_output, output) 
+        assert_equal(expected_output, output)
 
     def test_print_html7(self):
         raw = "photo.gif";
         expected_output = '<img src="photo.gif"/>\n';
         output = PageFormatter(raw).print_html()
-        assert_equal(expected_output, output) 
+        assert_equal(expected_output, output)
 
     def test_print_html8(self):
         raw = "admin@test.com";
         expected_output = '<a href="mailto:admin@test.com">admin@test.com</a>\n';
         output = PageFormatter(raw).print_html()
-        assert_equal(expected_output, output)         
+        assert_equal(expected_output, output)
 
     def test_print_html9(self):
         raw = "<&>";
@@ -79,37 +79,37 @@ class TestPageFormatter:
         raw = "----";
         expected_output = '\n<hr/>\n';
         output = PageFormatter(raw).print_html()
-        assert_equal(expected_output, output)         
+        assert_equal(expected_output, output)
 
     def test_print_html11(self):
         raw = "-----";
         expected_output = '\n<hr size=3/>\n';
         output = PageFormatter(raw).print_html()
-        assert_equal(expected_output, output)         
+        assert_equal(expected_output, output)
 
     def test_print_html12(self):
         raw = '&lt;iframe src=&quot;http://example.com&quot;&gt;&lt;/iframe&gt;';
         expected_output = '<div class="videoWrapper4_3" data-iframe="http://example.com"></div>\n';
         output = PageFormatter(raw).print_html()
-        assert_equal(expected_output, output)         
+        assert_equal(expected_output, output)
 
     def test_print_html13(self):
         raw = '&lt;iframe width="560" height="315" src=&quot;//example.com&quot;&gt;&lt;/iframe&gt;';
         expected_output = '<div class="videoWrapper16_9" data-iframe="http://example.com"></div>\n';
         output = PageFormatter(raw).print_html()
-        assert_equal(expected_output, output) 
+        assert_equal(expected_output, output)
 
     def test_print_html14(self):
         raw = '<iframe width="560" height="315" src="//www.youtube.com/embed/ctXwWpMz44M" frameborder="0" allowfullscreen></iframe>';
         expected_output = '<div class="videoWrapper16_9" data-iframe="http://www.youtube.com/embed/ctXwWpMz44M"></div>\n';
         output = PageFormatter(raw).print_html()
-        assert_equal(expected_output, output) 
+        assert_equal(expected_output, output)
 
     def test_print_html15(self):
         raw = "http://example.com";
         expected_output = '<a href="http://example.com" target="_blank">http://example.com</a>\n';
         output = PageFormatter(raw).print_html()
-        assert_equal(expected_output, output)  
+        assert_equal(expected_output, output)
 
     def test_print_html16(self):
         raw = "https://example.com";
@@ -121,25 +121,25 @@ class TestPageFormatter:
         raw = "ftp://example.com";
         expected_output = '<a href="ftp://example.com" target="_blank">ftp://example.com</a>\n';
         output = PageFormatter(raw).print_html()
-        assert_equal(expected_output, output)         
+        assert_equal(expected_output, output)
 
     def test_print_html18(self):
         raw = "nntp://example.com";
         expected_output = '<a href="nntp://example.com" target="_blank">nntp://example.com</a>\n';
         output = PageFormatter(raw).print_html()
-        assert_equal(expected_output, output)         
+        assert_equal(expected_output, output)
 
     def test_print_html19(self):
         raw = "news://example.com";
         expected_output = '<a href="news://example.com" target="_blank">news://example.com</a>\n';
         output = PageFormatter(raw).print_html()
-        assert_equal(expected_output, output)         
+        assert_equal(expected_output, output)
 
     def test_print_html20(self):
         raw = "mailto://example.com";
         expected_output = '<a href="mailto://example.com" target="_blank">mailto://example.com</a>\n';
         output = PageFormatter(raw).print_html()
-        assert_equal(expected_output, output)         
+        assert_equal(expected_output, output)
 
     def test_print_html21(self):
         raw = " * line 1\n * line2";
@@ -304,3 +304,26 @@ class TestPageFormatter:
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
 
+    def test_print_html44(self):
+        raw = "https://scolawebtv.crdp-versailles.fr/?id=1337";
+        expected_output = '<div class="videoWrapper4_3" data-iframe="https://scolawebtv.crdp-versailles.fr/?iframe&id=1337"></div>\n';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
+
+    def test_print_html45(self):
+        raw = "http://scolawebtv.crdp-versailles.fr/?id=1337";
+        expected_output = '<div class="videoWrapper4_3" data-iframe="http://scolawebtv.crdp-versailles.fr/?iframe&id=1337"></div>\n';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
+
+    def test_print_html46(self):
+        raw = "https://webtv.ac-versailles.fr/spip.php?article1337";
+        expected_output = '<div class="videoWrapper4_3" data-iframe="https://webtv.ac-versailles.fr/spip.php?page=iframe-video&id_article=1337"></div>\n';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
+
+    def test_print_html47(self):
+        raw = "http://webtv.ac-versailles.fr/spip.php?article1337";
+        expected_output = '<div class="videoWrapper4_3" data-iframe="http://webtv.ac-versailles.fr/spip.php?page=iframe-video&id_article=1337"></div>\n';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)

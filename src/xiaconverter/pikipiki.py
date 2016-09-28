@@ -12,7 +12,7 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>
-#   
+#
 # source code from pikipiki parser (sligthly modified)
 
 
@@ -66,6 +66,18 @@ class PageFormatter:
     def _flicker_repl(self, word):
         return u'<div class="flickr_oembed" data-oembed="%s"></div>\n' % (word)
 
+    def _scolawebtv_repl(self, word):
+        videoClass = 'videoWrapper4_3'
+        word = word.replace("scolawebtv.crdp-versailles.fr/?id=", "scolawebtv.crdp-versailles.fr/?iframe&id=")
+        return u'<div class="' + videoClass + \
+          '" data-iframe="%s"></div>\n' % (word)
+
+    def _webtv_repl(self, word):
+        videoClass = 'videoWrapper4_3'
+        word = word.replace("webtv.ac-versailles.fr/spip.php?article", "webtv.ac-versailles.fr/spip.php?page=iframe-video&id_article=")
+        return u'<div class="' + videoClass + \
+          '" data-iframe="%s"></div>\n' % (word)
+
     def _videostart_repl(self, word):
         return u'<video controls preload="none" data-state="autostart">\n\t\
             <source type="video/mp4" src="%s.mp4" />\n\t\
@@ -104,24 +116,24 @@ class PageFormatter:
           '" data-iframe="%s"></div>\n' % (word_url)
 
     def _iframe2_repl(self, word):
-        
+
         word_url = ""
         srccheck = re.search('src=("|\')(.*?)("|\')', word, re.IGNORECASE|re.DOTALL)
         if srccheck:
-            word_url = srccheck.group(2)        
+            word_url = srccheck.group(2)
 
         if word_url[0:2] == "//":
             word_url = "http:" + word_url
-            
+
         iframe_width = ""
         widthcheck = re.search('width=("|\')(.*?)("|\')', word, re.IGNORECASE|re.DOTALL)
         if widthcheck:
-            iframe_width = widthcheck.group(2)        
-        
+            iframe_width = widthcheck.group(2)
+
         iframe_height = ""
         heightcheck = re.search('height=("|\')(.*?)("|\')', word, re.IGNORECASE|re.DOTALL)
         if heightcheck:
-            iframe_height = heightcheck.group(2)        
+            iframe_height = heightcheck.group(2)
 
         videoClass = 'videoWrapper4_3'
         if iframe_width and iframe_height:
@@ -130,7 +142,7 @@ class PageFormatter:
                 videoClass = 'videoWrapper16_9'
         return u'<div class="' + videoClass + \
           '" data-iframe="%s"></div>\n' % (word_url)
-    
+
     def _audiostart_repl(self, word):
         return u'<audio controls data-state="autostart">\n\t\
             <source type="audio/ogg" src="%s.ogg" />\n\t\
@@ -199,7 +211,7 @@ class PageFormatter:
                 stack_value = password
                 data_password = 'data-password="' + hashlib.sha1(password.encode("utf-8")).hexdigest() + '"'
                 content = re.sub('\(code=(.*)\)', '', content)
-            
+
             random_id = hashlib.md5(str(uuid.uuid1())).hexdigest()
             final_result =  u'<div style="margin-top:5px;margin-bottom:5px;">' + \
                 u'<a class="button" href="#" ' + data_password + \
@@ -215,10 +227,10 @@ class PageFormatter:
             final_result += u'<div class="response" id="response_' + random_id + '">'
             if data_password != "":
                 final_result += u'<!-- ==HIDDEN_BLOCK== -->'
-            
+
             self.hidden_block.append(stack_value)
             return final_result
-        
+
         elif len(self.hidden_block):
             password = self.hidden_block.pop()
             current_str = word[0:word.find("]]")]
@@ -239,7 +251,7 @@ class PageFormatter:
 
     def str_xor(self, s1, s2):
         return "".join([chr(ord(c1) ^ ord(c2)) for (c1,c2) in zip(s1,s2)])
-        
+
     def _indent_level(self):
         return len(self.list_indents) and self.list_indents[-1]
 
@@ -273,11 +285,13 @@ class PageFormatter:
         scan_re = re.compile(
             r"(?:(?P<emph>\*{2,3})"
             + r'|(?P<iframe2><iframe(.*)></iframe>)'
-            + r"|(?P<iframe>&lt;iframe(.*)&gt;&lt;/iframe&gt;)"        
+            + r"|(?P<iframe>&lt;iframe(.*)&gt;&lt;/iframe&gt;)"
             + r"|(?P<ent>[<>&])"
             + r"|(?P<rule>-{4,})"
             + r"|(?P<videostart>[^\s'\"]+\.(ogv|mp4|webm)(\s*)autostart$)"
             + r"|(?P<video>[^\s'\"]+\.(ogv|mp4|webm)$)"
+            + r"|(?P<scolawebtv>(https|http)\:\/\/scolawebtv\.crdp-versailles\.fr\/\?id=(.*))"
+            + r"|(?P<webtv>(https|http)\:\/\/webtv\.ac-versailles\.fr\/spip\.php\?article(.*))"
             + r"|(?P<flicker>https\:\/\/flic\.kr\/p\/(.*))"
             + r"|(?P<link>\[(http|\.\.\/|\.\/)(.*)\])"
             + r"|(?P<img>[^\s'\"]+\.(jpg|jpeg|png|gif)$)"
@@ -319,7 +333,7 @@ class PageFormatter:
                 self.final_str += test
                 self.final_str += "</li>"
                 self.in_li = 0
-                
+
         if self.in_pre: self.final_str += u'</pre>\n'
         while len(self.hidden_block):
             self.hidden_block.pop(0)
