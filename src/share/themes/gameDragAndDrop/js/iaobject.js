@@ -8,13 +8,13 @@
 //   GNU General Public License for more details.
 //   You should have received a copy of the GNU General Public License
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
-//   
-//   
+//
+//
 // @author : pascal.fautrero@ac-versailles.fr
 
 
 /*
- * 
+ *
  * @param {object} params
  * @constructor this object is a group of details
  */
@@ -64,7 +64,7 @@ function IaObject(params) {
 }
 
 /*
- * 
+ *
  * @param {type} detail
  * @param {type} i KineticElement index
  * @returns {undefined}
@@ -77,9 +77,9 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
     that.defineImageBoxSize(detail, that.xiaDetail[i]);
     that.scaleBox(that.xiaDetail[i], iaScene);
     var rasterObj = new Image();
-    
+
     rasterObj.src = detail.image;
-    
+
     that.xiaDetail[i].kineticElement = new Kinetic.Image({
         id: detail.id,
         name: detail.title,
@@ -88,7 +88,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         width: detail.width,
         height: detail.height,
         draggable: that.xiaDetail[i].draggable_object
-     
+
     });
 
     that.layer.add(that.xiaDetail[i].kineticElement);
@@ -100,11 +100,11 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
     that.xiaDetail[i].lastDragPos.y = that.xiaDetail[i].kineticElement.y();
     that.xiaDetail[i].originalCoords.x = that.xiaDetail[i].kineticElement.x();
     that.xiaDetail[i].originalCoords.y = that.xiaDetail[i].kineticElement.y();
-    
+
     var collision_state = $("#" + idText).data("collisions");
     if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
         collision_state = "off";
-    }    
+    }
     that.collisions = collision_state;
     var global_collision_state = $("#message_success").data("collisions");
     if (global_collision_state == "on" && collision_state != "off") {
@@ -137,29 +137,29 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
             };
         });
     }
-    
-    
+
+
     rasterObj.onload = function() {
-        
+
         that.xiaDetail[i].kineticElement.backgroundImageOwnScaleX = iaScene.scale * detail.width / this.width;
-        that.xiaDetail[i].kineticElement.backgroundImageOwnScaleY = iaScene.scale * detail.height / this.height;        
+        that.xiaDetail[i].kineticElement.backgroundImageOwnScaleY = iaScene.scale * detail.height / this.height;
 
         if ($('article[data-tooltip="' + $("#" + idText).data("kinetic_id") + '"]').length == 0) {
             detail.fill = '#ffffff';    // force image to be displayed - must refactor if it is a good idea !
         }
         that.xiaDetail[i].persistent = "off";
-        if ((typeof(detail.fill) !== 'undefined') && 
+        if ((typeof(detail.fill) !== 'undefined') &&
             (detail.fill === "#ffffff")) {
             that.xiaDetail[i].persistent = "onImage";
             that.xiaDetail[i].kineticElement.fillPriority('pattern');
             that.xiaDetail[i].kineticElement.fillPatternScaleX(that.xiaDetail[i].kineticElement.backgroundImageOwnScaleX * 1/iaScene.scale);
-            that.xiaDetail[i].kineticElement.fillPatternScaleY(that.xiaDetail[i].kineticElement.backgroundImageOwnScaleY * 1/iaScene.scale);                
-            that.xiaDetail[i].kineticElement.fillPatternImage(that.xiaDetail[i].backgroundImage); 
+            that.xiaDetail[i].kineticElement.fillPatternScaleY(that.xiaDetail[i].kineticElement.backgroundImageOwnScaleY * 1/iaScene.scale);
+            that.xiaDetail[i].kineticElement.fillPatternImage(that.xiaDetail[i].backgroundImage);
         }
-        
+
 
         that.addEventsManagement(i, that, iaScene, baseImage, idText);
-        
+
         // define hit area excluding transparent pixels
         // =============================================================
         that.rasterObj = rasterObj;
@@ -170,11 +170,11 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         that.xiaDetail[i].kineticElement.draw();
     };
 
-};    
+};
 
 
 /*
- * 
+ *
  * @param {type} path
  * @param {type} i KineticElement index
  * @returns {undefined}
@@ -186,7 +186,7 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     that.xiaDetail[i].path = detail.path;
     // if detail is out of background, hack maxX and maxY
     if (parseFloat(detail.maxX) < 0) detail.maxX = 1;
-    if (parseFloat(detail.maxY) < 0) detail.maxY = 1;        
+    if (parseFloat(detail.maxY) < 0) detail.maxY = 1;
     that.xiaDetail[i].kineticElement = new Kinetic.Path({
         id: detail.id,
         name: detail.title,
@@ -312,7 +312,7 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         cropedImage.onload = function() {
             that.xiaDetail[i].backgroundImage = cropedImage;
             that.xiaDetail[i].kineticElement.backgroundImageOwnScaleX = 1;
-            that.xiaDetail[i].kineticElement.backgroundImageOwnScaleY = 1;            
+            that.xiaDetail[i].kineticElement.backgroundImageOwnScaleY = 1;
             that.xiaDetail[i].kineticElement.fillPatternRepeat('no-repeat');
             that.xiaDetail[i].kineticElement.fillPatternX(detail.minX);
             that.xiaDetail[i].kineticElement.fillPatternY(detail.minY);
@@ -320,11 +320,11 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     }
 
     that.xiaDetail[i].persistent = "off";
-    if ((typeof(detail.fill) !== 'undefined') && 
+    if ((typeof(detail.fill) !== 'undefined') &&
         (detail.fill === "#ffffff")) {
         that.xiaDetail[i].persistent = "onPath";
         that.xiaDetail[i].kineticElement.fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');
-    }    
+    }
     that.addEventsManagement(i, that, iaScene, baseImage, idText);
 
     that.layer.draw();
@@ -480,7 +480,7 @@ IaObject.prototype.dragCollisions = function(pos, kineticElement) {
         };
 
 /*
- * 
+ *
  * @param {type} index
  * @returns {undefined}
  */
@@ -499,15 +499,15 @@ IaObject.prototype.defineImageBoxSize = function(detail, that) {
     if (parseFloat(detail.x) < that.minX) that.minX = parseFloat(detail.x);
     if (parseFloat(detail.x) + parseFloat(detail.width) > that.maxX)
         that.maxX = parseFloat(detail.x) + parseFloat(detail.width);
-    if (parseFloat(detail.y) < that.minY) 
+    if (parseFloat(detail.y) < that.minY)
         that.minY = parseFloat(detail.y);
-    if (parseFloat(detail.y) + parseFloat(detail.height) > that.maxY) 
+    if (parseFloat(detail.y) + parseFloat(detail.height) > that.maxY)
         that.maxY = parseFloat(detail.y) + parseFloat(detail.height);
-};    
+};
 
 
 /*
- * 
+ *
  * @param {type} index
  * @returns {undefined}
  */
@@ -535,7 +535,7 @@ IaObject.prototype.scaleBox = function(that, iaScene) {
     that.minX = that.minX * iaScene.coeff;
     that.minY = that.minY * iaScene.coeff;
     that.maxX = that.maxX * iaScene.coeff;
-    that.maxY = that.maxY * iaScene.coeff;    
+    that.maxY = that.maxY * iaScene.coeff;
 };
 
 
@@ -544,7 +544,7 @@ IaObject.prototype.scaleBox = function(that, iaScene) {
  * @param {type} i KineticElement index
  * @returns {undefined}
  */
-   
+
 IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, idText) {
 
     var that=this;
@@ -585,27 +585,27 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
             if (tooltip) {
                 this.tooltip.clearCache();
                 this.tooltip.fillPriority('pattern');
-                if ((this.tooltip.backgroundImageOwnScaleX != "undefined") && 
+                if ((this.tooltip.backgroundImageOwnScaleX != "undefined") &&
                         (this.tooltip.backgroundImageOwnScaleY != "undefined")) {
                     this.tooltip.fillPatternScaleX(this.tooltip.backgroundImageOwnScaleX * 1/iaScene.scale);
                     this.tooltip.fillPatternScaleY(this.tooltip.backgroundImageOwnScaleY * 1/iaScene.scale);
                 }
-                this.tooltip.fillPatternImage(this.tooltip.getXiaParent().backgroundImage); 
+                this.tooltip.fillPatternImage(this.tooltip.getXiaParent().backgroundImage);
 
                 this.tooltip.moveToTop();
                 this.tooltip.draw();
                 that.layer.draw();
             }
-            
+
         }
     });
- 
+
     /*
      * if we leave this element, just clear the scene
      */
     that.xiaDetail[i].kineticElement.on('mouseout', function() {
-    
-        
+
+
         if ((iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) ||
                 (iaScene.cursorState.indexOf("ZoomIn.cur") !== -1)){
 
@@ -622,19 +622,19 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
                     var tooltip_id = $("#" + idText).data("tooltip");
                     this.tooltip = this.getStage().find("#" + tooltip_id)[0];
                     tooltip = true;
-                }                
+                }
                 if (tooltip) {
                     this.tooltip.fillPriority('color');
                     this.tooltip.fill('rgba(0, 0, 0, 0)');
                     this.tooltip.draw();
-                }                
+                }
                 document.body.style.cursor = "default";
                 iaScene.cursorState = "default";
-                that.layer.draw();						
+                that.layer.draw();
             }
         }
-    });       
-    
+    });
+
     if (that.xiaDetail[i].options.indexOf("direct-link") != -1) {
         that.xiaDetail[i].kineticElement.on('click touchstart', function(e) {
             //location.href = that.title[i];
@@ -814,13 +814,17 @@ IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElemen
                 (middle_coords.x < target_iaObject.maxX) &
                 (middle_coords.y > target_iaObject.minY) &
                 (middle_coords.y < target_iaObject.maxY)) {
-            //if (!this.match && droparea == target_object) {
             if (typeof(target_object) != "undefined" && target_object != null) {
                 if (!kineticElement.getXiaParent().match && droparea == target_object.kineticElement) {
                     kineticElement.getXiaParent().match = true;
                     iaScene.currentScore += 1;
+
+                }
+                else {
+                  iaScene.currentScore2 += 1;
                 }
             }
+
             if (iaScene.global_magnet_enabled || droparea.getXiaParent().magnet_state=="on") {
                 var targetCoords = {
                     x : target_iaObject.minX - (iaObject_width / 2) + (target_iaObject.maxX - target_iaObject.minX) / 2,
@@ -841,7 +845,9 @@ IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElemen
             if (kineticElement.getXiaParent().match) {
                 kineticElement.getXiaParent().match = false;
                 iaScene.currentScore -= 1;
+
             }
+
         }
 
         kineticElement.getXiaParent().notify();
@@ -859,11 +865,20 @@ IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElemen
             var content_offset = $("#content").offset();
             $("#message_success").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});
         }
+        if ((iaScene.score2 == iaScene.currentScore2) && (iaScene.score2 != 0)) {
+            $("#content").show();
+            $("#message_success2").show();
+            var general_border = $("#message_success2").css("border-top-width").substr(0,$("#message_success2").css("border-top-width").length - 2);
+            var general_offset = $("#message_success2").offset();
+            var content_offset = $("#content").offset();
+            $("#message_success2").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});
+        }
         $('#' + idText + " audio").each(function(){
             if ($(this).data("state") === "autostart") {
                 $(this)[0].play();
             }
         });
+
     }
     else {
         if (kineticElement.getXiaParent().match) {

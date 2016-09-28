@@ -45,8 +45,11 @@ class hook:
         """ generate index file"""
 
         self.score = "0"
+        self.score2 = "0"
         self.collisions = "off"
         self.magnet = "off"
+        self.message = ""
+        self.message2 = ""
 
         score = re.search('<score>(.*)</score>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
         if score:
@@ -64,10 +67,25 @@ class hook:
         if magnet:
             self.magnet = magnet.group(1)
 
+        score2 = re.search('<score2>(.*?)</score2>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
+        if score2:
+            self.score2 = score2.group(1)
+
+        message2 = re.search('<message2>(.*?)</message2>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
+        if message2:
+            self.message2 = message2.group(1)
+
         final_str = u'<article class="message_success" id="message_success" data-magnet="' + self.magnet + '" data-collisions="' + self.collisions + '" data-score="' + self.score + '">\n'
         final_str += '<div class="message_success_border">\n'
         final_str += '<img id="popup_toggle" src="{{LogoHide}}" alt="toggle"/>\n'
         final_str += u'  <div id="message_success_content">' + self.PageFormatter(self.message).print_html() + u'</div>\n'
+        final_str += '</div>\n'
+        final_str += u'</article>\n'
+
+        final_str += u'<article class="message_success" id="message_success2" data-magnet="' + self.magnet + '" data-collisions="' + self.collisions + '" data-score="' + self.score2 + '">\n'
+        final_str += '<div class="message_success_border">\n'
+        final_str += '<img id="popup_toggle2" src="{{LogoHide}}" alt="toggle"/>\n'
+        final_str += u'  <div id="message_success_content2">' + self.PageFormatter(self.message2).print_html() + u'</div>\n'
         final_str += '</div>\n'
         final_str += u'</article>\n'
 

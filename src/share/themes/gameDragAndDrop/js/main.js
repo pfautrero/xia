@@ -260,6 +260,19 @@ main.prototype.afterMainConstructor = function(mainScene, layers) {
         });
     }
 
+    mainScene.score2 = $("#message_success2").data("score");
+    if ((mainScene.score2 == mainScene.currentScore2) && (mainScene.score2 != "0")) {
+        $("#content").show();
+        $("#message_success2").show();
+        var general_border = $("#message_success2").css("border-top-width").substr(0,$("#message_success2").css("border-top-width").length - 2);
+        var general_offset = $("#message_success2").offset();
+        var content_offset = $("#content").offset();
+        $("#message_success2").css({
+            'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)
+        });
+    }
+
+
     $(".overlay").hide();
 
     $(".infos").on("click", function(){
@@ -278,7 +291,20 @@ main.prototype.afterMainConstructor = function(mainScene, layers) {
             strSource = strSource.replace('hide.png', 'show.png')
         }
         else {
-            strSource = strSource.replace('show.png', 'hide.png')    
+            strSource = strSource.replace('show.png', 'hide.png')
+        }
+        $(this).attr('src', strSource)
+
+    });
+    $("#popup_toggle2").on("click", function(){
+        $("#message_success_content2").toggle();
+
+        var strSource = $(this).attr('src')
+        if (strSource.indexOf('hide.png') !== -1) {
+            strSource = strSource.replace('hide.png', 'show.png')
+        }
+        else {
+            strSource = strSource.replace('show.png', 'hide.png')
         }
         $(this).attr('src', strSource)
 
