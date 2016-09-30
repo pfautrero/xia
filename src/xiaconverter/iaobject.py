@@ -1222,8 +1222,13 @@ class iaObject:
         if extension is not None:
             if extension.group(1):
                 imageFile = dirname + os.path.sep + "image." + extension.group(1)
-                imageFileFixed = dirname + \
-                                 os.path.sep + "image_small.jpg"
+                if extension.group(1) == 'png':
+                    imageFileFixed = dirname + \
+                                     os.path.sep + "image_small." + extension.group(1)
+                else:
+                    imageFileFixed = dirname + \
+                                     os.path.sep + "image_small.jpg"
+
                 with open(imageFile, "wb") as bgImage:
                     bgImage.write(rasterEncoded.decode("base64"))
 
@@ -1247,8 +1252,10 @@ class iaObject:
                         newwidth = int(float(rasterWidth))
                         newheight = int(float(rasterHeight))
                         resizedImg = currentImg.resize((newwidth, newheight), Image.ANTIALIAS)
-                        resizedImg.save(imageFileFixed, 'JPEG', quality=100)
-
+                        if extension.group(1) == 'png':
+                            resizedImg.save(imageFileFixed)
+                        else:
+                            resizedImg.save(imageFileFixed, 'JPEG', quality=100)
                         with open(imageFileFixed, 'rb') as fixedImage:
                             rasterFixedEncoded = fixedImage.read().encode("base64")
                             newraster = rasterPrefix + rasterFixedEncoded
@@ -1417,8 +1424,12 @@ class iaObject:
         if extension is not None:
             if extension.group(1):
                 imageFile = dirname + os.path.sep + "image." + extension.group(1)
-                imageFileSmall = dirname + \
-                                 os.path.sep + "image_small.jpg"
+                if extension.group(1) == 'png':
+                    imageFileSmall = dirname + \
+                                     os.path.sep + "image_small" + extension.group(1)
+                else:
+                    imageFileSmall = dirname + \
+                                     os.path.sep + "image_small.jpg"
                 with open(imageFile, "wb") as bgImage:
                     bgImage.write(rasterEncoded.decode("base64"))
                 if self.ratio != 1:
@@ -1448,8 +1459,10 @@ class iaObject:
                         newheight = int(oldheight * self.ratio)
                         resizedBg = currentBg.resize((newwidth, newheight), Image.ANTIALIAS)
                         #resizedBg.save(imageFileSmall)
-                        resizedBg.save(imageFileSmall, 'JPEG', quality=100)
-
+                        if extension.group(1) == 'png':
+                            resizedBg.save(imageFileSmall, 'JPEG', quality=100)
+                        else:
+                            resizedBg.save(imageFileSmall)
                         with open(imageFileSmall, 'rb') as bgSmallImage:
                             rasterSmallEncoded = bgSmallImage.read().encode("base64")
                             newraster = rasterPrefix + rasterSmallEncoded
