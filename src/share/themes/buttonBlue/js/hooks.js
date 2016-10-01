@@ -29,7 +29,7 @@ var hooks = function() {
  * @param array layers
  * @param iaScene mainScene
  */
-hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
+hooks.prototype.beforeMainConstructor = function(mainScene) {
 
     var buttons = "<ul>";
     for (var i in details) {

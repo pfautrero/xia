@@ -46,6 +46,23 @@ body{
     margin-top:0px;
     padding:0px;
 }
+body:fullscreen {
+  background: url('../img/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+body:-webkit-full-screen  {
+  background: url('../img/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+body:-ms-fullscreen {
+  background: url('../img/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+body:-moz-full-screen  {
+  background: url('../img/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
 video {
     width:100%;
 }
@@ -387,7 +404,7 @@ iframe {
  * Warning : Verify iascene.js to suit following rules
  *
  *
- */ 
+ */
 @media (max-width:768px){
   html {
     /*Hack pour avoir le background en cover sur Android*/

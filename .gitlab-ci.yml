@@ -1,0 +1,5 @@
+image: nose-docker:0.1.0
+
+all_tests:
+  script:
+   - nosetests tests/test_ctm.py

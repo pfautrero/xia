@@ -64,7 +64,10 @@ function main(myhooks) {
       that.imageObj = new Image();
       that.imageObj.src = scene.image;
       that.imageObj.onload = function() {
+
+
           var mainScene = new IaScene(scene.width,scene.height);
+          myhooks.beforeMainConstructor(mainScene);
           mainScene.scale = 1;
           mainScene.scaleScene(mainScene);
 
@@ -120,7 +123,7 @@ function main(myhooks) {
           stage.add(layers[2]);
           stage.add(layers[3]);
 
-          myhooks.beforeMainConstructor(mainScene, that.layers);
+
           var indice = 4;
           layers[indice] = new Kinetic.Layer();
           stage.add(layers[indice]);
