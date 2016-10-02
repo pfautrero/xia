@@ -1,4 +1,4 @@
-image: nose-docker:0.1.0
+image: michaelmior/nose
 
 all_tests:
   script:
