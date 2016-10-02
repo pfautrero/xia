@@ -1,4 +1,4 @@
-image: michaelmior/nose
+image: missedone/nosetests
 
 all_tests:
   script:
