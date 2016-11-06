@@ -600,6 +600,16 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
         }
     });
 
+    that.xiaDetail[i].kineticElement.on('click touchstart', function(e) {
+
+      $('#' + idText + " audio").each(function(){
+          if ($(this).data("state") === "autostart") {
+              $(this)[0].play();
+          }
+      });
+
+    });
+
     /*
      * if we leave this element, just clear the scene
      */
@@ -649,6 +659,7 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
         if (!that.xiaDetail[i].droparea) {
             that.xiaDetail[i].kineticElement.on('dragstart', function(e) {
                 iaScene.element = that;
+                that.xiaDetail[i].kineticElement.fire("click")
                 that.afterDragStart(iaScene, idText, this);
                 that.myhooks.afterDragStart(iaScene, idText, this);
                 this.moveToTop();
@@ -745,11 +756,7 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
 
 IaObject.prototype.afterDragStart = function(iaScene, idText, kineticElement) {
 
-    $('#' + idText + " audio").each(function(){
-        if ($(this).data("state") === "autostart") {
-            $(this)[0].play();
-        }
-    });
+
 };
 /*
  *  This method is responsible of events occurring just after dragend event

@@ -130,16 +130,16 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
             cropHeight = Math.abs(iaScene.originalHeight * 1 - cropY * 1);
         }
 
-	var hitCanvas = that.layer.getHitCanvas();
+	      var hitCanvas = that.layer.getHitCanvas();
         iaScene.completeImage = hitCanvas.getContext().getImageData(0,0,Math.floor(hitCanvas.width),Math.floor(hitCanvas.height));
 
         var canvas_source = document.createElement('canvas');
         canvas_source.setAttribute('width', cropWidth * iaScene.coeff);
         canvas_source.setAttribute('height', cropHeight * iaScene.coeff);
         var context_source = canvas_source.getContext('2d');
-        context_source.drawImage(rasterObj,0,0, cropWidth * iaScene.coeff, cropHeight * iaScene.coeff);
+        context_source.drawImage(rasterObj,0,0, Math.floor(cropWidth * iaScene.coeff), Math.floor(cropHeight * iaScene.coeff));
 
-	imageDataSource = context_source.getImageData(0, 0, Math.floor(cropWidth * iaScene.coeff), Math.floor(cropHeight * iaScene.coeff));
+        imageDataSource = context_source.getImageData(0, 0, Math.floor(cropWidth * iaScene.coeff), Math.floor(cropHeight * iaScene.coeff));
 
         (function(imageDataSource){
             that.xiaDetail[i].kineticElement.hitFunc(function(context) {
@@ -219,10 +219,10 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     var cropWidth = (Math.min((parseFloat(detail.maxX) - parseFloat(detail.minX)) * iaScene.scale, Math.floor(parseFloat(iaScene.originalWidth) * iaScene.scale)));
     var cropHeight = (Math.min((parseFloat(detail.maxY) - parseFloat(detail.minY)) * iaScene.scale, Math.floor(parseFloat(iaScene.originalHeight) * iaScene.scale)));
     if (cropX * iaScene.scale + cropWidth > iaScene.originalWidth * iaScene.scale) {
-	cropWidth = iaScene.originalWidth * iaScene.scale - cropX * iaScene.scale;
+	     cropWidth = iaScene.originalWidth * iaScene.scale - cropX * iaScene.scale;
     }
     if (cropY * iaScene.scale + cropHeight > iaScene.originalHeight * iaScene.scale) {
-	cropHeight = iaScene.originalHeight * iaScene.scale - cropY * iaScene.scale;
+	     cropHeight = iaScene.originalHeight * iaScene.scale - cropY * iaScene.scale;
     }
     // bad workaround to avoid null dimensions
     if (cropWidth <= 0) cropWidth = 1;
