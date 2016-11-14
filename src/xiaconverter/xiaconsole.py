@@ -20,6 +20,7 @@ import os
 import shutil
 import imp
 import sys
+import re
 from iaobject import iaObject
 from pikipiki import PageFormatter
 
