@@ -60,7 +60,9 @@ class IADialog(Tkinter.Frame):
         self.root = root
         self.resize = 3
         self.firefoxos = 0
-        self.index_standalone = 1
+        #self.index_standalone = 1
+        self.options = {}
+        self.options['export_type'] = "singlefile"
 
         # Don't show hidden files and directories
         # (with tkinter, by default, it's the opposite).
@@ -260,7 +262,8 @@ class IADialog(Tkinter.Frame):
                 mysplash.enter()
 
                 self.dir_opt['initialdir'] = self.dirname
-                if not self.index_standalone:
+                if self.options['export_type'] == "local":
+                #if not self.index_standalone:
                     if os.path.isdir(self.dirname + '/font'):
                         shutil.rmtree(self.dirname + '/font')
                     if os.path.isdir(self.dirname + '/img'):
@@ -292,7 +295,8 @@ class IADialog(Tkinter.Frame):
                 self.imageActive.analyzeSVG(self.filename, maxNumPixels)
 
                 self.imageActive.generateJSON()
-                if not self.index_standalone:
+                if self.options['export_type'] == "local":
+                #if not self.index_standalone:
                     with open(self.dirname + '/datas/data.js',"w") as jsonfile:
                         jsonfile.write(self.imageActive.jsonContent.encode('utf8'))
 

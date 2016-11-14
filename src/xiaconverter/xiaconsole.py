@@ -26,8 +26,7 @@ from pikipiki import PageFormatter
 
 class XIAConsole():
 
-    def __init__(self, langPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, svgfile, output_dir,
-                 selected_theme, console):
+    def __init__(self, langPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, options, console):
 
         self.themesPath = themesPath
         self.langPath = langPath
@@ -36,29 +35,29 @@ class XIAConsole():
         self.kineticLib = kineticLib
         self.sha1Lib = sha1Lib
         self.jqueryLib = jqueryLib
-        self.resize = 3
-        self.filename = svgfile
-        self.dirname = output_dir
+        self.resize = options['quality']
+        self.filename = options['input_file']
+        self.dirname = options['output_dir']
+        self.export_type = options['export_type']
+        self.options = options
         self.theme = {}
-        self.index_standalone = 0
-        self.firefoxos = 0
+        self.theme['name'] = "accordionBlack"
 
-        if not os.path.isdir(self.themesPath + "/" + selected_theme):
-            selected_theme = "accordionBlack"
-        self.theme['name'] = selected_theme
+        if os.path.isdir(self.themesPath + "/" + options['selected_theme']):
+            self.theme['name'] = options['selected_theme']
 
         self.imageActive = iaObject(console)
 
-        imp.load_source(selected_theme, themesPath + "/" + selected_theme + \
+        imp.load_source(self.theme['name'], themesPath + "/" + self.theme['name'] + \
             "/hook.py")
-        imported_class = __import__(selected_theme)
+        imported_class = __import__(self.theme['name'])
         self.theme['object'] = imported_class.hook(self, self.imageActive, \
             PageFormatter, self.langPath)
 
 
     def createIA(self):
 
-        if not self.index_standalone:
+        if self.export_type == 'local':
             if os.path.isdir(self.dirname + '/font'):
                 shutil.rmtree(self.dirname + '/font')
             if os.path.isdir(self.dirname + '/img'):
@@ -81,12 +80,6 @@ class XIAConsole():
             shutil.copy(self.jqueryLib , self.dirname + '/js')
             shutil.copy(self.kineticLib , self.dirname + '/js')
             shutil.copy(self.sha1Lib , self.dirname + '/js')
-        if self.firefoxos:
-            shutil.copyfile(self.themesPath + '/' + self.theme['name'] + \
-                '/manifest.webapp', self.dirname + '/manifest.webapp')
-
-            shutil.copyfile(self.themesPath + '/' + self.theme['name'] + \
-                '/deploy.html', self.dirname + '/deploy.html')
 
         maxNumPixels = self.defineMaxPixels(self.resize)
         self.imageActive.analyzeSVG(self.filename, maxNumPixels)
@@ -97,7 +90,7 @@ class XIAConsole():
         filenamewithoutext = os.path.splitext(tail)[0]
         filenamewithoutext = re.sub(r"\s+", "", filenamewithoutext, flags=re.UNICODE)
 
-        if not self.index_standalone:
+        if self.export_type == 'local':
             with open(self.dirname + '/datas/data.js',"w") as jsonfile:
                 jsonfile.write(self.imageActive.jsonContent.encode('utf8'))
             self.theme['object'].generateIndex(self.dirname + "/" + filenamewithoutext + "_" + self.theme['name'] + ".html", \

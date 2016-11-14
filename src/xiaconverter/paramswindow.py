@@ -39,8 +39,12 @@ class IAParams(Tkinter.Frame):
         self.parent = parent
         self.resizeCoeff = parent.resize
 
-        self.firefoxos_param = parent.firefoxos
-        self.indexStandalone_param = parent.index_standalone
+        if parent.options["export_type"] == "local":
+            self.indexStandalone_param = 0
+        elif parent.options["export_type"] == "singlefile":
+            self.indexStandalone_param = 1
+        else:
+            self.indexStandalone_param = 0
 
         # define images
         self.resize_img = {}
@@ -55,12 +59,6 @@ class IAParams(Tkinter.Frame):
 
         params_img= Tkinter.PhotoImage(file=imagesPath + \
             "/params.gif")
-
-        self.firefoxos_img = {}
-        self.firefoxos_img[0] = Tkinter.PhotoImage(file=imagesPath + \
-            "/firefoxos_disabled.gif")
-        self.firefoxos_img[1] = Tkinter.PhotoImage(file=imagesPath + \
-            "/firefoxos_enabled.gif")
 
         self.indexStandalone_img = {}
         self.indexStandalone_img[0] = Tkinter.PhotoImage(file=imagesPath + \
@@ -78,14 +76,6 @@ class IAParams(Tkinter.Frame):
         self.button_resize.grid(row=0,column=0, columnspan=1,sticky='W')
         tooltip = ToolTip(self.button_resize,translate("modify image resolution"), None, 0.1)
 
-        #self.button_firefox = Tkinter.Button(self, \
-        #  image=self.firefoxos_img[self.firefoxos_param], \
-        #  relief=Tkinter.FLAT, bd=0, height=150, width=150, \
-        #  command=self.firefox)
-        #self.button_firefox.image = self.firefoxos_img[self.firefoxos_param]
-        #self.button_firefox.grid(row=0,column=1, columnspan=1,sticky='W')
-        #tooltip2 = ToolTip(self.button_firefox,translate("create firefox OS files"), None, 0.1)
-
         self.button_indexStandalone = Tkinter.Button(self, \
           image=self.indexStandalone_img[self.indexStandalone_param], \
           relief=Tkinter.FLAT, bd=0, height=150, width=150, \
@@ -94,36 +84,18 @@ class IAParams(Tkinter.Frame):
         self.button_indexStandalone.grid(row=0,column=1, columnspan=1,sticky='W')
         tooltip3 = ToolTip(self.button_indexStandalone,translate("index standalone"), None, 0.1)
 
-        # title
-
-        #label = Tkinter.Label(self, image=params_img)
-        #label.photo = params_img
-        #label.grid(row=1,column=0,columnspan=1, sticky='W')
-
     def resize(self):
         self.resizeCoeff = (self.resizeCoeff + 1) % 4
         self.parent.resize = self.resizeCoeff
         self.button_resize.configure(image=self.resize_img[self.resizeCoeff])
 
-    def firefox(self):
-        self.firefoxos_param = (self.firefoxos_param + 1) % 2
-        self.parent.firefoxos = self.firefoxos_param
-        self.button_firefox.configure(image=self.firefoxos_img[self.firefoxos_param])
-
-        if self.firefoxos_param == 1:
-            self.indexStandalone_param = 0
-            self.parent.index_standalone = self.indexStandalone_param
-            self.button_indexStandalone.configure(image=self.indexStandalone_img[self.indexStandalone_param])
-
     def indexStandalone(self):
         self.indexStandalone_param = (self.indexStandalone_param + 1) % 2
-        self.parent.index_standalone = self.indexStandalone_param
-        self.button_indexStandalone.configure(image=self.indexStandalone_img[self.indexStandalone_param])
-
         if self.indexStandalone_param == 1:
-            self.firefoxos_param = 0
-#            self.parent.firefoxos = self.firefoxos_param
-#            self.button_firefox.configure(image=self.firefoxos_img[self.firefoxos_param])
+            self.parent.options['export_type'] = "singlefile"
+        else:
+            self.parent.options['export_type'] = "local"
+        self.button_indexStandalone.configure(image=self.indexStandalone_img[self.indexStandalone_param])
 
 
     def quit(self):

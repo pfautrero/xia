@@ -12,20 +12,25 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>
-#   
+#
 # @author : pascal.fautrero@ac-versailles.fr
 
 """xia-converter.
 
 Usage:
   xia.py [<input-file>]
-  xia.py -i <input-file> -o <output-dir>  -t <theme>
+  xia.py --input <input-file> --output <output-dir>  [--theme <theme>] [--quality <quality>] [--export <export-type>]
   xia.py (-h | --help)
   xia.py --version
 
 Options:
-  -h --help     Show this screen.
-  --version     Show version.
+  -h --help                 Show this screen.
+  --input <input-file>      svg source file (mandatory)
+  --output <output-dir>     target folder (mandatory)
+  --theme <theme>           name of the theme used for the current export [default: accordionBlack]
+  --quality <quality>       image quality [default: 3]
+  --export <export-type>    export type (singlefile, lti, local) [default: singlefile]
+  --version                 Show version.
 
 """
 
@@ -43,7 +48,7 @@ from xiaconverter.xiaconsole import XIAConsole
 from xiaconverter.loggerconsole import LoggerConsole
 
 if __name__=='__main__':
-    
+
     config = ConfigParser.ConfigParser()
     config.read("xia.cnf")
     numVersion = config.get('version', 'numVersion')
@@ -63,12 +68,15 @@ if __name__=='__main__':
 
     if arguments["--version"]:
         print(numVersion + releaseVersion)
-    elif arguments["-i"] and arguments["-o"] and arguments["-t"]:
-        input_file = arguments["<input-file>"]
-        output_dir = arguments["<output-dir>"]
-        selected_theme = arguments["<theme>"]
-        xia = XIAConsole(langPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, input_file,
-                         output_dir, selected_theme, console)
+    elif arguments["--input"] and arguments["--output"]:
+        options = {}
+        options['input_file'] = arguments["--input"]
+        options['output_dir'] = arguments["--output"]
+        options['selected_theme'] = arguments["--theme"]
+        options['quality'] = arguments["--quality"]
+        options['export_type'] = arguments["--export"]
+
+        xia = XIAConsole(langPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, options, console)
         xia.createIA()
     else:
         filename = ""
@@ -79,7 +87,7 @@ if __name__=='__main__':
         root.geometry("465x310")
         root.resizable(0,0)
         img = Tkinter.PhotoImage(file=imagesPath + '/xia64.gif')
-        root.tk.call('wm', 'iconphoto', root._w, img)    
+        root.tk.call('wm', 'iconphoto', root._w, img)
         IADialog(root, console, langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib,
                  filename).pack(side="left")
         root.mainloop()
