@@ -1,5 +1,0 @@
-# How to build Firefox OS package
-
-1. Modify deploy.html file and replace my-webserver.com by your own server address
-2. Modify manifest.webapp file and replace my-webserver.com by your own server address. Modify size field to match with the size of package.zip (approximate)
-3. Compress all files to package.zip

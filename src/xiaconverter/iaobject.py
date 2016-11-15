@@ -1223,11 +1223,14 @@ class iaObject:
             if extension.group(1):
                 imageFile = dirname + os.path.sep + "image." + extension.group(1)
                 if extension.group(1) == 'png':
+
                     imageFileFixed = dirname + \
                                      os.path.sep + "image_small." + extension.group(1)
                 else:
+
                     imageFileFixed = dirname + \
                                      os.path.sep + "image_small.jpg"
+
 
                 with open(imageFile, "wb") as bgImage:
                     bgImage.write(rasterEncoded.decode("base64"))
@@ -1367,6 +1370,7 @@ class iaObject:
         else:
             self.console.display('ERROR : cropImage() - image is not embedded ' + raster)
         shutil.rmtree(dirname)
+
         return [newraster, unicode(newrasterWidth), unicode(newrasterHeight), x_delta * float(rasterWidth) / w, y_delta * float(rasterHeight) / h, w, h]
 
 

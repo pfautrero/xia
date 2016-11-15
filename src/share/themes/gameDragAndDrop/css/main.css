@@ -478,3 +478,6 @@ iframe {border:none;}
     border-bottom-left-radius: 20px;
     overflow: hidden;
 }
+#message_success_content img, #message_success_content2 img {
+  width:80%;
+}
