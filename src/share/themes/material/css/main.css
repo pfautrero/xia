@@ -210,7 +210,11 @@ h1 {
 #content article h1 {
     font-family: yanone_thin;
 }
-
+#content img {
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+}
 .article_close {
     cursor: pointer;
     position:absolute;
