@@ -46,6 +46,8 @@ function IaObject(params) {
     this.layer = params.layer;
     this.background_layer = params.background_layer;
     this.backgroundCache_layer = params.backgroundCache_layer;
+    that.backgroundCache_layer.hide()
+    that.backgroundCache_layer.draw()
     this.imageObj = params.imageObj;
     this.idText = params.idText;
     this.myhooks = params.myhooks;
@@ -528,6 +530,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     });
 
                     that.backgroundCache_layer.moveToBottom();
+                    that.backgroundCache_layer.hide();
                     document.body.style.cursor = "default";
                     iaScene.cursorState = "default";
 
@@ -602,10 +605,16 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         that.kineticElement[i].strokeWidth(that.strokeWidth[i]);
                         that.kineticElement[i].moveToTop();
                     }
-                    if (cacheBackground === true) that.backgroundCache_layer.moveToTop();
+                    if (cacheBackground === true) {
+                      that.backgroundCache_layer.moveToTop();
+                      that.backgroundCache_layer.show();
+                    }
                     //that.group.moveToTop();
                     that.layer.moveToTop();
                     that.layer.draw();
+                    if (cacheBackground === true) {
+                      that.backgroundCache_layer.draw();
+                    }
                     iaScene.element = that;
                     that.myhooks.afterIaObjectFocus(iaScene, idText, that);
 
@@ -630,6 +639,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
             }
             if ((that.layer.getStage().getIntersection(mouseXY) != this)) {
                 that.backgroundCache_layer.moveToBottom();
+                that.backgroundCache_layer.hide();
                 for (var i in that.kineticElement) {
                     if ((that.persistent[i] == "off") || (that.persistent[i] == "off-image")) {
                         that.kineticElement[i].fillPriority('color');
@@ -657,6 +667,7 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                 document.body.style.cursor = "default";
                 iaScene.cursorState = "default";
                 that.layer.draw();
+                that.backgroundCache_layer.draw();
             }
         }
     });

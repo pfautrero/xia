@@ -1213,6 +1213,7 @@ class iaObject:
             return record
 
     def fixRaster(self, raster, rasterWidth, rasterHeight):
+        """modify image internal dimensions to fit raster ones"""
         dirname = tempfile.mkdtemp()
         newraster = raster
 
@@ -1271,6 +1272,7 @@ class iaObject:
 
 
     def cropImage(self, raster, rasterWidth, rasterHeight):
+        """crop image to remove useless transparent pixels"""
         dirname = tempfile.mkdtemp()
         newraster = raster
         newrasterWidth = rasterWidth
