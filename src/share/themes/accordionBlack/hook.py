@@ -96,7 +96,7 @@ class hook:
             final_index = final_index.replace("{{ACCORDION}}", final_str)
             final_index = final_index.replace("{{LOADING}}", self.loading)
             if self.root.options["export_type"] == "singlefile":
-                xiaWebsite = "http://xia.dane.ac-versailles.fr/network/delivery/xia20/accordionBlack"
+                xiaWebsite = "https://xia.dane.ac-versailles.fr/network/delivery/xia20/accordionBlack"
                 final_index = final_index.replace("{{MainCSS}}", xiaWebsite + "/css/main.css")
                 final_index = final_index.replace("{{LogoLoading}}",  xiaWebsite + "/img/xia.png")
                 final_index = final_index.replace("{{LogoClose}}", xiaWebsite + "/img/close.png")
