@@ -735,8 +735,9 @@ class iaObject:
                 str_style = image.attributes['style'].value
                 style = {}
                 for item in str_style.split(";"):
-                    key, value = item.split(":")
-                    style[key] = value
+                    if item != "":
+                        key, value = item.split(":")
+                        style[key] = value
                 if 'fill' in style:
                     record_image['fill'] = style['fill']
                 if 'stroke' in style:
