@@ -21,7 +21,6 @@ from nose.tools import *
 from xml.dom import minidom
 import tempfile
 import os
-import tempfile
 
 class LoggerMock(Logger):
     def display(self, msg):
