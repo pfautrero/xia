@@ -1296,7 +1296,7 @@ class iaObject:
                     im = Image.open(imageFile, 'r')
                     im = im.convert("RGBA")
                     red, green, blue, alpha = im.split()
-                    alpha = alpha.convert("L")
+                    #alpha = alpha.convert("L")
                     #pix_val = list(im.getdata())
                     (w, h) = im.size
 
@@ -1306,8 +1306,8 @@ class iaObject:
                     for y in range(h):
                         row = y * w
                         for x in range(w):
+                            #transparency = max(pix_val[x + row][3] - alpha_threshold, 0)
                             transparency = max(alpha.getpixel((x,y)) - alpha_threshold, 0)
-
                             if transparency != 0:
                                 stop_scan = 1
                                 break
@@ -1321,6 +1321,7 @@ class iaObject:
                     for y in range(h - 1, 0, -1):
                         row = y * w
                         for x in range(w - 1, 0, -1):
+                            #transparency = max(pix_val[x + row][3] - alpha_threshold, 0)
                             transparency = max(alpha.getpixel((x,y)) - alpha_threshold, 0)
                             if transparency != 0:
                                 stop_scan = 1
@@ -1335,6 +1336,7 @@ class iaObject:
                     for x in range(0, w - 1):
                         for y in range(0, h - 1):
                             row = y * w
+                            #transparency = max(pix_val[x + row][3] - alpha_threshold, 0)
                             transparency = max(alpha.getpixel((x,y)) - alpha_threshold, 0)
                             if transparency != 0:
                                 stop_scan = 1
@@ -1349,6 +1351,7 @@ class iaObject:
                     for x in range(w - 1, 0, -1):
                         for y in range(h - 1, 0, -1):
                             row = y * w
+                            #transparency = max(pix_val[x + row][3] - alpha_threshold, 0)
                             transparency = max(alpha.getpixel((x,y)) - alpha_threshold, 0)
                             if transparency != 0:
                                 stop_scan = 1
@@ -1433,7 +1436,7 @@ class iaObject:
                 imageFile = dirname + os.path.sep + "image." + extension.group(1)
                 if extension.group(1) == 'png':
                     imageFileSmall = dirname + \
-                                     os.path.sep + "image_small" + extension.group(1)
+                                     os.path.sep + "image_small." + extension.group(1)
                 else:
                     imageFileSmall = dirname + \
                                      os.path.sep + "image_small.jpg"
@@ -1466,7 +1469,7 @@ class iaObject:
                         newheight = int(oldheight * self.ratio)
                         resizedBg = currentBg.resize((newwidth, newheight), Image.ANTIALIAS)
                         #resizedBg.save(imageFileSmall)
-                        if extension.group(1) == 'png':
+                        if extension.group(1) != 'png':
                             resizedBg.save(imageFileSmall, 'JPEG', quality=100)
                         else:
                             resizedBg.save(imageFileSmall)
