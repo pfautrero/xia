@@ -2,6 +2,7 @@ image: missedone/nosetests
 
 all_tests:
   script:
+   - apt-get install -y python-pil
    - nosetests tests/test_ctm.py
    - nosetests tests/test_iaobject.py
    - nosetests tests/test_pikipiki.py
