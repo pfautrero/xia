@@ -4,3 +4,4 @@ all_tests:
   script:
    - nosetests tests/test_ctm.py
    - nosetests tests/test_pikipiki.py
+   - nosetests tests/test_iaobject.py   
