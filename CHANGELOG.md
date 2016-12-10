@@ -1,6 +1,4 @@
-Version 2.0-beta2
-
-Version 2.0-beta1 - 15/09/2016
+Version 2.0 - 12/12/2016
 -------------------------------
 
 - plugin inkscape : changement d'arborescence, plugin accessible dans Export (Nouveauté)
@@ -16,7 +14,16 @@ Version 2.0-beta1 - 15/09/2016
 - Tous les thèmes : Thèmes relookés (Nouveauté)
 - Application : Nom du fichier html d'export identique à celui du fichier svg (Nouveauté)
 - Tous les thèmes : oembed flicker (Nouveauté)
-
+- Prise en compte du oembed scolawebtv et webtv
+- Paramètre score2 ajouté dans gameDrag&Drop
+- Prise en compte du fond quand passage au plein écran
+- Le mode console prend en compte la qualité ainsi que le type d'export
+- Les exports uniques peuvent être intégrés dans des sites utilisant le https
+- gamedraganddrop : attribut onfail=return permet de ramener l'élément à sa position d'origine si droppé sur la mauvaise zone
+- progressbar de chargement
+- popBlue : affichage de la popup en 1 seul clic
+- Export fichier unique par défaut
+- (correctif) Images dans groupes : translation sur un groupe répercutée sur les images de ce groupe
 
 Version 1.1 - 23/03/2015
 -------------------------------
