@@ -8,7 +8,7 @@ Thanks to it, you can generate three kinds of resources :
 - second ones : games using what we call the "1 click with scoring".
 - third ones : games using what we call the "drag and drop with scoring" and "drag and drop without scoring"
 
-# Build application in Debian Jessie
+# Build application in Debian Jessie (used by debian packages)
 
 ```sh
 apt-get install -y libjavascript-minifier-perl gettext python
@@ -17,9 +17,7 @@ python setup.py buildstandalone
 ```
 
 
-
-
-# obsolete - keep it just for a while
+# Build application everywhere (using grunt/bower)
 
 First, install nodejs :
 
@@ -44,6 +42,3 @@ App install : (must be used each time we want a new release)
     grunt full
 
 Application is then built in project/build
-
-# How to deploy on gitlab-ci
-[Doc](https://gitlab.crdp.ac-versailles.fr/pascal.fautrero/scripts/blob/master/gitlab-ci/xia/README.MD)

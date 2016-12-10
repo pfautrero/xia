@@ -93,7 +93,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         $('.article_close').show();
         $('.article_close').css({"top":$('#general').offset().top -40});
         $('.article_close').css({"left":($('#content').width() - 40) / 2});
-        if ($(window).width()<=768) {$('.article_close').css({"top":$('#general').offset().top - 90});};
+        if ($(window).width()<=768) {$('.article_close').css({"top":$('#general').offset().top - 90});}
     });
 
     $(".overlay").hide();
@@ -166,7 +166,7 @@ hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
         $('.article_close').show();
         $('.article_close').css({"top":$('#' + idText).offset().top - 40});
         $('.article_close').css({"left":($('#content').width() - 40) / 2});
-        if ($(window).width()<=768) {$('.article_close').css({"top":$('#general').offset().top - 20});};
+        if ($(window).width()<=768) {$('.article_close').css({"top":$('#general').offset().top - 20});}
         $('#' + idText + " audio").each(function(){
             if ($(this).data("state") === "autostart") {
                 $(this)[0].play();

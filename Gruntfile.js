@@ -1,13 +1,13 @@
 module.exports = function(grunt) {
-    
+
   var vendorsPath = 'build/share/vendors';
-  var jqueryPath = 'bower_components/jquery/dist/jquery.min.js';    
+  var jqueryPath = 'bower_components/jquery/dist/jquery.min.js';
   var labjsPath = 'bower_components/labjs/LAB.min.js';
   var kineticPath = 'bower_components/kineticjs/kinetic.min.js';
   var bootstrapPath = 'bower_components/bootstrap/dist/js/bootstrap.min.js';
-  
+
   var locales = ["en_US", "fr_FR"];
-  
+
   var themesArray = [
       "accordionBlack",
       "accordionCloud",
@@ -16,9 +16,10 @@ module.exports = function(grunt) {
       "popYellow",
       "buttonBlue",
       "game1clic",
-      "gameDragAndDrop"
+      "gameDragAndDrop",
+      "material"
   ];
-  
+
   var jsfiles = [
       "iaobject.js",
       "hooks.js",
@@ -26,8 +27,8 @@ module.exports = function(grunt) {
       "iframe.js",
       "main.js"
   ];
-  
-  var _ = require('lodash');  
+
+  var _ = require('lodash');
   var mos = _.map(locales, function(locale){
 	  return 'build/share/i18n/' + locale + '/LC_MESSAGES/xia-converter.mo';
   });
@@ -38,7 +39,7 @@ module.exports = function(grunt) {
   var xiajs = _.map(themesArray, function(theme){
 	  return 'build/share/themes/' + theme + '/js/xia.js';
   });
-  
+
   var jsfilestoconcat = _.map(themesArray, function(theme){
       var map = _.map(jsfiles, function(jsfile){
           return 'src/share/themes/' + theme + '/js/'+jsfile;
@@ -51,8 +52,8 @@ module.exports = function(grunt) {
           return 'build/share/themes/' + theme + '/js/'+jsfile;
       });
       return map;
-  });    
-    
+  });
+
     // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -80,7 +81,7 @@ module.exports = function(grunt) {
         files: [
             {dest: vendorsPath + "/jquery.min.js", src: jqueryPath}
         ]
-      },      
+      },
       labjs: {
         files: [
             {dest: vendorsPath + '/LAB.min.js', src:labjsPath}
@@ -90,7 +91,7 @@ module.exports = function(grunt) {
         files: [
             {dest: vendorsPath + '/kinetic.min.js', src:kineticPath}
         ]
-      }      
+      }
     },
     pot: {
       options:{
@@ -115,7 +116,7 @@ module.exports = function(grunt) {
     shell: {
         options: {
           failOnError: true
-        },	
+        },
         msgmerge: {
           command: _.map(locales, function(locale) {
             var po = "build/share/i18n/" + locale + "/LC_MESSAGES/xia-converter.po";
@@ -129,16 +130,19 @@ module.exports = function(grunt) {
                        "        exit $exitCode\n" +
                        "    fi\n" +
                        "    cp .new.po.tmp " + po + "\n" +
-                       "    mv .new.po.tmp " + po_src + "\n" +                       
-                       "else \n" + 
-                       "    cp build/share/i18n/xia-converter.pot " + po + "\n" + 
-                       "    cp build/share/i18n/xia-converter.pot " + po_src + "\n" +                        
+                       "    mv .new.po.tmp " + po_src + "\n" +
+                       "else \n" +
+                       "    cp build/share/i18n/xia-converter.pot " + po + "\n" +
+                       "    cp build/share/i18n/xia-converter.pot " + po_src + "\n" +
                        "fi\n";
           }).join("")
         }
     },
     jshint: {
-      all: ['Gruntfile.js', 'src/**/*.js', '!src/**/jquery-1.11.1.js', '!src/**/LAB.js', '!src/**/kinetic.js']
+      options: {
+        asi : true
+      },
+      all: ['Gruntfile.js', 'src/**/*.js', '!src/**/kinetic-xia.js', '!src/**/jquery-1.11.1.js', '!src/**/jquery.js', '!src/**/git-sha1.js', '!src/**/xorcipher.js', '!src/**/LAB.js', '!src/**/kinetic.js']
     },
     nose: {
      options: {
@@ -151,10 +155,10 @@ module.exports = function(grunt) {
 
       kinetic_xia: {
         files: {
-          'build/share/themes/game1clic/js/kinetic-xia.min.js': ['src/share/themes/game1clic/js/kinetic-xia.js'],          
+          'build/share/themes/game1clic/js/kinetic-xia.min.js': ['src/share/themes/game1clic/js/kinetic-xia.js'],
           'build/share/themes/gameDragAndDrop/js/kinetic-xia.min.js': ['src/share/themes/gameDragAndDrop/js/kinetic-xia.js'],
         }
-       }      
+       }
     },
     concat: {
         options: {
@@ -163,7 +167,7 @@ module.exports = function(grunt) {
         jsfiles: {
             files: _.zipObject(xiajs,jsfilestoconcat)
         },
-    }    
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -177,15 +181,15 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-nose');
   grunt.loadNpmTasks('grunt-contrib-concat');
 
-  grunt.registerTask('default', ['clean:build', 'copy:main' , 'pot', 'shell:msgmerge', 'potomo', 'chmod', 'concat:jsfiles', 'clean:js']);  
+  grunt.registerTask('default', ['clean:build', 'copy:main' , 'pot', 'shell:msgmerge', 'potomo', 'chmod', 'concat:jsfiles', 'clean:js']);
   grunt.registerTask('minify', ['uglify:kinetic_xia']);
-  grunt.registerTask('copy_vendors_js', ['copy:jquery' , 'copy:kinetic', 'copy:labjs']);  
-  
+  grunt.registerTask('copy_vendors_js', ['copy:jquery' , 'copy:kinetic', 'copy:labjs']);
+
   grunt.registerTask('full', function(){
       grunt.task.run('default');
       grunt.task.run('copy_vendors_js');
       grunt.task.run('minify');
-  });  
+  });
   grunt.registerTask('debianbuild', function(){
       grunt.task.run('default');
       grunt.task.run('minify');
@@ -196,5 +200,3 @@ module.exports = function(grunt) {
   });
   grunt.registerTask('tests', ['jshint']);
 };
-
-
