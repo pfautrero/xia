@@ -1,7 +1,7 @@
 # Xia
 ### Créer des images interactives au format HTML5
 
-![xia](../images/xia-logo.png)
+<img src='../images/xia-logo.png' style='display:block;margin:0 auto;width:250px'>
 
 ## Présentation de Xia
 
@@ -36,8 +36,7 @@ l'utilisation du logiciel libre et multi-plateforme
 [Inkscape](http://www.inkscape.org/), très simple à utiliser (c'est ce
 logiciel qui sera utilisé dans ce tutoriel).
 
-![processus](../images/processus-fr.png)
-
+<img src='../images/processus-fr.png' style='display:block;margin:0 auto;width:60%;'>
 
 <img src='../images/alert_green.png' width='40'>
 Si vous possédez des projets créés avec le logiciel ImagesActives (fichiers
@@ -68,7 +67,6 @@ logiciel en dehors d'Inkscape.
 
 <img src='../images/alert_yellow.png' width='40'>
 Visualisez l' [image interactive](https://xia.dane.ac-versailles.fr/demo/tuto/xia1) créée pour cette partie de la documentation.
-
 Téléchargez le fichier source au format
 [svg](http://xia.dane.ac-versailles.fr/demo/tuto/xia1/svg/xia1.svg).
 
@@ -88,7 +86,7 @@ Les informations renseignées dans les **Métadonnées du document**
 créateur, droits, etc. Il est donc fortement conseillé de renseigner ces
 informations. Le rendu est visible sur l'image ci-dessous :
 
-![ia_title](../images/ia_title.png)
+<img src='../images/ia_title.png' style='display:block;margin:0 auto;width:90%;'>
 
 Le titre renseigné dans les métadonnées du document apparaissent au-dessus
 de l'image interactive et donnent son nom à la page web l'affichant. Le
