@@ -133,199 +133,50 @@ modèle boutons). Si vous souhaitez changer cet ordre sans avoir à recréer
 tous les détails, lisez la rubrique \ref{XML_layer}.
 
 
-Une fois les détails détourés\footnote{La couleur du contour des détails
+Une fois les détails détourés (La couleur du contour des détails
 dans l'animation générée par Xia sera la même que celle choisie dans
-Inkscape.}, vous pouvez les sélectionner avec l'outil \softmenu{Sélectionner
-et transformer des objets} afin de les redimensionner, les déplacer,
-etc.\ldots
+Inkscape), vous pouvez les sélectionner avec l'outil **Sélectionner
+et transformer des objets** afin de les redimensionner, les déplacer,
+etc.
 
-\begin{tip}
+<img src='../images/alert_green.png' width='40'>
 Si vous avez des difficultés pour sélectionner un détail que vous avez
 détouré, appliquez-lui une couleur de fond. N'importe quelle couleur fera
 l'affaire, sauf noir et blanc (pour comprendre pourquoi, lisez la rubrique
 \ref{white_black_background}).
-\end{tip}
 
 
-Vous pouvez accéder aux \softmenu{Propriétés de l'objet} par un clic-droit
+Vous pouvez accéder aux **Propriétés de l'objet** par un clic-droit
 sur le détail détouré. À partir de là, vous accédez à une fenêtre de
 dialogue vous permettant d'ajouter le texte qui sera associé au détail dans
-l'image interactive:\\
+l'image interactive:
 
-\begin{center}
- \includegraphics[width=0.5\textwidth]{./images/object_properties}\\
-\end{center}
+<img src='../images/object_properties.png' style='display:block;margin:0 auto;width:50%;'>
 
 Les deux champs devant nécessairement être renseignés dans cette fenêtre
-sont les champs \softmenu{Titre} et \softmenu{Description}. Le titre
+sont les champs **Titre** et **Description**. Le titre
 deviendra celui du détail, la description son commentaire. N'oubliez pas de
-cliquer sur le bouton \softmenu{Définir} avant de fermer la fenêtre des
-\softmenu{Propriétés de l'objet}.
+cliquer sur le bouton **Définir** avant de fermer la fenêtre des
+**Propriétés de l'objet**.
 
 Le processus décrit ci-dessus doit également être effectué avec l'image de
 fond: le titre et la description de celle-ci serviront d'introduction
 générale à l'image interactive (il s'agit d'un titre et d'un commentaire qui
 ne sont pas reliés à un détail particulier).
 
-\subsection{Génération de l'image interactive avec Xia}
+### Génération de l'image interactive avec Xia
 
 Quand tous les détails sont détourés et leurs métadonnées renseignées, Xia
-peut être lancé (voir l'illustration \ref{xia_interface}). Vous devez
-sélectionner votre fichier svg avec l'icône située en haut à
-gauche\footnote{Cette icône n'apparaît pas sous cette forme quand Xia est
-lancé depuis les extensions d'Inkscape. En effet, dans ce cas Xia considère
-que vous souhaitez générer l'animation depuis l'image actuellement ouverte
-dans Inkscape. Vous ne pouvez donc pas sélectionner d'image source.},
-choisir la qualité de l'export (voir l'illustration
-\ref{xia_export_options}), et enfin choisir un modèle d'export et un
-répertoire d'enregistrement de l'image interactive.
+peut être lancé en cliquant sur ->Extensions -> Export -> XIA Édu. Choisissez un modèle d'export et un répertoire d'enregistrement de l'image interactive.
+
+En cliquant sur l'une des icônes des modèles d'export, vous générez un
+fichier html. Double-cliquez dessus pour l'ouvrir dans votre navigateur pour voir votre image interactive au format html5.
+
+<img src='../images/alert_red.png' width='40'>
+La ressource ainsi générée nécessite un accès internet pour fonctionner pleinement.
 
 
-En cliquant sur l'une des icônes des modèles d'export, vous générez une
-série de fichiers et de répertoires. Ouvrez le fichier \softmenu{index.html}
-dans un navigateur web pour voir votre image interactive au format html5.
-
-\begin{alert}
-Ce fichier ne peut être séparé des autres pour que l'image interactive
-fonctionne. Tous les autres fichiers et répertoires générés durant le
-processus d'exportation doivent obligatoirement être localisés dans le même
-répertoire (voir l'illustration \ref{xia_files}) pour que le fichier
-\texttt{index.html} fonctionne correctement. \textbf{Il est donc impératif
-de dédier un répertoire spécifique à chaque image interactive générée}.
-\end{alert}
-
-
-
-\begin{figure}[htp]
-\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]
-\begin{tikzpicture}
-  \node (bBlue) {\includegraphics[width=2cm]{./images/buttonBlue}};
-\node[left= .3mm of bBlue, opacity=.5] (aBrown)
-{\includegraphics[width=2cm]{./images/audioBrown}}; \node[right= .3mm of
-bBlue, opacity=.5] (guClic)
-{\includegraphics[width=2cm]{./images/game1clic}}; \node[below= .2mm of
-bBlue.south] (pBlue) {\includegraphics[width=2cm]{./images/popBlue}};
-\node[left= .3mm of pBlue, opacity=.5] (gDDrop)
-{\includegraphics[width=2cm]{./images/gameDragAndDrop}}; \node[right= .3mm
-of pBlue] (pYellow) {\includegraphics[width=2cm]{./images/popYellow}};
-\node[above = .2mm of guClic.north] (aCloud)
-{\includegraphics[width=2cm]{./images/accordionCloud}}; \node[above = .2mm
-of aCloud.north] (aBlack)
-{\includegraphics[width=2cm]{./images/accordionBlack}}; \node[left = .3mm of
-aBlack] (params) {\includegraphics[width=2cm]{./images/params}}; \node[left
-= .3mm of params] (files) {\includegraphics[width=2cm]{./images/xia_open}};
-\node[left = 1mm of aCloud, opacity=.3] (xialogo)
-{\includegraphics[height=2.1cm]{./images/xia}};
-
-  \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Sélection
-du fichier source svg}; \node[box, above = 5mm of params] (paramsC)
-{Définition des options d'exportation (voir l'illustration
-\ref{xia_export_options})}; \node[box,above right = 5mm of aCloud.north
-east] (aBlackC)
-{\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/accordionBlack}{accordionBlack}\\
-Zone de commentaire large, recommandé pour l'insertion de ressources
-multimédias; à utiliser avec des images verticales (portrait)}; \node[box,
-right = 5mm of guClic] (aCloudC)
-{\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/accordionCloud}{accordionCloud}\\
-Zone de commentaires étroite, laissant davantage de place à l'image en
-elle-même ; à utiliser avec des images horizontales (paysage)}; \node[box,
-below right = 5mm of pYellow] (pYellowC)
-{\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/popYellow}{popYellow}\\
-Pas de zone latérale de commentaire ; un premier clic sur le détail le met
-en évidence, et un second fait apparaître le commentaire et enclenche la
-fonction zoom}; \node[box, left = 25mm of bBlue] (bBlueC)
-{\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/buttonBlue}{buttonBlue}\\
-Pas de zone latérale de commentaire ; les commentaires apparaissent
-au-dessus de l'image (recommandé pour les commentaires longs) ; les
-utilisateurs accèdent aux commentaires via des boutons situés au-dessus de
-l'image interactive}; \node[box, below left = 5mm of pBlue] (pBlueC)
-{\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia1/popBlue}{popBlue}\\
-Pas de zone latérale de commentaire; un premier clic met en évidence le
-détail, un second fait apparaître le commentaire (pas de zoom)};
-
-  \draw[-stealth] (aBlackC.west) -- (aBlack.east); \draw[-stealth]
-(aCloudC.west) -- (aCloud.south east); \draw[-stealth] (pYellowC.north west)
--- (pYellow.south east); \draw[-stealth] (bBlueC.north east) -- (bBlue.north
-west); \draw[-stealth] (pBlueC.north east) -- (pBlue.south west);
-\draw[-stealth] (filesC.south east) -- (files.north west); \draw[-stealth]
-(paramsC.south) -- (params.north);
-
-\end{tikzpicture}
-\caption{Les modèles d'export de Xia}
-\label{xia_interface}
-\end{figure}
-
-
-\begin{figure}[htp]
-\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]
-\begin{tikzpicture}
-  \node (exp_qual) {\includegraphics[scale=.5]{./images/exp_qual}};
-\node[right= .2mm of exp_qual] (exp_firefox)
-{\includegraphics[scale=.5]{./images/exp_firefox}}; \node[right= .2mm of
-exp_firefox] (exp_1file) {\includegraphics[scale=.5]{./images/exp_1file}};
-
-  \node[box, text width=2.5cm, left = 5mm of exp_qual] (exp_qualC)
-{Sélectionner la qualité de l'export sur une échelle de 1 à 4}; \node[box,
-above = 5mm of exp_firefox] (exp_firefoxC) {Activer ou désactiver la
-création des fichiers pour l'export FirefoxOS (par défaut: désactivé)};
-\node[box, text width=10cm, below = 5mm of exp_1file] (exp_1fileC) {Dans le
-cas d'un export avec fichier unique, vous aurez besoin d'une connexion
-internet pour accéder à la ressource. Le moteur de rendu de Xia est hébergé
-sur les serveurs de l'académie de Versailles, et est mis à jour
-automatiquement. Avec cette configuration, vous ne pouvez pas personnaliser
-le fond et les icônes (par défaut: désactivé)};
-
-  \draw[-stealth] (exp_qualC.east) -- (exp_qual.west); \draw[-stealth]
-(exp_firefoxC.south) -- (exp_firefox.north); \draw[-stealth]
-(exp_1fileC.north) -- (exp_1file.south);
-
-\end{tikzpicture}
-\caption{Les options d'export de Xia}
-\label{xia_export_options}
-\end{figure}
-
-\begin{figure}[htp]
-\tikzstyle{every node}=[draw=black,thick,anchor=west]
-\tikzstyle{auto}=[draw=reddebian,fill=reddebian!30, text height=2.5mm]
-\tikzstyle{manual}=[draw=bluedane,fill=bluedane!30, text height=2.5mm]
-\tikzstyle{firefoxOS}=[draw=orange,fill=orange!30, text height=2.5mm]
-\tikzstyle{manualT}=[fill=bluedane!30,draw=bluedane, rectangle,text
-width=5cm, rounded corners]
-\tikzstyle{autoT}=[fill=reddebian!30,draw=reddebian, rectangle,text
-width=5cm, rounded corners]
-\tikzstyle{autoT}=[fill=reddebian!30,draw=reddebian, rectangle,text
-width=5cm, rounded corners]
-\tikzstyle{firefoxOST}=[fill=orange!30,draw=orange, rectangle,text
-width=5cm, rounded corners]
-\begin{tikzpicture}[grow via three points={one child at (0.5,-0.7) and two children at
-(0.5,-0.7) and (0.5,-1.4)}, edge from parent path={(\tikzparentnode.south)
-|- (\tikzchildnode.west)}] \node [manual] {mon\_projet/} child { node [auto]
-{index.html}}		 child { node [firefoxOS] {deploy.html}}		 child { node
-[firefoxOS] {manifest.webapp}}		 child { node [auto] {css/}} child { node
-[auto] {data/}} child { node [auto] {font/}} child { node [auto] {img/}}
-child { node [auto] {js/}} child { node [manual] {videos/} child { node
-[manual] {video.mp4}} child { node [manual] {video.ogv}} child { node
-[manual] {video.webm}} }; \node[manualT] (textM) at (10,-2) {Ces fichiers et
-répertoires ont été créés manuellement par le créateur de l'image
-interactive. Le répertoire \textcolor{bluedane} {videos} a également été
-créé manuellement, dans le but de stocker les vidéos insérées dans les
-commentaires de l'image interactive, à l'aide de liens relatifs.};
-\node[autoT] (textA) at (10,-8) {Ces fichiers et répertoires sont générés
-par Xia durant le processus d'export.}; \node[firefoxOST] (textFOS) at
-(10,-6) {Fichiers générés en cas d'activation de l'export Firefox
-OS};\draw[-stealth] (textM.west) -- (4,0); \draw[-stealth] (textM.west) --
-(5.5,-7); \draw[-stealth] (textA.west) -- (4,-4); \draw[-stealth]
-(textFOS.west) -- (5.5,-2);
-\end{tikzpicture}
-\caption{Fichiers d'une image interactive avec l'export Firefox OS activé}
-\label{xia_files}
-\end{figure}
-
-En réalité, puisque Xia est également une extension d'Inkscape, vous pouvez
-générez vos projets directement depuis ce logiciel: cliquez sur
-\softmenu{Extensions $\rightarrow$ Divers $\rightarrow$ Xia Édu}, et
-choisissez directement la qualité, le modèle d'export, et le répertoire de
-destination.
+<img src='../images/interface_xia2.png' style='display:block;margin:0 auto;width:90%;'>
 
 \begin{tip}
  Si vous utilisez GNU/Linux ou Mac OS X, vous pouvez générer vos animation
