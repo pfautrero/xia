@@ -1,20 +1,3 @@
-<style>
-  .tip {
-    padding:20px;
-    margin:20px;
-    border:1px solid black;
-    border-radius:10px;
-    background-color:#111;
-  }
-  .alert {
-    padding:20px;
-    margin:20px;
-    border:1px solid black;
-    border-radius:10px;
-    background-color:#111;
-  }
-</style>
-
 # Xia
 ### Créer des images interactives au format HTML5
 
@@ -37,12 +20,12 @@ forme. Par la suite, vous apprendrez à créer des images interactives
 enrichies (voir la partie [III](#enriched_IA)). Dans les dernières parties
 (partie \ref{games_IA}), vous découvrirez comment créer des jeux.
 
-<div class='tip'>
+<img src='../images/alert_green.png' width='40'>
 Tous les exemples utilisés sont visibles en ligne (les liens pour visualiser
 les animations et télécharger les fichiers sources sont indiqués en début de
 chaque section). À la fin de chaque partie, une rubrique «~En résumé~»
 rappelle les points essentiels à retenir pour créer une image interactive.
-</div>
+
 
 ### Processus général
 
@@ -56,13 +39,12 @@ logiciel qui sera utilisé dans ce tutoriel).
 ![processus](../images/processus-fr.png)
 
 
-<div class='tip'>
- Si vous possédez des projets créés avec le logiciel ImagesActives (fichiers
+<img src='../images/alert_green.png' width='40'>
+Si vous possédez des projets créés avec le logiciel ImagesActives (fichiers
 possédant une extension .xia), vous pouvez changer l'extension de ces
 fichiers en .zip, les dézipper, récupérer le fichier svg se trouvant dans le
 répertoire ainsi obtenu et ouvrir celui-ci avec Inkscape. Si vous utilisez
 GNU/Linux, explorez le .xia et récupérez le fichier svg.
-</div>
 
 
 ### Installer Inkscape et Xia
@@ -72,12 +54,10 @@ poursuite de la lecture de cette documentation. Vous trouverez les
 informations nécessaires à l'installation d'Inkscape sur le site web du
 projet https://inkscape.org/fr/telecharger/.
 
-<div class='alert'>
- Installez impérativement Inkscape en premier, puis Xia, sous peine de ne pas
+Installez impérativement Inkscape en premier, puis Xia, sous peine de ne pas
 être en mesure d'accéder à Xia directement dans Inkscape.\\ Si vous
 travaillez sous Windows, utilisez la version portable de Xia pour accéder au
 logiciel en dehors d'Inkscape.
-</div>
 
 
 <a name="first_image"></a>
@@ -86,6 +66,7 @@ logiciel en dehors d'Inkscape.
 
 ### Création du fichier source au format svg en vue de la génération de l'image interactive
 
+<img src='../images/alert_yellow.png' width='40'>
 Visualisez l' [image interactive](https://xia.dane.ac-versailles.fr/demo/tuto/xia1) créée pour cette partie de la documentation.
 
 Téléchargez le fichier source au format
@@ -107,64 +88,52 @@ Les informations renseignées dans les **Métadonnées du document**
 créateur, droits, etc. Il est donc fortement conseillé de renseigner ces
 informations. Le rendu est visible sur l'image ci-dessous :
 
+![ia_title](../images/ia_title.png)
 
-\begin{center}
- \includegraphics[width=\textwidth]{images/ia_title}\\
-\end{center}
-
- Le titre renseigné dans les métadonnées du document apparaissent au-dessus
+Le titre renseigné dans les métadonnées du document apparaissent au-dessus
 de l'image interactive et donnent son nom à la page web l'affichant. Le
 créateur et les droits associés apparaissent dans la pop up accessible via
-l'icône «~i~» située à droite du titre de l'image interactive.
+l'icône «**i**» située à droite du titre de l'image interactive.
 
 Vous pouvez sauvegarder votre projet au format svg dès le début du travail,
-en allant dans le menu \softmenu{Fichier $\rightarrow$ Enregistrer
-sous\ldots}.
+en allant dans le menu -> Fichier -> Enregistrer.
 
 Vous pouvez, par souci de clarté, supprimer l'extension d'origine de votre
-image dans le champ \softmenu{Nom} de la fenêtre de dialogue. Enfin, dans le
+image dans le champ **Nom** de la fenêtre de dialogue. Enfin, dans le
 menu déroulant, choisissez le format de fichier Inkscape svg:
 
-\softmenu{SVG Inkscape (*.svg)}.
+**SVG Inkscape (*.svg)**
 
 De nombreux outils d'Inkscape peuvent être utilisés pour détourer les
 détails qui deviendront actifs dans l'animation générée par Xia. Parmi
 ceux-ci:
-\begin{itemize}
- \item \includegraphics[scale=0.5]{./images/square} \softmenu{Créer des rectangles et des carrés}
- \item \includegraphics[scale=0.5]{./images/circles} \softmenu{Créer des cercles, des ellipses et des arcs}
- \item \includegraphics[scale=0.5]{./images/line} \softmenu{Dessiner des lignes à main levée}
- \item \includegraphics[scale=0.5]{./images/bezier} \softmenu{Tracer des courbes de
-Bézier et des segments de droite}
-\end{itemize}
+- ![rectangle](../images/square.png) Créer des rectangles et des carrés
+- ![cercle](../images/circles.png) Créer des cercles, des ellipses et des arcs
+- ![ligne](../images/line.png) Dessiner des lignes à main levée
+- ![ligne](../images/bezier.png) Tracer des courbes de Bézier et des segments de droite
 
 Sans rentrer dans le détail du fonctionnement de ces différents
-outils\footnote{Pour cela, lire le
-\href{http://inkscape.org/doc/shapes/tutorial-shapes.fr.html}{manuel
-d'Inkscape} ou \href{http://en.flossmanuals.net/inkscape/}{le manuel
-Floss}.}, sachez que l'outil \softmenu{Tracer des courbes de Bézier et des
-segments de droite} permet de détourer "clic par clic" (les points de
-construction du polygone sont alors appelés des «~nœuds~»). Vous pouvez
+outils (Pour cela, lire le [manuel d'inkscape](http://inkscape.org/doc/shapes/tutorial-shapes.fr.html) ou le [manuel Floss](http://en.flossmanuals.net/inkscape/)), sachez que l'outil **Tracer des courbes de Bézier et des
+segments de droite** permet de détourer "clic par clic" (les points de
+construction du polygone sont alors appelés des «**nœuds**»). Vous pouvez
 refermer votre polygone en cliquant sur le premier nœud de ce même
-polygone. Vous pouvez dessiner des \softmenu{Courbes de Bézier} en gardant
+polygone. Vous pouvez dessiner des **Courbes de Bézier** en gardant
 le clic de votre souris enfoncé après avoir créé un nœud, puis en déplaçant
 le curseur pour faire apparaître les poignées de contrôle afin de modifier
 la forme de la courbe.
 
-
-\begin{alert}
-  Si vous laissez une forme ouverte dans Inkscape (une courbe par exemple),
+<img src='../images/alert_red.png' width='40'>
+Si vous laissez une forme ouverte dans Inkscape (une courbe par exemple),
 Xia refermera automatiquement celle-ci en joignant son point de départ et
 d'arrivée.
-\end{alert}
 
-\begin{alert}
- L'ordre de création des détails dans Inkscape sera respecté dans l'image
+<img src='../images/alert_red.png' width='40'>
+L'ordre de création des détails dans Inkscape sera respecté dans l'image
 interactive au format html5 (par exemple, le premier détail détouré dans
 Inkscape apparaîtra en haut dans le modèle accordéon ou en numéro 1 dans le
 modèle boutons). Si vous souhaitez changer cet ordre sans avoir à recréer
 tous les détails, lisez la rubrique \ref{XML_layer}.
-\end{alert}
+
 
 Une fois les détails détourés\footnote{La couleur du contour des détails
 dans l'animation générée par Xia sera la même que celle choisie dans
