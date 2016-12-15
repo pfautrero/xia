@@ -1268,7 +1268,7 @@ class iaObject:
                         else:
                             resizedImg.save(imageFileFixed, 'JPEG', quality=100)
                         with open(imageFileFixed, 'rb') as fixedImage:
-                            rasterFixedEncoded = fixedImage.read().encode("base64")
+                            rasterFixedEncoded = fixedImage.read().encode("base64").replace('\n','')
                             newraster = rasterPrefix + rasterFixedEncoded
 
         else:
