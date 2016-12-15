@@ -3,6 +3,6 @@ python:
   - "2.7"
 # command to install dependencies
 install:
-  - pip install pillow
+  - pip install pil
 # command to run tests
 script: nosetests tests/test_*.py
