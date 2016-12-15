@@ -335,16 +335,16 @@ class TestiaObject:
         currentDir  = os.path.dirname(os.path.realpath(__file__))
 
         if PILLOW_VERSION[:1] == '2':
-            genericFile = "generic1.svg"
+            genericFile = "generic1.js"
         if PILLOW_VERSION[:1] == '3':
-            genericFile = "generic1_pillow3.svg"
+            genericFile = "generic1_pillow3.js"
 
         if genericFile:
-            with open(currentDir + "/fixtures/" + genericFile, "r") as genericSvg:
+            with open(currentDir + "/fixtures/generic1.svg", "r") as genericSvg:
                 tempContent = genericSvg.read()
                 tempContent = tempContent.replace("file://fixtures", "file://" + currentDir + "/fixtures")
 
-            with open(tempDirSvg + "/" + genericFile, "w") as tempSvg:
+            with open(tempDirSvg + "/generic1.svg", "w") as tempSvg:
                 tempSvg.write(tempContent)
 
             console = LoggerMock()
