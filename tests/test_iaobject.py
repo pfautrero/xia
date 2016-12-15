@@ -333,20 +333,27 @@ class TestiaObject:
         tempDirSvg = tempfile.gettempdir()
         maxNumPixels = 5 * 1024 * 1024
         currentDir  = os.path.dirname(os.path.realpath(__file__))
-        with open(currentDir + "/fixtures/generic1.svg", "r") as genericSvg:
-            tempContent = genericSvg.read()
-            tempContent = tempContent.replace("file://fixtures", "file://" + currentDir + "/fixtures")
 
-        with open(tempDirSvg + "/generic1.svg", "w") as tempSvg:
-            tempSvg.write(tempContent)
+        if PILLOW_VERSION[:1] == '2':
+            genericFile = "generic1.svg"
+        if PILLOW_VERSION[:1] == '3':
+            genericFile = "generic1_pillow3.svg"
 
-        console = LoggerMock()
-        ia = iaObject(console)
-        ia.analyzeSVG(tempSvg.name, maxNumPixels)
+        if genericFile:
+            with open(currentDir + "/fixtures/" + genericFile, "r") as genericSvg:
+                tempContent = genericSvg.read()
+                tempContent = tempContent.replace("file://fixtures", "file://" + currentDir + "/fixtures")
 
-        ia.generateJSON()
-        temp_content = ia.jsonContent
-        #with open(currentDir + '/fixtures/temp.js', 'w') as js:
-        #    js.write(temp_content)
-        with open(currentDir + '/fixtures/generic1.js') as js:
-            assert_equal(js.read(),temp_content)
+            with open(tempDirSvg + "/" + genericFile, "w") as tempSvg:
+                tempSvg.write(tempContent)
+
+            console = LoggerMock()
+            ia = iaObject(console)
+            ia.analyzeSVG(tempSvg.name, maxNumPixels)
+
+            ia.generateJSON()
+            temp_content = ia.jsonContent
+            #with open(currentDir + '/fixtures/temp.js', 'w') as js:
+            #    js.write(temp_content)
+            with open(currentDir + '/fixtures/' + genericFile) as js:
+                assert_equal(js.read(),temp_content)
