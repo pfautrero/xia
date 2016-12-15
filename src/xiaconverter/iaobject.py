@@ -271,7 +271,7 @@ class iaObject:
                 self.scene['intro_title'] = self.get_tag_value(title.item(0))
 
             raster = self.extractRaster(image.attributes['xlink:href'].value)
-
+            #print raster
             if image.hasAttribute("transform"):
                 transformation = image.attributes['transform'].value
                 ctm = CurrentTransformation()
@@ -285,6 +285,8 @@ class iaObject:
 
             fixedRaster = self.fixRaster(raster, self.scene['width'], self.scene['height'])
             self.scene['image'] = fixedRaster
+            #print self.scene['image']
+
 
             # calculate ratio to resize background image down to maxNumPixels
 
@@ -438,6 +440,9 @@ class iaObject:
                         newrecord = getattr(self, 'extract_' + childnode.nodeName)(childnode, "")
                         if newrecord is not None:
                             self.details.append(newrecord)
+
+
+
 
     def extract_circle(self, circle, stackTransformations):
         """Analyze circle"""
@@ -1253,7 +1258,8 @@ class iaObject:
                 else:
                     currentImg = Image.open(imageFile)
                     (w, h) = currentImg.size
-                    if w != rasterWidth:
+
+                    if int(float(w)) != int(float(rasterWidth)):
                         newwidth = int(float(rasterWidth))
                         newheight = int(float(rasterHeight))
                         resizedImg = currentImg.resize((newwidth, newheight), Image.ANTIALIAS)
