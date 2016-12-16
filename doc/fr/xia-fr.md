@@ -167,7 +167,7 @@ ne sont pas reliés à un détail particulier).
 ### Génération de l'image interactive avec Xia
 
 Quand tous les détails sont détourés et leurs métadonnées renseignées, Xia
-peut être lancé en cliquant sur ->Extensions -> Export -> XIA Édu. Choisissez un modèle d'export et un répertoire d'enregistrement de l'image interactive.
+peut être lancé en cliquant sur `> Extensions > Export > XIA Édu`. Choisissez un modèle d'export et un répertoire d'enregistrement de l'image interactive.
 
 En cliquant sur l'une des icônes des modèles d'export, vous générez un
 fichier html. Double-cliquez dessus pour l'ouvrir dans votre navigateur pour voir votre image interactive au format html5.
@@ -178,91 +178,35 @@ La ressource ainsi générée nécessite un accès internet pour fonctionner ple
 
 <img src='../images/interface_xia2.png' style='display:block;margin:0 auto;width:90%;'>
 
-\begin{tip}
- Si vous utilisez GNU/Linux ou Mac OS X, vous pouvez générer vos animation
-html5 en utilisant le terminal avec la commande \texttt{xia-converter}. Les
-paramètres à utiliser sont \texttt{-i} pour indiquer le fichier en entrée,
-\texttt{-o} pour indiquer le répertoire d'export, et \texttt{-t} le thème
-choisi.\\ \emph{Avec GNU/Linux}\\ \texttt{\$ xia-converter -i monfichier.svg
--o dossier\_export/ -t accordionBlack}\\ \emph{Avec Mac OS X}\\ \texttt{\$
-cd /Applications/xia.app/Contents/Resources/}\\ \texttt{\$ python xia.py -i
-monfichier.svg -o dossier\_export/ -t gameDragAndDrop}\\ Le thème
-accordionBlack sera choisi s'il y a une erreur de syntaxe dans le paramre
-\texttt{-t}.
-\end{tip}
-
-\subsection{L'export Firefox OS: comment ça marche?}\label{FirefoxOS}
-
-\begin{alert}
- Si vous ne comptez pas créer d'applications pour FirefoxOS, vous pouvez
-sauter cette partie de la documentation.
-\end{alert}
+<img src='../images/alert_green.png' width='40'>
+Vous pouvez générer vos animation html5 en utilisant le terminal avec la commande **xia**. Les paramètres à utiliser sont **--input** pour indiquer le fichier en entrée, **--output** pour indiquer le répertoire d'export, **--theme** pour indiquer le thème choisi.
 
 
-Une fois l'image interactive générée avec l'option Firefox OS activée (voir
-l'illustration \ref{xia_export_options}), vous devez modifier le contenu des
-fichiers \texttt{deploy.html} et \texttt{manifest.webapp}.
+**Avec GNU/Linux**, pour un export fichier unique utilisant le thème accordionBlack :
+```
+xia --input monfichier.svg --output ~/export --theme accordionBlack --export singlefile --quality 3
+```
 
-\begin{enumerate}
- \item Dans le fichier \textbf{\texttt{deploy.html}}, modifiez cette ligne:
+**Avec Mac OS X**, pour un export utilisable sans connexion internet, utilisant le thème gameDragAndDrop :
 
- \begin{verbatim}
-      var manifestUrl = 'http://my-webserver.com/manifest.webapp';\end{verbatim}
+```
+cd /Applications/xia.app/Contents/Resources/
+python xia.py --input monfichier.svg --output ~/export --theme gameDragAndDrop
+```
 
- Et indiquez l'url future du fichier \texttt{manifest.webapp}
-
- \item  Dans le fichier \textbf{\texttt{manifest.webapp}}, modifiez ces lignes:
- \begin{verbatim}
-    "name": "XIA",
-    "size" : define_package.zip_size_here,
-    "release_notes" : "generated with XIA",
-    "launch_path": "/index.html",
-    "package_path" : "http://my-webserver.com/package.zip",
-    "developer": {
-        "name": "Académie de Versailles"\end{verbatim}
-
-Les lignes "name", "size", et "package\_path" doivent obligatoirement être
-modifiées\footnote{La difficulté tient dans la nécessité d'indiquer la
-taille du fichier zip avant même d'avoir créé ladite archive.}.
-\end{enumerate}
+**Avec Windows**, pour un export fichier unique utilisant le thème accordionBlack, il faut utiliser l'outil XIA version portable (téléchargeable sur le site de XIA). Une fois l'archive zip décompressée,(supposons que vous l'ayez fait dans xia-windows), il faut éditer le fichier `xia-windows/xia/xia.bat` comme suit :
 
 
-Une fois ces modifications faites, zippez tous les fichiers issus de
-l'exportation et téléversez l'archive, les fichiers \texttt{deploy.html} et
-\texttt{manifest.webapp} sur un serveur web.
+<img src='../images/windows-commandline.png' style='display:block;margin:0 auto;width:90%;'>
 
-L'utilisateur devra se servir du navigateur web de Firefox OS, et accéder à
-la ressource via le fichier \texttt{deploy.html}. Firefox OS lancera alors
-un processus dans lequel l'animation sera transformée en application html5.
-
-\begin{tip}
- Les applications pour FirefoxOS peuvent également s'installer sur les
-systèmes d'exploitation GNU/Linux, Mac OS X et Windows.
-\end{tip}
-
-
-\subsection{En résumé}
-
-\begin{enumerate}
- \item Une image interactive est construite dans Inkscape (au format svg). Xia ne
-fait que convertir ce fichier source svg en animation html5;
- \item Le titre de l'image interactive doit être renseigné dans les
-\softmenu{Métadonnées du document};
- \item Le texte des détails est renseigné dans les \softmenu{Propriétés de
-l'objet}, dans les champs \softmenu{Titre} et \softmenu{Description} des
-détails détourés;
- \item La description générale de l'image interactive doit être renseignée dans les
-\softmenu{Propriétés de l'objet} de l'image de fond.
-\end{enumerate}
+Puis double-cliquer sur le fichier `xia.bat` pour lancer l'export.
 
 
 <a name='enriched_ia'></a>
 
-\section{Images interactives enrichies}\label{enriched_IA}
+### Images interactives enrichies
 
-\begin{links}
-Visualisez l'\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia2}{image
-interactive} créée pour cette partie de la documentation.
+Visualisez l'[image interactive](http://xia.dane.ac-versailles.fr/demo/tuto/xia2) créée pour cette partie de la documentation.
 
 Téléchargez le fichier source au format
 \href{http://xia.dane.ac-versailles.fr/demo/tuto/xia2/svg/xia2.svg}{svg}.
