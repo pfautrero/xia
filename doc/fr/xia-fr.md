@@ -33,6 +33,7 @@
   - [4.3.2. Option : Montrer les erreurs du joueur (thème game1clic)](#jeux-options-score2)
   - [4.3.3. Option : Comment ajouter un effet «aimant» (thème gameDragAndDrop)](#jeux-options-magnet)
   - [4.3.4. Option : Infobulles (thèmes game1clic et gameDragAndDrop)](#jeux-options-infobulles)
+  - [4.3.5. Gestion des feedbacks](#gestion-feedbacks)
   - [4.4. En résumé](#jeux-resume)
 - [5. Foire aux questions](#faq)
 - [6. Astuces Inkscape](#astuces)
@@ -219,7 +220,7 @@ commentaire). Cependant, le texte des commentaires sera enrichi par une mise
 en forme ou des ressources multimédias.
 
 
-### 3.1. Mise en forme du texte (moteur Wiki)
+### 3.1. Mise en forme du texte (moteur Wiki) <a name='mise-en-forme-du-texte'></a>
 
 Pour enrichir le texte et proposer des ressources multimédia, XIA s'appuie sur une syntaxe wiki élémentaire. Comme vous pouvez le constater en comparant les deux captures ci-dessous, il suffit d'ajouter des **marqueurs** spécifiques dans le texte pour réaliser la mise en forme ou simplement écrire les liens vers les ressources à intégrer.
 
@@ -268,9 +269,9 @@ dev-xia@ac-versailles.fr
    * élément 2-2
 ```
 
-### 3.2. Insérer des ressources multimédias dans les commentaires
+### 3.2. Insérer des ressources multimédias dans les commentaires <a name='inserer-ressources-multimedia'></a>
 
-#### 3.2.1. Utiliser une ressource locale
+#### 3.2.1. Utiliser une ressource locale <a name='ressource-multimedia-locale'></a>
 
 L'insertion de ressources multimédias dans les commentaires est chose assez aisée: copiez-collez l'url de la ressource (qu'elle soit absolue ou relative) ou le code iframe du service web utilisé pour héberger votre ressource, et Xia créera automatiquement un lecteur multimédia, pour peu que celle-ci (image, son, vidéo) fasse partie des formats supportés:
 
@@ -297,12 +298,12 @@ pour créer le lecteur multimédia.
 Les formats vidéos gérés par Xia ne le sont pas par tous les navigateurs web. Il est donc recommandé d'exporter les vidéos dans les 3 formats supportés (mp4, ogv et webm), et de les téléverser dans le même répertoire. Ainsi, même si un format spécifique est renseigné dans la description (si l'on suit l'exemple précédent: `videos/video.ogv`), si le navigateur est incapable de lire
 la ressource, il cherchera automatiquement à lire les fichiers du même nom mais possédant une extension différente (c'est à dire, `video.mp4`  et `video.webm`).
 
-#### 3.2.2. Utiliser une intégration iframe
+#### 3.2.2. Utiliser une intégration iframe <a name='ressource-multimedia-iframe'></a>
 
 Une autre possibilité consiste à insérer un code `iframe`. Celui-ci sera interprété et le lecteur du service web apparaîtra, donnant accès à la ressource.
 
 
-#### 3.2.3. Utiliser une intégration oembed
+#### 3.2.3. Utiliser une intégration oembed <a name='ressource-multimedia-oembed'></a>
 
 Une dernière possibilité, la plus simple de toutes, vous permet d'insérer des ressources en utilisant la technologie `oembed`. Actuellement, XIA sait gérer les services externes suivants :
 
@@ -310,9 +311,9 @@ Une dernière possibilité, la plus simple de toutes, vous permet d'insérer des
 - **Scolawebtv** (service de l'académie de Versailles) : Utilisez directement leurs liens oembed comme par exemple `https://scolawebtv.crdp-versailles.fr/?id=3740`
 - **WebTv** (service de l'académie de Versailles) : Utilisez directement leurs liens oembed comme par exemple `http://webtv.ac-versailles.fr/spip.php?article1205`
 
-### 3.3. Insérer des images dans votre image interactive
+### 3.3. Insérer des images dans votre image interactive <a name='inserer-des-images'></a>
 
-#### 3.3.1. Image de fond composite
+#### 3.3.1. Image de fond composite <a name='image-de-fond-composite'></a>
 
 Après avoir réalisé votre image interative, vous vous rendez compte qu'il manque des éléments dans votre image de fond. Sachez que vous pouvez a posteriori ajouter d'autres images et ainsi les grouper avec l'image de fond pour constituer une image de fond composite. Pour faire cela :
 
@@ -322,7 +323,7 @@ afin d'incorporer votre nouvelle image.
 - Groupez ces deux éléments sélectionnés en allant dans le menu `> Objets > Grouper`
 
 
-#### 3.3.2. Image sélectionnable
+#### 3.3.2. Image sélectionnable <a name='image-selectionnable'></a>
 
 Il arrive que vous ayez besoin d'ajouter des commentaires sur votre image qui ne soient pas liés à un détail. Une méthode simple consiste à ajouter une image à votre composition. Par défaut, cette image ne sera visible qu'au survol. Si vous souhaitez la rendre persistante, il suffit d'avoir recours à un artifice : appliquez une couleur de fond blanche sur cette image.
 L'image importée n'apparaîtra dans l'animation html5 qu'à une condition: que vous lui ayez appliqué un fond blanc dans Inkscape. Choisissez la couleur blanche dans la palette horizontale en bas de l'interface d'Inkscape:
@@ -334,7 +335,7 @@ En indiquant une url dans le champ \softmenu{Titre} des \softmenu{Propriétés
 de l'objet}, cette image incorporée deviendra un lien cliquable.
 
 
-### 3.4. Faire apparaître une question/un indice et dévoiler une réponse
+### 3.4. Faire apparaître une question/un indice et dévoiler une réponse <a name='question-reponse'></a>
 
 Vous pouvez créer une icône cliquable, qui empêche temporairement un
 utilisateur de lire la suite du commentaire. Vous pouvez même demander à l'utilisateur d'indiquer un mot de passe pour lire la suite du commentaire.
@@ -386,7 +387,7 @@ Dès que l'élève cliquera sur le bouton `Indice`, un champ de saisie apparaitr
 Les éléments `[[..]]` peuvent être imbriqués.
 
 
-### 3.5. Contrôler le comportement des détails: affichage immédiat et désactivation
+### 3.5. Contrôler le comportement des détails: affichage immédiat et désactivation <a name='comportement-details'></a>
 
 Par défaut, le comportement des détails d'une image interactive est le
 suivant:
@@ -400,7 +401,7 @@ Ces deux comportements par défaut peuvent être modifiés si vous appliquez un 
 
 Conséquence logique: comme un détail ne saurait avoir simultanément un fond noir et un fond blanc, un détail ne peut donc être à la fois immédiatement visible et avoir le zoom désactivé.
 
-### 3.6. Contrôler l'ordre d'affichage des détails dans la barre latérale des commentaires
+### 3.6. Contrôler l'ordre d'affichage des détails dans la barre latérale des commentaires <a name='ordre-details'></a>
 
 Par défaut dans une image interactive de type `accordéon`, les détails apparaissent verticalement en suivant l'ordre dans lequel ils ont été créés dans Inkscape (le premier détail créé dans Inkscape correspond à celui placé en haut dans la barre latérale de l'image interactive).
 
@@ -410,7 +411,7 @@ Pour changer cet ordre par défaut, utilisez les boutons dédiés de la barre de
 
 Commencez par sélectionner le détail sur lequel vous voulez ahir et cliquez sur l'un des 4 boutons ci-dessus pour modifier la `profondeur` du détail.
 
-### 3.7. En résumé
+### 3.7. En résumé <a name='resume-images-enrichies'></a>
 
 - Vous pouvez enrichir et mettre en forme le texte en utilisant des balises
 - L'enrichissement multimédia est possible par simple lien (relatif ou absolu) vers un fichier dont le format est reconnu par Xia
@@ -420,14 +421,14 @@ Commencez par sélectionner le détail sur lequel vous voulez ahir et cliquez su
 création dans Inkscape. Cependant, on peut utiliser l'éditeur XML d'Inkscape pour modifier cet ordre
 - Il est possible d'empêcher les utilisateurs d'accéder au commentaire en insérant une icône cliquable et / ou un mot de passe
 
-## 4. Créer des jeux avec Xia
+## 4. Créer des jeux avec Xia <a name='creer-des-jeux'></a>
 
 Jusqu'à maintenant, cette documentation n'a traité que de la création
 d'image interactive «**traditionnelle**»: une image de fond, des détails détourés associés à des commentaires.
 
 Ce type d'image interactive peut être utilisé en classe dans des situations très variées (les élèves découvrent progressivement une image, ou créent eux-mêmes une image interactive), mais Xia va plus loin avec de nouvelles fonctionnalités. On peut désormais créer des jeux, des activités, dans lesquelles l'utilisateur final a bien davantage à faire que de simplement cliquer sur des détails et lire du texte.
 
-### 4.1. Premier principe ludique: sélectionner, trouver des éléments dans une image
+### 4.1. Premier principe ludique: sélectionner, trouver des éléments dans une image <a name='game-one-clic'></a>
 
 
 Le principe ludique décrit dans cette partie de la documentation est
@@ -483,7 +484,7 @@ Une fois votre fichier svg préparé, choisir le modèle d'export
 \softmenu{game1clic} pour générer le jeu.
 
 
-### 4.2. Second principe ludique: classer, organiser, hiérarchiser
+### 4.2. Second principe ludique: classer, organiser, hiérarchiser <a name='game-drag-and-drop'></a>
 
 
 Le second type de jeu pouvant être créé avec Xia est basé sur le principe du
@@ -595,9 +596,9 @@ dépôts, dans le champ \softmenu{Description}.
 Une fois votre fichier svg préparé, choisir le modèle
 \softmenu{gameDragAndDrop} pour générer le jeu.
 
-### 4.3. Options et astuces
+### 4.3. Options et astuces <a name='jeux-options-et-astuces'></a>
 
-#### 4.3.1. Astuce : Montrer la progression dans le jeu (thème game1clic)
+#### 4.3.1. Astuce : Montrer la progression dans le jeu (thème game1clic) <a name='jeux-astuce-progression'></a>
 
 Il est possible de faire s'afficher des éléments graphiques quand le joueur
 sélectionne une réponse correcte. Ces éléments peuvent être des png importés
@@ -623,7 +624,7 @@ successivement sur le détail et l'élément en maintenant la touche \Shift
 enfoncée), puis en sélectionnant \softmenu{Grouper} dans le menu
 \softmenu{Objet} d'Inkscape.
 
-#### 4.3.2. Option : Montrer les erreurs du joueur (thème game1clic)
+#### 4.3.2. Option : Montrer les erreurs du joueur (thème game1clic) <a name='jeux-options-score2'></a>
 
 On voit clairement l'intérêt pédagogique des jeux basés sur le principe de
 la sélection\ldots mais on voit également rapidement comment des élèves
@@ -648,7 +649,7 @@ Une fois la balise \verb|disable-score| appliquée, le détail demeure
 cliquable, mais sa sélection n'ajoutera pas un point au compteur surveillant
 le score pour délivrer le message de fin.
 
-#### 4.3.3. Option : Comment ajouter un effet «aimant» (thème gameDragAndDrop)
+#### 4.3.3. Option : Comment ajouter un effet «aimant» (thème gameDragAndDrop) <a name='jeux-options-magnet'></a>
 
 
 Si vous indiquez \verb|<magnet>on</magnet>| dans le champ
@@ -662,7 +663,7 @@ Vous pouvez insérer un lien dans le champ \softmenu{Titre} des
 cliquer sur cette zone ou y déposer l'étiquette correspondante pour suivre
 le lien.
 
-#### 4.3.4. Option : Infobulles (thèmes game1clic et gameDragAndDrop)
+#### 4.3.4. Option : Infobulles (thèmes game1clic et gameDragAndDrop) <a name='jeux-options-infobulles'></a>
 
 
 \begin{links}
@@ -711,14 +712,14 @@ les \softmenu{Propriétés de l'objet} de l'image de fond:\\
 <message2>3 erreurs... Ça fait beaucoup...\\
 Concentrez-vous et recommencez!...</message2>}\\
 
-#### 4.3.5. Gestion des feedbacks.
+#### 4.3.5. Gestion des feedbacks. <a name='gestion-feedbacks'></a>
 
 - onfail return
 - score2 pour gestion des erreurs
 -
 
 
-### 4.4. En résumé
+### 4.4. En résumé <a name='jeux-resume'></a>
 
 Ces tableaux résument les balises pouvant être utilisées dans le cadre de la création de jeux avec Xia:
 
@@ -869,7 +870,7 @@ hypertexte\\
 
 \section{Foire aux questions et trucs et astuces pour le logiciel Inkscape}
 
-## 5. Foire aux questions
+## 5. Foire aux questions <a name='faq'></a>
 
 ### Je ne vois pas Xia dans le menu extensions d'Inkscape. Pourquoi?
 
@@ -886,7 +887,7 @@ Xia se trouve dans le dossier des «~Applications~» de Mac OS X.  Sur un sytèm
 
 Si vous ne faites pas de copie bitmap du texte, Xia considèrera que le texte créé avec l'outil «~Créer et éditer des objets textes~» est un détail, et pas une image à afficher.
 
-## 6. Astuces Inkscape
+## 6. Astuces Inkscape <a name='astuces'></a>
 
 - Ajoutez des couleurs de fond à vos détails. Les détails seront ainsi plus faciles à sélectionner et modifier, et cela n'aura aucune conséquence sur l'animation html5 (sauf si vous choisissez le blanc ou le noir comme couleur de remplissage).
 - Si vous voulez créer un détail à partir de plusieurs, vous pouvez les «~Grouper~» (\softmenu{Objet} $\rightarrow$ \softmenu{Grouper}, ou \Ctrl + \keystroke{G}) ou les «~Unir~» (\softmenu{Chemin} $\rightarrow$ \softmenu{Union}, ou \Ctrl + \keystroke{+}).
