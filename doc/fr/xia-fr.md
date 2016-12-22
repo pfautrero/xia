@@ -3,88 +3,62 @@
 
 <img src='../images/xia-logo.png' style='display:block;margin:0 auto;width:250px'>
 
-## Présentation de Xia
+## Sommaire
 
-### Qu'est-ce que Xia?
+- [1. Présentation de Xia](#presentation)
+- [1.1. Qu'est-ce que Xia ?](#quest-ce-que-xia)
+- [1.2. Processus général ?](#processus-general)
+- [1.3. Installer Inkscape et Xia ?](#installer-inkscape-et-xia)
 
-Xia est un logiciel libre développé par des enseignants de l'académie de
-Versailles. Il est distribué sous la licence [GPLv3](http://www.gnu.org/copyleft/gpl.html). Le logiciel
-xia a pour fonction de transformer un fichier svg en une animation
-interactive html5. Xia permet de générer des jeux et activités interactives:
-jeux de glisser-déposer, sélection, discrimination, etc.
 
-Les premières parties de cette documentation (voir la partie
-[II](#first_image)) sont consacrées à la réalisation d'une image
-interactive simple: détails détourés et commentaires en texte sans mise en
-forme. Par la suite, vous apprendrez à créer des images interactives
-enrichies (voir la partie [III](#enriched_IA)). Dans les dernières parties
-(partie \ref{games_IA}), vous découvrirez comment créer des jeux.
+
+## 1. Présentation de Xia <a name="presentation"></a>
+
+### 1.1. Qu'est-ce que Xia? <a name="quest-ce-que-xia"></a>
+
+Xia est un logiciel libre développé par des enseignants de l'académie de Versailles. Il est distribué sous la licence [GPLv3](http://www.gnu.org/copyleft/gpl.html). Le logiciel xia a pour fonction de transformer un fichier svg en une animation interactive html5. Xia permet de générer des jeux et activités interactives: jeux de glisser-déposer, sélection, discrimination, etc.
+
+Les premières parties de cette documentation (voir la partie [II](#first_image)) sont consacrées à la réalisation d'une image interactive simple: détails détourés et commentaires en texte sans mise en forme. Par la suite, vous apprendrez à créer des images interactives enrichies (voir la partie [III](#enriched_IA)). Dans les dernières parties (partie \ref{games_IA}), vous découvrirez comment créer des jeux.
 
 <img src='../images/alert_green.png' width='40'>
-Tous les exemples utilisés sont visibles en ligne (les liens pour visualiser
-les animations et télécharger les fichiers sources sont indiqués en début de
-chaque section). À la fin de chaque partie, une rubrique «~En résumé~»
-rappelle les points essentiels à retenir pour créer une image interactive.
+Tous les exemples utilisés sont visibles en ligne (les liens pour visualiser les animations et télécharger les fichiers sources sont indiqués en début de chaque section). À la fin de chaque partie, une rubrique «~En résumé~» rappelle les points essentiels à retenir pour créer une image interactive.
 
 
-### Processus général
+### 1.2. Processus général <a name="processus-general"></a>
 
-Xia n'est nécessaire qu'à la fin du processus. Comme on peut le voir sur
-l'illustration ci-dessous, la plus grande partie du travail est
-réalisée avec un logiciel de dessin vectoriel. Nous recommandons
-l'utilisation du logiciel libre et multi-plateforme
-[Inkscape](http://www.inkscape.org/), très simple à utiliser (c'est ce
-logiciel qui sera utilisé dans ce tutoriel).
+Xia n'est nécessaire qu'à la fin du processus. Comme on peut le voir sur l'illustration ci-dessous, la plus grande partie du travail est réalisée avec un logiciel de dessin vectoriel. Nous recommandons l'utilisation du logiciel libre et multi-plateforme [Inkscape](http://www.inkscape.org/), très simple à utiliser (c'est ce logiciel qui sera utilisé dans ce tutoriel).
 
 <img src='../images/processus-fr.png' style='display:block;margin:0 auto;width:60%;'>
 
 <img src='../images/alert_green.png' width='40'>
-Si vous possédez des projets créés avec le logiciel ImagesActives (fichiers
-possédant une extension .xia), vous pouvez changer l'extension de ces
-fichiers en .zip, les dézipper, récupérer le fichier svg se trouvant dans le
-répertoire ainsi obtenu et ouvrir celui-ci avec Inkscape. Si vous utilisez
-GNU/Linux, explorez le .xia et récupérez le fichier svg.
+Si vous possédez des projets créés avec le logiciel ImagesActives (fichiers possédant une extension .xia), vous pouvez changer l'extension de ces fichiers en .zip, les dézipper, récupérer le fichier svg se trouvant dans le répertoire ainsi obtenu et ouvrir celui-ci avec Inkscape. Si vous utilisez GNU/Linux, explorez le .xia et récupérez le fichier svg.
 
 
-### Installer Inkscape et Xia
+### 1.3. Installer Inkscape et Xia <a name="installer-inkscape-et-xia"></a>
 
-L'installation d'Inkscape et de Xia sont les seuls prérequis pour la
-poursuite de la lecture de cette documentation. Vous trouverez les
-informations nécessaires à l'installation d'Inkscape sur le site web du
-projet https://inkscape.org/fr/telecharger/.
+L'installation d'Inkscape et de Xia sont les seuls prérequis pour la poursuite de la lecture de cette documentation. Vous trouverez les informations nécessaires à l'installation d'Inkscape sur le site web du projet https://inkscape.org/fr/telecharger/.
 
-Installez impérativement Inkscape en premier, puis Xia, sous peine de ne pas
-être en mesure d'accéder à Xia directement dans Inkscape.\\ Si vous
-travaillez sous Windows, utilisez la version portable de Xia pour accéder au
-logiciel en dehors d'Inkscape.
-
+Installez impérativement Inkscape en premier, puis Xia, sous peine de ne pas être en mesure d'accéder à Xia directement dans Inkscape.
 
 <a name="first_image"></a>
-## Création d'une première image interactive avec Inkscape et Xia
-#### Fonctionnalités de base
+## 2. Création d'une première image interactive avec Inkscape et Xia
 
-### Création du fichier source au format svg en vue de la génération de l'image interactive
+### 2.1. Création du fichier source au format svg en vue de la génération de l'image interactive
 
 <img src='../images/alert_yellow.png' width='40'>
-Visualisez l' [image interactive](https://xia.dane.ac-versailles.fr/demo/tuto/xia1) créée pour cette partie de la documentation.
-Téléchargez le fichier source au format
+Visualisez l' [image interactive](https://xia.dane.ac-versailles.fr/demo/tuto/xia1) créée pour cette partie de la documentation. Téléchargez le fichier source au format
 [svg](http://xia.dane.ac-versailles.fr/demo/tuto/xia1/svg/xia1.svg).
 
 
-Les manipulations décrites dans cette partie de la documentation vous
-permettront de créer une image interactive «basique», comprenant:
+Les manipulations décrites dans cette partie de la documentation vous permettront de créer une image interactive «basique», comprenant:
 - Détails zoomables
 - Commentaires uniquement constitués de texte non mis en forme
 
 Une fois l'image choisie, ouvrez-la dans Inkscape -> Fichier -> Ouvrir  
 
-Quand Inkscape vous demande de choisir **Lier** et
-**Incorporer l'image**, choisissez **Incorporer**.
+Quand Inkscape vous demande de choisir **Lier** et **Incorporer l'image**, choisissez **Incorporer**.
 
-Les informations renseignées dans les **Métadonnées du document**
-(menu **Fichier**) seront conservées dans l'animation générée : titre,
-créateur, droits, etc. Il est donc fortement conseillé de renseigner ces
-informations. Le rendu est visible sur l'image ci-dessous :
+Les informations renseignées dans les **Métadonnées du document** (menu **Fichier**) seront conservées dans l'animation générée : titre, créateur, droits, etc. Il est donc fortement conseillé de renseigner ces informations. Le rendu est visible sur l'image ci-dessous :
 
 <img src='../images/ia_title.png' style='display:block;margin:0 auto;width:90%;'>
 
@@ -164,13 +138,17 @@ fond: le titre et la description de celle-ci serviront d'introduction
 générale à l'image interactive (il s'agit d'un titre et d'un commentaire qui
 ne sont pas reliés à un détail particulier).
 
-### Génération de l'image interactive avec Xia
+### 2.2. Génération de l'image interactive avec Xia
 
 Quand tous les détails sont détourés et leurs métadonnées renseignées, Xia
-peut être lancé en cliquant sur `> Extensions > Export > XIA Édu`. Choisissez un modèle d'export et un répertoire d'enregistrement de l'image interactive.
+peut être lancé en cliquant sur `> Extensions > Export > XIA Édu`.
+
+<img src='../images/chemin-xia-inkscape.png' style='display:block;margin:0 auto;width:90%;'>
+
+Choisissez un modèle d'export et un répertoire d'enregistrement de l'image interactive.
 
 En cliquant sur l'une des icônes des modèles d'export, vous générez un
-fichier html. Double-cliquez dessus pour l'ouvrir dans votre navigateur pour voir votre image interactive au format html5.
+fichier `html`. Double-cliquez dessus pour l'ouvrir dans votre navigateur pour voir votre image interactive au format html5.
 
 <img src='../images/alert_red.png' width='40'>
 La ressource ainsi générée nécessite un accès internet pour fonctionner pleinement.
@@ -204,402 +182,241 @@ Puis double-cliquer sur le fichier `xia.bat` pour lancer l'export.
 
 <a name='enriched_ia'></a>
 
-### Images interactives enrichies
+## 3. Images interactives enrichies
 
-Visualisez l'[image interactive](http://xia.dane.ac-versailles.fr/demo/tuto/xia2) créée pour cette partie de la documentation.
-
-Téléchargez le fichier source au format
-\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia2/svg/xia2.svg}{svg}.
-\end{links}
+<img src='../images/alert_green.png' width='40'>
+Visualisez l'[image interactive](http://xia.dane.ac-versailles.fr/demo/tuto/xia2) créée pour cette partie de la documentation. Téléchargez le fichier source au format [svg](https://xia.dane.ac-versailles.fr/demo/tuto/xia2/svg/xia2.svg).
 
 Dans cette section, l'objectif demeure la création d'une image interactive
-«~simple~» (autrement dit, dans laquelle un détail fait apparaître un
+«**simple**» (autrement dit, dans laquelle un détail fait apparaître un
 commentaire). Cependant, le texte des commentaires sera enrichi par une mise
 en forme ou des ressources multimédias.
 
 
-\newpage
-\subsection{Mise en forme du texte}\label{formattingtext}
+### 3.1. Mise en forme du texte (moteur Wiki)
 
-Afin de mettre en forme le texte, les balises indiquées dans l'illustration
-\ref{xia_text_tags} seront utilisées.
-
-\begin{figure}[htp!]
-\tikzstyle{descrip}=[font=\sffamily, anchor=north west, text width = 4.3cm]
-\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners,
-anchor=north west]
-\begin{tikzpicture}
-  \node[anchor=north west] (bold)
-{\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
--7mm of bold] (boldT) {Ce texte est en ***gras***}; \node[box, right = 3.5cm
-of bold] (bolR) {Ce texte est en \textbf{gras}}; \node[anchor=north west,
-below = .2cm of bold] (italic)
-{\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
--7mm of italic] (italicT) {Ce texte est en **italique**}; \node[box, right =
-3.5cm of italic] (italicR) {Ce texte est en \textit{italique}};
-\node[anchor=north west, below = .2cm of italic] (texttt)
-{\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
--7mm of texttt] (textttT) {Bout de texte \verb!{{{brut}}}!}; \node[box,
-right = 3.5cm of texttt] (textttR) {Bout de texte \texttt{brut}};
-\node[anchor=north west, below = .2cm of texttt] (link)
-{\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
-7mm of link.north] (linkT) {Un lien vers \verb![https://www.wikipedia.org/
-Wikipedia]!}; \node[box, right = 3.5cm of link] (linkR) {Un lien vers
-\href{https://www.wikipedia.org/}{Wikipedia}}; \node[anchor=north west,
-below = .2cm of link] (relativelinks)
-{\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
--7mm of relativelinks] (relativelinksT) {Un lien vers un
-\verb![./foo/bar.pdf fichier local]!}; \node[box, right = 3.5cm of
-relativelinks] (relativelinksR) {Un lien vers un
-\href{./foo/bar.pdf}{fichier local\footnote{Qui ne fonctionne pas dans cette
-documentation, évidemment!}}}; \node[anchor=north west, below = .8cm of
-relativelinks] (bullets) {\includegraphics[scale=.5]{./images/Description}};
-\node[descrip, below = -7mm of bullets] (bulletsT) {Liste de \\ $\ast$ puces
-\\ $\ast$ sur \\ ~$\ast$ 2 niveaux\footnote{Insérez un \Spacebar (espace)
-avant le $\ast$}}; \node[box, right = 3.5cm of bullets.south east]
-(bulletsR) {Une liste \begin{itemize} \item de puces \item sur
-\begin{itemize} \item 2 niveaux \end{itemize} \end{itemize}};
-\node[anchor=north west, below = 3cm of bullets] (line)
-{\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
-7mm of line.north] (lineT) {Dessiner \\ - - - - \\ une ligne}; \node[box,
-right = 3.5cm of line] (lineR) {Dessiner \\ \hrulefill \\ une ligne};
-\end{tikzpicture}
-\caption{Balises de mise en forme du texte}
-\label{xia_text_tags}
-\end{figure}
-
-\begin{alert}
- Les liens vers les fichiers locaux doivent obligatoirement être des liens
-relatifs. Utilisez \verb!./! pour un fichier contenu dans le répertoire
-d'export, et \verb!../! pour un fichier pdf contenu dans un répertoire
-parent. Deux exemples:
- \begin{itemize}
-  \item \verb!./dossier/fichier.pdf! signifie que votre fichier se trouve ici:
-
-\tikzstyle{every node}=[draw=black,thick,anchor=west]
-\tikzstyle{auto}=[draw=reddebian,fill=reddebian!30, text height=2.5mm]
-\tikzstyle{manual}=[draw=bluedane,fill=bluedane!30, text height=2.5mm]
-\tikzstyle{manualT}=[fill=bluedane!30,draw=bluedane, rectangle,text
-width=3cm, rounded corners]
-\tikzstyle{autoT}=[fill=reddebian!30,draw=reddebian, rectangle,text
-width=3cm, rounded corners]
-\begin{tikzpicture}[grow via three points={one child at (0.5,-0.7) and two children at
-(0.5,-0.7) and (0.5,-1.4)}, edge from parent path={(\tikzparentnode.south)
-|- (\tikzchildnode.west)}] \node [auto] {dossier\_export	/} child { node
-[auto] {index.html}}			 child { node [auto] {css/}} child { node [auto]
-{data/}} child { node [auto] {font/}} child { node [auto] {img/}} child {
-node [auto] {js/}} child { node [manual] {dossier/} child { node [manual]
-{fichier.pdf}} }; \node[autoT] (textA) at (5,-2) {Dossiers et fichiers
-d'export}; \node[manualT] (textM) at (5,-4) {Fichier local}; \draw[-stealth]
-(textA.west) -- (4,-2); \draw[-stealth] (textM.west) -- (4.5,-5);
-\end{tikzpicture}
- \item \verb!../fichier.pdf! signifie que votre fichier se trouve dans un
-répertoire parent: \tikzstyle{every node}=[draw=black,thick,anchor=west]
-\tikzstyle{auto}=[draw=reddebian,fill=reddebian!30, text height=2.5mm]
-\tikzstyle{manual}=[draw=bluedane,fill=bluedane!30, text height=2.5mm]
-\tikzstyle{manualT}=[fill=bluedane!30,draw=bluedane, rectangle,text
-width=3cm, rounded corners]
-\tikzstyle{autoT}=[fill=reddebian!30,draw=reddebian, rectangle,text
-width=3cm, rounded corners]
-\begin{tikzpicture}[grow via three points={one child at (0.5,-0.7) and two children at
-(0.5,-0.7) and (0.5,-1.4)}, edge from parent path={(\tikzparentnode.south)
-|- (\tikzchildnode.west)}] \node [manual] {folder/} child { node [manual]
-{fichier.pdf} child [missing] {} } child { node [auto] {dossier\_export/}
-child { node [auto] {index.html}}			 child { node [auto] {css/}} child {
-node [auto] {data/}} child { node [auto] {font/}} child { node [auto]
-{img/}} child { node [auto] {js/}} } ; \node[autoT] (textA) at (6,-4)
-{Dossiers et fichiers d'export}; \node[manualT] (textM) at (6,-0.5) {Fichier
-local}; \draw[-stealth] (textA.west) -- (5,-4); \draw[-stealth] (textM.west)
--- (4,-0.5);
-\end{tikzpicture}
- \end{itemize}
-\end{alert}
+Pour enrichir le texte et proposer des ressources multimédia, XIA s'appuie sur une syntaxe wiki élémentaire. Comme vous pouvez le constater en comparant les deux captures ci-dessous, il suffit d'ajouter des **marqueurs** spécifiques dans le texte pour réaliser la mise en forme ou simplement écrire les liens vers les ressources à intégrer.
 
 
-\subsection{Insérer des ressources multimédias dans les commentaires}\label{multimedia_enrichment}
+Text saisi avec les marqueurs wiki :
 
-L'insertion de ressources multimédias dans les commentaires est chose assez
-aisée: copiez-collez l'url de la ressource (qu'elle soit absolue ou
-relative) ou le code iframe du service web utilisé pour héberger votre
-ressource, et Xia créera automatiquement un lecteur multimédia, pour peu que
-celle-ci (image, son, vidéo) fasse partie des formats supportés:
-\begin{description}
- \item[Images] jpg, jpeg, png, gif
- \item [Audio] ogg, mp3
- \item [Video] ogv, webm, mp4
-\end{description}
+<img src='../images/pikipiki-fr.png' style='display:block;margin:0 auto;width:90%;'>
 
-Le lien doit être inséré dans le champ \softmenu{Description} des
-\softmenu{Propriétés de l'objet}.
+Rendu final :
 
-\begin{description}
- \item[Lien absolu] Si l'url de la ressource est
+<img src='../images/pikipiki-fr-resultat.png' style='display:block;margin:0 auto;width:90%;'>
 
- \verb|http://web.crdp.ac-versailles.fr/02546.ogg|
+#### Syntaxe Wiki et intégration de ressources.
 
+- `***Mettre en gras***`
+- `**Mettre en italique**`
+- `{{{écrire du texte sans formattage}}}`
+- Pour insérer une image qui se trouve sur internet, écrivez simplement le lien vers cette image :
+```
+https://xia.dane.ac-versailles.fr/img/xia.png
+```
+- Pour insérer une image qui se trouve à côté de la ressource XIA que vous avez générée, utilisez la syntaxe des chemins relatifs :
+```
+./mon_image.jpeg
+../images/mon_autre_image.jpeg
+```
 
- il suffit alors d'écrire cette url dans le champ \softmenu{Description} des
-\softmenu{Propriétés de l'objet} dans Inkscape.
+- Pour créer un hyperlien vers le site XIA, saisissez simplement l'url :
+```
+https://xia.dane.ac-versailles.fr
+```
+- Pour créer un hyperlien sur un mot ou une expression :
+```
+[https://xia.dane.ac-versailles.fr SITE XIA]
+```
+- Pour créer un hyperlien sur une adresse mail, saisissez simplement l'adresse mail :
+```
+dev-xia@ac-versailles.fr
+```
 
- \item[Lien relatif] Si le fichier de la ressource multimédia se trouve dans le répertoire
-d'export de l'image interactive, ou dans un répertoire contenu dans celui-ci
-(voir la rubrique \ref{formattingtext} et l'illustration \ref{xia_files}),
-indiquez simplement le chemin vers le fichier, en considérant le répertoire
-d'export comme répertoire racine. Par exemple, si le fichier
-\verb|video.ogv| se trouve dans le répertoire  \verb|videos| se trouvant
-lui-même dans le répertoire de l'image interactive, indiquez:
+- Utiliser une liste à puces (***Placer un espace devant chaque astérisque***):
+```
+ * élément 1
+ * élément 2
+   * élément 2-1
+   * élément 2-2
+```
 
- \verb|./videos/video.ogv|
+### 3.2. Insérer des ressources multimédias dans les commentaires
 
+#### 3.2.1. Utiliser une ressource locale
 
-  pour créer le lecteur multimédia.
-\end{description}
+L'insertion de ressources multimédias dans les commentaires est chose assez aisée: copiez-collez l'url de la ressource (qu'elle soit absolue ou relative) ou le code iframe du service web utilisé pour héberger votre ressource, et Xia créera automatiquement un lecteur multimédia, pour peu que celle-ci (image, son, vidéo) fasse partie des formats supportés:
 
+- **[Images]** : jpg, jpeg, png, gif
+- **[Audio]** : ogg, mp3
+- **[Video]** : ogv, webm, mp4
 
-\begin{tip}
-Les formats vidéos gérés par Xia ne le sont pas par tous les navigateurs
-web. Il est donc recommandé d'exporter les vidéos dans les 3 formats
-supportés, et de les téléverser dans le même répertoire. Ainsi, même si un
-format spécifique est renseigné dans la description (si l'on suit l'exemple
-précédent: \verb|videos/video.ogv|), si le navigateur est incapable de lire
-la ressource, il cherchera automatiquement à lire les fichiers du même nom
-mais possédant une extension différente (c'est à dire, \verb|video.mp4| et
-\verb|video.webm|).
-\end{tip}
+Le lien doit être inséré dans le champ `Description` des
+`Propriétés de l'objet`.
 
-La dernière possibilité consiste à insérer un code iframe. Celui-ci sera
-interprété et le lecteur du service web apparaîtra, donnant accès à la
-ressource.
+- **[Lien absolu]** : Si l'url de la ressource est `http://web.crdp.ac-versailles.fr/02546.ogg`, il suffit alors d'écrire cette url dans le champ `Description` des
+`Propriétés de l'objet` dans Inkscape.
 
-\subsection{Le modèle «~audioBrown~»: le son à la place du texte}\label{audioBrownsection}
+- **[Lien relatif]** : Si le fichier de la ressource multimédia se trouve dans le répertoire d'export de l'image interactive, ou dans un répertoire contenu dans celui-ci, indiquez simplement le chemin vers le fichier, en considérant le répertoire d'export comme répertoire racine. Par exemple, si le fichier `video.ogv` se trouve dans le répertoire `videos` se trouvant lui-même dans le répertoire de l'image interactive, indiquez:
 
-\begin{links}
-Visualisez l'\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia4}{image
-interactive} créée pour cette partie de la documentation.
+```
+./videos/video.ogv
+```
 
-Téléchargez le fichier source au format
-\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia4/svg/xia4.zip}{svg}
-(archive contenant le fichier source au format svg et les sons associés).
-\end{links}
-
-Le modèle «~audioBrown~» est spécifiquement dédié à la création d'images
-interactives dans lesquelles les détails sont associés à des sons plutôt
-qu'à du texte.
-
-Pour insérer des sons, vous utiliserez des liens absolus ou relatifs en
-suivant la méthode décrite dans la section \ref{multimedia_enrichment}. Si
-vous souhaitez que le son soit joué automatiquement à la sélection du
-détail, ajoutez la balise \verb|autostart| après l'url de la ressource
-\footnote{La balise \texttt{autostart} fonctionne également avec les autres
-modèles d'export de Xia.}:\\
-\begin{center}
- \verb|./sons/son_detail_1.ogg autostart|
-\end{center}
+pour créer le lecteur multimédia.
 
 
-\subsection{Insérer des images dans votre image interactive}\label{insertion_images}
+<img src='../images/alert_green.png' width='40'>
+Les formats vidéos gérés par Xia ne le sont pas par tous les navigateurs web. Il est donc recommandé d'exporter les vidéos dans les 3 formats supportés (mp4, ogv et webm), et de les téléverser dans le même répertoire. Ainsi, même si un format spécifique est renseigné dans la description (si l'on suit l'exemple précédent: `videos/video.ogv`), si le navigateur est incapable de lire
+la ressource, il cherchera automatiquement à lire les fichiers du même nom mais possédant une extension différente (c'est à dire, `video.mp4`  et `video.webm`).
 
-Des images au format png peuvent être ajoutées à l'image de fond. Pour faire
-cela, sélectionnez \softmenu{Fichier $\rightarrow$ Importer} dans Inkscape
-afin d'incorporer votre image.
+#### 3.2.2. Utiliser une intégration iframe
 
-L'image importée n'apparaîtra dans l'animation html5 qu'à une condition: que
-vous lui ayez appliqué un fond blanc dans Inkscape. Choisissez la couleur
-blanche dans la palette horizontale en bas de l'interface d'Inkscape:\\
+Une autre possibilité consiste à insérer un code `iframe`. Celui-ci sera interprété et le lecteur du service web apparaîtra, donnant accès à la ressource.
 
-\begin{center}
-\includegraphics[width=0.6\textwidth]{images/white_fill}\\
-\end{center}
+
+#### 3.2.3. Utiliser une intégration oembed
+
+Une dernière possibilité, la plus simple de toutes, vous permet d'insérer des ressources en utilisant la technologie `oembed`. Actuellement, XIA sait gérer les services externes suivants :
+
+- **Flickr** : Utilisez directement leur système de partage comme par exemple `https://flic.kr/p/jZ2A12`
+- **Scolawebtv** (service de l'académie de Versailles) : Utilisez directement leurs liens oembed comme par exemple `https://scolawebtv.crdp-versailles.fr/?id=3740`
+- **WebTv** (service de l'académie de Versailles) : Utilisez directement leurs liens oembed comme par exemple `http://webtv.ac-versailles.fr/spip.php?article1205`
+
+### 3.3. Insérer des images dans votre image interactive
+
+#### 3.3.1. Image de fond composite
+
+Après avoir réalisé votre image interative, vous vous rendez compte qu'il manque des éléments dans votre image de fond. Sachez que vous pouvez a posteriori ajouter d'autres images et ainsi les grouper avec l'image de fond pour constituer une image de fond composite. Pour faire cela :
+
+- Sélectionnez `> Fichier > Importer` dans Inkscape
+afin d'incorporer votre nouvelle image.
+- Sélectionnez votre image de fond et votre nouvelle image en même temps (Utilisez la touche `Shift` au moment de la sélection multiple)
+- Groupez ces deux éléments sélectionnés en allant dans le menu `> Objets > Grouper`
+
+
+#### 3.3.2. Image sélectionnable
+
+Il arrive que vous ayez besoin d'ajouter des commentaires sur votre image qui ne soient pas liés à un détail. Une méthode simple consiste à ajouter une image à votre composition. Par défaut, cette image ne sera visible qu'au survol. Si vous souhaitez la rendre persistante, il suffit d'avoir recours à un artifice : appliquez une couleur de fond blanche sur cette image.
+L'image importée n'apparaîtra dans l'animation html5 qu'à une condition: que vous lui ayez appliqué un fond blanc dans Inkscape. Choisissez la couleur blanche dans la palette horizontale en bas de l'interface d'Inkscape:
+
+<img src='../images/inkscape_palette.png' style='display:block;margin:0 auto;width:90%;'>
 
 
 En indiquant une url dans le champ \softmenu{Titre} des \softmenu{Propriétés
 de l'objet}, cette image incorporée deviendra un lien cliquable.
 
-\subsection{Faire apparaître une question et dévoiler une réponse}
+
+### 3.4. Faire apparaître une question/un indice et dévoiler une réponse
 
 Vous pouvez créer une icône cliquable, qui empêche temporairement un
-utilisateur de lire la suite du commentaire. Vous pouvez même demander à
-l'utilisateur d'indiquer un mot de passe pour lire la suite du commentaire.
+utilisateur de lire la suite du commentaire. Vous pouvez même demander à l'utilisateur d'indiquer un mot de passe pour lire la suite du commentaire.
 
-Pour cela, utilisez dans la description les balises indiquées dans
-l'illustration \ref{xia_answer_tags}.
+Pour cela, utilisez la syntaxe suivante :
 
-\begin{figure}[htp!]
-\tikzstyle{descrip}=[font=\sffamily, anchor=north west, text width = 4.3cm]
-\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners,
-anchor=north west]
-\begin{tikzpicture}
-  \node[anchor=north west] (answer)
-{\includegraphics[scale=.5]{./images/Description}}; \node[descrip, below =
--7mm of answer] (answerT) {[[Puis-je vous poser une question? (code=12345):
-Bien sûr que c'est possible.]]}; \node[box, right = 3.5cm of answer]
-(answerI) {\includegraphics[scale=.5]{./images/answer_code}};
-\end{tikzpicture}
-\caption{Balises permettant de créer un bouton empêchant temporairement la lecture de
-la suite du commentaire.}
-\label{xia_answer_tags}
-\end{figure}
+```
+TITRE : Quel est le prénom du seigneur Vador ?
+```
 
-Utilisez la balise \texttt{[[ (...) ]]} pour indiquer que vous souhaitez
-créer une icône, séparez le texte de la question de celui de la réponse avec
-la balise \texttt{:}, et ajoutez un code en insérant
-\texttt{(code=mot\_de\_passe)} avant la balise \texttt{:}\footnote{Le code
-n'est pas obligatoire. Souvenez-vous que vous pouvez utiliser tous les
-caractères que vous souhaitez dans le code, sauf le \texttt{)}.}.
 
-\subsection{Contrôler le comportement des détails: affichage immédiat et désactivation
-du zoom}\label{white_black_background}
+```
+DESCRIPTION :
+
+[[Indice : Pensez à un pigment Sombre !]]
+
+[[Voir la réponse : Dark]]
+```
+
+Voici le résultat obtenu sur un thème `accordionBlack` :
+
+<img src='../images/vador_question.png' style='display:block;margin:0 auto;width:90%;'>
+
+Si vous cliquez sur les boutons, voici le résultat :
+
+<img src='../images/vador_question_clic.png' style='display:block;margin:0 auto;width:90%;'>
+
+Pour rendre les choses plus difficiles, vous pouvez aussi utiliser un code pour verrouiller les boutons comme suit. Supposons que vous vouliez interdire l'accès à l'indice avec le code `security` :
+
+
+```
+TITRE : Quel est le prénom du seigneur Vador ?
+```
+
+
+```
+DESCRIPTION :
+
+[[Indice (code=security): Pensez à un pigment Sombre !]]
+
+[[Donner la réponse (code=Dark): Bravo !]]
+```
+Dès que l'élève cliquera sur le bouton `Indice`, un champ de saisie apparaitra pour lui permettre de saisir le code de sécurité. De même, quand il cliquera sur le bouton `Donner la réponse`, il devra saisir le mot `Dark` pour laisser apparaître le message de succès. Notez que ce dernier usage est un contournement de la fonctionnalité initiale.
+
+<img src='../images/vador_question_locked.png' style='display:block;margin:0 auto;width:90%;'>
+
+
+<img src='../images/alert_green.png' width='40'>
+Les éléments `[[..]]` peuvent être imbriqués.
+
+
+### 3.5. Contrôler le comportement des détails: affichage immédiat et désactivation
 
 Par défaut, le comportement des détails d'une image interactive est le
 suivant:
-\begin{itemize}
- \item mise en valeur des détails au survol de la souris ou par un clic sur son
-titre dans les commentaires
- \item effet de zoom lors d'un second clic sur le détail actif\footnote{Sauf dans le cas du modèle popBlue.}
-\end{itemize}
+- mise en valeur des détails au survol de la souris ou par un clic sur son titre dans les commentaires
+- effet de zoom lors d'un second clic sur le détail actif
 
-Ces deux comportements par défaut peuvent être modifiés si vous appliquez un
-fond noir ou blanc aux détails détourés (voir la section
-\ref{insertion_images}):
-\begin{description}
- \item[Détail avec un fond blanc] Dans l'image interactive, ces détails seront visibles immédiatement, sous la
-forme d'un aplat de couleur opaque, cachant l'image de fond; une fois
-sélectionné, ce fond sera visible (le zoom demeure actif).
- \item [Détail avec un fond noir] Les utilisateurs devront cliquer pour activer le
-détail, mais l'effet de zoom est désactivé.
-\end{description}
+Ces deux comportements par défaut peuvent être modifiés si vous appliquez un fond noir ou blanc aux détails détourés :
 
-Conséquence logique: comme un détail ne saurait avoir simultanément un fond
-noir et un fond blanc, un détail ne peut donc être à la fois immédiatement
-visible et avoir le zoom désactivé.
+- **[Détail avec un fond blanc]** Dans l'image interactive, ces détails seront visibles immédiatement, sous la forme d'un aplat de couleur opaque, cachant l'image de fond; une fois sélectionné, ce fond sera visible (le zoom demeure actif).
+- **[Détail avec un fond noir]** Les utilisateurs devront cliquer pour activer le détail, mais l'effet de zoom est désactivé.
 
-\subsection{Contrôler l'ordre d'affichage des détails dans la barre latérale des
-commentaires}\label{XML_layer}
+Conséquence logique: comme un détail ne saurait avoir simultanément un fond noir et un fond blanc, un détail ne peut donc être à la fois immédiatement visible et avoir le zoom désactivé.
 
-Par défaut dans une image interactive, les détails apparaissent
-verticalement en suivant l'ordre dans lequel ils ont été créés dans Inkscape
-(le premier détail créé dans Inkscape correspond à celui placé en haut dans
-la barre latérale de l'image interactive).
+### 3.6. Contrôler l'ordre d'affichage des détails dans la barre latérale des commentaires
 
-Pour changer cet ordre par défaut, nous utiliserons l'\softmenu{Éditeur
-XML}, situé dans le menu \softmenu{Édition}.
+Par défaut dans une image interactive de type `accordéon`, les détails apparaissent verticalement en suivant l'ordre dans lequel ils ont été créés dans Inkscape (le premier détail créé dans Inkscape correspond à celui placé en haut dans la barre latérale de l'image interactive).
 
-A priori complexe, cette fenêtre de dialogue est en réalité assez simple à
-utiliser: en sélectionnant une entrée de l'éditeur XML, le détail
-correspondant à celle-ci sera mis en évidence sur l'image. Il ne reste plus
-qu'à glisser-déposer l'entrée à l'endroit désiré:\\
+Pour changer cet ordre par défaut, utilisez les boutons dédiés de la barre de menu :
 
-\begin{center}
- \includegraphics[width=\textwidth]{images/layerorder}\\
-\end{center}
+<img src='../images/inkscape_zindex.png' style='display:block;margin:0 auto;width:20%;'>
 
- L'éditeur XML d'Inkscape permet de contrôler l'ordre d'affichage des détails
-dans l'image interactive. Remarquez la mise en évidence d'un élément sur
-l'image de fond par simple sélection dans l'éditeur.
+Commencez par sélectionner le détail sur lequel vous voulez ahir et cliquez sur l'un des 4 boutons ci-dessus pour modifier la `profondeur` du détail.
 
-\subsection{En résumé}
+### 3.7. En résumé
 
-\begin{enumerate}
- \item Vous pouvez enrichir et mettre en forme le texte en utilisant des balises
- \item L'enrichissement multimédia est possible par simple lien (relatif ou absolu)
-vers un fichier dont le format est reconnu par Xia
- \item On ajoute des images sur l'image de fond en les incorporant et en leur
-appliquant un fond blanc.
- \item On peut modifier le comportement par défaut des détails en leur appliquant
-une couleur de fond (blanc ou noir)
- \item L'ordre des détails de l'image interactive dépend de l'ordre de leur
-création dans Inkscape. Cependant, on peut utiliser l'éditeur XML d'Inkscape
-pour modifier cet ordre
-\item Il est possible d'empêcher les utilisateurs d'accéder au commentaire en
-insérant une icône cliquable et / ou un mot de passe
-\end{enumerate}
+- Vous pouvez enrichir et mettre en forme le texte en utilisant des balises
+- L'enrichissement multimédia est possible par simple lien (relatif ou absolu) vers un fichier dont le format est reconnu par Xia
+- On ajoute des images sur l'image de fond en les incorporant et en leur appliquant un fond blanc.
+- On peut modifier le comportement par défaut des détails en leur appliquant une couleur de fond (blanc ou noir)
+- L'ordre des détails de l'image interactive dépend de l'ordre de leur
+création dans Inkscape. Cependant, on peut utiliser l'éditeur XML d'Inkscape pour modifier cet ordre
+- Il est possible d'empêcher les utilisateurs d'accéder au commentaire en insérant une icône cliquable et / ou un mot de passe
 
-\newpage
-
-\section{Créer des jeux avec Xia}\label{games_IA}
+## 4. Créer des jeux avec Xia
 
 Jusqu'à maintenant, cette documentation n'a traité que de la création
-d'image interactive «~traditionnelle~»: une image de fond, des détails
-détourés associés à des commentaires.
+d'image interactive «**traditionnelle**»: une image de fond, des détails détourés associés à des commentaires.
 
-Ce type d'image interactive peut être utilisé en classe dans des situations
-très variées (les élèves découvrent progressivement une image, ou créent
-eux-mêmes une image interactive), mais Xia va plus loin avec de nouvelles
-fonctionnalités. On peut désormais créer des jeux, des activités, dans
-lesquelles l'utilisateur final a bien davantage à faire que de simplement
-cliquer sur des détails et lire du texte.
+Ce type d'image interactive peut être utilisé en classe dans des situations très variées (les élèves découvrent progressivement une image, ou créent eux-mêmes une image interactive), mais Xia va plus loin avec de nouvelles fonctionnalités. On peut désormais créer des jeux, des activités, dans lesquelles l'utilisateur final a bien davantage à faire que de simplement cliquer sur des détails et lire du texte.
 
-\begin{figure}[htp]
-\tikzstyle{box}=[draw, text width=4cm, fill=lightgray!50, rounded corners]
-\begin{tikzpicture}
-  \node[opacity=.5] (bBlue)
-{\includegraphics[width=2cm]{./images/buttonBlue}}; \node[left= .3mm of
-bBlue] (aBrown) {\includegraphics[width=2cm]{./images/audioBrown}};
-\node[right= .3mm of bBlue] (guClic)
-{\includegraphics[width=2cm]{./images/game1clic}}; \node[below= .2mm of
-bBlue.south, opacity=.5] (pBlue)
-{\includegraphics[width=2cm]{./images/popBlue}}; \node[left= .3mm of pBlue]
-(gDDrop) {\includegraphics[width=2cm]{./images/gameDragAndDrop}};
-\node[right= .3mm of pBlue, opacity=.5] (pYellow)
-{\includegraphics[width=2cm]{./images/popYellow}}; \node[above = .2mm of
-guClic.north, opacity=.5] (aCloud)
-{\includegraphics[width=2cm]{./images/accordionCloud}}; \node[above = .2mm
-of aCloud.north, opacity=.5] (aBlack)
-{\includegraphics[width=2cm]{./images/accordionBlack}}; \node[left = .3mm of
-aBlack] (params) {\includegraphics[width=2cm]{./images/params}}; \node[left
-= .3mm of params] (files) {\includegraphics[width=2cm]{./images/xia_open}};
-\node[left = 2mm of aCloud, opacity=.3] (xialogo)
-{\includegraphics[height=2cm]{./images/xia}};
+### 4.1. Premier principe ludique: sélectionner, trouver des éléments dans une image
 
 
-  \node[box, text width=2.5cm,above left = 5mm of files] (filesC) {Sélection
-du fichier source au format svg}; \node[box, above = 5mm of params]
-(paramsC) {Définition des options d'exportation (voir l'illustration
-\ref{xia_export_options})}; \node[box, right = 5mm of guClic] (guClicC)
-{\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia3}{game1clic}\\
-Sélectionner des détails sur une image de fond \\ Tutoriel dans la rubrique
-\ref{game1clicsection}}; \node[box, left = 25mm of bBlue] (aBrownC)
-{\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia4}{audioBrown} \\
-Création d'images interactives dans lesquelles des détails sont associés à
-des sons \\ Tutoriel dans la rubrique \ref{audioBrownsection}}; \node[box,
-below left = 5mm of pBlue] (gDDropC)
-{\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia5}{gameDragAndDrop}\\
-Glisser et déposer des éléments sur l'image de fond \\ Tutoriel dans la
-rubrique \ref{gameDragAndDropsection}};
+Le principe ludique décrit dans cette partie de la documentation est
+le suivant: le joueur doit sélectionner des détails dans une image, quand il a sélectionné les éléments indiqués dans la consigne, un message de fin apparaît.
 
-  \draw[-stealth] (guClicC.west) -- (guClic.east); \draw[-stealth]
-(gDDropC.north) -- (gDDrop.south); \draw[-stealth] (aBrownC.north east) --
-(aBrown.north); \draw[-stealth] (filesC.south east) -- (files.north west);
-\draw[-stealth] (paramsC.south) -- (params.north);
+Visualisez le [jeu](http://xia.dane.ac-versailles.fr/demo/tuto/xia3) créé pour cette partie de la documentation.
 
-\end{tikzpicture}
-\caption{Les modèles multimédias et ludiques de Xia}
-\label{xia_interface2}
-\end{figure}
+Téléchargez le fichier source au format [svg](http://xia.dane.ac-versailles.fr/demo/tuto/xia3/svg/xia3.svg)
 
-\subsection{Premier principe ludique: sélectionner, trouver des éléments dans une image}\label{game1clicsection}
-
-
-\textit{Le principe ludique décrit dans cette partie de la documentation est
-le suivant: le joueur doit sélectionner des détails dans une image, quand il
-a sélectionné les éléments indiqués dans la consigne, un message de fin
-apparaît.}
-
-
-\begin{links}
-Visualisez l'\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia3}{image
-interactive} créée pour cette partie de la documentation.
-
-Téléchargez le fichier source au format
-\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia3/svg/xia3.svg}{svg}.
-\end{links}
 
 Ce type de jeu est presque le type d'image interactive la plus facile à
 créer. Vous devez uniquement détourer les détails que le joueur devra
 sélectionner.
 
-Les consignes doivent être indiquées dans les métadonnées du document. Xia
-cherchera les informations relatives aux consignes dans le champ
+Les consignes doivent être indiquées dans les métadonnées du document. Xia cherchera les informations relatives aux consignes dans le champ
 \softmenu{Description} des métadonnées du document (voir la section
 \ref{preparation_svg}: \softmenu{Fichier $\rightarrow$ Métadonnées du
 document}), et créera une pop up affichant ces consignes à l'ouverture du
@@ -639,7 +456,8 @@ par degré de difficulté.
 Une fois votre fichier svg préparé, choisir le modèle d'export
 \softmenu{game1clic} pour générer le jeu.
 
-\subsection{Second principe ludique: classer, organiser, hiérarchiser}\label{gameDragAndDropsection}
+
+### 4.2. Second principe ludique: classer, organiser, hiérarchiser
 
 
 Le second type de jeu pouvant être créé avec Xia est basé sur le principe du
@@ -751,10 +569,9 @@ dépôts, dans le champ \softmenu{Description}.
 Une fois votre fichier svg préparé, choisir le modèle
 \softmenu{gameDragAndDrop} pour générer le jeu.
 
-\subsection{\emph{Astuces pour la création de jeux interactifs}: effet aimant,
-infobulles, double compteur de score\ldots}
+### 4.3. Astuces pour la création de jeux interactifs: effet aimant, infobulles, double compteur de score
 
-\subsubsection{Montrer la progression dans le jeu (thème game1clic)}\label{playersscore}
+#### 4.3.1. Montrer la progression dans le jeu (thème game1clic)
 
 Il est possible de faire s'afficher des éléments graphiques quand le joueur
 sélectionne une réponse correcte. Ces éléments peuvent être des png importés
@@ -780,7 +597,7 @@ successivement sur le détail et l'élément en maintenant la touche \Shift
 enfoncée), puis en sélectionnant \softmenu{Grouper} dans le menu
 \softmenu{Objet} d'Inkscape.
 
-\subsubsection{Montrer les erreurs du joueur (thème game1clic)}
+#### 4.3.2. Montrer les erreurs du joueur (thème game1clic)
 
 On voit clairement l'intérêt pédagogique des jeux basés sur le principe de
 la sélection\ldots mais on voit également rapidement comment des élèves
@@ -805,8 +622,8 @@ Une fois la balise \verb|disable-score| appliquée, le détail demeure
 cliquable, mais sa sélection n'ajoutera pas un point au compteur surveillant
 le score pour délivrer le message de fin.
 
+#### 4.3.3. Comment ajouter un effet «aimant» (thème gameDragAndDrop)
 
-\subsubsection{Comment ajouter un effet «~aimant~» (thème gameDragAndDrop)}
 
 Si vous indiquez \verb|<magnet>on</magnet>| dans le champ
 \softmenu{Description} de la zone de dépôt, un effet aimant sera activé
@@ -819,8 +636,8 @@ Vous pouvez insérer un lien dans le champ \softmenu{Titre} des
 cliquer sur cette zone ou y déposer l'étiquette correspondante pour suivre
 le lien.
 
+#### 4.3.4. Infobulles (thèmes game1clic et gameDragAndDrop)
 
-\subsubsection{Infobulles (thèmes game1clic et gameDragAndDrop)}
 
 \begin{links}
 Visualisez l'\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia7}{image
@@ -868,11 +685,16 @@ les \softmenu{Propriétés de l'objet} de l'image de fond:\\
 <message2>3 erreurs... Ça fait beaucoup...\\
 Concentrez-vous et recommencez!...</message2>}\\
 
-\newpage
-\subsection{En résumé}
+#### 4.3.5. Gestion des feedbacks.
 
-Ces tableaux résument les balises pouvant être utilisées dans le cadre de la
-création de jeux avec Xia:
+- onfail return
+- score2 pour gestion des erreurs
+-
+
+
+### 4.4. En résumé
+
+Ces tableaux résument les balises pouvant être utilisées dans le cadre de la création de jeux avec Xia:
 
 \begin{table}[thp]
  \begin{tabular}{|p{.5cm}|p{2cm}|p{10cm}|}
@@ -1021,47 +843,28 @@ hypertexte\\
 
 \section{Foire aux questions et trucs et astuces pour le logiciel Inkscape}
 
-\subsection{Foire aux questions}
+## 5. Foire aux questions
 
-\textbf{Je ne vois pas Xia dans le menu extensions d'Inkscape. Pourquoi?}\\
-$\rightarrow$ Avez-vous installé Inkscape avant Xia? Si ce n'est pas le cas,
-ré-installez Xia. Si vous utilisez la version portable de Xia, le fait que
-rien n'apparaisse dans le menu extension est tout à fait normal.
+### Je ne vois pas Xia dans le menu extensions d'Inkscape. Pourquoi?
 
- \textbf{L'icône «~Fichier source~» n'apparaît pas quand je lance Xia depuis
-le menu extension d'Inkscape. Pourquoi?}\\ $\rightarrow$ En lançant Xia
-depuis les extensions d'Inkscape, il n'y a pas d'icône «~Fichier source~»,
-puisque Xia considère que l'animation html5 que vous souhaitez générer est
-celle sur laquelle vous travaillez dans Inkscape... Choisissez donc
-uniquement les options d'exportation et le modèle.
+Avez-vous installé Inkscape avant Xia? Si ce n'est pas le cas, ré-installez Xia. Si vous utilisez la version portable de Xia, le fait que rien n'apparaisse dans le menu extension est tout à fait normal.
 
- \textbf{J'ai installé Inkscape mais je ne le retrouve pas dans mes
-programmes. Où se cache-t-il?}\\ $\rightarrow$ Xia se trouve dans le dossier
-des «~Applications~» de Mac OS X.  Sur un sytème GNU/Linux, le paquet Xia
-porte le nom «~xia-converter~».  Sur Windows, Xia ne fonctionne que comme
-extension d'Inkscape. Si vous souhaitez utiliser le logiciel seul, utilisez
-la version portable.
+### L'icône «Fichier source» n'apparaît pas quand je lance Xia depuis le menu extension d'Inkscape. Pourquoi?
 
- \textbf{J'ai ajouté du texte sur mon image avec l'outil «~Créer et éditer
-des objets textes~», mais je ne le vois pas apparaître dans mon image
-interactive. Pourquoi?}\\ $\rightarrow$ Si vous ne faites pas de copie
-bitmap du texte, Xia considèrera que le texte créé avec l'outil «~Créer et
-éditer des objets textes~» est un détail, et pas une image à afficher.
+En lançant Xia depuis les extensions d'Inkscape, il n'y a pas d'icône «~Fichier source~», puisque Xia considère que l'animation html5 que vous souhaitez générer est celle sur laquelle vous travaillez dans Inkscape... Choisissez donc uniquement les options d'exportation et le modèle.
 
-\subsection{Astuces Inkscape}
+### J'ai installé Inkscape mais je ne le retrouve pas dans mes programmes. Où se cache-t-il?
+Xia se trouve dans le dossier des «~Applications~» de Mac OS X.  Sur un sytème GNU/Linux, le paquet Xia porte le nom «~xia-converter~».  Sur Windows, Xia ne fonctionne que comme extension d'Inkscape. Si vous souhaitez utiliser le logiciel seul, utilisez la version portable.
 
-\begin{itemize}
- \item Ajoutez des couleurs de fond à vos détails. Les détails seront ainsi plus
-faciles à sélectionner et modifier, et cela n'aura aucune conséquence sur
-l'animation html5 (sauf si vous choisissez le blanc ou le noir comme couleur
-de remplissage).
- \item Si vous voulez créer un détail à partir de plusieurs, vous pouvez les
-«~Grouper~» (\softmenu{Objet} $\rightarrow$ \softmenu{Grouper}, ou \Ctrl +
-\keystroke{G}) ou les «~Unir~» (\softmenu{Chemin} $\rightarrow$
-\softmenu{Union}, ou \Ctrl + \keystroke{+}).
- \item Quand un détail est créé, il est toujours possible de les modifier: ajout ou
-suppression de nœuds, déplacement, etc. Il suffit de double-cliquer sur un
-détail et d'utiliser les outils de modification:\\
+### J'ai ajouté du texte sur mon image avec l'outil «~Créer et éditer des objets textes~», mais je ne le vois pas apparaître dans mon image interactive. Pourquoi?
+
+Si vous ne faites pas de copie bitmap du texte, Xia considèrera que le texte créé avec l'outil «~Créer et éditer des objets textes~» est un détail, et pas une image à afficher.
+
+## 6. Astuces Inkscape
+
+- Ajoutez des couleurs de fond à vos détails. Les détails seront ainsi plus faciles à sélectionner et modifier, et cela n'aura aucune conséquence sur l'animation html5 (sauf si vous choisissez le blanc ou le noir comme couleur de remplissage).
+- Si vous voulez créer un détail à partir de plusieurs, vous pouvez les «~Grouper~» (\softmenu{Objet} $\rightarrow$ \softmenu{Grouper}, ou \Ctrl + \keystroke{G}) ou les «~Unir~» (\softmenu{Chemin} $\rightarrow$ \softmenu{Union}, ou \Ctrl + \keystroke{+}).
+- Quand un détail est créé, il est toujours possible de les modifier: ajout ou suppression de nœuds, déplacement, etc. Il suffit de double-cliquer sur un détail et d'utiliser les outils de modification:
  \begin{center}
  \includegraphics[width=0.8\textwidth]{./images/modifynodes}\\  
  \end{center}
@@ -1073,17 +876,6 @@ détail et d'utiliser les outils de modification:\\
   \item \fbox{\Ctrl + \keystroke{g}} pour grouper différents objets ou détails et
 \fbox{\Ctrl + \Shift + \keystroke{g}} pour les dégrouper
  \end{enumerate}
- \item Si vous créez votre image interactive uniquement avec les outils de dessin
-d'Inkscape (en faisant des copies bitmap de formes ou d'images importés),
-nous vous recommandons fortement de grouper tous les objets (y compris
-l'image de fond), de faire une copie bitmap de cet ensemble, et d'utiliser
-cette copie bitmap comme image de fond. Si vous ne le faites pas, certaines
-images ou copies bitmap risque de disparaître dans l'image interactive
-lorsque des détails situés au-dessus d'eux seront sélectionnés (ce qui est
-logique: le rôle principal d'un détail est de permettre à l'utilisateur de
-voir ce qui se trouve sur l'image de fond).
-\end{itemize}
 
-\listoffigures \listoftables
-
-\end{document}
+- Si vous créez votre image interactive uniquement avec les outils de dessin d'Inkscape (en faisant des copies bitmap de formes ou d'images importés), nous vous recommandons fortement de grouper tous les objets (y compris l'image de fond), de faire une copie bitmap de cet ensemble, et d'utiliser cette copie bitmap comme image de fond. Si vous ne le faites pas, certaines images ou copies bitmap risque de disparaître dans l'image interactive lorsque des détails situés au-dessus d'eux seront sélectionnés (ce qui est
+logique: le rôle principal d'un détail est de permettre à l'utilisateur de voir ce qui se trouve sur l'image de fond).
