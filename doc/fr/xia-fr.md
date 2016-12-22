@@ -21,11 +21,22 @@
  - [3.3. Insérer des images dans votre image interactive](#inserer-des-images)
   - [3.3.1. Image de fond composite](#image-de-fond-composite)
   - [3.3.2. Image sélectionnable](#image-selectionnable)
+ - [3.4. Faire apparaître une question/un indice et dévoiler une réponse](#question-reponse)
+ - [3.5. Contrôler le comportement des détails: affichage immédiat et désactivation](#comportement-details)
+ - [3.6. Contrôler l'ordre d'affichage des détails dans la barre latérale des commentaires](#ordre-details)
+ - [3.7. En résumé](#resume-images-enrichies)
+- [4. Créer des jeux avec Xia](#creer-des-jeux)
+ - [4.1. Premier principe ludique: sélectionner, trouver des éléments dans une image](#game-one-clic)
+ - [4.2. Second principe ludique: classer, organiser, hiérarchiser](#game-drag-and-drop)
+ - [4.3. Options et astuces](#jeux-options-et-astuces)
+  - [4.3.1. Astuce : Montrer la progression dans le jeu (thème game1clic)](#jeux-astuce-progression)
+  - [4.3.2. Option : Montrer les erreurs du joueur (thème game1clic)](#jeux-options-score2)
+  - [4.3.3. Option : Comment ajouter un effet «aimant» (thème gameDragAndDrop)](#jeux-options-magnet)
+  - [4.3.4. Option : Infobulles (thèmes game1clic et gameDragAndDrop)](#jeux-options-infobulles)
+  - [4.4. En résumé](#jeux-resume)
+- [5. Foire aux questions](#faq)
+- [6. Astuces Inkscape](#astuces)
 
-- [4. Créer des jeux avec Xia]
-- [5. Foire aux questions]
-- [6. Astuces Inkscape]
- 
 ## 1. Présentation de Xia <a name="presentation"></a>
 
 ### 1.1. Qu'est-ce que Xia? <a name="quest-ce-que-xia"></a>
@@ -584,9 +595,9 @@ dépôts, dans le champ \softmenu{Description}.
 Une fois votre fichier svg préparé, choisir le modèle
 \softmenu{gameDragAndDrop} pour générer le jeu.
 
-### 4.3. Astuces pour la création de jeux interactifs: effet aimant, infobulles, double compteur de score
+### 4.3. Options et astuces
 
-#### 4.3.1. Montrer la progression dans le jeu (thème game1clic)
+#### 4.3.1. Astuce : Montrer la progression dans le jeu (thème game1clic)
 
 Il est possible de faire s'afficher des éléments graphiques quand le joueur
 sélectionne une réponse correcte. Ces éléments peuvent être des png importés
@@ -612,7 +623,7 @@ successivement sur le détail et l'élément en maintenant la touche \Shift
 enfoncée), puis en sélectionnant \softmenu{Grouper} dans le menu
 \softmenu{Objet} d'Inkscape.
 
-#### 4.3.2. Montrer les erreurs du joueur (thème game1clic)
+#### 4.3.2. Option : Montrer les erreurs du joueur (thème game1clic)
 
 On voit clairement l'intérêt pédagogique des jeux basés sur le principe de
 la sélection\ldots mais on voit également rapidement comment des élèves
@@ -637,7 +648,7 @@ Une fois la balise \verb|disable-score| appliquée, le détail demeure
 cliquable, mais sa sélection n'ajoutera pas un point au compteur surveillant
 le score pour délivrer le message de fin.
 
-#### 4.3.3. Comment ajouter un effet «aimant» (thème gameDragAndDrop)
+#### 4.3.3. Option : Comment ajouter un effet «aimant» (thème gameDragAndDrop)
 
 
 Si vous indiquez \verb|<magnet>on</magnet>| dans le champ
@@ -651,7 +662,7 @@ Vous pouvez insérer un lien dans le champ \softmenu{Titre} des
 cliquer sur cette zone ou y déposer l'étiquette correspondante pour suivre
 le lien.
 
-#### 4.3.4. Infobulles (thèmes game1clic et gameDragAndDrop)
+#### 4.3.4. Option : Infobulles (thèmes game1clic et gameDragAndDrop)
 
 
 \begin{links}
