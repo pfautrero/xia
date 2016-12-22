@@ -6,12 +6,26 @@
 ## Sommaire
 
 - [1. Présentation de Xia](#presentation)
-- [1.1. Qu'est-ce que Xia ?](#quest-ce-que-xia)
-- [1.2. Processus général ?](#processus-general)
-- [1.3. Installer Inkscape et Xia ?](#installer-inkscape-et-xia)
+ - [1.1. Qu'est-ce que Xia ?](#quest-ce-que-xia)
+ - [1.2. Processus général ?](#processus-general)
+ - [1.3. Installer Inkscape et Xia ?](#installer-inkscape-et-xia)
+- [2. Création d'une première image interactive avec Inkscape et Xia](#creation-dune-premiere-image-interactive)
+ - [2.1. Création de la ressource support](#creation-ressource-support)
+ - [2.2. Génération de l'image interactive avec Xia](#generation-image-interactive)
+- [3. Images interactives enrichies](#images-interactives-enrichies)
+ - [3.1. Mise en forme du texte (moteur wiki)](#mise-en-forme-du-texte)
+ - [3.2. Insérer des ressources multimédias dans les commentaires](#inserer-ressources-multimedia)
+  - [3.2.1. Utiliser une ressource locale](#ressource-multimedia-locale)
+  - [3.2.2. Utiliser une intégration iframe](#ressource-multimedia-iframe)
+  - [3.2.3. Utiliser une intégration oembed](#ressource-multimedia-oembed)
+ - [3.3. Insérer des images dans votre image interactive](#inserer-des-images)
+  - [3.3.1. Image de fond composite](#image-de-fond-composite)
+  - [3.3.2. Image sélectionnable](#image-selectionnable)
 
-
-
+- [4. Créer des jeux avec Xia]
+- [5. Foire aux questions]
+- [6. Astuces Inkscape]
+ 
 ## 1. Présentation de Xia <a name="presentation"></a>
 
 ### 1.1. Qu'est-ce que Xia? <a name="quest-ce-que-xia"></a>
@@ -40,10 +54,9 @@ L'installation d'Inkscape et de Xia sont les seuls prérequis pour la poursuite 
 
 Installez impérativement Inkscape en premier, puis Xia, sous peine de ne pas être en mesure d'accéder à Xia directement dans Inkscape.
 
-<a name="first_image"></a>
-## 2. Création d'une première image interactive avec Inkscape et Xia
+## 2. Création d'une première image interactive avec Inkscape et Xia <a name='creation-dune-premiere-image-interactive'></a>
 
-### 2.1. Création du fichier source au format svg en vue de la génération de l'image interactive
+### 2.1. Création de la ressource support <a name='creation-ressource-support'></a>
 
 <img src='../images/alert_yellow.png' width='40'>
 Visualisez l' [image interactive](https://xia.dane.ac-versailles.fr/demo/tuto/xia1) créée pour cette partie de la documentation. Téléchargez le fichier source au format
@@ -138,7 +151,7 @@ fond: le titre et la description de celle-ci serviront d'introduction
 générale à l'image interactive (il s'agit d'un titre et d'un commentaire qui
 ne sont pas reliés à un détail particulier).
 
-### 2.2. Génération de l'image interactive avec Xia
+### 2.2. Génération de l'image interactive avec Xia <a name='generation-image-interactive'></a>
 
 Quand tous les détails sont détourés et leurs métadonnées renseignées, Xia
 peut être lancé en cliquant sur `> Extensions > Export > XIA Édu`.
@@ -156,8 +169,10 @@ La ressource ainsi générée nécessite un accès internet pour fonctionner ple
 
 <img src='../images/interface_xia2.png' style='display:block;margin:0 auto;width:90%;'>
 
-<img src='../images/alert_green.png' width='40'>
-Vous pouvez générer vos animation html5 en utilisant le terminal avec la commande **xia**. Les paramètres à utiliser sont **--input** pour indiquer le fichier en entrée, **--output** pour indiquer le répertoire d'export, **--theme** pour indiquer le thème choisi.
+<img src='../images/alert_green.png' width='30' style='float:left;margin : 10px;'>
+## Usage d'expert !
+
+Vous pouvez générer vos animations html5 en utilisant le `terminal` avec la commande **xia**. Les paramètres à utiliser sont **--input** pour indiquer le fichier en entrée, **--output** pour indiquer le répertoire d'export, **--theme** pour indiquer le thème choisi.
 
 
 **Avec GNU/Linux**, pour un export fichier unique utilisant le thème accordionBlack :
@@ -182,7 +197,7 @@ Puis double-cliquer sur le fichier `xia.bat` pour lancer l'export.
 
 <a name='enriched_ia'></a>
 
-## 3. Images interactives enrichies
+## 3. Images interactives enrichies <a name='images-interactives-enrichies'></a>
 
 <img src='../images/alert_green.png' width='40'>
 Visualisez l'[image interactive](http://xia.dane.ac-versailles.fr/demo/tuto/xia2) créée pour cette partie de la documentation. Téléchargez le fichier source au format [svg](https://xia.dane.ac-versailles.fr/demo/tuto/xia2/svg/xia2.svg).
