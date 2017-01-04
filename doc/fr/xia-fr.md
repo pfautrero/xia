@@ -58,7 +58,7 @@ Xia n'est nécessaire qu'à la fin du processus. Comme on peut le voir sur l'ill
 <img src='../images/processus-fr.png' style='display:block;margin:0 auto;width:60%;'>
 
 <img src='../images/alert_green.png' width='40'>
-Si vous possédez des projets créés avec le logiciel ImagesActives (fichiers possédant une extension .xia), vous pouvez changer l'extension de ces fichiers en .zip, les dézipper, récupérer le fichier svg se trouvant dans le répertoire ainsi obtenu et ouvrir celui-ci avec Inkscape. Si vous utilisez GNU/Linux, explorez le .xia et récupérez le fichier svg.
+Si vous possédez des projets créés avec le logiciel ImagesActives (fichiers possédant une extension .xia), vous pouvez changer l'extension de ces fichiers en .zip, les dézipper, récupérer le fichier svg se trouvant dans le répertoire ainsi obtenu et ouvrir celui-ci avec Inkscape. Si vous utilisez GNU/Linux, explorez le fichier «.xia» et récupérez le fichier «.svg».
 
 
 ### 1.3. Installer Inkscape et Xia <a name="installer-inkscape-et-xia"></a>
@@ -88,7 +88,7 @@ Les informations renseignées dans les **Métadonnées du document** (menu **Fic
 
 <img src='../images/ia_title.png' style='display:block;margin:0 auto;width:90%;'>
 
-Le titre renseigné dans les métadonnées du document apparaissent au-dessus de l'image interactive et donnent son nom à la page web l'affichant. Le créateur et les droits associés apparaissent dans la pop up accessible via l'icône «**i**» située à droite du titre de l'image interactive.
+Le titre renseigné dans les métadonnées du document apparait au-dessus de l'image interactive et donnent son nom à la page web l'affichant. Le créateur et les droits associés apparaissent dans la pop up accessible via l'icône «**i**» située à droite du titre de l'image interactive.
 
 Vous pouvez sauvegarder votre projet au format svg dès le début du travail, en allant dans le menu -> Fichier -> Enregistrer.
 
@@ -126,9 +126,9 @@ Le processus décrit ci-dessus doit également être effectué avec l'image de f
 
 ### 2.2. Génération de l'image interactive avec Xia <a name='generation-image-interactive'></a>
 
-Quand tous les détails sont détourés et leurs métadonnées renseignées, Xia peut être lancé en cliquant sur `> Extensions > Export > XIA Édu`.
+Quand tous les détails sont détourés et leurs métadonnées renseignées, Xia peut être lancé en cliquant sur `> Extensions > Exporter > Xia édu`.
 
-<img src='../images/chemin-xia-inkscape.png' style='display:block;margin:0 auto;width:90%;'>
+<img src='../images/chemin-xia-inkscape_V2.png' style='display:block;margin:0 auto;width:90%;'>
 
 Choisissez un modèle d'export et un répertoire d'enregistrement de l'image interactive.
 
@@ -180,7 +180,7 @@ Dans cette section, l'objectif demeure la création d'une image interactive «**
 Pour enrichir le texte et proposer des ressources multimédia, XIA s'appuie sur une syntaxe wiki élémentaire. Comme vous pouvez le constater en comparant les deux captures ci-dessous, il suffit d'ajouter des **marqueurs** spécifiques dans le texte pour réaliser la mise en forme ou simplement écrire les liens vers les ressources à intégrer.
 
 
-Text saisi avec les marqueurs wiki :
+Texte saisi avec les marqueurs wiki :
 
 <img src='../images/pikipiki-fr.png' style='display:block;margin:0 auto;width:90%;'>
 
@@ -192,7 +192,7 @@ Rendu final :
 
 - `***Mettre en gras***`
 - `**Mettre en italique**`
-- `{{{écrire du texte sans formattage}}}`
+- `{{{écrire du texte sans formatage}}}`
 - Pour insérer une image qui se trouve sur internet, écrivez simplement le lien vers cette image :
 ```
 https://xia.dane.ac-versailles.fr/img/xia.png
@@ -216,7 +216,7 @@ https://xia.dane.ac-versailles.fr
 dev-xia@ac-versailles.fr
 ```
 
-- Utiliser une liste à puces (***Placer un espace devant chaque astérisque***):
+- Utiliser une liste à puces (***Placer un espace devant chaque astérisque***) :
 ```
  * élément 1
  * élément 2
@@ -228,7 +228,7 @@ dev-xia@ac-versailles.fr
 
 #### 3.2.1. Utiliser une ressource locale <a name='ressource-multimedia-locale'></a>
 
-L'insertion de ressources multimédias dans les commentaires est chose assez aisée: copiez-collez l'url de la ressource (qu'elle soit absolue ou relative) ou le code iframe du service web utilisé pour héberger votre ressource, et Xia créera automatiquement un lecteur multimédia, pour peu que celle-ci (image, son, vidéo) fasse partie des formats supportés:
+L'insertion de ressources multimédias dans les commentaires est chose assez aisée: copiez-collez l'url de la ressource (qu'elle soit absolue ou relative) ou le code iframe du service web utilisé pour héberger votre ressource, et Xia créera automatiquement un lecteur multimédia, pour peu que celle-ci (image, son, vidéo) fasse partie des formats supportés :
 
 - **[Images]** : jpg, jpeg, png, gif
 - **[Audio]** : ogg, mp3
@@ -239,7 +239,7 @@ Le lien doit être inséré dans le champ `Description` des `Propriétés de l'o
 - **[Lien absolu]** : Si l'url de la ressource est `http://web.crdp.ac-versailles.fr/02546.ogg`, il suffit alors d'écrire cette url dans le champ `Description` des
 `Propriétés de l'objet` dans Inkscape.
 
-- **[Lien relatif]** : Si le fichier de la ressource multimédia se trouve dans le répertoire d'export de l'image interactive, ou dans un répertoire contenu dans celui-ci, indiquez simplement le chemin vers le fichier, en considérant le répertoire d'export comme répertoire racine. Par exemple, si le fichier `video.ogv` se trouve dans le répertoire `videos` se trouvant lui-même dans le répertoire de l'image interactive, indiquez:
+- **[Lien relatif]** : Si le fichier de la ressource multimédia se trouve dans le répertoire d'export de l'image interactive, ou dans un répertoire contenu dans celui-ci, indiquez simplement le chemin vers le fichier, en considérant le répertoire d'export comme répertoire racine. Par exemple, si le fichier `video.ogv` se trouve dans le répertoire `videos` se trouvant lui-même dans le répertoire de l'image interactive, indiquez :
 
 ```
 ./videos/video.ogv
@@ -269,7 +269,7 @@ Une dernière possibilité, la plus simple de toutes, vous permet d'insérer des
 
 #### 3.3.1. Image de fond composite <a name='image-de-fond-composite'></a>
 
-Après avoir réalisé votre image interative, vous vous rendez compte qu'il manque des éléments dans votre image de fond. Sachez que vous pouvez a posteriori ajouter d'autres images et ainsi les grouper avec l'image de fond pour constituer une image de fond composite. Pour faire cela :
+Après avoir réalisé votre image interactive, vous vous rendez compte qu'il manque des éléments dans votre image de fond. Sachez que vous pouvez a posteriori ajouter d'autres images et ainsi les grouper avec l'image de fond pour constituer une image de fond composite. Pour faire cela :
 
 - Sélectionnez `> Fichier > Importer` dans Inkscape afin d'incorporer votre nouvelle image.
 - Sélectionnez votre image de fond et votre nouvelle image en même temps (Utilisez la touche `Shift` au moment de la sélection multiple)
@@ -340,9 +340,9 @@ Les éléments `[[..]]` peuvent être imbriqués.
 
 ### 3.5. Contrôler le comportement des détails: affichage immédiat et désactivation <a name='comportement-details'></a>
 
-Par défaut, le comportement des détails d'une image interactive est le suivant:
-- mise en valeur des détails au survol de la souris ou par un clic sur son titre dans les commentaires
-- effet de zoom lors d'un second clic sur le détail actif
+Par défaut, le comportement des détails d'une image interactive est le suivant :
+- mise en valeur des détails au survol de la souris ou par un clic sur son titre dans les commentaires,
+- effet de zoom lors d'un second clic sur le détail actif.
 
 Ces deux comportements par défaut peuvent être modifiés si vous appliquez un fond noir ou blanc aux détails détourés :
 
@@ -359,7 +359,7 @@ Pour changer cet ordre par défaut, utilisez les boutons dédiés de la barre de
 
 <img src='../images/inkscape_zindex.png' style='display:block;margin:0 auto;width:20%;'>
 
-Commencez par sélectionner le détail sur lequel vous voulez ahir et cliquez sur l'un des 4 boutons ci-dessus pour modifier la `profondeur` du détail.
+Commencez par sélectionner le détail sur lequel vous voulez agir et cliquez sur l'un des 4 boutons ci-dessus pour modifier la `profondeur` du détail.
 
 ### 3.7. En résumé <a name='resume-images-enrichies'></a>
 
@@ -376,7 +376,7 @@ Jusqu'à maintenant, cette documentation n'a traité que de la création d'image
 
 Ce type d'image interactive peut être utilisé en classe dans des situations très variées (les élèves découvrent progressivement une image, ou créent eux-mêmes une image interactive), mais Xia va plus loin avec de nouvelles fonctionnalités. On peut désormais créer des jeux, des activités, dans lesquelles l'utilisateur final a bien davantage à faire que de simplement cliquer sur des détails et lire du texte.
 
-### 4.1. Premier principe ludique: sélectionner, trouver des éléments dans une image <a name='game-one-clic'></a>
+### 4.1. Premier principe ludique : sélectionner, trouver des éléments dans une image <a name='game-one-clic'></a>
 
 
 Le principe ludique décrit dans cette partie de la documentation est le suivant: le joueur doit sélectionner des détails dans une image, quand il a sélectionné les éléments indiqués dans la consigne, un message de fin apparaît.
@@ -801,7 +801,7 @@ Si vous ne faites pas de copie bitmap du texte, Xia considèrera que le texte cr
 
 - Ajoutez des couleurs de fond à vos détails. Les détails seront ainsi plus faciles à sélectionner et modifier, et cela n'aura aucune conséquence sur l'animation html5 (sauf si vous choisissez le blanc ou le noir comme couleur de remplissage).
 - Si vous voulez créer un détail à partir de plusieurs, vous pouvez les «~Grouper~» (\softmenu{Objet} $\rightarrow$ \softmenu{Grouper}, ou \Ctrl + \keystroke{G}) ou les «~Unir~» (\softmenu{Chemin} $\rightarrow$ \softmenu{Union}, ou \Ctrl + \keystroke{+}).
-- Quand un détail est créé, il est toujours possible de les modifier: ajout ou suppression de nœuds, déplacement, etc. Il suffit de double-cliquer sur un détail et d'utiliser les outils de modification:
+- Quand un détail est créé, il est toujours possible de le modifier: ajout ou suppression de nœuds, déplacement, etc. Il suffit de double-cliquer sur un détail et d'utiliser les outils de modification:
  \begin{center}
  \includegraphics[width=0.8\textwidth]{./images/modifynodes}\\  
  \end{center}
