@@ -168,7 +168,7 @@ ne sont pas reliés à un détail particulier).
 Quand tous les détails sont détourés et leurs métadonnées renseignées, Xia
 peut être lancé en cliquant sur `> Extensions > Exporter > Xia édu`.
 
-<img src='../images/chemin-xia-inkscape.png' style='display:block;margin:0 auto;width:90%;'>
+<img src='../images/chemin-xia-inkscape_V2.png' style='display:block;margin:0 auto;width:90%;'>
 
 Choisissez un modèle d'export et un répertoire d'enregistrement de l'image interactive.
 
