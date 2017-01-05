@@ -459,18 +459,9 @@ Téléchargez le fichier source au format [svg](http://xia.dane.ac-versailles.fr
 
 Pour créer ce type de jeu, ajoutez la balise `<collisions>on</collisions>` à l'image de fond. Une fois cela fait, tous les détails deviennent «`solides`», et bloquent le déplacement des objets qu'il faut déplacer (images au format png importées, ou copie bitmap de formes dessinées avec Inkscape).
 
-Le jeu de type «~collisions~» est en réalité un jeu de type gameDragAndDrop,
-puisque la résolution passe par le dépôt d'un ou plusieurs éléments à
-certains endroits de l'image. Les balises nécessaires dans ce type de jeu
-sont donc les mêmes que dans le jeu gameDragAndDrop
-\footnote{\texttt{<target></target>} sur les objets,
-\texttt{<score></score>} et \texttt{<message></message>}  sur l'image de
-fond: voir la section \ref{gameDragAndDropsection}.}, mais il faudra penser
-à appliquer la balise \verb|<collisions>off</collisions>| sur les zones de
-dépôts, dans le champ \softmenu{Description}.
+Le jeu de type «~collisions~» est en réalité un jeu de type gameDragAndDrop, puisque la résolution passe par le dépôt d'un ou plusieurs éléments à certains endroits de l'image. Les balises nécessaires dans ce type de jeu sont donc les mêmes que dans le jeu gameDragAndDrop `<target></target>` sur les objets, `<score></score>` et `<message></message>` sur l'image de fond: voir la section \ref{gameDragAndDropsection}.}, mais il faudra penser à appliquer la balise \verb|<collisions>off</collisions>| sur les zones de dépôts, dans le champ \softmenu{Description}.
 
-Une fois votre fichier svg préparé, choisir le modèle
-\softmenu{gameDragAndDrop} pour générer le jeu.
+Une fois votre fichier svg préparé, choisir le modèle `gameDragAndDrop` pour générer le jeu.
 
 ### 4.3. Options et astuces <a name='jeux-options-et-astuces'></a>
 
