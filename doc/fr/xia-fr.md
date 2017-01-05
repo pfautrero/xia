@@ -73,7 +73,7 @@ Installez impérativement Inkscape en premier, puis Xia, sous peine de ne pas ê
 
 <img src='../images/alert_yellow.png' width='40'>
 Visualisez l' [image interactive](https://xia.dane.ac-versailles.fr/demo/tuto/xia1) créée pour cette partie de la documentation. Téléchargez le fichier source au format
-[svg](http://xia.dane.ac-versailles.fr/demo/tuto/xia1/svg/xia1.svg).
+[svg](https://xia.dane.ac-versailles.fr/demo/tuto/xia1/svg/xia1.svg).
 
 
 Les manipulations décrites dans cette partie de la documentation vous permettront de créer une image interactive «basique», comprenant:
@@ -170,7 +170,7 @@ Puis double-cliquer sur le fichier `xia.bat` pour lancer l'export.
 ## 3. Images interactives enrichies <a name='images-interactives-enrichies'></a>
 
 <img src='../images/alert_green.png' width='40'>
-Visualisez l'[image interactive](http://xia.dane.ac-versailles.fr/demo/tuto/xia2) créée pour cette partie de la documentation. Téléchargez le fichier source au format [svg](https://xia.dane.ac-versailles.fr/demo/tuto/xia2/svg/xia2.svg).
+Visualisez l'[image interactive](https://xia.dane.ac-versailles.fr/demo/tuto/xia2) créée pour cette partie de la documentation. Téléchargez le fichier source au format [svg](https://xia.dane.ac-versailles.fr/demo/tuto/xia2/svg/xia2.svg).
 
 Dans cette section, l'objectif demeure la création d'une image interactive «**simple**» (autrement dit, dans laquelle un détail fait apparaître un commentaire). Cependant, le texte des commentaires sera enrichi par une mise en forme ou des ressources multimédias.
 
@@ -381,9 +381,9 @@ Ce type d'image interactive peut être utilisé en classe dans des situations tr
 
 Le principe ludique décrit dans cette partie de la documentation est le suivant: le joueur doit sélectionner des détails dans une image, quand il a sélectionné les éléments indiqués dans la consigne, un message de fin apparaît.
 
-Visualisez le [jeu](http://xia.dane.ac-versailles.fr/demo/tuto/xia3) créé pour cette partie de la documentation.
+Visualisez le [jeu](https://xia.dane.ac-versailles.fr/demo/tuto/xia3) créé pour cette partie de la documentation.
 
-Téléchargez le fichier source au format [svg](http://xia.dane.ac-versailles.fr/demo/tuto/xia3/svg/xia3.svg)
+Téléchargez le fichier source au format [svg](https://xia.dane.ac-versailles.fr/demo/tuto/xia3/svg/xia3.svg)
 
 
 Ce type de jeu est presque le type d'image interactive la plus facile à créer. Vous devez uniquement détourer les détails que le joueur devra sélectionner.
@@ -403,6 +403,7 @@ Une fois votre fichier svg préparé, choisir le modèle d'export `game1clic` po
 
 ### 4.2. Second principe ludique: classer, organiser, hiérarchiser <a name='game-drag-and-drop'></a>
 
+#### 4.2.1 Créez votre premier jeu de glisser/déposer
 
 Le second type de jeu pouvant être créé avec Xia est basé sur le principe du glisser-déposer. Des étiquettes déplaçables sont déposées sur l'image de fond. Quand tous les éléments ont été placés sur leur zone de dépôt, un message apparaît, annonçant la fin du jeu.
 
@@ -411,48 +412,26 @@ Visualisez le [jeu](https://xia.dane.ac-versailles.fr/demo/tuto/xia5) créée po
 Téléchargez le fichier source au format [svg](https://xia.dane.ac-versailles.fr/demo/tuto/xia5/svg/xia5.svg).
 
 Voici comment créer un jeu basé sur le principe du glisser-déposer:
-\begin{enumerate}
- \item Dans Inkscape:
-\begin{itemize}
- \item Choisir et importer une image de fond
- \item Créer les éléments que les utilisateurs de votre image interactive auront à
-déplacer et à déposer (autrement dit: des images, des mots ou groupes de
-mots: voir ci-dessous les explications)
- \item Créer la fenêtre surgissante de consignes en éditant les informations du
-champ \softmenu{Fichier $\rightarrow$ Métadonnées du document $\rightarrow$
-Description}\footnote{Exactement comme dans le jeu game1clic}
- \item En renseignant les métadonnées, faites correspondre chaque élément à une
-zone de dépôt (ces zones de dépôts étant en réalité des détails détourés)
-\end{itemize}
- \item Dans Xia
- \begin{itemize}
-  \item Exporter le fichier source au format svg avec le modèle
-\softmenu{gameDragAndDrop}
- \end{itemize}
-\end{enumerate}
 
-Deux méthodes peuvent être utilisées pour créer les éléments que les joueurs
-auront à glisser et déposer. La première, très simple, consiste à utiliser
-un utilitaire de capture d'écran capable de créer des petites images au
-format png, puis d'importer celles-ci dans Inkscape. Il est également
-possible de créer ces éléments directement dans Inkscape. Par exemple, en
-créant un texte, en regroupant ce texte avec une forme puis en faisant une
-copie bitmap de cet ensemble (\softmenu{Édition $\rightarrow$ Créer une
+Dans Inkscape:
+
+- Choisir et importer une image de fond
+- Créer les éléments que les utilisateurs de votre image interactive auront à déplacer et à déposer (autrement dit: des images, des mots ou groupes de mots: voir ci-dessous les explications)
+- Créer la fenêtre surgissante de consignes en éditant les informations du champ \softmenu{Fichier $\rightarrow$ Métadonnées du document $\rightarrow$ Description}\footnote{Exactement comme dans le jeu game1clic}
+- En renseignant les métadonnées, faites correspondre chaque élément à une zone de dépôt (ces zones de dépôts étant en réalité des détails détourés)
+
+
+- Dans Xia
+- Exporter le fichier source au format svg avec le modèle `gameDragAndDrop`
+
+Deux méthodes peuvent être utilisées pour créer les éléments que les joueurs auront à glisser et déposer. La première, très simple, consiste à utiliser un utilitaire de capture d'écran capable de créer des petites images au format png, puis d'importer celles-ci dans Inkscape. Il est également possible de créer ces éléments directement dans Inkscape. Par exemple, en créant un texte, en regroupant ce texte avec une forme puis en faisant une copie bitmap de cet ensemble (\softmenu{Édition $\rightarrow$ Créer une
 copie bitmap}).
 
 
-Les éléments à déplacer doivent être associés à leur zone de dépôt
-\footnote{\textbf{Un} objet ne pouvant être associé qu'à \textbf{une} zone
-de dépôt.}. Pour faire cela, il faut «~jumeler~» les éléments à
-glisser-déposer avec leur zone de dépôt en faisant correspondre le champ
-\softmenu{ID} de la zone de dépôt au champ \softmenu{Description} de
-l'élément à glisser déposer. La seule subtilité tient dans la balise
-\verb|<target></target>| devant être indiquée dans la
-\softmenu{Description}.
+Les éléments à déplacer doivent être associés à leur zone de dépôt \footnote{\textbf{Un} objet ne pouvant être associé qu'à \textbf{une} zone de dépôt.}. Pour faire cela, il faut «~jumeler~» les éléments à glisser-déposer avec leur zone de dépôt en faisant correspondre le champ \softmenu{ID} de la zone de dépôt au champ \softmenu{Description} de
+l'élément à glisser déposer. La seule subtilité tient dans la balise \verb|<target></target>| devant être indiquée dans la \softmenu{Description}.
 
-Vous trouverez dans le tableau \ref{tag2_sumup} un résumé des balises à
-renseigner dans les \softmenu{Propriétés de l'objet} des éléments à déplacer
-et des zones de dépôts afin de les faire correspondre les unes aux autres.
+Vous trouverez dans le tableau \ref{tag2_sumup} un résumé des balises à renseigner dans les \softmenu{Propriétés de l'objet} des éléments à déplacer et des zones de dépôts afin de les faire correspondre les unes aux autres.
 
 \begin{table}
 \begin{tabular}{|p{1.in}|p{2.5in}|p{1.5in}|}
@@ -468,30 +447,17 @@ Champ description & \verb|<target>Titre_du_détail</target>| & \\
 \label{tag2_sumup}
 \end{table}
 
-Une fois votre fichier svg préparé, choisir le modèle
-\softmenu{gameDragAndDrop} pour générer le jeu.
+Une fois votre fichier svg préparé, choisir le modèle `gameDragAndDrop` pour générer le jeu.
 
-\subsection{Troisième principe ludique: les collisions}
+#### 4.2.2 Utilisez les collisions
 
-\textit{Le principe ludique documenté dans cette section est le suivant: le
-joueur doit déplacer des éléments vers des zones de dépôt, mais les
-déplacements de ces éléments ne peuvent avoir lieu que dans certaines
-limites. Le jeu de type «~collisions~» peut ainsi être utilisé pour créer
-des labyrinthes, des taquins.}
+Le principe ludique documenté dans cette section est le suivant: le joueur doit déplacer des éléments vers des zones de dépôt, mais les déplacements de ces éléments ne peuvent avoir lieu que dans certaines limites. Le jeu de type «`collisions`» peut ainsi être utilisé pour créer des labyrinthes, des taquins.
 
-\begin{links}
-Visualisez l'\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia6}{image
-interactive} créée pour cette partie de la documentation.
+Visualisez le [jeu](https://xia.dane.ac-versailles.fr/demo/tuto/xia6) créée pour cette partie de la documentation.
 
-Téléchargez le fichier source au format
-\href{http://xia.dane.ac-versailles.fr/demo/tuto/xia6/svg/xia6.svg}{svg}.
-\end{links}
+Téléchargez le fichier source au format [svg](http://xia.dane.ac-versailles.fr/demo/tuto/xia6/svg/xia6.svg).
 
-Pour créer ce type de jeu, ajoutez la balise
-\verb|<collisions>on</collisions>| à l'image de fond. Une fois cela fait,
-tous les détails deviennent «~solides~», et bloquent le déplacement des
-objets qu'il faut déplacer (images au format png importées, ou copie bitmap
-de formes dessinées avec Inkscape).
+Pour créer ce type de jeu, ajoutez la balise `<collisions>on</collisions>` à l'image de fond. Une fois cela fait, tous les détails deviennent «`solides`», et bloquent le déplacement des objets qu'il faut déplacer (images au format png importées, ou copie bitmap de formes dessinées avec Inkscape).
 
 Le jeu de type «~collisions~» est en réalité un jeu de type gameDragAndDrop,
 puisque la résolution passe par le dépôt d'un ou plusieurs éléments à
