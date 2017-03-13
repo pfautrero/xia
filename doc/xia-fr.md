@@ -405,13 +405,78 @@ Une fois votre fichier svg préparé, choisir le modèle d'export `game1clic` po
 
 #### 4.2.1 Créez votre premier jeu de glisser/déposer
 
-Le second type de jeu pouvant être créé avec Xia est basé sur le principe du glisser-déposer. Des étiquettes déplaçables sont déposées sur l'image de fond. Quand tous les éléments ont été placés sur leur zone de dépôt, un message apparaît, annonçant la fin du jeu.
+Le second type de jeu pouvant être créé avec Xia est basé sur le principe du glisser-déposer. Des étiquettes déplaçables sont déposées sur l'image de fond. Quand tous les éléments ont été placés sur leur zone de dépôt, un message apparaît, annonçant la fin du jeu comme vous le montre l'exemple suivant :
 
-Visualisez le [jeu](https://xia.dane.ac-versailles.fr/demo/tuto/xia5) créée pour cette partie de la documentation.
 
-Téléchargez le fichier source au format [svg](https://xia.dane.ac-versailles.fr/demo/tuto/xia5/svg/xia5.svg).
+<a href='https://xia.dane.ac-versailles.fr/demo/tuto/xia5'><img src='images/gamedraganddrop.jpg' alt='jeu glisser déposer'></a>
 
-Voici comment créer un jeu basé sur le principe du glisser-déposer:
+Si vous souhaitez voir le fichier source, Téléchargez le au format [svg](https://xia.dane.ac-versailles.fr/demo/tuto/xia5/svg/xia5.svg).
+
+
+<img src='images/alert_green.png' width='40'>
+Voyons maintenant ensemble comment créer ce mini-jeu.
+
+Comme vous le montre l'illustration suivante, le jeu est composé de 5 éléments :
+- 1 image de fond
+- 1 image 'carré jaune'
+- 1 image 'disque rouge'
+- 1 rectangle gris pour matérialiser la cible du carré jaune
+- 1 disque gris pour matérialiser la cible du disque rouge
+
+<img src='images/background_3d_game.png' alt='jeu glisser déposer'>
+
+A tout ceci s'ajoutent les `meta-données` suivantes :
+- Le message final pour féliciter le joueur en cas de succès (quand le rond est sur le rond et le carré est sur le carré !)
+- Les consignes du jeu qui apparaissent au lancement
+- Les marqueurs pour préciser que le rectangle gris et le disque gris sont respectivement les zones cibles de notre carré jaune et notre disque rouge.
+
+
+##### Préparation du jeu
+
+Suivez la petite procédure pas à pas suivante :
+
+- Commencez par télécharger et décompresser le pack d'images nécessaires pour créer ce jeu : [PACK D'IMAGES](https://xia.dane.ac-versailles.fr/demo/simplegame/simplegame_images.zip)
+- Ouvrez l'image `background.jpg` avec Inkscape (`Fichier > Ouvrir`)
+- Importez les images `circle.png` et `square.png` (`Fichier > Importer`)
+- Tracez un rectangle (notre fameux rectangle gris) au dessus de la zone de réception rectangulaire dessinée sur l'image de fond
+- Tracez un disque (notre fameux disque gris) au dessus de la zone de réception circulaire dessinée sur l'image de fond
+
+<img src='images/alert_green.png' width='40'> Vous avez presque fini ! Il ne reste plus que les meta-données à saisir pour faire fonctionner ce jeu.
+
+##### Renseignement des meta-données
+
+- Commençons par le **message de succès** : Faites un clic droit sur l'image de fond, choisissez `> propriétés de l'objet`
+
+<img src='images/gamedrag_and_drop_properties_menu_back.jpg' style='display:block;margin:0 auto;width:80%;'>
+
+et dans son champ `description`, saisir ceci :
+
+```
+<score>2</score>
+<message>Bravo !</message>
+```
+
+<img src='images/gamedrag_and_drop_msg_success.png' style='display:block;margin:0 auto;width:80%;'>
+
+
+
+Ceci signifie que lorsque 2 éléments sont bien placés, le message `Bravo !` doit être affiché.
+
+- Continuons avec la **consigne** : Allez dans `Fichier > Meta-données du document` et dans le champ `description`, écrivez votre consigne :
+
+```
+Résoudre cette enigme !
+```
+
+- Pour finir, précisons que le rectangle gris est la cible de notre carré jaune. Faites un clic droit sur le rectangle gris, choisissez `propriétés de l'objet` et retenez l'id affiché (vous pouvez aussi le modifier pour lui donner un nom plus explicite)
+
+
+Faites alors un clic droit
+
+
+
+
+
 
 Dans Inkscape:
 

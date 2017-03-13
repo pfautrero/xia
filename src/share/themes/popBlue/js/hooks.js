@@ -151,9 +151,10 @@ hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
           }
       });
       var article_border = $('#' + idText).css("border-top-width").substr(0,$('#' + idText).css("border-top-width").length - 2);
+      var article_margin_top = $('#' + idText).css("margin-top").substr(0,$('#' + idText).css("margin-top").length - 2);
       var article_offset = $('#' + idText).offset();
       var content_offset = $("#content").offset();
-      $('#' + idText).css({'max-height':(viewportHeight - article_offset.top - content_offset.top - 2 * article_border)});
+      $('#' + idText).css({'max-height':(viewportHeight - article_offset.top - content_offset.top - article_margin_top - 2 * article_border)});
   }
 };
 
@@ -173,8 +174,9 @@ hooks.prototype.afterIaObjectZoom = function(iaScene, idText, iaObject) {
             }
         });
         var article_border = $('#' + idText).css("border-top-width").substr(0,$('#' + idText).css("border-top-width").length - 2);
+        var article_margin_top = $('#' + idText).css("margin-top").substr(0,$('#' + idText).css("margin-top").length - 2);
         var article_offset = $('#' + idText).offset();
         var content_offset = $("#content").offset();
-        $('#' + idText).css({'max-height':(viewportHeight - article_offset.top - content_offset.top - 2 * article_border)});
+        $('#' + idText).css({'max-height':(viewportHeight - article_offset.top - content_offset.top - article_margin_top - 2 * article_border)});
     }
 };
