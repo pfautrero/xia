@@ -221,8 +221,9 @@ header h1 {
     background:white;
     min-height: 100px;
     box-shadow: black 5px 5px 10px;
-    overflow-y: auto;
-    overflow-x: hidden;
+    /*overflow-y: auto;
+    overflow-x: hidden;*/
+    overflow : hidden;
     font-family: yanone_thin;
     font-size: 1.2em;
     padding: 10px;
@@ -238,13 +239,7 @@ header h1 {
     font-family: yanone_thin;
 }
 
-.article_close {
-    cursor: pointer;
-    position:absolute;
-    top:0;
-    right:0;
-    width:40px;
-}
+
 #popup_text {
     text-align:center;
     font-family: yanone_regular;
@@ -416,4 +411,25 @@ iframe {border:none;}
 
   /*Hack pour avoir le background en cover sur Android*/
   #popup {width:85%;}
+}
+
+#content article img {
+  display: block;
+  margin: 10px auto;
+}
+
+#content .article_content{
+  overflow-x : hidden;
+  overflow-y : auto;
+  height: 100%;
+  text-align: justify;
+  padding : 15px;
+}
+#content .article_close {
+    cursor: pointer;
+    position:absolute;
+    top:0;
+    right:0;
+    width:40px;
+    margin : 0px;
 }

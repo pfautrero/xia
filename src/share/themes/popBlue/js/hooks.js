@@ -144,7 +144,8 @@ hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
   if ($('#' + idText).data("state") != "void") {
       var viewportHeight = $(window).height();
       $("#content").show();
-      $('#' + idText).show();
+      //$('#' + idText).show();
+      $('#' + idText).css({'display' : 'flex', 'flex-direction' : 'column'});
       $('#' + idText + " audio").each(function(){
           if ($(this).data("state") === "autostart") {
               $(this)[0].play();
@@ -167,7 +168,8 @@ hooks.prototype.afterIaObjectZoom = function(iaScene, idText, iaObject) {
     if ($('#' + idText).data("state") != "void") {
         var viewportHeight = $(window).height();
         $("#content").show();
-        $('#' + idText).show();
+        //$('#' + idText).show();
+        $('#' + idText).css({'display' : 'flex', 'flex-direction' : 'column'});
         $('#' + idText + " audio").each(function(){
             if ($(this).data("state") === "autostart") {
                 $(this)[0].play();

@@ -51,7 +51,7 @@ class hook:
                 final_str += u'<article data-state="'+ dataState +'" id="article-'+unicode(str(i), "utf8") + u'">\n'
                 final_str += '<img class="article_close" src="{{LogoClose}}" alt="close"/>'
                 final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
-                final_str += u'  <div>' + self.PageFormatter(detail["detail"]).print_html() + u'</div>\n'
+                final_str += u'  <div class="article_content">' + self.PageFormatter(detail["detail"]).print_html() + u'</div>\n'
                 final_str += u'</article>\n'
 
         with open(templatePath,"r") as template:
