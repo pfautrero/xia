@@ -83,7 +83,8 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
 
     $(".meta-doc").on("click", function(){
         $("#content").show();
-        $("#general").show();
+        //$("#general").show();
+        $("#general").css({'display' : 'flex', 'flex-direction' : 'column'});
         var general_border = $("#general").css("border-top-width").substr(0,$("#general").css("border-top-width").length - 2);
         var general_offset = $("#general").offset();
         var content_offset = $("#content").offset();

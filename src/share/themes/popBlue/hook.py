@@ -41,7 +41,7 @@ class hook:
         final_str  = u'<article id="general">\n'
         final_str += '<img class="article_close" src="{{LogoClose}}" alt="close"/>'
         final_str += u'  <h1>' + self.iaobject.scene["intro_title"] + '</h1>\n'
-        final_str += u'  <p>' + self.PageFormatter(self.iaobject.scene["intro_detail"]).print_html() + u'</p>\n'
+        final_str += u'  <div class="article_content">' + self.PageFormatter(self.iaobject.scene["intro_detail"]).print_html() + u'</div>\n'
         final_str += u'</article>\n'
         for i, detail in enumerate(self.iaobject.details):
             if detail['options'].find(u"direct-link") == -1:
