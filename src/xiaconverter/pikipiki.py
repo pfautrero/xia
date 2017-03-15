@@ -97,6 +97,9 @@ class PageFormatter:
     def _img_repl(self, word):
         return u'<img src="%s"/>\n' % (word)
 
+    def _pdf_repl(self, word):
+        return u'<a href="%s"><img src="{{LogoPDF}}" alt="pdf"></a>\n' % (word)
+
     def _iframe_repl(self, word):
         word_url = word.split("src=&quot;")[1].split("&quot;")[0]
         if word_url[0:2] == "//":
@@ -295,6 +298,7 @@ class PageFormatter:
             + r"|(?P<flicker>https\:\/\/flic\.kr\/p\/(.*))"
             + r"|(?P<link>\[(http|\.\.\/|\.\/)(.*)\])"
             + r"|(?P<img>[^\s'\"]+\.(jpg|jpeg|png|gif)$)"
+            + r"|(?P<pdf>[^\s'\"]+\.(pdf)$)"
             + r"|(?P<audiostart>[^\s'\"]+\.(ogg|mp3)(\s*)autostart$)"
             + r"|(?P<audio>[^\s'\"]+\.(ogg|mp3)$)"
             + r"|(?P<url>(http|ftp|nntp|news|mailto|https)\:[^\s'\"]+\S)"

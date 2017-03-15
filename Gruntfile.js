@@ -6,7 +6,7 @@ module.exports = function(grunt) {
   var kineticPath = 'bower_components/kineticjs/kinetic.min.js';
   var bootstrapPath = 'bower_components/bootstrap/dist/js/bootstrap.min.js';
 
-  var locales = ["en_US", "fr_FR"];
+  var locales = ["en_US", "fr_FR", "pt_BR", "pt_PT"];
 
   var themesArray = [
       "accordionBlack",

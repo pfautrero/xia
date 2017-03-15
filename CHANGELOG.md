@@ -1,3 +1,11 @@
+Version 2.1 - 15/03/2017
+-------------------------------
+
+- Ajout des fichiers de langue portugais
+- popBlue : Les images sont désormais centrées
+- popBlue : Le scroll dans les popup ne concerne plus que le texte (le bouton quitter reste en haut) 
+
+
 Version 2.0 - 12/12/2016
 -------------------------------
 

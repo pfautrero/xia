@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: activit 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-03 19:42+0200\n"
+"POT-Creation-Date: 2017-03-15 09:38+0100\n"
 "PO-Revision-Date: 2015-01-29 12:49+0100\n"
 "Last-Translator: Louis-Maurice De Sousa <louis.de-sousa@ac-versailles.fr>\n"
 "Language-Team: portugais <>\n"
@@ -68,40 +68,40 @@ msgstr "exportar em popBlue"
 msgid "export audioBrown"
 msgstr "exportar em audioBrown"
 
-#: xiaconverter/mainwindow.py:91
+#: xiaconverter/mainwindow.py:101
 msgid "select svg file"
 msgstr "Selecione un ficheiro svg"
 
-#: xiaconverter/mainwindow.py:104
+#: xiaconverter/mainwindow.py:115
 msgid "ajust parameters"
 msgstr "ajuste parametros"
 
-#: xiaconverter/mainwindow.py:161
+#: xiaconverter/mainwindow.py:168
 msgid "myfile.svg"
 msgstr "meuficheiro.svg"
 
-#: xiaconverter/mainwindow.py:163
+#: xiaconverter/mainwindow.py:170
 msgid "Select a svg file"
 msgstr "Selecione um ficheiro svg"
 
-#: xiaconverter/mainwindow.py:173
+#: xiaconverter/mainwindow.py:180
 msgid "Select target folder"
 msgstr "Selectione o dossier de destino"
 
-#: xiaconverter/mainwindow.py:188
+#: xiaconverter/mainwindow.py:195
 #, python-brace-format
 msgid "Sorry, impossible to create the {0} directory"
 msgstr "Desculpe, é imposível criar o dossier {0}"
 
-#: xiaconverter/mainwindow.py:213
+#: xiaconverter/mainwindow.py:220
 msgid "Parameters"
 msgstr "Parametros"
 
-#: xiaconverter/paramswindow.py:79
+#: xiaconverter/paramswindow.py:77
 msgid "modify image resolution"
 msgstr "Modar a resolução da imagem"
 
-#: xiaconverter/paramswindow.py:95
+#: xiaconverter/paramswindow.py:85
 msgid "index standalone"
 msgstr ""
 "ativar/desativar a exportação dum ficheiro único \n"

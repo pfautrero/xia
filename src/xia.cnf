@@ -9,5 +9,5 @@ kineticLib = share/vendors/kinetic.min.js
 sha1Lib = share/vendors/git-sha1.min.js
 
 [version]
-numVersion = 2.0
+numVersion = 2.1
 releaseVersion = 

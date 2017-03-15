@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: activit 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-11 00:19+0100\n"
+"POT-Creation-Date: 2017-03-15 09:38+0100\n"
 "PO-Revision-Date: 2014-11-24 19:10+0100\n"
 "Last-Translator: geoffrey <ggekiere@ac-versailles.fr>\n"
 "Language-Team: français <>\n"
@@ -18,93 +18,88 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: build/share/themes/accordionBlack/hook.py:39
-msgid "export accordionBlack !"
-msgstr "export in accordionBlack"
-
-#: build/share/themes/accordionBlack/hook.py:40
-#: build/share/themes/accordionCloud/hook.py:36
-#: build/share/themes/audioBrown/hook.py:35
-#: build/share/themes/buttonBlue/hook.py:35
-#: build/share/themes/game1clic/hook.py:43
-#: build/share/themes/gameDragAndDrop/hook.py:42
-#: build/share/themes/material/hook.py:36
-#: build/share/themes/popBlue/hook.py:36
-#: build/share/themes/popYellow/hook.py:36
-msgid "loading"
-msgstr "Loading..."
-
-#: build/share/themes/accordionCloud/hook.py:35
+#: share/themes/accordionCloud/hook.py:35
 msgid "export accordionCloud"
 msgstr "export in accordionCloud"
 
-#: build/share/themes/audioBrown/hook.py:34
-msgid "export audioBrown"
-msgstr "export in audioBrown"
+#: share/themes/accordionCloud/hook.py:36 share/themes/popYellow/hook.py:36
+#: share/themes/game1clic/hook.py:43 share/themes/buttonBlue/hook.py:35
+#: share/themes/material/hook.py:36 share/themes/gameDragAndDrop/hook.py:42
+#: share/themes/accordionBlack/hook.py:40 share/themes/popBlue/hook.py:36
+#: share/themes/audioBrown/hook.py:35
+msgid "loading"
+msgstr "Loading..."
 
-#: build/share/themes/buttonBlue/hook.py:34
-msgid "export buttonBlue"
-msgstr ""
-
-#: build/share/themes/game1clic/hook.py:39
-msgid "export game1clic"
-msgstr ""
-
-#: build/share/themes/game1clic/hook.py:41
-#: build/share/themes/gameDragAndDrop/hook.py:41
-msgid "You win !"
-msgstr ""
-
-#: build/share/themes/gameDragAndDrop/hook.py:38
-msgid "export gameDragAndDrop"
-msgstr ""
-
-#: build/share/themes/material/hook.py:35
-msgid "export material"
-msgstr ""
-
-#: build/share/themes/popBlue/hook.py:35
-msgid "export popBlue"
-msgstr ""
-
-#: build/share/themes/popYellow/hook.py:35
+#: share/themes/popYellow/hook.py:35
 msgid "export popYellow"
 msgstr ""
 
-#: build/xiaconverter/mainwindow.py:101
+#: share/themes/game1clic/hook.py:39
+msgid "export game1clic"
+msgstr ""
+
+#: share/themes/game1clic/hook.py:41 share/themes/gameDragAndDrop/hook.py:41
+msgid "You win !"
+msgstr ""
+
+#: share/themes/buttonBlue/hook.py:34
+msgid "export buttonBlue"
+msgstr ""
+
+#: share/themes/material/hook.py:35
+msgid "export material"
+msgstr ""
+
+#: share/themes/gameDragAndDrop/hook.py:38
+msgid "export gameDragAndDrop"
+msgstr ""
+
+#: share/themes/accordionBlack/hook.py:39
+msgid "export accordionBlack !"
+msgstr "export in accordionBlack"
+
+#: share/themes/popBlue/hook.py:35
+msgid "export popBlue"
+msgstr ""
+
+#: share/themes/audioBrown/hook.py:34
+msgid "export audioBrown"
+msgstr "export in audioBrown"
+
+#: xiaconverter/mainwindow.py:101
 msgid "select svg file"
 msgstr ""
 
-#: build/xiaconverter/mainwindow.py:115
+#: xiaconverter/mainwindow.py:115
 msgid "ajust parameters"
 msgstr ""
 
-#: build/xiaconverter/mainwindow.py:168
+#: xiaconverter/mainwindow.py:168
 msgid "myfile.svg"
 msgstr ""
 
-#: build/xiaconverter/mainwindow.py:170
+#: xiaconverter/mainwindow.py:170
 msgid "Select a svg file"
 msgstr ""
 
-#: build/xiaconverter/mainwindow.py:180
+#: xiaconverter/mainwindow.py:180
 msgid "Select target folder"
 msgstr ""
 
-#: build/xiaconverter/mainwindow.py:195
+#: xiaconverter/mainwindow.py:195
 #, python-brace-format
 msgid "Sorry, impossible to create the {0} directory"
 msgstr ""
 
-#: build/xiaconverter/mainwindow.py:220
+#: xiaconverter/mainwindow.py:220
 msgid "Parameters"
 msgstr "Parameters"
 
-#: build/xiaconverter/paramswindow.py:77
+#: xiaconverter/paramswindow.py:77
 msgid "modify image resolution"
 msgstr ""
 
-#: build/xiaconverter/paramswindow.py:85
+#: xiaconverter/paramswindow.py:85
 msgid "index standalone"
 msgstr ""
 "enable/disable unique file export.\n"

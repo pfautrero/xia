@@ -159,6 +159,7 @@ class hook:
                 final_index = final_index.replace("{{MainCSS}}", xiaWebsite + "/css/main.css")
                 final_index = final_index.replace("{{LogoHide}}",  xiaWebsite + "/img/hide.png")
                 final_index = final_index.replace("{{LogoLoading}}",  xiaWebsite + "/img/xia.png")
+                final_index = final_index.replace("{{LogoPDF}}",  xiaWebsite + "/img/pdf.png")
                 final_index = final_index.replace("{{LogoClose}}", xiaWebsite + "/img/close.png")
                 final_index = final_index.replace("{{datasJS}}", "<script>" + self.iaobject.jsonContent + "</script>")
                 final_index = final_index.replace("{{lazyDatasJS}}", '')
@@ -171,6 +172,7 @@ class hook:
             else:
                 final_index = final_index.replace("{{MainCSS}}", "css/main.css")
                 final_index = final_index.replace("{{LogoLoading}}",  "img/xia.png")
+                final_index = final_index.replace("{{LogoPDF}}",  "img/pdf.png")
                 final_index = final_index.replace("{{LogoHide}}",  "img/hide.png")
                 final_index = final_index.replace("{{LogoClose}}", "img/close.png")
                 final_index = final_index.replace("{{datasJS}}", "")
