@@ -59,6 +59,9 @@ class PageFormatter:
         else:
             s = s + u"\n<hr size=%d/>\n" % (len(word) - 2 )
         return s
+    def _markdownheaders_repl(self, word):
+        nbTag = word.count("#")
+        return u'<h%s>%s</h%s>\n' %(nbTag, word[nbTag:].strip(), nbTag)
 
     def _url_repl(self, word):
         return u'<a href="%s" target="_blank">%s</a>\n' % (word, word)
@@ -291,6 +294,7 @@ class PageFormatter:
             + r"|(?P<iframe>&lt;iframe(.*)&gt;&lt;/iframe&gt;)"
             + r"|(?P<ent>[<>&])"
             + r"|(?P<rule>-{4,})"
+            + r"|(?P<markdownheaders>#{1,6}(.*))"
             + r"|(?P<videostart>[^\s'\"]+\.(ogv|mp4|webm)(\s*)autostart$)"
             + r"|(?P<video>[^\s'\"]+\.(ogv|mp4|webm)$)"
             + r"|(?P<scolawebtv>(https|http)\:\/\/scolawebtv\.crdp-versailles\.fr\/\?id=(.*))"
