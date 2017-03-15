@@ -207,7 +207,7 @@ a.accordion-toggle {
     background-color: rgba(250,250,250,0.2);
     position: relative;
     color:white;
-    line-height: 1.7em;
+    /*line-height: 1.7em;*/
     font-size: 1em;
 }
 #accordion2 {
@@ -529,4 +529,11 @@ footer {z-index:2;}
     margin:2px;
     padding: 10px;
     background: #000;
+}
+}
+.accordion-inner h1 {
+    font-size: 2em;
+    margin-left: 0;
+    font-weight: 900;
+    border-bottom: 1px solid #eee;
 }

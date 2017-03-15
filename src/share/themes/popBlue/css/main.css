@@ -433,3 +433,9 @@ iframe {border:none;}
     width:40px;
     margin : 0px;
 }
+.article_content h1 {
+    font-size: 2em;
+    margin-left: 0;
+    font-weight: 900;
+    border-bottom: 1px solid #eee;
+}

@@ -518,3 +518,9 @@ iframe {
     border-bottom-left-radius: 20px;
     overflow: hidden;
 }
+.accordion-inner h1 {
+    font-size: 2em;
+    margin-left: 0;
+    font-weight: 900;
+    border-bottom: 1px solid #eee;
+}

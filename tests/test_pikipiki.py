@@ -336,36 +336,36 @@ class TestPageFormatter:
 
     def test_print_html49(self):
         raw = "# TITLE";
-        expected_output = '<h1>TITLE</h1>\n';
+        expected_output = '<h1>TITLE</h1>';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
 
     def test_print_html50(self):
         raw = "## TITLE";
-        expected_output = '<h2>TITLE</h2>\n';
+        expected_output = '<h2>TITLE</h2>';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
 
     def test_print_html51(self):
         raw = "### TITLE";
-        expected_output = '<h3>TITLE</h3>\n';
+        expected_output = '<h3>TITLE</h3>';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
 
     def test_print_html52(self):
         raw = "#### TITLE";
-        expected_output = '<h4>TITLE</h4>\n';
+        expected_output = '<h4>TITLE</h4>';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
 
     def test_print_html53(self):
         raw = "##### TITLE";
-        expected_output = '<h5>TITLE</h5>\n';
+        expected_output = '<h5>TITLE</h5>';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
 
     def test_print_html49(self):
         raw = "###### TITLE";
-        expected_output = '<h6>TITLE</h6>\n';
+        expected_output = '<h6>TITLE</h6>';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)

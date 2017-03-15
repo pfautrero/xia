@@ -481,3 +481,9 @@ iframe {border:none;}
 #message_success_content img, #message_success_content2 img {
   width:80%;
 }
+.article_content h1 {
+    font-size: 2em;
+    margin-left: 0;
+    font-weight: 900;
+    border-bottom: 1px solid #eee;
+}
