@@ -241,7 +241,11 @@ section{z-index: 1;}
 #content article div {
     font-size: 1.1em;
 }
-#content article img {max-width: 60%;}
+#content article img {
+    max-width: 60%;
+    display: block;
+    margin: 0 auto;
+}
 #content article h1, div{
     font-family: yanone_thin;
 }

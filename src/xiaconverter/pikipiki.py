@@ -61,7 +61,7 @@ class PageFormatter:
         return s
     def _markdownheaders_repl(self, word):
         nbTag = word.count("#")
-        return u'<h%s>%s</h%s>\n' %(nbTag, word[nbTag:].strip(), nbTag)
+        return u'<h%s>%s</h%s>' %(nbTag, word[nbTag:].strip(), nbTag)
 
     def _url_repl(self, word):
         return u'<a href="%s" target="_blank">%s</a>\n' % (word, word)

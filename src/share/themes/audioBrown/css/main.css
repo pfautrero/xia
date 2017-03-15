@@ -428,3 +428,9 @@ iframe {
     border-bottom-left-radius: 20px;
     overflow: hidden;
 }
+
+img {
+  display : block;
+  margin:0 auto;
+  max-width : 100%;
+}

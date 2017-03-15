@@ -521,3 +521,9 @@ li:hover {
     border-bottom-left-radius: 20px;
     overflow: hidden;
 }
+
+#content img {
+  display : block;
+  margin:0 auto;
+  max-width : 100%;
+}

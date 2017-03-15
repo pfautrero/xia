@@ -393,8 +393,10 @@ a.accordion-toggle {
 .accordion-inner {
     padding:10px;
 }
-.accordion-inner img{
-    width: 100%;
+.accordion-inner img {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
 }
 
 .slidedown {
