@@ -327,3 +327,9 @@ class TestPageFormatter:
         expected_output = '<div class="videoWrapper4_3" data-iframe="http://webtv.ac-versailles.fr/spip.php?page=iframe-video&id_article=1337"></div>\n';
         output = PageFormatter(raw).print_html()
         assert_equal(expected_output, output)
+
+    def test_print_html48(self):
+        raw = "./test.pdf";
+        expected_output = '<a href="./test.pdf"><img src="{{LogoPDF}}" alt="pdf"></a>\n';
+        output = PageFormatter(raw).print_html()
+        assert_equal(expected_output, output)
