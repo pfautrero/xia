@@ -49,6 +49,12 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
 
     // some stuff to manage popin windows
 
+    $('#general audio').each(function(){
+        if ($(this).data("state") === "autostart") {
+            $(this)[0].play();
+        }
+    });
+
     var viewportHeight = $(window).height();
     var that = this;
 

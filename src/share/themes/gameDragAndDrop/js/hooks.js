@@ -37,7 +37,14 @@ hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
 hooks.prototype.afterMainConstructor = function(mainScene, layers) {
 
 // after building objects, just before rendering scene
-    
+
+    $('#general audio').each(function(){
+        if ($(this).data("state") === "autostart") {
+            $(this)[0].play();
+        }
+    });
+
+
 };
 /*
  *

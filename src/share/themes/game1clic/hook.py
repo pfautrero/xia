@@ -78,6 +78,11 @@ class hook:
         final_str += u'  <div id="message_success_content2">' + self.PageFormatter(self.message2).print_html() + u'</div>\n'
         final_str += u'</article>\n'
 
+        final_str += u'<article style="display:none" id="general">\n'
+        final_str += u'  <h1>' + self.iaobject.scene["intro_title"] + '</h1>\n'
+        final_str += u'  <p>' + self.PageFormatter(self.iaobject.scene["intro_detail"]).print_html() + u'</p>\n'
+        final_str += u'</article>\n'
+
         for i, detail in enumerate(self.iaobject.details):
 
             tooltip_state = ""

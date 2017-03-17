@@ -37,6 +37,13 @@ hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
 hooks.prototype.afterMainConstructor = function(mainScene, layers) {
 
     var that = this;
+
+    $('#collapsecomment audio').each(function(){
+        if ($(this).data("state") === "autostart") {
+            $(this)[0].play();
+        }
+    });
+
     $(".infos").on("click", function(){
         $("#overlay").show();
     });

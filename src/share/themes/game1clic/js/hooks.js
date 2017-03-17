@@ -36,6 +36,12 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
 
     // some stuff to manage popin windows
 
+    $('#general audio').each(function(){
+        if ($(this).data("state") === "autostart") {
+            $(this)[0].play();
+        }
+    });
+
     var button_click = function() {
         var target = $(this).data("target");
         if ($("#response_" + target).is(":hidden")) {
