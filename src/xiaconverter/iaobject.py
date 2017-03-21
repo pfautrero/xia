@@ -1256,20 +1256,21 @@ class iaObject:
                             newraster = rasterPrefix + rasterFixedEncoded
 
                 else:
-                    currentImg = Image.open(imageFile)
-                    (w, h) = currentImg.size
+                    with open(imageFile, 'rb') as f:
+                        currentImg = Image.open(f)
+                        (w, h) = currentImg.size
 
-                    if int(float(w)) != int(float(rasterWidth)):
-                        newwidth = int(float(rasterWidth))
-                        newheight = int(float(rasterHeight))
-                        resizedImg = currentImg.resize((newwidth, newheight), Image.ANTIALIAS)
-                        if extension.group(1) == 'png':
-                            resizedImg.save(imageFileFixed)
-                        else:
-                            resizedImg.save(imageFileFixed, 'JPEG', quality=100)
-                        with open(imageFileFixed, 'rb') as fixedImage:
-                            rasterFixedEncoded = fixedImage.read().encode("base64").replace('\n','')
-                            newraster = rasterPrefix + rasterFixedEncoded
+                        if int(float(w)) != int(float(rasterWidth)):
+                            newwidth = int(float(rasterWidth))
+                            newheight = int(float(rasterHeight))
+                            resizedImg = currentImg.resize((newwidth, newheight), Image.ANTIALIAS)
+                            if extension.group(1) == 'png':
+                                resizedImg.save(imageFileFixed)
+                            else:
+                                resizedImg.save(imageFileFixed, 'JPEG', quality=100)
+                            with open(imageFileFixed, 'rb') as fixedImage:
+                                rasterFixedEncoded = fixedImage.read().encode("base64").replace('\n','')
+                                newraster = rasterPrefix + rasterFixedEncoded
 
         else:
             self.console.display('ERROR : fixRaster() - image is not embedded')
@@ -1299,77 +1300,78 @@ class iaObject:
 
                 #if not sys.platform.startswith('darwin'):
                 if HANDLE_PIL:
-                    im = Image.open(imageFile, 'r')
-                    im = im.convert("RGBA")
-                    red, green, blue, alpha = im.split()
-                    #alpha = alpha.convert("L")
-                    #pix_val = list(im.getdata())
-                    (w, h) = im.size
+                    with open(imageFile, 'rb') as f:
+                        im = Image.open(f, 'r')
+                        im = im.convert("RGBA")
+                        red, green, blue, alpha = im.split()
+                        #alpha = alpha.convert("L")
+                        #pix_val = list(im.getdata())
+                        (w, h) = im.size
 
-                    alpha_threshold = 20
-                    y_delta = 0
-                    stop_scan = 0
-                    for y in range(h):
-                        row = y * w
-                        for x in range(w):
-                            #transparency = max(pix_val[x + row][3] - alpha_threshold, 0)
-                            transparency = max(alpha.getpixel((x,y)) - alpha_threshold, 0)
-                            if transparency != 0:
-                                stop_scan = 1
-                                break
-                        if stop_scan:
-                            break
-                        else:
-                            y_delta += 1
-
-                    y_delta2 = 0
-                    stop_scan = 0
-                    for y in range(h - 1, 0, -1):
-                        row = y * w
-                        for x in range(w - 1, 0, -1):
-                            #transparency = max(pix_val[x + row][3] - alpha_threshold, 0)
-                            transparency = max(alpha.getpixel((x,y)) - alpha_threshold, 0)
-                            if transparency != 0:
-                                stop_scan = 1
-                                break
-                        if stop_scan:
-                            break
-                        else:
-                            y_delta2 += 1
-
-                    x_delta = 0
-                    stop_scan = 0
-                    for x in range(0, w - 1):
-                        for y in range(0, h - 1):
+                        alpha_threshold = 20
+                        y_delta = 0
+                        stop_scan = 0
+                        for y in range(h):
                             row = y * w
-                            #transparency = max(pix_val[x + row][3] - alpha_threshold, 0)
-                            transparency = max(alpha.getpixel((x,y)) - alpha_threshold, 0)
-                            if transparency != 0:
-                                stop_scan = 1
+                            for x in range(w):
+                                #transparency = max(pix_val[x + row][3] - alpha_threshold, 0)
+                                transparency = max(alpha.getpixel((x,y)) - alpha_threshold, 0)
+                                if transparency != 0:
+                                    stop_scan = 1
+                                    break
+                            if stop_scan:
                                 break
-                        if stop_scan:
-                            break
-                        else:
-                            x_delta += 1
+                            else:
+                                y_delta += 1
 
-                    x_delta2 = 0
-                    stop_scan = 0
-                    for x in range(w - 1, 0, -1):
+                        y_delta2 = 0
+                        stop_scan = 0
                         for y in range(h - 1, 0, -1):
                             row = y * w
-                            #transparency = max(pix_val[x + row][3] - alpha_threshold, 0)
-                            transparency = max(alpha.getpixel((x,y)) - alpha_threshold, 0)
-                            if transparency != 0:
-                                stop_scan = 1
+                            for x in range(w - 1, 0, -1):
+                                #transparency = max(pix_val[x + row][3] - alpha_threshold, 0)
+                                transparency = max(alpha.getpixel((x,y)) - alpha_threshold, 0)
+                                if transparency != 0:
+                                    stop_scan = 1
+                                    break
+                            if stop_scan:
                                 break
-                        if stop_scan:
-                            break
-                        else:
-                            x_delta2 += 1
+                            else:
+                                y_delta2 += 1
 
-                    croppedBg = im.crop((min(x_delta,w - x_delta2), min(y_delta,h - y_delta2), \
-                                         max(x_delta,w - x_delta2), max(y_delta,h - y_delta2)))
-                    croppedBg.save(imageFileSmall)
+                        x_delta = 0
+                        stop_scan = 0
+                        for x in range(0, w - 1):
+                            for y in range(0, h - 1):
+                                row = y * w
+                                #transparency = max(pix_val[x + row][3] - alpha_threshold, 0)
+                                transparency = max(alpha.getpixel((x,y)) - alpha_threshold, 0)
+                                if transparency != 0:
+                                    stop_scan = 1
+                                    break
+                            if stop_scan:
+                                break
+                            else:
+                                x_delta += 1
+
+                        x_delta2 = 0
+                        stop_scan = 0
+                        for x in range(w - 1, 0, -1):
+                            for y in range(h - 1, 0, -1):
+                                row = y * w
+                                #transparency = max(pix_val[x + row][3] - alpha_threshold, 0)
+                                transparency = max(alpha.getpixel((x,y)) - alpha_threshold, 0)
+                                if transparency != 0:
+                                    stop_scan = 1
+                                    break
+                            if stop_scan:
+                                break
+                            else:
+                                x_delta2 += 1
+
+                        croppedBg = im.crop((min(x_delta,w - x_delta2), min(y_delta,h - y_delta2), \
+                                             max(x_delta,w - x_delta2), max(y_delta,h - y_delta2)))
+                        croppedBg.save(imageFileSmall)
 
                     with open(imageFileSmall, 'rb') as bgSmallImage:
                         rasterSmallEncoded = bgSmallImage.read(). \
@@ -1407,9 +1409,10 @@ class iaObject:
                     bgImage.write(rasterEncoded.decode("base64"))
 
                 if HANDLE_PIL:
-                    currentImage = Image.open(imageFile)
-                    rotatedImage = currentImage.rotate( (-1) * 180 * angle / math.pi, expand=1 )
-                    rotatedImage.save(imageFileSmall)
+                    with open(imageFile, 'rb') as f:
+                        currentImage = Image.open(f)
+                        rotatedImage = currentImage.rotate( (-1) * 180 * angle / math.pi, expand=1 )
+                        rotatedImage.save(imageFileSmall)
 
                     with open(imageFileSmall, 'rb') as bgSmallImage:
                         rasterSmallEncoded = bgSmallImage.read().encode("base64")
@@ -1468,23 +1471,24 @@ class iaObject:
 
                     else:
                         # "Platform Linux or Windows : resizing using PIL"
-                        currentBg = Image.open(imageFile)
-                        oldwidth = int(float(rasterWidth))
-                        oldheight = int(float(rasterHeight))
-                        newwidth = int(oldwidth * self.ratio)
-                        newheight = int(oldheight * self.ratio)
-                        resizedBg = currentBg.resize((newwidth, newheight), Image.ANTIALIAS)
-                        #resizedBg.save(imageFileSmall)
-                        if extension.group(1) != 'png':
-                            resizedBg.save(imageFileSmall, 'JPEG', quality=100)
-                        else:
-                            resizedBg.save(imageFileSmall)
-                        with open(imageFileSmall, 'rb') as bgSmallImage:
-                            rasterSmallEncoded = bgSmallImage.read().encode("base64")
-                            newraster = rasterPrefix + rasterSmallEncoded
+                        with open(imageFile, 'rb') as f:
+                            currentBg = Image.open(f)
+                            oldwidth = int(float(rasterWidth))
+                            oldheight = int(float(rasterHeight))
+                            newwidth = int(oldwidth * self.ratio)
+                            newheight = int(oldheight * self.ratio)
+                            resizedBg = currentBg.resize((newwidth, newheight), Image.ANTIALIAS)
+                            #resizedBg.save(imageFileSmall)
+                            if extension.group(1) != 'png':
+                                resizedBg.save(imageFileSmall, 'JPEG', quality=100)
+                            else:
+                                resizedBg.save(imageFileSmall)
+                            with open(imageFileSmall, 'rb') as bgSmallImage:
+                                rasterSmallEncoded = bgSmallImage.read().encode("base64")
+                                newraster = rasterPrefix + rasterSmallEncoded
 
-                        newrasterWidth = newwidth
-                        newrasterHeight = newheight
+                            newrasterWidth = newwidth
+                            newrasterHeight = newheight
         else:
             self.console.display('ERROR : image is not embedded')
         shutil.rmtree(dirname)
