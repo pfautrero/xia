@@ -1,3 +1,12 @@
+Version 2.2 - 21/03/2017
+-------------------------------
+
+- [Windows] : Correctif d'un bug qui empêchait la génération d'images interactives (depuis la dernière mise à jour de Windows en date de mi-mars 2017)
+- Tous les thèmes : les images dans les popups sont désormais centrées et leurs dimensions sont adaptées.
+- Tous les thèmes : L'apparence des titres obtenus avec la nouvelle syntaxe "# mon titre" a été améliorée
+- Thème popBlue : Mise en place du scrolling sur la fenêtre popup de présentation générale
+- Tous les thèmes : Un fichier audio intégré en "autostart" dans la description de l'image de fond est automatiquement démarré au lancement de l'image. Ceci permet de créer une musique d'ambiance ou une explication audio immédiatement après le chargement de l'image interactive.
+
 Version 2.1 - 15/03/2017
 -------------------------------
 
