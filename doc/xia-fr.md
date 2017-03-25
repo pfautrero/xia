@@ -1,7 +1,4 @@
-# Xia
-### Créer des images interactives au format HTML5
-
-<img src='images/xia-logo.png' style='display:block;margin:0 auto;width:250px'>
+# Créer des images interactives au format HTML5 avec XIA
 
 ## Sommaire
 
@@ -64,7 +61,7 @@ Installez impérativement Inkscape en premier, puis Xia, sous peine de ne pas ê
 
 <img src='images/alert_yellow.png' width='40'>
 Visualisez l' [image interactive](https://xia.dane.ac-versailles.fr/demo/tuto/xia1) créée pour cette partie de la documentation. Téléchargez le fichier source au format
-[svg](https://xia.dane.ac-versailles.fr/demo/tuto/xia1/svg/xia1.svg).
+[svg](https://xia.dane.ac-versailles.fr/demo/tuto/xia1/xia1.svg).
 
 
 Les manipulations décrites dans cette partie de la documentation vous permettront de créer une image interactive «basique», comprenant:
@@ -131,7 +128,7 @@ La ressource ainsi générée nécessite un accès internet pour fonctionner ple
 
 <img src='images/interface_xia2.png' style='display:block;margin:0 auto;width:90%;'>
 
-## 2.3. Usage d'expert ! <a name='export-ligne-de-commande'></a>
+### 2.3. Usage d'expert ! <a name='export-ligne-de-commande'></a>
 
 Vous pouvez générer vos animations html5 en utilisant le `terminal` avec la commande **xia**. Les paramètres à utiliser sont **--input** pour indiquer le fichier en entrée, **--output** pour indiquer le répertoire d'export, **--theme** pour indiquer le thème choisi.
 
@@ -161,7 +158,7 @@ Puis double-cliquer sur le fichier `xia.bat` pour lancer l'export.
 ## 3. Images interactives enrichies <a name='images-interactives-enrichies'></a>
 
 <img src='images/alert_green.png' width='40'>
-Visualisez l'[image interactive](https://xia.dane.ac-versailles.fr/demo/tuto/xia2) créée pour cette partie de la documentation. Téléchargez le fichier source au format [svg](https://xia.dane.ac-versailles.fr/demo/tuto/xia2/svg/xia2.svg).
+Visualisez l'[image interactive](https://xia.dane.ac-versailles.fr/demo/tuto/xia2) créée pour cette partie de la documentation. Téléchargez le fichier source au format [svg](https://xia.dane.ac-versailles.fr/demo/tuto/xia2/xia2.svg).
 
 Dans cette section, l'objectif demeure la création d'une image interactive «**simple**» (autrement dit, dans laquelle un détail fait apparaître un commentaire). Cependant, le texte des commentaires sera enrichi par une mise en forme ou des ressources multimédias.
 
