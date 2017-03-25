@@ -33,10 +33,10 @@
 
 Xia est un logiciel libre développé par des enseignants de l'académie de Versailles. Il est distribué sous la licence [GPLv3](http://www.gnu.org/copyleft/gpl.html). Le logiciel xia a pour fonction de transformer un fichier svg en une animation interactive html5. Xia permet de générer des jeux et activités interactives: jeux de glisser-déposer, sélection, discrimination, etc.
 
-Les premières parties de cette documentation (voir la partie [II](#first_image)) sont consacrées à la réalisation d'une image interactive simple: détails détourés et commentaires en texte sans mise en forme. Par la suite, vous apprendrez à créer des images interactives enrichies (voir la partie [III](#enriched_IA)). Dans les dernières parties (partie \ref{games_IA}), vous découvrirez comment créer des jeux.
+Les premières parties de cette documentation (voir la partie [II](#creation-dune-premiere-image-interactive)) sont consacrées à la réalisation d'une image interactive simple: détails détourés et commentaires en texte sans mise en forme. Par la suite, vous apprendrez à créer des images interactives enrichies (voir la partie [III](#images-interactives-enrichies)).
 
 <img src='images/alert_green.png' width='40'>
-Tous les exemples utilisés sont visibles en ligne (les liens pour visualiser les animations et télécharger les fichiers sources sont indiqués en début de chaque section). À la fin de chaque partie, une rubrique «~En résumé~» rappelle les points essentiels à retenir pour créer une image interactive.
+Tous les exemples utilisés sont visibles en ligne (les liens pour visualiser les animations et télécharger les fichiers sources sont indiqués en début de chaque section). À la fin de chaque partie, une rubrique **«En résumé»** rappelle les points essentiels à retenir pour créer une image interactive.
 
 
 ### 1.2. Processus général <a name="processus-general"></a>
@@ -76,7 +76,7 @@ Les informations renseignées dans les **Métadonnées du document** (menu **Fic
 
 <img src='images/ia_title.png' style='display:block;margin:0 auto;width:90%;'>
 
-Le titre renseigné dans les métadonnées du document apparait au-dessus de l'image interactive et donnent son nom à la page web l'affichant. Le créateur et les droits associés apparaissent dans la pop up accessible via l'icône «**i**» située à droite du titre de l'image interactive.
+Le titre renseigné dans les métadonnées du document apparait au-dessus de l'image interactive et donne son nom à la page web l'affichant. Le créateur et les droits associés apparaissent dans la pop up accessible via l'icône «**i**» située à droite du titre de l'image interactive.
 
 Vous pouvez sauvegarder votre projet au format svg dès le début du travail, en allant dans le menu -> Fichier -> Enregistrer.
 
@@ -142,7 +142,7 @@ xia --input monfichier.svg --output ~/export --theme accordionBlack --export sin
 
 ```
 cd /Applications/xia.app/Contents/Resources/
-python xia.py --input monfichier.svg --output ~/export --theme gameDragAndDrop
+python xia.py --input monfichier.svg --output ~/export --theme gameDragAndDrop --export local
 ```
 
 **Avec Windows**, pour un export fichier unique utilisant le thème accordionBlack, il faut utiliser l'outil XIA version portable (téléchargeable sur le site de XIA). Une fois l'archive zip décompressée,(supposons que vous l'ayez fait dans xia-windows), il faut éditer le fichier `xia-windows/xia/xia.bat` comme suit :
@@ -391,19 +391,7 @@ Si vous ne faites pas de copie bitmap du texte, Xia considèrera que le texte cr
 ## 5. Astuces Inkscape <a name='astuces'></a>
 
 - Ajoutez des couleurs de fond à vos détails. Les détails seront ainsi plus faciles à sélectionner et modifier, et cela n'aura aucune conséquence sur l'animation html5 (sauf si vous choisissez le blanc ou le noir comme couleur de remplissage).
-- Si vous voulez créer un détail à partir de plusieurs, vous pouvez les «~Grouper~» (\softmenu{Objet} $\rightarrow$ \softmenu{Grouper}, ou \Ctrl + \keystroke{G}) ou les «~Unir~» (\softmenu{Chemin} $\rightarrow$ \softmenu{Union}, ou \Ctrl + \keystroke{+}).
-- Quand un détail est créé, il est toujours possible de le modifier: ajout ou suppression de nœuds, déplacement, etc. Il suffit de double-cliquer sur un détail et d'utiliser les outils de modification:
- \begin{center}
- \includegraphics[width=0.8\textwidth]{./images/modifynodes}\\  
- \end{center}
- \item Certains raccourcis claviers vous feront gagner énormément de temps!
- \begin{enumerate}
-  \item \fbox{\Shift + \Ctrl + \keystroke{a}} pour accéder aux outils d'\softmenu{Alignement et de distribution}
-  \item \fbox{\Shift + \Ctrl + \keystroke{o}} pour accéder aux \softmenu{Propriétés de l'objet}
-  \item \fbox{\Alt + \keystroke{b}} pour créer une copie bitmap d'une forme dessinée dans Inkscape
-  \item \fbox{\Ctrl + \keystroke{g}} pour grouper différents objets ou détails et
-\fbox{\Ctrl + \Shift + \keystroke{g}} pour les dégrouper
- \end{enumerate}
-
+- Si vous voulez créer un détail à partir de plusieurs, vous pouvez les **«Grouper»**.
+- Quand un détail est créé, il est toujours possible de le modifier: ajout ou suppression de nœuds, déplacement, etc. Il suffit de double-cliquer sur un détail et d'utiliser les outils de modification
 - Si vous créez votre image interactive uniquement avec les outils de dessin d'Inkscape (en faisant des copies bitmap de formes ou d'images importés), nous vous recommandons fortement de grouper tous les objets (y compris l'image de fond), de faire une copie bitmap de cet ensemble, et d'utiliser cette copie bitmap comme image de fond. Si vous ne le faites pas, certaines images ou copies bitmap risque de disparaître dans l'image interactive lorsque des détails situés au-dessus d'eux seront sélectionnés (ce qui est
 logique: le rôle principal d'un détail est de permettre à l'utilisateur de voir ce qui se trouve sur l'image de fond).
