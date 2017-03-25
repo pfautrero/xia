@@ -1,4 +1,4 @@
-# Créer des images interactives au format HTML5 avec XIA
+# Créer des images interactives
 
 ## Sommaire
 
