@@ -106,7 +106,7 @@ Si vous avez des difficultés pour sélectionner un détail que vous avez détou
 
 Vous pouvez accéder aux **Propriétés de l'objet** par un clic-droit sur le détail détouré. À partir de là, vous accédez à une fenêtre de dialogue vous permettant d'ajouter le texte qui sera associé au détail dans l'image interactive:
 
-<img src='images/object_properties.png' style='display:block;margin:0 auto;width:50%;'>
+<img src='images/object_properties_fr.png' style='display:block;margin:0 auto;width:40%;'>
 
 Les deux champs devant nécessairement être renseignés dans cette fenêtre sont les champs **Titre** et **Description**. Le titre deviendra celui du détail, la description son commentaire. N'oubliez pas de cliquer sur le bouton **Définir** avant de fermer la fenêtre des **Propriétés de l'objet**.
 
