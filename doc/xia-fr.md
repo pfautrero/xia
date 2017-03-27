@@ -375,7 +375,11 @@ Commencez par sélectionner le détail sur lequel vous voulez agir et cliquez su
 
 ### Je ne vois pas Xia dans le menu extensions d'Inkscape. Pourquoi?
 
+#### Ordre d'installation
 Avez-vous installé Inkscape avant Xia? Si ce n'est pas le cas, ré-installez Xia. Si vous utilisez la version portable de Xia, le fait que rien n'apparaisse dans le menu extension est tout à fait normal.
+
+#### Inkscape 32 bits vs 64 bits
+Par défaut, XIA s'installe pour Inkscape 64 bits. Si vous avez installé la version 32 bits, le plus simple est de la désinstaller, d'installer la version 64 bits et de réinstaller XIA derrière.
 
 ### L'icône «Fichier source» n'apparaît pas quand je lance Xia depuis le menu extension d'Inkscape. Pourquoi?
 
