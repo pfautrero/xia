@@ -1136,6 +1136,88 @@ class iaObject:
         if root.hasAttribute("transform"):
             stackTransform.pop()
 
+    def build_sprite(self, group, record):
+
+        minX = 10000
+        minY = 10000
+        maxX = 0
+        maxY = 0
+
+        dirname = tempfile.mkdtemp()
+
+        svgElements = ['image']
+        imagesToConcatenate = []
+        group_childs = []
+        stackTransform = []
+        self.linearize_childs(group, group_childs, stackTransform)
+
+        # Extract Images
+        imageIndex = 0
+        for childentry in group_childs:
+            childnode = childentry['node']
+
+            if childnode.nodeName in svgElements:
+                newrecord = getattr(self, 'extract_' + \
+                                    childnode.nodeName)(childnode, childentry['transform'])
+
+                if newrecord is not None:
+                    raster = newrecord['image']
+                    rasterStartPosition = raster.find('base64,') + 7
+                    rasterEncoded = raster[rasterStartPosition:]
+                    rasterPrefix = raster[0:rasterStartPosition]
+                    extension = re.search('image/(.*);base64', rasterPrefix)
+                    if extension is not None:
+                        if extension.group(1):
+                            imageFile = dirname + os.path.sep + "image" + imageIndex + "." + extension.group(1)
+                            imagesToConcatenate.push(imageFile)
+                            with open(imageFile, "wb") as currentImage:
+                                currentImage.write(rasterEncoded.decode("base64"))
+
+                    if imageIndex == 0:
+                        firstRasterPrefix = rasterPrefix
+                        record['x'] = newrecord['x']
+                        record['y'] = newrecord['y']
+                        record['width'] = newrecord['width']
+                        record['height'] = newrecord['height']
+                        minX = float(newrecord["minX"])
+                        minY = float(newrecord["minY"])
+                        maxX = float(newrecord["maxX"])
+                        maxY = float(newrecord["maxY"])
+
+                    imageIndex += 1
+
+        # Now, Concatenate Images
+        if imageIndex != 0:
+            images = map(Image.open, imagesToConcatenate)
+            widths, heights = zip(*(i.size for i in images))
+
+            total_width = sum(widths)
+            max_height = max(heights)
+
+            new_im = Image.new('RGBA', (total_width, max_height))
+
+            x_offset = 0
+            for im in images:
+              new_im.paste(im, (x_offset,0))
+              x_offset += im.size[0]
+
+            imageFileFixed = dirname + os.path.sep + "imageFinal.png"
+            new_im.save(imageFileFixed)
+
+            with open(imageFileFixed, 'rb') as fixedImage:
+                rasterFixedEncoded = fixedImage.read().encode("base64").replace('\n','')
+
+                record["image"] = firstRasterPrefix + rasterFixedEncoded
+
+            record["minX"] = unicode(minX)
+            record["minY"] = unicode(minY)
+            record["maxX"] = unicode(maxX)
+            record["maxY"] = unicode(maxY)
+
+
+        shutil.rmtree(dirname)
+
+
     def extract_g(self, group, stackTransformations):
         """Analyze a svg group"""
 
@@ -1148,13 +1230,7 @@ class iaObject:
             record["id"] = group.attributes['id'].value
         record['title'] = self.getText("title", group)
         record['detail'] = self.getText("desc", group)
-        record["group"] = []
         record["options"] = ""
-
-        minX = 10000
-        minY = 10000
-        maxX = 0
-        maxY = 0
 
         if group.hasAttribute("onclick"):
             str_onclick = group.attributes['onclick'].value
@@ -1162,6 +1238,20 @@ class iaObject:
                 record['options'] += " disable-click "
             else:
                 record['options'] += " " + str_onclick + " "
+
+        if record["id"].startswith("sprite"):
+            self.build_sprite(group, record)
+            return record
+
+        record["group"] = []
+
+        minX = 10000
+        minY = 10000
+        maxX = 0
+        maxY = 0
+
+        # TODO Vérifier que des sprites ne sont pas embarqués dans des groupes
+        # si c'est le cas, il faut les extraire pour les convertir en images
 
         svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'image', 'text', 'flowRoot']
         group_childs = []

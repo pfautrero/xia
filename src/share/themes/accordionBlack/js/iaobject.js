@@ -65,15 +65,22 @@ function IaObject(params) {
         that.includeImage(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
     }
     else if (typeof(params.detail.group) !== 'undefined') {
-        for (var i in params.detail.group) {
-            if (typeof(params.detail.group[i].path) !== 'undefined') {
-                that.includePath(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
-            }
-            else if (typeof(params.detail.group[i].image) !== 'undefined') {
-                that.includeImage(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
-            }
+        var re = /sprite(.*)/i;
+        if (params.detail.id.match(re)) {
+            console.log('sprite detected')
         }
-        that.definePathBoxSize(params.detail, that);
+        else {
+            for (var i in params.detail.group) {
+                if (typeof(params.detail.group[i].path) !== 'undefined') {
+                    that.includePath(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
+                }
+                else if (typeof(params.detail.group[i].image) !== 'undefined') {
+                    that.includeImage(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
+                }
+            }
+            that.definePathBoxSize(params.detail, that);
+        }
+
     }
     else {
         console.log(params.detail);

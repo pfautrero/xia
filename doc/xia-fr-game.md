@@ -1,8 +1,6 @@
 # Xia
 ### Créer des mini jeux au format HTML5
 
-<img src='images/xia-logo.png' style='display:block;margin:0 auto;width:250px'>
-
 ## Sommaire
 
 - [4. Créer des jeux avec Xia](#creer-des-jeux)
@@ -18,14 +16,11 @@
 - [5. Foire aux questions](#faq)
 - [6. Astuces Inkscape](#astuces)
 
-## 4. Créer des jeux avec Xia <a name='creer-des-jeux'></a>
+<a name='creer-des-jeux'></a>
+## 4. Créer des jeux avec Xia
 
-Jusqu'à maintenant, cette documentation n'a traité que de la création d'image interactive «**traditionnelle**»: une image de fond, des détails détourés associés à des commentaires.
-
-Ce type d'image interactive peut être utilisé en classe dans des situations très variées (les élèves découvrent progressivement une image, ou créent eux-mêmes une image interactive), mais Xia va plus loin avec de nouvelles fonctionnalités. On peut désormais créer des jeux, des activités, dans lesquelles l'utilisateur final a bien davantage à faire que de simplement cliquer sur des détails et lire du texte.
-
-### 4.1. Premier principe ludique : sélectionner, trouver des éléments dans une image <a name='game-one-clic'></a>
-
+<a name='game-one-clic'></a>
+### 4.1. Premier principe ludique : sélectionner, trouver des éléments dans une image
 
 Le principe ludique décrit dans cette partie de la documentation est le suivant: le joueur doit sélectionner des détails dans une image, quand il a sélectionné les éléments indiqués dans la consigne, un message de fin apparaît.
 
@@ -48,8 +43,8 @@ Le texte inséré dans la balise \verb|<message></message>| peut être enrichi a
 
 Une fois votre fichier svg préparé, choisir le modèle d'export `game1clic` pour générer le jeu.
 
-
-### 4.2. Second principe ludique: classer, organiser, hiérarchiser <a name='game-drag-and-drop'></a>
+<a name='game-drag-and-drop'></a>
+### 4.2. Second principe ludique: classer, organiser, hiérarchiser
 
 #### 4.2.1 Créez votre premier jeu de glisser/déposer
 
@@ -59,7 +54,6 @@ Le second type de jeu pouvant être créé avec Xia est basé sur le principe du
 <a href='https://xia.dane.ac-versailles.fr/demo/tuto/xia5'><img src='images/gamedraganddrop.jpg' alt='jeu glisser déposer'></a>
 
 Si vous souhaitez voir le fichier source, Téléchargez le au format [svg](https://xia.dane.ac-versailles.fr/demo/tuto/xia5/svg/xia5.svg).
-
 
 <img src='images/alert_green.png' width='40'>
 Voyons maintenant ensemble comment créer ce mini-jeu.
@@ -123,9 +117,6 @@ Faites alors un clic droit
 
 
 
-
-
-
 Dans Inkscape:
 
 - Choisir et importer une image de fond
@@ -176,9 +167,11 @@ Le jeu de type «~collisions~» est en réalité un jeu de type gameDragAndDrop,
 
 Une fois votre fichier svg préparé, choisir le modèle `gameDragAndDrop` pour générer le jeu.
 
-### 4.3. Options et astuces <a name='jeux-options-et-astuces'></a>
+<a name='jeux-options-et-astuces'></a>
+### 4.3. Options et astuces
 
-#### 4.3.1. Astuce : Montrer la progression dans le jeu (thème game1clic) <a name='jeux-astuce-progression'></a>
+<a name='jeux-astuce-progression'></a>
+#### 4.3.1. Astuce : Montrer la progression dans le jeu (thème game1clic)
 
 Il est possible de faire s'afficher des éléments graphiques quand le joueur
 sélectionne une réponse correcte. Ces éléments peuvent être des png importés
@@ -204,7 +197,8 @@ successivement sur le détail et l'élément en maintenant la touche \Shift
 enfoncée), puis en sélectionnant \softmenu{Grouper} dans le menu
 \softmenu{Objet} d'Inkscape.
 
-#### 4.3.2. Option : Montrer les erreurs du joueur (thème game1clic) <a name='jeux-options-score2'></a>
+<a name='jeux-options-score2'></a>
+#### 4.3.2. Option : Montrer les erreurs du joueur (thème game1clic)
 
 On voit clairement l'intérêt pédagogique des jeux basés sur le principe de
 la sélection\ldots mais on voit également rapidement comment des élèves
@@ -229,8 +223,8 @@ Une fois la balise \verb|disable-score| appliquée, le détail demeure
 cliquable, mais sa sélection n'ajoutera pas un point au compteur surveillant
 le score pour délivrer le message de fin.
 
-#### 4.3.3. Option : Comment ajouter un effet «aimant» (thème gameDragAndDrop) <a name='jeux-options-magnet'></a>
-
+<a name='jeux-options-magnet'></a>
+#### 4.3.3. Option : Comment ajouter un effet «aimant» (thème gameDragAndDrop)
 
 Si vous indiquez \verb|<magnet>on</magnet>| dans le champ
 \softmenu{Description} de la zone de dépôt, un effet aimant sera activé
@@ -243,7 +237,8 @@ Vous pouvez insérer un lien dans le champ \softmenu{Titre} des
 cliquer sur cette zone ou y déposer l'étiquette correspondante pour suivre
 le lien.
 
-#### 4.3.4. Option : Infobulles (thèmes game1clic et gameDragAndDrop) <a name='jeux-options-infobulles'></a>
+<a name='jeux-options-infobulles'></a>
+#### 4.3.4. Option : Infobulles (thèmes game1clic et gameDragAndDrop)
 
 
 \begin{links}
@@ -292,14 +287,15 @@ les \softmenu{Propriétés de l'objet} de l'image de fond:\\
 <message2>3 erreurs... Ça fait beaucoup...\\
 Concentrez-vous et recommencez!...</message2>}\\
 
-#### 4.3.5. Gestion des feedbacks. <a name='gestion-feedbacks'></a>
+<a name='gestion-feedbacks'></a>
+#### 4.3.5. Gestion des feedbacks.
 
 - onfail return
 - score2 pour gestion des erreurs
 -
 
-
-### 4.4. En résumé <a name='jeux-resume'></a>
+<a name='jeux-resume'></a>
+### 4.4. En résumé
 
 Ces tableaux résument les balises pouvant être utilisées dans le cadre de la création de jeux avec Xia:
 
@@ -449,40 +445,3 @@ hypertexte\\
 \end{table}
 
 \section{Foire aux questions et trucs et astuces pour le logiciel Inkscape}
-
-## 5. Foire aux questions <a name='faq'></a>
-
-### Je ne vois pas Xia dans le menu extensions d'Inkscape. Pourquoi?
-
-Avez-vous installé Inkscape avant Xia? Si ce n'est pas le cas, ré-installez Xia. Si vous utilisez la version portable de Xia, le fait que rien n'apparaisse dans le menu extension est tout à fait normal.
-
-### L'icône «Fichier source» n'apparaît pas quand je lance Xia depuis le menu extension d'Inkscape. Pourquoi?
-
-En lançant Xia depuis les extensions d'Inkscape, il n'y a pas d'icône «~Fichier source~», puisque Xia considère que l'animation html5 que vous souhaitez générer est celle sur laquelle vous travaillez dans Inkscape... Choisissez donc uniquement les options d'exportation et le modèle.
-
-### J'ai installé Inkscape mais je ne le retrouve pas dans mes programmes. Où se cache-t-il?
-Xia se trouve dans le dossier des «~Applications~» de Mac OS X.  Sur un sytème GNU/Linux, le paquet Xia porte le nom «~xia-converter~».  Sur Windows, Xia ne fonctionne que comme extension d'Inkscape. Si vous souhaitez utiliser le logiciel seul, utilisez la version portable.
-
-### J'ai ajouté du texte sur mon image avec l'outil «~Créer et éditer des objets textes~», mais je ne le vois pas apparaître dans mon image interactive. Pourquoi?
-
-Si vous ne faites pas de copie bitmap du texte, Xia considèrera que le texte créé avec l'outil «~Créer et éditer des objets textes~» est un détail, et pas une image à afficher.
-
-## 6. Astuces Inkscape <a name='astuces'></a>
-
-- Ajoutez des couleurs de fond à vos détails. Les détails seront ainsi plus faciles à sélectionner et modifier, et cela n'aura aucune conséquence sur l'animation html5 (sauf si vous choisissez le blanc ou le noir comme couleur de remplissage).
-- Si vous voulez créer un détail à partir de plusieurs, vous pouvez les «~Grouper~» (\softmenu{Objet} $\rightarrow$ \softmenu{Grouper}, ou \Ctrl + \keystroke{G}) ou les «~Unir~» (\softmenu{Chemin} $\rightarrow$ \softmenu{Union}, ou \Ctrl + \keystroke{+}).
-- Quand un détail est créé, il est toujours possible de le modifier: ajout ou suppression de nœuds, déplacement, etc. Il suffit de double-cliquer sur un détail et d'utiliser les outils de modification:
- \begin{center}
- \includegraphics[width=0.8\textwidth]{./images/modifynodes}\\  
- \end{center}
- \item Certains raccourcis claviers vous feront gagner énormément de temps!
- \begin{enumerate}
-  \item \fbox{\Shift + \Ctrl + \keystroke{a}} pour accéder aux outils d'\softmenu{Alignement et de distribution}
-  \item \fbox{\Shift + \Ctrl + \keystroke{o}} pour accéder aux \softmenu{Propriétés de l'objet}
-  \item \fbox{\Alt + \keystroke{b}} pour créer une copie bitmap d'une forme dessinée dans Inkscape
-  \item \fbox{\Ctrl + \keystroke{g}} pour grouper différents objets ou détails et
-\fbox{\Ctrl + \Shift + \keystroke{g}} pour les dégrouper
- \end{enumerate}
-
-- Si vous créez votre image interactive uniquement avec les outils de dessin d'Inkscape (en faisant des copies bitmap de formes ou d'images importés), nous vous recommandons fortement de grouper tous les objets (y compris l'image de fond), de faire une copie bitmap de cet ensemble, et d'utiliser cette copie bitmap comme image de fond. Si vous ne le faites pas, certaines images ou copies bitmap risque de disparaître dans l'image interactive lorsque des détails situés au-dessus d'eux seront sélectionnés (ce qui est
-logique: le rôle principal d'un détail est de permettre à l'utilisateur de voir ce qui se trouve sur l'image de fond).
