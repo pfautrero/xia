@@ -782,8 +782,9 @@ IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElemen
 
     //var mouseXY = kineticElement.getStage().getPointerPosition();
     //var droparea = kineticElement.getStage().getIntersection(mouseXY);
-    var droparea = kineticElement.getStage().getIntersection(middle_coords);
+
     var over_droparea = false;
+/*    var droparea = kineticElement.getStage().getIntersection(middle_coords);
     if (droparea) {
         if (droparea == kineticElement) {
             // element dropped on its own area
@@ -810,6 +811,42 @@ IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElemen
             over_droparea = true;
         }
     }
+*/
+
+    var found_droparea = false
+    var elementsMoved = []
+    while (!found_droparea) {
+        var droparea = kineticElement.getStage().getIntersection(middle_coords);
+        if (droparea) {
+            if (droparea.getXiaParent().droparea) {
+                over_droparea = true
+                found_droparea = true
+            }
+            else {
+                elementsMoved.push({
+                    old_x : droparea.x(),
+                    kineticElement : droparea
+                })
+                var old_x = droparea.x()
+                droparea.x(2000)
+                droparea.getXiaParent().notify()
+                droparea.getLayer().drawHit()
+                droparea.getStage().completeImage = "redefine"
+            }
+        }
+        else {
+            found_droparea = true
+            over_droparea = false
+        }
+    }
+
+    for (i = 0; i < elementsMoved.length;i++) {
+        elementsMoved[i].kineticElement.x(elementsMoved[i].old_x)
+        elementsMoved[i].kineticElement.getXiaParent().notify()
+        elementsMoved[i].kineticElement.getLayer().drawHit()
+        elementsMoved[i].kineticElement.getStage().completeImage = "redefine"
+    }
+
 
     if (over_droparea) {
         // retrieve kineticElement drop zone
