@@ -62,27 +62,104 @@ function IaObject(params) {
         that.includePath(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
     }
     else if (typeof(params.detail.image) !== 'undefined') {
-        that.includeImage(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
+        var re = /sprite(.*)/i;
+        if (params.detail.id.match(re)) {
+            console.log('sprite detected')
+            that.includeSprite(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
+        }
+        else {
+            that.includeImage(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
+        }
+
     }
     else if (typeof(params.detail.group) !== 'undefined') {
+
         for (var i in params.detail.group) {
             if (typeof(params.detail.group[i].path) !== 'undefined') {
                 that.includePath(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
             }
             else if (typeof(params.detail.group[i].image) !== 'undefined') {
-                that.includeImage(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
+                var re = /sprite(.*)/i;
+                if (params.detail.group[i].id.match(re)) {
+                    console.log('sprite detected')
+                    that.includeSprite(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
+                }
+                else {
+                    that.includeImage(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
+                }
+
             }
         }
         that.definePathBoxSize(params.detail, that);
+
     }
     else {
         console.log(params.detail);
     }
 
+
     this.defineTweens(this, params.iaScene);
     this.myhooks.afterIaObjectConstructor(params.iaScene, params.idText, params.detail, this);
 
 }
+
+
+
+/*
+ *
+ * @param {type} detail
+ * @param {type} i KineticElement index
+ * @returns {undefined}
+ */
+IaObject.prototype.includeSprite = function(detail, i, that, iaScene, baseImage, idText) {
+    that.defineImageBoxSize(detail, that);
+    var rasterObj = new Image();
+
+    that.title[i] = detail.title;
+    that.backgroundImage[i] = rasterObj;
+    var timeLine = JSON.parse("[" + detail.timeline + "]")
+
+    var idle = []
+    for(k=0;k<timeLine.length;k++) {
+        idle.push(timeLine[k] * detail.width, 0, detail.width, detail.height)
+    }
+    that.kineticElement[i] = new Kinetic.Sprite({
+      x: parseFloat(detail.x) * iaScene.coeff,
+      y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
+      image: rasterObj,
+      animation: 'idle',
+      animations: {
+        idle: idle,
+        hidden : [timeLine.length * detail.width, 0, detail.width, detail.height]
+      },
+      frameRate: 10,
+      frameIndex: 0,
+      scale: {x:iaScene.coeff,y:iaScene.coeff}
+    });
+
+    rasterObj.onload = function() {
+
+        that.group.add(that.kineticElement[i]);
+        zoomable = false
+        if ((typeof(detail.options) !== 'undefined')) {
+            that.options[i] = detail.options;
+        }
+        that.persistent[i] = "hiddenSprite";
+        that.kineticElement[i].animation('hidden')
+        that.kineticElement[i].start();
+        if ((typeof(detail.fill) !== 'undefined') &&
+            (detail.fill == "#ffffff")) {
+            that.persistent[i] = "persistentSprite";
+            that.kineticElement[i].animation('idle')
+         }
+        that.addEventsManagement(i,zoomable, that, iaScene, baseImage, idText);
+
+
+    };
+    rasterObj.src = detail.image;
+
+};
+
 
 /*
  *
@@ -451,11 +528,15 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     that.kineticElement[k].fillPriority('color');
                     that.kineticElement[k].fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');
                 }
-                else if ((that.persistent[i] == "onImage") || (that.persistent[i] == "off-image")) {
+                else if ((that.persistent[k] == "onImage") || (that.persistent[k] == "off-image")) {
                     that.kineticElement[k].fillPriority('pattern');
                     that.kineticElement[k].fillPatternScaleX(that.backgroundImageOwnScaleX[k] * 1/iaScene.scale);
                     that.kineticElement[k].fillPatternScaleY(that.backgroundImageOwnScaleY[k] * 1/iaScene.scale);
                     that.kineticElement[k].fillPatternImage(that.backgroundImage[k]);
+                }
+                else if ((that.persistent[k] == "hiddenSprite") || (that.persistent[k] == "persistentSprite")) {
+                    that.kineticElement[k].animation('idle')
+                    that.kineticElement[k].frameIndex(0)
                 }
             }
             that.layer.batchDraw();
@@ -601,6 +682,10 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                                 iaScene.element.kineticElement[k].stroke('rgba(0, 0, 0, 0)');
                                 iaScene.element.kineticElement[k].strokeWidth(0);
                             }
+                            else if (iaScene.element.persistent[k] == "hiddenSprite") {
+                                iaScene.element.kineticElement[k].animation('hidden')
+                            }
+
                             else {
                                 iaScene.element.kineticElement[k].fillPriority('color');
                                 iaScene.element.kineticElement[k].fill('rgba(0,0,0,0)');
@@ -627,14 +712,22 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     var cacheBackground = true;
                     for (k in that.kineticElement) {
                         if (that.persistent[k] === "onImage") cacheBackground = false;
-                        that.kineticElement[k].fillPriority('pattern');
-                        that.kineticElement[k].fillPatternScaleX(that.backgroundImageOwnScaleX[k] * 1/iaScene.scale);
-                        that.kineticElement[k].fillPatternScaleY(that.backgroundImageOwnScaleY[k] * 1/iaScene.scale);
-                        that.kineticElement[k].fillPatternImage(that.backgroundImage[k]);
-                        //that.kineticElement[k].stroke(iaScene.overColorStroke);
-                        //that.kineticElement[k].strokeWidth(2);
-                        that.kineticElement[k].stroke(that.stroke[k]);
-                        that.kineticElement[k].strokeWidth(that.strokeWidth[k]);
+
+                        if ((that.persistent[k] == "hiddenSprite") || (that.persistent[k] == "persistentSprite")) {
+                            that.kineticElement[k].animation('idle')
+                            that.kineticElement[k].frameIndex(0)
+                        }
+                        else {
+
+                            that.kineticElement[k].fillPriority('pattern');
+                            that.kineticElement[k].fillPatternScaleX(that.backgroundImageOwnScaleX[k] * 1/iaScene.scale);
+                            that.kineticElement[k].fillPatternScaleY(that.backgroundImageOwnScaleY[k] * 1/iaScene.scale);
+                            that.kineticElement[k].fillPatternImage(that.backgroundImage[k]);
+                            //that.kineticElement[k].stroke(iaScene.overColorStroke);
+                            //that.kineticElement[k].strokeWidth(2);
+                            that.kineticElement[k].stroke(that.stroke[k]);
+                            that.kineticElement[k].strokeWidth(that.strokeWidth[k]);
+                        }
                         that.kineticElement[k].moveToTop();
                     }
                     if (cacheBackground === true) {
@@ -691,6 +784,10 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         that.kineticElement[i].strokeWidth(0);
 
                     }
+                    else if (that.persistent[i] == "hiddenSprite") {
+                        that.kineticElement[i].animation('hidden')
+                    }
+
                 }
                 document.body.style.cursor = "default";
                 iaScene.cursorState = "default";

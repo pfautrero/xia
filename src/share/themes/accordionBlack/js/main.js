@@ -41,8 +41,13 @@ function main(myhooks) {
 
               if ((IaScene.element !== 0) && (typeof(IaScene.element) !== 'undefined')) {
                   for (var i in IaScene.element.kineticElement) {
+                    if (IaScene.element.persistent[i] == "hiddenSprite") {
+                        IaScene.element.kineticElement[i].animation("hidden")
+                    }
+                    else {
                       IaScene.element.kineticElement[i].fillPriority('color');
                       IaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
+                    }
                   }
               }
           }, false);
@@ -52,8 +57,13 @@ function main(myhooks) {
 
               if ((IaScene.element !== 0) && (typeof(IaScene.element) !== 'undefined')) {
                   for (var i in IaScene.element.kineticElement) {
+                    if (IaScene.element.persistent[i] == "hiddenSprite") {
+                        IaScene.element.kineticElement[i].animation("hidden")
+                    }
+                    else {
                       IaScene.element.kineticElement[i].fillPriority('color');
                       IaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
+                    }
                   }
               }
           }, false);

@@ -694,8 +694,9 @@ class iaObject:
             record_image['width'] = image.attributes['width'].value
             record_image['height'] = image.attributes['height'].value
             raster = self.extractRaster(image.attributes['xlink:href'].value)
-            #fixedRaster = self.fixRaster(raster, record_image["width"], record_image['height'])
-            record_image['image'] = raster
+            fixedRaster = self.fixRaster(raster, record_image["width"], record_image['height'])
+            #record_image['image'] = raster
+            record_image['image'] = fixedRaster
             record_image['detail'] = self.getText("desc", image)
             record_image['title'] = self.getText("title", image)
             record_image['x'] = unicode(0)
@@ -1191,6 +1192,11 @@ class iaObject:
                             maxX = float(newrecord["maxX"])
                             maxY = float(newrecord["maxY"])
 
+                        if record["detail"] == "":
+                            record['detail'] = newrecord['detail']
+                        if record["title"] == "":
+                            record['title'] = newrecord['title']
+
                     else:
                         # this image is already recorded
                         currentImageIndex = imagesSHA1.index(rasterSHA1)
@@ -1226,6 +1232,23 @@ class iaObject:
             record["maxX"] = unicode(maxX)
             record["maxY"] = unicode(maxY)
             record["timeline"] =  ','.join([str(i) for i in timeLine])
+
+
+        if group.hasAttribute("style") and (group.attributes['style'].value != ""):
+            str_style = group.attributes['style'].value
+            record["style"] = group.attributes['style'].value
+            style = {}
+            for item in str_style.split(";"):
+                key, value = item.split(":")
+                style[key] = value
+            if 'fill' in style:
+                record["fill"] = style['fill']
+            if 'stroke' in style:
+                record['stroke'] = style['stroke']
+            if 'stroke-width' in style:
+                record['strokewidth'] = style['stroke-width']
+
+
 
         shutil.rmtree(dirname)
 
@@ -1264,6 +1287,21 @@ class iaObject:
 
         # TODO Vérifier que des sprites ne sont pas embarqués dans des groupes
         # si c'est le cas, il faut les extraire pour les convertir en images
+
+        subgroups = group.getElementsByTagName('g')
+        for subgroup in subgroups:
+            if subgroup.hasAttribute("id"):
+                if subgroup.attributes['id'].value.startswith("sprite"):
+                    # sprite subgroup detected
+                    newrecord = {}
+                    newrecord["detail"] = ""
+                    newrecord["title"] = ""
+                    newrecord["options"] = ""
+                    newrecord['id'] = subgroup.attributes['id'].value
+                    self.build_sprite(subgroup, newrecord)
+                    record["group"].append(newrecord)
+                    group.removeChild(subgroup)
+
 
         svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'image', 'text', 'flowRoot']
         group_childs = []
@@ -1669,7 +1707,7 @@ class iaObject:
                                      replace("\n", " "). \
                                      replace("\t", " "). \
                                      replace("\r", " ") + u',\n'
-                elif entry2 == "image" or entry2 == "title":
+                elif entry2 == "image" or entry2 == "title" or entry2 == "fill" or entry2 == "style":
                     final_str += u'  "' + entry2 + u'":"' + \
                                  element[entry2]. \
                                      replace('"', "'"). \

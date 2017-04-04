@@ -117,14 +117,15 @@ function IaObject(params) {
     }
     else if (typeof(params.detail.image) !== 'undefined') {
         that.nbImages = 1
-        that.includeImage(
-            params.detail,
-            0,
-            that,
-            params.iaScene,
-            params.baseImage,
-            params.idText
-        )
+
+        var re = /sprite(.*)/i;
+        if (params.detail.id.match(re)) {
+            console.log('sprite detected')
+            that.includeSprite(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
+        }
+        else {
+            that.includeImage(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
+        }
     }
     else if (typeof(params.detail.group) !== 'undefined') {
         for (var i in params.detail.group) {
@@ -144,14 +145,16 @@ function IaObject(params) {
                 )
             }
             else if (typeof(params.detail.group[i].image) !== 'undefined') {
-                that.includeImage(
-                  params.detail.group[i],
-                  i,
-                  that,
-                  params.iaScene,
-                  params.baseImage,
-                  params.idText
-                )
+
+                var re = /sprite(.*)/i;
+                if (params.detail.group[i].id.match(re)) {
+                    console.log('sprite detected')
+                    that.includeSprite(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
+                }
+                else {
+                    that.includeImage(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
+                }
+
             }
         }
     }
@@ -162,6 +165,114 @@ function IaObject(params) {
     if (that.nbImages == 0) that.allImagesLoaded.resolve(0)
     this.defineTweens(this, params.iaScene);
 }
+
+
+/*
+ *
+ * @param {type} detail
+ * @param {type} i KineticElement index
+ * @returns {undefined}
+ */
+IaObject.prototype.includeSprite = function(detail, i, that, iaScene, baseImage, idText) {
+    that.defineImageBoxSize(detail, that);
+    var rasterObj = new Image();
+
+    that.title[i] = detail.title;
+    that.backgroundImage[i] = rasterObj;
+    var timeLine = JSON.parse("[" + detail.timeline + "]")
+
+    var idle = []
+    for(k=0;k<timeLine.length;k++) {
+        idle.push(timeLine[k] * detail.width, 0, detail.width, detail.height)
+    }
+    that.kineticElement[i] = new Kinetic.Sprite({
+      x: parseFloat(detail.x) * iaScene.coeff,
+      y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
+      image: rasterObj,
+      animation: 'idle',
+      animations: {
+        idle: idle,
+        hidden : [timeLine.length * detail.width, 0, detail.width, detail.height]
+      },
+      frameRate: 10,
+      frameIndex: 0,
+      scale: {x:iaScene.coeff,y:iaScene.coeff}
+    });
+
+    rasterObj.onload = function() {
+
+        that.group.add(that.kineticElement[i]);
+        zoomable = false
+        that.backgroundImageOwnScaleX[i] = ((timeLine.length - 3) / 4) * iaScene.scale * detail.width / this.width;
+        that.backgroundImageOwnScaleY[i] = iaScene.scale * detail.height / this.height;
+        if ((typeof(detail.options) !== 'undefined')) {
+            that.options[i] = detail.options;
+        }
+        that.persistent[i] = "hiddenSprite";
+        that.kineticElement[i].animation('hidden')
+        that.kineticElement[i].start();
+        if ((typeof(detail.fill) !== 'undefined') &&
+            (detail.fill == "#ffffff")) {
+            that.persistent[i] = "persistentSprite";
+            that.kineticElement[i].animation('idle')
+         }
+        that.addEventsManagement(i,zoomable, that, iaScene, baseImage, idText);
+
+        var cropCtx = that.cropCanvas.getContext('2d')
+
+        var crop = {
+          x : Math.max(parseFloat(detail.minX), 0),
+          y : Math.max(parseFloat(detail.minY), 0),
+          width : Math.min(
+                  (parseFloat(detail.maxX) - Math.max(parseFloat(detail.minX), 0)) * iaScene.scale,
+                  Math.floor(parseFloat(iaScene.originalWidth) * iaScene.scale)
+                ),
+          height : Math.min(
+                  (parseFloat(detail.maxY) - Math.max(parseFloat(detail.minY), 0)) * iaScene.scale,
+                  Math.floor(parseFloat(iaScene.originalHeight) * iaScene.scale)
+                )
+        }
+
+        if (crop.x + crop.width > iaScene.originalWidth ) {
+    	     crop.width = iaScene.originalWidth - crop.x
+        }
+        if (crop.y + crop.height > iaScene.originalHeight) {
+    	     crop.height = iaScene.originalHeight - crop.y
+        }
+        var pos = {
+          x : detail.minX - (that.minX / iaScene.coeff),
+          y : detail.minY - (that.minY / iaScene.coeff)
+        }
+
+        if (parseFloat(detail.minX) < 0) pos.x = parseFloat(detail.minX) * (-1);
+        if (parseFloat(detail.minY) < 0) pos.y = parseFloat(detail.minY) * (-1);
+        // bad workaround to avoid null dimensions
+        if (crop.width <= 0) crop.width = 1
+        if (crop.height <= 0) crop.height = 1
+
+        cropCtx.drawImage(
+            rasterObj,
+            0,
+            0,
+            crop.width / that.backgroundImageOwnScaleX[i],
+            crop.height / that.backgroundImageOwnScaleY[i],
+            pos.x,
+            pos.y,
+            crop.width,
+            crop.height
+        );
+
+
+        that.group.draw()
+        that.nbImagesDone++
+        iaScene.nbDetailsLoaded++
+        if (that.nbImages == that.nbImagesDone) that.allImagesLoaded.resolve(that.nbImages)
+
+
+    };
+    rasterObj.src = detail.image;
+
+};
 
 /*
  *
@@ -553,6 +664,10 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                     that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);
                     that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
                 }
+                else if ((that.persistent[i] == "hiddenSprite") || (that.persistent[i] == "persistentSprite")) {
+                    that.kineticElement[i].animation('idle')
+                    that.kineticElement[i].frameIndex(0)
+                }
             }
             that.layer.batchDraw();
 
@@ -700,6 +815,9 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                                 iaScene.element.kineticElement[i].stroke('rgba(0, 0, 0, 0)');
                                 iaScene.element.kineticElement[i].strokeWidth(0);
                             }
+                            else if (iaScene.element.persistent[i] == "hiddenSprite") {
+                                iaScene.element.kineticElement[i].animation('hidden')
+                            }
                             else {
                                 //iaScene.element.kineticElement[i].fillPriority('color');
                                 //iaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
@@ -787,6 +905,11 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                             that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);
                             that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
                         }
+                        else if ((that.persistent[i] == "hiddenSprite") || (that.persistent[i] == "persistentSprite")) {
+                            that.kineticElement[i].animation('idle')
+                            that.kineticElement[i].frameIndex(0)
+                        }
+
                     }
 
                     var popupMaterialTopOrigin = ($("#popup_material_background").height() - $("#popup_material").height()) / 2
@@ -879,6 +1002,10 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         that.kineticElement[i].fillPatternScaleY(that.backgroundImageOwnScaleY[i] * 1/iaScene.scale);
                         that.kineticElement[i].fillPatternImage(that.backgroundImage[i]);
                     }
+                    else if (that.persistent[i] == "hiddenSprite") {
+                        that.kineticElement[i].animation('hidden')
+                    }
+
                 }
                 document.body.style.cursor = "default";
                 iaScene.cursorState = "default";
