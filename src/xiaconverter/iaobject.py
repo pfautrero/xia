@@ -36,7 +36,6 @@ except ImportError:
     else:
         HANDLE_PIL = False
 
-
 import hashlib
 import uuid
 from xml.dom import minidom
@@ -1146,6 +1145,8 @@ class iaObject:
         dirname = tempfile.mkdtemp()
 
         svgElements = ['image']
+        imagesSHA1 = []
+        timeLine = []
         imagesToConcatenate = []
         group_childs = []
         stackTransform = []
@@ -1164,25 +1165,36 @@ class iaObject:
                     raster = newrecord['image']
                     rasterStartPosition = raster.find('base64,') + 7
                     rasterEncoded = raster[rasterStartPosition:]
-                    rasterPrefix = raster[0:rasterStartPosition]
-                    extension = re.search('image/(.*);base64', rasterPrefix)
-                    if extension is not None:
-                        if extension.group(1):
-                            imageFile = dirname + os.path.sep + "image" + imageIndex + "." + extension.group(1)
-                            imagesToConcatenate.push(imageFile)
-                            with open(imageFile, "wb") as currentImage:
-                                currentImage.write(rasterEncoded.decode("base64"))
+                    rasterSHA1 = hashlib.sha1(rasterEncoded).hexdigest()
+                    if rasterSHA1 not in imagesSHA1:
+                        # this is an image frame pose
+                        imagesSHA1.append(rasterSHA1)
+                        timeLine.append(imageIndex)
 
-                    if imageIndex == 0:
-                        firstRasterPrefix = rasterPrefix
-                        record['x'] = newrecord['x']
-                        record['y'] = newrecord['y']
-                        record['width'] = newrecord['width']
-                        record['height'] = newrecord['height']
-                        minX = float(newrecord["minX"])
-                        minY = float(newrecord["minY"])
-                        maxX = float(newrecord["maxX"])
-                        maxY = float(newrecord["maxY"])
+                        rasterPrefix = raster[0:rasterStartPosition]
+                        extension = re.search('image/(.*);base64', rasterPrefix)
+                        if extension is not None:
+                            if extension.group(1):
+                                imageFile = dirname + os.path.sep + "image" + str(imageIndex) + "." + extension.group(1)
+                                imagesToConcatenate.append(imageFile)
+                                with open(imageFile, "wb") as currentImage:
+                                    currentImage.write(rasterEncoded.decode("base64"))
+
+                        if imageIndex == 0:
+                            firstRasterPrefix = rasterPrefix
+                            record['x'] = newrecord['x']
+                            record['y'] = newrecord['y']
+                            record['width'] = newrecord['width']
+                            record['height'] = newrecord['height']
+                            minX = float(newrecord["minX"])
+                            minY = float(newrecord["minY"])
+                            maxX = float(newrecord["maxX"])
+                            maxY = float(newrecord["maxY"])
+
+                    else:
+                        # this image is already recorded
+                        currentImageIndex = imagesSHA1.index(rasterSHA1)
+                        timeLine.append(currentImageIndex)
 
                     imageIndex += 1
 
@@ -1213,7 +1225,7 @@ class iaObject:
             record["minY"] = unicode(minY)
             record["maxX"] = unicode(maxX)
             record["maxY"] = unicode(maxY)
-
+            record["timeline"] =  ','.join([str(i) for i in timeLine])
 
         shutil.rmtree(dirname)
 

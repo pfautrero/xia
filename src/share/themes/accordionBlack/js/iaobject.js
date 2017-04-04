@@ -62,24 +62,27 @@ function IaObject(params) {
         that.includePath(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
     }
     else if (typeof(params.detail.image) !== 'undefined') {
-        that.includeImage(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
-    }
-    else if (typeof(params.detail.group) !== 'undefined') {
         var re = /sprite(.*)/i;
         if (params.detail.id.match(re)) {
             console.log('sprite detected')
+            that.includeSprite(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
         }
         else {
-            for (var i in params.detail.group) {
-                if (typeof(params.detail.group[i].path) !== 'undefined') {
-                    that.includePath(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
-                }
-                else if (typeof(params.detail.group[i].image) !== 'undefined') {
-                    that.includeImage(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
-                }
-            }
-            that.definePathBoxSize(params.detail, that);
+            that.includeImage(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
         }
+
+    }
+    else if (typeof(params.detail.group) !== 'undefined') {
+
+        for (var i in params.detail.group) {
+            if (typeof(params.detail.group[i].path) !== 'undefined') {
+                that.includePath(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
+            }
+            else if (typeof(params.detail.group[i].image) !== 'undefined') {
+                that.includeImage(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
+            }
+        }
+        that.definePathBoxSize(params.detail, that);
 
     }
     else {
@@ -91,6 +94,54 @@ function IaObject(params) {
     this.myhooks.afterIaObjectConstructor(params.iaScene, params.idText, params.detail, this);
 
 }
+
+
+
+/*
+ *
+ * @param {type} detail
+ * @param {type} i KineticElement index
+ * @returns {undefined}
+ */
+IaObject.prototype.includeSprite = function(detail, i, that, iaScene, baseImage, idText) {
+    that.defineImageBoxSize(detail, that);
+    var rasterObj = new Image();
+
+    that.title[i] = detail.title;
+    that.backgroundImage[i] = rasterObj;
+    var timeLine = JSON.parse("[" + detail.timeline + "]")
+
+    rasterObj.onload = function() {
+
+        var idle = []
+        for(i=0;i<timeLine.length;i++) {
+            idle.push(timeLine[i] * detail.width, 0, detail.width, detail.height)
+        }
+        var blob = new Kinetic.Sprite({
+          x: parseFloat(detail.x) * iaScene.coeff,
+          y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
+          image: rasterObj,
+          animation: 'idle',
+          animations: {
+            idle: idle
+          },
+          frameRate: 10,
+          frameIndex: 0,
+          scale: {x:iaScene.coeff,y:iaScene.coeff}
+        });
+
+        // add the shape to the layer
+        that.layer.add(blob);
+
+        // start sprite animation
+        blob.start();
+    };
+    //rasterObj.src = 'img/untitled.png';
+    rasterObj.src = detail.image;
+
+};
+
+
 
 /*
  *
@@ -154,12 +205,6 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
 
         // define hit area excluding transparent pixels
         // =============================================================
-
-
-
-
-
-
         var cropX = Math.max(parseFloat(detail.minX), 0);
         var cropY = Math.max(parseFloat(detail.minY), 0);
         var cropWidth = (Math.min(parseFloat(detail.maxX) - parseFloat(detail.minX), Math.floor(parseFloat(iaScene.originalWidth) * 1)));
