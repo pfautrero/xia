@@ -593,10 +593,20 @@ IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, ba
                         (typeof(iaScene.element) !== 'undefined')) {
 
                         for (k in iaScene.element.kineticElement) {
-                            iaScene.element.kineticElement[k].fillPriority('color');
-                            iaScene.element.kineticElement[k].fill('rgba(0,0,0,0)');
-                            iaScene.element.kineticElement[k].setStroke('rgba(0, 0, 0, 0)');
-                            iaScene.element.kineticElement[k].setStrokeWidth(0);
+                            if (iaScene.element.persistent[k] == "onImage") {
+                                iaScene.element.kineticElement[k].fillPriority('pattern');
+                                iaScene.element.kineticElement[k].fillPatternScaleX(iaScene.element.backgroundImageOwnScaleX[k] * 1/iaScene.scale);
+                                iaScene.element.kineticElement[k].fillPatternScaleY(iaScene.element.backgroundImageOwnScaleY[k] * 1/iaScene.scale);
+                                iaScene.element.kineticElement[k].fillPatternImage(iaScene.element.backgroundImage[k]);
+                                iaScene.element.kineticElement[k].stroke('rgba(0, 0, 0, 0)');
+                                iaScene.element.kineticElement[k].strokeWidth(0);
+                            }
+                            else {
+                                iaScene.element.kineticElement[k].fillPriority('color');
+                                iaScene.element.kineticElement[k].fill('rgba(0,0,0,0)');
+                                iaScene.element.kineticElement[k].setStroke('rgba(0, 0, 0, 0)');
+                                iaScene.element.kineticElement[k].setStrokeWidth(0);
+                            }
                         }
                         iaScene.element.layer.draw();
                         $('#' + iaScene.element.idText + " audio").each(function(){
