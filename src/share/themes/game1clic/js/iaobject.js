@@ -10,7 +10,7 @@
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
 //
 //
-// @author : pascal.fautrero@ac-versailles.fr
+// @author : Pascal Fautrero
 
 
 /*
@@ -89,7 +89,7 @@ function IaObject(params) {
 IaObject.prototype.includeSprite = function(detail, i, that, iaScene, baseImage, idText) {
     this.defineImageBoxSize(detail, this);
     this.xiaDetail[i] = new XiaSprite(this, idText)
-    this.xiaDetail[i].start(i)
+    this.xiaDetail[i].start()
 };
 
 /*
@@ -104,7 +104,6 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
     that.xiaDetail[i] = new XiaDetail(that, idText);
 
     var rasterObj = new Image();
-
 
     that.xiaDetail[i].kineticElement = new Kinetic.Image({
         id: detail.id,
@@ -165,13 +164,6 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
 
 	      var hitCanvas = that.layer.getHitCanvas();
         iaScene.completeImage = hitCanvas.getContext().getImageData(0,0,Math.floor(hitCanvas.width),Math.floor(hitCanvas.height));
-
-        /*var canvas_source = document.createElement('canvas');
-        canvas_source.setAttribute('width', cropWidth * iaScene.coeff);
-        canvas_source.setAttribute('height', cropHeight * iaScene.coeff);
-        var context_source = canvas_source.getContext('2d');
-        context_source.drawImage(rasterObj,0,0, Math.floor(cropWidth * iaScene.coeff), Math.floor(cropHeight * iaScene.coeff));
-        */
 
         var canvas_source = document.createElement('canvas');
         canvas_source.setAttribute('width', detail.width);

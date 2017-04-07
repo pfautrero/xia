@@ -91,7 +91,7 @@ function main(myhooks) {
       // Load background image
 
       that.imageObj = new Image();
-      that.imageObj.src = scene.image;
+
       that.imageObj.onload = function() {
 
           var mainScene = new IaScene(scene.width,scene.height);
@@ -303,7 +303,8 @@ function main(myhooks) {
               }
           }
 
-      };
+      }
+      that.imageObj.src = scene.image
     })
 
     if (scene.path !== "") {

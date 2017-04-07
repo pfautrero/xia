@@ -10,14 +10,13 @@
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
 //   
 //   
-// @author : pascal.fautrero@ac-versailles.fr
+// @author : Pascal Fautrero
 
 
 /*
  * 
  */
 class XiaSprite extends XiaDetail {
-
 
     constructor(parent, idText){
         super(parent, idText)
@@ -38,8 +37,7 @@ class XiaSprite extends XiaDetail {
         return idle
     }
 
-
-    start(i) {
+    start() {
         var rasterObj = new Image();
         this.kineticElement = new Kinetic.Sprite({
           x: parseFloat(this.parent.jsonSource.x) * this.parent.iaScene.coeff,
@@ -48,7 +46,10 @@ class XiaSprite extends XiaDetail {
           animation: 'idle',
           animations: {
             idle: this.idle,
-            hidden : [this.timeLine.length * this.parent.jsonSource.width, 0, this.parent.jsonSource.width, this.parent.jsonSource.height]
+            hidden : [
+                this.timeLine.length * this.parent.jsonSource.width, 0,
+                this.parent.jsonSource.width, this.parent.jsonSource.height
+            ]
           },
           frameRate: this.parent.iaScene.frameRate,
           frameIndex: 0,
