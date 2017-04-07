@@ -124,7 +124,7 @@ class hook:
             final_index = final_index.replace("{{CONTENT}}", final_str)
             final_index = final_index.replace("{{LOADING}}", self.loading)
             if self.root.options["export_type"] == "singlefile":
-                xiaWebsite = "https://xia.dane.ac-versailles.fr/network/delivery/xia20/material"
+                xiaWebsite = "https://xia.dane.ac-versailles.fr/network/delivery/xia30/material"
                 final_index = final_index.replace("{{MainCSS}}", xiaWebsite + "/css/main.css")
                 final_index = final_index.replace("{{LogoLoading}}",  xiaWebsite + "/img/xia.png")
                 final_index = final_index.replace("{{LogoPDF}}",  xiaWebsite + "/img/pdf.png")
