@@ -23,12 +23,13 @@ function IaObject(params) {
     var that = this;
     this.path = [];
     this.xiaDetail = [];
-    this.persistent = [];
     this.minX = 10000;
     this.minY = 10000;
     this.maxX = -10000;
     this.maxY = -10000;
     this.group = 0;
+    this.jsonSource = params.detail
+    this.iaScene = params.iaScene
 
     this.layer = params.layer;
     this.background_layer = params.background_layer;
@@ -37,14 +38,21 @@ function IaObject(params) {
     this.myhooks = params.myhooks;
     // Create kineticElements and include them in a group
 
-    that.group = new Kinetic.Group();
-    that.layer.add(that.group);
+    this.group = new Kinetic.Group();
+    this.layer.add(this.group);
 
     if (typeof(params.detail.path) !== 'undefined') {
         that.includePath(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
     }
     else if (typeof(params.detail.image) !== 'undefined') {
-        that.includeImage(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
+        var re = /sprite(.*)/i;
+        if (params.detail.id.match(re)) {
+            console.log('sprite detected')
+            that.includeSprite(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
+        }
+        else {
+            that.includeImage(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
+        }
     }
     else if (typeof(params.detail.group) !== 'undefined') {
         for (var i in params.detail.group) {
@@ -52,7 +60,14 @@ function IaObject(params) {
                 that.includePath(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
             }
             else if (typeof(params.detail.group[i].image) !== 'undefined') {
-                that.includeImage(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
+                var re = /sprite(.*)/i;
+                if (params.detail.group[i].id.match(re)) {
+                    console.log('sprite detected')
+                    that.includeSprite(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
+                }
+                else {
+                    that.includeImage(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
+                }
             }
         }
         that.definePathBoxSize(params.detail, that);
@@ -71,13 +86,25 @@ function IaObject(params) {
  * @param {type} i KineticElement index
  * @returns {undefined}
  */
+IaObject.prototype.includeSprite = function(detail, i, that, iaScene, baseImage, idText) {
+    this.defineImageBoxSize(detail, this);
+    this.xiaDetail[i] = new XiaSprite(this, idText)
+    this.xiaDetail[i].start(i)
+};
+
+/*
+ *
+ * @param {type} detail
+ * @param {type} i KineticElement index
+ * @returns {undefined}
+ */
 IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, idText) {
     that.defineImageBoxSize(detail, that);
 
-    that.xiaDetail[i] = new XiaDetail(detail, idText);
+    that.xiaDetail[i] = new XiaDetail(that, idText);
 
     var rasterObj = new Image();
-    rasterObj.src = detail.image;
+
 
     that.xiaDetail[i].kineticElement = new Kinetic.Image({
         id: detail.id,
@@ -94,7 +121,13 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
     that.xiaDetail[i].kineticElement.backgroundImage = rasterObj;
     that.xiaDetail[i].kineticElement.tooltip = "";
 
+    that.xiaDetail[i].kineticElement.droparea = false;
+    that.xiaDetail[i].kineticElement.tooltip_area = false;
+
     rasterObj.onload = function() {
+
+        that.xiaDetail[i].width = detail.width * iaScene.scale
+        that.xiaDetail[i].height = detail.height * iaScene.scale
 
         that.xiaDetail[i].kineticElement.backgroundImageOwnScaleX = iaScene.scale * detail.width / this.width;
         that.xiaDetail[i].kineticElement.backgroundImageOwnScaleY = iaScene.scale * detail.height / this.height;
@@ -105,10 +138,10 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
             zoomable = false;
         }
 
-        that.persistent[i] = "off";
+        that.xiaDetail[i].persistent = "off";
         if ((typeof(detail.fill) !== 'undefined') &&
             (detail.fill === "#ffffff")) {
-            that.persistent[i] = "onImage";
+            that.xiaDetail[i].persistent = "onImage";
             that.xiaDetail[i].kineticElement.fillPriority('pattern');
             that.xiaDetail[i].kineticElement.fillPatternScaleX(that.xiaDetail[i].kineticElement.backgroundImageOwnScaleX * 1/iaScene.scale);
             that.xiaDetail[i].kineticElement.fillPatternScaleY(that.xiaDetail[i].kineticElement.backgroundImageOwnScaleY * 1/iaScene.scale);
@@ -133,13 +166,22 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
 	      var hitCanvas = that.layer.getHitCanvas();
         iaScene.completeImage = hitCanvas.getContext().getImageData(0,0,Math.floor(hitCanvas.width),Math.floor(hitCanvas.height));
 
-        var canvas_source = document.createElement('canvas');
+        /*var canvas_source = document.createElement('canvas');
         canvas_source.setAttribute('width', cropWidth * iaScene.coeff);
         canvas_source.setAttribute('height', cropHeight * iaScene.coeff);
         var context_source = canvas_source.getContext('2d');
         context_source.drawImage(rasterObj,0,0, Math.floor(cropWidth * iaScene.coeff), Math.floor(cropHeight * iaScene.coeff));
+        */
 
-        imageDataSource = context_source.getImageData(0, 0, Math.floor(cropWidth * iaScene.coeff), Math.floor(cropHeight * iaScene.coeff));
+        var canvas_source = document.createElement('canvas');
+        canvas_source.setAttribute('width', detail.width);
+        canvas_source.setAttribute('height', detail.height);
+        var context_source = canvas_source.getContext('2d');
+        context_source.drawImage(rasterObj,0,0, (detail.width), (detail.height));
+        //document.body.appendChild(canvas_source)
+        that.xiaDetail[i].imgData = context_source.getImageData(0,0,canvas_source.width,canvas_source.height);
+
+        /*imageDataSource = context_source.getImageData(0, 0, Math.floor(cropWidth * iaScene.coeff), Math.floor(cropHeight * iaScene.coeff));
 
         (function(imageDataSource){
             that.xiaDetail[i].kineticElement.hitFunc(function(context) {
@@ -167,16 +209,18 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
                 }
                 context.putImageData(iaScene.completeImage, 0, 0);
             });
-        })(imageDataSource);
+        })(imageDataSource);*/
 
 
       /* that.xiaDetail[i].kineticElement.sceneFunc(function(context) {
             var yo = that.layer.getHitCanvas().getContext().getImageData(0,0,iaScene.width, iaScene.height);
             context.putImageData(yo, 0,0);
         });*/
-        that.addEventsManagement(i,zoomable, that, iaScene, baseImage, idText);
+        //that.addEventsManagement(i,zoomable, that, iaScene, baseImage, idText);
+        that.xiaDetail[i].manageDropAreaAndTooltips()
         that.group.draw();
     };
+    rasterObj.src = detail.image;
 
 };
 
@@ -190,7 +234,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
 IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, idText) {
 
     var that=this;
-    that.xiaDetail[i] = new XiaDetail(detail, idText);
+    that.xiaDetail[i] = new XiaDetail(that, idText);
 
     that.path[i] = detail.path;
     // if detail is out of background, hack maxX and maxY
@@ -205,6 +249,24 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         scale: {x:iaScene.coeff,y:iaScene.coeff},
         fill: 'rgba(0, 0, 0, 0)'
     });
+    that.xiaDetail[i].kineticElement.droparea = false;
+    that.xiaDetail[i].kineticElement.tooltip_area = false;
+
+    // create path in a standalone image
+    // to manage hitArea if this detail is under sprite...
+    var tempCanvas = document.createElement('canvas')
+    tempCanvas.setAttribute('width', detail.width)
+    tempCanvas.setAttribute('height', detail.height)
+    var tempContext = tempCanvas.getContext('2d')
+    // Arghh...forced to remove single quotes from scene.path...
+    var currentPath = new Path2D(detail.path.replace(/'/g, ""))
+    tempContext.translate((-1) * detail.minX, (-1) * detail.minY)
+    tempContext.fillStyle = "rgba(255, 255, 255, 255)"
+    tempContext.fill(currentPath)
+    that.xiaDetail[i].imgData = tempContext.getImageData(0,0,tempCanvas.width,tempCanvas.height);
+    //document.body.appendChild(tempCanvas)
+
+
     that.xiaDetail[i].kineticElement.setXiaParent(that.xiaDetail[i]);
     that.xiaDetail[i].kineticElement.setIaObject(that);
     that.xiaDetail[i].kineticElement.tooltip = "";
@@ -241,7 +303,6 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     var dataUrl = that.cropCanvas.toDataURL();
     delete that.cropCanvas;
     var cropedImage = new Image();
-    cropedImage.src = dataUrl;
     that.xiaDetail[i].kineticElement.tooltip = "";
     cropedImage.onload = function() {
         that.xiaDetail[i].kineticElement.backgroundImage = cropedImage;
@@ -251,19 +312,20 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         that.xiaDetail[i].kineticElement.fillPatternX(detail.minX);
         that.xiaDetail[i].kineticElement.fillPatternY(detail.minY);
     };
-
+    cropedImage.src = dataUrl;
     var zoomable = true;
     if ((typeof(detail.fill) !== 'undefined') &&
         (detail.fill === "#000000")) {
         zoomable = false;
     }
-    that.persistent[i] = "off";
+    that.xiaDetail[i].persistent = "off";
     if ((typeof(detail.fill) !== 'undefined') &&
         (detail.fill === "#ffffff")) {
-        that.persistent[i] = "onPath";
+        that.xiaDetail[i].persistent = "onPath";
         that.xiaDetail[i].kineticElement.fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');
     }
-    that.addEventsManagement(i, zoomable, that, iaScene, baseImage, idText);
+    //that.addEventsManagement(i, zoomable, that, iaScene, baseImage, idText);
+    that.xiaDetail[i].manageDropAreaAndTooltips()
 
     that.group.add(that.xiaDetail[i].kineticElement);
     that.group.draw();
@@ -339,9 +401,6 @@ IaObject.prototype.scaleBox = function(that, iaScene) {
 IaObject.prototype.addEventsManagement = function(i, zoomable, that, iaScene, baseImage, idText) {
 
     var that=this;
-
-    that.xiaDetail[i].kineticElement.droparea = false;
-    that.xiaDetail[i].kineticElement.tooltip_area = false;
     // if current detail is a drop area, disable drag and drop
     if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
         that.xiaDetail[i].kineticElement.droparea = true;

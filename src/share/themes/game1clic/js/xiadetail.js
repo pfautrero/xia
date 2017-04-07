@@ -16,26 +16,57 @@
 /*
  * 
  */
-function XiaDetail(detail, idText) {
-    "use strict";
-    
-    var that = this;
-    
-    this.click = "on";
-    this.title = detail.title;
-    this.idText = idText;
-    this.path = "";
-    this.kineticElement = null;
-    this.persistent = "";
-    this.options = "";
-    this.backgroundImage = null;
-    this.tooltip = null;
-    
-    if ((typeof(detail.options) !== 'undefined')) {
-        this.options = detail.options;
+class XiaDetail {
+
+
+  constructor(parent, idText) {
+    "use strict"
+    this.parent = parent
+    this.idText = idText
+    this.click = "on"
+    this.title = this.parent.jsonSource.title
+    this.path = ""
+    this.kineticElement = null
+    this.persistent = ""
+    this.options = ""
+    this.backgroundImage = null
+    this.tooltip = null
+    this.zoomable = true
+
+    if ((typeof(this.parent.jsonSource.options) !== 'undefined')) {
+        this.options = this.parent.jsonSource.options
     }
     if (this.options.indexOf("disable-click") !== -1) {
-        this.click = "off";
+        this.click = "off"
     }
+    if ((typeof(this.parent.jsonSource.fill) !== 'undefined') &&
+        (this.parent.jsonSource.fill === "#000000")) {
+        this.zoomable = false;
+    }
+  }
+
+  manageDropAreaAndTooltips() {
+
+    // if current detail is a drop area, disable drag and drop
+    if ($('article[data-target="' + $("#" + this.idText).data("kinetic_id") + '"]').length != 0) {
+        this.kineticElement.droparea = true;
+    }
+    // tooltip must be at the bottom
+    if ($('article[data-tooltip="' + $("#" + this.idText).data("kinetic_id") + '"]').length != 0) {
+        this.kineticElement.getParent().moveToBottom();
+        this.options += " disable-click ";
+        this.kineticElement.tooltip_area = true;
+        // disable hitArea for tooltip
+        this.kineticElement.hitFunc(function(context){
+            context.beginPath();
+            context.rect(0,0,0,0);
+            context.closePath();
+            context.fillStrokeShape(this);
+	});
+    }
+};
+
+
+
     
 }

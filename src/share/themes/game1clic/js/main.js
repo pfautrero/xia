@@ -53,6 +53,15 @@ function main(myhooks) {
           }
       });
 
+      Kinetic.Util.addMethods(Kinetic.Sprite,{
+          setIaObject: function(iaobject) {
+              this.iaobject = iaobject;
+          },
+          getIaObject: function() {
+              return this.iaobject;
+          }
+      });
+
       Kinetic.Util.addMethods(Kinetic.Path,{
           setXiaParent: function(xiaparent) {
               this.xiaparent = xiaparent;
@@ -70,7 +79,14 @@ function main(myhooks) {
           }
       });
 
-
+      Kinetic.Util.addMethods(Kinetic.Sprite,{
+          setXiaParent: function(xiaparent) {
+              this.xiaparent = xiaparent;
+          },
+          getXiaParent: function() {
+              return this.xiaparent;
+          }
+      });
 
       // Load background image
 
@@ -104,9 +120,73 @@ function main(myhooks) {
                   position1 = 4 * (Math.floor(mousePos.y) * Math.floor(mainScene.width) + Math.floor(mousePos.x));
                   mainScene.currentShape = "#" + Kinetic.Util._rgbToHex(imageDest[position1 + 0], imageDest[position1 + 1], imageDest[position1 + 2]);
               }
+
               var shape = Kinetic.shapes[mainScene.currentShape];
               if (typeof(shape) != "undefined") {
-                  mainScene.click(shape);
+                if (typeof(shape.getXiaParent().imgData) !== "undefined") {
+                    var pos = {
+                        x : Math.floor((mousePos.x - shape.x()) / mainScene.coeff),
+                        y : Math.floor((mousePos.y - shape.y()) / mainScene.coeff)
+                    }
+                    frameIndex = (typeof(shape.getXiaParent().timeLine) !== "undefined") ? shape.getXiaParent().timeLine[shape.frameIndex()] : 0
+                    if (typeof(shape.getXiaParent().timeLine) !== "undefined") {
+                        var index = Math.floor(pos.y * shape.getXiaParent().imgData[frameIndex].width + pos.x)
+                        var imgDataArray = shape.getXiaParent().imgData[frameIndex].data;
+                    }
+                    else {
+                        var index = Math.floor(pos.y * shape.getXiaParent().imgData.width + frameIndex * shape.getXiaParent().width + pos.x)
+                        var imgDataArray = shape.getXiaParent().imgData.data;
+                    }
+                    if (imgDataArray[index*4+3] == 0) {
+                        // sprite not touched (Alpha = 0)
+                        var shapesArray = Object.keys(Kinetic.shapes)
+                        for (var i = shapesArray.length - 1; i >= 1; i--) {
+                            if (shapesArray[i] != mainScene.currentShape) {
+                                shape = Kinetic.shapes[shapesArray[i]]
+                                var pos = {
+                                    x : Math.floor((mousePos.x - shape.x()) / mainScene.coeff),
+                                    y : Math.floor((mousePos.y - shape.y()) / mainScene.coeff)
+                                }
+                                if ((mousePos.x > shape.x()) && (mousePos.x < shape.x() + shape.getXiaParent().width)) {
+                                    if ((mousePos.y > shape.y()) && (mousePos.y < shape.y() + shape.getXiaParent().height)) {
+                                        if (typeof(shape.getXiaParent().timeLine) !== "undefined") {
+                                            var frameIndex = shape.getXiaParent().timeLine[shape.frameIndex()]
+                                            var index = pos.y * shape.getXiaParent().imgData[frameIndex].width + pos.x
+                                            var d = shape.getXiaParent().imgData[frameIndex].data;
+
+                                            if (d[index*4+3] !== 0) {
+                                                shape.stop()
+                                                shape.hide()
+                                                mainScene.click(shape, mousePos);
+                                                break
+                                            }
+                                        }
+                                        else {
+                                            if (typeof(shape.getXiaParent().imgData) !== "undefined") {
+                                                var index = pos.y * shape.getXiaParent().imgData.width + pos.x
+                                                var d = shape.getXiaParent().imgData.data;
+                                                if (d[index*4+3] != 0) {
+                                                    mainScene.click(shape, mousePos);
+                                                    break
+                                                }
+                                            }
+                                            else {
+                                                mainScene.click(shape, mousePos);
+                                                break
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        return
+                    }
+                }
+                if (typeof(shape.getXiaParent().timeLine) !== "undefined") {
+                    shape.stop()
+                    shape.hide()
+                }
+                mainScene.click(shape, mousePos);
               }
           });
 
@@ -171,7 +251,7 @@ function main(myhooks) {
               });
           }
 
-  	var hitCanvas = layers[indice].getHitCanvas();
+          var hitCanvas = layers[indice].getHitCanvas();
           mainScene.completeImage = hitCanvas.getContext().getImageData(0,0,Math.floor(hitCanvas.width),Math.floor(hitCanvas.height));
 
 

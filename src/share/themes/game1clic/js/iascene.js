@@ -42,6 +42,9 @@ function IaScene(originalWidth, originalHeight) {
     // padding-top in the canvas
     this.y = 0;
 
+    // Sprites frameRate
+    this.frameRate = 10
+
     // internal
     this.score = 0;
     this.score2 = 0;
@@ -90,7 +93,6 @@ IaScene.prototype.scaleScene = function(mainScene){
         mainScene.coeff = (mainScene.height) / parseFloat(mainScene.originalHeight);
         mainScene.width = parseFloat(mainScene.originalWidth) * mainScene.coeff;
     }
-
 
     $('#container').css({"width": (mainScene.width + canvas_border_left + canvas_border_right) + 'px'});
     $('#container').css({"height": (mainScene.height + $('#canvas').offset().top - $('#container').offset().top + canvas_border_top + canvas_border_bottom) + 'px'});
@@ -185,7 +187,7 @@ IaScene.prototype.mouseout = function(kineticElement) {
 
 };
 
-IaScene.prototype.click = function(kineticElement) {
+IaScene.prototype.click = function(kineticElement, mousePos) {
 
     if (kineticElement.getXiaParent().click == "off") return;
 
@@ -200,7 +202,7 @@ IaScene.prototype.click = function(kineticElement) {
         this.noPropagation = true;
         var iaobject = kineticElement.getIaObject();
         for (var i in iaobject.xiaDetail) {
-            if (iaobject.persistent[i] == "off") {
+            if (iaobject.xiaDetail[i].persistent == "off") {
                 if (iaobject.xiaDetail[i].kineticElement instanceof Kinetic.Image) {
                     iaobject.xiaDetail[i].kineticElement.fillPriority('pattern');
                     iaobject.xiaDetail[i].kineticElement.fillPatternScaleX(iaobject.xiaDetail[i].kineticElement.backgroundImageOwnScaleX * 1/this.scale);
@@ -216,26 +218,29 @@ IaScene.prototype.click = function(kineticElement) {
                 }
 
             }
-            else if (iaobject.persistent[i] == "onPath") {
+            else if (iaobject.xiaDetail[i].persistent == "onPath") {
                 iaobject.xiaDetail[i].kineticElement.fillPriority('color');
                 iaobject.xiaDetail[i].kineticElement.fill('rgba(' + this.colorPersistent.red + ',' + this.colorPersistent.green + ',' + this.colorPersistent.blue + ',' + this.colorPersistent.opacity + ')');
             }
-            else if (iaobject.persistent[i] == "onImage") {
+            else if (iaobject.xiaDetail[i].persistent == "onImage") {
                 iaobject.xiaDetail[i].kineticElement.fillPriority('pattern');
                 iaobject.xiaDetail[i].kineticElement.fillPatternScaleX(iaobject.xiaDetail[i].kineticElement.backgroundImageOwnScaleX * 1/this.scale);
                 iaobject.xiaDetail[i].kineticElement.fillPatternScaleY(iaobject.xiaDetail[i].kineticElement.backgroundImageOwnScaleY * 1/this.scale);
                 iaobject.xiaDetail[i].kineticElement.fillPatternImage(iaobject.xiaDetail[i].kineticElement.backgroundImage);
             }
-            iaobject.xiaDetail[i].kineticElement.moveToTop();
+            else if ((iaobject.xiaDetail[i].persistent == "persistentSprite") || (iaobject.xiaDetail[i].persistent == "hiddenSprite")) {
+                iaobject.xiaDetail[i].kineticElement.animation('idle')
+                iaobject.xiaDetail[i].kineticElement.frameIndex(0)
+            }
+            //iaobject.xiaDetail[i].kineticElement.moveToTop();
             iaobject.xiaDetail[i].kineticElement.draw();
         }
 
-        iaobject.group.moveToTop();
+        //iaobject.group.moveToTop();
         //iaobject.layer.draw();
         this.element = iaobject;
         iaobject.myhooks.afterIaObjectFocus(this, kineticElement.getXiaParent().idText, iaobject, kineticElement);
         iaobject.layer.getStage().completeImage = "redefine";
-
 
     }
 
