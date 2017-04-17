@@ -19,7 +19,7 @@
 undef:true, unused:true, curly:true, browser:true, indent:2, maxerr:50 */
 /* global _ */
 
-(function(exports) {
+(function(window) {
     "use strict";
 
     var XORCipher = {
@@ -104,8 +104,10 @@ undef:true, unused:true, curly:true, browser:true, indent:2, maxerr:50 */
         return result.join("");
 
     }
+    if (typeof module !== 'undefined' && module.exports != null) {
+         exports.XORCipher = XORCipher;
+    }
 
-    exports.XORCipher = XORCipher;
 
 })(this);
 

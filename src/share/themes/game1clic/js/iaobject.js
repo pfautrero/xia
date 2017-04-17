@@ -29,6 +29,12 @@ function IaObject(params) {
     this.maxY = -10000;
     this.group = 0;
     this.jsonSource = params.detail
+
+    this.jsonSource.maxX = parseFloat(this.jsonSource.maxX)
+    this.jsonSource.minX = parseFloat(this.jsonSource.minX)
+    this.jsonSource.maxY = parseFloat(this.jsonSource.maxY)
+    this.jsonSource.minY = parseFloat(this.jsonSource.minY)
+
     this.iaScene = params.iaScene
 
     this.layer = params.layer;
@@ -87,9 +93,11 @@ function IaObject(params) {
  * @returns {undefined}
  */
 IaObject.prototype.includeSprite = function(detail, i, that, iaScene, baseImage, idText) {
+
     this.defineImageBoxSize(detail, this);
-    this.xiaDetail[i] = new XiaSprite(this, idText)
+    this.xiaDetail[i] = new XiaSprite(this, detail, idText)
     this.xiaDetail[i].start()
+
 };
 
 /*
@@ -99,120 +107,10 @@ IaObject.prototype.includeSprite = function(detail, i, that, iaScene, baseImage,
  * @returns {undefined}
  */
 IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, idText) {
-    that.defineImageBoxSize(detail, that);
 
-    that.xiaDetail[i] = new XiaDetail(that, idText);
-
-    var rasterObj = new Image();
-
-    that.xiaDetail[i].kineticElement = new Kinetic.Image({
-        id: detail.id,
-        name: detail.title,
-        x: parseFloat(detail.x) * iaScene.coeff,
-        y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
-        width: detail.width,
-        height: detail.height,
-        scale: {x:iaScene.coeff,y:iaScene.coeff}
-    });
-    that.xiaDetail[i].kineticElement.setXiaParent(that.xiaDetail[i]);
-    that.xiaDetail[i].kineticElement.setIaObject(that);
-
-    that.xiaDetail[i].kineticElement.backgroundImage = rasterObj;
-    that.xiaDetail[i].kineticElement.tooltip = "";
-
-    that.xiaDetail[i].kineticElement.droparea = false;
-    that.xiaDetail[i].kineticElement.tooltip_area = false;
-
-    rasterObj.onload = function() {
-
-        that.xiaDetail[i].width = detail.width * iaScene.scale
-        that.xiaDetail[i].height = detail.height * iaScene.scale
-
-        that.xiaDetail[i].kineticElement.backgroundImageOwnScaleX = iaScene.scale * detail.width / this.width;
-        that.xiaDetail[i].kineticElement.backgroundImageOwnScaleY = iaScene.scale * detail.height / this.height;
-        var zoomable = true;
-
-        if ((typeof(detail.fill) !== 'undefined') &&
-            (detail.fill === "#000000")) {
-            zoomable = false;
-        }
-
-        that.xiaDetail[i].persistent = "off";
-        if ((typeof(detail.fill) !== 'undefined') &&
-            (detail.fill === "#ffffff")) {
-            that.xiaDetail[i].persistent = "onImage";
-            that.xiaDetail[i].kineticElement.fillPriority('pattern');
-            that.xiaDetail[i].kineticElement.fillPatternScaleX(that.xiaDetail[i].kineticElement.backgroundImageOwnScaleX * 1/iaScene.scale);
-            that.xiaDetail[i].kineticElement.fillPatternScaleY(that.xiaDetail[i].kineticElement.backgroundImageOwnScaleY * 1/iaScene.scale);
-            that.xiaDetail[i].kineticElement.fillPatternImage(that.xiaDetail[i].kineticElement.backgroundImage);
-            zoomable = false;
-        }
-        that.group.add(that.xiaDetail[i].kineticElement);
-
-        // define hit area excluding transparent pixels
-
-        var cropX = Math.max(parseFloat(detail.minX), 0);
-        var cropY = Math.max(parseFloat(detail.minY), 0);
-        var cropWidth = (Math.min(parseFloat(detail.maxX) - parseFloat(detail.minX), Math.floor(parseFloat(iaScene.originalWidth) * 1)));
-        var cropHeight = (Math.min(parseFloat(detail.maxY) - parseFloat(detail.minY), Math.floor(parseFloat(iaScene.originalHeight) * 1)));
-        if (cropX + cropWidth > iaScene.originalWidth * 1) {
-            cropWidth = Math.abs(iaScene.originalWidth * 1 - cropX * 1);
-        }
-        if (cropY * 1 + cropHeight > iaScene.originalHeight * 1) {
-            cropHeight = Math.abs(iaScene.originalHeight * 1 - cropY * 1);
-        }
-
-	      var hitCanvas = that.layer.getHitCanvas();
-        iaScene.completeImage = hitCanvas.getContext().getImageData(0,0,Math.floor(hitCanvas.width),Math.floor(hitCanvas.height));
-
-        var canvas_source = document.createElement('canvas');
-        canvas_source.setAttribute('width', detail.width);
-        canvas_source.setAttribute('height', detail.height);
-        var context_source = canvas_source.getContext('2d');
-        context_source.drawImage(rasterObj,0,0, (detail.width), (detail.height));
-        //document.body.appendChild(canvas_source)
-        that.xiaDetail[i].imgData = context_source.getImageData(0,0,canvas_source.width,canvas_source.height);
-
-        /*imageDataSource = context_source.getImageData(0, 0, Math.floor(cropWidth * iaScene.coeff), Math.floor(cropHeight * iaScene.coeff));
-
-        (function(imageDataSource){
-            that.xiaDetail[i].kineticElement.hitFunc(function(context) {
-                var imageData = imageDataSource.data;
-                var imageDest = iaScene.completeImage.data;
-                var position1 = 0;
-                var position2 = 0;
-                var maxWidth = Math.floor(cropWidth * iaScene.coeff);
-                var maxHeight = Math.floor(cropHeight * iaScene.coeff);
-                var startY = Math.floor(cropY * iaScene.coeff);
-                var startX = Math.floor(cropX * iaScene.coeff);
-                var hitCanvasWidth = Math.floor(that.layer.getHitCanvas().width);
-                var rgbColorKey = Kinetic.Util._hexToRgb(this.colorKey);
-                for(var varx = 0; varx < maxWidth; varx +=1) {
-                    for(var vary = 0; vary < maxHeight; vary +=1) {
-                        position1 = 4 * (vary * maxWidth + varx);
-                        position2 = 4 * ((vary + startY) * hitCanvasWidth + varx + startX);
-                        if (imageData[position1 + 3] > 100) {
-                           imageDest[position2 + 0] = rgbColorKey.r;
-                           imageDest[position2 + 1] = rgbColorKey.g;
-                           imageDest[position2 + 2] = rgbColorKey.b;
-                           imageDest[position2 + 3] = 255;
-                        }
-                    }
-                }
-                context.putImageData(iaScene.completeImage, 0, 0);
-            });
-        })(imageDataSource);*/
-
-
-      /* that.xiaDetail[i].kineticElement.sceneFunc(function(context) {
-            var yo = that.layer.getHitCanvas().getContext().getImageData(0,0,iaScene.width, iaScene.height);
-            context.putImageData(yo, 0,0);
-        });*/
-        //that.addEventsManagement(i,zoomable, that, iaScene, baseImage, idText);
-        that.xiaDetail[i].manageDropAreaAndTooltips()
-        that.group.draw();
-    };
-    rasterObj.src = detail.image;
+    this.defineImageBoxSize(detail, this);
+    this.xiaDetail[i] = new XiaImage(this, detail, idText)
+    this.xiaDetail[i].start()
 
 };
 
@@ -226,7 +124,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
 IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, idText) {
 
     var that=this;
-    that.xiaDetail[i] = new XiaDetail(that, idText);
+    that.xiaDetail[i] = new XiaDetail(that, detail, idText);
 
     that.path[i] = detail.path;
     // if detail is out of background, hack maxX and maxY
@@ -261,7 +159,7 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
 
     that.xiaDetail[i].kineticElement.setXiaParent(that.xiaDetail[i]);
     that.xiaDetail[i].kineticElement.setIaObject(that);
-    that.xiaDetail[i].kineticElement.tooltip = "";
+    that.xiaDetail[i].tooltip = "";
     that.definePathBoxSize(detail, that);
     // crop background image to suit shape box
     that.cropCanvas = document.createElement('canvas');
@@ -295,7 +193,7 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     var dataUrl = that.cropCanvas.toDataURL();
     delete that.cropCanvas;
     var cropedImage = new Image();
-    that.xiaDetail[i].kineticElement.tooltip = "";
+    that.xiaDetail[i].tooltip = "";
     cropedImage.onload = function() {
         that.xiaDetail[i].kineticElement.backgroundImage = cropedImage;
         that.xiaDetail[i].kineticElement.backgroundImageOwnScaleX = 1;

@@ -1,13 +1,13 @@
 {
   "name": "xia",
-  "version": "2.0.0",
-  "description": "tools to create interactive images and games",
+  "version": "3.0.0",
+  "description": "tool to create interactive images and games",
   "main": "src/xia.py",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine tests/js/spec.js"
   },
   "author": "Pascal Fautrero",
   "license": "GPL3",
@@ -17,13 +17,17 @@
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-copy": "^0.5.0",
     "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-uglify": "^0.6.0",
     "grunt-nose": "^0.4.0",
     "grunt-pot": "^0.1.2",
     "grunt-potomo": "^2.1.0",
-    "grunt-shell": "^1.1.1",
-    "grunt-contrib-uglify": "^0.6.0"
+    "grunt-shell": "^1.1.1"
   },
   "devDependencies": {
-    "grunt-contrib-concat": "^0.5.0"
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "grunt-contrib-concat": "^0.5.0",
+    "jasmine-es6": "^0.4.0"
   }
 }

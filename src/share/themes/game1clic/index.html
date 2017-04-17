@@ -65,7 +65,11 @@
                     });
                 }
                 else {
-                    $LAB.script(embedded_scripts[i+1]);
+                    $LAB.script(embedded_scripts[i+1]).wait(function(){
+                        myhooks = new hooks();
+                        launch = new XiaLauncher(myhooks)
+                        launch.iframe()
+                    });
                 }
             };
 

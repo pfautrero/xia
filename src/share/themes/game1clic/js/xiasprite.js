@@ -18,8 +18,8 @@
  */
 class XiaSprite extends XiaDetail {
 
-    constructor(parent, idText){
-        super(parent, idText)
+    constructor(parent, detail, idText){
+        super(parent, detail, idText)
         this.zoomable = false
         this.width = this.parent.jsonSource.width * this.parent.iaScene.scale
         this.height = this.parent.jsonSource.height * this.parent.iaScene.scale
@@ -60,7 +60,7 @@ class XiaSprite extends XiaDetail {
         this.kineticElement.setIaObject(this.parent);
 
         this.kineticElement.backgroundImage = rasterObj;
-        this.kineticElement.tooltip = "";
+        this.tooltip = "";
         this.kineticElement.droparea = false;
         this.kineticElement.tooltip_area = false;
 
@@ -111,6 +111,7 @@ class XiaSprite extends XiaDetail {
         rasterObj.src = this.parent.jsonSource.image;
 
     }
-
-
+}
+if (typeof module !== 'undefined' && module.exports != null) {
+     exports.XiaSprite = XiaSprite
 }

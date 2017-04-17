@@ -117,26 +117,26 @@ IaScene.prototype.mouseover = function(kineticElement) {
 
         // manage tooltips if present
         var tooltip = false;
-        if (kineticElement.tooltip != "") {
+        if (kineticElement.getXiaParent().tooltip != "") {
             tooltip = true;
         }
         else if ($("#" + kineticElement.getXiaParent().idText).data("tooltip") != "") {
             var tooltip_id = $("#" + kineticElement.getXiaParent().idText).data("tooltip");
-            kineticElement.tooltip = kineticElement.getStage().find("#" + tooltip_id)[0];
+            kineticElement.getXiaParent().tooltip = kineticElement.getStage().find("#" + tooltip_id)[0];
             tooltip = true;
         }
         if (tooltip) {
-            kineticElement.tooltip.clearCache();
-            kineticElement.tooltip.fillPriority('pattern');
-            if ((kineticElement.tooltip.backgroundImageOwnScaleX != "undefined") &&
-                    (kineticElement.tooltip.backgroundImageOwnScaleY != "undefined")) {
-                kineticElement.tooltip.fillPatternScaleX(kineticElement.tooltip.backgroundImageOwnScaleX * 1/this.scale);
-                kineticElement.tooltip.fillPatternScaleY(kineticElement.tooltip.backgroundImageOwnScaleY * 1/this.scale);
+            kineticElement.getXiaParent().tooltip.clearCache();
+            kineticElement.getXiaParent().tooltip.fillPriority('pattern');
+            if ((kineticElement.getXiaParent().tooltip.backgroundImageOwnScaleX != "undefined") &&
+                    (kineticElement.getXiaParent().tooltip.backgroundImageOwnScaleY != "undefined")) {
+                kineticElement.getXiaParent().tooltip.fillPatternScaleX(kineticElement.getXiaParent().tooltip.backgroundImageOwnScaleX * 1/this.scale);
+                kineticElement.getXiaParent().tooltip.fillPatternScaleY(kineticElement.getXiaParent().tooltip.backgroundImageOwnScaleY * 1/this.scale);
             }
-            kineticElement.tooltip.fillPatternImage(kineticElement.tooltip.backgroundImage);
-            kineticElement.tooltip.getParent().moveToTop();
+            kineticElement.getXiaParent().tooltip.fillPatternImage(kineticElement.getXiaParent().tooltip.backgroundImage);
+            kineticElement.getXiaParent().tooltip.getParent().moveToTop();
             //that.group.draw();
-            kineticElement.tooltip.draw();
+            kineticElement.getXiaParent().tooltip.draw();
         }
 
         //kineticElement.getIaObject().layer.batchDraw();
@@ -162,19 +162,19 @@ IaScene.prototype.mouseout = function(kineticElement) {
 
             // manage tooltips if present
             var tooltip = false;
-            if (kineticElement.tooltip != "") {
+            if (kineticElement.getXiaParent().tooltip != "") {
                 tooltip = true;
             }
             else if ($("#" + kineticElement.getXiaParent().idText).data("tooltip") != "") {
                 var tooltip_id = $("#" + kineticElement.getXiaParent().idText).data("tooltip");
-                kineticElement.tooltip = kineticElement.getStage().find("#" + tooltip_id)[0];
+                kineticElement.getXiaParent().tooltip = kineticElement.getStage().find("#" + tooltip_id)[0];
                 tooltip = true;
             }
             if (tooltip) {
-                kineticElement.tooltip.fillPriority('color');
-                kineticElement.tooltip.fill('rgba(0, 0, 0, 0)');
-                kineticElement.tooltip.getParent().moveToBottom();
-                kineticElement.tooltip.draw();
+                kineticElement.getXiaParent().tooltip.fillPriority('color');
+                kineticElement.getXiaParent().tooltip.fill('rgba(0, 0, 0, 0)');
+                kineticElement.getXiaParent().tooltip.getParent().moveToBottom();
+                kineticElement.getXiaParent().tooltip.draw();
                 kineticElement.getIaObject().layer.draw();
             }
 

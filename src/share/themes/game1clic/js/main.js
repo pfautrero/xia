@@ -23,7 +23,7 @@
  * 4th layer : div "disablearea" - if clicked, disable events canvas
  */
 
-function main(myhooks) {
+function XiaLauncher(myhooks) {
     "use strict";
     var that=window;
     that.canvas = document.getElementById("canvas");
@@ -325,7 +325,7 @@ function main(myhooks) {
  * convert path to image if this path is used as background
  * transform scene.path to scene.image
  */
-main.prototype.convertPath2Image = function(scene) {
+XiaLauncher.prototype.convertPath2Image = function(scene) {
   var tempCanvas = document.createElement('canvas')
   tempCanvas.setAttribute('width', scene.width)
   tempCanvas.setAttribute('height', scene.height)
@@ -341,7 +341,7 @@ main.prototype.convertPath2Image = function(scene) {
   //scene.image = tempCanvas.toDataURL()
   return tempCanvas
 }
-main.prototype.convertGroup2Image = function(scene) {
+XiaLauncher.prototype.convertGroup2Image = function(scene) {
   var nbImages = 0
   var nbImagesLoaded = 0
   var tempCanvas = document.createElement('canvas')
@@ -366,13 +366,13 @@ main.prototype.convertGroup2Image = function(scene) {
       }
       else if (typeof(scene['group'][i].image) != "undefined") {
         var tempImage = new Image()
-        tempImage.onload = (function(main, imageItem){
+        tempImage.onload = (function(XiaLauncher, imageItem){
           return function(){
               tempContext.drawImage(this, 0, 0, this.width, this.height, imageItem.x, imageItem.y, this.width, this.height)
               nbImagesLoaded++
               if (nbImages == nbImagesLoaded) {
                   scene.image = tempCanvas.toDataURL()
-                  main.backgroundLoaded.resolve(0)
+                  XiaLauncher.backgroundLoaded.resolve(0)
               }
           }
         })(this, scene['group'][i])
@@ -385,6 +385,37 @@ main.prototype.convertGroup2Image = function(scene) {
     this.backgroundLoaded.resolve(0)
   }
 }
+XiaLauncher.prototype.iframe = function() {
+    $(".videoWrapper16_9").each(function(){
+        var source = $(this).data("iframe");
+        var iframe = document.createElement("iframe");
+        iframe.src = source;
+        $(this).append(iframe);
+    });
 
-myhooks = new hooks();
-launch = new main(myhooks);
+    $(".videoWrapper4_3").each(function(){
+        var source = $(this).data("iframe");
+        var iframe = document.createElement("iframe");
+        iframe.src = source;
+        $(this).append(iframe);
+    });
+    $(".flickr_oembed").each(function(){
+        var source = $(this).data("oembed");
+        var that = $(this);
+        $.ajax({
+            url: "http://www.flickr.com/services/oembed/?format=json&callback=?&jsoncallback=xia&url=" + source,
+            dataType: 'jsonp',
+            jsonpCallback: 'xia',
+            success: function (data) {
+                var url = data.url;
+                var newimg = document.createElement("img");
+                newimg.src = url;
+                that.append(newimg);
+            }
+        });
+    });
+}
+
+if (typeof module !== 'undefined' && module.exports != null) {
+     exports.XiaLauncher = XiaLauncher
+}

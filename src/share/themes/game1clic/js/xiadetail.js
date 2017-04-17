@@ -17,11 +17,9 @@
  * 
  */
 class XiaDetail {
-
-
-  constructor(parent, idText) {
-    "use strict"
+  constructor(parent, detail, idText) {
     this.parent = parent
+    this.detail = detail
     this.idText = idText
     this.click = "on"
     this.title = this.parent.jsonSource.title
@@ -46,7 +44,6 @@ class XiaDetail {
   }
 
   manageDropAreaAndTooltips() {
-
     // if current detail is a drop area, disable drag and drop
     if ($('article[data-target="' + $("#" + this.idText).data("kinetic_id") + '"]').length != 0) {
         this.kineticElement.droparea = true;
@@ -66,7 +63,8 @@ class XiaDetail {
     }
 };
 
+}
 
-
-    
+if (typeof module !== 'undefined' && module.exports != null) {
+     exports.XiaDetail = XiaDetail
 }
