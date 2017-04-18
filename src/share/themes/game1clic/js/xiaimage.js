@@ -20,7 +20,7 @@ class XiaImage extends XiaDetail {
 
     constructor(parent, detail, idText){
         super(parent, detail, idText)
-        this.zoomable = true
+        //this.zoomable = true
         this.width = this.detail.width * this.parent.iaScene.scale
         this.height = this.detail.height * this.parent.iaScene.scale
         this.persistent = "off"
