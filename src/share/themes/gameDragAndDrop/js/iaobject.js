@@ -105,6 +105,9 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
     if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
         collision_state = "off";
     }
+    if ($('article[data-tooltip="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
+        collision_state = "off";
+    }
     that.collisions = collision_state;
     var global_collision_state = $("#message_success").data("collisions");
     if (global_collision_state == "on" && collision_state != "off") {
@@ -551,15 +554,18 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
 
     that.xiaDetail[i].kineticElement.tooltip_area = false;
     // tooltip must be at the bottom
+    that.myhooks.afterXiaObjectCreation(iaScene, that.xiaDetail[i]);
+
     if ($('article[data-tooltip="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
         that.xiaDetail[i].kineticElement.moveToBottom();
         that.xiaDetail[i].kineticElement.tooltip_area = true;
         that.xiaDetail[i].options += " disable-click ";
+        return
     }
 
-    that.myhooks.afterXiaObjectCreation(iaScene, that.xiaDetail[i]);
 
-    that.xiaDetail[i].kineticElement.on('mouseenter', function() {
+
+    that.xiaDetail[i].kineticElement.on('mouseenter touchstart', function() {
         if (iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) {
 
         }
@@ -636,6 +642,7 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
                 if (tooltip) {
                     this.tooltip.fillPriority('color');
                     this.tooltip.fill('rgba(0, 0, 0, 0)');
+                    this.tooltip.moveToBottom();
                     this.tooltip.draw();
                 }
                 document.body.style.cursor = "default";
@@ -645,16 +652,17 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
         }
     });
 
-    if (that.xiaDetail[i].options.indexOf("direct-link") != -1) {
-        that.xiaDetail[i].kineticElement.on('click touchstart', function(e) {
-            //location.href = that.title[i];
-            location.href = that.xiaDetail[i].title;
-        });
-    }
-    else if (that.xiaDetail[i].options.indexOf("disable-click") != -1) {
+
+    if (that.xiaDetail[i].options.indexOf("disable-click") != -1) {
         return;
     }
     else {
+        if (that.xiaDetail[i].options.indexOf("direct-link") != -1) {
+            that.xiaDetail[i].kineticElement.on('mouseup touchend', function(e) {
+                //location.href = that.title[i];
+                location.href = that.xiaDetail[i].title;
+            });
+        }
 
         if (!that.xiaDetail[i].droparea) {
             that.xiaDetail[i].kineticElement.on('dragstart', function(e) {

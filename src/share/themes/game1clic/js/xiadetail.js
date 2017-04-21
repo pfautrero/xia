@@ -44,10 +44,6 @@ class XiaDetail {
   }
 
   manageDropAreaAndTooltips() {
-    // if current detail is a drop area, disable drag and drop
-    if ($('article[data-target="' + $("#" + this.idText).data("kinetic_id") + '"]').length != 0) {
-        this.kineticElement.droparea = true;
-    }
     // tooltip must be at the bottom
     if ($('article[data-tooltip="' + $("#" + this.idText).data("kinetic_id") + '"]').length != 0) {
         this.kineticElement.getParent().moveToBottom();
@@ -59,12 +55,11 @@ class XiaDetail {
             context.rect(0,0,0,0);
             context.closePath();
             context.fillStrokeShape(this);
-	});
+        });
     }
-};
-
+  }
 }
 
 if (typeof module !== 'undefined' && module.exports != null) {
-     exports.XiaDetail = XiaDetail
+    exports.XiaDetail = XiaDetail
 }
