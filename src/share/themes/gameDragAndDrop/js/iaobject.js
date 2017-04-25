@@ -19,48 +19,45 @@
  * @constructor this object is a group of details
  */
 function IaObject(params) {
-    "use strict";
-    var that = this;
-    // array to store details
-    this.xiaDetail = [];
-    this.minX = 10000;
-    this.minY = 10000;
-    this.maxX = -10000;
-    this.maxY = -10000;
-    this.match = false;
-    this.collisions = "on";
-    this.mainScene = params.iaScene;
-    this.layer = params.layer;
-    this.imageObj = params.imageObj;
-    this.idText = params.idText;
-    this.myhooks = params.myhooks;
+    "use strict"
+    this.xiaDetail = []     // array to store details
+    this.minX = 10000
+    this.minY = 10000
+    this.maxX = -10000
+    this.maxY = -10000
+    this.match = false
+    this.collisions = "on"
+    this.mainScene = params.iaScene
+    this.layer = params.layer
+    this.imageObj = params.imageObj
+    this.idText = params.idText
+    this.myhooks = params.myhooks
 
     if (typeof(params.detail.path) !== 'undefined') {
-        that.includePath(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
+        this.includePath(params.detail, 0, this, params.iaScene, params.baseImage, params.idText)
     }
     else if (typeof(params.detail.image) !== 'undefined') {
-        that.includeImage(params.detail, 0, that, params.iaScene, params.baseImage, params.idText);
+        this.includeImage(params.detail, 0, this, params.iaScene, params.baseImage, params.idText)
     }
-
     else if (typeof(params.detail.group) !== 'undefined') {
         this.group = new Kinetic.Group({
             id: params.detail.id
         });
-        this.layer.add(this.group);
-        this.group.setIaObject(this);
+        this.layer.add(this.group)
+        this.group.setIaObject(this)
         for (var i in params.detail.group) {
             if (typeof(params.detail.group[i].path) !== 'undefined') {
-                that.includePath(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
+                this.includePath(params.detail.group[i], i, this, params.iaScene, params.baseImage, params.idText)
             }
             else if (typeof(params.detail.group[i].image) !== 'undefined') {
-                that.includeImage(params.detail.group[i], i, that, params.iaScene, params.baseImage, params.idText);
+                this.includeImage(params.detail.group[i], i, this, params.iaScene, params.baseImage, params.idText)
             }
         }
     }
     else {
-        console.log(params.detail);
+        console.log(params.detail)
     }
-    this.myhooks.afterIaObjectConstructor(params.iaScene, params.idText, params.detail, this);
+    this.myhooks.afterIaObjectConstructor(params.iaScene, params.idText, params.detail, this)
 }
 
 /*
