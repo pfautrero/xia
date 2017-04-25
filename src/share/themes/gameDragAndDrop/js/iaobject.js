@@ -71,6 +71,14 @@ function IaObject(params) {
  */
 IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, idText) {
 
+
+    this.xiaDetail[i] = new XiaImage(this, detail, idText)
+    this.defineImageBoxSize(detail, this)
+    this.scaleBox(that.xiaDetail[i], iaScene);
+    this.xiaDetail[i].start()
+
+
+    /*
     var that = this;
     that.xiaDetail[i] = new XiaDetail(detail, idText);
 
@@ -172,6 +180,7 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
         that.xiaDetail[i].kineticElement.drawHitFromCache();
         that.xiaDetail[i].kineticElement.draw();
     };
+    */
 
 };
 
