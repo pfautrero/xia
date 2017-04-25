@@ -286,5 +286,4 @@ main.prototype.convertGroup2Image = function(scene) {
   }
 }
 
-myhooks = new hooks();
-launch = new main(myhooks);
+

@@ -49,6 +49,11 @@
     </footer>
     {{datasJS}}
     <script>
+        // hack to make electronjs and jquery compatible
+        if (typeof module === 'object') {
+            window.module = module
+            module = undefined
+        }
         var loadLibs = function() {
             var lazyDatas = "{{lazyDatasJS}}";
             var embedded_scripts = [];
@@ -62,7 +67,11 @@
                     });
                 }
                 else {
-                    $LAB.script(embedded_scripts[i+1]);
+                    $LAB.script(embedded_scripts[i+1]).wait(function(){
+                        if (window.module) module = window.module
+                        myhooks = new hooks()
+                        launch = new main(myhooks)
+                    });
                 }
             };
 

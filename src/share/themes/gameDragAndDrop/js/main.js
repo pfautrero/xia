@@ -375,7 +375,3 @@ main.prototype.convertGroup2Image = function(scene) {
     this.backgroundLoaded.resolve(0)
   }
 }
-
-
-myhooks = new hooks();
-launch = new main(myhooks);
