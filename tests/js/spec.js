@@ -1,7 +1,4 @@
-import {XiaDetail} from './../../build/share/themes/game1clic/js/xia.js'
-import {XiaImage} from './../../build/share/themes/game1clic/js/xia.js'
-import {XiaSprite} from './../../build/share/themes/game1clic/js/xia.js'
-import {XiaPath} from './../../build/share/themes/game1clic/js/xia.js'
+const XiaLib = require('./../../build/share/themes/game1clic/js/xia')
 
 describe("Check XiaDetail init", function() {
     var iaObject = {
@@ -11,7 +8,7 @@ describe("Check XiaDetail init", function() {
             fill : "#000000"
         },
     }
-    var myDetail = new XiaDetail(iaObject, iaObject.jsonSource, "id of associated DOM ELEMENT")
+    var myDetail = new XiaLib.XiaDetail(iaObject, iaObject.jsonSource, "id of associated DOM ELEMENT")
 
     it("check title", function() {
         expect(myDetail.title).toBe("A small path")
@@ -42,7 +39,7 @@ describe("Check XiaImage init", function() {
         },
         iaScene : iaScene
     }
-    var myDetail = new XiaImage(iaObject, iaObject.jsonSource, "id of associated DOM ELEMENT")
+    var myDetail = new XiaLib.XiaImage(iaObject, iaObject.jsonSource, "id of associated DOM ELEMENT")
 
     it("check title", function() {
         expect(myDetail.title).toBe("A small image")
@@ -81,7 +78,7 @@ describe("Check XiaSprite init", function() {
         },
         iaScene : iaScene
     }
-    var myDetail = new XiaSprite(iaObject, iaObject.jsonSource, "id of associated DOM ELEMENT")
+    var myDetail = new XiaLib.XiaSprite(iaObject, iaObject.jsonSource, "id of associated DOM ELEMENT")
 
     it("check title", function() {
         expect(myDetail.title).toBe("A small sprite")
@@ -124,7 +121,7 @@ describe("Check XiaPath init", function() {
         },
         iaScene : iaScene
     }
-    var myDetail = new XiaPath(iaObject, iaObject.jsonSource, "id of associated DOM ELEMENT")
+    var myDetail = new XiaLib.XiaPath(iaObject, iaObject.jsonSource, "id of associated DOM ELEMENT")
 
     it("check title", function() {
         expect(myDetail.title).toBe("A small path")
