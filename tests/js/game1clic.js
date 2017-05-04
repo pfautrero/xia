@@ -1,6 +1,6 @@
 const XiaLib = require('./../../build/share/themes/game1clic/js/xia')
 
-describe("Check XiaDetail init", function() {
+describe("XiaDetail", function() {
     var iaObject = {
         jsonSource : {
             title : "A small path",
@@ -10,21 +10,21 @@ describe("Check XiaDetail init", function() {
     }
     var myDetail = new XiaLib.XiaDetail(iaObject, iaObject.jsonSource, "id of associated DOM ELEMENT")
 
-    it("check title", function() {
+    it("should give right title", function() {
         expect(myDetail.title).toBe("A small path")
     })
-    it("check disable click", function() {
+    it("should not be clickable", function() {
         expect(myDetail.click).toBe("off")
     })
-    it("check disable zoom", function() {
+    it("should not be zoomable", function() {
         expect(myDetail.zoomable).toBe(false)
     })
-    it("check idText", function() {
+    it("should be associated with the good DOM element", function() {
         expect(myDetail.idText).toBe("id of associated DOM ELEMENT")
     })
 });
 
-describe("Check XiaImage init", function() {
+describe("XiaImage", function() {
     var iaScene = {
         scale : 2
     }
@@ -41,23 +41,23 @@ describe("Check XiaImage init", function() {
     }
     var myDetail = new XiaLib.XiaImage(iaObject, iaObject.jsonSource, "id of associated DOM ELEMENT")
 
-    it("check title", function() {
+    it("should give the right title", function() {
         expect(myDetail.title).toBe("A small image")
     })
-    it("check disable click", function() {
+    it("should not be clickable", function() {
         expect(myDetail.click).toBe("off")
     })
-    it("check disable zoom", function() {
+    it("should not be zoomable", function() {
         expect(myDetail.zoomable).toBe(false)
     })
-    it("check idText", function() {
+    it("should be associated with the right DOM element", function() {
         expect(myDetail.idText).toBe("id of associated DOM ELEMENT")
     })
-    it("check dimensions", function() {
+    it("should have the right dimensions", function() {
         expect(myDetail.width).toBe(400)
         expect(myDetail.height).toBe(200)
     })
-    it("check persistent", function() {
+    it("should not be persistent", function() {
         expect(myDetail.persistent).toBe("off")
     })
 });

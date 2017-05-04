@@ -51,29 +51,38 @@ class hook:
         self.message = ""
         self.message2 = ""
 
+        sceneSpecificOptions = u''
+
         score = re.search('<score>(.*)</score>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
         if score:
             self.score = score.group(1)
+            sceneSpecificOptions += u'  "score" : %s,\n' % self.score
 
         message = re.search('<message>(.*)</message>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
         if message:
             self.message = message.group(1)
+            sceneSpecificOptions += u'  "message" : "%s",\n' % self.message
 
         collisions = re.search('<collisions>(.*)</collisions>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
         if collisions:
             self.collisions = collisions.group(1)
+            sceneSpecificOptions += u'  "collisions" : "%s",\n' % self.collisions
 
         magnet = re.search('<magnet>(.*)</magnet>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
         if magnet:
             self.magnet = magnet.group(1)
+            sceneSpecificOptions += u'  "magnet" : "%s",\n' % self.magnet
 
         score2 = re.search('<score2>(.*?)</score2>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
         if score2:
             self.score2 = score2.group(1)
+            sceneSpecificOptions += u'  "score2" : %s,\n' % self.score2
 
         message2 = re.search('<message2>(.*?)</message2>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
         if message2:
             self.message2 = message2.group(1)
+            sceneSpecificOptions += u'  "message2" : "%s",\n' % self.message2
+
 
         final_str = u'<article class="message_success" id="message_success" data-magnet="' + self.magnet + '" data-collisions="' + self.collisions + '" data-score="' + self.score + '">\n'
         final_str += '<div class="message_success_border">\n'
@@ -151,6 +160,7 @@ class hook:
             if self.iaobject.scene["date"]:
                 metadatas += self.iaobject.scene["date"] + "<br/>"
 
+            final_index = final_index.replace("{{SCENESPECIFICOPTIONS}}", sceneSpecificOptions)
             final_index = final_index.replace("{{METADATAS}}", metadatas)
             final_index = final_index.replace("{{AUTHOR}}", self.iaobject.scene["creator"])
             final_index = final_index.replace("{{DESCRIPTION}}", self.iaobject.scene["description"])

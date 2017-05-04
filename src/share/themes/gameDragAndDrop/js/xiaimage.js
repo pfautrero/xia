@@ -20,8 +20,8 @@ class XiaImage extends XiaDetail {
 
     constructor(parent, detail, idText) {
         "use strict";
-        super(detail, idText)
-        this.parent = parent
+        super(parent, detail, idText)
+
     }
 
     start() {
@@ -43,7 +43,7 @@ class XiaImage extends XiaDetail {
         this.kineticElement.setXiaParent(this)
         this.kineticElement.setIaObject(this.parent)
         this.backgroundImage = rasterObj
-        //this.kineticElement.tooltip = ""
+        this.kineticElement.tooltip = ""
         this.lastDragPos.x = this.kineticElement.x()
         this.lastDragPos.y = this.kineticElement.y()
         this.originalCoords.x = this.kineticElement.x()
@@ -65,7 +65,7 @@ class XiaImage extends XiaDetail {
                 var coords = {x : 0, y : 0}
                 var delta_tmp = 0
                 for (var i = 0;i < XiaElements.length; i++) {
-                    coords = this.getIaObject().dragCollisions(
+                    coords = this.getXiaParent().dragCollisions(
                         {
                             x:pos.x - this.x() + XiaElements[i].kineticElement.x(),
                             y:pos.y - this.y() + XiaElements[i].kineticElement.y()
@@ -93,7 +93,7 @@ class XiaImage extends XiaDetail {
         rasterObj.onload = function() {
 
             that.kineticElement.backgroundImageOwnScaleX = that.parent.mainScene.scale * that.detail.width / this.width
-            that.xiaDetail[i].kineticElement.backgroundImageOwnScaleY = iaScene.scale * that.detail.height / this.height
+            that.kineticElement.backgroundImageOwnScaleY = that.parent.mainScene.scale * that.detail.height / this.height
 
             if ($('article[data-tooltip="' + $("#" + that.idText).data("kinetic_id") + '"]').length == 0) {
                 that.detail.fill = '#ffffff';    // force image to be displayed - must refactor if it is a good idea !
@@ -108,7 +108,7 @@ class XiaImage extends XiaDetail {
                 that.kineticElement.fillPatternImage(that.backgroundImage)
             }
 
-            that.addEventsManagement(i, that, that.parent.mainScene, baseImage, that.idText);
+            that.addEventsManagement(that, that.parent.mainScene, that.idText);
 
             // define hit area excluding transparent pixels
             // =============================================================
@@ -132,3 +132,6 @@ class XiaImage extends XiaDetail {
 
 }
 
+if (typeof module !== 'undefined' && module.exports != null) {
+    exports.XiaImage = XiaImage
+}

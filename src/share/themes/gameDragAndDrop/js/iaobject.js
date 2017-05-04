@@ -30,6 +30,7 @@ function IaObject(params) {
     this.mainScene = params.iaScene
     this.layer = params.layer
     this.imageObj = params.imageObj
+    this.baseImage = params.baseImage
     this.idText = params.idText
     this.myhooks = params.myhooks
 
@@ -68,12 +69,10 @@ function IaObject(params) {
  */
 IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, idText) {
 
-
     this.xiaDetail[i] = new XiaImage(this, detail, idText)
-    this.defineImageBoxSize(detail, this)
-    this.scaleBox(that.xiaDetail[i], iaScene);
+    this.defineImageBoxSize(detail, this.xiaDetail[i])
+    this.scaleBox(this.xiaDetail[i], iaScene)
     this.xiaDetail[i].start()
-
 
     /*
     var that = this;
@@ -189,13 +188,13 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
  * @returns {undefined}
  */
 IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, idText) {
-    var that = this;
-    that.xiaDetail[i] = new XiaDetail(detail, idText);
+    var that = this
+    that.xiaDetail[i] = new XiaDetail(that,detail, idText)
 
-    that.xiaDetail[i].path = detail.path;
+    that.xiaDetail[i].path = detail.path
     // if detail is out of background, hack maxX and maxY
-    if (parseFloat(detail.maxX) < 0) detail.maxX = 1;
-    if (parseFloat(detail.maxY) < 0) detail.maxY = 1;
+    if (parseFloat(detail.maxX) < 0) detail.maxX = 1
+    if (parseFloat(detail.maxY) < 0) detail.maxY = 1
     that.xiaDetail[i].kineticElement = new Kinetic.Path({
         id: detail.id,
         name: detail.title,
@@ -205,50 +204,48 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         scale: {x:iaScene.coeff,y:iaScene.coeff},
         fill: 'rgba(0, 0, 0, 0)',
         draggable : that.xiaDetail[i].draggable_object
-    });
-    that.layer.add(that.xiaDetail[i].kineticElement);
-    that.xiaDetail[i].kineticElement.setIaObject(that);
-    that.xiaDetail[i].kineticElement.setXiaParent(that.xiaDetail[i]);
-    that.xiaDetail[i].kineticElement.tooltip = "";
+    })
+    that.layer.add(that.xiaDetail[i].kineticElement)
+    that.xiaDetail[i].kineticElement.setIaObject(that)
+    that.xiaDetail[i].kineticElement.setXiaParent(that.xiaDetail[i])
+    that.xiaDetail[i].kineticElement.tooltip = ""
 
-
-    var collision_state = $("#" + idText).data("collisions");
+    var collision_state = $("#" + idText).data("collisions")
     if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
-        collision_state = "off";
+        collision_state = "off"
     }
-    that.collisions = collision_state;
-
+    that.collisions = collision_state
 
     if(that.xiaDetail[i].connectionStart) {
-        that.xiaDetail[i].kineticElement.moveToBottom();
-        that.xiaDetail[i].connectorStart = that.xiaDetail[i].kineticElement.getStage().find(that.xiaDetail[i].connectionStart)[0];
-        that.xiaDetail[i].connectorEnd = that.xiaDetail[i].kineticElement.getStage().find(that.xiaDetail[i].connectionEnd)[0];
-        that.xiaDetail[i].connectorStart.getXiaParent().addObserver(that.xiaDetail[i]);
-        that.xiaDetail[i].connectorEnd.getXiaParent().addObserver(that.xiaDetail[i]);
-        detail.fill = "#ffffff";
+        that.xiaDetail[i].kineticElement.moveToBottom()
+        that.xiaDetail[i].connectorStart = that.xiaDetail[i].kineticElement.getStage().find(that.xiaDetail[i].connectionStart)[0]
+        that.xiaDetail[i].connectorEnd = that.xiaDetail[i].kineticElement.getStage().find(that.xiaDetail[i].connectionEnd)[0]
+        that.xiaDetail[i].connectorStart.getXiaParent().addObserver(that.xiaDetail[i])
+        that.xiaDetail[i].connectorEnd.getXiaParent().addObserver(that.xiaDetail[i])
+        detail.fill = "#ffffff"
         if (that.xiaDetail[i].stroke) {
-            that.xiaDetail[i].kineticElement.stroke(that.xiaDetail[i].stroke);
+            that.xiaDetail[i].kineticElement.stroke(that.xiaDetail[i].stroke)
         }
         else {
-            that.xiaDetail[i].kineticElement.stroke("black");
+            that.xiaDetail[i].kineticElement.stroke("black")
         }
         if (that.xiaDetail[i].strokeWidth) {
-            that.xiaDetail[i].kineticElement.strokeWidth(that.xiaDetail[i].strokeWidth);
+            that.xiaDetail[i].kineticElement.strokeWidth(that.xiaDetail[i].strokeWidth)
         }
         else {
-            that.xiaDetail[i].kineticElement.strokeWidth(5);
+            that.xiaDetail[i].kineticElement.strokeWidth(5)
         }
     }
 
-    var global_collision_state = $("#message_success").data("collisions");
+    var global_collision_state = $("#message_success").data("collisions")
 
     if (global_collision_state == "on" && collision_state != "off") {
 
         that.xiaDetail[i].kineticElement.dragBoundFunc(function(pos) {
-            var XiaElements = this.getIaObject().xiaDetail;
-            var delta = {x:0,y:0};
-            var coords = {x:0,y:0};
-            var delta_tmp = 0;
+            var XiaElements = this.getIaObject().xiaDetail
+            var delta = {x:0,y:0}
+            var coords = {x:0,y:0}
+            var delta_tmp = 0
             for (var i = 0;i < XiaElements.length;i++) {
                 coords = that.dragCollisions(
                     {
@@ -257,33 +254,33 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
                     },
                     XiaElements[i].kineticElement
                 );
-                delta_tmp = coords.x - (pos.x - this.x() + XiaElements[i].kineticElement.x());
+                delta_tmp = coords.x - (pos.x - this.x() + XiaElements[i].kineticElement.x())
                 if (delta_tmp != 0) {
-                    delta.x = Math.sign(delta_tmp) * Math.max(Math.abs(delta.x), Math.abs(delta_tmp));
+                    delta.x = Math.sign(delta_tmp) * Math.max(Math.abs(delta.x), Math.abs(delta_tmp))
                 }
-                delta_tmp = coords.y - (pos.y - this.y() + XiaElements[i].kineticElement.y());
+                delta_tmp = coords.y - (pos.y - this.y() + XiaElements[i].kineticElement.y())
                 if (delta_tmp != 0) {
-                    delta.y = Math.sign(delta_tmp) * Math.max(Math.abs(delta.y), Math.abs(delta_tmp));
+                    delta.y = Math.sign(delta_tmp) * Math.max(Math.abs(delta.y), Math.abs(delta_tmp))
                 }
             }
             return {
                 x: delta.x + (pos.x),
                 y: delta.y + (pos.y)
 
-            };
-        });
+            }
+        })
     }
 
-    that.definePathBoxSize(detail, that.xiaDetail[i]);
-    that.scaleBox(that.xiaDetail[i], iaScene);
-    that.xiaDetail[i].lastDragPos.x = that.xiaDetail[i].kineticElement.x();
-    that.xiaDetail[i].lastDragPos.y = that.xiaDetail[i].kineticElement.y();
-    that.xiaDetail[i].originalCoords.x = that.xiaDetail[i].kineticElement.x();
-    that.xiaDetail[i].originalCoords.y = that.xiaDetail[i].kineticElement.y();
+    that.definePathBoxSize(detail, that.xiaDetail[i])
+    that.scaleBox(that.xiaDetail[i], iaScene)
+    that.xiaDetail[i].lastDragPos.x = that.xiaDetail[i].kineticElement.x()
+    that.xiaDetail[i].lastDragPos.y = that.xiaDetail[i].kineticElement.y()
+    that.xiaDetail[i].originalCoords.x = that.xiaDetail[i].kineticElement.x()
+    that.xiaDetail[i].originalCoords.y = that.xiaDetail[i].kineticElement.y()
     that.xiaDetail[i].delta = {
         x:that.xiaDetail[i].minX - that.xiaDetail[i].kineticElement.x(),
         y:that.xiaDetail[i].minY - that.xiaDetail[i].kineticElement.y()
-    };
+    }
     // crop background image to suit shape box
 
     if (that.xiaDetail[i].options.indexOf("disable-click") == -1) {
@@ -496,11 +493,11 @@ IaObject.prototype.dragCollisions = function(pos, kineticElement) {
 IaObject.prototype.defineImageBoxSize = function(detail, that) {
     "use strict";
 
-    if (that.minX === -1)
+    if (that.minX === 10000)
         that.minX = (parseFloat(detail.x));
-    if (that.maxY === 10000)
+    if (that.maxY === -10000)
         that.maxY = parseFloat(detail.y) + parseFloat(detail.height);
-    if (that.maxX === -1)
+    if (that.maxX === -10000)
         that.maxX = (parseFloat(detail.x) + parseFloat(detail.width));
     if (that.minY === 10000)
         that.minY = (parseFloat(detail.y));

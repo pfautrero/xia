@@ -18,12 +18,13 @@
  */
 class XiaDetail {
 
-    constructor(detail, idText) {
+    constructor(parent, detail, idText) {
         "use strict";
 
         // observers are used to manage lines connectors
         this.observers = new ObserverList();
         this.title = detail.title;
+        this.parent = parent
         this.detail = detail
         this.onfailreturn = false;
         this.path = "";
@@ -58,22 +59,22 @@ class XiaDetail {
         this.delta = {x:0, y:0};
 
         // retrieve options
-        if ((typeof(detail.options) !== 'undefined')) {
-            this.options = detail.options;
+        if ((typeof(this.detail.options) !== 'undefined')) {
+            this.options = this.detail.options
         }
 
         var onfail_state = $("#" + idText).data("onfail");
         if (onfail_state == "return") {
-            this.onfailreturn = true;
+            this.onfailreturn = true
         }
         // retrieve styles
         if ((typeof(detail.style) !== 'undefined')) {
             this.style = detail.style;
-            var stroke = this.style.match("stroke:(.*?);");
+            var stroke = this.style.match("stroke:(.*?);")
             if (stroke) this.stroke = stroke[1];
 
-            var strokeWidth = this.style.match("stroke-width:(.*?);");
-            if (strokeWidth) this.strokeWidth = strokeWidth[1];
+            var strokeWidth = this.style.match("stroke-width:(.*?);")
+            if (strokeWidth) this.strokeWidth = strokeWidth[1]
         }
 
         // retrieve connection if exists
@@ -84,17 +85,17 @@ class XiaDetail {
         }
 
         if (this.options.indexOf("disable-click") != -1) {
-            this.draggable_object = false;
-        };
+            this.draggable_object = false
+        }
         if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
-            this.draggable_object = false;
+            this.draggable_object = false
         }
         if ($('article[data-tooltip="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
-            this.draggable_object = false;
+            this.draggable_object = false
         }
 
-        this.target_id = $('#' + idText).data("target");
-        this.magnet_state = $("#" + idText).data("magnet");
+        this.target_id = $('#' + idText).data("target")
+        this.magnet_state = $("#" + idText).data("magnet")
 
         if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
             this.droparea = true;
@@ -127,9 +128,9 @@ class XiaDetail {
 
     }
 
-    addEventsManagement(i, that, iaScene, baseImage, idText) {
+    addEventsManagement(that, iaScene, idText) {
 
-        var that=this;
+        //var that=this;
 
         this.kineticElement.tooltip_area = false;
         // tooltip must be at the bottom
@@ -141,8 +142,6 @@ class XiaDetail {
             this.options += " disable-click ";
             return
         }
-
-
 
         this.kineticElement.on('mouseenter touchstart', function() {
             if (iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) {
@@ -159,7 +158,7 @@ class XiaDetail {
                 iaScene.cursorState = "url(img/HandPointer.cur),auto";
                 // manage tooltips if present
                 var tooltip = false;
-                if (this.tooltip != "") {
+                if (this.tooltip !== "") {
                     tooltip = true;
                 }
                 else if ($("#" + idText).data("tooltip") != "") {
@@ -179,7 +178,7 @@ class XiaDetail {
 
                     this.tooltip.moveToTop();
                     this.tooltip.draw();
-                    that.layer.draw();
+                    this.getIaObject().layer.draw();
                 }
 
             }
@@ -206,8 +205,8 @@ class XiaDetail {
 
             }
             else {
-                var mouseXY = that.layer.getStage().getPointerPosition();
-                if ((that.layer.getStage().getIntersection(mouseXY) != this)) {
+                var mouseXY = this.getIaObject().layer.getStage().getPointerPosition();
+                if ((this.getIaObject().layer.getStage().getIntersection(mouseXY) != this)) {
                     // manage tooltips if present
                     var tooltip = false;
                     if (this.tooltip != "") {
@@ -226,7 +225,7 @@ class XiaDetail {
                     }
                     document.body.style.cursor = "default";
                     iaScene.cursorState = "default";
-                    that.layer.draw();
+                    this.getIaObject().layer.draw();
                 }
             }
         });
@@ -245,49 +244,49 @@ class XiaDetail {
 
             if (!this.droparea) {
                 this.kineticElement.on('dragstart', function(e) {
-                    iaScene.element = that;
-                    this.kineticElement.fire("click")
-                    that.afterDragStart(iaScene, idText, this);
-                    that.myhooks.afterDragStart(iaScene, idText, this);
+                    iaScene.element = this.getIaObject()
+                    this.fire("click")
+                    this.getIaObject().afterDragStart(iaScene, idText, this);
+                    this.getIaObject().myhooks.afterDragStart(iaScene, idText, this);
                     this.moveToTop();
                     Kinetic.draggedshape = this;
                 });
 
                 this.kineticElement.on('dragend', function(e) {
-                    iaScene.element = that;
+                    iaScene.element = this.getIaObject()
 
                     Kinetic.draggedshape = null;
 
-                    var match = false;
-                    var onfailreturn = false;
-                    var all_elements = this.getIaObject().xiaDetail;
+                    var match = false
+                    var onfailreturn = false
+                    var all_elements = this.getIaObject().xiaDetail
                     for (var i = 0;i < all_elements.length;i++) {
 
-                        var target_id = all_elements[i].kineticElement.getXiaParent().target_id;
-                        var target_object = this.getStage().find("#" + target_id)[0];
+                        var target_id = all_elements[i].kineticElement.getXiaParent().target_id
+                        var target_object = this.getStage().find("#" + target_id)[0]
                         if (target_object instanceof Kinetic.Group) {
-                            var xiaDetailsTarget = target_object.getIaObject().xiaDetail;
+                            var xiaDetailsTarget = target_object.getIaObject().xiaDetail
                             for (var j=0;j < xiaDetailsTarget.length;j++) {
-                                e.target = all_elements[i].kineticElement;
-                                that.afterDragEnd(iaScene, all_elements[i].idText, e, all_elements[i].kineticElement, xiaDetailsTarget[j]);
-                                that.myhooks.afterDragEnd(iaScene, all_elements[i].idText, all_elements[i].kineticElement);
+                                e.target = all_elements[i].kineticElement
+                                this.getIaObject().afterDragEnd(iaScene, all_elements[i].idText, e, all_elements[i].kineticElement, xiaDetailsTarget[j])
+                                this.getIaObject().myhooks.afterDragEnd(iaScene, all_elements[i].idText, all_elements[i].kineticElement)
                             }
                         }
                         else {
-                            e.target = all_elements[i].kineticElement;
-                            var target_id = all_elements[i].kineticElement.getXiaParent().target_id;
-                            var target_object = all_elements[i].kineticElement.getStage().find("#" + target_id);
+                            e.target = all_elements[i].kineticElement
+                            var target_id = all_elements[i].kineticElement.getXiaParent().target_id
+                            var target_object = all_elements[i].kineticElement.getStage().find("#" + target_id)
                             if (typeof(target_object[0]) != "undefined") {
-                                var targetObj = target_object[0].getXiaParent();
+                                var targetObj = target_object[0].getXiaParent()
                             }
                             else {
-                                var targetObj = null;
+                                var targetObj = null
                             }
-                            that.afterDragEnd(iaScene, all_elements[i].idText, e, all_elements[i].kineticElement, targetObj);
-                            that.myhooks.afterDragEnd(iaScene, all_elements[i].idText, all_elements[i].kineticElement);
+                            this.getIaObject().afterDragEnd(iaScene, all_elements[i].idText, e, all_elements[i].kineticElement, targetObj)
+                            this.getIaObject().myhooks.afterDragEnd(iaScene, all_elements[i].idText, all_elements[i].kineticElement)
                         }
-                        if (all_elements[i].match) match = true;
-                        if (all_elements[i].onfailreturn) onfailreturn = true;
+                        if (all_elements[i].match) match = true
+                        if (all_elements[i].onfailreturn) onfailreturn = true
                     }
 
 
@@ -310,11 +309,9 @@ class XiaDetail {
                         }
                     }
 
-
                     // Kinetic hacking - speed up _getIntersection (for linux)
-                    this.getStage().completeImage = "redefine";
-
-                    that.layer.draw();
+                    this.getStage().completeImage = "redefine"
+                    this.getIaObject().layer.draw()
                 });
                 //if (this.connectionStart) {
                     this.kineticElement.on('dragmove', function(e) {
@@ -324,16 +321,16 @@ class XiaDetail {
                                 y:this.y() - this.getXiaParent().lastDragPos.y};
                             for (var i=0;i<other_elements.length;i++) {
                                 if (other_elements[i].kineticElement != this) {
-                                    other_elements[i].kineticElement.move(delta);
-                                    other_elements[i].lastDragPos.x = other_elements[i].kineticElement.x();
-                                    other_elements[i].lastDragPos.y = other_elements[i].kineticElement.y();
+                                    other_elements[i].kineticElement.move(delta)
+                                    other_elements[i].lastDragPos.x = other_elements[i].kineticElement.x()
+                                    other_elements[i].lastDragPos.y = other_elements[i].kineticElement.y()
                                 }
                             }
-                            this.getXiaParent().lastDragPos.x = this.x();
-                            this.getXiaParent().lastDragPos.y = this.y();
+                            this.getXiaParent().lastDragPos.x = this.x()
+                            this.getXiaParent().lastDragPos.y = this.y()
                         }
-                        this.getXiaParent().notify();
-                        this.drawScene();
+                        this.getXiaParent().notify()
+                        this.drawScene()
                     });
                 //}
             }
@@ -341,6 +338,158 @@ class XiaDetail {
 
     }
 
+    /*
+     * Detect AABB collisions
+     * @pos {object} current object expected position
+     * @kineticElement dragged object
+     * @returns {object} the new object position
+     */
+    dragCollisions(pos, kineticElement) {
+        "use strict"
+        var x_value = pos.x
+        var y_value = pos.y
+        var len = this.parent.mainScene.shapes.length;
+        var getAbsolutePosition = {
+            x : kineticElement.getAbsolutePosition().x,
+            y : kineticElement.getAbsolutePosition().y,
+        }
+        var objectWidth = kineticElement.getXiaParent().maxX - kineticElement.getXiaParent().minX
+        var objectHeight = kineticElement.getXiaParent().maxY - kineticElement.getXiaParent().minY
+        for (var i = 0; i < len; i++) {
+            if (kineticElement.getIaObject() != this.parent.mainScene.shapes[i] && this.parent.mainScene.shapes[i].collisions == "on") {
+
+                for (var j=0; j< this.parent.mainScene.shapes[i].xiaDetail.length;j++) {
+                    var shape = {
+                        maxX : this.parent.mainScene.shapes[i].xiaDetail[j].maxX,
+                        maxY : this.parent.mainScene.shapes[i].xiaDetail[j].maxY,
+                        minX : this.parent.mainScene.shapes[i].xiaDetail[j].minX - objectWidth,
+                        minY : this.parent.mainScene.shapes[i].xiaDetail[j].minY - objectHeight
+                    };
+
+                    var objectLocatedAt = {
+                        horizontal: (getAbsolutePosition.y < shape.maxY - 10) &&
+                          (getAbsolutePosition.y > shape.minY + 10),
+                        vertical: (getAbsolutePosition.x < shape.maxX - 10) &&
+                          (getAbsolutePosition.x > shape.minX + 10),
+                        bottomLeft: (getAbsolutePosition.x <= shape.minX + 10) &&
+                          (getAbsolutePosition.y >= shape.maxY - 10),
+                        topLeft: (getAbsolutePosition.x <= shape.minX + 10) &&
+                          (getAbsolutePosition.y <= shape.minY + 10),
+                        topRight: (getAbsolutePosition.x >= shape.maxX - 10) &&
+                          (getAbsolutePosition.y <= shape.minY + 10),
+                        bottomRight: (getAbsolutePosition.x >= shape.maxX - 10) &&
+                          (getAbsolutePosition.y >= shape.maxY - 10)
+
+                    };
+                    if (objectLocatedAt.horizontal) {
+                        if (pos.x <= shape.maxX &&
+                          getAbsolutePosition.x >= shape.maxX - 10) {
+                            if (x_value == pos.x) {
+                                x_value = shape.maxX;
+                            }
+                            else {
+                                x_value = Math.max(shape.maxX, x_value);
+                            }
+                        }
+                        if (pos.x >= shape.minX &&
+                          getAbsolutePosition.x <= shape.minX + 10) {
+                            if (x_value == pos.x) {
+                                x_value = shape.minX;
+                            }
+                            else {
+                                x_value = Math.min(shape.minX, x_value);
+                            }
+                        }
+                    }
+                    if (objectLocatedAt.vertical) {
+                        if (pos.y <= shape.maxY &&
+                          getAbsolutePosition.y >= shape.maxY -10) {
+                            if (y_value == pos.y) {
+                                y_value = shape.maxY;
+                            }
+                            else {
+                                y_value = Math.max(shape.maxY, y_value);
+                            }
+                        }
+
+                        if (pos.y >= shape.minY &&
+                          getAbsolutePosition.y <= 10 + shape.minY) {
+                            if (y_value == pos.y) {
+                                y_value = shape.minY;
+                            }
+                            else {
+                                y_value = Math.min(shape.minY, y_value);
+                            }
+                        }
+                    }
+                    var delta = 15;
+                    if (pos.x >= shape.minX + delta &&
+                      pos.y <= shape.maxY - delta &&
+                      objectLocatedAt.bottomLeft
+                        ) {
+
+                        if (x_value == pos.x) {
+                            x_value = shape.minX;
+                        }
+                        else {
+                            x_value = Math.min(shape.minX, x_value);
+                        }
+
+                    }
+                    if (pos.x >= shape.minX + delta &&
+                      pos.y >= shape.minY + delta &&
+                      objectLocatedAt.topLeft
+                        ) {
+
+                        if (x_value == pos.x) {
+                            x_value = shape.minX;
+                        }
+                        else {
+                            x_value = Math.min(shape.minX, x_value);
+                        }
+
+                    }
+                    if (pos.x <= shape.maxX - delta &&
+                      pos.y >= shape.minY + delta &&
+                      objectLocatedAt.topRight
+                        ) {
+
+                        if (x_value == pos.x) {
+                            x_value = shape.maxX;
+                        }
+                        else {
+                            x_value = Math.max(shape.maxX, x_value);
+                        }
+
+                    }
+                    if (pos.x <= shape.maxX - delta &&
+                      pos.y <= shape.maxY - delta &&
+                      objectLocatedAt.bottomRight
+                        ) {
+
+                        if (x_value == pos.x) {
+                            x_value = shape.maxX;
+                        }
+                        else {
+                            x_value = Math.max(shape.maxX, x_value);
+                        }
+
+                    }
+                }
+            }
+        }
+
+        return {
+          x: x_value,
+          y: y_value
+        };
+
+    }
+
+
+
 }
 
-
+if (typeof module !== 'undefined' && module.exports != null) {
+    exports.XiaDetail = XiaDetail
+}
