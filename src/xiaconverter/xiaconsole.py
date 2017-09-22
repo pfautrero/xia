@@ -35,7 +35,7 @@ class XIAConsole():
         self.kineticLib = kineticLib
         self.sha1Lib = sha1Lib
         self.jqueryLib = jqueryLib
-        self.resize = options['quality']
+        self.resize = int(options['quality']) if options['quality'] in ["0","1","2","3"] else 3
         self.filename = options['input_file']
         self.dirname = options['output_dir']
         self.export_type = options['export_type']
@@ -102,12 +102,10 @@ class XIAConsole():
 
     def defineMaxPixels(self, resizeCoeff):
         if resizeCoeff == 0:
-            return float(512 * 512)
-        elif resizeCoeff == 1:
             return float(1024 * 1024)
+        elif resizeCoeff == 1:
+            return float(2 * 1024 * 1024)
         elif resizeCoeff == 2:
             return float(3 * 1024 * 1024)
         elif resizeCoeff == 3:
             return float(5 * 1024 * 1024)
-        else:
-            return float(512 * 1024)
