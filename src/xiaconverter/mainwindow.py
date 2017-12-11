@@ -335,8 +335,6 @@ class IADialog(Tkinter.Frame):
             return float(3 * 1024 * 1024)
         elif resizeCoeff == 3:
             return float(5 * 1024 * 1024)
-        else:
-            return float(512 * 1024)
 
     def quit(self):
         self.root.destroy()
