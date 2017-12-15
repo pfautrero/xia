@@ -1,3 +1,15 @@
+Version 2.4 - 15/12/2017
+-------------------------------
+- Amélioration de la qualité d'image
+- [windows] : Correctif du module de déploiement pour rendre XIA compatible avec Inkscape 0.92.2
+
+Version 2.3 - 18/04/2017
+-------------------------------
+- Correctif : info-bulles de popblue corrigée
+- Correctif : Dans gamedraganddrop, la superposition d'images sur une même cible est fonctionnelle
+- Correctif : Les images persistentes disparaissaient parfois
+- Correctif : Dans gamedraganddrop, tooltips et liens directs fixés
+
 Version 2.2 - 21/03/2017
 -------------------------------
 
@@ -12,7 +24,7 @@ Version 2.1 - 15/03/2017
 
 - Ajout des fichiers de langue portugais
 - popBlue : Les images sont désormais centrées
-- popBlue : Le scroll dans les popup ne concerne plus que le texte (le bouton quitter reste en haut) 
+- popBlue : Le scroll dans les popup ne concerne plus que le texte (le bouton quitter reste en haut)
 - pikipiki : Les liens vers les PDF sont pris en compte
 - pikipiki : Les titres markdown sont pris en compte
 
