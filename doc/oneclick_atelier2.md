@@ -49,6 +49,7 @@ Définir le message de réussite : **&lt;message&gt;Super tu as réussi !&lt;/me
 Remplissez les champs que vous souhaitez notamment le titre.
 Remplir le champ **description** avec la consigne. Elle apparaîtra à l'ouverture de l'image Xia.  
 Exemple ici : "Clique sur les monstres qui ont 2 yeux. Attention il y a un piège."  
+Fermer la fenêtre **Propriété du document** sans enregistrer, l'enregistrement se fait par défaut.
 
 ### Étape 6 - Exporter le jeu
 
