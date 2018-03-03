@@ -10,7 +10,7 @@ Exemples :
 
 ## C'est parti !
 
-Pour réaliser cet atelier, veuillez télécharger le dossier suivant : [Monstres](docs/monstres.zip)
+Pour réaliser cet atelier, veuillez télécharger le dossier suivant : [Monstres](https://github.com/pfautrero/xia/raw/XIA_20/doc/monstres.zip)
 
 ### Préparation des images
 
