@@ -66,6 +66,7 @@ Magnétiser toutes les cibles : **&lt;magnet&gt;on&lt;/magnet&gt;**
 Remplissez les champs que vous souhaitez notamment le titre.
 Remplir le champ **description** avec la consigne. Elle apparaîtra à l'ouverture de l'image Xia.  
 Exemple ici : "Associe chaque monstre à sa silhouette."  
+Fermer la fenêtre **Propriété du document** sans enregistrer, l'enregistrement se fait par défaut.
 
 ### Étape 6 - Exporter le jeu
 
