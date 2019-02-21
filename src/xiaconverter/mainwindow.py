@@ -262,45 +262,10 @@ class IADialog(Tkinter.Frame):
                 mysplash.enter()
 
                 self.dir_opt['initialdir'] = self.dirname
-                if self.options['export_type'] == "local":
-                #if not self.index_standalone:
-                    if os.path.isdir(self.dirname + '/font'):
-                        shutil.rmtree(self.dirname + '/font')
-                    if os.path.isdir(self.dirname + '/img'):
-                        shutil.rmtree(self.dirname + '/img')
-                    if os.path.isdir(self.dirname + '/css'):
-                        shutil.rmtree(self.dirname + '/css')
-                    if os.path.isdir(self.dirname + '/js'):
-                        shutil.rmtree(self.dirname + '/js')
-                    if os.path.isdir(self.dirname + '/datas'):
-                        shutil.rmtree(self.dirname + '/datas')
-                    os.mkdir(self.dirname + '/datas')
-                    shutil.copytree(self.fontsPath , self.dirname + '/font/')
-                    shutil.copytree(self.themesPath + '/' + theme['name'] + '/css/', self.dirname + '/css/')
-                    shutil.copytree(self.themesPath + '/' + theme['name'] + '/img/', self.dirname + '/img/')
-                    shutil.copytree(self.themesPath + '/' + theme['name'] + '/js/', self.dirname + '/js/')
-                    shutil.copy(self.labjsLib, self.dirname + '/js')
-                    shutil.copy(self.jqueryLib, self.dirname + '/js')
-                    shutil.copy(self.kineticLib, self.dirname + '/js')
-                    shutil.copy(self.sha1Lib, self.dirname + '/js')
-
-                if self.firefoxos:
-                    shutil.copyfile(self.themesPath + '/' + theme['name'] + '/manifest.webapp',
-                                    self.dirname + '/manifest.webapp')
-
-                    shutil.copyfile(self.themesPath + '/' + theme['name'] + '/deploy.html',
-                                    self.dirname + '/deploy.html')
 
                 maxNumPixels = self.defineMaxPixels(self.resize)
                 self.imageActive.analyzeSVG(self.filename, maxNumPixels)
 
-                self.imageActive.generateJSON()
-                if self.options['export_type'] == "local":
-                #if not self.index_standalone:
-                    with open(self.dirname + '/datas/data.js',"w") as jsonfile:
-                        jsonfile.write(self.imageActive.jsonContent.encode('utf8'))
-
-                #theme['object'].generateIndex(self.dirname + "/index.html",
                 head, tail = os.path.split(self.filename)
                 filenamewithoutext = os.path.splitext(tail)[0]
                 filenamewithoutext = re.sub(r"\s+", "", filenamewithoutext, flags=re.UNICODE)
@@ -310,8 +275,38 @@ class IADialog(Tkinter.Frame):
                         filenamewithoutext = re.sub(r"[^-a-z0-9A-Z_]", "", filenamewithoutext, flags=re.UNICODE)
                         filenamewithoutext = filenamewithoutext[0:min(len(filenamewithoutext), 15)]
 
-                theme['object'].generateIndex(self.dirname + "/" + filenamewithoutext + "_" + theme['name'] + ".html",
-                                              self.themesPath + '/' + theme['name'] + '/index.html')
+                theme['object'].generateIndex("{}/{}.html".format(self.dirname, filenamewithoutext),
+                                              "{}/{}/index.html".format(self.themesPath,theme['name']),
+                                              filenamewithoutext)
+
+                if self.options['export_type'] == "local":
+                    if os.path.isdir("{}/{}".format(self.dirname, filenamewithoutext)):
+                        shutil.rmtree("{}/{}".format(self.dirname, filenamewithoutext))
+                    #if os.path.isdir(self.dirname + '/font'):
+                    #    shutil.rmtree(self.dirname + '/font')
+                    #if os.path.isdir(self.dirname + '/img'):
+                    #    shutil.rmtree(self.dirname + '/img')
+                    #if os.path.isdir(self.dirname + '/css'):
+                    #    shutil.rmtree(self.dirname + '/css')
+                    #if os.path.isdir(self.dirname + '/js'):
+                    #    shutil.rmtree(self.dirname + '/js')
+                    #if os.path.isdir(self.dirname + '/datas'):
+                    #    shutil.rmtree(self.dirname + '/datas')
+                    os.mkdir("{}/{}".format(self.dirname, filenamewithoutext))
+                    os.mkdir("{}/{}/datas".format(self.dirname, filenamewithoutext))
+                    shutil.copytree(self.fontsPath , "{}/{}/font".format(self.dirname, filenamewithoutext))
+                    shutil.copytree(self.themesPath + '/' + theme['name'] + '/css/', "{}/{}/css".format(self.dirname, filenamewithoutext))
+                    shutil.copytree(self.themesPath + '/' + theme['name'] + '/img/', "{}/{}/img".format(self.dirname, filenamewithoutext))
+                    shutil.copytree(self.themesPath + '/' + theme['name'] + '/js/', "{}/{}/js".format(self.dirname, filenamewithoutext))
+                    shutil.copy(self.labjsLib, "{}/{}/js".format(self.dirname, filenamewithoutext))
+                    shutil.copy(self.jqueryLib, "{}/{}/js".format(self.dirname, filenamewithoutext))
+                    shutil.copy(self.kineticLib, "{}/{}/js".format(self.dirname, filenamewithoutext))
+                    shutil.copy(self.sha1Lib, "{}/{}/js".format(self.dirname, filenamewithoutext))
+
+                self.imageActive.generateJSON()
+                if self.options['export_type'] == "local":
+                    with open("{}/{}/datas/data.js".format(self.dirname, filenamewithoutext),"w") as jsonfile:
+                        jsonfile.write(self.imageActive.jsonContent.encode('utf8'))
 
                 mysplash.exit()
 

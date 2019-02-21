@@ -37,7 +37,7 @@ class hook:
     def add_metadata(self, value):
         return value + "<br/>" if value else ""
 
-    def generateIndex(self,filePath, templatePath):
+    def generateIndex(self,filePath, templatePath, localFolder):
         """ generate index file"""
 
         params = {
@@ -103,17 +103,17 @@ class hook:
                 final_index = final_index.replace("{{hooksJS}}", xiaWebsite + "/js/hooks.js")
                 final_index = final_index.replace("{{labJS}}", "https://cdnjs.cloudflare.com/ajax/libs/labjs/2.0.3/LAB.min.js")
             else:
-                final_index = final_index.replace("{{MainCSS}}", "css/main.css")
-                final_index = final_index.replace("{{LogoLoading}}",  "img/xia.png")
-                final_index = final_index.replace("{{LogoPDF}}",  "img/pdf.png")
-                final_index = final_index.replace("{{LogoClose}}", "img/close.png")
+                final_index = final_index.replace("{{MainCSS}}", localFolder +"/css/main.css")
+                final_index = final_index.replace("{{LogoLoading}}", localFolder +"/img/xia.png")
+                final_index = final_index.replace("{{LogoPDF}}", localFolder +"/img/pdf.png")
+                final_index = final_index.replace("{{LogoClose}}", localFolder +"/img/close.png")
                 final_index = final_index.replace("{{datasJS}}", "")
-                final_index = final_index.replace("{{lazyDatasJS}}", 'datas/data.js')
-                final_index = final_index.replace("{{JqueryJS}}", "js/jquery.min.js")
-                final_index = final_index.replace("{{sha1JS}}", "js/git-sha1.min.js")
-                final_index = final_index.replace("{{kineticJS}}", "js/kinetic.min.js")
-                final_index = final_index.replace("{{xiaJS}}", "js/xia.js")
-                final_index = final_index.replace("{{hooksJS}}", "js/hooks.js")
-                final_index = final_index.replace("{{labJS}}", "js/LAB.min.js")
+                final_index = final_index.replace("{{lazyDatasJS}}", localFolder +'/datas/data.js')
+                final_index = final_index.replace("{{JqueryJS}}", localFolder +"/js/jquery.min.js")
+                final_index = final_index.replace("{{sha1JS}}", localFolder +"/js/git-sha1.min.js")
+                final_index = final_index.replace("{{kineticJS}}", localFolder +"/js/kinetic.min.js")
+                final_index = final_index.replace("{{xiaJS}}", localFolder +"/js/xia.js")
+                final_index = final_index.replace("{{hooksJS}}", localFolder +"/js/hooks.js")
+                final_index = final_index.replace("{{labJS}}", localFolder +"/js/LAB.min.js")
         with open(filePath,"w") as indexfile:
             indexfile.write(final_index.encode("utf-8"))
