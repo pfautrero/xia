@@ -34,51 +34,53 @@ class hook:
         self.tooltip = translate("export audioBrown")
         self.loading = translate("loading")
 
+    def add_metadata(self, value):
+        return value + "<br/>" if value else ""
+
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""
 
-        final_str  = u'<article class="detail_content" id="general">\n'
-        final_str += '<img class="article_close" src="{{LogoClose}}" alt="close"/>'
-        final_str += u'  <h1>' + self.iaobject.scene["intro_title"] + '</h1>\n'
-        final_str += u'  <p>' + self.PageFormatter(self.iaobject.scene["intro_detail"]).print_html() + u'</p>\n'
-        final_str += u'</article>\n'
+        params = {
+            'intro_title' : self.iaobject.scene["intro_title"],
+            'intro_content' : self.PageFormatter(self.iaobject.scene["intro_detail"]).print_html()
+        }
+        final_str = u"""
+            <article class="detail_content" id="general">
+                <img class="article_close" src="[[LogoClose]]" alt="close" />
+                <h1>{intro_title}</h1>
+                <p>{intro_content}</p>
+            </article>""".format(**params)
+
         for i, detail in enumerate(self.iaobject.details):
             if detail['options'].find(u"direct-link") == -1:
-                dataState = "full"
-                if self.PageFormatter(detail["detail"]).print_html() == "":
-                    dataState = "void"
-                final_str += u'<article class="detail_content" data-state="' + dataState + '" id="article-'+unicode(str(i), "utf8") + u'">\n'
-                final_str += '<img class="article_close" src="{{LogoClose}}" alt="close"/>'
-                if detail['title'] != "":
-                    final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
-                final_str += u'  <div>' + self.PageFormatter(detail["detail"]).print_html() + u'</div>\n'
-                final_str += u'</article>\n'
+                params = {
+                    'data_state' : "void" if self.PageFormatter(detail["detail"]).print_html() == "" else "full",
+                    'article_id' : unicode(str(i), "utf8"),
+                    'article_title' : u'<h1>{}</h1>'.format(detail['title']) if detail['title'] != "" else "",
+                    'article_content' : self.PageFormatter(detail["detail"]).print_html()
+                }
+                final_str += u"""
+                    <article class="detail_content" data-state="{data_state}" id="article-{article_id}">
+                        <img class="article_close" src="[[LogoClose]]" alt="close"/>
+                        {article_title}
+                        <div>{article_content}</div>
+                    </article>""".format(**params)
 
         with open(templatePath,"r") as template:
-            final_index = template.read().decode("utf-8")
 
             metadatas = ""
-            if self.iaobject.scene["creator"]:
-                metadatas += self.iaobject.scene["creator"] + "<br/>"
-            if self.iaobject.scene["rights"]:
-                metadatas += self.iaobject.scene["rights"] + "<br/>"
-            if self.iaobject.scene["publisher"]:
-                metadatas += self.iaobject.scene["publisher"] + "<br/>"
-            if self.iaobject.scene["identifier"]:
-                metadatas += self.iaobject.scene["identifier"] + "<br/>"
-            if self.iaobject.scene["coverage"]:
-                metadatas += self.iaobject.scene["coverage"] + "<br/>"
-            if self.iaobject.scene["source"]:
-                metadatas += self.iaobject.scene["source"] + "<br/>"
-            if self.iaobject.scene["relation"]:
-                metadatas += self.iaobject.scene["relation"] + "<br/>"
-            if self.iaobject.scene["language"]:
-                metadatas += self.iaobject.scene["language"] + "<br/>"
-            if self.iaobject.scene["contributor"]:
-                metadatas += self.iaobject.scene["contributor"] + "<br/>"
-            if self.iaobject.scene["date"]:
-                metadatas += self.iaobject.scene["date"] + "<br/>"
+            metadatas += self.add_metadata(self.iaobject.scene["creator"])
+            metadatas += self.add_metadata(self.iaobject.scene["rights"])
+            metadatas += self.add_metadata(self.iaobject.scene["publisher"])
+            metadatas += self.add_metadata(self.iaobject.scene["identifier"])
+            metadatas += self.add_metadata(self.iaobject.scene["coverage"])
+            metadatas += self.add_metadata(self.iaobject.scene["source"])
+            metadatas += self.add_metadata(self.iaobject.scene["relation"])
+            metadatas += self.add_metadata(self.iaobject.scene["language"])
+            metadatas += self.add_metadata(self.iaobject.scene["contributor"])
+            metadatas += self.add_metadata(self.iaobject.scene["date"])
 
+            final_index = template.read().decode("utf-8")
             final_index = final_index.replace("{{METADATAS}}", metadatas)
             final_index = final_index.replace("{{AUTHOR}}", self.iaobject.scene["creator"])
             final_index = final_index.replace("{{DESCRIPTION}}", self.iaobject.scene["description"])
@@ -91,7 +93,7 @@ class hook:
                 final_index = final_index.replace("{{MainCSS}}", xiaWebsite + "/css/main.css")
                 final_index = final_index.replace("{{LogoLoading}}",  xiaWebsite + "/img/xia.png")
                 final_index = final_index.replace("{{LogoPDF}}",  xiaWebsite + "/img/pdf.png")
-                final_index = final_index.replace("{{LogoClose}}", xiaWebsite + "/img/close.png")
+                final_index = final_index.replace("[[LogoClose]]", xiaWebsite + "/img/close.png")
                 final_index = final_index.replace("{{datasJS}}", "<script>" + self.iaobject.jsonContent + "</script>")
                 final_index = final_index.replace("{{lazyDatasJS}}", '')
                 final_index = final_index.replace("{{JqueryJS}}", "https://code.jquery.com/jquery-1.11.1.min.js")
@@ -104,7 +106,7 @@ class hook:
                 final_index = final_index.replace("{{MainCSS}}", "css/main.css")
                 final_index = final_index.replace("{{LogoLoading}}",  "img/xia.png")
                 final_index = final_index.replace("{{LogoPDF}}",  "img/pdf.png")
-                final_index = final_index.replace("{{LogoClose}}", "img/close.png")
+                final_index = final_index.replace("[[LogoClose]]", "img/close.png")
                 final_index = final_index.replace("{{datasJS}}", "")
                 final_index = final_index.replace("{{lazyDatasJS}}", 'datas/data.js')
                 final_index = final_index.replace("{{JqueryJS}}", "js/jquery.min.js")

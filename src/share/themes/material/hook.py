@@ -35,76 +35,55 @@ class hook:
         self.tooltip = translate("export material")
         self.loading = translate("loading")
 
+
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""
 
-        final_str  = u'<article id="general">\n'
-        final_str += u'  <h1 style="display:none;">' + self.iaobject.scene["intro_title"] + '</h1>\n'
-        final_str += u'  <p>' + self.PageFormatter(self.iaobject.scene["intro_detail"]).print_html() + u'</p>\n'
-        final_str += u'</article>\n'
+        params = {
+            'intro_title' : self.iaobject.scene["intro_title"],
+            'intro_content' : self.PageFormatter(self.iaobject.scene["intro_detail"]).print_html()
+        }
+        final_str = u"""
+            <article id="general">
+                <h1 style="display:none;">{intro_title}</h1>
+                <p>{intro_content}</p>
+            </article>""".format(**params)
+
         for i, detail in enumerate(self.iaobject.details):
             if detail['options'].find(u"direct-link") == -1:
-                dataState = "full"
-                if (self.PageFormatter(detail["detail"]).print_html() == "") and (detail["title"] == ""):
-                    dataState = "void"
-                final_str += u'<article data-state="' + dataState +'" id="article-' + unicode(str(i), "utf8") + u'">\n'
-                final_str += u'  <h1 style="display:none;">' + detail['title'] + u'</h1>\n'
-                final_str += u'  <div>' + self.PageFormatter(detail["detail"]).print_html() + u'</div>\n'
-                final_str += u'</article>\n'
+                params = {
+                    'data_state' : "void" if (self.PageFormatter(detail["detail"]).print_html() == "") and (detail["title"] == "") else "full",
+                    'article_id' : unicode(str(i), "utf8"),
+                    'article_title' : detail['title'],
+                    'article_content' : self.PageFormatter(detail["detail"]).print_html()
+                }
+                final_str += u"""
+                    <article data-state="{data_state}" id="article-{article_id}">
+                        <h1 style="display:none;">{article_title}</h1>
+                        <div>{article_content}</div>
+                    </article>""".format(**params)
 
         with open(templatePath,"r") as template:
+
+            rights = self.iaobject.scene["rights"] if self.iaobject.scene["rights"] else ""
+            publisher = self.iaobject.scene["publisher"] if self.iaobject.scene["publisher"] else ""
+            identifier = self.iaobject.scene["identifier"] if self.iaobject.scene["identifier"] else ""
+            coverage = self.iaobject.scene["coverage"] if self.iaobject.scene["coverage"] else ""
+            source = self.iaobject.scene["source"] if self.iaobject.scene["source"] else ""
+            relation = self.iaobject.scene["relation"] if self.iaobject.scene["relation"] else ""
+            languages = self.iaobject.scene["language"] if self.iaobject.scene["language"] else ""
+            contributor = self.iaobject.scene["contributor"] if self.iaobject.scene["contributor"] else ""
+            datecreation = self.iaobject.scene["date"] if self.iaobject.scene["date"] else ""
+            creator = self.iaobject.scene["creator"] if self.iaobject.scene["creator"] else ""
+            license_origin = self.iaobject.scene["license"] if self.iaobject.scene["license"] else ""
+            if license_origin.startswith('http'):
+                license = u'<a href="{}">{}</a>'.format(license_origin)
+            elif license_origin == "":
+                license = u"Propriétaire"
+            else:
+                license = license_origin
+
             final_index = template.read().decode("utf-8")
-
-            metadatas = ""
-
-            rights = ""
-            if self.iaobject.scene["rights"]:
-                rights += self.iaobject.scene["rights"]
-
-            publisher = ""
-            if self.iaobject.scene["publisher"]:
-                publisher += self.iaobject.scene["publisher"]
-
-            identifier = ""
-            if self.iaobject.scene["identifier"]:
-                identifier += self.iaobject.scene["identifier"]
-
-            coverage = ""
-            if self.iaobject.scene["coverage"]:
-                coverage += self.iaobject.scene["coverage"]
-
-            source = ""
-            if self.iaobject.scene["source"]:
-                source += self.iaobject.scene["source"]
-
-            relation = ""
-            if self.iaobject.scene["relation"]:
-                relation += self.iaobject.scene["relation"]
-
-            languages = ""
-            if self.iaobject.scene["language"]:
-                languages += self.iaobject.scene["language"]
-
-            contributor = ""
-            if self.iaobject.scene["contributor"]:
-                contributor += self.iaobject.scene["contributor"]
-
-            datecreation = ""
-            if self.iaobject.scene["date"]:
-                datecreation += self.iaobject.scene["date"]
-
-            creator = ""
-            if self.iaobject.scene["creator"]:
-                creator += self.iaobject.scene["creator"]
-
-            license = ""
-            if self.iaobject.scene["license"]:
-                license += self.iaobject.scene["license"]
-                if license.startswith('http'):
-                    license = '<a href="' + license + '">' + license + '</a>'
-                elif license == "":
-                    license = "Propriétaire"
-
             final_index = final_index.replace("{{LICENSE}}", license)
             final_index = final_index.replace("{{RIGHTS}}", rights)
             final_index = final_index.replace("{{PUBLISHER}}", publisher)
@@ -116,7 +95,6 @@ class hook:
             final_index = final_index.replace("{{CONTRIBUTOR}}", contributor)
             final_index = final_index.replace("{{DATE}}", datecreation)
             final_index = final_index.replace("{{CREATOR}}", creator)
-            final_index = final_index.replace("{{METADATAS}}", metadatas)
             final_index = final_index.replace("{{AUTHOR}}", self.iaobject.scene["creator"])
             final_index = final_index.replace("{{DESCRIPTION}}", self.iaobject.scene["description"])
             final_index = final_index.replace("{{KEYWORDS}}", self.iaobject.scene["keywords"])

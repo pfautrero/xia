@@ -39,54 +39,56 @@ class hook:
         self.tooltip = translate("export accordionBlack !")
         self.loading = translate("loading")
 
+    def add_metadata(self, value):
+        return value + "<br/>" if value else ""
+
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""
+        params = {
+            'intro_title' : self.iaobject.scene["intro_title"],
+            'intro_detail' : self.PageFormatter(self.iaobject.scene["intro_detail"]).print_html()
+        }
+        final_str  = u"""
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a id="collapsecomment-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsecomment">{intro_title}</a>
+                    <div id="collapsecomment" class="accordion-body collapse">
+                        <div class="accordion-inner">{intro_detail}</div>
+                    </div>
+                </div>
+            </div>""".format(**params)
 
-        final_str  = u'<div class="accordion-group">\n';
-        final_str += u'  <div class="accordion-heading">\n';
-        final_str += u'    <a id="collapsecomment-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsecomment">' + self.iaobject.scene["intro_title"] + '</a>\n';
-        final_str += u'      <div id="collapsecomment" class="accordion-body collapse">\n';
-        final_str += u'        <div class="accordion-inner">' + self.PageFormatter(self.iaobject.scene["intro_detail"]).print_html() + u'\n';
-        final_str += u'        </div>\n'
-        final_str += u'      </div>\n'
-        final_str += u'  </div>\n'
-        final_str += u'</div>\n'
         for i, detail in enumerate(self.iaobject.details):
             if detail['options'].find(u"direct-link") == -1:
-                final_str += u'<div class="accordion-group">\n'
-                final_str += u'  <div class="accordion-heading">\n'
-                final_str += u'      <a id="collapse' + unicode(str(i), "utf8") + u'-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse' + unicode(str(i), "utf8") + u'">' + detail['title'] + u'</a>\n'
-                final_str += u'      <div id="collapse' + unicode(str(i), "utf8") + u'" class="accordion-body collapse">\n'
-                final_str += u'          <div class="accordion-inner">' + self.PageFormatter(detail["detail"]).print_html() + u'\n'
-                final_str += u'          </div>\n'
-                final_str += u'      </div>\n'
-                final_str += u'  </div>\n'
-                final_str += u'</div>\n'
+                params = {
+                    'article_id' : unicode(str(i), "utf8"),
+                    'article_title' : detail['title'],
+                    'article_content' : self.PageFormatter(detail["detail"]).print_html()
+                }
+                final_str += u"""
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a id="collapse{article_id}-heading" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse{article_id}">{article_title}</a>
+                            <div id="collapse{article_id}" class="accordion-body collapse">
+                                <div class="accordion-inner">{article_content}</div>
+                            </div>
+                        </div>
+                    </div>""".format(**params)
 
         with open(templatePath,"r") as template:
             final_index = template.read().decode("utf-8")
 
             metadatas = ""
-            if self.iaobject.scene["creator"]:
-                metadatas += self.iaobject.scene["creator"] + "<br/>"
-            if self.iaobject.scene["rights"]:
-                metadatas += self.iaobject.scene["rights"] + "<br/>"
-            if self.iaobject.scene["publisher"]:
-                metadatas += self.iaobject.scene["publisher"] + "<br/>"
-            if self.iaobject.scene["identifier"]:
-                metadatas += self.iaobject.scene["identifier"] + "<br/>"
-            if self.iaobject.scene["coverage"]:
-                metadatas += self.iaobject.scene["coverage"] + "<br/>"
-            if self.iaobject.scene["source"]:
-                metadatas += self.iaobject.scene["source"] + "<br/>"
-            if self.iaobject.scene["relation"]:
-                metadatas += self.iaobject.scene["relation"] + "<br/>"
-            if self.iaobject.scene["language"]:
-                metadatas += self.iaobject.scene["language"] + "<br/>"
-            if self.iaobject.scene["contributor"]:
-                metadatas += self.iaobject.scene["contributor"] + "<br/>"
-            if self.iaobject.scene["date"]:
-                metadatas += self.iaobject.scene["date"] + "<br/>"
+            metadatas += self.add_metadata(self.iaobject.scene["creator"])
+            metadatas += self.add_metadata(self.iaobject.scene["rights"])
+            metadatas += self.add_metadata(self.iaobject.scene["publisher"])
+            metadatas += self.add_metadata(self.iaobject.scene["identifier"])
+            metadatas += self.add_metadata(self.iaobject.scene["coverage"])
+            metadatas += self.add_metadata(self.iaobject.scene["source"])
+            metadatas += self.add_metadata(self.iaobject.scene["relation"])
+            metadatas += self.add_metadata(self.iaobject.scene["language"])
+            metadatas += self.add_metadata(self.iaobject.scene["contributor"])
+            metadatas += self.add_metadata(self.iaobject.scene["date"])
 
             final_index = final_index.replace("{{METADATAS}}", metadatas)
             final_index = final_index.replace("{{AUTHOR}}", self.iaobject.scene["creator"])

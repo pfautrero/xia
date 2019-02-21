@@ -18,6 +18,7 @@
 # dom manipulation
 from xml.dom import minidom
 import re
+import json
 
 import gettext
 import locale
@@ -41,126 +42,86 @@ class hook:
         self.message = translate("You win !")
         self.loading = translate("loading")
 
+    def search(self, regexp, string_to_parse, failed):
+        found_exp = re.search(regexp, string_to_parse, re.IGNORECASE|re.DOTALL)
+        return found_exp.group(1) if found_exp else failed
+
+    def add_metadata(self, value):
+        return value + "<br/>" if value else ""
+
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""
 
-        self.score = "0"
-        self.score2 = "0"
-        self.collisions = "off"
-        self.magnet = "off"
-        self.message = ""
-        self.message2 = ""
+        self.score = self.search('<score>(.*?)</score>', self.iaobject.scene["intro_detail"], "0")
+        self.message = self.search('<message>(.*?)</message>', self.iaobject.scene["intro_detail"], "")
+        self.score2 = self.search('<score2>(.*?)</score2>', self.iaobject.scene["intro_detail"], "0")
+        self.message2 = self.search('<message2>(.*?)</message2>', self.iaobject.scene["intro_detail"], "")
+        self.collisions = self.search('<collisions>(.*?)</collisions>', self.iaobject.scene["intro_detail"], "off")
+        self.magnet = self.search('<magnet>(.*?)</magnet>', self.iaobject.scene["intro_detail"], "off")
 
-        sceneSpecificOptions = u''
+        params_global = {
+            'magnet' : self.magnet,
+            'collisions' : self.collisions,
+            'score' : self.score,
+            'message' : self.PageFormatter(self.message).print_html(),
+            'score2' : self.score2,
+            'message2' : self.PageFormatter(self.message2).print_html(),
+            'intro_title' : self.iaobject.scene["intro_title"],
+            'intro_content' : self.PageFormatter(self.iaobject.scene["intro_detail"]).print_html()
+        }
 
-        score = re.search('<score>(.*)</score>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
-        if score:
-            self.score = score.group(1)
-            sceneSpecificOptions += u'  "score" : %s,\n' % self.score
-
-        message = re.search('<message>(.*)</message>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
-        if message:
-            self.message = message.group(1)
-            sceneSpecificOptions += u'  "message" : "%s",\n' % self.message
-
-        collisions = re.search('<collisions>(.*)</collisions>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
-        if collisions:
-            self.collisions = collisions.group(1)
-            sceneSpecificOptions += u'  "collisions" : "%s",\n' % self.collisions
-
-        magnet = re.search('<magnet>(.*)</magnet>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
-        if magnet:
-            self.magnet = magnet.group(1)
-            sceneSpecificOptions += u'  "magnet" : "%s",\n' % self.magnet
-
-        score2 = re.search('<score2>(.*?)</score2>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
-        if score2:
-            self.score2 = score2.group(1)
-            sceneSpecificOptions += u'  "score2" : %s,\n' % self.score2
-
-        message2 = re.search('<message2>(.*?)</message2>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
-        if message2:
-            self.message2 = message2.group(1)
-            sceneSpecificOptions += u'  "message2" : "%s",\n' % self.message2
-
-
-        final_str = u'<article class="message_success" id="message_success" data-magnet="' + self.magnet + '" data-collisions="' + self.collisions + '" data-score="' + self.score + '">\n'
-        final_str += '<div class="message_success_border">\n'
-        final_str += '<img id="popup_toggle" src="{{LogoHide}}" alt="toggle"/>\n'
-        final_str += u'  <div id="message_success_content">' + self.PageFormatter(self.message).print_html() + u'</div>\n'
-        final_str += '</div>\n'
-        final_str += u'</article>\n'
-
-        final_str += u'<article class="message_success" id="message_success2" data-magnet="' + self.magnet + '" data-collisions="' + self.collisions + '" data-score="' + self.score2 + '">\n'
-        final_str += '<div class="message_success_border">\n'
-        final_str += '<img id="popup_toggle2" src="{{LogoHide}}" alt="toggle"/>\n'
-        final_str += u'  <div id="message_success_content2">' + self.PageFormatter(self.message2).print_html() + u'</div>\n'
-        final_str += '</div>\n'
-        final_str += u'</article>\n'
-
-        final_str += u'<article style="display:none" id="general">\n'
-        final_str += u'  <h1>' + self.iaobject.scene["intro_title"] + '</h1>\n'
-        final_str += u'  <p>' + self.PageFormatter(self.iaobject.scene["intro_detail"]).print_html() + u'</p>\n'
-        final_str += u'</article>\n'
+        final_str = u"""
+            <article class="message_success" id="message_success" data-magnet="{magnet}" data-collisions="{collisions}" data-score="{score}">
+                <div class="message_success_border">
+                    <img id="popup_toggle" src="[[LogoHide]]" alt="toggle"/>
+                    <div id="message_success_content">{message}</div>
+                </div>
+            </article>
+            <article class="message_success" id="message_success2" data-magnet="{magnet}" data-collisions="{collisions}" data-score="{score2}">
+                <div class="message_success_border">
+                    <img id="popup_toggle2" src="[[LogoHide]]" alt="toggle"/>
+                    <div id="message_success_content2">{message2}</div>
+                </div>
+            </article>
+            <article style="display:none" id="general">
+                <h1>{intro_title}</h1>
+                <p>{intro_content}</p>
+            </article>""".format(**params_global)
 
         for i, detail in enumerate(self.iaobject.details):
 
-            target_id = ""
-            target = re.search('<target>(.*)</target>', detail["detail"], re.IGNORECASE|re.DOTALL)
-            if target:
-                target_id = target.group(1)
-
-            magnet_state = "off"
-            magnet = re.search('<magnet>(.*)</magnet>', detail["detail"], re.IGNORECASE|re.DOTALL)
-            if magnet:
-                magnet_state = magnet.group(1)
-
-            collision_state = "on"
-            collision = re.search('<collisions>(.*)</collisions>', detail["detail"], re.IGNORECASE|re.DOTALL)
-            if collision:
-                collision_state = collision.group(1)
-
-            tooltip_state = ""
-            tooltip = re.search('<tooltip>(.*)</tooltip>', detail["detail"], re.IGNORECASE|re.DOTALL)
-            if tooltip:
-                tooltip_state = tooltip.group(1)
-
-            onfail_state = ""
-            onfail = re.search('<onfail>(.*)</onfail>', detail["detail"], re.IGNORECASE|re.DOTALL)
-            if onfail:
-                onfail_state = onfail.group(1)
-
-            final_str += u'<article class="detail_content" data-tooltip="'+ tooltip_state +'" data-collisions="'+ collision_state + '" data-onfail="' + onfail_state + '" data-magnet="'+ magnet_state +'" data-kinetic_id="'+detail["id"]+'" data-target="'+target_id+'" id="article-'+unicode(str(i), "utf8") + u'">\n'
-            final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
-            final_str += u'  <p>' + self.PageFormatter(detail["detail"]).print_html() + u'<p>\n'
-            final_str += u'</article>\n'
+            params = {
+                'tooltip' : self.search('<tooltip>(.*?)</tooltip>', detail["detail"], ""),
+                'collisions' : self.search('<collisions>(.*?)</collisions>', detail["detail"], "on"),
+                'onfail' : self.search('<onfail>(.*?)</onfail>', detail["detail"], ""),
+                'magnet' : self.search('<magnet>(.*?)</magnet>', detail["detail"], "off"),
+                'kinetic_id' : detail["id"],
+                'target' : self.search('<target>(.*?)</target>', detail["detail"], ""),
+                'article_id' : unicode(str(i), "utf8"),
+                'article_title' : detail['title'],
+                'article_content' : self.PageFormatter(detail["detail"]).print_html()
+            }
+            final_str += u"""
+                <article class="detail_content" data-tooltip="{tooltip}" data-collisions="{collisions}" data-onfail="{onfail}" data-magnet="{magnet}" data-kinetic_id="{kinetic_id}" data-target="{target}" id="article-{article_id}">
+                    <h1>{article_title}</h1>
+                    <p>{article_content}</p>
+                </article>""".format(**params)
 
         with open(templatePath,"r") as template:
-            final_index = template.read().decode("utf-8")
-
             metadatas = ""
-            if self.iaobject.scene["creator"]:
-                metadatas += self.iaobject.scene["creator"] + "<br/>"
-            if self.iaobject.scene["rights"]:
-                metadatas += self.iaobject.scene["rights"] + "<br/>"
-            if self.iaobject.scene["publisher"]:
-                metadatas += self.iaobject.scene["publisher"] + "<br/>"
-            if self.iaobject.scene["identifier"]:
-                metadatas += self.iaobject.scene["identifier"] + "<br/>"
-            if self.iaobject.scene["coverage"]:
-                metadatas += self.iaobject.scene["coverage"] + "<br/>"
-            if self.iaobject.scene["source"]:
-                metadatas += self.iaobject.scene["source"] + "<br/>"
-            if self.iaobject.scene["relation"]:
-                metadatas += self.iaobject.scene["relation"] + "<br/>"
-            if self.iaobject.scene["language"]:
-                metadatas += self.iaobject.scene["language"] + "<br/>"
-            if self.iaobject.scene["contributor"]:
-                metadatas += self.iaobject.scene["contributor"] + "<br/>"
-            if self.iaobject.scene["date"]:
-                metadatas += self.iaobject.scene["date"] + "<br/>"
+            metadatas += self.add_metadata(self.iaobject.scene["creator"])
+            metadatas += self.add_metadata(self.iaobject.scene["rights"])
+            metadatas += self.add_metadata(self.iaobject.scene["publisher"])
+            metadatas += self.add_metadata(self.iaobject.scene["identifier"])
+            metadatas += self.add_metadata(self.iaobject.scene["coverage"])
+            metadatas += self.add_metadata(self.iaobject.scene["source"])
+            metadatas += self.add_metadata(self.iaobject.scene["relation"])
+            metadatas += self.add_metadata(self.iaobject.scene["language"])
+            metadatas += self.add_metadata(self.iaobject.scene["contributor"])
+            metadatas += self.add_metadata(self.iaobject.scene["date"])
 
-            final_index = final_index.replace("{{SCENESPECIFICOPTIONS}}", sceneSpecificOptions)
+            final_index = template.read().decode("utf-8")
+            final_index = final_index.replace("{{SCENESPECIFICOPTIONS}}", json.dumps(params_global))
             final_index = final_index.replace("{{METADATAS}}", metadatas)
             final_index = final_index.replace("{{AUTHOR}}", self.iaobject.scene["creator"])
             final_index = final_index.replace("{{DESCRIPTION}}", self.iaobject.scene["description"])

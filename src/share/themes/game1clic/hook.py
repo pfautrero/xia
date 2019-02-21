@@ -37,88 +37,81 @@ class hook:
         self.iaobject = iaobject
         self.PageFormatter = PageFormatter
         self.tooltip = translate("export game1clic")
-        self.score = "0"
         self.game_not_configured = translate("You win !")
-        self.message = self.game_not_configured
         self.loading = translate("loading")
+
+    def search(self, regexp, string_to_parse, failed):
+        found_exp = re.search(regexp, string_to_parse, re.IGNORECASE|re.DOTALL)
+        if found_exp:
+            return found_exp.group(1)
+        else:
+            return failed
+
+    def add_metadata(self, value):
+        return value + "<br/>" if value else ""
 
     def generateIndex(self,filePath, templatePath):
         """ generate index file"""
 
-        self.score = "0"
-        self.message = self.game_not_configured
+        self.score = self.search('<score>(.*?)</score>', self.iaobject.scene["intro_detail"], "0")
+        self.message = self.search('<message>(.*?)</message>', self.iaobject.scene["intro_detail"], self.game_not_configured)
+        self.score2 = self.search('<score2>(.*?)</score2>', self.iaobject.scene["intro_detail"], "0")
+        self.message2 = self.search('<message2>(.*?)</message2>', self.iaobject.scene["intro_detail"], self.game_not_configured)
 
-        self.score2 = "0"
-        self.message2 = self.game_not_configured
+        params = {
+            'score' : self.score,
+            'message_success' : self.PageFormatter(self.message).print_html(),
+            'score2' : self.score2,
+            'message_success2' : self.PageFormatter(self.message2).print_html(),
+            'intro_title' : self.iaobject.scene["intro_title"],
+            'intro_detail' : self.PageFormatter(self.iaobject.scene["intro_detail"]).print_html()
+        }
 
-        score = re.search('<score>(.*?)</score>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
-        if score:
-            self.score = score.group(1)
-
-        message = re.search('<message>(.*?)</message>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
-        if message:
-            self.message = message.group(1)
-
-        score2 = re.search('<score2>(.*?)</score2>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
-        if score2:
-            self.score2 = score2.group(1)
-
-        message2 = re.search('<message2>(.*?)</message2>', self.iaobject.scene["intro_detail"], re.IGNORECASE|re.DOTALL)
-        if message2:
-            self.message2 = message2.group(1)
-
-
-        final_str = u'<article class="message_success" id="message_success" data-score="' + self.score + '">\n'
-        final_str += '<img id="popup_toggle" src="{{LogoHide}}" alt="toggle"/>\n'
-        final_str += u'  <div id="message_success_content">' + self.PageFormatter(self.message).print_html() + u'</div>\n'
-        final_str += u'</article>\n'
-
-        final_str += u'<article class="message_success" id="message_success2" data-score="' + self.score2 + '">\n'
-        final_str += '<img id="popup_toggle2" src="{{LogoHide}}" alt="toggle"/>\n'
-        final_str += u'  <div id="message_success_content2">' + self.PageFormatter(self.message2).print_html() + u'</div>\n'
-        final_str += u'</article>\n'
-
-        final_str += u'<article style="display:none" id="general">\n'
-        final_str += u'  <h1>' + self.iaobject.scene["intro_title"] + '</h1>\n'
-        final_str += u'  <p>' + self.PageFormatter(self.iaobject.scene["intro_detail"]).print_html() + u'</p>\n'
-        final_str += u'</article>\n'
+        final_str = u"""
+            <article class="message_success" id="message_success" data-score="{score}">
+                <img id="popup_toggle" src="[[LogoHide]]" alt="toggle"/>
+                <div id="message_success_content">{message_success}</div>
+            </article>
+            <article class="message_success" id="message_success2" data-score="{score2}">
+                <img id="popup_toggle2" src="[[LogoHide]]" alt="toggle"/>
+                <div id="message_success_content2">{message_success2}</div>
+            </article>
+            <article style="display:none" id="general">
+                <h1>{intro_title}</h1>
+                <p>{intro_detail}</p>
+            </article>""".format(**params)
 
         for i, detail in enumerate(self.iaobject.details):
+            params = {
+                'kinetic_id' : detail["id"],
+                'tooltip_attr' : self.search('<tooltip>(.*)</tooltip>', detail["detail"], ""),
+                'options' : detail['options'],
+                'article_id' : unicode(str(i), "utf8"),
+                'detail_title' : detail['title'],
+                'detail_desc' : self.PageFormatter(detail["detail"]).print_html()
+            }
+            final_str += u"""
+                <article class="detail_content" data-kinetic_id="{kinetic_id}" data-tooltip="{tooltip_attr}" data-options="{options}" id="article-{article_id}">
+                    <h1>{detail_title}</h1>
+                    <p>{detail_desc}</p>
+                </article>""".format(**params)
 
-            tooltip_state = ""
-            tooltip = re.search('<tooltip>(.*)</tooltip>', detail["detail"], re.IGNORECASE|re.DOTALL)
-            if tooltip:
-                tooltip_state = tooltip.group(1)
-
-            final_str += u'<article class="detail_content" data-kinetic_id="'+detail["id"]+'" data-tooltip="' + tooltip_state + '" data-options="' + detail['options'] + u'" id="article-'+unicode(str(i), "utf8") + u'">\n'
-            final_str += u'  <h1>' + detail['title'] + u'</h1>\n'
-            final_str += u'  <p>' + self.PageFormatter(detail["detail"]).print_html() + u'<p>\n'
-            final_str += u'</article>\n'
 
         with open(templatePath,"r") as template:
-            final_index = template.read().decode("utf-8")
-            metadatas = ""
-            if self.iaobject.scene["creator"]:
-                metadatas += self.iaobject.scene["creator"] + "<br/>"
-            if self.iaobject.scene["rights"]:
-                metadatas += self.iaobject.scene["rights"] + "<br/>"
-            if self.iaobject.scene["publisher"]:
-                metadatas += self.iaobject.scene["publisher"] + "<br/>"
-            if self.iaobject.scene["identifier"]:
-                metadatas += self.iaobject.scene["identifier"] + "<br/>"
-            if self.iaobject.scene["coverage"]:
-                metadatas += self.iaobject.scene["coverage"] + "<br/>"
-            if self.iaobject.scene["source"]:
-                metadatas += self.iaobject.scene["source"] + "<br/>"
-            if self.iaobject.scene["relation"]:
-                metadatas += self.iaobject.scene["relation"] + "<br/>"
-            if self.iaobject.scene["language"]:
-                metadatas += self.iaobject.scene["language"] + "<br/>"
-            if self.iaobject.scene["contributor"]:
-                metadatas += self.iaobject.scene["contributor"] + "<br/>"
-            if self.iaobject.scene["date"]:
-                metadatas += self.iaobject.scene["date"] + "<br/>"
 
+            metadatas = ""
+            metadatas += self.add_metadata(self.iaobject.scene["creator"])
+            metadatas += self.add_metadata(self.iaobject.scene["rights"])
+            metadatas += self.add_metadata(self.iaobject.scene["publisher"])
+            metadatas += self.add_metadata(self.iaobject.scene["identifier"])
+            metadatas += self.add_metadata(self.iaobject.scene["coverage"])
+            metadatas += self.add_metadata(self.iaobject.scene["source"])
+            metadatas += self.add_metadata(self.iaobject.scene["relation"])
+            metadatas += self.add_metadata(self.iaobject.scene["language"])
+            metadatas += self.add_metadata(self.iaobject.scene["contributor"])
+            metadatas += self.add_metadata(self.iaobject.scene["date"])
+
+            final_index = template.read().decode("utf-8")
             final_index = final_index.replace("{{METADATAS}}", metadatas)
             final_index = final_index.replace("{{AUTHOR}}", self.iaobject.scene["creator"])
             final_index = final_index.replace("{{DESCRIPTION}}", self.iaobject.scene["description"])
@@ -132,7 +125,7 @@ class hook:
                 final_index = final_index.replace("{{MainCSS}}", xiaWebsite + "/css/main.css")
                 final_index = final_index.replace("{{LogoLoading}}",  xiaWebsite + "/img/xia.png")
                 final_index = final_index.replace("{{LogoPDF}}",  xiaWebsite + "/img/pdf.png")
-                final_index = final_index.replace("{{LogoHide}}",  xiaWebsite + "/img/hide.png")
+                final_index = final_index.replace("[[LogoHide]]",  xiaWebsite + "/img/hide.png")
                 final_index = final_index.replace("{{LogoClose}}", xiaWebsite + "/img/close.png")
                 final_index = final_index.replace("{{datasJS}}", "<script>" + self.iaobject.jsonContent + "</script>")
                 final_index = final_index.replace("{{lazyDatasJS}}", '')
@@ -144,9 +137,9 @@ class hook:
                 final_index = final_index.replace("{{labJS}}", "https://cdnjs.cloudflare.com/ajax/libs/labjs/2.0.3/LAB.min.js")
             else:
                 final_index = final_index.replace("{{MainCSS}}", "css/main.css")
-                final_index = final_index.replace("{{LogoLoading}}",  "img/xia.png")
-                final_index = final_index.replace("{{LogoPDF}}",  "img/pdf.png")
-                final_index = final_index.replace("{{LogoHide}}", "img/hide.png")
+                final_index = final_index.replace("{{LogoLoading}}", "img/xia.png")
+                final_index = final_index.replace("{{LogoPDF}}", "img/pdf.png")
+                final_index = final_index.replace("[[LogoHide]]", "img/hide.png")
                 final_index = final_index.replace("{{LogoClose}}", "img/close.png")
                 final_index = final_index.replace("{{datasJS}}", "")
                 final_index = final_index.replace("{{lazyDatasJS}}", 'datas/data.js')
