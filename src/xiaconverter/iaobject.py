@@ -282,8 +282,10 @@ class iaObject:
                         int(float(self.scene['width'])) * ctm.scaleX,
                         int(float(self.scene['height'])) * ctm.scaleY)
 
-            fixedRaster = self.fixRaster(raster, self.scene['width'], self.scene['height'])
+            #fixedRaster = self.fixRaster(raster, self.scene['width'], self.scene['height'])
+            fixedRaster = raster
             self.scene['image'] = fixedRaster
+            self.scene['ratio'] = self.calculateRasterRatio(raster, self.scene['width'], self.scene['height'])
             #print self.scene['image']
 
 
@@ -694,8 +696,9 @@ class iaObject:
             record_image['width'] = image.attributes['width'].value
             record_image['height'] = image.attributes['height'].value
             raster = self.extractRaster(image.attributes['xlink:href'].value)
-            fixedRaster = self.fixRaster(raster, record_image["width"], record_image['height'])
-            #record_image['image'] = raster
+            #fixedRaster = self.fixRaster(raster, record_image["width"], record_image['height'])
+            record_image['ratio'] = self.calculateRasterRatio(raster, record_image["width"], record_image['height'])
+            fixedRaster = raster
             record_image['image'] = fixedRaster
             record_image['detail'] = self.getText("desc", image)
             record_image['title'] = self.getText("title", image)
@@ -1416,6 +1419,38 @@ class iaObject:
             self.console.display('ERROR : fixRaster() - image is not embedded')
         shutil.rmtree(dirname)
         return newraster
+
+    def calculateRasterRatio(self, raster, rasterWidth, rasterHeight):
+        """modify image internal dimensions to fit raster ones"""
+        dirname = tempfile.mkdtemp()
+        #newraster = raster
+        ratio = 1
+        rasterStartPosition = raster.find('base64,') + 7
+        rasterEncoded = raster[rasterStartPosition:]
+        rasterPrefix = raster[0:rasterStartPosition]
+        extension = re.search('image/(.*);base64', rasterPrefix)
+        if extension is not None:
+            if extension.group(1):
+                imageFile = dirname + os.path.sep + "image." + extension.group(1)
+                if extension.group(1) == 'png':
+                    imageFileFixed = dirname + \
+                                     os.path.sep + "image_small." + extension.group(1)
+                else:
+                    imageFileFixed = dirname + \
+                                     os.path.sep + "image_small.jpg"
+
+                with open(imageFile, "wb") as bgImage:
+                    bgImage.write(rasterEncoded.decode("base64"))
+
+                with open(imageFile, 'rb') as f:
+                    currentImg = Image.open(f)
+                    (w, h) = currentImg.size
+                    ratio = float(w) / float(rasterWidth)
+
+        else:
+            self.console.display('ERROR : fixRaster() - image is not embedded')
+        shutil.rmtree(dirname)
+        return ratio
 
 
     def cropImage(self, raster, rasterWidth, rasterHeight):

@@ -64,7 +64,7 @@ function main(myhooks) {
       that.imageObj.src = scene.image;
       that.imageObj.onload = function() {
 
-          var mainScene = new IaScene(scene.width,scene.height);
+          var mainScene = new IaScene(scene.width, scene.height, scene.ratio)
           mainScene.scale = 1;
           mainScene.scaleScene(mainScene);
 

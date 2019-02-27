@@ -319,8 +319,7 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     that.path[i] = detail.path;
     that.title[i] = detail.title;
     // if detail is out of background, hack maxX and maxY
-    if (parseFloat(detail.maxX) < 0) detail.maxX = 1;
-    if (parseFloat(detail.maxY) < 0) detail.maxY = 1;
+    if ((parseFloat(detail.maxX) < 0) || (parseFloat(detail.maxY) < 0)) return
     that.kineticElement[i] = new Kinetic.Path({
         name: detail.title,
         data: detail.path,
@@ -331,50 +330,44 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
     });
     that.definePathBoxSize(detail, that);
     // crop background image to suit shape box
-    that.cropCanvas = document.createElement('canvas');
-    that.cropCanvas.setAttribute('width', parseFloat(detail.maxX) - parseFloat(detail.minX));
-    that.cropCanvas.setAttribute('height', parseFloat(detail.maxY) - parseFloat(detail.minY));
-    var cropCtx = that.cropCanvas.getContext('2d');
-    var cropX = Math.max(parseFloat(detail.minX), 0);
-    var cropY = Math.max(parseFloat(detail.minY), 0);
-    var cropWidth = (Math.min((parseFloat(detail.maxX) - cropX) * iaScene.scale, Math.floor(parseFloat(iaScene.originalWidth) * iaScene.scale)));
-    var cropHeight = (Math.min((parseFloat(detail.maxY) - cropY) * iaScene.scale, Math.floor(parseFloat(iaScene.originalHeight) * iaScene.scale)));
-    if (cropX * iaScene.scale + cropWidth > iaScene.originalWidth * iaScene.scale) {
-	cropWidth = iaScene.originalWidth * iaScene.scale - cropX * iaScene.scale;
+
+    var cropperCanvas = document.createElement('canvas')
+    cropperCanvas.setAttribute('width', (parseFloat(detail.maxX) - parseFloat(detail.minX)) * iaScene.coeff)
+    cropperCanvas.setAttribute('height', (parseFloat(detail.maxY) - parseFloat(detail.minY)) * iaScene.coeff)
+
+    source = {
+     'x' : Math.max(parseFloat(detail.minX), 0) * iaScene.originalRatio,
+     'y' : Math.max(parseFloat(detail.minY), 0) * iaScene.originalRatio,
+     'width' : (parseFloat(detail.maxX) - Math.max(parseFloat(detail.minX), 0)) * iaScene.originalRatio,
+     'height' : (parseFloat(detail.maxY) - Math.max(parseFloat(detail.minY), 0)) * iaScene.originalRatio
     }
-    if (cropY * iaScene.scale + cropHeight > iaScene.originalHeight * iaScene.scale) {
-	cropHeight = iaScene.originalHeight * iaScene.scale - cropY * iaScene.scale;
+    target = {
+     'x' : Math.max(detail.minX * (-1), 0),
+     'y' : Math.max(detail.minY * (-1), 0),
+     'width' : (parseFloat(detail.maxX) - Math.max(parseFloat(detail.minX), 0)) * iaScene.coeff,
+     'height' : (parseFloat(detail.maxY) - Math.max(parseFloat(detail.minY), 0)) * iaScene.coeff
     }
-    var posX = 0;
-    var posY = 0;
-    if (parseFloat(detail.minX) < 0) posX = parseFloat(detail.minX) * (-1);
-    if (parseFloat(detail.minY) < 0) posY = parseFloat(detail.minY) * (-1);
-    // bad workaround to avoid null dimensions
-    if (cropWidth <= 0) cropWidth = 1;
-    if (cropHeight <= 0) cropHeight = 1;
-    cropCtx.drawImage(
+    cropperCanvas.getContext('2d').drawImage(
         that.imageObj,
-        cropX * iaScene.scale,
-        cropY * iaScene.scale,
-        cropWidth,
-        cropHeight,
-        posX,
-        posY,
-        cropWidth,
-        cropHeight
-    );
-    var dataUrl = that.cropCanvas.toDataURL();
-    delete that.cropCanvas;
-    var cropedImage = new Image();
-    cropedImage.src = dataUrl;
+        source.x,
+        source.y,
+        source.width,
+        source.height,
+        target.x,
+        target.y,
+        target.width,
+        target.height
+    )
+    var cropedImage = new Image()
+    cropedImage.src = cropperCanvas.toDataURL()
     cropedImage.onload = function() {
-        that.backgroundImage[i] = cropedImage;
-        that.backgroundImageOwnScaleX[i] = 1;
-        that.backgroundImageOwnScaleY[i] = 1;
-        that.kineticElement[i].fillPatternRepeat('no-repeat');
-        that.kineticElement[i].fillPatternX(detail.minX);
-        that.kineticElement[i].fillPatternY(detail.minY);
-    };
+        that.backgroundImage[i] = cropedImage
+        that.backgroundImageOwnScaleX[i] = 1 / iaScene.coeff
+        that.backgroundImageOwnScaleY[i] = 1 / iaScene.coeff
+        that.kineticElement[i].fillPatternRepeat('no-repeat')
+        that.kineticElement[i].fillPatternX(detail.minX)
+        that.kineticElement[i].fillPatternY(detail.minY)
+    }
 
     var zoomable = true;
     if ((typeof(detail.fill) !== 'undefined') &&

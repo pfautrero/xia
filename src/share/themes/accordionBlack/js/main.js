@@ -25,48 +25,42 @@
 function main(myhooks) {
     "use strict";
     var that=window;
-
     that.canvas = document.getElementById("canvas");
-
     this.backgroundLoaded = $.Deferred()
-
     this.backgroundLoaded.done(function(value){
-
       // area located under the canvas. If mouse over is detected,
       // we must re-activate mouse events on canvas
       var detect = document.getElementById("detect");
       detect.addEventListener("mouseover", function()
-          {
-              that.canvas.style.pointerEvents="auto";
-
-              if ((IaScene.element !== 0) && (typeof(IaScene.element) !== 'undefined')) {
-                  for (var i in IaScene.element.kineticElement) {
-                    if (IaScene.element.persistent[i] == "hiddenSprite") {
-                        IaScene.element.kineticElement[i].animation("hidden")
-                    }
-                    else {
-                      IaScene.element.kineticElement[i].fillPriority('color');
-                      IaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
-                    }
-                  }
-              }
-          }, false);
+      {
+        that.canvas.style.pointerEvents="auto";
+        if ((IaScene.element !== 0) && (typeof(IaScene.element) !== 'undefined')) {
+          for (var i in IaScene.element.kineticElement) {
+            if (IaScene.element.persistent[i] == "hiddenSprite") {
+              IaScene.element.kineticElement[i].animation("hidden")
+            }
+            else {
+              IaScene.element.kineticElement[i].fillPriority('color');
+              IaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
+            }
+          }
+        }
+      }, false);
       detect.addEventListener("touchstart", function()
-          {
-              that.canvas.style.pointerEvents="auto";
-
-              if ((IaScene.element !== 0) && (typeof(IaScene.element) !== 'undefined')) {
-                  for (var i in IaScene.element.kineticElement) {
-                    if (IaScene.element.persistent[i] == "hiddenSprite") {
-                        IaScene.element.kineticElement[i].animation("hidden")
-                    }
-                    else {
-                      IaScene.element.kineticElement[i].fillPriority('color');
-                      IaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
-                    }
-                  }
-              }
-          }, false);
+      {
+        that.canvas.style.pointerEvents="auto";
+        if ((IaScene.element !== 0) && (typeof(IaScene.element) !== 'undefined')) {
+          for (var i in IaScene.element.kineticElement) {
+            if (IaScene.element.persistent[i] == "hiddenSprite") {
+              IaScene.element.kineticElement[i].animation("hidden")
+            }
+            else {
+              IaScene.element.kineticElement[i].fillPriority('color');
+              IaScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
+            }
+          }
+        }
+      }, false);
 
       //$("#collapsecomment").collapse("show");
 
@@ -77,16 +71,16 @@ function main(myhooks) {
       that.imageObj.src = scene.image;
       that.imageObj.onload = function() {
 
-          var mainScene = new IaScene(scene.width,scene.height);
-          that.mainScene = mainScene;
-          mainScene.scale = 1;
-          mainScene.scaleScene(mainScene);
+          var mainScene = new IaScene(scene.width,scene.height, scene.ratio)
+          that.mainScene = mainScene
+          mainScene.scale = 1
+          mainScene.scaleScene(mainScene)
 
           var stage = new Kinetic.Stage({
               container: 'canvas',
               width: mainScene.width,
               height: mainScene.height
-          });
+          })
 
           // area containing image background
           var baseImage = new Kinetic.Image({
@@ -285,5 +279,3 @@ main.prototype.convertGroup2Image = function(scene) {
     this.backgroundLoaded.resolve(0)
   }
 }
-
-

@@ -18,7 +18,7 @@
  * @param {type} originalHeight
  * @constructor create image active scene
  */
-function IaScene(originalWidth, originalHeight) {
+function IaScene(originalWidth, originalHeight, ratio) {
     "use strict";
     var that = this;
     //  canvas width
@@ -27,6 +27,9 @@ function IaScene(originalWidth, originalHeight) {
     // canvas height
     this.height = 800;
 
+    // w2 = w1 * originalRatio
+    this.originalRatio = ratio
+    
     // default color used to fill shapes during mouseover
     var _colorOver = {red:66, green:133, blue:244, opacity:0.6};
 
