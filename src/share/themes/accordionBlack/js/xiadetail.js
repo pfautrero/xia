@@ -73,31 +73,37 @@ class XiaDetail {
 
     document.body.style.cursor = "pointer"
     this.parent.iaScene.cursorState = "url(img/HandPointer.cur),auto"
+
+    var cacheBackground = true
     for (var i in this.parent.xiaDetail) {
       var xiaDetail = this.parent.xiaDetail[i]
-      var kineticElement = this.parent.xiaDetail[i].kineticElement
+      var kineticElement = xiaDetail.kineticElement
       var objectType = kineticElement.getClassName()
-      if (objectType == "Path") {
-        kineticElement.fillPriority('color')
-        if (xiaDetail.persistent == "off") {
-          kineticElement.stroke(this.parent.xiaDetail[i].stroke)
-          kineticElement.strokeWidth(this.parent.xiaDetail[i].strokeWidth)
-          kineticElement.fill(this.parent.iaScene.overColor)
-          kineticElement.scale(this.parent.iaScene.coeff)
-        }
-        else {
-          kineticElement.fill(this.parent.iaScene.cacheColor)
-        }
-      }
-      else if (objectType == "Image") {
-          kineticElement.setImage(kineticElement.backgroundImage)
-      }
-      else if (objectType == "Sprite") {
+      if (objectType == "Sprite") {
         kineticElement.animation('idle')
         kineticElement.frameIndex(0)
       }
+      else if (objectType == "Image") {
+        if (xiaDetail.persistent === "on") cacheBackground = false;
+        kineticElement.setImage(kineticElement.backgroundImage)
+      }
+      else {
+        kineticElement.fillPriority('pattern')
+        kineticElement.fillPatternScaleX(kineticElement.backgroundImageOwnScaleX)
+        kineticElement.fillPatternScaleY(kineticElement.backgroundImageOwnScaleY)
+        kineticElement.fillPatternImage(kineticElement.backgroundImage)
+        kineticElement.stroke(xiaDetail.stroke)
+        kineticElement.strokeWidth(xiaDetail.strokeWidth)
+      }
+      kineticElement.moveToTop()
     }
-    this.parent.layer.batchDraw()
+    if (cacheBackground === true) {
+      this.parent.backgroundCache_layer.moveToTop()
+      this.parent.backgroundCache_layer.show()
+      this.parent.backgroundCache_layer.draw()
+    }
+    this.parent.layer.moveToTop()
+    this.parent.layer.draw()
   }
 
   zoom() {
