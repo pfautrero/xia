@@ -258,18 +258,24 @@ Xia.prototype.fullScreenAbility = function() {
     this.toggleFullScreen()
   }.bind(this)
   document.addEventListener("fullscreenchange", function () {
-    this.mainScene.scaleScene()
-    this.restart()
+    setTimeout(function(){
+      this.mainScene.scaleScene()
+      this.restart()
+    }.bind(this), 100)
   }.bind(this), false);
 
   document.addEventListener("mozfullscreenchange", function () {
-    this.mainScene.scaleScene()
-    this.restart()
+    setTimeout(function(){
+      this.mainScene.scaleScene()
+      this.restart()
+    }.bind(this), 100)
   }.bind(this), false);
 
   document.addEventListener("webkitfullscreenchange", function () {
-    this.mainScene.scaleScene()
-    this.restart()
+    setTimeout(function(){
+      this.mainScene.scaleScene()
+      this.restart()
+    }.bind(this), 100)
   }.bind(this), false);
 
 }
