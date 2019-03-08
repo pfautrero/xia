@@ -68,7 +68,12 @@
                     $LAB.script(embedded_scripts[i+1]).wait(function(){
                         if (window.module) module = window.module
                         myhooks = new hooks()
-                        launch = new main(myhooks)
+                        launch = new Xia({
+                          'hooks' : myhooks,
+                          'targetID' : "canvas",
+                          'scene' : scene,
+                          'details' : details
+                        })
                     });
                 }
             };

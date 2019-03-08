@@ -8,24 +8,28 @@
 //   GNU General Public License for more details.
 //   You should have received a copy of the GNU General Public License
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
-//   
-//   
-// @author : pascal.fautrero@ac-versailles.fr
+//
+//
+// @author : pascal.fautrero@gmail.com
 
 
 /*
- * 
+ *
  * @constructor init specific hooks
  */
 function hooks() {
     "use strict";
+    this.beforeDone = false
+    this.afterDone = false
 }
 /*
  * @param array layers
  * @param iaScene mainScene
  */
-hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
-
+hooks.prototype.beforeMainConstructor = function(mainScene, xiaObject) {
+  // This function is not re-entrant !
+  if (this.beforeDone) return
+  this.beforeDone = true
 
 
 };
@@ -34,9 +38,18 @@ hooks.prototype.beforeMainConstructor = function(mainScene, layers) {
  * @param iaScene mainScene
  * @param array layers
  */
-hooks.prototype.afterMainConstructor = function(mainScene, layers) {
+hooks.prototype.afterMainConstructor = function(mainScene, xiaObject) {
+
+    // This function is not re-entrant !
+    // because some events are handled here
+    if (this.afterDone) return
+    this.afterDone = true
 
     var that = this;
+
+    $("#splash").fadeOut("slow", function(){
+            $("#loader").hide();
+    });
 
     $('#collapsecomment audio').each(function(){
         if ($(this).data("state") === "autostart") {
@@ -68,8 +81,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
             }
             $("#response_" + target).toggle();
         }
-       
-    };
+    }
     var unlock_input = function(e) {
         e.preventDefault();
         var entered_password = $(this).parent().children("input[type=text]").val();
@@ -87,14 +99,14 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
             $(".button").on("click", button_click);
             $(".unlock input[type=submit]").off("click");
             $(".unlock input[type=submit]").on("click", unlock_input);
-        }        
+        }
     };
     $(".button").on("click", button_click);
     $(".unlock input[type=submit]").on("click", unlock_input);
 
     $(".accordion-toggle").on("click tap", function(){
         $('.accordion-body').removeClass("slidedown").addClass("collapse");
-        $(this).parent().children(".accordion-body").removeClass("collapse").addClass("slidedown");              
+        $(this).parent().children(".accordion-body").removeClass("collapse").addClass("slidedown");
     });
 
     $("#collapsecomment-heading").on('click tap',function(){
@@ -104,12 +116,12 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
                     mainScene.element.kineticElement[i].fillPriority('color');
                     mainScene.element.kineticElement[i].fill('rgba(0,0,0,0)');
                     mainScene.element.kineticElement[i].setStroke('rgba(0, 0, 0, 0)');
-                    mainScene.element.kineticElement[i].setStrokeWidth(0);                                         
+                    mainScene.element.kineticElement[i].setStrokeWidth(0);
                     mainScene.element.layer.draw();
                 }
             }
             mainScene.element = that;
-            layers[0].moveToBottom();
+            xiaObject.layers.modalBackground.moveToBottom();
         }
     });
     document.addEventListener("click", function(ev){
@@ -118,53 +130,54 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
         }
         else {
             if (mainScene.zoomActive === 1) {
-                if ((mainScene.element !== 0) && 
+                if ((mainScene.element !== 0) &&
                 (typeof(mainScene.element) !== 'undefined')) {
-                    mainScene.element.kineticElement[0].fire("click");
+                    mainScene.element.xiaDetail[0].kineticElement.fire("click");
                 }
             }
             else if ((mainScene.cursorState.indexOf("ZoomIn.cur") !== -1) ||
               (mainScene.cursorState.indexOf("ZoomFocus.cur") !== -1)) {
                 document.body.style.cursor = "default";
                 mainScene.cursorState = "default";
-                if (typeof(mainScene.element.kineticElement) != "undefined") {
-                    mainScene.element.kineticElement[0].fire("mouseleave");
+                if (typeof(mainScene.element.xiaDetail) != "undefined") {
+                    mainScene.element.xiaDetail[0].kineticElement.fire("mouseleave");
                 }
             }
         }
-    });    
+    });
 
 };
 /*
  *
- *  
+ *
  */
 hooks.prototype.afterIaObjectConstructor = function(iaScene, idText, detail, iaObject) {
 
-    /*
-     *  manage accordion events related to this element
-     */
+    // first disable events (to make this function re-entrant)
+    $("#" + idText + "-heading").off('click touchstart')
+
+    // then add click event on accordion entries
     $("#" + idText + "-heading").on('click touchstart',function(){
-      
+
         if ($('#' + idText).css("height") == "0px") {
-            iaObject.kineticElement[0].fire("click");
+            iaObject.xiaDetail[0].kineticElement.fire("click");
         }
         else {
-            iaObject.kineticElement[0].fire("mouseleave");
+            iaObject.xiaDetail[0].kineticElement.fire("mouseleave");
         }
     });
 };
 /*
  *
- *  
+ *
  */
 hooks.prototype.afterIaObjectZoom = function(iaScene, idText, iaObject) {
 
 };
-    
+
 /*
  *
- *  
+ *
  */
 hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
     $('.accordion-body').removeClass("slidedown").addClass("collapse");
@@ -173,5 +186,5 @@ hooks.prototype.afterIaObjectFocus = function(iaScene, idText, iaObject) {
         if ($(this).data("state") === "autostart") {
             $(this)[0].play();
         }
-    }); 
+    });
 };

@@ -13,11 +13,10 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>
 #
-# @author : pascal.fautrero@ac-versailles.fr
+# @author : pascal.fautrero@gmail.com
 
 from logger import Logger
 
 class LoggerConsole(Logger):
     def display(self, msg):
         print(msg)
-

@@ -10,7 +10,7 @@
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
 //
 //
-// @author : pascal.fautrero@crdp.ac-versailles.fr
+// @author : pascal.fautrero@gmail.com
 
 /**
  *
@@ -31,13 +31,17 @@ function IaScene(originalWidth, originalHeight, ratio) {
     this.originalRatio = ratio
 
     // default color used to fill shapes during mouseover
-    var _colorOver = {red:66, green:133, blue:244, opacity:0.6};
+    var _colorOver = {red:66, green:133, blue:244, opacity:0.6}
 
     // default color used to fill stroke around shapes during mouseover
-    var _colorOverStroke = {red:255, green:0, blue:0, opacity:1};
+    var _colorOverStroke = {red:255, green:0, blue:0, opacity:1}
 
     // default color used to fill shapes if defined as cache
     this.colorPersistent = {red:124, green:154, blue:174, opacity:1};
+    var _colorPersistent = {red:124, green:154, blue:174, opacity:1}
+
+    // color used over background image during focus
+    var _colorCache = {red:0, green:0, blue:0, opacity:0.6};
 
     // Image ratio on the scene
     // Warning : hack to suit css media-queries rules !!
@@ -51,14 +55,12 @@ function IaScene(originalWidth, originalHeight, ratio) {
     // padding-top in the canvas
     this.y = 0;
 
-    // color used over background image during focus
-    var _colorCache = {red:0, green:0, blue:0, opacity:0.6};
-
     // internal
     this.fullScreen = "off";
-    this.backgroundCacheColor = 'rgba(' + _colorCache.red + ',' + _colorCache.green + ',' + _colorCache.blue + ',' + _colorCache.opacity + ')';
-    this.overColor = 'rgba(' + _colorOver.red + ',' + _colorOver.green + ',' + _colorOver.blue + ',' + _colorOver.opacity + ')';
-    this.overColorStroke = 'rgba(' + _colorOverStroke.red + ',' + _colorOverStroke.green + ',' + _colorOverStroke.blue + ',' + _colorOverStroke.opacity + ')';
+    this.backgroundCacheColor = this.getRGBAColor(_colorCache)
+    this.cacheColor = this.getRGBAColor(_colorPersistent)
+    this.overColor = this.getRGBAColor(_colorOver)
+    this.overColorStroke = this.getRGBAColor(_colorOverStroke)
     this.scale = 1;
     this.zoomActive = 0;
     this.element = 0;
@@ -68,37 +70,43 @@ function IaScene(originalWidth, originalHeight, ratio) {
     this.cursorState="";
     this.noPropagation = false;
 }
-
+IaScene.prototype.getRGBAColor = function(jsonColor) {
+  return 'rgba(RED, GREEN, BLUE, OPACITY)'
+    .replace('RED', jsonColor.red)
+    .replace('GREEN', jsonColor.green)
+    .replace('BLUE', jsonColor.blue)
+    .replace('OPACITY', jsonColor.opacity)
+}
 /*
  * Scale entire scene
  *
  */
-IaScene.prototype.scaleScene = function(mainScene){
+IaScene.prototype.scaleScene = function(){
     "use strict";
 
     var viewportWidth = $(window).width() * 0.9;
     var viewportHeight = $(window).height();
 
-    var coeff_width = (viewportWidth * mainScene.ratio) / parseFloat(mainScene.originalWidth);
-    var coeff_height = (viewportHeight) / (parseFloat(mainScene.originalHeight) + $('#canvas').offset().top + $('#container').offset().top);
-    if ((viewportWidth >= parseFloat(mainScene.originalWidth) * coeff_width) && (viewportHeight >= ((parseFloat(mainScene.originalHeight) + $('#canvas').offset().top) * coeff_width))) {
-        mainScene.width = viewportWidth * mainScene.ratio;
-        mainScene.coeff = (mainScene.width) / parseFloat(mainScene.originalWidth);
-        mainScene.height = parseFloat(mainScene.originalHeight) * mainScene.coeff;
+    var coeff_width = (viewportWidth * this.ratio) / parseFloat(this.originalWidth);
+    var coeff_height = (viewportHeight) / (parseFloat(this.originalHeight) + $('#canvas').offset().top + $('#container').offset().top);
+    if ((viewportWidth >= parseFloat(this.originalWidth) * coeff_width) && (viewportHeight >= ((parseFloat(this.originalHeight) + $('#canvas').offset().top) * coeff_width))) {
+        this.width = viewportWidth * this.ratio;
+        this.coeff = (this.width) / parseFloat(this.originalWidth);
+        this.height = parseFloat(this.originalHeight) * this.coeff;
     }
-    else if ((viewportWidth >= parseFloat(mainScene.originalWidth) * coeff_height) && (viewportHeight >= (parseFloat(mainScene.originalHeight) + $('#canvas').offset().top) * coeff_height)) {
-        mainScene.height = viewportHeight - $('#container').offset().top - $('#canvas').offset().top -5;
-        mainScene.coeff = (mainScene.height) / parseFloat(mainScene.originalHeight);
-        mainScene.width = parseFloat(mainScene.originalWidth) * mainScene.coeff;
+    else if ((viewportWidth >= parseFloat(this.originalWidth) * coeff_height) && (viewportHeight >= (parseFloat(this.originalHeight) + $('#canvas').offset().top) * coeff_height)) {
+        this.height = viewportHeight - $('#container').offset().top - $('#canvas').offset().top -5;
+        this.coeff = (this.height) / parseFloat(this.originalHeight);
+        this.width = parseFloat(this.originalWidth) * this.coeff;
     }
 
-    mainScene.width = mainScene.width / mainScene.ratio;
-    $('#container').css({"width": mainScene.width + 'px'});
-    $('#container').css({"height": (mainScene.height + $('#canvas').offset().top - $('#container').offset().top) + 'px'});
-    $('#canvas').css({"height": (mainScene.height) + 'px'});
-    $('#canvas').css({"width": mainScene.width + 'px'});
-    $('#detect').css({"height": (mainScene.height) + 'px'});
-    $('#accordion2').css({"max-height": (mainScene.height - $('#accordion2').offset().top) + 'px'});
+    this.width = this.width / this.ratio;
+    $('#container').css({"width": this.width + 'px'});
+    $('#container').css({"height": (this.height + $('#canvas').offset().top - $('#container').offset().top) + 'px'});
+    $('#canvas').css({"height": (this.height) + 'px'});
+    $('#canvas').css({"width": this.width + 'px'});
+    $('#detect').css({"height": (this.height) + 'px'});
+    $('#accordion2').css({"max-height": (this.height - $('#accordion2').offset().top) + 'px'});
     $('#detect').css({"top": ($('#canvas').offset().top - $('#container').offset().top) + 'px'});
 
 };

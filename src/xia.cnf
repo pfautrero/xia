@@ -5,7 +5,7 @@ fontsPath = share/fonts
 themesPath = share/themes
 labjsLib = share/vendors/LAB.min.js
 jqueryLib = share/vendors/jquery.min.js
-kineticLib = share/vendors/kinetic.min.js
+kineticLib = share/vendors/konva.min.js
 sha1Lib = share/vendors/git-sha1.min.js
 
 [version]

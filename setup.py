@@ -117,7 +117,7 @@ setup(
         'update_po': UpdatePO,
     },
     author='Pascal Fautrero',
-    author_email='pascal.fautrero@ac-versailles.fr',
+    author_email='pascal.fautrero@gmail.com',
     description='Convert svg to full html5 interactive images',
     long_description=long_description,
     url='http://xia.dane.ac-versailles.fr',

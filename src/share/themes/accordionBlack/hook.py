@@ -13,7 +13,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>
 #
-# @author : pascal.fautrero@ac-versailles.fr
+# @author : pascal.fautrero@gmail.com
 
 
 
@@ -107,7 +107,7 @@ class hook:
                 final_index = final_index.replace("{{lazyDatasJS}}", '')
                 final_index = final_index.replace("{{JqueryJS}}", "https://code.jquery.com/jquery-1.11.1.min.js")
                 final_index = final_index.replace("{{sha1JS}}", xiaWebsite + "/js/git-sha1.min.js")
-                final_index = final_index.replace("{{kineticJS}}", "https://cdn.jsdelivr.net/kineticjs/5.1.0/kinetic.min.js")
+                final_index = final_index.replace("{{kineticJS}}", "https://cdnjs.cloudflare.com/ajax/libs/konva/3.1.7/konva.min.js")
                 final_index = final_index.replace("{{xiaJS}}", xiaWebsite + "/js/xia.js")
                 final_index = final_index.replace("{{hooksJS}}", xiaWebsite + "/js/hooks.js")
                 final_index = final_index.replace("{{labJS}}", "https://cdnjs.cloudflare.com/ajax/libs/labjs/2.0.3/LAB.min.js")
@@ -120,7 +120,7 @@ class hook:
                 final_index = final_index.replace("{{lazyDatasJS}}", localFolder +'/datas/data.js')
                 final_index = final_index.replace("{{JqueryJS}}", localFolder +"/js/jquery.min.js")
                 final_index = final_index.replace("{{sha1JS}}", localFolder +"/js/git-sha1.min.js")
-                final_index = final_index.replace("{{kineticJS}}", localFolder +"/js/kinetic.min.js")
+                final_index = final_index.replace("{{kineticJS}}", localFolder +"/js/konva.min.js")
                 final_index = final_index.replace("{{xiaJS}}", localFolder +"/js/xia.js")
                 final_index = final_index.replace("{{hooksJS}}", localFolder +"/js/hooks.js")
                 final_index = final_index.replace("{{labJS}}", localFolder +"/js/LAB.min.js")

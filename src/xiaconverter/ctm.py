@@ -12,8 +12,8 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>
-#   
-# @author : pascal.fautrero@ac-versailles.fr
+#
+# @author : pascal.fautrero@gmail.com
 
 import re, math
 
@@ -29,7 +29,7 @@ class CurrentTransformation:
             rotate(angle cx cy)
             skewX(x)
             skewY(y)
-   
+
     """
 
     def __init__(self):
@@ -46,7 +46,7 @@ class CurrentTransformation:
     def analyze(self,entry):
         """Analyze transform attribute"""
         regex_group = r'([^\s,]*)\s*,?\s*'
-        
+
         # look for something with such a form : "matrix(a b c d e f)"
         regex_matrix = r'matrix\(\s*' + regex_group * 6 + r'\)'
         matchObj = re.match( regex_matrix, entry)
@@ -73,30 +73,30 @@ class CurrentTransformation:
         matchObj = re.match( regex_rotate, entry)
         if matchObj:
             self.extractRotate(matchObj.groups())
-            return        
-       
+            return
+
         # look for something with such a form : "rotate(a b c)"
         regex_rotate = r'rotate\(\s*' + regex_group * 3 + r'\)'
         matchObj = re.match( regex_rotate, entry)
         if matchObj:
             self.extractRotate(matchObj.groups())
-            return        
+            return
 
         # look for something with such a form : "scale(a)"
         regex_scale = r'scale\(\s*' + regex_group * 1 + r'\)'
         matchObj = re.match( regex_scale, entry)
         if matchObj:
             self.extractScale(matchObj.groups())
-            return        
+            return
 
         # look for something with such a form : "scale(a b)"
         regex_scale = r'scale\(\s*' + regex_group * 2 + r'\)'
         matchObj = re.match( regex_scale, entry)
         if matchObj:
             self.extractScale(matchObj.groups())
-            return        
+            return
 
-        
+
     def extractTranslate(self,groups):
         """extract a and b from translate(a b) pattern"""
         self.translateX = groups[0]
@@ -109,13 +109,13 @@ class CurrentTransformation:
     def extractScale(self,groups):
         """extract a and b from scale(a b) pattern"""
         self.scaleX = groups[0]
-        self.scaleY = groups[0]        
+        self.scaleY = groups[0]
         if len(groups) == 2 and groups[1]:
             self.scaleY = groups[1]
         self.matrix = [[float(self.scaleX), 0.0, 0.0], \
           [0.0, float(self.scaleY), 0.0]]
-        
-        
+
+
     def extractRotate(self,groups):
         """extract a,b and c from rotate(a b c) pattern
             cos(a)  -sin(a)  -cx.cos(a) + cy.sin(a) + cx
@@ -130,22 +130,22 @@ class CurrentTransformation:
             	self.rX = groups[1]
             if groups[2]:
             	self.rY = groups[2]
-            
+
         alpha = float(self.rotate)
         cx = float(self.rX)
         cy = float(self.rY)
         self.matrix = [ [
-                          math.cos(alpha), 
-                          -math.sin(alpha), 
+                          math.cos(alpha),
+                          -math.sin(alpha),
                           -cx * math.cos(alpha) + cy * math.sin(alpha) + cx
-                        ], 
+                        ],
                         [
-                          math.sin(alpha), 
-                          math.cos(alpha), 
+                          math.sin(alpha),
+                          math.cos(alpha),
                           -cx * math.sin(alpha) - cy * math.cos(alpha) + cy
                         ]
                     ]
-        
+
     def extractMatrix(self,groups):
         """extract a,b,c,d,e,f from matrix(a b c d e f) pattern"""
         a = groups[0]
@@ -160,13 +160,13 @@ class CurrentTransformation:
         self.scaleX = math.sqrt(float(a)**2+float(c)**2)
         self.scaleY = math.sqrt(float(b)**2+float(d)**2)
         self.rotate = math.atan2(float(b),float(d))
-        
+
     def rectToPath(self,node):
         """inspired from inkscape pathmodifier.py"""
         x = float(node['x'])
         y = float(node['y'])
         w = float(node['width'])
-        h = float(node['height'])        
+        h = float(node['height'])
         rx = 0
         ry = 0
         if 'rx' in node:
@@ -190,7 +190,7 @@ class CurrentTransformation:
             d+='A %f,%f 0 0 1 %f,%f'%(rx,ry,x,y+h-ry)
             d+='L %f,%f '%(x,y+ry)
             d+='A %f,%f 0 0 1 %f,%f'%(rx,ry,x+rx,y)
-            
+
         return d
 
     def circleToPath(self,node):

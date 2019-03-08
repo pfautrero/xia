@@ -13,7 +13,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>
 #
-# @author : pascal.fautrero@ac-versailles.fr
+# @author : pascal.fautrero@gmail.com
 
 import os
 import math
@@ -214,7 +214,7 @@ class iaObject:
 
         head, tail = os.path.split(filePath)
         self.scene['intro_title'] = u"Description"
-        self.scene['intro_detail'] = u"XIA - DANE Versailles"
+        self.scene['intro_detail'] = u"XIA"
         self.scene['image'] = ""
         self.scene['path'] = ""
         self.scene['width'] = ""

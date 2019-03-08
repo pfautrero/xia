@@ -2,7 +2,7 @@
   "name": "XIA",
   "version": "2.0",
   "authors": [
-    "Pascal Fautrero <pascal.fautrero@ac-versailles.fr>"
+    "Pascal Fautrero <pascal.fautrero@gmail.com>"
   ],
   "description": "XIA is a svg to html5 converter to generate interactives resources",
   "license": "GPL3.0",

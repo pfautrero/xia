@@ -8,9 +8,9 @@
 //   GNU General Public License for more details.
 //   You should have received a copy of the GNU General Public License
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
-//   
-//   
-// @author : pascal.fautrero@ac-versailles.fr
+//
+//
+// @author : pascal.fautrero@gmail.com
 
 
 // Script used to load youtube resource after main page
@@ -20,7 +20,7 @@ $(".videoWrapper16_9").each(function(){
     var source = $(this).data("iframe");
     var iframe = document.createElement("iframe");
     iframe.src = source;
-    $(this).append(iframe);    
+    $(this).append(iframe);
     $(this).data("iframe", "");
 });
 
@@ -28,7 +28,7 @@ $(".videoWrapper4_3").each(function(){
     var source = $(this).data("iframe");
     var iframe = document.createElement("iframe");
     iframe.src = source;
-    $(this).append(iframe);    
+    $(this).append(iframe);
     $(this).data("iframe", "");
 });
 $(".flickr_oembed").each(function(){

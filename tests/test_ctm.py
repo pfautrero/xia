@@ -12,8 +12,8 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>
-#   
-# @author : pascal.fautrero@ac-versailles.fr
+#
+# @author : pascal.fautrero@gmail.com
 
 from xiaconverter.ctm import CurrentTransformation
 from nose.tools import *
@@ -44,7 +44,7 @@ class TestCurrentTransformation:
         ctm.analyze("translate(10   , -10)")
         assert_equal(ctm.translateX, "10")
         assert_equal(ctm.translateY, "-10")
-        assert_equal(ctm.matrix, [[1.0, 0.0, 10.0], [0.0, 1.0, -10.0]])		
+        assert_equal(ctm.matrix, [[1.0, 0.0, 10.0], [0.0, 1.0, -10.0]])
 
 
     def test_analyze_scale(self):
@@ -68,24 +68,24 @@ class TestCurrentTransformation:
         ctm.analyze("scale(10,-10)")
         assert_equal(ctm.scaleX, "10")
         assert_equal(ctm.scaleY, "-10")
-        assert_equal(ctm.matrix, [[10, 0.0, 0.0], [0.0, -10, 0.0]])		
+        assert_equal(ctm.matrix, [[10, 0.0, 0.0], [0.0, -10, 0.0]])
 
     def test_analyze_rotate(self):
         ctm = CurrentTransformation()
         ctm.analyze("rotate(10 20 -30)")
         assert_equal(ctm.rotate, "10")
         assert_equal(ctm.rX, "20")
-        assert_equal(ctm.rY, "-30")		
-        assert_equal(ctm.matrix, 
-            [ 
+        assert_equal(ctm.rY, "-30")
+        assert_equal(ctm.matrix,
+            [
                 [
-                    math.cos(10), 
-                    -math.sin(10), 
+                    math.cos(10),
+                    -math.sin(10),
                     -20 * math.cos(10) - 30 * math.sin(10) + 20
-                ], 
+                ],
                 [
-                    math.sin(10), 
-                    math.cos(10), 
+                    math.sin(10),
+                    math.cos(10),
                     -20 * math.sin(10) + 30 * math.cos(10) - 30
                 ]
             ])
@@ -96,17 +96,17 @@ class TestCurrentTransformation:
         ctm.analyze("rotate(10)")
         assert_equal(ctm.rotate, "10")
         assert_equal(ctm.rX, "0")
-        assert_equal(ctm.rY, "0")		
-        assert_equal(ctm.matrix, 
-            [ 
+        assert_equal(ctm.rY, "0")
+        assert_equal(ctm.matrix,
+            [
                 [
-                    math.cos(10), 
-                    -math.sin(10), 
+                    math.cos(10),
+                    -math.sin(10),
                     0
-                ], 
+                ],
                 [
-                    math.sin(10), 
-                    math.cos(10), 
+                    math.sin(10),
+                    math.cos(10),
                     0
                 ]
             ])
@@ -118,9 +118,9 @@ class TestCurrentTransformation:
         assert_equal(ctm.translateY, "6")
         assert_equal(ctm.scaleX, math.sqrt(float(1)**2+float(3)**2))
         assert_equal(ctm.scaleY, math.sqrt(float(2)**2+float(4)**2))
-        assert_equal(ctm.rotate, math.atan2(float(2),float(4)))                
+        assert_equal(ctm.rotate, math.atan2(float(2),float(4)))
         # @TODO assert_equal(ctm.rX, ??)
-        # @TODO assert_equal(ctm.rY, ??)		
+        # @TODO assert_equal(ctm.rY, ??)
         assert_equal(ctm.matrix, [[1.0,3.0,5.0],[2.0,4.0,6.0]])
 
     def test_analyze_rectToPath(self):
