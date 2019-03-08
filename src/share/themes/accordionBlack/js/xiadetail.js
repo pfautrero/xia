@@ -82,10 +82,14 @@ class XiaDetail {
       if (objectType == "Sprite") {
         kineticElement.animation('idle')
         kineticElement.frameIndex(0)
+        kineticElement.setAttrs({opacity:0})
+      	kineticElement.to({opacity:1})        
       }
       else if (objectType == "Image") {
         if (xiaDetail.persistent === "on") cacheBackground = false;
         kineticElement.setImage(kineticElement.backgroundImage)
+        kineticElement.setAttrs({opacity:0})
+      	kineticElement.to({opacity:1})
       }
       else {
         kineticElement.fillPriority('pattern')
@@ -94,6 +98,8 @@ class XiaDetail {
         kineticElement.fillPatternImage(kineticElement.backgroundImage)
         kineticElement.stroke(xiaDetail.stroke)
         kineticElement.strokeWidth(xiaDetail.strokeWidth)
+        kineticElement.setAttrs({opacity:0})
+      	kineticElement.to({opacity:1})
       }
       kineticElement.moveToTop()
     }
