@@ -129,43 +129,43 @@ Xia.prototype.backgroundCallback = function() {
       this.mainScene = mainScene
 
       var stage = new Konva.Stage({
-          container: 'canvas',
-          width: mainScene.width,
-          height: mainScene.height
+          container: this.params.targetID,
+          width: this.mainScene.width,
+          height: this.mainScene.height
       })
       this.stage = stage
       // area containing image background
       var baseImage = new Konva.Image({
           x: 0,
-          y: mainScene.y,
+          y: this.mainScene.y,
           width: this.params.scene.width,
           height: this.params.scene.height,
-          scale: {x:mainScene.coeff,y:mainScene.coeff},
+          scale: {x:this.mainScene.coeff,y:this.mainScene.coeff},
           image: this.imageObj
       })
 
       // cache used over background image
       var baseCache = new Konva.Rect({
           x: 0,
-          y: mainScene.y,
+          y: this.mainScene.y,
           width: this.params.scene.width,
           height: this.params.scene.height,
-          scale: {x:mainScene.coeff,y:mainScene.coeff},
-          fill: mainScene.backgroundCacheColor
+          scale: {x:this.mainScene.coeff,y:this.mainScene.coeff},
+          fill: this.mainScene.backgroundCacheColor
       })
 
       // define area to disable canvas events management when
       // mouse is over. Thus, we can reach div located under canvas
       var disableArea = new Konva.Rect({
-          x: mainScene.width  * mainScene.ratio,
-          y: mainScene.y,
-          width: mainScene.width * (1 - mainScene.ratio),
-          height: mainScene.height
+          x: this.mainScene.width  * this.mainScene.ratio,
+          y: this.mainScene.y,
+          width: this.mainScene.width * (1 - this.mainScene.ratio),
+          height: this.mainScene.height
       })
 
       disableArea.on('mouseover touchstart', function() {
-          canvas.style.pointerEvents="none";
-      })
+          this.canvas.style.pointerEvents="none";
+      }.bind(this))
 
       this.layers = {}
       this.layers.modalBackground = new Konva.Layer()
