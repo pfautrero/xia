@@ -23,10 +23,10 @@ function IaObject(params) {
     var that = this;
     this.xiaDetail = []
     this.jsonSource = params.detail
-    this.jsonSource.maxX = parseFloat(this.jsonSource.maxX)
-    this.jsonSource.minX = parseFloat(this.jsonSource.minX)
-    this.jsonSource.maxY = parseFloat(this.jsonSource.maxY)
-    this.jsonSource.minY = parseFloat(this.jsonSource.minY)
+    //this.jsonSource.maxX = parseFloat(this.jsonSource.maxX)
+    //this.jsonSource.minX = parseFloat(this.jsonSource.minX)
+    //this.jsonSource.maxY = parseFloat(this.jsonSource.maxY)
+    //this.jsonSource.minY = parseFloat(this.jsonSource.minY)
     this.layer = params.layer;
     this.background_layer = params.background_layer;
     this.backgroundCache_layer = params.backgroundCache_layer;
@@ -35,14 +35,15 @@ function IaObject(params) {
     this.idText = params.idText;
     this.zoomLayer = params.zoomLayer;
     this.iaScene = params.iaScene
-    this.backgroundCache_layer.hide()
+    //this.backgroundCache_layer.hide()
     this.backgroundCache_layer.draw()
     this.agrandissement = 0;
     this.zoomActive = 0;
-    this.minX = 10000;
-    this.minY = 10000;
-    this.maxX = -10000;
-    this.maxY = -10000;
+    // Bounding Area is defined by details
+    this.minX = null;
+    this.minY = null;
+    this.maxX = null;
+    this.maxY = null;
     this.tween_group = 0;
     this.group = 0;
     // Create kineticElements and include them in a group
@@ -50,18 +51,24 @@ function IaObject(params) {
     this.group = new Konva.Group()
     this.layer.add(this.group)
 
-    if ('group' in params.detail) {
-      for (var i in params.detail.group) {
-        this.xiaDetail[i] = this.createXiaElement(params.detail.group[i], this.idText)
+    var allElementsCreated = new Promise(function(resolve){
+      this.resolve = resolve
+      if ('group' in params.detail) {
+        this.nbElements = params.detail.group.length
+        for (var i in params.detail.group) {
+          this.xiaDetail[i] = this.createXiaElement(params.detail.group[i], this.idText)
+        }
+        this.definePathBoxSize(params.detail, this)
       }
-      this.definePathBoxSize(params.detail, this)
-    }
-    else {
-      this.xiaDetail[0] = this.createXiaElement(params.detail, this.idText)
-    }
-    this.defineTweens(this, params.iaScene);
-    this.myhooks.afterIaObjectConstructor(params.iaScene, params.idText, params.detail, this);
-
+      else {
+        this.nbElements = 1
+        this.xiaDetail[0] = this.createXiaElement(params.detail, this.idText)
+      }
+    }.bind(this))
+    allElementsCreated.then(function(value){
+      this.defineTweens(this, params.iaScene);
+      if ('afterIaObjectConstructor' in this.myhooks) this.myhooks.afterIaObjectConstructor(params.iaScene, params.idText, params.detail, this);
+    }.bind(this))
 }
 
 IaObject.prototype.createXiaElement = function(jsonDetail, idDOMElement) {
@@ -71,7 +78,7 @@ IaObject.prototype.createXiaElement = function(jsonDetail, idDOMElement) {
   }
   else if ('image' in jsonDetail) {
       var re = /sprite(.*)/i
-      if (jsonDetail.id.match(re)) {
+      if (('id' in jsonDetail) && (jsonDetail.id.match(re))) {
           console.log('sprite detected')
           xiaDetail = this.includeSprite(jsonDetail, idDOMElement)
       }

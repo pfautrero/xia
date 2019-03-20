@@ -411,8 +411,14 @@ class iaObject:
                             extrema['minY'].append(float(minY))
 
                         else:
-                            extrema['minX'].append(float(childnode.attributes['x'].value))
-                            extrema['minY'].append(float(childnode.attributes['y'].value))
+                            if childnode.hasAttribute('x'):
+                                extrema['minX'].append(float(childnode.attributes['x'].value))
+                            else:
+                                extrema['minX'].append(0)
+                            if childnode.hasAttribute('x'):
+                                extrema['minY'].append(float(childnode.attributes['y'].value))
+                            else:
+                                extrema['minY'].append(0)
 
                 self.backgroundX = min(extrema['minX'])
                 self.backgroundY = min(extrema['minY'])

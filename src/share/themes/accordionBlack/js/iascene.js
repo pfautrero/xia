@@ -20,7 +20,7 @@
  */
 function IaScene(originalWidth, originalHeight, ratio) {
     "use strict";
-    var that = this;
+
     //  canvas width
     this.width = 1000;
 
@@ -41,17 +41,11 @@ function IaScene(originalWidth, originalHeight, ratio) {
     var _colorPersistent = {red:124, green:154, blue:174, opacity:1}
 
     // color used over background image during focus
-    var _colorCache = {red:0, green:0, blue:0, opacity:0.6};
+    var _colorCache = {red:0, green:0, blue:0, opacity:0.8};
 
     // Image ratio on the scene
     // Warning : hack to suit css media-queries rules !!
-    if ($(window).width() >= '768') {
-      this.ratio = 0.50;
-    }
-    else {
-      this.ratio = 1.00;
-    }
-
+    this.ratio = 1
     // padding-top in the canvas
     this.y = 0;
 
@@ -63,7 +57,7 @@ function IaScene(originalWidth, originalHeight, ratio) {
     this.overColorStroke = this.getRGBAColor(_colorOverStroke)
     this.scale = 1;
     this.zoomActive = 0;
-    this.element = 0;
+    this.element = null
     this.originalWidth = originalWidth;
     this.originalHeight = originalHeight;
     this.coeff = (this.width * this.ratio) / parseFloat(originalWidth);
@@ -77,36 +71,24 @@ IaScene.prototype.getRGBAColor = function(jsonColor) {
     .replace('BLUE', jsonColor.blue)
     .replace('OPACITY', jsonColor.opacity)
 }
-/*
- * Scale entire scene
- *
- */
-IaScene.prototype.scaleScene = function(){
-    "use strict";
 
-    var viewportWidth = $(window).width() * 0.9;
-    var viewportHeight = $(window).height();
-
-    var coeff_width = (viewportWidth * this.ratio) / parseFloat(this.originalWidth);
-    var coeff_height = (viewportHeight) / (parseFloat(this.originalHeight) + $('#canvas').offset().top + $('#container').offset().top);
-    if ((viewportWidth >= parseFloat(this.originalWidth) * coeff_width) && (viewportHeight >= ((parseFloat(this.originalHeight) + $('#canvas').offset().top) * coeff_width))) {
-        this.width = viewportWidth * this.ratio;
-        this.coeff = (this.width) / parseFloat(this.originalWidth);
-        this.height = parseFloat(this.originalHeight) * this.coeff;
-    }
-    else if ((viewportWidth >= parseFloat(this.originalWidth) * coeff_height) && (viewportHeight >= (parseFloat(this.originalHeight) + $('#canvas').offset().top) * coeff_height)) {
-        this.height = viewportHeight - $('#container').offset().top - $('#canvas').offset().top -5;
-        this.coeff = (this.height) / parseFloat(this.originalHeight);
-        this.width = parseFloat(this.originalWidth) * this.coeff;
-    }
-
-    this.width = this.width / this.ratio;
-    $('#container').css({"width": this.width + 'px'});
-    $('#container').css({"height": (this.height + $('#canvas').offset().top - $('#container').offset().top) + 'px'});
-    $('#canvas').css({"height": (this.height) + 'px'});
-    $('#canvas').css({"width": this.width + 'px'});
-    $('#detect').css({"height": (this.height) + 'px'});
-    $('#accordion2').css({"max-height": (this.height - $('#accordion2').offset().top) + 'px'});
-    $('#detect').css({"top": ($('#canvas').offset().top - $('#container').offset().top) + 'px'});
-
-};
+IaScene.prototype.scaleScene = function(xiaObject) {
+  var mainScene = xiaObject.mainScene
+  var viewportWidth = document.getElementById(xiaObject.params.targetID).offsetWidth
+  var viewportHeight = document.getElementById(xiaObject.params.targetID).offsetHeight
+  
+  var coeff_width = viewportWidth / mainScene.originalWidth
+  var coeff_height = viewportHeight / mainScene.originalHeight
+  if ((parseFloat(viewportWidth.toFixed(5)) >= parseFloat((mainScene.originalWidth * coeff_width).toFixed(5))) &&
+    (parseFloat(viewportHeight.toFixed(5)) >= parseFloat((mainScene.originalHeight * coeff_width).toFixed(5)))) {
+      mainScene.width = viewportWidth
+      mainScene.coeff = mainScene.width / mainScene.originalWidth
+      mainScene.height = mainScene.originalHeight * mainScene.coeff
+  }
+  else if ((parseFloat(viewportWidth.toFixed(5)) >= parseFloat((mainScene.originalWidth * coeff_height).toFixed(5))) &&
+    (parseFloat(viewportHeight.toFixed(5)) >= parseFloat((mainScene.originalHeight * coeff_height).toFixed(5)))) {
+      mainScene.height = viewportHeight
+      mainScene.coeff = mainScene.height / mainScene.originalHeight
+      mainScene.width = mainScene.originalWidth * mainScene.coeff;
+  }
+}

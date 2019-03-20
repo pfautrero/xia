@@ -19,16 +19,26 @@ class XiaDetail {
   constructor(parent, detail, idText) {
     this.parent = parent
     this.detail = detail
-    this.detail.minX = parseFloat(this.detail.minX)
-    this.detail.maxX = parseFloat(this.detail.maxX)
-    this.detail.minY = parseFloat(this.detail.minY)
-    this.detail.maxY = parseFloat(this.detail.maxY)
-    this.detail.x = parseFloat(this.detail.x)
-    this.detail.y = parseFloat(this.detail.y)
-    this.detail.height = parseFloat(this.detail.height)
-    this.detail.width = parseFloat(this.detail.width)
+    if ('minX' in this.detail) {
+      this.detail.minX = parseFloat(this.detail.minX)
+      this.detail.maxX = parseFloat(this.detail.maxX)
+      this.detail.minY = parseFloat(this.detail.minY)
+      this.detail.maxY = parseFloat(this.detail.maxY)
+    }
+    if (!('id' in this.detail)) this.detail.id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+      .replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      })
+    this.detail.x = ('x' in this.detail) ? parseFloat(this.detail.x) : 0
+    this.detail.y = ('y' in this.detail) ? parseFloat(this.detail.y) : 0
+    if ('width' in this.detail) {
+      this.detail.height = parseFloat(this.detail.height)
+      this.detail.width = parseFloat(this.detail.width)
+    }
     this.idText = idText
     this.title = this.parent.jsonSource.title
+    this.desc = this.parent.jsonSource.detail
     this.path = ""
     this.kineticElement = null
     this.persistent = ""
@@ -42,28 +52,10 @@ class XiaDetail {
     this.tween = null
   }
 
-  manageDropAreaAndTooltips() {
-    // @TODO : Do not use DOM to get informations on details !
-    var tooltipDom = 'article[data-tooltip="TOOLTIP_ID"]'
-      .replace('TOOLTIP_ID', $("#" + this.idText).data("kinetic_id"))
-    var isTooltip = ($(tooltipDom).length != 0)
-
-    if (!isTooltip) return
-
-    this.kineticElement.getParent().moveToBottom()
-    this.options += " disable-click "
-    this.kineticElement.tooltip_area = true
-    // disable hitArea for tooltip
-    this.kineticElement.hitFunc(function(context){
-      context.beginPath()
-      context.rect(0,0,0,0)
-      context.closePath()
-      context.fillStrokeShape(this)
-    })
-
-  }
-
   mouseover() {
+
+    if ('mouseover' in this.parent.myhooks) this.parent.myhooks.mouseover(this)
+
     var zoomed = (this.parent.iaScene.cursorState.indexOf("ZoomOut.cur") !== -1)
     var focused_zoomable = (this.parent.iaScene.cursorState.indexOf("ZoomIn.cur") !== -1)
     var focused_unzoomable = (this.parent.iaScene.cursorState.indexOf("ZoomFocus.cur") !== -1)
@@ -83,7 +75,7 @@ class XiaDetail {
         kineticElement.animation('idle')
         kineticElement.frameIndex(0)
         kineticElement.setAttrs({opacity:0})
-      	kineticElement.to({opacity:1})        
+      	kineticElement.to({opacity:1})
       }
       else if (objectType == "Image") {
         if (xiaDetail.persistent === "on") cacheBackground = false;
@@ -101,25 +93,32 @@ class XiaDetail {
         kineticElement.setAttrs({opacity:0})
       	kineticElement.to({opacity:1})
       }
-      kineticElement.moveToTop()
+      //kineticElement.moveToTop()
     }
     if (cacheBackground === true) {
       this.parent.backgroundCache_layer.moveToTop()
-      this.parent.backgroundCache_layer.show()
-      this.parent.backgroundCache_layer.draw()
+      this.parent.backgroundCache_layer.to({opacity : 1})
+      //this.parent.backgroundCache_layer.draw()
     }
     this.parent.layer.moveToTop()
     this.parent.layer.draw()
+
   }
 
   zoom() {
+
+    if ('zoom' in this.parent.myhooks) {
+      var result = this.parent.myhooks.zoom(this)
+      if ((typeof result != "undefined") && (result == false)) return
+    }
+
     document.body.style.cursor = "zoom-out"
 
     this.parent.iaScene.cursorState = "url(img/ZoomOut.cur),auto"
     this.parent.iaScene.zoomActive = 1
     this.parent.group.zoomActive = 1
     this.parent.layer.moveToTop()
-    this.kineticElement.moveToTop()
+    //this.kineticElement.moveToTop()
     this.parent.group.moveToTop()
     this.originalX = this.parent.group.x()
     this.originalY = this.parent.group.y()
@@ -136,13 +135,23 @@ class XiaDetail {
     this.parent.layer.draw()
     this.parent.zoomLayer.hitGraphEnabled(false)
     var currentDetail = this
+    currentDetail.parent.group.to({
+      x : currentDetail.parent.tweenX,
+      y : currentDetail.parent.tweenY,
+      scaleX : currentDetail.parent.agrandissement,
+      scaleY : currentDetail.parent.agrandissement,
+      easing : Konva.Easings.BackEaseOut,
+      duration : 0.5
+    })
+    /*
     var anim = new Konva.Animation(function(frame) {
         currentDetail.linearTween(this, currentDetail)
     }, this.parent.zoomLayer)
     anim.start()
+    */
 
   }
-
+/*
   linearTween(anim, currentDetail) {
     var tempDim = {
       'x' : currentDetail.originalX + currentDetail.alpha.toFixed(2) * (this.parent.tweenX - currentDetail.originalX),
@@ -159,10 +168,17 @@ class XiaDetail {
       anim.stop()
     }
   }
-
+*/
   unzoom() {
+
+    if ('unzoom' in this.parent.myhooks) {
+      var result = this.parent.myhooks.unzoom(this)
+      if ((typeof result != "undefined") && (result == false)) return
+    }
+
     if ((this.parent.group.zoomActive == 1) &&
       (this.parent.group.scaleX().toFixed(5) == (this.parent.agrandissement).toFixed(5))) {
+
       this.parent.iaScene.zoomActive = 0;
       this.parent.group.zoomActive = 0;
       this.parent.group.scaleX(1);
@@ -174,18 +190,11 @@ class XiaDetail {
       this.parent.zoomLayer.moveToBottom()
       this.parent.zoomLayer.draw()
       this.parent.layer.draw()
-      this.parent.backgroundCache_layer.moveToBottom()
-      this.parent.backgroundCache_layer.hide()
-      this.parent.backgroundCache_layer.draw()
+      this.parent.backgroundCache_layer.to({opacity : 0})
+      //this.parent.backgroundCache_layer.draw()
       this.parent.iaScene.cursorState = "default"
-
+      this.parent.iaScene.element = null
       document.body.style.cursor = "default"
-      $('#' + this.parent.idText + " audio").each(function(){
-          $(this)[0].pause();
-      })
-      $('#' + this.parent.idText + " video").each(function(){
-          $(this)[0].pause();
-      })
     }
   }
 
@@ -219,17 +228,15 @@ class XiaDetail {
   }
 
   focus() {
+
+    if ('focus' in this.parent.myhooks) {
+      var result = this.parent.myhooks.focus(this)
+      if ((typeof result != "undefined") && (result == false)) return
+    }
     // first, reset state of previous selected elements
-    if ((this.parent.iaScene.element !== 0) &&
-      (typeof(this.parent.iaScene.element) !== 'undefined')) {
+    if (this.parent.iaScene.element) {
       this.reset_state_all(this.parent.iaScene.element.xiaDetail)
       if ('layer' in this.parent.iaScene.element) this.parent.iaScene.element.layer.draw()
-      $('#ID audio'.replace('ID', this.parent.iaScene.element.idText)).each(function(){
-          $(this)[0].pause()
-      })
-      $('#ID video'.replace('ID', this.parent.iaScene.element.idText)).each(function(){
-          $(this)[0].pause()
-      })
     }
     if (this.zoomable === true) {
       document.body.style.cursor = "zoom-in"
@@ -261,33 +268,39 @@ class XiaDetail {
         kineticElement.stroke(xiaDetail.stroke)
         kineticElement.strokeWidth(xiaDetail.strokeWidth)
       }
-      kineticElement.moveToTop()
+      //kineticElement.moveToTop()
     }
     if (cacheBackground === true) {
       this.parent.backgroundCache_layer.moveToTop()
-      this.parent.backgroundCache_layer.show()
-      this.parent.backgroundCache_layer.draw()
+      //this.parent.backgroundCache_layer.show()
+      this.parent.backgroundCache_layer.to({opacity: 1})
+      //this.parent.backgroundCache_layer.draw()
     }
     this.parent.layer.moveToTop()
     this.parent.layer.draw()
     this.parent.iaScene.element = this.parent
-    this.parent.myhooks.afterIaObjectFocus(this.parent.iaScene, this.parent.idText, this)
+
   }
 
   touchstart() {
     var zoomed = (this.parent.iaScene.cursorState.indexOf("ZoomOut.cur") !== -1)
-    var focused_zoomable = (this.parent.iaScene.cursorState.indexOf("ZoomIn.cur") !== -1)
+    //var focused_zoomable = (this.parent.iaScene.cursorState.indexOf("ZoomIn.cur") !== -1)
+    var focused_zoomable = (this.zoomable === true)
+    var focused = this.parent.iaScene.cursorState.indexOf('ZoomFocus.cur')
 
+    if ((this.parent.iaScene.element) && (this.parent.iaScene.element != this.parent)) return
     if (this.options.indexOf("direct-link") !== -1) {
       location.href = this.title
     }
     else {
       this.parent.iaScene.noPropagation = true
-      if (focused_zoomable && (this.parent.iaScene.element === this.parent)) {
-        this.zoom()
-      }
-      else if (zoomed) {
+      //if (focused_zoomable && (this.parent.iaScene.element === this.parent)) {
+      if (zoomed) {
         this.unzoom()
+      }
+      else if (focused_zoomable) {
+        this.parent.iaScene.element = this.parent
+        this.zoom()
       }
       else {
         if (this.parent.iaScene.zoomActive === 0) {
@@ -297,6 +310,11 @@ class XiaDetail {
     }
   }
   mouseleave(){
+
+    if ('mouseleave' in this.parent.myhooks) {
+      var result = this.parent.myhooks.mouseleave(this)
+      if ((typeof result != "undefined") && (result == false)) return
+    }
     var zoomed = (this.parent.iaScene.cursorState.indexOf("ZoomOut.cur") !== -1)
     var focused_zoomable = (this.parent.iaScene.cursorState.indexOf("ZoomIn.cur") !== -1)
     var focused_unzoomable = (this.parent.iaScene.cursorState.indexOf("ZoomFocus.cur") !== -1)
@@ -310,8 +328,7 @@ class XiaDetail {
       mouseXY = {x:0,y:0}
     }
     if ((this.parent.layer.getStage().getIntersection(mouseXY) != this)) {
-      this.parent.backgroundCache_layer.moveToBottom()
-      this.parent.backgroundCache_layer.hide()
+      this.parent.backgroundCache_layer.to({opacity: 0})
       for (var i in this.parent.xiaDetail) {
         var xiaDetail = this.parent.xiaDetail[i]
         var kineticElement = this.parent.xiaDetail[i].kineticElement
@@ -343,7 +360,8 @@ class XiaDetail {
         }
       }
       this.parent.layer.draw()
-      this.parent.backgroundCache_layer.draw()
+
+      //this.parent.backgroundCache_layer.draw()
     }
   }
 

@@ -30,51 +30,55 @@ class XiaImage extends XiaDetail {
         this.parent.group.zoomActive = 0
     }
 
-    defineImageBoxSize() {
-        if (this.parent.minX === -1) this.parent.minX = this.detail.x
-        if (this.parent.maxY === 10000) this.parent.maxY = this.detail.y + this.detail.height
-        if (this.parent.maxX === -1) this.parent.maxX = this.detail.x + this.detail.width
-        if (this.parent.minY === 10000) this.parent.minY = this.detail.y
-
-        if ((this.detail.x) < this.parent.minX) this.parent.minX = (this.detail.x)
-        if ((this.detail.x) + (this.detail.width) > this.parent.maxX)
-            this.parent.maxX = (this.detail.x) + (this.detail.width)
-        if ((this.detail.y) < this.parent.minY) this.parent.minY = (this.detail.y)
-        if ((this.detail.y) + (this.detail.height) > this.parent.maxY)
-            this.parent.maxY = (this.detail.y) + (this.detail.height)
+    defineImageBoxSize(rasterObj) {
+      if (!('width' in this.detail)) {
+        this.detail.width = rasterObj.width
+        this.detail.height = rasterObj.height
+      }
+      if (!('minX' in this.detail)) {
+        this.detail.minX = this.detail.x
+        this.detail.minY = this.detail.y
+        this.detail.maxX = this.detail.x + this.detail.width
+        this.detail.maxY = this.detail.y + this.detail.height
+      }
+      this.parent.minX = (this.parent.minX) ? Math.min(this.detail.x, this.parent.minX): this.detail.x
+      this.parent.minY = (this.parent.minY) ? Math.min(this.detail.y, this.parent.minY): this.detail.y
+      this.parent.maxX = (this.parent.maxX) ? Math.max(this.detail.x + this.detail.width, this.parent.maxX): this.detail.x + this.detail.width
+      this.parent.maxY = (this.parent.maxY) ? Math.max(this.detail.y + this.detail.height, this.parent.maxY): this.detail.y + this.detail.height
     }
 
     start() {
-      this.defineImageBoxSize()
       var rasterObj = new Image()
-
-      this.backgroundImage = rasterObj
-      this.kineticElement = new Konva.Image({
-          id: this.detail.id,
-          name: this.title,
-          x: this.detail.x * this.parent.iaScene.coeff,
-          y: this.detail.y * this.parent.iaScene.coeff + this.parent.iaScene.y,
-          width: this.detail.width,
-          height: this.detail.height,
-          scale: {x:this.parent.iaScene.coeff,y:this.parent.iaScene.coeff}
-      })
-
       rasterObj.onload = function() {
+        this.defineImageBoxSize(rasterObj)
+        this.backgroundImage = rasterObj
+        this.kineticElement = new Konva.Image({
+            id: this.detail.id,
+            name: this.title,
+            x: this.detail.x * this.parent.iaScene.coeff,
+            y: this.detail.y * this.parent.iaScene.coeff + this.parent.iaScene.y,
+            width: this.detail.width,
+            height: this.detail.height,
+            scale: {x:this.parent.iaScene.coeff,y:this.parent.iaScene.coeff}
+        })
         this.kineticElement.backgroundImage = this.backgroundImage
-          this.kineticElement.backgroundImageOwnScaleX = this.detail.width / this.width;
-          this.kineticElement.backgroundImageOwnScaleY = this.detail.height / this.height;
-          if (this.persistent == "on") {
-            this.kineticElement.setImage(this.kineticElement.backgroundImage)
-          }
-          this.parent.group.add(this.kineticElement)
-          this.addEventsManagement()
-          this.defineHitArea()
+        this.kineticElement.backgroundImageOwnScaleX = this.detail.width / this.width;
+        this.kineticElement.backgroundImageOwnScaleY = this.detail.height / this.height;
+        if (this.persistent == "on") {
+          this.kineticElement.setImage(this.kineticElement.backgroundImage)
+        }
+        this.parent.group.add(this.kineticElement)
+        this.addEventsManagement()
+        this.defineHitArea()
           /*that.kineticElement[i].sceneFunc(function(context) {
               var yo = that.layer.getHitCanvas().getContext().getImageData(0,0,iaScene.width, iaScene.height);
               context.putImageData(yo, 0,0);
           });*/
-          this.parent.group.draw()
-
+        this.kineticElement.setXiaParent(this);
+        this.kineticElement.setIaObject(this.parent);
+        this.parent.group.draw()
+        this.parent.nbElements--
+        if (this.parent.nbElements == 0) this.parent.resolve("All elements created")
       }.bind(this)
       rasterObj.src = this.detail.image
     }
@@ -104,7 +108,7 @@ class XiaImage extends XiaDetail {
       canvas_source.setAttribute('height', cropper.height * this.parent.iaScene.coeff);
       var context_source = canvas_source.getContext('2d')
       context_source.drawImage(this.kineticElement.backgroundImage,0,0, cropper.width * this.parent.iaScene.coeff, cropper.height * this.parent.iaScene.coeff)
-      var imageDataSource = context_source.getImageData(0, 0, cropper.width * this.parent.iaScene.coeff, cropper.height * this.parent.iaScene.coeff);
+      var imageDataSource = context_source.getImageData(0, 0, Math.floor(cropper.width * this.parent.iaScene.coeff), Math.floor(cropper.height * this.parent.iaScene.coeff));
       var len = imageDataSource.data.length;
 
       (function(len, imageDataSource, currentDetail, cropper){

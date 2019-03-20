@@ -31,7 +31,6 @@ class XiaPath extends XiaDetail {
 
     start() {
       if ((this.detail.maxX < 0) || (this.detail.maxY < 0)) return
-      this.defineBoxSize()
       this.kineticElement = new Konva.Path({
         id: this.detail.id,
         name: this.parent.jsonSource.title,
@@ -41,7 +40,14 @@ class XiaPath extends XiaDetail {
         scale: {x:this.parent.iaScene.coeff,y:this.parent.iaScene.coeff},
         fill: 'rgba(0, 0, 0, 0)'
       })
-
+      if (!('minX' in this.detail)) {
+        var boundingArea = this.kineticElement.getClientRect()
+        this.detail.minX = boundingArea.x / this.parent.iaScene.coeff
+        this.detail.minY = boundingArea.y / this.parent.iaScene.coeff
+        this.detail.maxX = (boundingArea.x + boundingArea.width) / this.parent.iaScene.coeff
+        this.detail.maxY = (boundingArea.y + boundingArea.height) / this.parent.iaScene.coeff
+      }
+      this.defineBoxSize()
       this.defineHitArea()
       this.cropBackgroundImage()
 
@@ -49,10 +55,12 @@ class XiaPath extends XiaDetail {
         this.kineticElement.fill(this.parent.iaScene.cacheColor)
       }
       this.addEventsManagement()
-      this.manageDropAreaAndTooltips()
-
       this.parent.group.add(this.kineticElement)
       this.parent.group.draw()
+      this.kineticElement.setXiaParent(this);
+      this.kineticElement.setIaObject(this.parent);
+      this.parent.nbElements--
+      if (this.parent.nbElements == 0) this.parent.resolve("All elements created")
     }
 
     defineHitArea() {
@@ -69,22 +77,20 @@ class XiaPath extends XiaDetail {
       tempContext.fill(currentPath)
       this.imgData = tempContext.getImageData(0,0,tempCanvas.width,tempCanvas.height);
 
-      this.kineticElement.setXiaParent(this);
-      this.kineticElement.setIaObject(this.parent);
     }
 
     defineBoxSize() {
-      this.parent.minX = ('minX' in this.detail) ? this.detail.minX : 0
-      this.parent.minY = ('minY' in this.detail) ? this.detail.minY : 0
-      this.parent.maxX = ('maxX' in this.detail) ? this.detail.maxX : 0
-      this.parent.maxY = ('maxY' in this.detail) ? this.detail.maxY : 0
+      this.parent.minX = (this.parent.minX) ? Math.min(this.detail.minX, this.parent.minX): this.detail.minX
+      this.parent.minY = (this.parent.minY) ? Math.min(this.detail.minY, this.parent.minY): this.detail.minY
+      this.parent.maxX = (this.parent.maxX) ? Math.max(this.detail.maxX, this.parent.maxX): this.detail.maxX
+      this.parent.maxY = (this.parent.maxY) ? Math.max(this.detail.maxY, this.parent.maxY): this.detail.maxY
     }
 
     cropBackgroundImage() {
       // crop background image to suit shape box
       var cropperCanvas = document.createElement('canvas')
-      cropperCanvas.setAttribute('width', (this.detail.maxX - this.detail.minX) * this.parent.iaScene.coeff)
-      cropperCanvas.setAttribute('height', (this.detail.maxY - this.detail.minY) * this.parent.iaScene.coeff)
+      cropperCanvas.setAttribute('width', (this.detail.maxX - Math.max(this.detail.minX, 0)) * this.parent.iaScene.coeff)
+      cropperCanvas.setAttribute('height', (this.detail.maxY - Math.max(this.detail.minY, 0)) * this.parent.iaScene.coeff)
 
       var source = {
        'x' : Math.max(this.detail.minX, 0) * this.parent.iaScene.originalRatio,
@@ -93,8 +99,8 @@ class XiaPath extends XiaDetail {
        'height' : (this.detail.maxY - Math.max(this.detail.minY, 0)) * this.parent.iaScene.originalRatio
       }
       var target = {
-       'x' : Math.max(this.detail.minX * (-1), 0),
-       'y' : Math.max(this.detail.minY * (-1), 0),
+       'x' : Math.max(this.detail.minX * (-1), 0) * this.parent.iaScene.coeff,
+       'y' : Math.max(this.detail.minY * (-1), 0) * this.parent.iaScene.coeff,
        'width' : (this.detail.maxX - Math.max(this.detail.minX, 0)) * this.parent.iaScene.coeff,
        'height' : (this.detail.maxY - Math.max(this.detail.minY, 0)) * this.parent.iaScene.coeff
       }
@@ -104,8 +110,8 @@ class XiaPath extends XiaDetail {
           source.y,
           source.width,
           source.height,
-          target.x,
-          target.y,
+          0,
+          0,
           target.width,
           target.height
       )
@@ -116,8 +122,8 @@ class XiaPath extends XiaDetail {
           this.kineticElement.backgroundImageOwnScaleX = 1 / this.parent.iaScene.coeff
           this.kineticElement.backgroundImageOwnScaleY = 1 / this.parent.iaScene.coeff
           this.kineticElement.fillPatternRepeat('no-repeat')
-          this.kineticElement.fillPatternX(this.detail.minX)
-          this.kineticElement.fillPatternY(this.detail.minY)
+          this.kineticElement.fillPatternX(Math.max(this.detail.minX, 0))
+          this.kineticElement.fillPatternY(Math.max(this.detail.minY, 0))
       }.bind(this)
     }
 }

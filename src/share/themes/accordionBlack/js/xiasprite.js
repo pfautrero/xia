@@ -31,17 +31,10 @@ class XiaSprite extends XiaDetail {
     }
 
     defineImageBoxSize() {
-        if (this.parent.minX === -1) this.parent.minX = this.detail.x
-        if (this.parent.maxY === 10000) this.parent.maxY = this.detail.y + this.detail.height
-        if (this.parent.maxX === -1) this.parent.maxX = this.detail.x + this.detail.width
-        if (this.parent.minY === 10000) this.parent.minY = this.detail.y
-
-        if ((this.detail.x) < this.parent.minX) this.parent.minX = (this.detail.x)
-        if ((this.detail.x) + (this.detail.width) > this.parent.maxX)
-            this.parent.maxX = (this.detail.x) + (this.detail.width)
-        if ((this.detail.y) < this.parent.minY) this.parent.minY = (this.detail.y)
-        if ((this.detail.y) + (this.detail.height) > this.parent.maxY)
-            this.parent.maxY = (this.detail.y) + (this.detail.height)
+      this.parent.minX = (this.parent.minX) ? Math.min(this.detail.x, this.parent.minX): this.detail.x
+      this.parent.minY = (this.parent.minY) ? Math.min(this.detail.y, this.parent.minY): this.detail.y
+      this.parent.maxX = (this.parent.maxX) ? Math.max(this.detail.x + this.detail.width, this.parent.maxX): this.detail.x + this.detail.width
+      this.parent.maxY = (this.parent.maxY) ? Math.max(this.detail.y + this.detail.height, this.parent.maxY): this.detail.y + this.detail.height
     }
 
     start() {
@@ -77,6 +70,10 @@ class XiaSprite extends XiaDetail {
               this.kineticElement.animation('idle')
            }
            this.addEventsManagement()
+           this.kineticElement.setXiaParent(this);
+           this.kineticElement.setIaObject(this.parent);           
+           this.parent.nbElements--
+           if (this.parent.nbElements == 0) this.parent.resolve("All elements created")
       }.bind(this)
       rasterObj.src = detail.image
     }

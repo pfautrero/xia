@@ -24,109 +24,75 @@
 
 function Xia(params) {
     "use strict";
+    this.params = params
+    if ('duringXiaInit' in this.params.hooks) this.params.hooks.duringXiaInit(this)
     this.initKonva()
-    this.initDetectArea()
-    this.fullScreenAbility()
-    this.start(params)
-}
-
-Xia.prototype.start = function(params) {
-  this.params = params
-  var myhooks = this.params.hooks
-  this.canvas = document.getElementById(this.params.targetID)
-
-  this.iaObjects = []
-  this.backgroundLoaded = $.Deferred()
-  this.backgroundLoaded.done(function(value){
-    this.backgroundCallback()
-  }.bind(this))
-
-  if (this.params.scene.path !== "") {
-    var tempCanvas = this.convertPath2Image(this.params.scene)
-    this.params.scene.image = tempCanvas.toDataURL()
-    this.backgroundLoaded.resolve(0)
-  }
-  else if ('group' in this.params.scene) {
-    this.convertGroup2Image(this.params.scene)
-  }
-  else {
-    this.backgroundLoaded.resolve(0)
-  }
+    this.start()
 }
 
 Xia.prototype.initKonva = function() {
   // fix bug in retina and amoled screens
   Konva.pixelRatio = 1;
-
-  Konva.Shape.prototype.setXiaParent = function(xiaparent) {
-      this.xiaparent = xiaparent;
-  }
-  Konva.Shape.prototype.getXiaParent = function() {
-      return this.xiaparent;
-  }
-  Konva.Shape.prototype.setIaObject = function(iaobject) {
-      this.iaobject = iaobject;
-  }
-  Konva.Shape.prototype.getIaObject = function() {
-      return this.iaobject;
-  }
-
-
+  if (!("setXiaParent" in Konva.Shape.prototype))
+    Konva.Shape.prototype.setXiaParent = function(xiaparent) {
+        this.xiaparent = xiaparent;
+    }
+  if (!("getXiaParent" in Konva.Shape.prototype))
+    Konva.Shape.prototype.getXiaParent = function() {
+        return this.xiaparent;
+    }
+  if (!("setIaObject" in Konva.Shape.prototype))
+    Konva.Shape.prototype.setIaObject = function(iaobject) {
+        this.iaobject = iaobject;
+    }
+  if (!("getIaObject" in Konva.Shape.prototype))
+    Konva.Shape.prototype.getIaObject = function() {
+        return this.iaobject;
+    }
 }
 
-Xia.prototype.initDetectArea = function() {
-  // area located under the canvas. If mouse over is detected,
-  // we must re-activate mouse events on canvas
 
-  var detect = document.getElementById("detect")
-  detect.addEventListener("mouseover", function()
-  {
-    this.canvas.style.pointerEvents="auto"
-    if ((IaScene.element !== 0) && (typeof(IaScene.element) !== 'undefined')) {
-      for (var i in IaScene.element.xiaDetail) {
-        var xiaDetail = IaScene.element.xiaDetail[i]
-        if ((xiaDetail.kineticElement.getClassName() == "Sprite") &&
-          (xiaDetail.persistent == "off")) {
-            xiaDetail.kineticElement.animation("hidden")
-        }
-        else {
-          xiaDetail.kineticElement.fillPriority('color');
-          xiaDetail.kineticElement.fill('rgba(0,0,0,0)');
-        }
-      }
+Xia.prototype.start = function() {
+  this.canvas = document.getElementById(this.params.targetID)
+  this.iaObjects = []
+  var loadBackground = new Promise(function(resolve, reject) {
+    if (('path' in this.params.scene) && (this.params.scene.path !== "")) {
+      var tempCanvas = this.convertPath2Image(this.params.scene)
+      this.params.scene.image = tempCanvas.toDataURL()
+      resolve(0)
     }
-  }.bind(this), false);
-  detect.addEventListener("touchstart", function()
-  {
-    this.canvas.style.pointerEvents="auto";
-    if ((IaScene.element !== 0) && (typeof(IaScene.element) !== 'undefined')) {
-      for (var i in IaScene.element.xiaDetail) {
-        var xiaDetail = IaScene.element.xiaDetail[i]
-        if ((xiaDetail.kineticElement.getClassName() == "Sprite") &&
-          (xiaDetail.persistent == "off")) {
-            xiaDetail.kineticElement.animation("hidden")
-        }
-        else {
-          xiaDetail.kineticElement.fillPriority('color');
-          xiaDetail.kineticElement.fill('rgba(0,0,0,0)');
-        }
-      }
+    else if ('group' in this.params.scene) {
+      this.convertGroup2Image(this.params.scene, resolve)
     }
-  }.bind(this), false);
+    else {
+      resolve(0)
+    }
+  }.bind(this))
 
+  loadBackground.then(function(value) {
+    this.buildScene()
+  }.bind(this))
 }
 
-Xia.prototype.backgroundCallback = function() {
 
-
+Xia.prototype.buildScene = function() {
   // Load XiaElements when Background Image is loaded
-
   this.imageObj = new Image()
   this.imageObj.src = this.params.scene.image
   this.imageObj.onload = function() {
+      if (!('width' in this.params.scene) || !('height' in this.params.scene)) {
+        this.params.scene.width = this.imageObj.width
+        this.params.scene.height = this.imageObj.height
+        this.params.scene.ratio = 1
+      }
       var mainScene = new IaScene(this.params.scene.width,this.params.scene.height, this.params.scene.ratio)
-      mainScene.scaleScene()
       this.mainScene = mainScene
+      if ('scaleScene' in this.params.hooks) {
+        this.params.hooks.scaleScene(this)
+      }
+      else {
+        this.mainScene.scaleScene(this)
+      }
 
       var stage = new Konva.Stage({
           container: this.params.targetID,
@@ -184,11 +150,10 @@ Xia.prototype.backgroundCallback = function() {
       stage.add(this.layers.zoomLayer);
       stage.add(this.layers.mainLayer);
 
-      myhooks.beforeMainConstructor(mainScene, this);
-      for (var i in details) {
+      for (var i in this.params.details) {
         this.iaObjects[i] = new IaObject({
           imageObj: this.imageObj,
-          detail: details[i],
+          detail: this.params.details[i],
           layer: this.layers.mainLayer,
           idText: "collapse" + i,
           baseImage: baseImage,
@@ -196,34 +161,73 @@ Xia.prototype.backgroundCallback = function() {
           background_layer: this.layers.baseImage,
           backgroundCache_layer: this.layers.modalBackground,
           zoomLayer: this.layers.zoomLayer,
-          myhooks: myhooks
+          myhooks: this.params.hooks
         })
       }
-
-      myhooks.afterMainConstructor(mainScene, this);
+      this.addUndoEvents()
+      if ('loaded' in this.params.hooks) this.params.hooks.loaded(this)
 
   }.bind(this);
 }
 
-Xia.prototype.toggleFullScreen = function() {
-    if (!document.fullscreenElement &&    // alternative standard method
-        !document.mozFullScreenElement && !document.webkitFullscreenElement) {  // current working methods
-        if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen();
-        } else if (document.documentElement.mozRequestFullScreen) {
-            document.documentElement.mozRequestFullScreen();
-        } else if (document.documentElement.webkitRequestFullscreen) {
-            document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-        }
-    } else {
-        if (document.cancelFullScreen) {
-            document.cancelFullScreen();
-        } else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-        } else if (document.webkitCancelFullScreen) {
-            document.webkitCancelFullScreen();
-        }
+Xia.prototype.addUndoEvents = function() {
+// Events applyed on stage and document
+// to unselect elements if user clicks out of scene
+
+  document.addEventListener("click", function()
+  {
+    var overBox = false
+    var boxes = document.querySelectorAll(':hover')
+    for (var i = 0; i < boxes.length; i++) {
+      if (boxes[i].className == "konvajs-content") overBox = true
     }
+    if (!overBox) {
+      if (this.mainScene.element == null) return
+      for (var j in this.mainScene.element.xiaDetail) {
+        var xiaDetail = this.mainScene.element.xiaDetail[j]
+        if (this.mainScene.zoomActive == 0) {
+          this.mainScene.cursorState = 'default'
+          xiaDetail.kineticElement.fire("mouseleave")
+        }
+        else {
+          xiaDetail.kineticElement.fire("click")
+        }
+      }
+      this.mainScene.element = null
+    }
+  }.bind(this), false)
+  this.stage.on('click', function(e) {
+    if (this.mainScene.zoomActive == 0) {
+      var shape = this.layers.mainLayer.getIntersection(this.stage.getPointerPosition())
+      if ((shape == null) && this.mainScene.element) {
+        for (var j in this.mainScene.element.xiaDetail) {
+          var xiaDetail = this.mainScene.element.xiaDetail[j]
+          this.mainScene.cursorState = 'default'
+          xiaDetail.kineticElement.fire("mouseleave")
+        }
+      }
+      else {
+        if (shape.getXiaParent().parent != this.mainScene.element) {
+          for (var j in this.mainScene.element.xiaDetail) {
+            var xiaDetail = this.mainScene.element.xiaDetail[j]
+            this.mainScene.cursorState = 'default'
+            xiaDetail.kineticElement.fire("mouseleave")
+          }
+          this.mainScene.element = null
+        }
+      }
+    }
+    else {
+      if (!this.mainScene.element) return
+      if (this.mainScene.element.group.scaleX().toFixed(5) == (this.mainScene.element.agrandissement).toFixed(5)) {
+        for (var j in this.mainScene.element.xiaDetail) {
+          var xiaDetail = this.mainScene.element.xiaDetail[j]
+          xiaDetail.kineticElement.fire("click")
+        }
+      }
+    }
+  }.bind(this))
+
 }
 
 Xia.prototype.restart = function() {
@@ -249,36 +253,11 @@ Xia.prototype.restart = function() {
   }.bind(this))
 
   // restart Xia
-  this.start(params)
+  this.params = params
+  this.start()
 }
 
-Xia.prototype.fullScreenAbility = function() {
-  var e = document.getElementById("title")
-  e.onclick = function() {
-    this.toggleFullScreen()
-  }.bind(this)
-  document.addEventListener("fullscreenchange", function () {
-    setTimeout(function(){
-      this.mainScene.scaleScene()
-      this.restart()
-    }.bind(this), 100)
-  }.bind(this), false);
 
-  document.addEventListener("mozfullscreenchange", function () {
-    setTimeout(function(){
-      this.mainScene.scaleScene()
-      this.restart()
-    }.bind(this), 100)
-  }.bind(this), false);
-
-  document.addEventListener("webkitfullscreenchange", function () {
-    setTimeout(function(){
-      this.mainScene.scaleScene()
-      this.restart()
-    }.bind(this), 100)
-  }.bind(this), false);
-
-}
 /*
  * convert path to image if this path is used as background
  * transform scene.path to scene.image
@@ -300,7 +279,7 @@ Xia.prototype.convertPath2Image = function(scene) {
   return tempCanvas
 }
 
-Xia.prototype.convertGroup2Image = function(scene) {
+Xia.prototype.convertGroup2Image = function(scene, resolve) {
   var nbImages = 0
   var nbImagesLoaded = 0
   var tempCanvas = document.createElement('canvas')
@@ -326,15 +305,13 @@ Xia.prototype.convertGroup2Image = function(scene) {
       else if (typeof(scene['group'][i].image) != "undefined") {
         var tempImage = new Image()
         tempImage.onload = (function(main, imageItem){
-          return function(){
-              tempContext.drawImage(this,
-                0, 0, this.width, this.height,
-                imageItem.x, imageItem.y, this.width, this.height)
-              nbImagesLoaded++
-              if (nbImages == nbImagesLoaded) {
-                  scene.image = tempCanvas.toDataURL()
-                  main.backgroundLoaded.resolve(0)
-              }
+          tempContext.drawImage(this,
+            0, 0, this.width, this.height,
+            imageItem.x, imageItem.y, this.width, this.height)
+          nbImagesLoaded++
+          if (nbImages == nbImagesLoaded) {
+              scene.image = tempCanvas.toDataURL()
+              resolve(0)
           }
         })(this, scene['group'][i])
 
@@ -343,6 +320,6 @@ Xia.prototype.convertGroup2Image = function(scene) {
   }
   if (nbImages == 0) {
     scene.image = tempCanvas.toDataURL()
-    this.backgroundLoaded.resolve(0)
+    resolve(0)
   }
 }
