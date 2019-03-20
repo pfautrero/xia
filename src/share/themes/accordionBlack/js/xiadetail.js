@@ -54,7 +54,10 @@ class XiaDetail {
 
   mouseover() {
 
-    if ('mouseover' in this.parent.myhooks) this.parent.myhooks.mouseover(this)
+    if ('mouseover' in this.parent.myhooks) {
+      var result = this.parent.myhooks.mouseover(this)
+      if ((typeof result != "undefined") && (result == false)) return
+    }
 
     var zoomed = (this.parent.iaScene.cursorState.indexOf("ZoomOut.cur") !== -1)
     var focused_zoomable = (this.parent.iaScene.cursorState.indexOf("ZoomIn.cur") !== -1)
