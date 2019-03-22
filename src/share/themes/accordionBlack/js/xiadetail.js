@@ -198,6 +198,7 @@ class XiaDetail {
       this.parent.iaScene.cursorState = "default"
       this.parent.iaScene.element = null
       document.body.style.cursor = "default"
+      this.parent.parent.reorderItems()
     }
   }
 

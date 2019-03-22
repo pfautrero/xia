@@ -21,6 +21,7 @@
 function IaObject(params) {
     "use strict";
     var that = this;
+    this.parent = params.parent
     this.xiaDetail = []
     this.jsonSource = params.detail
     //this.jsonSource.maxX = parseFloat(this.jsonSource.maxX)

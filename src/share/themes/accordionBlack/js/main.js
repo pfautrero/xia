@@ -113,6 +113,7 @@ Xia.prototype.buildScene = function() {
       })
 
       // cache used over background image
+      // to darken it during detail focus
       var baseCache = new Konva.Rect({
           x: 0,
           y: this.mainScene.y,
@@ -124,6 +125,7 @@ Xia.prototype.buildScene = function() {
 
       // define area to disable canvas events management when
       // mouse is over. Thus, we can reach div located under canvas
+      /*
       var disableArea = new Konva.Rect({
           x: this.mainScene.width  * this.mainScene.ratio,
           y: this.mainScene.y,
@@ -134,26 +136,28 @@ Xia.prototype.buildScene = function() {
       disableArea.on('mouseover touchstart', function() {
           this.canvas.style.pointerEvents="none";
       }.bind(this))
+      */
 
       this.layers = {}
       this.layers.modalBackground = new Konva.Layer()
       this.layers.baseImage = new Konva.Layer()
       this.layers.disableArea = new Konva.Layer()
-      this.layers.zoomLayer = new Konva.Layer()
+      //this.layers.zoomLayer = new Konva.Layer()
       this.layers.mainLayer = new Konva.Layer()
 
       this.layers.modalBackground.add(baseCache)
       this.layers.baseImage.add(baseImage)
-      this.layers.disableArea.add(disableArea)
+      //this.layers.disableArea.add(disableArea)
 
       stage.add(this.layers.modalBackground);
       stage.add(this.layers.baseImage);
-      stage.add(this.layers.disableArea);
-      stage.add(this.layers.zoomLayer);
+      //stage.add(this.layers.disableArea);
+      //stage.add(this.layers.zoomLayer);
       stage.add(this.layers.mainLayer);
 
       for (var i in this.params.details) {
         this.iaObjects[i] = new IaObject({
+          parent : this,
           imageObj: this.imageObj,
           detail: this.params.details[i],
           layer: this.layers.mainLayer,
@@ -162,7 +166,7 @@ Xia.prototype.buildScene = function() {
           iaScene: mainScene,
           background_layer: this.layers.baseImage,
           backgroundCache_layer: this.layers.modalBackground,
-          zoomLayer: this.layers.zoomLayer,
+          //zoomLayer: this.layers.zoomLayer,
           myhooks: this.params.hooks
         })
       }
@@ -171,6 +175,22 @@ Xia.prototype.buildScene = function() {
 
   }.bind(this);
 }
+
+Xia.prototype.reorderItems = function() {
+
+  do {
+    var swap = false
+    for (var j = 0; j < this.iaObjects.length - 1; j++) {
+      if (this.iaObjects[j].group.getZIndex() > this.iaObjects[j+1].group.getZIndex()) {
+        this.iaObjects[j].group.moveDown()
+        swap = true
+        break
+      }
+    }
+  }
+  while (swap)
+}
+
 
 Xia.prototype.addUndoEvents = function() {
 // Events applyed on stage and document
