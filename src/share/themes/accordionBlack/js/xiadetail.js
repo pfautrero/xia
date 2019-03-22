@@ -133,10 +133,10 @@ class XiaDetail {
        this.parent.xiaDetail[i].kineticElement.setStrokeWidth(newStrokeWidth)
     }
 
-    this.parent.zoomLayer.moveToTop()
-    this.parent.group.moveTo(this.parent.zoomLayer)
+    //this.parent.zoomLayer.moveToTop()
+    //this.parent.group.moveTo(this.parent.zoomLayer)
     this.parent.layer.draw()
-    this.parent.zoomLayer.hitGraphEnabled(false)
+    //this.parent.zoomLayer.hitGraphEnabled(false)
     var currentDetail = this
     currentDetail.parent.group.to({
       x : currentDetail.parent.tweenX,
@@ -189,9 +189,9 @@ class XiaDetail {
       this.parent.group.x(this.originalX)
       this.parent.group.y(this.originalY)
       this.reset_state_all(this.parent.xiaDetail)
-      this.parent.group.moveTo(this.parent.layer)
-      this.parent.zoomLayer.moveToBottom()
-      this.parent.zoomLayer.draw()
+      //this.parent.group.moveTo(this.parent.layer)
+      //this.parent.zoomLayer.moveToBottom()
+      //this.parent.zoomLayer.draw()
       this.parent.layer.draw()
       this.parent.backgroundCache_layer.to({opacity : 0})
       //this.parent.backgroundCache_layer.draw()
@@ -286,31 +286,36 @@ class XiaDetail {
   }
 
   touchstart() {
-    var zoomed = (this.parent.iaScene.cursorState.indexOf("ZoomOut.cur") !== -1)
-    //var focused_zoomable = (this.parent.iaScene.cursorState.indexOf("ZoomIn.cur") !== -1)
-    var focused_zoomable = (this.zoomable === true)
-    var focused = this.parent.iaScene.cursorState.indexOf('ZoomFocus.cur')
-
-    if ((this.parent.iaScene.element) && (this.parent.iaScene.element != this.parent)) return
-    if (this.options.indexOf("direct-link") !== -1) {
-      location.href = this.title
+    if ((this.parent.iaScene.element) && (this.parent.iaScene.element.group != this.parent.group)) {
+      return
     }
-    else {
-      this.parent.iaScene.noPropagation = true
-      //if (focused_zoomable && (this.parent.iaScene.element === this.parent)) {
-      if (zoomed) {
-        this.unzoom()
-      }
-      else if (focused_zoomable) {
-        this.parent.iaScene.element = this.parent
-        this.zoom()
+    // promise catched in main.js Xia.prototype.addUndoEvents
+    // We just want to chain stage events just after shape events
+    this.parent.event = new Promise(function(resolve){
+      var zoomed = (this.parent.iaScene.cursorState.indexOf("ZoomOut.cur") !== -1)
+      var focused_zoomable = (this.zoomable === true)
+      var focused = this.parent.iaScene.cursorState.indexOf('ZoomFocus.cur')
+
+      if (this.options.indexOf("direct-link") !== -1) {
+        location.href = this.title
       }
       else {
-        if (this.parent.iaScene.zoomActive === 0) {
-          this.focus()
+        this.parent.iaScene.noPropagation = true
+        if (zoomed) {
+          this.unzoom()
+        }
+        else if (focused_zoomable) {
+          this.parent.iaScene.element = this.parent
+          this.zoom()
+        }
+        else {
+          if (this.parent.iaScene.zoomActive === 0) {
+            this.focus()
+          }
         }
       }
-    }
+      resolve(0)
+    }.bind(this))
   }
   mouseleave(){
 

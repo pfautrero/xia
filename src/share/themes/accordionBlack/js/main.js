@@ -25,6 +25,8 @@
 function Xia(params) {
     "use strict";
     this.params = params
+    if(!('hooks' in this.params)) this.params.hooks = {}
+    if (this.params.hooks == null) this.params.hooks = {}
     if ('duringXiaInit' in this.params.hooks) this.params.hooks.duringXiaInit(this)
     this.initKonva()
     this.start()
@@ -184,6 +186,7 @@ Xia.prototype.addUndoEvents = function() {
     if (!overBox) {
       if (this.mainScene.element == null) return
       for (var j in this.mainScene.element.xiaDetail) {
+        if (this.mainScene.element == null) break
         var xiaDetail = this.mainScene.element.xiaDetail[j]
         if (this.mainScene.zoomActive == 0) {
           this.mainScene.cursorState = 'default'
@@ -196,38 +199,53 @@ Xia.prototype.addUndoEvents = function() {
       this.mainScene.element = null
     }
   }.bind(this), false)
+
   this.stage.on('click', function(e) {
-    if (this.mainScene.zoomActive == 0) {
-      var shape = this.layers.mainLayer.getIntersection(this.stage.getPointerPosition())
-      if ((shape == null) && this.mainScene.element) {
+    if (!('event' in this)) this.event = null
+    if (this.event != null) {
+      this.event.then(function(value){
+        this.manageStage()
+      }.bind(this))
+      this.event = null
+    }
+    else {
+      this.manageStage()
+    }
+    }.bind(this))
+}
+
+Xia.prototype.manageStage = function() {
+  if (this.mainScene.zoomActive == 0) {
+    var shape = this.layers.mainLayer.getIntersection(this.stage.getPointerPosition())
+    if (this.mainScene.element == null) return
+    if ((shape == null) && this.mainScene.element) {
+      for (var j in this.mainScene.element.xiaDetail) {
+        var xiaDetail = this.mainScene.element.xiaDetail[j]
+        this.mainScene.cursorState = 'default'
+        xiaDetail.kineticElement.fire("mouseleave")
+      }
+    }
+    else if (shape != null){
+      if (shape.getXiaParent().parent != this.mainScene.element) {
         for (var j in this.mainScene.element.xiaDetail) {
           var xiaDetail = this.mainScene.element.xiaDetail[j]
           this.mainScene.cursorState = 'default'
           xiaDetail.kineticElement.fire("mouseleave")
         }
-      }
-      else {
-        if (shape.getXiaParent().parent != this.mainScene.element) {
-          for (var j in this.mainScene.element.xiaDetail) {
-            var xiaDetail = this.mainScene.element.xiaDetail[j]
-            this.mainScene.cursorState = 'default'
-            xiaDetail.kineticElement.fire("mouseleave")
-          }
-          this.mainScene.element = null
-        }
+        this.mainScene.element = null
       }
     }
-    else {
-      if (!this.mainScene.element) return
-      if (this.mainScene.element.group.scaleX().toFixed(5) == (this.mainScene.element.agrandissement).toFixed(5)) {
-        for (var j in this.mainScene.element.xiaDetail) {
-          var xiaDetail = this.mainScene.element.xiaDetail[j]
-          xiaDetail.kineticElement.fire("click")
-        }
+  }
+  else {
+    if (!this.mainScene.element) return
+    if (this.mainScene.element.group.scaleX().toFixed(5) == (this.mainScene.element.agrandissement).toFixed(5)) {
+      for (var j in this.mainScene.element.xiaDetail) {
+        if (this.mainScene.element == null) break // used to stop firing events on grouped Konva shapes
+        var xiaDetail = this.mainScene.element.xiaDetail[j]
+        xiaDetail.kineticElement.fire("click")
       }
     }
-  }.bind(this))
-
+  }
 }
 
 Xia.prototype.restart = function() {
