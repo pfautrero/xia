@@ -96,12 +96,10 @@ class XiaDetail {
         kineticElement.setAttrs({opacity:0})
       	kineticElement.to({opacity:1})
       }
-      //kineticElement.moveToTop()
     }
     if (cacheBackground === true) {
       this.parent.backgroundCache_layer.moveToTop()
       this.parent.backgroundCache_layer.to({opacity : 1})
-      //this.parent.backgroundCache_layer.draw()
     }
     this.parent.layer.moveToTop()
     this.parent.layer.draw()
@@ -121,7 +119,6 @@ class XiaDetail {
     this.parent.iaScene.zoomActive = 1
     this.parent.group.zoomActive = 1
     this.parent.layer.moveToTop()
-    //this.kineticElement.moveToTop()
     this.parent.group.moveToTop()
     this.originalX = this.parent.group.x()
     this.originalY = this.parent.group.y()
@@ -132,11 +129,7 @@ class XiaDetail {
     for (var i in this.parent.xiaDetail) {
        this.parent.xiaDetail[i].kineticElement.setStrokeWidth(newStrokeWidth)
     }
-
-    //this.parent.zoomLayer.moveToTop()
-    //this.parent.group.moveTo(this.parent.zoomLayer)
     this.parent.layer.draw()
-    //this.parent.zoomLayer.hitGraphEnabled(false)
     var currentDetail = this
     currentDetail.parent.group.to({
       x : currentDetail.parent.tweenX,
@@ -146,32 +139,8 @@ class XiaDetail {
       easing : Konva.Easings.BackEaseOut,
       duration : 0.5
     })
-    /*
-    var anim = new Konva.Animation(function(frame) {
-        currentDetail.linearTween(this, currentDetail)
-    }, this.parent.zoomLayer)
-    anim.start()
-    */
 
   }
-/*
-  linearTween(anim, currentDetail) {
-    var tempDim = {
-      'x' : currentDetail.originalX + currentDetail.alpha.toFixed(2) * (this.parent.tweenX - currentDetail.originalX),
-      'y' : currentDetail.originalY + currentDetail.alpha.toFixed(2) * (this.parent.tweenY - currentDetail.originalY),
-      'scale' : 1 + currentDetail.alpha.toFixed(2) * (currentDetail.parent.agrandissement - 1)
-    }
-    if (currentDetail.alpha.toFixed(2) <= 1) {
-      currentDetail.alpha = currentDetail.alpha + currentDetail.step
-      currentDetail.parent.group.setPosition({x:tempDim.x, y:tempDim.y})
-      currentDetail.parent.group.scale({x:tempDim.scale,y:tempDim.scale})
-    }
-    else {
-      currentDetail.parent.zoomLayer.hitGraphEnabled(true)
-      anim.stop()
-    }
-  }
-*/
   unzoom() {
 
     if ('unzoom' in this.parent.myhooks) {
@@ -189,12 +158,8 @@ class XiaDetail {
       this.parent.group.x(this.originalX)
       this.parent.group.y(this.originalY)
       this.reset_state_all(this.parent.xiaDetail)
-      //this.parent.group.moveTo(this.parent.layer)
-      //this.parent.zoomLayer.moveToBottom()
-      //this.parent.zoomLayer.draw()
       this.parent.layer.draw()
       this.parent.backgroundCache_layer.to({opacity : 0})
-      //this.parent.backgroundCache_layer.draw()
       this.parent.iaScene.cursorState = "default"
       this.parent.iaScene.element = null
       document.body.style.cursor = "default"
@@ -272,13 +237,10 @@ class XiaDetail {
         kineticElement.stroke(xiaDetail.stroke)
         kineticElement.strokeWidth(xiaDetail.strokeWidth)
       }
-      //kineticElement.moveToTop()
     }
     if (cacheBackground === true) {
       this.parent.backgroundCache_layer.moveToTop()
-      //this.parent.backgroundCache_layer.show()
       this.parent.backgroundCache_layer.to({opacity: 1})
-      //this.parent.backgroundCache_layer.draw()
     }
     this.parent.layer.moveToTop()
     this.parent.layer.draw()
@@ -369,8 +331,6 @@ class XiaDetail {
         }
       }
       this.parent.layer.draw()
-
-      //this.parent.backgroundCache_layer.draw()
     }
   }
 

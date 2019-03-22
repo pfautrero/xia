@@ -123,36 +123,15 @@ Xia.prototype.buildScene = function() {
           fill: this.mainScene.backgroundCacheColor
       })
 
-      // define area to disable canvas events management when
-      // mouse is over. Thus, we can reach div located under canvas
-      /*
-      var disableArea = new Konva.Rect({
-          x: this.mainScene.width  * this.mainScene.ratio,
-          y: this.mainScene.y,
-          width: this.mainScene.width * (1 - this.mainScene.ratio),
-          height: this.mainScene.height
-      })
-
-      disableArea.on('mouseover touchstart', function() {
-          this.canvas.style.pointerEvents="none";
-      }.bind(this))
-      */
-
       this.layers = {}
       this.layers.modalBackground = new Konva.Layer()
       this.layers.baseImage = new Konva.Layer()
-      this.layers.disableArea = new Konva.Layer()
-      //this.layers.zoomLayer = new Konva.Layer()
       this.layers.mainLayer = new Konva.Layer()
-
       this.layers.modalBackground.add(baseCache)
       this.layers.baseImage.add(baseImage)
-      //this.layers.disableArea.add(disableArea)
 
       stage.add(this.layers.modalBackground);
       stage.add(this.layers.baseImage);
-      //stage.add(this.layers.disableArea);
-      //stage.add(this.layers.zoomLayer);
       stage.add(this.layers.mainLayer);
 
       for (var i in this.params.details) {
@@ -166,7 +145,6 @@ Xia.prototype.buildScene = function() {
           iaScene: mainScene,
           background_layer: this.layers.baseImage,
           backgroundCache_layer: this.layers.modalBackground,
-          //zoomLayer: this.layers.zoomLayer,
           myhooks: this.params.hooks
         })
       }

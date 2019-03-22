@@ -71,7 +71,7 @@ class XiaSprite extends XiaDetail {
            }
            this.addEventsManagement()
            this.kineticElement.setXiaParent(this);
-           this.kineticElement.setIaObject(this.parent);           
+           this.kineticElement.setIaObject(this.parent);
            this.parent.nbElements--
            if (this.parent.nbElements == 0) this.parent.resolve("All elements created")
       }.bind(this)

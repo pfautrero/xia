@@ -24,10 +24,6 @@ function IaObject(params) {
     this.parent = params.parent
     this.xiaDetail = []
     this.jsonSource = params.detail
-    //this.jsonSource.maxX = parseFloat(this.jsonSource.maxX)
-    //this.jsonSource.minX = parseFloat(this.jsonSource.minX)
-    //this.jsonSource.maxY = parseFloat(this.jsonSource.maxY)
-    //this.jsonSource.minY = parseFloat(this.jsonSource.minY)
     this.layer = params.layer;
     this.background_layer = params.background_layer;
     this.backgroundCache_layer = params.backgroundCache_layer;
@@ -36,7 +32,6 @@ function IaObject(params) {
     this.idText = params.idText;
     this.zoomLayer = params.zoomLayer;
     this.iaScene = params.iaScene
-    //this.backgroundCache_layer.hide()
     this.backgroundCache_layer.draw()
     this.agrandissement = 0;
     this.zoomActive = 0;
