@@ -89,8 +89,10 @@ class XiaPath extends XiaDetail {
     cropBackgroundImage() {
       // crop background image to suit shape box
       var cropperCanvas = document.createElement('canvas')
-      cropperCanvas.setAttribute('width', (this.detail.maxX - Math.max(this.detail.minX, 0)) * this.parent.iaScene.coeff)
-      cropperCanvas.setAttribute('height', (this.detail.maxY - Math.max(this.detail.minY, 0)) * this.parent.iaScene.coeff)
+      //cropperCanvas.setAttribute('width', (this.detail.maxX - Math.max(this.detail.minX, 0)) * this.parent.iaScene.coeff)
+      //cropperCanvas.setAttribute('height', (this.detail.maxY - Math.max(this.detail.minY, 0)) * this.parent.iaScene.coeff)
+      cropperCanvas.setAttribute('width', (this.detail.maxX - Math.max(this.detail.minX, 0)) * 1)
+      cropperCanvas.setAttribute('height', (this.detail.maxY - Math.max(this.detail.minY, 0)) * 1)
 
       var source = {
        'x' : Math.max(this.detail.minX, 0) * this.parent.iaScene.originalRatio,
@@ -101,8 +103,10 @@ class XiaPath extends XiaDetail {
       var target = {
        'x' : Math.max(this.detail.minX * (-1), 0) * this.parent.iaScene.coeff,
        'y' : Math.max(this.detail.minY * (-1), 0) * this.parent.iaScene.coeff,
-       'width' : (this.detail.maxX - Math.max(this.detail.minX, 0)) * this.parent.iaScene.coeff,
-       'height' : (this.detail.maxY - Math.max(this.detail.minY, 0)) * this.parent.iaScene.coeff
+       //'width' : (this.detail.maxX - Math.max(this.detail.minX, 0)) * this.parent.iaScene.coeff,
+       //'height' : (this.detail.maxY - Math.max(this.detail.minY, 0)) * this.parent.iaScene.coeff
+       'width' : (this.detail.maxX - Math.max(this.detail.minX, 0)) * 1,
+       'height' : (this.detail.maxY - Math.max(this.detail.minY, 0)) * 1
       }
       cropperCanvas.getContext('2d').drawImage(
           this.parent.imageObj,
@@ -119,8 +123,11 @@ class XiaPath extends XiaDetail {
       cropedImage.src = cropperCanvas.toDataURL()
       cropedImage.onload = function() {
           this.kineticElement.backgroundImage = cropedImage
-          this.kineticElement.backgroundImageOwnScaleX = 1 / this.parent.iaScene.coeff
-          this.kineticElement.backgroundImageOwnScaleY = 1 / this.parent.iaScene.coeff
+          //this.kineticElement.backgroundImageOwnScaleX = 1 / this.parent.iaScene.coeff
+          //this.kineticElement.backgroundImageOwnScaleY = 1 / this.parent.iaScene.coeff
+          this.kineticElement.backgroundImageOwnScaleX = 1
+          this.kineticElement.backgroundImageOwnScaleY = 1
+
           this.kineticElement.fillPatternRepeat('no-repeat')
           this.kineticElement.fillPatternX(Math.max(this.detail.minX, 0))
           this.kineticElement.fillPatternY(Math.max(this.detail.minY, 0))
