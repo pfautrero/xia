@@ -38,7 +38,7 @@ if sys.platform.startswith('win32'):
 class IADialog(Tkinter.Frame):
 
     def __init__(self, root, console, langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib,
-                 sha1Lib, svgfile=''):
+                 sha1Lib, quantizeLib, svgfile=''):
 
         Tkinter.Frame.__init__(self, root)
 
@@ -56,6 +56,7 @@ class IADialog(Tkinter.Frame):
         self.labjsLib = labjsLib
         self.kineticLib = kineticLib
         self.sha1Lib = sha1Lib
+        self.quantizeLib = quantizeLib
         self.jqueryLib = jqueryLib
         self.root = root
         self.resize = 3
@@ -302,6 +303,7 @@ class IADialog(Tkinter.Frame):
                     shutil.copy(self.jqueryLib, "{}/{}/js".format(self.dirname, filenamewithoutext))
                     shutil.copy(self.kineticLib, "{}/{}/js".format(self.dirname, filenamewithoutext))
                     shutil.copy(self.sha1Lib, "{}/{}/js".format(self.dirname, filenamewithoutext))
+                    shutil.copy(self.quantizeLib, "{}/{}/js".format(self.dirname, filenamewithoutext))
 
                 self.imageActive.generateJSON()
                 if self.options['export_type'] == "local":

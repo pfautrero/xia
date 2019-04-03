@@ -61,6 +61,7 @@ if __name__=='__main__':
     jqueryLib = config.get('paths', 'jqueryLib')
     kineticLib = config.get('paths', 'kineticLib')
     sha1Lib = config.get('paths', 'sha1Lib')
+    quantizeLib = config.get('paths', 'quantizeLib')
 
     arguments = docopt(__doc__)
 
@@ -76,7 +77,7 @@ if __name__=='__main__':
         options['quality'] = arguments["--quality"]
         options['export_type'] = arguments["--export"]
 
-        xia = XIAConsole(langPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, options, console)
+        xia = XIAConsole(langPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, quantizeLib, options, console)
         xia.createIA()
     else:
         filename = ""
@@ -88,6 +89,6 @@ if __name__=='__main__':
         root.resizable(0,0)
         img = Tkinter.PhotoImage(file=imagesPath + '/xia64.gif')
         root.tk.call('wm', 'iconphoto', root._w, img)
-        IADialog(root, console, langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib,
+        IADialog(root, console, langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, quantizeLib,
                  filename).pack(side="left")
         root.mainloop()

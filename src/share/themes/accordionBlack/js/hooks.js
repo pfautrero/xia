@@ -201,7 +201,7 @@ hooks.prototype.loaded = function(xiaObject) {
     this.afterDone = true
 
     var mainScene = xiaObject.mainScene
-    
+
     $("#splash").fadeOut("slow", function(){
       $("#loader").hide()
     })

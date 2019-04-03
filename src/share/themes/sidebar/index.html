@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>{{TITLE}}</title>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="{{DESCRIPTION}}" />
+    <meta name="author" content="{{AUTHOR}}" />
+    <meta name="keywords" content="{{KEYWORDS}}" />
+
+    <meta property="og:title" content="{{TITLE}}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content=""/>
+    <meta property="og:description" content="{{DESCRIPTION}}"/>
+    <meta property="og:image" content="http://xia.dane.ac-versailles.fr/img/logo.jpg"/>
+
+    <link rel="stylesheet" type="text/css" href="{{MainCSS}}"/>
+    <script type="text/javascript" src="{{lazyDatasJS}}"></script>
+    <script type="text/javascript" src="{{hooksJS}}"></script>
+    <script type="text/javascript" src="{{konvaJS}}"></script>
+    <script type="text/javascript" src="{{quantizeJS}}"></script>
+    <script type="text/javascript" src="{{xiaJS}}"></script>
+    <script type="text/javascript" src="{{sha1JS}}"></script>
+</head>
+<body>
+  <div id="wrapper">
+    <section id="sidebar">
+      <article id="description" aria-live="polite" tabindex="1"></article>
+      <img id="arrow_down" role="button" alt="voir plus bas" src="{{arrow_down}}" tabindex="2">
+      <section id="alert_mouseover" role='alert' aria-label="survol de" aria-live="assertive"></section>
+    </section>
+    <section role='img' id="interactive_image" tabindex="3"></section>
+    <div class="options">
+      <img id="reload" role="button" alt="recharger" src="{{reload}}" tabindex="4" class="option_button">
+      <img id="fullscreen" role="button" alt="passer en plein écran" src="{{fullscreen}}" tabindex="5" class="option_button">
+    </div>
+  </div>
+  {{datasJS}}
+  <script>
+    var sidebarApp = new MyApp({
+      'wrapper' : "description",
+      'header' : "title",
+      'content' : "body_text",
+      'footer' : "bottom_content",
+      'scrolldown_button' : "arrow_down",
+      'sidebar' : "sidebar",
+      'alert_mouseover' : 'alert_mouseover',
+      'fullscreen' : "fullscreen",
+      'reload' : "reload"
+    })
+    var xiaInstance = new Xia({
+      'hooks' : sidebarApp,
+      'targetID' : "interactive_image",
+      'scene' : scene,
+      'details' : details
+    })
+  </script>
+</body>
+</html>

@@ -26,7 +26,7 @@ from pikipiki import PageFormatter
 
 class XIAConsole():
 
-    def __init__(self, langPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, options, console):
+    def __init__(self, langPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, quantizeLib, options, console):
 
         self.themesPath = themesPath
         self.langPath = langPath
@@ -34,6 +34,7 @@ class XIAConsole():
         self.labjsLib = labjsLib
         self.kineticLib = kineticLib
         self.sha1Lib = sha1Lib
+        self.quantizeLib = quantizeLib
         self.jqueryLib = jqueryLib
         self.resize = options['quality']
         self.filename = options['input_file']
@@ -80,6 +81,7 @@ class XIAConsole():
             shutil.copy(self.jqueryLib , self.dirname + '/js')
             shutil.copy(self.kineticLib , self.dirname + '/js')
             shutil.copy(self.sha1Lib , self.dirname + '/js')
+            shutil.copy(self.quantizeLib , self.dirname + '/js')
 
         maxNumPixels = self.defineMaxPixels(self.resize)
         self.imageActive.analyzeSVG(self.filename, maxNumPixels)
