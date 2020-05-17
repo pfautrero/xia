@@ -1,10 +1,10 @@
 class MyApp {
-  constructor(params){
+  constructor (params) {
     this.article = {
-      wrapper : document.getElementById(params.wrapper),
-      footer : params.footer,
-      scrolldown_button : document.getElementById(params.scrolldown_button),
-      template : `
+      wrapper: document.getElementById(params.wrapper),
+      footer: params.footer,
+      scrolldown_button: document.getElementById(params.scrolldown_button),
+      template: `
         <header id='{ID_HEADER}' aria-label='titre'>{TITLE}</header>
         <section id='{ID_CONTENT}' aria-label='description'>{DESCRIPTION}</section>
         <footer id='{ID_FOOTER}'></footer>
@@ -19,96 +19,53 @@ class MyApp {
     this.reload = params.reload
     this.already_loaded = false
   }
-  rescale(xiaObject){
-    setTimeout(function(){
+  rescale (xiaObject) {
+    setTimeout(function () {
       this.mainScene.scaleScene(this)
       this.restart()
     }.bind(xiaObject), 200)
   }
-  _fullScreenAbility(xiaObject) {
-    document.getElementById(this.fullscreen).addEventListener("click", function() {
+  _fullScreenAbility (xiaObject) {
+    document.getElementById(this.fullscreen).addEventListener('click', function () {
       this._toggleFullScreen()
     }.bind(this), false)
-    document.addEventListener("fullscreenchange", function(){
+    document.addEventListener('fullscreenchange', function () {
       this.rescale(xiaObject)
     }.bind(this, xiaObject), false)
-    document.addEventListener("mozfullscreenchange", function(){
+    document.addEventListener('mozfullscreenchange', function () {
       this.rescale(xiaObject)
     }.bind(this, xiaObject), false)
-    document.addEventListener("webkitfullscreenchange", function(){
+    document.addEventListener('webkitfullscreenchange', function () {
       this.rescale(xiaObject)
     }.bind(this, xiaObject), false)
   }
-  _toggleFullScreen() {
-    if (!document.fullscreenElement &&    // alternative standard method
-      !document.mozFullScreenElement && !document.webkitFullscreenElement) {  // current working methods
+  _toggleFullScreen () {
+    if (!document.fullscreenElement && // alternative standard method
+      !document.mozFullScreenElement && !document.webkitFullscreenElement) { // current working methods
       if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen();
+        document.documentElement.requestFullscreen()
       } else if (document.documentElement.mozRequestFullScreen) {
-        document.documentElement.mozRequestFullScreen();
+        document.documentElement.mozRequestFullScreen()
       } else if (document.documentElement.webkitRequestFullscreen) {
-        document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+        document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT)
       }
     } else {
       if (document.cancelFullScreen) {
-        document.cancelFullScreen();
+        document.cancelFullScreen()
       } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
+        document.mozCancelFullScreen()
       } else if (document.webkitCancelFullScreen) {
-        document.webkitCancelFullScreen();
+        document.webkitCancelFullScreen()
       }
     }
   }
 
-  handle_question() {
-    var button_click = function() {
-      var target = this.dataset.target
-      var password_hash = this.dataset.password
-      var response = document.getElementById("response_" + target)
-      var form = document.getElementById("form_" + target)
-      if (response.style.display == "none") response.innerHTML = response.dataset.encrypted_content
-      response.style.display = (response.style.display == "none") ? "block" : "none"
-
-    }
-    var unlock_input = function(e) {
-      e.preventDefault()
-      var entered_password = this.parentNode.querySelector('input[type=text]').value
-      var hash_password = this.dataset.password
-      var target = this.dataset.target
-      var response = document.getElementById("response_" + target)
-      var form = document.getElementById("form_" + target)
-      var sha1Digest= new createJs(true)
-      sha1Digest.update(entered_password.encode())
-      var hash = sha1Digest.digest()
-      if (hash == hash_password) {
-        var encrypted_content = response.innerHTML
-        response.dataset.encrypted_content = encrypted_content
-        response.innerHTML = XORCipher.decode(entered_password, encrypted_content).decode()
-        response.style.display = "block"
-        form.style.display = "none"
-      }
-    };
-    var buttons = document.querySelectorAll(".button")
-    buttons.forEach(function(button){
-      var password_hash = button.dataset.password
-      if (password_hash) {
-        var target = button.dataset.target
-        var form = document.getElementById("form_" + target)
-        form.style.display = "flex"
-        var input = document.querySelector("#form_" + target + " input[type=text]")
-        input.value=""
-        input.focus()
-      }
-      else {
-        button.addEventListener("click", button_click)
-        button.addEventListener("touchstart", button_click)
-      }
-
-    })
-    var unlock_buttons = document.querySelectorAll(".unlock input[type=submit]")
-    unlock_buttons.forEach(function(unlock_button){
-      unlock_button.addEventListener("click", unlock_input)
-      unlock_button.addEventListener("touchstart", unlock_input)
+  applyFilter (params) {
+    var targetPattern = params.target
+    var handler = params.handler
+    var targets = document.querySelectorAll(targetPattern)
+    targets.forEach(function (target) {
+      handler(target)
     })
   }
 
@@ -117,89 +74,160 @@ class MyApp {
   // We show the article content
   // about zoomed detail
   //
-  update_content(title, desc) {
 
+  buttonClick () {
+    var target = this.dataset.target
+    // var password_hash = this.dataset.password
+    var response = document.getElementById('response_' + target)
+    // var form = document.getElementById('form_' + target)
+    if (response.style.display === 'none') response.innerHTML = response.dataset.encrypted_content
+    response.style.display = (response.style.display === 'none') ? 'block' : 'none'
+  }
+  unlockInput (e) {
+    e.preventDefault()
+    var enteredPassword = this.parentNode.querySelector('input[type=text]').value
+    var hashPassword = this.dataset.password
+    var target = this.dataset.target
+    var response = document.getElementById('response_' + target)
+    var form = document.getElementById('form_' + target)
+    var sha1Digest = new createJs(true)
+    sha1Digest.update(enteredPassword.encode())
+    var hash = sha1Digest.digest()
+    if (hash === hashPassword) {
+      var encryptedContent = response.innerHTML
+      response.dataset.encrypted_content = encryptedContent
+      response.innerHTML = XORCipher.decode(enteredPassword, encryptedContent).decode()
+      response.style.display = 'block'
+      form.style.display = 'none'
+    }
+  }
+
+  updateContent (title, desc) {
     // remove child nodes
     // We suppose attached events are removed implicitly
-    while (this.article.wrapper.firstChild)
+    while (this.article.wrapper.firstChild) {
       this.article.wrapper.removeChild(this.article.wrapper.firstChild)
+    }
 
     // retrieve title and description
     this.article.wrapper.innerHTML = this.article.template
       .replace('{TITLE}', title)
       .replace('{DESCRIPTION}', desc)
 
-    // load iframes
-    var iframes = document.querySelectorAll("[data-iframe]")
-    iframes.forEach(function(item){
-      var source = item.dataset.iframe
-      var iframe = document.createElement("iframe")
-      iframe.src = source
-      item.append(iframe)
+    // this.load_embed_contents()
+    this.applyFilter({
+      target: '[data-iframe]',
+      handler: function (target) {
+        var source = target.dataset.iframe
+        var iframe = document.createElement('iframe')
+        iframe.src = source
+        target.append(iframe)
+      }
     })
-    // handle questions
-    this.handle_question()
 
+    this.applyFilter({
+      target: '.flickr_oembed',
+      handler: function (target) {
+        var source = target.dataset.oembed
+        var jsonpHandler = function (data) {
+          var url = data.url
+          var newimg = document.createElement('img')
+          newimg.src = url
+          target.append(newimg)
+        }
+        var script = document.createElement('script')
+        script.type = 'text/javascript'
+        script.src = 'https://www.flickr.com/services/oembed/?jsoncallback=jsonpHandler&format=json&url=' + source
+        document.getElementsByTagName('head')[0].appendChild(script)
+      }
+    })
+
+    this.applyFilter({
+      target: '.button',
+      handler: function (button) {
+        var passwordHash = button.dataset.password
+        if (passwordHash) {
+          var target = button.dataset.target
+          var form = document.getElementById('form_' + target)
+          form.style.display = 'flex'
+          var input = document.querySelector('#form_' + target + ' input[type=text]')
+          input.value = ''
+          input.focus()
+        } else {
+          button.addEventListener('click', this.buttonClick)
+          button.addEventListener('touchstart', this.buttonClick)
+        }
+      }.bind(this)
+    })
+
+    this.applyFilter({
+      target: '.unlock input[type=submit]',
+      handler: function (unlockButton) {
+        unlockButton.addEventListener('click', this.unlockInput)
+        unlockButton.addEventListener('touchstart', this.unlockInput)
+      }.bind(this)
+    })
+
+    // this.handle_question()
     // show article
     this.article.wrapper.style.opacity = 1
     var box = this.article.wrapper.getBoundingClientRect()
     this.article.wrapper.scrollBy({
       top: box.height * (-1),
       behavior: 'auto'
-    });
-
+    })
   }
   //
   // hook for Xia Mouseover
   //
-  mouseover(el) {
+  mouseover (el) {
     // for accessibility feature
     this.alert_mouseover.innerHTML = el.title
   }
   //
   // hook for Xia Zoom
   //
-  zoom(el) {
+  zoom (el) {
     var delay = 0
-    if (this.article.wrapper.style.opacity == 1) {
+    if (this.article.wrapper.style.opacity === 1) {
       this.article.wrapper.style.opacity = 0
       delay = 500
     }
-    setTimeout(function(){
-      this.update_content(el.title, el.desc)
-      this.manage_scrolldown_button()
+    setTimeout(function () {
+      this.updateContent(el.title, el.desc)
+      this.manageScrolldownButton()
     }.bind(this), delay)
-    //return false
+    // return false
   }
   //
   // hook for Xia Unzoom
   //
-  unzoom(el) {
+  unzoom (el) {
     this.article.scrolldown_button.style.opacity = 0
-    //this.article.wrapper.style.opacity = 0
-    //return false
+    // this.article.wrapper.style.opacity = 0
+    // return false
   }
   //
   // called when clicking on arrow to scroll down article
   //
-  scrolldown(event){
+  scrolldown (event) {
     var article = this.article.wrapper.getBoundingClientRect()
     this.article.wrapper.scrollBy({
       top: article.height / 2,
       behavior: 'smooth'
-    });
+    })
     event.stopPropagation()
   }
-  manage_scrolldown_button(){
-    setTimeout(function(){
+  manageScrolldownButton () {
+    setTimeout(function () {
       var bottom = document.getElementById(this.article.footer).getBoundingClientRect()
       var article = this.article.wrapper.getBoundingClientRect()
       var sidebar = this.sidebar.getBoundingClientRect()
       if (article.height < bottom.top) {
-        this.article.scrolldown_button.style.top = "{TOP}px"
-          .replace("{TOP}", article.height - 40)
-        this.article.scrolldown_button.style.left = "{LEFT}px"
-          .replace("{LEFT}", sidebar.width / 2 - 15)
+        this.article.scrolldown_button.style.top = '{TOP}px'
+          .replace('{TOP}', article.height - 40)
+        this.article.scrolldown_button.style.left = '{LEFT}px'
+          .replace('{LEFT}', sidebar.width / 2 - 15)
         this.article.scrolldown_button.style.opacity = 1
       }
     }.bind(this), 500)
@@ -207,9 +235,9 @@ class MyApp {
   //
   // hook for Xia Loaded
   //
-  loaded(XiaObject) {
+  loaded (XiaObject) {
     // show title and main description
-    this.update_content(
+    this.updateContent(
       XiaObject.params.scene.intro_title,
       XiaObject.params.scene.intro_detail)
 
@@ -219,93 +247,84 @@ class MyApp {
 
     var container = XiaObject.stage.container()
     container.addEventListener('keydown', function (e) {
-      if (e.shiftKey && (e.key === "Tab")) {
-        if (XiaObject.mainScene.zoomActive == 1) {
+      if (e.shiftKey && (e.key === 'Tab')) {
+        if (XiaObject.mainScene.zoomActive === 1) {
           e.preventDefault()
           return
         }
         if (XiaObject.focusedObj !== null) {
           XiaObject.focusedObj--
           if (XiaObject.focusedObj >= 0) {
-            XiaObject.iaObjects[XiaObject.focusedObj+1].xiaDetail[0].kineticElement.fire("mouseleave")
-            XiaObject.iaObjects[XiaObject.focusedObj].xiaDetail[0].kineticElement.fire("mouseover")
+            XiaObject.iaObjects[XiaObject.focusedObj + 1].xiaDetail[0].kineticElement.fire('mouseleave')
+            XiaObject.iaObjects[XiaObject.focusedObj].xiaDetail[0].kineticElement.fire('mouseover')
             e.preventDefault()
+          } else {
+            XiaObject.iaObjects[0].xiaDetail[0].kineticElement.fire('mouseleave')
+            XiaObject.focusedObj = null
           }
-          else {
-            XiaObject.iaObjects[0].xiaDetail[0].kineticElement.fire("mouseleave")
-            XiaObject.focusedObj = null;
-          }
-        }
-        else {
-          XiaObject.iaObjects[0].xiaDetail[0].kineticElement.fire("mouseover")
+        } else {
+          XiaObject.iaObjects[0].xiaDetail[0].kineticElement.fire('mouseover')
           e.preventDefault()
         }
-      }
-      else if (e.key === "Tab") {
-        if (XiaObject.mainScene.zoomActive == 1) {
+      } else if (e.key === 'Tab') {
+        if (XiaObject.mainScene.zoomActive === 1) {
           e.preventDefault()
           return
         }
         if (XiaObject.focusedObj !== null) {
           XiaObject.focusedObj++
           if (XiaObject.focusedObj < XiaObject.iaObjects.length) {
-            XiaObject.iaObjects[XiaObject.focusedObj-1].xiaDetail[0].kineticElement.fire("mouseleave")
-            XiaObject.iaObjects[XiaObject.focusedObj].xiaDetail[0].kineticElement.fire("mouseover")
+            XiaObject.iaObjects[XiaObject.focusedObj - 1].xiaDetail[0].kineticElement.fire('mouseleave')
+            XiaObject.iaObjects[XiaObject.focusedObj].xiaDetail[0].kineticElement.fire('mouseover')
             e.preventDefault()
+          } else {
+            XiaObject.iaObjects[XiaObject.iaObjects.length - 1].xiaDetail[0].kineticElement.fire('mouseleave')
+            XiaObject.focusedObj = null
           }
-          else {
-            XiaObject.iaObjects[XiaObject.iaObjects.length-1].xiaDetail[0].kineticElement.fire("mouseleave")
-            XiaObject.focusedObj = null;
-          }
-        }
-        else {
-          XiaObject.iaObjects[0].xiaDetail[0].kineticElement.fire("mouseover")
+        } else {
+          XiaObject.iaObjects[0].xiaDetail[0].kineticElement.fire('mouseover')
           e.preventDefault()
         }
-      }
-      else if (e.key === "Enter") {
+      } else if (e.key === 'Enter') {
         if (XiaObject.focusedObj !== null) {
           var mouseover = false
-          if (XiaObject.mainScene.zoomActive == 1) mouseover = true
-          XiaObject.iaObjects[XiaObject.focusedObj].xiaDetail[0].kineticElement.fire("click")
-          if (mouseover) XiaObject.iaObjects[XiaObject.focusedObj].xiaDetail[0].kineticElement.fire("mouseover")
+          if (XiaObject.mainScene.zoomActive === 1) mouseover = true
+          XiaObject.iaObjects[XiaObject.focusedObj].xiaDetail[0].kineticElement.fire('click')
+          if (mouseover) XiaObject.iaObjects[XiaObject.focusedObj].xiaDetail[0].kineticElement.fire('mouseover')
         }
-      }
-      else if (e.key === "Escape") {
+      } else if (e.key === 'Escape') {
         e.preventDefault()
         if (XiaObject.focusedObj !== null) {
-          if (XiaObject.mainScene.zoomActive == 1) {
-            XiaObject.iaObjects[XiaObject.focusedObj].xiaDetail[0].kineticElement.fire("click")
-          }
-          else {
-            XiaObject.iaObjects[XiaObject.focusedObj].xiaDetail[0].kineticElement.fire("mouseleave")
+          if (XiaObject.mainScene.zoomActive === 1) {
+            XiaObject.iaObjects[XiaObject.focusedObj].xiaDetail[0].kineticElement.fire('click')
+          } else {
+            XiaObject.iaObjects[XiaObject.focusedObj].xiaDetail[0].kineticElement.fire('mouseleave')
           }
           XiaObject.focusedObj = null
         }
       }
-    });
+    })
 
-
-    this.manage_scrolldown_button()
+    this.manageScrolldownButton()
     // Choose color background
     var quantizeImage = new Quantization()
     quantizeImage.setImage(XiaObject.imageObj)
-    var dominant_color = quantizeImage.getDominantColor()
+    var dominantColor = quantizeImage.getDominantColor()
     document.getElementById(XiaObject.params.targetID).style.backgroundColor = 'rgba(RED, GREEN, BLUE, 255)'
-      .replace('RED', dominant_color.red)
-      .replace('GREEN', dominant_color.green)
-      .replace('BLUE', dominant_color.blue)
+      .replace('RED', dominantColor.red)
+      .replace('GREEN', dominantColor.green)
+      .replace('BLUE', dominantColor.blue)
 
     // binding events
     this._fullScreenAbility(XiaObject)
-    document.getElementById(this.reload).addEventListener("click", function(e){
+    document.getElementById(this.reload).addEventListener('click', function (e) {
       this.restart()
       e.preventDefault()
     }.bind(XiaObject))
-    this.article.scrolldown_button.addEventListener("click", this.scrolldown.bind(this))
-    this.article.scrolldown_button.addEventListener("touchstart", this.scrolldown.bind(this))
-    this.article.scrolldown_button.addEventListener("keypress", function(e){
-      if (e.key == "Enter") this.scrolldown(e)
+    this.article.scrolldown_button.addEventListener('click', this.scrolldown.bind(this))
+    this.article.scrolldown_button.addEventListener('touchstart', this.scrolldown.bind(this))
+    this.article.scrolldown_button.addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') this.scrolldown(e)
     }.bind(this))
   }
 }

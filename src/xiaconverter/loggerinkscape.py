@@ -15,7 +15,7 @@
 #
 # @author : pascal.fautrero@gmail.com
 
-from logger import Logger
+from .logger import Logger
 import inkex
 
 class LoggerInkscape(Logger):

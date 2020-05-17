@@ -19,9 +19,9 @@
 #import os, shutil
 import inkex
 import tempfile
-import Tkinter
+import tkinter
 import os
-import ConfigParser
+import configparser
 from xiaconverter.mainwindow import IADialog
 from xiaconverter.loggerinkscape import LoggerInkscape
 
@@ -46,7 +46,7 @@ class ImageActive(inkex.Effect):
 
         # retrieve paths
 
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         config.read(inkexWorkingDir + "/xia.cnf")
         numVersion = config.get('version', 'numVersion')
         releaseVersion = config.get('version', 'releaseVersion')

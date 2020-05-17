@@ -17,7 +17,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 """
 
 # source code from http://code.activestate.com/recipes/576936/
-import Tkinter
+import tkinter
+import tkinter.filedialog
 import time
 
 class Splash:
@@ -32,9 +33,9 @@ class Splash:
         # Hide the root while it is built.
         #self.__root.withdraw()
         # Create components of splash screen.
-        window = Tkinter.Toplevel(self.__root)
-        canvas = Tkinter.Canvas(window)
-        splash = Tkinter.PhotoImage(master=window, file=self.__file)
+        window = tkinter.Toplevel(self.__root)
+        canvas = tkinter.Canvas(window)
+        splash = tkinter.PhotoImage(master=window, file=self.__file)
         # Get the screen's width and height.
         scrW = window.winfo_screenwidth()
         scrH = window.winfo_screenheight()

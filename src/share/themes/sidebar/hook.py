@@ -31,7 +31,7 @@ class hook:
             t = gettext.translation("xia-converter", langPath, languages=[locale.getdefaultlocale()[0]])
         except:
             t = gettext.translation("xia-converter", langPath, languages=['en_US'])
-        translate = t.ugettext
+        translate = t.gettext
 
         self.root = root
         self.iaobject = iaobject
@@ -45,8 +45,8 @@ class hook:
     def generateIndex(self,filePath, templatePath, localFolder):
         """ generate index file"""
 
-        with open(templatePath,"r") as template:
-            final_index = template.read().decode("utf-8")
+        with open(templatePath,"rb") as template:
+            final_index = template.read().decode()
 
             metadatas = ""
             metadatas += self.add_metadata(self.iaobject.scene["creator"])
@@ -90,5 +90,5 @@ class hook:
                 final_index = final_index.replace("{{xiaJS}}", localFolder +"/js/xia.js")
                 final_index = final_index.replace("{{hooksJS}}", localFolder +"/js/hooks.js")
                 final_index = final_index.replace("{{quantizeJS}}", localFolder +"/js/quantization.min.js")
-        with open(filePath,"w") as indexfile:
+        with open(filePath,"wb") as indexfile:
             indexfile.write(final_index.encode("utf-8"))

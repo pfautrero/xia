@@ -1,3 +1,15 @@
+Version 3.0-beta1 - xx/xx/2020
+-------------------------------
+- Compatible python3
+- Compatible Inkscape 1
+- Suppression des thèmes popBlue, popYellow, buttonBlue et audioBrown
+- Ajout d'un nouveau thème orienté mobiles baptisé "sidebar"
+- Les images interactives peuvent être intégrées dans une page web sans utiliser d'iframe
+- La qualité de l'image zoomée dans les images interactives a été grandement améliorée
+- Ajout d'un nouveau type d'objet : les sprites
+- Doc pour les développeurs qui veulent intégrer une image interactive dans leurs pages web
+- Suppression de la dépendance à jquery
+
 Version 2.2 - 21/03/2017
 -------------------------------
 
@@ -12,7 +24,7 @@ Version 2.1 - 15/03/2017
 
 - Ajout des fichiers de langue portugais
 - popBlue : Les images sont désormais centrées
-- popBlue : Le scroll dans les popup ne concerne plus que le texte (le bouton quitter reste en haut) 
+- popBlue : Le scroll dans les popup ne concerne plus que le texte (le bouton quitter reste en haut)
 - pikipiki : Les liens vers les PDF sont pris en compte
 - pikipiki : Les titres markdown sont pris en compte
 

@@ -15,25 +15,25 @@
 #
 # @author : pascal.fautrero@gmail.com
 
-import Tkinter
-import tkFileDialog
-from tooltip import ToolTip
+import tkinter
+import tkinter.filedialog
+from .tooltip import ToolTip
 
 import gettext
 import locale
 
 
-class IAParams(Tkinter.Frame):
+class IAParams(tkinter.Frame):
 
     def __init__(self, root, parent, langPath, imagesPath):
 
-        Tkinter.Frame.__init__(self, root)
+        tkinter.Frame.__init__(self, root)
 
         try:
             t = gettext.translation("xia-converter", langPath, languages=[locale.getdefaultlocale()[0]])
         except:
             t = gettext.translation("xia-converter", langPath, languages=['en_US'])
-        translate = t.ugettext
+        translate = t.gettext
 
         self.root = root
         self.parent = parent
@@ -48,37 +48,37 @@ class IAParams(Tkinter.Frame):
 
         # define images
         self.resize_img = {}
-        self.resize_img[0]= Tkinter.PhotoImage(file=imagesPath + \
+        self.resize_img[0]= tkinter.PhotoImage(file=imagesPath + \
             "/resize1.gif")
-        self.resize_img[1]= Tkinter.PhotoImage(file=imagesPath + \
+        self.resize_img[1]= tkinter.PhotoImage(file=imagesPath + \
             "/resize2.gif")
-        self.resize_img[2]= Tkinter.PhotoImage(file=imagesPath + \
+        self.resize_img[2]= tkinter.PhotoImage(file=imagesPath + \
             "/resize3.gif")
-        self.resize_img[3]= Tkinter.PhotoImage(file=imagesPath + \
+        self.resize_img[3]= tkinter.PhotoImage(file=imagesPath + \
             "/resize4.gif")
 
-        params_img= Tkinter.PhotoImage(file=imagesPath + \
+        params_img= tkinter.PhotoImage(file=imagesPath + \
             "/params.gif")
 
         self.indexStandalone_img = {}
-        self.indexStandalone_img[0] = Tkinter.PhotoImage(file=imagesPath + \
+        self.indexStandalone_img[0] = tkinter.PhotoImage(file=imagesPath + \
             "/indexStandalone_disabled.gif")
-        self.indexStandalone_img[1] = Tkinter.PhotoImage(file=imagesPath + \
+        self.indexStandalone_img[1] = tkinter.PhotoImage(file=imagesPath + \
             "/indexStandalone_enabled.gif")
 
         # define buttons
 
-        self.button_resize = Tkinter.Button(self, \
+        self.button_resize = tkinter.Button(self, \
           image=self.resize_img[self.resizeCoeff % 4], \
-          relief=Tkinter.FLAT, bd=0, height=150, width=150, \
+          relief=tkinter.FLAT, bd=0, height=150, width=150, \
           command=self.resize)
         self.button_resize.image = self.resize_img[self.resizeCoeff % 4]
         self.button_resize.grid(row=0,column=0, columnspan=1,sticky='W')
         tooltip = ToolTip(self.button_resize,translate("modify image resolution"), None, 0.1)
 
-        self.button_indexStandalone = Tkinter.Button(self, \
+        self.button_indexStandalone = tkinter.Button(self, \
           image=self.indexStandalone_img[self.indexStandalone_param], \
-          relief=Tkinter.FLAT, bd=0, height=150, width=150, \
+          relief=tkinter.FLAT, bd=0, height=150, width=150, \
           command=self.indexStandalone)
         self.button_indexStandalone.image = self.indexStandalone_img[self.indexStandalone_param]
         self.button_indexStandalone.grid(row=0,column=1, columnspan=1,sticky='W')

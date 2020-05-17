@@ -35,21 +35,21 @@ Options:
 """
 
 try:
-    import Tkinter, Tkconstants, tkFileDialog
+    import tkinter
 except ImportError:
     import sys
-    print "Requirement : Please, install python-tk package"
+    print("Requirement : Please, install python3-tk package")
     sys.exit(1)
 
 from xiaconverter.mainwindow import IADialog
-import ConfigParser
+import configparser
 from xiaconverter.docopt import docopt
 from xiaconverter.xiaconsole import XIAConsole
 from xiaconverter.loggerconsole import LoggerConsole
 
 if __name__=='__main__':
 
-    config = ConfigParser.ConfigParser()
+    config = configparser.ConfigParser()
     config.read("xia.cnf")
     numVersion = config.get('version', 'numVersion')
     releaseVersion = config.get('version', 'releaseVersion')
@@ -83,12 +83,14 @@ if __name__=='__main__':
         filename = ""
         if arguments["<input-file>"] is not None:
             filename = arguments["<input-file>"]
-        root = Tkinter.Tk()
+        root = tkinter.Tk()
         root.title("XIA " + numVersion + releaseVersion)
-        root.geometry("465x310")
+        #root.geometry("400x300")
+        root.configure(background='black')
         root.resizable(0,0)
-        img = Tkinter.PhotoImage(file=imagesPath + '/xia64.gif')
+        root.columnconfigure(0, pad=0)
+        img = tkinter.PhotoImage(file=imagesPath + '/xia64.gif')
         root.tk.call('wm', 'iconphoto', root._w, img)
         IADialog(root, console, langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, quantizeLib,
-                 filename).pack(side="left")
+                 filename)  #.pack(side="left")
         root.mainloop()

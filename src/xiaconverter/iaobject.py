@@ -21,7 +21,8 @@ import re
 import tempfile
 import sys
 import shutil
-import commands
+import base64
+#import commands
 
 # import PIL for windows and Linux
 # For MAC OS X, use internal tool called "sips"
@@ -31,7 +32,7 @@ try:
     Image.MAX_IMAGE_PIXELS = None
 except ImportError:
     if not sys.platform.startswith('darwin'):
-        print "Requirement : Please, install python-pil package"
+        print("Requirement : Please, install python3-pil package")
         sys.exit(1)
     else:
         HANDLE_PIL = False
@@ -40,9 +41,9 @@ import hashlib
 import uuid
 from xml.dom import minidom
 
-from ctm import CurrentTransformation
-import cubicsuperpath
-from pikipiki import PageFormatter
+from .ctm import CurrentTransformation
+from .cubicsuperpath import *
+from .pikipiki import PageFormatter
 
 
 class iaObject:
@@ -456,15 +457,15 @@ class iaObject:
         if circle.isSameNode(self.backgroundNode):
             return
         record_circle = {}
-        record_circle['id'] = hashlib.md5(str(uuid.uuid1())).hexdigest()
+        record_circle['id'] = hashlib.md5(uuid.uuid4().bytes).hexdigest()
         if circle.hasAttribute("id"):
             record_circle['id'] = circle.attributes['id'].value
 
         record_circle['detail'] = self.getText("desc", circle)
         record_circle['title'] = self.getText("title", circle)
-        record_circle['cx'] = unicode(0)
-        record_circle['cy'] = unicode(0)
-        record_circle['r'] = unicode(0)
+        record_circle['cx'] = 0
+        record_circle['cy'] = 0
+        record_circle['r'] = 0
         record_circle['options'] = ""
 
         if circle.hasAttribute("cx"):
@@ -520,8 +521,8 @@ class iaObject:
 
         p = cubicsuperpath.parsePath(record_circle['path'])
         record_circle['path'] = cubicsuperpath.formatPath(p)
-        record_circle['x'] = unicode(0)
-        record_circle['y'] = unicode(0)
+        record_circle['x'] = 0
+        record_circle['y'] = 0
         if stackTransformations == "":
             if circle.hasAttribute("transform"):
                 transformation = circle.attributes['transform'].value
@@ -567,16 +568,16 @@ class iaObject:
         if ellipse.isSameNode(self.backgroundNode):
             return
         record_ellipse = {}
-        record_ellipse['id'] = hashlib.md5(str(uuid.uuid1())).hexdigest()
+        record_ellipse['id'] = hashlib.md5(uuid.uuid4().bytes).hexdigest()
         if ellipse.hasAttribute("id"):
             record_ellipse['id'] = ellipse.attributes['id'].value
 
         record_ellipse['detail'] = self.getText("desc", ellipse)
         record_ellipse['title'] = self.getText("title", ellipse)
-        record_ellipse['cx'] = unicode(0)
-        record_ellipse['cy'] = unicode(0)
-        record_ellipse['rx'] = unicode(0)
-        record_ellipse['ry'] = unicode(0)
+        record_ellipse['cx'] = 0
+        record_ellipse['cy'] = 0
+        record_ellipse['rx'] = 0
+        record_ellipse['ry'] = 0
         record_ellipse['options'] = ""
 
         if ellipse.hasAttribute("cx"):
@@ -633,8 +634,8 @@ class iaObject:
 
         p = cubicsuperpath.parsePath(record_ellipse['path'])
         record_ellipse['path'] = cubicsuperpath.formatPath(p)
-        record_ellipse['x'] = unicode(0)
-        record_ellipse['y'] = unicode(0)
+        record_ellipse['x'] = 0
+        record_ellipse['y'] = 0
         if stackTransformations == "":
             if ellipse.hasAttribute("transform"):
                 transformation = ellipse.attributes['transform'].value
@@ -696,7 +697,7 @@ class iaObject:
 
         if not image.isSameNode(self.backgroundNode):
             record_image = {}
-            record_image['id'] = hashlib.md5(str(uuid.uuid1())).hexdigest()
+            record_image['id'] = hashlib.md5(uuid.uuid4().bytes).hexdigest()
             if image.hasAttribute('id'):
                 record_image['id'] = image.attributes['id'].value
             record_image['width'] = image.attributes['width'].value
@@ -708,14 +709,14 @@ class iaObject:
             record_image['image'] = fixedRaster
             record_image['detail'] = self.getText("desc", image)
             record_image['title'] = self.getText("title", image)
-            record_image['x'] = unicode(0)
-            record_image['y'] = unicode(0)
+            record_image['x'] = 0
+            record_image['y'] = 0
             record_image['options'] = ""
 
             if image.hasAttribute("x"):
-                record_image['x'] = unicode((float(image.attributes['x'].value) - self.backgroundX) * self.ratio)
+                record_image['x'] = (float(image.attributes['x'].value) - self.backgroundX) * self.ratio
             if image.hasAttribute("y"):
-                record_image['y'] = unicode((float(image.attributes['y'].value) - self.backgroundY) * self.ratio)
+                record_image['y'] = (float(image.attributes['y'].value) - self.backgroundY) * self.ratio
 
             if self.ratio != 1:
                 record_image['image'], \
@@ -730,8 +731,8 @@ class iaObject:
                 newx, newy, \
                 record_image['original_width'], \
                 record_image['original_height'] = self.cropImage(record_image['image'], record_image['width'], record_image['height'])
-                record_image['y'] = unicode(int(float(record_image['y']) + float(newy)))
-                record_image['x'] = unicode(int(float(record_image['x']) + float(newx)))
+                record_image['y'] = int(float(record_image['y']) + float(newy))
+                record_image['x'] = int(float(record_image['x']) + float(newx))
 
             if record_image['title'].startswith("http://") or \
                     record_image['title'].startswith("https://") or \
@@ -845,10 +846,10 @@ class iaObject:
             if (float(record_image['y']) + float(record_image['height'])) > float(maxY):
                 maxY = float(record_image['y']) + float(record_image['height'])
 
-            record_image["minX"] = unicode(minX)
-            record_image["minY"] = unicode(minY)
-            record_image["maxX"] = unicode(maxX)
-            record_image["maxY"] = unicode(maxY)
+            record_image["minX"] = minX
+            record_image["minY"] = minY
+            record_image["maxX"] = maxX
+            record_image["maxY"] = maxY
 
             return record_image
 
@@ -857,7 +858,7 @@ class iaObject:
         if rect.isSameNode(self.backgroundNode):
             return
         record_rect = {}
-        record_rect['id'] = hashlib.md5(str(uuid.uuid1())).hexdigest()
+        record_rect['id'] = hashlib.md5(uuid.uuid4().bytes).hexdigest()
         if rect.hasAttribute("id"):
             record_rect['id'] = rect.attributes['id'].value
         record_rect['width'] = rect.attributes['width'].value
@@ -869,10 +870,10 @@ class iaObject:
 
         record_rect['detail'] = self.getText("desc", rect)
         record_rect['title'] = self.getText("title", rect)
-        record_rect['x'] = unicode(0)
-        record_rect['y'] = unicode(0)
-        record_rect['rx'] = unicode(0)
-        record_rect['ry'] = unicode(0)
+        record_rect['x'] = 0
+        record_rect['y'] = 0
+        record_rect['rx'] = 0
+        record_rect['ry'] = 0
         record_rect['options'] = ""
 
         if rect.hasAttribute("x"):
@@ -930,8 +931,8 @@ class iaObject:
 
         p = cubicsuperpath.parsePath(record_rect['path'])
         record_rect['path'] = cubicsuperpath.formatPath(p)
-        record_rect['x'] = unicode(0)
-        record_rect['y'] = unicode(0)
+        record_rect['x'] = 0
+        record_rect['y'] = 0
         if stackTransformations == "":
             if rect.hasAttribute("transform"):
                 transformation = rect.attributes['transform'].value
@@ -978,7 +979,7 @@ class iaObject:
         record = {}
         record["path"] = ""
         record["fill"] = ""
-        record["id"] = hashlib.md5(str(uuid.uuid1())).hexdigest()
+        record["id"] = hashlib.md5(uuid.uuid4().bytes).hexdigest()
         if path.hasAttribute("id"):
             record["id"] = path.attributes['id'].value
         record["path"] = path.attributes['d'].value. \
@@ -995,8 +996,8 @@ class iaObject:
         record["style"] = ""
         record['detail'] = self.getText("desc", path)
         record['title'] = self.getText("title", path)
-        record['x'] = unicode(0)
-        record['y'] = unicode(0)
+        record['x'] = 0
+        record['y'] = 0
         record['options'] = ""
 
         if path.hasAttribute("inkscape:connection-start") and path.hasAttribute("inkscape:connection-end"):
@@ -1110,7 +1111,7 @@ class iaObject:
                 else:
                     extrema['y'].append(p)
                 i = i + 1
-        return [unicode(min(extrema['x'])), unicode(min(extrema['y'])), unicode(max(extrema['x'])), unicode(max(extrema['y']))]
+        return [min(extrema['x']), min(extrema['y']), max(extrema['x']), max(extrema['y'])]
 
     def getText(self, type, element):
         """ type can be 'desc' or 'title' """
@@ -1188,7 +1189,7 @@ class iaObject:
                                 imageFile = dirname + os.path.sep + "image" + str(imageIndex) + "." + extension.group(1)
                                 imagesToConcatenate.append(imageFile)
                                 with open(imageFile, "wb") as currentImage:
-                                    currentImage.write(rasterEncoded.decode("base64"))
+                                    currentImage.write(base64.b64decode(rasterEncoded))
 
                         if imageIndex == 0:
                             firstRasterPrefix = rasterPrefix
@@ -1232,14 +1233,14 @@ class iaObject:
             new_im.save(imageFileFixed)
 
             with open(imageFileFixed, 'rb') as fixedImage:
-                rasterFixedEncoded = fixedImage.read().encode("base64").replace('\n','')
+                rasterFixedEncoded = base64.b64encode(fixedImage.read()).replace('\n','')
 
                 record["image"] = firstRasterPrefix + rasterFixedEncoded
 
-            record["minX"] = unicode(minX)
-            record["minY"] = unicode(minY)
-            record["maxX"] = unicode(maxX)
-            record["maxY"] = unicode(maxY)
+            record["minX"] = minX
+            record["minY"] = minY
+            record["maxX"] = maxX
+            record["maxY"] = maxY
             record["timeline"] =  ','.join([str(i) for i in timeLine])
 
 
@@ -1269,7 +1270,7 @@ class iaObject:
             return
 
         record = {}
-        record["id"] = hashlib.md5(str(uuid.uuid1())).hexdigest()
+        record["id"] = hashlib.md5(uuid.uuid4().bytes).hexdigest()
         if group.hasAttribute("id"):
             record["id"] = group.attributes['id'].value
         record['title'] = self.getText("title", group)
@@ -1358,10 +1359,10 @@ class iaObject:
             if group.hasAttribute("inkscape:label"):
                 record['title'] = group.attributes["inkscape:label"].value
 
-        record["minX"] = unicode(minX)
-        record["minY"] = unicode(minY)
-        record["maxX"] = unicode(maxX)
-        record["maxY"] = unicode(maxY)
+        record["minX"] = minX
+        record["minY"] = minY
+        record["maxX"] = maxX
+        record["maxY"] = maxY
 
         if record["group"]:
             return record
@@ -1389,7 +1390,7 @@ class iaObject:
 
 
                 with open(imageFile, "wb") as bgImage:
-                    bgImage.write(rasterEncoded.decode("base64"))
+                    bgImage.write(base64.b64decode(rasterEncoded))
 
                 #if sys.platform.startswith('darwin'):
                 if not HANDLE_PIL:
@@ -1446,7 +1447,7 @@ class iaObject:
                                      os.path.sep + "image_small.jpg"
 
                 with open(imageFile, "wb") as bgImage:
-                    bgImage.write(rasterEncoded.decode("base64"))
+                    bgImage.write(base64.b64decode(rasterEncoded))
 
                 with open(imageFile, 'rb') as f:
                     currentImg = Image.open(f)
@@ -1477,7 +1478,7 @@ class iaObject:
                 imageFileSmall = dirname + \
                                  os.path.sep + "image_small." + extension.group(1)
                 with open(imageFile, "wb") as bgImage:
-                    bgImage.write(rasterEncoded.decode("base64"))
+                    bgImage.write(base64.b64decode(rasterEncoded))
 
                 #if not sys.platform.startswith('darwin'):
                 if HANDLE_PIL:
@@ -1555,8 +1556,7 @@ class iaObject:
                         croppedBg.save(imageFileSmall)
 
                     with open(imageFileSmall, 'rb') as bgSmallImage:
-                        rasterSmallEncoded = bgSmallImage.read(). \
-                            encode("base64")
+                        rasterSmallEncoded = base64.b64encode(bgSmallImage.read()).decode()
                         newraster = rasterPrefix + \
                                     rasterSmallEncoded
                     newrasterHeight = int((h - y_delta2 - y_delta) * float(rasterHeight) / h)
@@ -1566,7 +1566,7 @@ class iaObject:
             self.console.display('ERROR : cropImage() - image is not embedded ' + raster)
         shutil.rmtree(dirname)
 
-        return [newraster, unicode(newrasterWidth), unicode(newrasterHeight), x_delta * float(rasterWidth) / w, y_delta * float(rasterHeight) / h, w, h]
+        return [newraster, newrasterWidth, newrasterHeight, x_delta * float(rasterWidth) / w, y_delta * float(rasterHeight) / h, w, h]
 
 
 
@@ -1587,7 +1587,7 @@ class iaObject:
                 imageFileSmall = dirname + \
                                  os.path.sep + "image_small." + extension.group(1)
                 with open(imageFile, "wb") as bgImage:
-                    bgImage.write(rasterEncoded.decode("base64"))
+                    bgImage.write(base64.b64decode(rasterEncoded))
 
                 if HANDLE_PIL:
                     with open(imageFile, 'rb') as f:
@@ -1603,7 +1603,7 @@ class iaObject:
         else:
             self.console.display('ERROR : image is not embedded')
         shutil.rmtree(dirname)
-        return [newraster, unicode(newrasterWidth), unicode(newrasterHeight)]
+        return [newraster, newrasterWidth, newrasterHeight]
 
 
 
@@ -1631,7 +1631,7 @@ class iaObject:
                     imageFileSmall = dirname + \
                                      os.path.sep + "image_small.jpg"
                 with open(imageFile, "wb") as bgImage:
-                    bgImage.write(rasterEncoded.decode("base64"))
+                    bgImage.write(base64.b64decode(rasterEncoded))
                 if self.ratio != 1:
                     # Background image is too big to be used on mobiles
                     #if sys.platform.startswith('darwin'):
@@ -1665,7 +1665,7 @@ class iaObject:
                             else:
                                 resizedBg.save(imageFileSmall)
                             with open(imageFileSmall, 'rb') as bgSmallImage:
-                                rasterSmallEncoded = bgSmallImage.read().encode("base64")
+                                rasterSmallEncoded = base64.b64encode(bgSmallImage.read()).decode()
                                 newraster = rasterPrefix + rasterSmallEncoded
 
                             newrasterWidth = newwidth
@@ -1673,7 +1673,7 @@ class iaObject:
         else:
             self.console.display('ERROR : image is not embedded')
         shutil.rmtree(dirname)
-        return [newraster, unicode(newrasterWidth), unicode(newrasterHeight)]
+        return [newraster, newrasterWidth, newrasterHeight]
 
 
     def generateJSON(self):
@@ -1721,8 +1721,8 @@ class iaObject:
                                      replace("\r", " ") + \
                                  u'",\n'
                 else:
-                    if type(detail[entry]) is not str and type(detail[entry]) is not unicode:
-                        detail[entry] = unicode(detail[entry])
+                    if type(detail[entry]) is not str:
+                        detail[entry] = str(detail[entry])
                     final_str += u'  "' + entry + u'":"' + \
                                  detail[entry]. \
                                      replace('"', "'"). \

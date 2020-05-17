@@ -32,10 +32,11 @@ class PageFormatter:
     some state is carried over between lines.
     """
     def __init__(self, raw):
-        if type(raw) == str:
+        if type(raw) == bytes:
             raw = raw.decode("utf-8")
-        elif type(raw) != unicode:
-            raw = unicode(raw)
+        elif type(raw) == int or type(raw) == float:
+            raw = str(raw)
+
         self.raw = raw
         self.is_em = self.is_b = 0
         self.list_indents = []
@@ -218,7 +219,7 @@ class PageFormatter:
                 data_password = 'data-password="' + hashlib.sha1(password.encode("utf-8")).hexdigest() + '"'
                 content = re.sub('\(code=(.*)\)', '', content)
 
-            random_id = hashlib.md5(str(uuid.uuid1())).hexdigest()
+            random_id = hashlib.md5(uuid.uuid1().bytes).hexdigest()
             final_result =  u'<div style="margin-top:5px;margin-bottom:5px;">' + \
                 u'<a class="button" href="#" ' + data_password + \
                 u' data-target="' + random_id + '">' + \
@@ -247,8 +248,8 @@ class PageFormatter:
                 str_to_encrypt = str_to_encrypt + current_str
                 while len(password) < len(str_to_encrypt):
                     password += password
-                str_encrypted = base64.b64encode(self.str_xor(str_to_encrypt.encode("utf-8"), password))
-                self.final_str = self.final_str[0:start_block] + str_encrypted
+                str_encrypted = base64.b64encode(self.str_xor(str_to_encrypt.encode("utf-8"), password.encode("utf-8")))
+                self.final_str = self.final_str[0:start_block] + str_encrypted.decode()
                 return u'</div>\n'
             else:
                 return current_str + u'</div>\n'
@@ -256,7 +257,7 @@ class PageFormatter:
             return u''
 
     def str_xor(self, s1, s2):
-        return "".join([chr(ord(c1) ^ ord(c2)) for (c1,c2) in zip(s1,s2)])
+        return "".join([chr(c1 ^ c2) for (c1,c2) in zip(s1,s2)]).encode()
 
     def _indent_level(self):
         return len(self.list_indents) and self.list_indents[-1]
@@ -316,7 +317,7 @@ class PageFormatter:
         blank_re = re.compile("^\s*$")
         indent_re = re.compile("^\s*")
         eol_re = re.compile(r'\r?\n')
-        raw = string.expandtabs(self.raw)
+        raw = self.raw.expandtabs()
         html_feed = u'<br/>\n'
 
         # fix some elements

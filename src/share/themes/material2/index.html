@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>{{TITLE}}</title>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="{{DESCRIPTION}}" />
+    <meta name="author" content="{{AUTHOR}}" />
+    <meta name="keywords" content="{{KEYWORDS}}" />
+
+    <meta property="og:title" content="{{TITLE}}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content=""/>
+    <meta property="og:description" content="{{DESCRIPTION}}"/>
+    <meta property="og:image" content="https://xia.dane.ac-versailles.fr/img/logo.jpg"/>
+
+    <link rel="stylesheet" type="text/css" href="{{MainCSS}}"/>
+    <script type="text/javascript" src="{{lazyDatasJS}}"></script>
+    <script type="text/javascript" src="{{hooksJS}}"></script>
+    <script type="text/javascript" src="{{konvaJS}}"></script>
+    <script type="text/javascript" src="{{xiaJS}}"></script>
+    <script type="text/javascript" src="{{sha1JS}}"></script>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <h1 id="title">{{TITLE}}</h1>
+    </header>
+    <section>
+      <div id="ripple_background"></div>
+      <div id="canvas"></div>
+    </section>
+    <div id="popup_material_background">
+      <div id="popup_material_image_background"></div>
+      <div id="popup_material">
+        <div id="popup_material_title" class="title_material">
+          <div  id="popup_material_title_text">
+            <div id="article_title" class="title"><h1>{{TITLE}}</h1></div>
+            <img id="popup_material_delete" src='{{LogoDelete}}' alt='fermer' />
+            <div class="footer"></div>
+          </div>
+        </div>
+        <div id="wrapper_content">
+          <div id="popup_material_content">
+            <section id="content">{{CONTENT}}</section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{datasJS}}
+  <script>
+    var materialApp = new MyApp({
+      'wrapper' : document.getElementById('content'),
+      'header' : document.querySelector('#article_title h1'),
+      'content' : "body_text",
+      'footer' : "bottom_content",
+      'fullscreen' : "fullscreen",
+      'reload' : "reload",
+      'ripple' : document.getElementById('ripple_background')
+    })
+    var xiaInstance = new Xia({
+      'hooks' : materialApp,
+      'targetID' : "canvas",
+      'scene' : scene,
+      'details' : details
+    })
+  </script>
+</body>
+</html>
