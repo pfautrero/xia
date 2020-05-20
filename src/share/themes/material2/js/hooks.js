@@ -21,7 +21,7 @@ class CroppedImage {
       this.width = cropedImage.naturalWidth * this.scale
       this.height = cropedImage.naturalHeight * this.scale
       var newImage = document.createElement('img')
-      newImage.setAttribute('id', 'popup_material_image_' + this.id)
+      newImage.setAttribute('id', this.id)
       newImage.classList.add('popup_material_image')
       newImage.classList.add('hidden_image')
       newImage.setAttribute('src', this.src)
@@ -30,6 +30,7 @@ class CroppedImage {
         .replace('{LEFT}', this.left)
         .replace('{TOP}', this.top)
       )
+      this.domElement = newImage
       document.getElementById('popup_material_image_background').appendChild(newImage)
     }.bind(this)
     cropedImage.src = this.src
@@ -37,14 +38,15 @@ class CroppedImage {
 
   }
   setVisible(){
-    var visibleImage = document.getElementById('popup_material_image_' + this.id)
-    visibleImage.classList.remove('hidden_image')
+    //var visibleImage = document.getElementById(this.id)
+    //visibleImage.classList.remove('hidden_image')
+    this.domElement.classList.remove('hidden_image')
   }
   moveTo(params){
-    var visibleImage = document.getElementById('popup_material_image_' + this.id)
-    var section = visibleImage.parentNode.parentNode
+    //var visibleImage = document.getElementById(this.id)
+    //var section = visibleImage.parentNode.parentNode
 
-    visibleImage.setAttribute('style',
+    this.domElement.setAttribute('style',
       'top:{TOP}px;left:{LEFT}px;transform: scale({SCALE});'
       .replace('{TOP}', params.top)
       .replace('{LEFT}', params.left)
@@ -55,8 +57,8 @@ class CroppedImage {
 
   }
   reset(){
-    var visibleImage = document.getElementById('popup_material_image_' + this.id)
-    visibleImage.setAttribute('style',
+    //var visibleImage = document.getElementById(this.id)
+    this.domElement.setAttribute('style',
       'top:{TOP}px;left:{LEFT}px;transform: scale({SCALE});'
       .replace('{TOP}', this.origin.top)
       .replace('{LEFT}', this.origin.left)
@@ -162,6 +164,10 @@ class MyApp {
     }
   }
 
+
+  //
+  // Show popup
+  //
   update_content(title, desc) {
     document.getElementById("popup_material").classList.add('visible')
     // remove child nodes
@@ -233,6 +239,7 @@ class MyApp {
   //
   zoom(el) {
     this.xiaObject = el.parent
+    this.xiaDetail = el
     var container = document.getElementById('canvas').firstChild.getBoundingClientRect()
     var pointer = el.parent.layer.getStage().getPointerPosition()
     var div = document.createElement('div')
@@ -266,6 +273,10 @@ class MyApp {
     var metadoc_button = document.createElement('a')
     metadoc_button.setAttribute('class', 'meta-doc')
     metadoc.appendChild(metadoc_button)
+    metadoc.addEventListener('click', function(){
+      this.update_content(XiaObject.params.scene.intro_title, XiaObject.params.scene.intro_detail)
+    }.bind(this))
+
 
     var about = document.createElement('div')
     about.setAttribute('id', 'about')
@@ -274,16 +285,17 @@ class MyApp {
     about_button.setAttribute('class', 'infos')
     about.appendChild(about_button)
     about.addEventListener('click', function(){
-      console.log('test')
-    })
+      this.update_content("about", "content")
+    }.bind(this))
 
-    /*
-      When user click on popup title
-      Zoom image
-    */
+    //
+    //  When user click on popup title
+    //  Zoom image
+    //
 
     document.getElementById('popup_material_title').addEventListener('click', function(){
 
+      if (this.xiaObject == null) return
       var container = document.getElementById("popup_material_background")
 
       document.getElementById("popup_material_image_background").setAttribute('style',
@@ -314,6 +326,10 @@ class MyApp {
 
     }.bind(this))
 
+    //
+    // Unzoom image
+    // When user click on screen to unzoom image
+    //
     document.getElementById('popup_material_image_background').addEventListener('click', function(event){
       document.getElementById('popup_material_image_background').setAttribute('style','background-color: none;pointer-events: none;')
 
@@ -346,10 +362,10 @@ class MyApp {
       event.stopPropagation()
     }.bind(this))
 
-    /*
-      When user click on top right corner cross of popup
-      Close popup
-    */
+    //
+    // When user click on top right corner cross of popup
+    //Close popup
+    //
 
     document.getElementById('popup_material_delete').addEventListener('click', function(event){
       document.getElementById("popup_material").classList.remove('visible')
@@ -357,16 +373,32 @@ class MyApp {
       targets.forEach(function(target){
         target.classList.add('hidden_image')
       })
-      this.xiaObject.iaScene.element = null
+      if (this.xiaObject != null) {
+        this.xiaObject.iaScene.zoomActive = 0
+        this.xiaObject.group.zoomActive = 0
+        this.xiaObject.group.scaleX(1)
+        this.xiaObject.group.scaleY(1)
+        this.xiaObject.group.x(this.originalX)
+        this.xiaObject.group.y(this.originalY)
+        this.xiaDetail.reset_state_all(this.xiaObject.xiaDetail)
+        this.xiaObject.layer.draw()
+        this.xiaObject.backgroundCache_layer.to({ opacity: 0 })
+        this.xiaObject.iaScene.cursorState = 'default'
+        this.xiaObject.iaScene.element = null
+        document.body.style.cursor = 'default'
+        this.xiaObject.parent.reorderItems()
+
+      }
       event.stopPropagation()
     }.bind(this))
 
-    /*
-      When popup appears
-      Wait and finally move image to popup top left corner
-    */
+    //
+    //  When popup appears
+    //  Wait and finally move image to popup top left corner
+    //
 
     document.getElementById("popup_material").addEventListener("transitionend", function(event) {
+      if (this.xiaObject == null) return
       var popup_material = document.getElementById("popup_material")
       var popup_material_title = document.getElementById("popup_material_title")
 
@@ -398,6 +430,9 @@ class MyApp {
 
   }
 
+  //
+  // hook for Xia Constructor
+  //
   afterIaObjectConstructor(scene, id, jsonDetail, xiaGroup) {
     let groupedImages = document.createElement('canvas')
     groupedImages.setAttribute('width', scene.originalRatio * (parseFloat(xiaGroup.maxX / scene.coeff) - parseFloat(xiaGroup.minX / scene.coeff)))
@@ -434,7 +469,7 @@ class MyApp {
 
     var container = document.getElementById('canvas').firstChild.getBoundingClientRect()
     this.images[id] = new CroppedImage({
-      id: id,
+      id: 'popup_material_image_' + id,
       src: groupedImages.toDataURL(),
       scale: scene.coeff / scene.originalRatio,
       left: container.left + xiaGroup.minX,
