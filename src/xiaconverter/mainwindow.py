@@ -20,7 +20,8 @@ import tkinter
 import tkinter.filedialog
 import os
 import shutil
-import imp
+from importlib.machinery import SourceFileLoader
+import types
 import sys
 import configparser
 import unicodedata
@@ -33,6 +34,7 @@ from .paramswindow import IAParams
 
 import gettext
 import locale
+import inkex
 if sys.platform.startswith('win32'):
     import ctypes
 
@@ -48,7 +50,7 @@ class IADialog():
         except:
             t = gettext.translation("xia-converter", langPath, languages=['en_US'])
         translate = t.gettext
-
+        #inkex.utils.debug(svgfile)
         self.filename = ""
         self.imagesPath = imagesPath
         self.themesPath = themesPath
@@ -141,9 +143,10 @@ class IADialog():
             for filename in themes_folders:
                 theme = {}
                 theme['name'] = filename
-                imp.load_source(filename, themesPath + "/" + filename + "/hook.py")
-                imported_class = __import__(filename)
-                theme['object'] = imported_class.hook(self, self.imageActive, PageFormatter, self.langPath)
+                loader = SourceFileLoader(filename, themesPath + "/" + filename + "/hook.py")
+                loaded = types.ModuleType(loader.name)
+                loader.exec_module(loaded)
+                theme['object'] = loaded.hook(self, self.imageActive, PageFormatter, self.langPath)
                 self.themes.append(theme)
 
                 img_button = tkinter.PhotoImage(file= themesPath + "/" + filename + "/" + "icon.gif")

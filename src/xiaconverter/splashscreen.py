@@ -26,7 +26,7 @@ class Splash:
     def __init__(self, root, file, wait):
         self.__root = root
         self.__file = file
-        self.__wait = wait + time.clock()
+        self.__wait = wait + time.perf_counter()
 
     def enter(self):
 
@@ -61,7 +61,7 @@ class Splash:
 
     def exit(self):
         # Ensure that required time has passed.
-        now = time.clock()
+        now = time.perf_counter()
         if now < self.__wait:
             time.sleep(self.__wait - now)
         # Free used resources in reverse order.

@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension" -->
-<inkscape-extension>
-  <_name>Xia édu</_name>
-  <id>http://www.tice.ac-versailles.fr/logicielslibres/</id>
-  <dependency type="executable" location="extensions">xia.py</dependency>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+  <name>Xia</name>
+  <id>org.xia.funraiders</id>
   <effect>
     <object-type>all</object-type>
     <effects-menu>
-      <submenu _name="Export"/>
+      <submenu name="Export"/>
     </effects-menu>
   </effect>
   <script>
-      <command reldir="extensions" interpreter="python">xia.py</command>
+      <command location="inx" interpreter="python">xia.py</command>
   </script>
 
 </inkscape-extension>

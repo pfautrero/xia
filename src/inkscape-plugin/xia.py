@@ -36,13 +36,7 @@ class ImageActive(inkex.Effect):
         pathNodes = self.document.xpath('//sodipodi:namedview',namespaces=inkex.NSS)
         pathNodes[0].set('id','base')
 
-        # workaround - fix path according to working dir
-        # inkscape 0.47 extensions working dir is inkscape/
-        # inkscape 0.48 extensions working dir is inkscape/share/extensions
-
         inkexWorkingDir = "."
-        if not os.getcwd().endswith("extensions"):
-            inkexWorkingDir = "share/extensions"
 
         # retrieve paths
 
@@ -58,24 +52,24 @@ class ImageActive(inkex.Effect):
         jqueryLib = inkexWorkingDir + "/" + config.get('paths', 'jqueryLib')
         kineticLib = inkexWorkingDir + "/" + config.get('paths', 'kineticLib')
         sha1Lib = inkexWorkingDir + "/" + config.get('paths', 'sha1Lib')
+        quantizeLib = inkexWorkingDir + "/" + config.get('paths', 'quantizeLib')
 
         try:
 
             filePath = tempfile.mkdtemp() + "/" + "temp.svg"
             with open(filePath,"w") as file:
                 self.document.write(filePath)
-
+            #inkex.utils.debug(filePath)
             console = LoggerInkscape()
 
-            root = Tkinter.Tk()
+            root = tkinter.Tk()
             root.title("XIA " + numVersion + releaseVersion)
             root.geometry("465x310")
             root.resizable(0,0)
-            img = Tkinter.PhotoImage(file= imagesPath + '/xia64.gif')
+            img = tkinter.PhotoImage(file= imagesPath + '/xia64.gif')
             root.tk.call('wm', 'iconphoto', root._w, img)
             maindialog = IADialog(root, console, langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib,
-                                  kineticLib, sha1Lib, filePath)
-            maindialog.pack(side="left")
+                                  kineticLib, sha1Lib, quantizeLib, filePath)
             root.mainloop()
 
         except ValueError:
@@ -83,4 +77,4 @@ class ImageActive(inkex.Effect):
            pass
 
 ia = ImageActive()
-ia.affect()
+ia.run()
