@@ -102,15 +102,15 @@ class hook:
             final_index = final_index.replace("{{CONTENT}}", final_str)
             final_index = final_index.replace("{{LOADING}}", self.loading)
             if self.root.options["export_type"] == "singlefile":
-                xiaWebsite = "https://xia.dane.ac-versailles.fr/network/delivery/xia30/material"
-                final_index = final_index.replace("{{MainCSS}}", xiaWebsite + "/css/main.css")
+                xiaWebsite = "https://xia.funraiders.org/cdn/xia30"
+                final_index = final_index.replace("{{MainCSS}}", xiaWebsite + "/material/css/main.css")
                 final_index = final_index.replace("{{datasJS}}", "<script>" + self.iaobject.jsonContent + "</script>")
                 final_index = final_index.replace("{{lazyDatasJS}}", '')
                 final_index = final_index.replace("{{sha1JS}}", xiaWebsite + "/js/git-sha1.min.js")
                 final_index = final_index.replace("{{konvaJS}}", "https://cdnjs.cloudflare.com/ajax/libs/konva/3.1.7/konva.min.js")
                 final_index = final_index.replace("{{xiaJS}}", xiaWebsite + "/js/xia.js")
-                final_index = final_index.replace("{{hooksJS}}", xiaWebsite + "/js/hooks.js")
-                final_index = final_index.replace("{{LogoDelete}}", xiaWebsite + "/img/delete.png")
+                final_index = final_index.replace("{{hooksJS}}", xiaWebsite + "/material/js/hooks.js")
+                final_index = final_index.replace("{{LogoDelete}}", xiaWebsite + "/material/img/delete.png")
             else:
                 final_index = final_index.replace("{{MainCSS}}", localFolder +"/css/main.css")
                 final_index = final_index.replace("{{datasJS}}", "")

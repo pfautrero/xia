@@ -66,18 +66,18 @@ class hook:
             final_index = final_index.replace("{{KEYWORDS}}", self.iaobject.scene["keywords"])
             final_index = final_index.replace("{{TITLE}}", self.iaobject.scene["title"])
             if self.root.options["export_type"] == "singlefile":
-                xiaWebsite = "https://xia.dane.ac-versailles.fr/network/delivery/xia30/sidebar"
-                final_index = final_index.replace("{{MainCSS}}", xiaWebsite + "/css/main.css")
-                final_index = final_index.replace("{{arrow_down}}",  xiaWebsite + "/img/arrow_down.png")
-                final_index = final_index.replace("{{reload}}",  xiaWebsite + "/img/reload.png")
-                final_index = final_index.replace("{{fullscreen}}", xiaWebsite + "/img/fullscreen.png")
+                xiaWebsite = "https://xia.funraiders.org/cdn/xia30"
+                final_index = final_index.replace("{{MainCSS}}", xiaWebsite + "/sidebar/css/main.css")
+                final_index = final_index.replace("{{arrow_down}}",  xiaWebsite + "/sidebar/img/arrow_down.png")
+                final_index = final_index.replace("{{reload}}",  xiaWebsite + "/sidebar/img/reload.png")
+                final_index = final_index.replace("{{fullscreen}}", xiaWebsite + "/sidebar/img/fullscreen.png")
                 final_index = final_index.replace("{{datasJS}}", "<script>" + self.iaobject.jsonContent + "</script>")
                 final_index = final_index.replace("{{lazyDatasJS}}", '')
                 final_index = final_index.replace("{{sha1JS}}", xiaWebsite + "/js/git-sha1.min.js")
                 final_index = final_index.replace("{{konvaJS}}", "https://cdnjs.cloudflare.com/ajax/libs/konva/3.1.7/konva.min.js")
                 final_index = final_index.replace("{{xiaJS}}", xiaWebsite + "/js/xia.js")
-                final_index = final_index.replace("{{hooksJS}}", xiaWebsite + "/js/hooks.js")
-                final_index = final_index.replace("{{quantizeJS}}", xiaWebsite + "/js/quantization.min.js")
+                final_index = final_index.replace("{{hooksJS}}", xiaWebsite + "/sidebar/js/hooks.js")
+                final_index = final_index.replace("{{quantizeJS}}", xiaWebsite + "/sidebar/js/quantization.min.js")
             else:
                 final_index = final_index.replace("{{MainCSS}}", localFolder +"/css/main.css")
                 final_index = final_index.replace("{{reload}}", localFolder +"/img/reload.png")

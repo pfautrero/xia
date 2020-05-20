@@ -131,19 +131,19 @@ class hook:
             final_index = final_index.replace("{{CONTENT}}", final_str)
             final_index = final_index.replace("{{LOADING}}", self.loading)
             if self.root.options["export_type"] == "singlefile":
-                xiaWebsite = "https://xia.dane.ac-versailles.fr/network/delivery/xia30/gameDragAndDrop"
-                final_index = final_index.replace("{{MainCSS}}", xiaWebsite + "/css/main.css")
-                final_index = final_index.replace("{{LogoHide}}",  xiaWebsite + "/img/hide.png")
-                final_index = final_index.replace("{{LogoLoading}}",  xiaWebsite + "/img/xia.png")
-                final_index = final_index.replace("{{LogoPDF}}",  xiaWebsite + "/img/pdf.png")
-                final_index = final_index.replace("{{LogoClose}}", xiaWebsite + "/img/close.png")
+                xiaWebsite = "https://xia.funraiders.org/cdn/xia30"
+                final_index = final_index.replace("{{MainCSS}}", xiaWebsite + "/gameDragAndDrop/css/main.css")
+                final_index = final_index.replace("{{LogoHide}}",  xiaWebsite + "/gameDragAndDrop/img/hide.png")
+                final_index = final_index.replace("{{LogoLoading}}",  xiaWebsite + "/gameDragAndDrop/img/xia.png")
+                final_index = final_index.replace("{{LogoPDF}}",  xiaWebsite + "/gameDragAndDrop/img/pdf.png")
+                final_index = final_index.replace("{{LogoClose}}", xiaWebsite + "/gameDragAndDrop/img/close.png")
                 final_index = final_index.replace("{{datasJS}}", "<script>" + self.iaobject.jsonContent + "</script>")
                 final_index = final_index.replace("{{lazyDatasJS}}", '')
                 final_index = final_index.replace("{{JqueryJS}}", "https://code.jquery.com/jquery-1.11.1.min.js")
                 final_index = final_index.replace("{{sha1JS}}", xiaWebsite + "/js/git-sha1.min.js")
-                final_index = final_index.replace("{{kineticJS}}", xiaWebsite + "/js/kinetic-xia.min.js")
-                final_index = final_index.replace("{{xiaJS}}", xiaWebsite + "/js/xia.js")
-                final_index = final_index.replace("{{hooksJS}}", xiaWebsite + "/js/hooks.js")
+                final_index = final_index.replace("{{kineticJS}}", xiaWebsite + "/gameDragAndDrop/js/kinetic-xia.min.js")
+                final_index = final_index.replace("{{xiaJS}}", xiaWebsite + "/gameDragAndDrop/js/xia.js")
+                final_index = final_index.replace("{{hooksJS}}", xiaWebsite + "/gameDragAndDrop/js/hooks.js")
                 final_index = final_index.replace("{{labJS}}", "https://cdnjs.cloudflare.com/ajax/libs/labjs/2.0.3/LAB.min.js")
             else:
                 final_index = final_index.replace("{{MainCSS}}", localFolder +"/css/main.css")
