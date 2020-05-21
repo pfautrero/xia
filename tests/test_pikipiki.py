@@ -245,6 +245,7 @@ class TestPageFormatter(TestCase):
         self.assertEqual(expected_output, output)
 
     def test_print_html38(self):
+        self.maxDiff = None
         raw = "[[answer : my answer]]";
         expected_output = '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#"  data-target="##">answer </a></div><div class="response" id="response_##"><ul>\n my answer</ul>\n</div>\n';
         output = PageFormatter(raw).print_html()

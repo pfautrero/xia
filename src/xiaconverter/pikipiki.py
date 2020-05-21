@@ -48,10 +48,10 @@ class PageFormatter:
     def _emph_repl(self, word):
         if len(word) == 3:
             self.is_b = not self.is_b
-            return [u'</b>', u'<b>'][self.is_b]
+            return ['</b>', '<b>'][self.is_b]
         else:
             self.is_em = not self.is_em
-            return [u'</em>', u'<em>'][self.is_em]
+            return ['</em>', '<em>'][self.is_em]
 
     def _rule_repl(self, word):
         s = self._undent()
@@ -65,22 +65,20 @@ class PageFormatter:
         return '<h%s>%s</h%s>' %(nbTag, word[nbTag:].strip(), nbTag)
 
     def _url_repl(self, word):
-        return '<a href="%s" target="_blank">%s</a>\n' % (word, word)
+        return f'<a href="{word}" target="_blank">{word}</a>\n'
 
     def _flicker_repl(self, word):
-        return '<div class="flickr_oembed" data-oembed="%s"></div>\n' % (word)
+        return f'<div class="flickr_oembed" data-oembed="{word}"></div>\n'
 
     def _scolawebtv_repl(self, word):
         videoClass = 'videoWrapper4_3'
         word = word.replace("scolawebtv.crdp-versailles.fr/?id=", "scolawebtv.crdp-versailles.fr/?iframe&id=")
-        return '<div class="' + videoClass + \
-          '" data-iframe="%s"></div>\n' % (word)
+        return f'<div class="{videoClass}" data-iframe="{word}"></div>\n'
 
     def _webtv_repl(self, word):
         videoClass = 'videoWrapper4_3'
         word = word.replace("webtv.ac-versailles.fr/spip.php?article", "webtv.ac-versailles.fr/spip.php?page=iframe-video&id_article=")
-        return '<div class="' + videoClass + \
-          '" data-iframe="%s"></div>\n' % (word)
+        return f'<div class="{videoClass}" data-iframe="{word}"></div>\n'
 
     def _videostart_repl(self, word):
         return '<video controls preload="none" data-state="autostart">\n\t\
@@ -91,18 +89,18 @@ class PageFormatter:
               os.path.splitext(word)[0], os.path.splitext(word)[0])
 
     def _video_repl(self, word):
-        return '<video controls preload="none" data-state="none">\n\t\
-            <source type="video/mp4" src="%s.mp4" />\n\t\
-            <source type="video/ogg" src="%s.ogv" />\n\t\
-            <source type="video/webm" src="%s.webm" />\n\
-            </video>\n' % (os.path.splitext(word)[0], \
-              os.path.splitext(word)[0], os.path.splitext(word)[0])
+        video_name = os.path.splitext(word)[0]
+        return f'<video controls preload="none" data-state="none">\n\t\
+            <source type="video/mp4" src="{video_name}.mp4" />\n\t\
+            <source type="video/ogg" src="{video_name}.ogv" />\n\t\
+            <source type="video/webm" src="{video_name}.webm" />\n\
+            </video>\n'
 
     def _img_repl(self, word):
-        return '<img src="%s"/>\n' % (word)
+        return f'<img src="{word}"/>\n'
 
     def _pdf_repl(self, word):
-        return '<a href="%s"><img src="{{LogoPDF}}" alt="pdf"></a>\n' % (word)
+        return f'<a href="{word}"><img src="{{{{LogoPDF}}}}" alt="pdf"></a>\n'
 
     def _iframe_repl(self, word):
         word_url = word.split("src=&quot;")[1].split("&quot;")[0]
@@ -119,8 +117,7 @@ class PageFormatter:
             ratio = (float(iframe_height) / float(iframe_width)) * 16
             if (ratio == 9):
                 videoClass = 'videoWrapper16_9'
-        return '<div class="' + videoClass + \
-          '" data-iframe="%s"></div>\n' % (word_url)
+        return f'<div class="{videoClass}" data-iframe="{word_url}"></div>\n'
 
     def _iframe2_repl(self, word):
 
@@ -147,24 +144,25 @@ class PageFormatter:
             ratio = (float(iframe_height) / float(iframe_width)) * 16
             if (ratio == 9):
                 videoClass = 'videoWrapper16_9'
-        return '<div class="' + videoClass + \
-          '" data-iframe="%s"></div>\n' % (word_url)
+        return f'<div class="{videoClass}" data-iframe="{word_url}"></div>\n'
 
     def _audiostart_repl(self, word):
-        return '<audio controls data-state="autostart">\n\t\
-            <source type="audio/ogg" src="%s.ogg" />\n\t\
-            <source type="audio/mp3" src="%s.mp3" />\n\
-            </audio>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0])
+        audio_name = os.path.splitext(word)[0]
+        return f'<audio controls data-state="autostart">\n\t\
+            <source type="audio/ogg" src="{audio_name}.ogg" />\n\t\
+            <source type="audio/mp3" src="{audio_name}.mp3" />\n\
+            </audio>\n'
 
 
     def _audio_repl(self, word):
-        return '<audio controls data-state="none">\n\t\
-            <source type="audio/ogg" src="%s.ogg" />\n\t\
-            <source type="audio/mp3" src="%s.mp3" />\n\
-            </audio>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0])
+        audio_name = os.path.splitext(word)[0]
+        return f'<audio controls data-state="none">\n\t\
+            <source type="audio/ogg" src="{audio_name}.ogg" />\n\t\
+            <source type="audio/mp3" src="{audio_name}.mp3" />\n\
+            </audio>\n'
 
     def _email_repl(self, word):
-        return '<a href="mailto:%s">%s</a>\n' % (word, word)
+        return f'<a href="mailto:{word}">{word}</a>\n'
 
     def _ent_repl(self, s):
         return {'&': '&amp;',
@@ -188,12 +186,12 @@ class PageFormatter:
                 word_displayed = word_displayed + " " + i
         if word_displayed == "":
             word_displayed = word_url
-        return '<a href="%s" target="_blank">%s</a>' %(word_url, word_displayed)
+        return f'<a href="{word_url}" target="_blank">{word_displayed}</a>'
 
     def _ialink_repl(self, word):
         """compatibility with image active 1 format"""
         subword = word.split("@")
-        return '<a href="%s" target="_blank">%s</a>' %(subword[1][:-1], subword[0][1:])
+        return f'<a href="{subword[1][:-1]}" target="_blank">{subword[0][1:]}</a>'
 
     def _pre_repl(self, word):
         if word == '{{{' and not self.in_pre:
@@ -220,12 +218,7 @@ class PageFormatter:
                 content = re.sub(r'\(code=(.*)\)', '', content)
 
             random_id = hashlib.md5(uuid.uuid1().bytes).hexdigest()
-            final_result =  '<div style="margin-top:5px;margin-bottom:5px;">' + \
-                '<a class="button" href="#" ' + data_password + \
-                ' data-target="' + random_id + '">' + \
-                content + \
-                '</a>' + \
-                '</div>'
+            final_result = f'<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" {data_password} data-target="{random_id}">{content}</a></div>'
             if data_password != "":
                 final_result += '<form class="unlock" style="display:none;" id="form_' + random_id + '">' + \
                             '<input type="text">' + \
@@ -263,17 +256,17 @@ class PageFormatter:
         return len(self.list_indents) and self.list_indents[-1]
 
     def _indent_to(self, new_level):
-        s = u''
+        s = ''
         while self._indent_level() > new_level:
             del(self.list_indents[-1])
-            s = s + u'</ul>\n'
+            s = s + '</ul>\n'
         while self._indent_level() < new_level:
             self.list_indents.append(new_level)
-            s = s + u'<ul>\n'
+            s = s + '<ul>\n'
         return s
 
     def _undent(self):
-        res = u'</ul>' * len(self.list_indents)
+        res = '</ul>' * len(self.list_indents)
         self.list_indents = []
         return res
 
