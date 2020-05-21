@@ -86,7 +86,7 @@ class hook:
                 'kinetic_id' : detail["id"],
                 'tooltip_attr' : self.search('<tooltip>(.*)</tooltip>', detail["detail"], ""),
                 'options' : detail['options'],
-                'article_id' : unicode(str(i), "utf8"),
+                'article_id' : str(i).encode(),
                 'detail_title' : detail['title'],
                 'detail_desc' : self.PageFormatter(detail["detail"]).print_html()
             }
@@ -97,7 +97,7 @@ class hook:
                 </article>""".format(**params)
 
 
-        with open(templatePath,"r") as template:
+        with open(templatePath,"rb") as template:
 
             metadatas = ""
             metadatas += self.add_metadata(self.iaobject.scene["creator"])
@@ -149,5 +149,5 @@ class hook:
                 final_index = final_index.replace("{{xiaJS}}", localFolder +"/js/xia.js")
                 final_index = final_index.replace("{{hooksJS}}", localFolder +"/js/hooks.js")
                 final_index = final_index.replace("{{labJS}}", localFolder +"/js/LAB.min.js")
-        with open(filePath,"w") as indexfile:
+        with open(filePath,"wb") as indexfile:
             indexfile.write(final_index.encode("utf-8"))

@@ -97,7 +97,7 @@ class hook:
                 'magnet' : self.search('<magnet>(.*?)</magnet>', detail["detail"], "off"),
                 'kinetic_id' : detail["id"],
                 'target' : self.search('<target>(.*?)</target>', detail["detail"], ""),
-                'article_id' : unicode(str(i), "utf8"),
+                'article_id' : str(i).encode(),
                 'article_title' : detail['title'],
                 'article_content' : self.PageFormatter(detail["detail"]).print_html()
             }
@@ -107,7 +107,7 @@ class hook:
                     <p>{article_content}</p>
                 </article>""".format(**params)
 
-        with open(templatePath,"r") as template:
+        with open(templatePath,"rb") as template:
             metadatas = ""
             metadatas += self.add_metadata(self.iaobject.scene["creator"])
             metadatas += self.add_metadata(self.iaobject.scene["rights"])
@@ -159,5 +159,5 @@ class hook:
                 final_index = final_index.replace("{{xiaJS}}", localFolder +"/js/xia.js")
                 final_index = final_index.replace("{{hooksJS}}", localFolder +"/js/hooks.js")
                 final_index = final_index.replace("{{labJS}}", localFolder +"/js/LAB.min.js")
-        with open(filePath,"w") as indexfile:
+        with open(filePath,"wb") as indexfile:
             indexfile.write(final_index.encode("utf-8"))

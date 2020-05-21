@@ -62,9 +62,9 @@ class IAParams(tkinter.Frame):
 
         self.indexStandalone_img = {}
         self.indexStandalone_img[0] = tkinter.PhotoImage(file=imagesPath + \
-            "/indexStandalone_disabled.gif")
+            "/unique.gif")
         self.indexStandalone_img[1] = tkinter.PhotoImage(file=imagesPath + \
-            "/indexStandalone_enabled.gif")
+            "/unique-no.gif")
 
         # define buttons
 

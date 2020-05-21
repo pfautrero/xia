@@ -56,34 +56,34 @@ class PageFormatter:
     def _rule_repl(self, word):
         s = self._undent()
         if len(word) <= 4:
-            s = s + u"\n<hr/>\n"
+            s = s + "\n<hr/>\n"
         else:
-            s = s + u"\n<hr size=%d/>\n" % (len(word) - 2 )
+            s = s + "\n<hr size=%d/>\n" % (len(word) - 2 )
         return s
     def _markdownheaders_repl(self, word):
         nbTag = word.count("#")
-        return u'<h%s>%s</h%s>' %(nbTag, word[nbTag:].strip(), nbTag)
+        return '<h%s>%s</h%s>' %(nbTag, word[nbTag:].strip(), nbTag)
 
     def _url_repl(self, word):
-        return u'<a href="%s" target="_blank">%s</a>\n' % (word, word)
+        return '<a href="%s" target="_blank">%s</a>\n' % (word, word)
 
     def _flicker_repl(self, word):
-        return u'<div class="flickr_oembed" data-oembed="%s"></div>\n' % (word)
+        return '<div class="flickr_oembed" data-oembed="%s"></div>\n' % (word)
 
     def _scolawebtv_repl(self, word):
         videoClass = 'videoWrapper4_3'
         word = word.replace("scolawebtv.crdp-versailles.fr/?id=", "scolawebtv.crdp-versailles.fr/?iframe&id=")
-        return u'<div class="' + videoClass + \
+        return '<div class="' + videoClass + \
           '" data-iframe="%s"></div>\n' % (word)
 
     def _webtv_repl(self, word):
         videoClass = 'videoWrapper4_3'
         word = word.replace("webtv.ac-versailles.fr/spip.php?article", "webtv.ac-versailles.fr/spip.php?page=iframe-video&id_article=")
-        return u'<div class="' + videoClass + \
+        return '<div class="' + videoClass + \
           '" data-iframe="%s"></div>\n' % (word)
 
     def _videostart_repl(self, word):
-        return u'<video controls preload="none" data-state="autostart">\n\t\
+        return '<video controls preload="none" data-state="autostart">\n\t\
             <source type="video/mp4" src="%s.mp4" />\n\t\
             <source type="video/ogg" src="%s.ogv" />\n\t\
             <source type="video/webm" src="%s.webm" />\n\
@@ -91,7 +91,7 @@ class PageFormatter:
               os.path.splitext(word)[0], os.path.splitext(word)[0])
 
     def _video_repl(self, word):
-        return u'<video controls preload="none" data-state="none">\n\t\
+        return '<video controls preload="none" data-state="none">\n\t\
             <source type="video/mp4" src="%s.mp4" />\n\t\
             <source type="video/ogg" src="%s.ogv" />\n\t\
             <source type="video/webm" src="%s.webm" />\n\
@@ -99,10 +99,10 @@ class PageFormatter:
               os.path.splitext(word)[0], os.path.splitext(word)[0])
 
     def _img_repl(self, word):
-        return u'<img src="%s"/>\n' % (word)
+        return '<img src="%s"/>\n' % (word)
 
     def _pdf_repl(self, word):
-        return u'<a href="%s"><img src="{{LogoPDF}}" alt="pdf"></a>\n' % (word)
+        return '<a href="%s"><img src="{{LogoPDF}}" alt="pdf"></a>\n' % (word)
 
     def _iframe_repl(self, word):
         word_url = word.split("src=&quot;")[1].split("&quot;")[0]
@@ -119,7 +119,7 @@ class PageFormatter:
             ratio = (float(iframe_height) / float(iframe_width)) * 16
             if (ratio == 9):
                 videoClass = 'videoWrapper16_9'
-        return u'<div class="' + videoClass + \
+        return '<div class="' + videoClass + \
           '" data-iframe="%s"></div>\n' % (word_url)
 
     def _iframe2_repl(self, word):
@@ -147,24 +147,24 @@ class PageFormatter:
             ratio = (float(iframe_height) / float(iframe_width)) * 16
             if (ratio == 9):
                 videoClass = 'videoWrapper16_9'
-        return u'<div class="' + videoClass + \
+        return '<div class="' + videoClass + \
           '" data-iframe="%s"></div>\n' % (word_url)
 
     def _audiostart_repl(self, word):
-        return u'<audio controls data-state="autostart">\n\t\
+        return '<audio controls data-state="autostart">\n\t\
             <source type="audio/ogg" src="%s.ogg" />\n\t\
             <source type="audio/mp3" src="%s.mp3" />\n\
             </audio>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0])
 
 
     def _audio_repl(self, word):
-        return u'<audio controls data-state="none">\n\t\
+        return '<audio controls data-state="none">\n\t\
             <source type="audio/ogg" src="%s.ogg" />\n\t\
             <source type="audio/mp3" src="%s.mp3" />\n\
             </audio>\n' % (os.path.splitext(word)[0], os.path.splitext(word)[0])
 
     def _email_repl(self, word):
-        return u'<a href="mailto:%s">%s</a>\n' % (word, word)
+        return '<a href="mailto:%s">%s</a>\n' % (word, word)
 
     def _ent_repl(self, s):
         return {'&': '&amp;',
@@ -173,7 +173,7 @@ class PageFormatter:
 
     def _li_repl(self, match):
         self.in_li = 1
-        return u'<li>'
+        return '<li>'
 
     def _link_repl(self, word):
         word_filtered = re.sub(' +', ' ', word[1:-1])
@@ -188,52 +188,52 @@ class PageFormatter:
                 word_displayed = word_displayed + " " + i
         if word_displayed == "":
             word_displayed = word_url
-        return u'<a href="%s" target="_blank">%s</a>' %(word_url, word_displayed)
+        return '<a href="%s" target="_blank">%s</a>' %(word_url, word_displayed)
 
     def _ialink_repl(self, word):
         """compatibility with image active 1 format"""
         subword = word.split("@")
-        return u'<a href="%s" target="_blank">%s</a>' %(subword[1][:-1], subword[0][1:])
+        return '<a href="%s" target="_blank">%s</a>' %(subword[1][:-1], subword[0][1:])
 
     def _pre_repl(self, word):
         if word == '{{{' and not self.in_pre:
             self.in_pre = 1
-            return u'<pre>\n'
+            return '<pre>\n'
         elif self.in_pre:
             self.in_pre = 0
-            return u'</pre>\n'
+            return '</pre>\n'
         else:
-            return u''
+            return ''
 
     def _hidden_block_repl(self, word):
         if word.startswith('[['):
             #self.hidden_block.append(1)
             stack_value = 0
             data_password=""
-            code_present = re.search('\(code=(.*)\)', word, re.IGNORECASE|re.DOTALL)
+            code_present = re.search(r'\(code=(.*)\)', word, re.IGNORECASE|re.DOTALL)
             content =  word[2:len(word) - 1]
             final_result = ""
             if code_present:
                 password = code_present.group(1)
                 stack_value = password
                 data_password = 'data-password="' + hashlib.sha1(password.encode("utf-8")).hexdigest() + '"'
-                content = re.sub('\(code=(.*)\)', '', content)
+                content = re.sub(r'\(code=(.*)\)', '', content)
 
             random_id = hashlib.md5(uuid.uuid1().bytes).hexdigest()
-            final_result =  u'<div style="margin-top:5px;margin-bottom:5px;">' + \
-                u'<a class="button" href="#" ' + data_password + \
-                u' data-target="' + random_id + '">' + \
+            final_result =  '<div style="margin-top:5px;margin-bottom:5px;">' + \
+                '<a class="button" href="#" ' + data_password + \
+                ' data-target="' + random_id + '">' + \
                 content + \
-                u'</a>' + \
-                u'</div>'
+                '</a>' + \
+                '</div>'
             if data_password != "":
-                final_result += u'<form class="unlock" style="display:none;" id="form_' + random_id + '">' + \
-                            u'<input type="text">' + \
-                            u'<input type="submit" data-target="' + random_id + '" value="" ' + data_password + '>' + \
-                            u'</form>'
-            final_result += u'<div class="response" id="response_' + random_id + '">'
+                final_result += '<form class="unlock" style="display:none;" id="form_' + random_id + '">' + \
+                            '<input type="text">' + \
+                            '<input type="submit" data-target="' + random_id + '" value="" ' + data_password + '>' + \
+                            '</form>'
+            final_result += '<div class="response" id="response_' + random_id + '">'
             if data_password != "":
-                final_result += u'<!-- ==HIDDEN_BLOCK== -->'
+                final_result += '<!-- ==HIDDEN_BLOCK== -->'
 
             self.hidden_block.append(stack_value)
             return final_result
@@ -250,11 +250,11 @@ class PageFormatter:
                     password += password
                 str_encrypted = base64.b64encode(self.str_xor(str_to_encrypt.encode("utf-8"), password.encode("utf-8")))
                 self.final_str = self.final_str[0:start_block] + str_encrypted.decode()
-                return u'</div>\n'
+                return '</div>\n'
             else:
-                return current_str + u'</div>\n'
+                return current_str + '</div>\n'
         else:
-            return u''
+            return ''
 
     def str_xor(self, s1, s2):
         return "".join([chr(c1 ^ c2) for (c1,c2) in zip(s1,s2)]).encode()
@@ -314,8 +314,8 @@ class PageFormatter:
             + r"|(?P<pre>(\{\{\{|\}\}\}))"
             + r"|(?P<hidden_block>(\[\[(.*?)\:|\]\]))"
             + r")", re.IGNORECASE)
-        blank_re = re.compile("^\s*$")
-        indent_re = re.compile("^\s*")
+        blank_re = re.compile(r"^\s*$")
+        indent_re = re.compile(r"^\s*")
         eol_re = re.compile(r'\r?\n')
         raw = self.raw.expandtabs()
         html_feed = u'<br/>\n'
@@ -343,10 +343,10 @@ class PageFormatter:
                 self.final_str += "</li>"
                 self.in_li = 0
 
-        if self.in_pre: self.final_str += u'</pre>\n'
+        if self.in_pre: self.final_str += '</pre>\n'
         while len(self.hidden_block):
             self.hidden_block.pop(0)
-            self.final_str += u'</div>\n'
+            self.final_str += '</div>\n'
         self.final_str += self._undent()
         if self.final_str == html_feed:
             return ""

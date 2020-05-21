@@ -34,23 +34,61 @@ from .paramswindow import IAParams
 
 import gettext
 import locale
-import inkex
 if sys.platform.startswith('win32'):
     import ctypes
 
 class IADialog():
 
+
+    def indexStandalone(self):
+        self.indexStandalone_param = (self.indexStandalone_param + 1) % 2
+        self.options['export_type'] = "singlefile" if self.indexStandalone_param == 1 else "local"
+        self.button_indexStandalone.configure(image=self.indexStandalone_img[self.indexStandalone_param])
+
+    def createLabel(self, root, imagePath, posx, posy, span):
+
+        import_img= tkinter.PhotoImage(file=imagePath)
+        label = tkinter.Label(root,
+            image=import_img,
+            highlightthickness=0,
+            bg='#000000',
+            height=self.grid["height"] - 2,
+            width=self.grid["width"] * span - 2,
+            anchor=tkinter.NW)
+        label.photo = import_img
+        label.grid(row=posx,column=posy,columnspan=span,
+            sticky='NW',
+            padx=0, pady=0)
+        return label
+
+
+    def createButton(self, root, translate, imagePath, tooltipTitle, posx, posy, span):
+
+        import_img= tkinter.PhotoImage(file=imagePath)
+        button = tkinter.Button(root,
+                    image=import_img,
+                    relief=tkinter.FLAT,
+                    overrelief=tkinter.FLAT,
+                    borderwidth=0,
+                    highlightthickness=0,
+                    padx=0, pady=0,
+                    anchor=tkinter.NW,
+                    bg='#000000',
+                    height=self.grid["height"] - 2,
+                    width=self.grid["width"] - 2)
+        button.image = import_img
+        button.grid(row=posx,column=posy, columnspan=span,sticky='NW', padx=0, pady=0, ipadx=0, ipady=0)
+        tooltip = ToolTip(button,translate(tooltipTitle), None, 0.1)
+        return button
+
     def __init__(self, root, console, langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib,
                  sha1Lib, quantizeLib, svgfile=''):
-
-        #tkinter.Frame.__init__(self, root)
 
         try:
             t = gettext.translation("xia-converter", langPath, languages=[locale.getdefaultlocale()[0]])
         except:
             t = gettext.translation("xia-converter", langPath, languages=['en_US'])
         translate = t.gettext
-        #inkex.utils.debug(svgfile)
         self.filename = ""
         self.imagesPath = imagesPath
         self.themesPath = themesPath
@@ -77,113 +115,76 @@ class IADialog():
         root.call('set', '::tk::dialog::file::showHiddenVar', '0')
         root.call('set', '::tk::dialog::file::showHiddenBtn', '1')
 
-
-        # define images
-        import_img= tkinter.PhotoImage(file=self.imagesPath + "/open2.gif")
-        ia_img= tkinter.PhotoImage(file=self.imagesPath + "/xia2.gif")
-        file_locked= tkinter.PhotoImage(file=self.imagesPath + "/file_locked2.gif")
-        void_img= tkinter.PhotoImage(file=self.imagesPath + "/void.gif")
-        params_img= tkinter.PhotoImage(file=self.imagesPath + "/params2.gif")
-
         self.filename = svgfile
-
-        # init Image Active Object
         self.imageActive = iaObject(console)
 
         # define buttons
         if self.filename == "":
-            # standalone version
-            label = tkinter.Label(root, image=ia_img, highlightthickness=0,
-            bg='#000000', height=self.grid["height"] - 2, width=self.grid["width"] - 2, anchor=tkinter.NW)
-            label.photo = ia_img
-            label.grid(row=0,column=0,columnspan=1,
-                sticky='NW',
-                padx=0, pady=0)
-
-            button1 = tkinter.Button(root, image=import_img,
-                                     relief=tkinter.FLAT, bd=0,
-                                     command=self.askopenfilename,
-                                     highlightthickness=0,
-                                     padx=0, pady=0,
-                                     bg='#000000',
-                                     anchor=tkinter.NW,
-                                     height=self.grid["height"] - 2,
-                                     width=self.grid["width"] - 2)
-            button1.image = import_img
-            button1.grid(row=0,column=1, columnspan=1,sticky='NW', padx=0, pady=0)
-            tooltip = ToolTip(button1,translate("select svg file"), None, 0.1)
+            # standalone
+            label = self.createLabel(root, f"{self.imagesPath}/xialarge.gif",0,0,2)
+            button1 = self.createButton(root, translate,
+                f"{self.imagesPath}/folder.gif",
+                "select svg file",
+                1, 0, 1)
+            button1["command"] = self.askopenfilename
             self.keep_alive = "yes"
+            theme_index = 4
+            row_params = 1
         else:
-            # inkscape version
-            label1 = tkinter.Label(root, image=file_locked)
-            label1.photo = file_locked
-            label1.grid(row=0,column=0,columnspan=2, sticky='W', padx=0, pady=0)
+            # inkscape
+            label1 = self.createLabel(root,f"{self.imagesPath}/xia2.gif",0,0,1)
             self.keep_alive = "no"
+            theme_index = 2
+            row_params = 0
 
-        button2 = tkinter.Button(root, image=params_img,
-                                 relief=tkinter.FLAT, bd=0,
-                                 command=self.openparams,
-                                 highlightthickness=0,
-                                 padx=0, pady=0,
-                                 bg='#000000',
-                                 anchor=tkinter.NW,
-                                 height=self.grid["height"] - 2,
-                                 width=self.grid["width"] - 2)
-        button2.image = params_img
-        button2.grid(row=0,column=2, columnspan=1,sticky='W', padx=0, pady=0)
-        tooltip2 = ToolTip(button2,translate("ajust parameters"), None, 0.1)
+        self.indexStandalone_img = {}
+        self.indexStandalone_img[0] = tkinter.PhotoImage(file=f"{imagesPath}/unique.gif")
+        self.indexStandalone_img[1] = tkinter.PhotoImage(file=f"{imagesPath}/unique-no.gif")
+        self.indexStandalone_param = 0 if self.options['export_type'] == "singlefile" else 1
+
+        self.button_indexStandalone = self.createButton(root, translate,
+            f"{imagesPath}/unique.gif" if self.options['export_type'] == "singlefile" else f"{imagesPath}/unique-no.gif",
+            "index standalone",
+            row_params, 1, 1)
+        self.button_indexStandalone["command"] = self.indexStandalone
+
 
         # Automatic import of themes
 
         self.themes = []
 
         if os.path.isdir(themesPath):
-            theme_index = 3
             themes_folders = sorted(os.listdir(themesPath))
             for filename in themes_folders:
                 theme = {}
                 theme['name'] = filename
-                loader = SourceFileLoader(filename, themesPath + "/" + filename + "/hook.py")
+                loader = SourceFileLoader(filename, f"{themesPath}/{filename}/hook.py")
                 loaded = types.ModuleType(loader.name)
                 loader.exec_module(loaded)
                 theme['object'] = loaded.hook(self, self.imageActive, PageFormatter, self.langPath)
                 self.themes.append(theme)
 
-                img_button = tkinter.PhotoImage(file= themesPath + "/" + filename + "/" + "icon.gif")
-                button = tkinter.Button(root, image=img_button,
-                    relief=tkinter.FLAT,
-                    overrelief=tkinter.FLAT,
-                    borderwidth=0,
-                    highlightthickness=0,
-                    padx=0, pady=0,
-                    anchor=tkinter.NW,
-                    bg='#000000',
-                    height=self.grid["height"] - 2,
-                    width=self.grid["width"] - 2)
+                button = self.createButton(root, translate,
+                    f"{themesPath}/{filename}/icon.gif",
+                    theme['object'].tooltip,
+                    theme_index // 2,
+                    theme_index % 2,
+                    1)
                 button["command"] = lambda t=theme:self.createIA(t)
-                button.image = img_button
-                button.grid(row=theme_index // 3,
-                    column=theme_index % 3,
-                    padx=0, pady=0,
-                    sticky='NW',
-                    ipadx=0, ipady=0)
-                tooltip = ToolTip(button,theme['object'].tooltip, None, 0.1)
                 theme_index += 1
 
         # padding
 
-        while (theme_index % 3) != 0:
-            label = tkinter.Label(root, image=void_img,
-                highlightthickness=0, padx=0, pady=0,
-                bg='#000000',
-                height=self.grid["height"] - 2,
-                width=self.grid["width"] - 2)
-            label.photo = void_img
-            label.grid(row=theme_index // 3, column=theme_index % 3, columnspan=1, sticky='W')
+        while (theme_index % 2) != 0:
+            label = self.createLabel(root,
+                f"{self.imagesPath}/void.gif",
+                theme_index // 2,
+                theme_index % 2,
+                1)
             theme_index += 1
 
         # redefine window height if necessary
-        root.geometry(str(self.grid["width"] * 3) + "x" + str((theme_index // 3) * self.grid["height"]))
+        root.geometry(str(self.grid["width"] * 2) + "x" + str((theme_index // 2) * self.grid["height"]))
 
         # define options for opening or saving a file
         self.file_opt = options = {}
@@ -342,16 +343,13 @@ class IADialog():
         return result
 
     def defineMaxPixels(self, resizeCoeff):
-        if resizeCoeff == 0:
-            return float(1024 * 1024)
-        elif resizeCoeff == 1:
-            return float(2 * 1024 * 1024)
-        elif resizeCoeff == 2:
-            return float(3 * 1024 * 1024)
-        elif resizeCoeff == 3:
+
+        if resizeCoeff == 3:
+            # This resolution keeps image under iOS resource limit
             return float(5 * 1024 * 1024)
         else:
-            return float(512 * 1024)
+            # arbitrary huge size
+            return float(100 * 512 * 1024)
 
     def quit(self):
         self.root.destroy()
