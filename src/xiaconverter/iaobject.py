@@ -184,7 +184,7 @@ class iaObject:
                 imgFile = localDir + "/" + xlink[strStarter:]
             if os.path.exists(imgFile):
                 with open(imgFile, 'rb') as img:
-                    raster = rasterPref + img.read().encode("base64", "strict")
+                    raster = rasterPref + base64.b64encode(img.read()).decode()
         return raster
 
     def analyzeSVG(self, filePath, maxNumPixels):
@@ -1596,7 +1596,7 @@ class iaObject:
                         rotatedImage.save(imageFileSmall)
 
                     with open(imageFileSmall, 'rb') as bgSmallImage:
-                        rasterSmallEncoded = bgSmallImage.read().encode("base64")
+                        rasterSmallEncoded = base64.b64encode(bgSmallImage.read()).decode()
                         newraster = rasterPrefix + rasterSmallEncoded
 
                     newrasterWidth, newrasterHeight = rotatedImage.size

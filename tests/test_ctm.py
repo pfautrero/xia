@@ -16,67 +16,68 @@
 # @author : pascal.fautrero@gmail.com
 
 from xiaconverter.ctm import CurrentTransformation
-from nose.tools import *
+from nose2.tools import *
+from nose2.tests._common import TestCase
 import math
 
 import xiaconverter.cubicsuperpath
 
-class TestCurrentTransformation:
+class TestCurrentTransformation(TestCase):
 
     def test_analyze_translate(self):
         ctm = CurrentTransformation()
         ctm.analyze("translate( 10   )")
-        assert_equal(ctm.translateX, "10")
-        assert_equal(ctm.translateY, "10")
-        assert_equal(ctm.matrix, [[1.0, 0.0, 10.0], [0.0, 1.0, 10.0]])
+        self.assertEqual(ctm.translateX, "10")
+        self.assertEqual(ctm.translateY, "10")
+        self.assertEqual(ctm.matrix, [[1.0, 0.0, 10.0], [0.0, 1.0, 10.0]])
 
     def test_analyze_translate2(self):
         ctm = CurrentTransformation()
 
         ctm.analyze("translate(10   20)")
-        assert_equal(ctm.translateX, "10")
-        assert_equal(ctm.translateY, "20")
-        assert_equal(ctm.matrix, [[1.0, 0.0, 10.0], [0.0, 1.0, 20.0]])
+        self.assertEqual(ctm.translateX, "10")
+        self.assertEqual(ctm.translateY, "20")
+        self.assertEqual(ctm.matrix, [[1.0, 0.0, 10.0], [0.0, 1.0, 20.0]])
 
     def test_analyze_translate3(self):
         ctm = CurrentTransformation()
 
         ctm.analyze("translate(10   , -10)")
-        assert_equal(ctm.translateX, "10")
-        assert_equal(ctm.translateY, "-10")
-        assert_equal(ctm.matrix, [[1.0, 0.0, 10.0], [0.0, 1.0, -10.0]])
+        self.assertEqual(ctm.translateX, "10")
+        self.assertEqual(ctm.translateY, "-10")
+        self.assertEqual(ctm.matrix, [[1.0, 0.0, 10.0], [0.0, 1.0, -10.0]])
 
 
     def test_analyze_scale(self):
         ctm = CurrentTransformation()
         ctm.analyze("scale(10)")
-        assert_equal(ctm.scaleX, "10")
-        assert_equal(ctm.scaleY, "10")
-        assert_equal(ctm.matrix, [[10, 0.0, 0.0], [0.0, 10, 0.0]])
+        self.assertEqual(ctm.scaleX, "10")
+        self.assertEqual(ctm.scaleY, "10")
+        self.assertEqual(ctm.matrix, [[10, 0.0, 0.0], [0.0, 10, 0.0]])
 
     def test_analyze_scale2(self):
         ctm = CurrentTransformation()
 
         ctm.analyze("scale(10 20)")
-        assert_equal(ctm.scaleX, "10")
-        assert_equal(ctm.scaleY, "20")
-        assert_equal(ctm.matrix, [[10, 0.0, 0.0], [0.0, 20, 0.0]])
+        self.assertEqual(ctm.scaleX, "10")
+        self.assertEqual(ctm.scaleY, "20")
+        self.assertEqual(ctm.matrix, [[10, 0.0, 0.0], [0.0, 20, 0.0]])
 
     def test_analyze_scale3(self):
         ctm = CurrentTransformation()
 
         ctm.analyze("scale(10,-10)")
-        assert_equal(ctm.scaleX, "10")
-        assert_equal(ctm.scaleY, "-10")
-        assert_equal(ctm.matrix, [[10, 0.0, 0.0], [0.0, -10, 0.0]])
+        self.assertEqual(ctm.scaleX, "10")
+        self.assertEqual(ctm.scaleY, "-10")
+        self.assertEqual(ctm.matrix, [[10, 0.0, 0.0], [0.0, -10, 0.0]])
 
     def test_analyze_rotate(self):
         ctm = CurrentTransformation()
         ctm.analyze("rotate(10 20 -30)")
-        assert_equal(ctm.rotate, "10")
-        assert_equal(ctm.rX, "20")
-        assert_equal(ctm.rY, "-30")
-        assert_equal(ctm.matrix,
+        self.assertEqual(ctm.rotate, "10")
+        self.assertEqual(ctm.rX, "20")
+        self.assertEqual(ctm.rY, "-30")
+        self.assertEqual(ctm.matrix,
             [
                 [
                     math.cos(10),
@@ -94,10 +95,10 @@ class TestCurrentTransformation:
         ctm = CurrentTransformation()
 
         ctm.analyze("rotate(10)")
-        assert_equal(ctm.rotate, "10")
-        assert_equal(ctm.rX, "0")
-        assert_equal(ctm.rY, "0")
-        assert_equal(ctm.matrix,
+        self.assertEqual(ctm.rotate, "10")
+        self.assertEqual(ctm.rX, "0")
+        self.assertEqual(ctm.rY, "0")
+        self.assertEqual(ctm.matrix,
             [
                 [
                     math.cos(10),
@@ -114,14 +115,14 @@ class TestCurrentTransformation:
     def test_analyze_matrix(self):
         ctm = CurrentTransformation()
         ctm.analyze("matrix(1 2 3 4 5 6)")
-        assert_equal(ctm.translateX, "5")
-        assert_equal(ctm.translateY, "6")
-        assert_equal(ctm.scaleX, math.sqrt(float(1)**2+float(3)**2))
-        assert_equal(ctm.scaleY, math.sqrt(float(2)**2+float(4)**2))
-        assert_equal(ctm.rotate, math.atan2(float(2),float(4)))
-        # @TODO assert_equal(ctm.rX, ??)
-        # @TODO assert_equal(ctm.rY, ??)
-        assert_equal(ctm.matrix, [[1.0,3.0,5.0],[2.0,4.0,6.0]])
+        self.assertEqual(ctm.translateX, "5")
+        self.assertEqual(ctm.translateY, "6")
+        self.assertEqual(ctm.scaleX, math.sqrt(float(1)**2+float(3)**2))
+        self.assertEqual(ctm.scaleY, math.sqrt(float(2)**2+float(4)**2))
+        self.assertEqual(ctm.rotate, math.atan2(float(2),float(4)))
+        # @TODO self.assertEqual(ctm.rX, ??)
+        # @TODO self.assertEqual(ctm.rY, ??)
+        self.assertEqual(ctm.matrix, [[1.0,3.0,5.0],[2.0,4.0,6.0]])
 
     def test_analyze_rectToPath(self):
         ctm = CurrentTransformation()
@@ -132,7 +133,7 @@ class TestCurrentTransformation:
             'height': 30
         }
         path = ctm.rectToPath(rect)
-        assert_equal(path, "M 10.000000,20.000000 L 60.000000,20.000000 L 60.000000,50.000000 L 10.000000,50.000000 L 10.000000,20.000000 ")
+        self.assertEqual(path, "M 10.000000,20.000000 L 60.000000,20.000000 L 60.000000,50.000000 L 10.000000,50.000000 L 10.000000,20.000000 ")
 
     def test_analyze_rectToPath2(self):
         ctm = CurrentTransformation()
@@ -146,7 +147,7 @@ class TestCurrentTransformation:
             'ry': 10
         }
         path = ctm.rectToPath(rect)
-        assert_equal(path, "M 15.000000,20.000000 L 55.000000,20.000000 A 5.000000,10.000000 0 0 1 60.000000,30.000000L 60.000000,40.000000 A 5.000000,10.000000 0 0 1 55.000000,50.000000L 15.000000,50.000000 A 5.000000,10.000000 0 0 1 10.000000,40.000000L 10.000000,30.000000 A 5.000000,10.000000 0 0 1 15.000000,20.000000")
+        self.assertEqual(path, "M 15.000000,20.000000 L 55.000000,20.000000 A 5.000000,10.000000 0 0 1 60.000000,30.000000L 60.000000,40.000000 A 5.000000,10.000000 0 0 1 55.000000,50.000000L 15.000000,50.000000 A 5.000000,10.000000 0 0 1 10.000000,40.000000L 10.000000,30.000000 A 5.000000,10.000000 0 0 1 15.000000,20.000000")
 
     def test_analyze_rectToPath3(self):
         ctm = CurrentTransformation()
@@ -160,7 +161,7 @@ class TestCurrentTransformation:
             'ry': 20
         }
         path = ctm.rectToPath(rect)
-        assert_equal(path, "M 30.000000,10.000000 L 30.000000,10.000000 A 20.000000,20.000000 0 0 1 50.000000,30.000000L 50.000000,30.000000 A 20.000000,20.000000 0 0 1 30.000000,50.000000L 30.000000,50.000000 A 20.000000,20.000000 0 0 1 10.000000,30.000000L 10.000000,30.000000 A 20.000000,20.000000 0 0 1 30.000000,10.000000")
+        self.assertEqual(path, "M 30.000000,10.000000 L 30.000000,10.000000 A 20.000000,20.000000 0 0 1 50.000000,30.000000L 50.000000,30.000000 A 20.000000,20.000000 0 0 1 30.000000,50.000000L 30.000000,50.000000 A 20.000000,20.000000 0 0 1 10.000000,30.000000L 10.000000,30.000000 A 20.000000,20.000000 0 0 1 30.000000,10.000000")
 
 
     def test_analyze_applyTransformToPath(self):
@@ -168,7 +169,7 @@ class TestCurrentTransformation:
         ctm = CurrentTransformation()
         path = "M 10,20 L 60,20 L 60,50 L 10,50 L 10,20"
         path_modified = "M53.0 146.0C53.0 146.0 103.0 346.0 103.0 346.0C103.0 346.0 163.0 496.0 163.0 496.0C163.0 496.0 113.0 296.0 113.0 296.0C113.0 296.0 53.0 146.0 53.0 146.0"
-        p = xiaconverter.cubicsuperpath.parsePath(path)
+        p = xiaconverter.cubicsuperpath.cubicsuperpath.parsePath(path)
         ctm.applyTransformToPath(matrix,p)
-        path_calculated = xiaconverter.cubicsuperpath.formatPath(p)
-        assert_equal(path_calculated,path_modified)
+        path_calculated = xiaconverter.cubicsuperpath.cubicsuperpath.formatPath(p)
+        self.assertEqual(path_calculated,path_modified)
