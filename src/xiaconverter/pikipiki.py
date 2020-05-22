@@ -65,8 +65,7 @@ class PageFormatter:
         return '<h%s>%s</h%s>' %(nbTag, word[nbTag:].strip(), nbTag)
 
     def _url_repl(self, word):
-        nl = ord('\n')
-        return f'<a href="{word}" target="_blank">{word}</a>{nl}'
+        return f'<a href=\"{word}\" target=\"_blank\">{word}</a>\n'
 
     def _flicker_repl(self, word):
         return f'<div class="flickr_oembed" data-oembed="{word}"></div>\n'
