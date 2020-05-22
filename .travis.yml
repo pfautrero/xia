@@ -5,4 +5,4 @@ python:
 install:
   - pip3 install pillow
 # command to run tests
-script: nose2-3.7
+script: nose2-3.5
