@@ -204,7 +204,7 @@ class iaObject:
                 svgcontent = svgcontent.replace("<svg", '<svg\nxmlns:xlink="http://www.w3.org/1999/xlink"')
                 dirname = os.path.dirname(filePath)
                 basename = os.path.basename(filePath)
-                fixedfile = dirname + "/fixed_" + basename
+                fixedfile = f"{dirname}/fixed_{basename}"
                 with open(fixedfile, 'w') as tempsvgfile:
                     tempsvgfile.write(svgcontent)
                 filePath = fixedfile
@@ -214,13 +214,13 @@ class iaObject:
         self.xml = minidom.parse(filePath)
 
         head, tail = os.path.split(filePath)
-        self.scene['intro_title'] = u"Description"
-        self.scene['intro_detail'] = u"XIA"
+        self.scene['intro_title'] = "Description"
+        self.scene['intro_detail'] = "XIA"
         self.scene['image'] = ""
         self.scene['path'] = ""
         self.scene['width'] = ""
         self.scene['height'] = ""
-        self.scene['title'] = u"" + os.path.splitext(tail)[0]
+        self.scene['title'] = os.path.splitext(tail)[0]
 
         self.extractMetadatas(self.xml)
 
@@ -300,6 +300,7 @@ class iaObject:
                 self.scene['image'], self.scene['width'], self.scene['height'] = self.resizeImage(self.scene['image'],
                                                                                                   self.scene['width'],
                                                                                                   self.scene['height'])
+                self.scene['ratio'] = 1
 
         svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'image', 'g']
         mainSVG = self.xml.getElementsByTagName('svg')

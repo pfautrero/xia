@@ -42,7 +42,7 @@ class IADialog():
 
     def indexStandalone(self):
         self.indexStandalone_param = (self.indexStandalone_param + 1) % 2
-        self.options['export_type'] = "singlefile" if self.indexStandalone_param == 1 else "local"
+        self.options['export_type'] = "singlefile" if self.indexStandalone_param == 0 else "local"
         self.button_indexStandalone.configure(image=self.indexStandalone_img[self.indexStandalone_param])
 
     def createLabel(self, root, imagePath, posx, posy, span):
@@ -295,7 +295,7 @@ class IADialog():
 
                 maxNumPixels = self.defineMaxPixels(self.resize)
                 self.imageActive.analyzeSVG(self.filename, maxNumPixels)
-
+                self.imageActive.generateJSON()
                 head, tail = os.path.split(self.filename)
                 filenamewithoutext = os.path.splitext(tail)[0]
                 filenamewithoutext = re.sub(r"\s+", "", filenamewithoutext, flags=re.UNICODE)
@@ -324,7 +324,6 @@ class IADialog():
                     shutil.copy(self.sha1Lib, "{}/{}/js".format(self.dirname, filenamewithoutext))
                     shutil.copy(self.quantizeLib, "{}/{}/js".format(self.dirname, filenamewithoutext))
 
-                self.imageActive.generateJSON()
                 if self.options['export_type'] == "local":
                     with open("{}/{}/datas/data.js".format(self.dirname, filenamewithoutext),"wb") as jsonfile:
                         jsonfile.write(self.imageActive.jsonContent.encode('utf8'))
