@@ -4,6 +4,6 @@ python:
 # command to install dependencies
 install:
   - pip3 install pillow
-  - sudo apt-get install python3-nose2
+  - sudo apt-get install python3-nose2 python3-pil
 # command to run tests
 script: nose2-3.5
