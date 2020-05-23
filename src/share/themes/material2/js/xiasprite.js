@@ -44,7 +44,7 @@ class XiaSprite extends XiaDetail {
 
     var idle = []
     for (let k = 0; k < timeLine.length; k++) {
-      idle.push(timeLine[k] * detail.width, 0, detail.width, detail.height)
+      idle.push(timeLine[k] * this.detail.width, 0, this.detail.width, this.detail.height)
     }
     this.kineticElement = new Konva.Sprite({
       x: this.detail.x * this.parent.iaScene.coeff,
@@ -53,7 +53,7 @@ class XiaSprite extends XiaDetail {
       animation: 'idle',
       animations: {
         idle: idle,
-        hidden: [timeLine.length * this.parent.detail.width, 0, this.parent.detail.width, this.parent.detail.height]
+        hidden: [timeLine.length * this.detail.width, 0, this.detail.width, this.detail.height]
       },
       frameRate: 10,
       frameIndex: 0,
@@ -71,7 +71,7 @@ class XiaSprite extends XiaDetail {
       this.parent.nbElements--
       if (this.parent.nbElements === 0) this.parent.resolve('All elements created')
     }.bind(this)
-    rasterObj.src = detail.image
+    rasterObj.src = this.detail.image
   }
 }
 if (typeof module !== 'undefined' && module.exports != null) {

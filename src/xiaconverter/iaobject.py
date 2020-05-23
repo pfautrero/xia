@@ -1155,7 +1155,6 @@ class iaObject:
         maxY = 0
 
         dirname = tempfile.mkdtemp()
-
         svgElements = ['image']
         imagesSHA1 = []
         timeLine = []
@@ -1177,7 +1176,7 @@ class iaObject:
                     raster = newrecord['image']
                     rasterStartPosition = raster.find('base64,') + 7
                     rasterEncoded = raster[rasterStartPosition:]
-                    rasterSHA1 = hashlib.sha1(rasterEncoded).hexdigest()
+                    rasterSHA1 = hashlib.sha1(rasterEncoded.encode()).hexdigest()
                     if rasterSHA1 not in imagesSHA1:
                         # this is an image frame pose
                         imagesSHA1.append(rasterSHA1)
@@ -1207,17 +1206,19 @@ class iaObject:
                             record['detail'] = newrecord['detail']
                         if record["title"] == "":
                             record['title'] = newrecord['title']
-
+                        imageIndex += 1
                     else:
                         # this image is already recorded
                         currentImageIndex = imagesSHA1.index(rasterSHA1)
                         timeLine.append(currentImageIndex)
 
-                    imageIndex += 1
 
         # Now, Concatenate Images
         if imageIndex != 0:
-            images = map(Image.open, imagesToConcatenate)
+            images = []
+            for x in imagesToConcatenate:
+              images.append(Image.open(x))
+            #images = map(Image.open, imagesToConcatenate)
             widths, heights = zip(*(i.size for i in images))
 
             total_width = sum(widths)
@@ -1234,7 +1235,7 @@ class iaObject:
             new_im.save(imageFileFixed)
 
             with open(imageFileFixed, 'rb') as fixedImage:
-                rasterFixedEncoded = base64.b64encode(fixedImage.read()).replace('\n','')
+                rasterFixedEncoded = base64.b64encode(fixedImage.read()).decode().replace('\n','')
 
                 record["image"] = firstRasterPrefix + rasterFixedEncoded
 
@@ -1477,7 +1478,7 @@ class iaObject:
             if extension.group(1):
                 imageFile = dirname + os.path.sep + "image." + extension.group(1)
                 imageFileSmall = dirname + \
-                                 os.path.sep + "image_small." + extension.group(1)
+                                 os.path.sep + "image_small.png"
                 with open(imageFile, "wb") as bgImage:
                     bgImage.write(base64.b64decode(rasterEncoded))
 
