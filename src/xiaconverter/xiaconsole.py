@@ -26,16 +26,27 @@ from .pikipiki import PageFormatter
 
 class XIAConsole():
 
-    def __init__(self, langPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, quantizeLib, options, console):
+    def __init__(self, config, options, console):
 
-        self.themesPath = themesPath
-        self.langPath = langPath
-        self.fontsPath = fontsPath
-        self.labjsLib = labjsLib
-        self.kineticLib = kineticLib
-        self.sha1Lib = sha1Lib
-        self.quantizeLib = quantizeLib
-        self.jqueryLib = jqueryLib
+        #self.themesPath = themesPath
+        #self.langPath = langPath
+        #self.fontsPath = fontsPath
+        #self.labjsLib = labjsLib
+        #self.kineticLib = kineticLib
+        #self.sha1Lib = sha1Lib
+        #self.quantizeLib = quantizeLib
+        #self.jqueryLib = jqueryLib
+
+        self.langPath = config.get('paths', 'langPath')
+        self.fontsPath = config.get('paths', 'fontsPath')
+        self.themesPath = config.get('paths', 'themesPath')
+        self.labjsLib = config.get('paths', 'labjsLib')
+        self.kineticLib = config.get('paths', 'kineticLib')
+        self.jqueryLib = config.get('paths', 'jqueryLib')
+        self.sha1Lib = config.get('paths', 'sha1Lib')
+        self.quantizeLib = config.get('paths', 'quantizeLib')
+        self.xiaEngine = config.get('paths', 'xiaEngine')
+
         self.resize = options['quality']
         self.filename = options['input_file']
         self.dirname = options['output_dir']
@@ -70,6 +81,7 @@ class XIAConsole():
             if os.path.isdir(self.dirname + '/datas'):
                 shutil.rmtree(self.dirname + '/datas')
             os.mkdir(self.dirname + '/datas')
+            shutil.copy(self.xiaEngine, "{}/js".format(self.dirname))
             shutil.copytree(self.fontsPath , self.dirname + '/font/')
             shutil.copytree(self.themesPath + '/' + self.theme['name'] + \
                 '/css/', self.dirname + '/css/')

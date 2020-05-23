@@ -36,30 +36,30 @@ class ImageActive(inkex.Effect):
         pathNodes = self.document.xpath('//sodipodi:namedview',namespaces=inkex.NSS)
         pathNodes[0].set('id','base')
 
-        inkexWorkingDir = "."
+        #inkexWorkingDir = "."
 
         # retrieve paths
 
         config = configparser.ConfigParser()
-        config.read(inkexWorkingDir + "/xia.cnf")
+        config.read("./xia.cnf")
         numVersion = config.get('version', 'numVersion')
         releaseVersion = config.get('version', 'releaseVersion')
         imagesPath = inkexWorkingDir + "/" + config.get('paths', 'imagesPath')
-        langPath = inkexWorkingDir + "/" + config.get('paths', 'langPath')
-        fontsPath = inkexWorkingDir + "/" + config.get('paths', 'fontsPath')
-        themesPath = inkexWorkingDir + "/" + config.get('paths', 'themesPath')
-        labjsLib = inkexWorkingDir + "/" + config.get('paths', 'labjsLib')
-        jqueryLib = inkexWorkingDir + "/" + config.get('paths', 'jqueryLib')
-        kineticLib = inkexWorkingDir + "/" + config.get('paths', 'kineticLib')
-        sha1Lib = inkexWorkingDir + "/" + config.get('paths', 'sha1Lib')
-        quantizeLib = inkexWorkingDir + "/" + config.get('paths', 'quantizeLib')
+        #langPath = inkexWorkingDir + "/" + config.get('paths', 'langPath')
+        #fontsPath = inkexWorkingDir + "/" + config.get('paths', 'fontsPath')
+        #themesPath = inkexWorkingDir + "/" + config.get('paths', 'themesPath')
+        #labjsLib = inkexWorkingDir + "/" + config.get('paths', 'labjsLib')
+        #jqueryLib = inkexWorkingDir + "/" + config.get('paths', 'jqueryLib')
+        #kineticLib = inkexWorkingDir + "/" + config.get('paths', 'kineticLib')
+        #sha1Lib = inkexWorkingDir + "/" + config.get('paths', 'sha1Lib')
+        #quantizeLib = inkexWorkingDir + "/" + config.get('paths', 'quantizeLib')
+        #xiaEngine = inkexWorkingDir + "/" + config.get('paths', 'xiaEngine')
 
         try:
-
-            filePath = tempfile.mkdtemp() + "/" + "temp.svg"
+            filePath = f"{tempfile.mkdtemp()}/temp.svg}"
             with open(filePath,"w") as file:
                 self.document.write(filePath)
-            #inkex.utils.debug(filePath)
+
             console = LoggerInkscape()
 
             root = tkinter.Tk()
@@ -68,8 +68,7 @@ class ImageActive(inkex.Effect):
             root.resizable(0,0)
             img = tkinter.PhotoImage(file= imagesPath + '/xia64.gif')
             root.tk.call('wm', 'iconphoto', root._w, img)
-            maindialog = IADialog(root, console, langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib,
-                                  kineticLib, sha1Lib, quantizeLib, filePath)
+            maindialog = IADialog(root, console, config, "./", filePath)
             root.mainloop()
 
         except ValueError:

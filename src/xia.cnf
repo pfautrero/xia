@@ -8,6 +8,7 @@ jqueryLib = share/vendors/jquery.min.js
 kineticLib = share/vendors/konva.min.js
 sha1Lib = share/vendors/git-sha1.min.js
 quantizeLib = share/vendors/quantization.min.js
+xiaEngine = share/xiaengine/xia.js
 
 [version]
 numVersion = 3.0

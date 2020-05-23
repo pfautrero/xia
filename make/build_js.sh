@@ -68,6 +68,11 @@ do
     rm $js
 done
 
-
-
-
+# Concatenate js to build xia.js.
+rm -f "$build_dir/share/xiaengine/xia.js"
+for js in "$build_dir/share/xiaengine/"*.js
+do
+  cat "$js" >> "$build_dir/share/xiaengine/xia.js"
+  echo "" >> "$build_dir/share/xiaengine/xia.js"
+  rm "$js"
+done

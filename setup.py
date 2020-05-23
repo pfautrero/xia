@@ -120,6 +120,6 @@ setup(
     author_email='pascal.fautrero@gmail.com',
     description='Convert svg to full html5 interactive images',
     long_description=long_description,
-    url='http://xia.dane.ac-versailles.fr',
+    url='https://xia.funraiders.org',
     license='GPL-3',
 )

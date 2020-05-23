@@ -83,24 +83,36 @@ class IADialog():
         tooltip = ToolTip(button,translate(tooltipTitle), None, 0.1)
         return button
 
-    def __init__(self, root, console, langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib,
-                 sha1Lib, quantizeLib, svgfile=''):
+    def __init__(self, root, console, config, workingDir, svgfile=''):
+
+        self.filename = ""
+
+        self.imagesPath = workingDir + config.get('paths', 'imagesPath')
+        self.langPath = workingDir + config.get('paths', 'langPath')
+        self.fontsPath = workingDir + config.get('paths', 'fontsPath')
+        self.themesPath = workingDir + config.get('paths', 'themesPath')
+        self.labjsLib = workingDir + config.get('paths', 'labjsLib')
+        self.kineticLib = workingDir + config.get('paths', 'kineticLib')
+        self.jqueryLib = workingDir + config.get('paths', 'jqueryLib')
+        self.sha1Lib = workingDir + config.get('paths', 'sha1Lib')
+        self.quantizeLib = workingDir + config.get('paths', 'quantizeLib')
+        self.xiaEngine = workingDir + config.get('paths', 'xiaEngine')
 
         try:
-            t = gettext.translation("xia-converter", langPath, languages=[locale.getdefaultlocale()[0]])
+            t = gettext.translation("xia-converter", self.langPath, languages=[locale.getdefaultlocale()[0]])
         except:
-            t = gettext.translation("xia-converter", langPath, languages=['en_US'])
+            t = gettext.translation("xia-converter", self.langPath, languages=['en_US'])
         translate = t.gettext
-        self.filename = ""
-        self.imagesPath = imagesPath
-        self.themesPath = themesPath
-        self.fontsPath = fontsPath
-        self.langPath = langPath
-        self.labjsLib = labjsLib
-        self.kineticLib = kineticLib
-        self.sha1Lib = sha1Lib
-        self.quantizeLib = quantizeLib
-        self.jqueryLib = jqueryLib
+
+        #self.imagesPath = imagesPath
+        #self.themesPath = themesPath
+        #self.fontsPath = fontsPath
+        #self.langPath = langPath
+        #self.labjsLib = labjsLib
+        #self.kineticLib = kineticLib
+        #self.sha1Lib = sha1Lib
+        #self.quantizeLib = quantizeLib
+        #self.jqueryLib = jqueryLib
         self.root = root
         self.resize = 3
 
@@ -140,12 +152,12 @@ class IADialog():
             row_params = 0
 
         self.indexStandalone_img = {}
-        self.indexStandalone_img[0] = tkinter.PhotoImage(file=f"{imagesPath}/unique.gif")
-        self.indexStandalone_img[1] = tkinter.PhotoImage(file=f"{imagesPath}/unique-no.gif")
+        self.indexStandalone_img[0] = tkinter.PhotoImage(file=f"{self.imagesPath}/unique.gif")
+        self.indexStandalone_img[1] = tkinter.PhotoImage(file=f"{self.imagesPath}/unique-no.gif")
         self.indexStandalone_param = 0 if self.options['export_type'] == "singlefile" else 1
 
         self.button_indexStandalone = self.createButton(root, translate,
-            f"{imagesPath}/unique.gif" if self.options['export_type'] == "singlefile" else f"{imagesPath}/unique-no.gif",
+            f"{self.imagesPath}/unique.gif" if self.options['export_type'] == "singlefile" else f"{self.imagesPath}/unique-no.gif",
             "index standalone",
             row_params, 1, 1)
         self.button_indexStandalone["command"] = self.indexStandalone
@@ -155,19 +167,19 @@ class IADialog():
 
         self.themes = []
 
-        if os.path.isdir(themesPath):
-            themes_folders = sorted(os.listdir(themesPath))
+        if os.path.isdir(self.themesPath):
+            themes_folders = sorted(os.listdir(self.themesPath))
             for filename in themes_folders:
                 theme = {}
                 theme['name'] = filename
-                loader = SourceFileLoader(filename, f"{themesPath}/{filename}/hook.py")
+                loader = SourceFileLoader(filename, f"{self.themesPath}/{filename}/hook.py")
                 loaded = types.ModuleType(loader.name)
                 loader.exec_module(loaded)
                 theme['object'] = loaded.hook(self, self.imageActive, PageFormatter, self.langPath)
                 self.themes.append(theme)
 
                 button = self.createButton(root, translate,
-                    f"{themesPath}/{filename}/icon.gif",
+                    f"{self.themesPath}/{filename}/icon.gif",
                     theme['object'].tooltip,
                     theme_index // 2,
                     theme_index % 2,
@@ -316,10 +328,19 @@ class IADialog():
                         shutil.rmtree("{}/{}".format(self.dirname, filenamewithoutext))
                     os.mkdir("{}/{}".format(self.dirname, filenamewithoutext))
                     os.mkdir("{}/{}/datas".format(self.dirname, filenamewithoutext))
+                    os.mkdir("{}/{}/js".format(self.dirname, filenamewithoutext))
+                    shutil.copy(self.xiaEngine, "{}/{}/js".format(self.dirname, filenamewithoutext))
                     shutil.copytree(self.fontsPath , "{}/{}/font".format(self.dirname, filenamewithoutext))
                     shutil.copytree(self.themesPath + '/' + theme['name'] + '/css/', "{}/{}/css".format(self.dirname, filenamewithoutext))
                     shutil.copytree(self.themesPath + '/' + theme['name'] + '/img/', "{}/{}/img".format(self.dirname, filenamewithoutext))
-                    shutil.copytree(self.themesPath + '/' + theme['name'] + '/js/', "{}/{}/js".format(self.dirname, filenamewithoutext))
+                    src = f"{self.themesPath}/{theme['name']}/js/"
+                    dst = f"{self.dirname}/{filenamewithoutext}/js"
+                    names = os.listdir(src)
+                    for name in names:
+                        srcname = os.path.join(src, name)
+                        dstname = os.path.join(dst, name)
+                        shutil.copyfile(srcname, dstname)
+                    #shutil.copytree(self.themesPath + '/' + theme['name'] + '/js/', "{}/{}/js".format(self.dirname, filenamewithoutext))
                     shutil.copy(self.labjsLib, "{}/{}/js".format(self.dirname, filenamewithoutext))
                     shutil.copy(self.jqueryLib, "{}/{}/js".format(self.dirname, filenamewithoutext))
                     shutil.copy(self.kineticLib, "{}/{}/js".format(self.dirname, filenamewithoutext))

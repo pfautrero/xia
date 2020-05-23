@@ -54,14 +54,15 @@ if __name__=='__main__':
     numVersion = config.get('version', 'numVersion')
     releaseVersion = config.get('version', 'releaseVersion')
     imagesPath = config.get('paths', 'imagesPath')
-    langPath = config.get('paths', 'langPath')
-    fontsPath = config.get('paths', 'fontsPath')
-    themesPath = config.get('paths', 'themesPath')
-    labjsLib = config.get('paths', 'labjsLib')
-    jqueryLib = config.get('paths', 'jqueryLib')
-    kineticLib = config.get('paths', 'kineticLib')
-    sha1Lib = config.get('paths', 'sha1Lib')
-    quantizeLib = config.get('paths', 'quantizeLib')
+    #langPath = config.get('paths', 'langPath')
+    #fontsPath = config.get('paths', 'fontsPath')
+    #themesPath = config.get('paths', 'themesPath')
+    #labjsLib = config.get('paths', 'labjsLib')
+    #jqueryLib = config.get('paths', 'jqueryLib')
+    #kineticLib = config.get('paths', 'kineticLib')
+    #sha1Lib = config.get('paths', 'sha1Lib')
+    #quantizeLib = config.get('paths', 'quantizeLib')
+    #xiaEngine = config.get('paths', 'xiaEngine')
 
     arguments = docopt(__doc__)
 
@@ -77,7 +78,7 @@ if __name__=='__main__':
         options['quality'] = arguments["--quality"]
         options['export_type'] = arguments["--export"]
 
-        xia = XIAConsole(langPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, quantizeLib, options, console)
+        xia = XIAConsole(config, options, console)
         xia.createIA()
     else:
         filename = ""
@@ -91,6 +92,5 @@ if __name__=='__main__':
         root.columnconfigure(0, pad=0)
         img = tkinter.PhotoImage(file=imagesPath + '/xia64.gif')
         root.tk.call('wm', 'iconphoto', root._w, img)
-        IADialog(root, console, langPath, imagesPath, themesPath, fontsPath, labjsLib, jqueryLib, kineticLib, sha1Lib, quantizeLib,
-                 filename)  #.pack(side="left")
+        IADialog(root, console, config, "", filename)  #.pack(side="left")
         root.mainloop()
