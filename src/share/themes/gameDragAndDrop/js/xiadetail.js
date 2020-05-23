@@ -8,8 +8,8 @@
 //   GNU General Public License for more details.
 //   You should have received a copy of the GNU General Public License
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
-//   
-//   
+//
+//
 // @author : pascal.fautrero@ac-versailles.fr
 
 
@@ -32,7 +32,7 @@ class XiaDetail {
         this.persistent = "";
         this.options = "";
         this.backgroundImage = null;
-        this.tooltip = null;
+        this.tooltip = "";
         this.draggable_object = true;
         this.target_id = null;
         this.magnet_state = null;

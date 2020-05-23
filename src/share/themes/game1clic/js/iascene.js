@@ -117,7 +117,7 @@ IaScene.prototype.mouseover = function(kineticElement) {
 
         // manage tooltips if present
         var tooltip = false;
-        if (kineticElement.getXiaParent().tooltip != "") {
+        if ((typeof(kineticElement.getXiaParent().tooltip) !== "undefined") && (kineticElement.getXiaParent().tooltip != "")) {
             tooltip = true;
         }
         else if ($("#" + kineticElement.getXiaParent().idText).data("tooltip") != "") {
@@ -162,7 +162,7 @@ IaScene.prototype.mouseout = function(kineticElement) {
 
             // manage tooltips if present
             var tooltip = false;
-            if (kineticElement.getXiaParent().tooltip != "") {
+            if ((typeof(kineticElement.getXiaParent().tooltip) !== "undefined") && (kineticElement.getXiaParent().tooltip != "")) {
                 tooltip = true;
             }
             else if ($("#" + kineticElement.getXiaParent().idText).data("tooltip") != "") {

@@ -50,10 +50,12 @@ class IADialog():
         import_img= tkinter.PhotoImage(file=imagePath)
         label = tkinter.Label(root,
             image=import_img,
+            borderwidth=0,
+            relief=tkinter.FLAT,
             highlightthickness=0,
             bg='#000000',
-            height=self.grid["height"] - 2,
-            width=self.grid["width"] * span - 2,
+            height=self.grid["height"],
+            width=self.grid["width"] * span,
             anchor=tkinter.NW)
         label.photo = import_img
         label.grid(row=posx,column=posy,columnspan=span,
@@ -74,8 +76,8 @@ class IADialog():
                     padx=0, pady=0,
                     anchor=tkinter.NW,
                     bg='#000000',
-                    height=self.grid["height"] - 2,
-                    width=self.grid["width"] - 2)
+                    height=self.grid["height"],
+                    width=self.grid["width"])
         button.image = import_img
         button.grid(row=posx,column=posy, columnspan=span,sticky='NW', padx=0, pady=0, ipadx=0, ipady=0)
         tooltip = ToolTip(button,translate(tooltipTitle), None, 0.1)

@@ -21,4 +21,4 @@ import inkex
 class LoggerInkscape(Logger):
 
     def display(self, msg):
-        inkex.debug(msg)
+        inkex.utils.debug(msg)

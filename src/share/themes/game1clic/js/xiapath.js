@@ -8,13 +8,13 @@
 //   GNU General Public License for more details.
 //   You should have received a copy of the GNU General Public License
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
-//   
-//   
+//
+//
 // @author : Pascal Fautrero
 
 
 /*
- * 
+ *
  */
 class XiaPath extends XiaDetail {
 
@@ -25,6 +25,7 @@ class XiaPath extends XiaDetail {
         this.height = this.detail.height * this.parent.iaScene.scale
         this.persistent = "off"
         this.path = this.detail.path;
+        this.tooltip = ""
     }
 
     start() {

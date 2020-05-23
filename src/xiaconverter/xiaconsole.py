@@ -42,7 +42,7 @@ class XIAConsole():
         self.export_type = options['export_type']
         self.options = options
         self.theme = {}
-        self.theme['name'] = "accordionBlack"
+        self.theme['name'] = "sidebar"
 
         if os.path.isdir(self.themesPath + "/" + options['selected_theme']):
             self.theme['name'] = options['selected_theme']
@@ -103,13 +103,7 @@ class XIAConsole():
 
 
     def defineMaxPixels(self, resizeCoeff):
-        if resizeCoeff == 0:
-            return float(512 * 512)
-        elif resizeCoeff == 1:
-            return float(1024 * 1024)
-        elif resizeCoeff == 2:
-            return float(3 * 1024 * 1024)
-        elif resizeCoeff == 3:
+        if resizeCoeff == 3:
             return float(5 * 1024 * 1024)
         else:
-            return float(512 * 1024)
+            return float(100 * 1024 * 1024)

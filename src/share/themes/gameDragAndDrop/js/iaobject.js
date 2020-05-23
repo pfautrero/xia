@@ -476,7 +476,7 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
             iaScene.cursorState = "url(img/HandPointer.cur),auto";
             // manage tooltips if present
             var tooltip = false;
-            if (this.tooltip != "") {
+            if ((typeof(this.tooltip) != "undefined") && (this.tooltip != "")) {
                 tooltip = true;
             }
             else if ($("#" + idText).data("tooltip") != "") {
@@ -527,7 +527,7 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
             if ((that.layer.getStage().getIntersection(mouseXY) != this)) {
                 // manage tooltips if present
                 var tooltip = false;
-                if (this.tooltip != "") {
+                if ((typeof(this.tooltip) != "undefined") && (this.tooltip != "")) {
                     tooltip = true;
                 }
                 else if ($("#" + idText).data("tooltip") != "") {
