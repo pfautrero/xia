@@ -46,7 +46,7 @@ class PageFormatter:
         self.final_str = ""
 
     def _emph_repl(self, word):
-        if len(word) == 3:
+        if len(word) == 2:
             self.is_b = not self.is_b
             return ['</b>', '<b>'][self.is_b]
         else:
@@ -224,7 +224,7 @@ class PageFormatter:
                             '<input type="text">' + \
                             '<input type="submit" data-target="' + random_id + '" value="" ' + data_password + '>' + \
                             '</form>'
-            final_result += '<div class="response" id="response_' + random_id + '">'
+            final_result += '<div class="response" id="response_' + random_id + '" style="display:none;">'
             if data_password != "":
                 final_result += '<!-- ==HIDDEN_BLOCK== -->'
 

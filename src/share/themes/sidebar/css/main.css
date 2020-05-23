@@ -165,6 +165,9 @@ h1{
 	cursor:pointer;
 	color: white;
 	text-decoration:none;
+  border-radius: 20px;
+  background-color: #3090CF;
+  padding : 6px;
 }
 .button:hover {
 	background-color:#ffab23;

@@ -80,7 +80,7 @@ class MyApp {
     // var password_hash = this.dataset.password
     var response = document.getElementById('response_' + target)
     // var form = document.getElementById('form_' + target)
-    if (response.style.display === 'none') response.innerHTML = response.dataset.encrypted_content
+    //if (response.style.display === 'none') response.innerHTML = response.dataset.encrypted_content
     response.style.display = (response.style.display === 'none') ? 'block' : 'none'
   }
   unlockInput (e) {

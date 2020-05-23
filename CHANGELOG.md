@@ -6,7 +6,7 @@ Version 3.0-beta1 - xx/xx/2020
 - Ajout d'un nouveau thème orienté mobiles baptisé "sidebar"
 - Les images interactives peuvent être intégrées dans une page web sans utiliser d'iframe
 - La qualité de l'image zoomée dans les images interactives a été grandement améliorée
-- Ajout d'un nouveau type d'objet : les sprites
+- Ajout d'un nouveau type d'objet : les sprites (experimental)
 - Doc pour les développeurs qui veulent intégrer une image interactive dans leurs pages web
 - Suppression de la dépendance à jquery
 

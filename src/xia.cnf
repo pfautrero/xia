@@ -11,4 +11,4 @@ quantizeLib = share/vendors/quantization.min.js
 
 [version]
 numVersion = 3.0
-releaseVersion = -alpha1
+releaseVersion = -alpha2
