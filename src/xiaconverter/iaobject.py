@@ -995,7 +995,7 @@ class iaObject:
             return
 
         record["style"] = ""
-        record['detail'] = self.getText("desc", path)
+        record['desc'] = self.getText("desc", path)
         record['title'] = self.getText("title", path)
         record['x'] = 0
         record['y'] = 0
@@ -1202,8 +1202,8 @@ class iaObject:
                             maxX = float(newrecord["maxX"])
                             maxY = float(newrecord["maxY"])
 
-                        if record["detail"] == "":
-                            record['detail'] = newrecord['detail']
+                        if record['desc'] == "":
+                            record['desc'] = newrecord['desc']
                         if record["title"] == "":
                             record['title'] = newrecord['title']
                         imageIndex += 1
@@ -1276,7 +1276,7 @@ class iaObject:
         if group.hasAttribute("id"):
             record["id"] = group.attributes['id'].value
         record['title'] = self.getText("title", group)
-        record['detail'] = self.getText("desc", group)
+        record['desc'] = self.getText("desc", group)
         record["options"] = ""
 
         if group.hasAttribute("onclick"):
@@ -1306,7 +1306,7 @@ class iaObject:
                 if subgroup.attributes['id'].value.startswith("sprite"):
                     # sprite subgroup detected
                     newrecord = {}
-                    newrecord["detail"] = ""
+                    newrecord['desc'] = ""
                     newrecord["title"] = ""
                     newrecord["options"] = ""
                     newrecord['id'] = subgroup.attributes['id'].value
@@ -1334,8 +1334,8 @@ class iaObject:
 
                     record["group"].append(newrecord)
 
-                    if record["detail"] == "":
-                        record['detail'] = newrecord['detail']
+                    if record['desc'] == "":
+                        record['desc'] = newrecord['desc']
                     if record["title"] == "":
                         record['title'] = newrecord['title']
 
@@ -1349,11 +1349,11 @@ class iaObject:
                         maxY = float(newrecord["maxY"])
 
         # look for title and description in subgroups if not yet available
-        if (record['title'] == "") or (record['detail'] == ""):
+        if (record['title'] == "") or (record['desc'] == ""):
             subgroups = group.getElementsByTagName('g')
             for subgroup in subgroups:
-                if record["detail"] == "":
-                    record['detail'] = self.getText("desc", subgroup)
+                if record['desc'] == "":
+                    record['desc'] = self.getText("desc", subgroup)
                 if record["title"] == "":
                     record['title'] = self.getText("title", subgroup)
 

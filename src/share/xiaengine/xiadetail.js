@@ -41,7 +41,7 @@ class XiaDetail {
     }
     this.idText = idText
     this.title = this.parent.jsonSource.title
-    this.desc = this.parent.jsonSource.detail
+    this.desc = this.parent.jsonSource.desc
     this.path = ''
     this.kineticElement = null
     this.persistent = ''
@@ -252,7 +252,8 @@ class XiaDetail {
           this.parent.iaScene.element = this.parent
           // emulate mouseover on mobile devices
           // to get all stuffs done during mouse over event
-          if (evt.type === 'touchstart') this.mouseover()
+          //if (evt.type === 'touchstart') this.mouseover()
+          this.mouseover()
           this.zoom()
           this.parent.parent.focusedObj = this.parent.index
         } else {

@@ -82,6 +82,8 @@ Xia.prototype.start = function () {
 Xia.prototype.buildScene = function () {
   // Load XiaElements when Background Image is loaded
   this.imageObj = new Image()
+  // allowing images coming from another server
+  this.imageObj.crossOrigin = "Anonymous"
   this.imageObj.src = this.params.scene.image
   this.imageObj.onload = function () {
     if (!('width' in this.params.scene) || !('height' in this.params.scene)) {
