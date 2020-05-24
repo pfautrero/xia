@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#!/usr/bin/env python3
 
 # -*- coding: utf-8 -*-
 #    This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,8 @@
 
 import os
 import shutil
-import imp
+from importlib.machinery import SourceFileLoader
+import types
 import sys
 import re
 from .iaobject import iaObject
@@ -27,15 +28,6 @@ from .pikipiki import PageFormatter
 class XIAConsole():
 
     def __init__(self, config, options, console):
-
-        #self.themesPath = themesPath
-        #self.langPath = langPath
-        #self.fontsPath = fontsPath
-        #self.labjsLib = labjsLib
-        #self.kineticLib = kineticLib
-        #self.sha1Lib = sha1Lib
-        #self.quantizeLib = quantizeLib
-        #self.jqueryLib = jqueryLib
 
         self.langPath = config.get('paths', 'langPath')
         self.fontsPath = config.get('paths', 'fontsPath')
@@ -47,9 +39,12 @@ class XIAConsole():
         self.quantizeLib = config.get('paths', 'quantizeLib')
         self.xiaEngine = config.get('paths', 'xiaEngine')
 
-        self.resize = options['quality']
+        self.resize = 3
         self.filename = options['input_file']
-        self.dirname = options['output_dir']
+        if options['output_dir'].endswith('/'):
+            self.dirname = options['output_dir'][:-1]
+        else:
+            self.dirname = options['output_dir']
         self.export_type = options['export_type']
         self.options = options
         self.theme = {}
@@ -60,40 +55,42 @@ class XIAConsole():
 
         self.imageActive = iaObject(console)
 
-        imp.load_source(self.theme['name'], themesPath + "/" + self.theme['name'] + \
-            "/hook.py")
-        imported_class = __import__(self.theme['name'])
-        self.theme['object'] = imported_class.hook(self, self.imageActive, \
-            PageFormatter, self.langPath)
-
+        loader = SourceFileLoader(self.theme['name'], f"{self.themesPath}/{self.theme['name']}/hook.py")
+        loaded = types.ModuleType(loader.name)
+        loader.exec_module(loaded)
+        self.theme['object'] = loaded.hook(self, self.imageActive, PageFormatter, self.langPath)
 
     def createIA(self):
 
         if self.export_type == 'local':
-            if os.path.isdir(self.dirname + '/font'):
-                shutil.rmtree(self.dirname + '/font')
-            if os.path.isdir(self.dirname + '/img'):
-                shutil.rmtree(self.dirname + '/img')
-            if os.path.isdir(self.dirname + '/css'):
-                shutil.rmtree(self.dirname + '/css')
-            if os.path.isdir(self.dirname + '/js'):
-                shutil.rmtree(self.dirname + '/js')
-            if os.path.isdir(self.dirname + '/datas'):
-                shutil.rmtree(self.dirname + '/datas')
-            os.mkdir(self.dirname + '/datas')
-            shutil.copy(self.xiaEngine, "{}/js".format(self.dirname))
-            shutil.copytree(self.fontsPath , self.dirname + '/font/')
+            head, tail = os.path.split(self.filename)
+            filenamewithoutext = os.path.splitext(tail)[0]
+
+            if os.path.isdir("{}/{}".format(self.dirname, filenamewithoutext)):
+                shutil.rmtree("{}/{}".format(self.dirname, filenamewithoutext))
+            os.mkdir("{}/{}".format(self.dirname, filenamewithoutext))
+            os.mkdir("{}/{}/datas".format(self.dirname, filenamewithoutext))
+            os.makedirs("{}/{}/js".format(self.dirname, filenamewithoutext), exist_ok=True)
+            shutil.copy(self.xiaEngine, "{}/{}/js".format(self.dirname, filenamewithoutext))
+            shutil.copytree(self.fontsPath , f"{self.dirname}/{filenamewithoutext}/font/")
             shutil.copytree(self.themesPath + '/' + self.theme['name'] + \
-                '/css/', self.dirname + '/css/')
+                '/css/', f"{self.dirname}/{filenamewithoutext}/css/")
             shutil.copytree(self.themesPath + '/' + self.theme['name'] + \
-                '/img/', self.dirname + '/img/')
-            shutil.copytree(self.themesPath + '/' + self.theme['name'] + \
-                '/js/', self.dirname + '/js/')
-            shutil.copy(self.labjsLib , self.dirname + '/js')
-            shutil.copy(self.jqueryLib , self.dirname + '/js')
-            shutil.copy(self.kineticLib , self.dirname + '/js')
-            shutil.copy(self.sha1Lib , self.dirname + '/js')
-            shutil.copy(self.quantizeLib , self.dirname + '/js')
+                '/img/', f"{self.dirname}/{filenamewithoutext}/img/")
+            src = f"{self.themesPath}/{self.theme['name']}/js/"
+            dst = f"{self.dirname}/{filenamewithoutext}/js"
+            names = os.listdir(src)
+            for name in names:
+                srcname = os.path.join(src, name)
+                dstname = os.path.join(dst, name)
+                shutil.copyfile(srcname, dstname)
+            #shutil.copytree(self.themesPath + '/' + self.theme['name'] + \
+            #    '/js/', self.dirname + '/js/')
+            shutil.copy(self.labjsLib , f"{self.dirname}/{filenamewithoutext}/js")
+            shutil.copy(self.jqueryLib , f"{self.dirname}/{filenamewithoutext}/js")
+            shutil.copy(self.kineticLib , f"{self.dirname}/{filenamewithoutext}/js")
+            shutil.copy(self.sha1Lib , f"{self.dirname}/{filenamewithoutext}/js")
+            shutil.copy(self.quantizeLib , f"{self.dirname}/{filenamewithoutext}/js")
 
         maxNumPixels = self.defineMaxPixels(self.resize)
         self.imageActive.analyzeSVG(self.filename, maxNumPixels)
@@ -105,13 +102,13 @@ class XIAConsole():
         filenamewithoutext = re.sub(r"\s+", "", filenamewithoutext, flags=re.UNICODE)
 
         if self.export_type == 'local':
-            with open(self.dirname + '/datas/data.js',"w") as jsonfile:
+            with open(f"{self.dirname}/{filenamewithoutext}/datas/data.js","wb") as jsonfile:
                 jsonfile.write(self.imageActive.jsonContent.encode('utf8'))
-            self.theme['object'].generateIndex(self.dirname + "/" + filenamewithoutext + "_" + self.theme['name'] + ".html", \
-                self.themesPath + '/' + self.theme['name'] + '/index.html')
+            self.theme['object'].generateIndex(self.dirname + "/" + filenamewithoutext + ".html", \
+                self.themesPath + '/' + self.theme['name'] + '/index.html', filenamewithoutext)
         else:
-            self.theme['object'].generateIndex(self.dirname + "/" + filenamewithoutext + "_" + self.theme['name'] + ".html", \
-                self.themesPath + '/' + self.theme['name'] + '/index.html')
+            self.theme['object'].generateIndex(self.dirname + "/" + filenamewithoutext + ".html", \
+                self.themesPath + '/' + self.theme['name'] + '/index.html', filenamewithoutext)
 
 
     def defineMaxPixels(self, resizeCoeff):
