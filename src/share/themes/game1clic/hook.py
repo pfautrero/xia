@@ -84,11 +84,11 @@ class hook:
         for i, detail in enumerate(self.iaobject.details):
             params = {
                 'kinetic_id' : detail["id"],
-                'tooltip_attr' : self.search('<tooltip>(.*)</tooltip>', detail["detail"], ""),
+                'tooltip_attr' : self.search('<tooltip>(.*)</tooltip>', detail["desc"], ""),
                 'options' : detail['options'],
                 'article_id' : str(i).encode(),
                 'detail_title' : detail['title'],
-                'detail_desc' : self.PageFormatter(detail["detail"]).print_html()
+                'detail_desc' : self.PageFormatter(detail["desc"]).print_html()
             }
             final_str += u"""
                 <article class="detail_content" data-kinetic_id="{kinetic_id}" data-tooltip="{tooltip_attr}" data-options="{options}" id="article-{article_id}">

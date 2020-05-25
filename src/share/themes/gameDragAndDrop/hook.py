@@ -91,15 +91,15 @@ class hook:
         for i, detail in enumerate(self.iaobject.details):
 
             params = {
-                'tooltip' : self.search('<tooltip>(.*?)</tooltip>', detail["detail"], ""),
-                'collisions' : self.search('<collisions>(.*?)</collisions>', detail["detail"], "on"),
-                'onfail' : self.search('<onfail>(.*?)</onfail>', detail["detail"], ""),
-                'magnet' : self.search('<magnet>(.*?)</magnet>', detail["detail"], "off"),
+                'tooltip' : self.search('<tooltip>(.*?)</tooltip>', detail["desc"], ""),
+                'collisions' : self.search('<collisions>(.*?)</collisions>', detail["desc"], "on"),
+                'onfail' : self.search('<onfail>(.*?)</onfail>', detail["desc"], ""),
+                'magnet' : self.search('<magnet>(.*?)</magnet>', detail["desc"], "off"),
                 'kinetic_id' : detail["id"],
-                'target' : self.search('<target>(.*?)</target>', detail["detail"], ""),
+                'target' : self.search('<target>(.*?)</target>', detail["desc"], ""),
                 'article_id' : str(i).encode(),
                 'article_title' : detail['title'],
-                'article_content' : self.PageFormatter(detail["detail"]).print_html()
+                'article_content' : self.PageFormatter(detail["desc"]).print_html()
             }
             final_str += u"""
                 <article class="detail_content" data-tooltip="{tooltip}" data-collisions="{collisions}" data-onfail="{onfail}" data-magnet="{magnet}" data-kinetic_id="{kinetic_id}" data-target="{target}" id="article-{article_id}">

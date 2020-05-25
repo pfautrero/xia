@@ -462,7 +462,7 @@ class iaObject:
         if circle.hasAttribute("id"):
             record_circle['id'] = circle.attributes['id'].value
 
-        record_circle['detail'] = self.getText("desc", circle)
+        record_circle['desc'] = self.getText("desc", circle)
         record_circle['title'] = self.getText("title", circle)
         record_circle['cx'] = 0
         record_circle['cy'] = 0
@@ -573,7 +573,7 @@ class iaObject:
         if ellipse.hasAttribute("id"):
             record_ellipse['id'] = ellipse.attributes['id'].value
 
-        record_ellipse['detail'] = self.getText("desc", ellipse)
+        record_ellipse['desc'] = self.getText("desc", ellipse)
         record_ellipse['title'] = self.getText("title", ellipse)
         record_ellipse['cx'] = 0
         record_ellipse['cy'] = 0
@@ -708,7 +708,7 @@ class iaObject:
             record_image['ratio'] = self.calculateRasterRatio(raster, record_image["width"], record_image['height'])
             fixedRaster = raster
             record_image['image'] = fixedRaster
-            record_image['detail'] = self.getText("desc", image)
+            record_image['desc'] = self.getText("desc", image)
             record_image['title'] = self.getText("title", image)
             record_image['x'] = 0
             record_image['y'] = 0
@@ -869,7 +869,7 @@ class iaObject:
         if not record_rect['width'] or not record_rect['height']:
             return
 
-        record_rect['detail'] = self.getText("desc", rect)
+        record_rect['desc'] = self.getText("desc", rect)
         record_rect['title'] = self.getText("title", rect)
         record_rect['x'] = 0
         record_rect['y'] = 0
@@ -1714,7 +1714,7 @@ class iaObject:
                         replace("\n", " "). \
                         replace("\t", " "). \
                         replace("\r", " ") + u'",\n'
-                elif entry == "detail":
+                elif entry == "desc":
                     final_str += u'  "' + entry + u'":"' + \
                                  PageFormatter(detail[entry]).print_html(). \
                                      replace('"', "'"). \

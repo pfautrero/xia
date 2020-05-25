@@ -52,7 +52,7 @@ Voici le code source complet d'une page qui implémente une instance de XIA (ima
 </html>
 ```
 
-## 2. Exemples plus complexes
+## 2. Afficher une description de l'élément zoomé
 
 Dans cet exemple, nous pouvons afficher une description de l'objet zoomé. Pour cela, nous devons passer à l'objet XIA un paramètre supplémentaire *'hooks'* qui permet de hooker les événements suivants:
 - le zoom
@@ -79,11 +79,9 @@ Dans cet exemple, nous pouvons afficher une description de l'objet zoomé. Pour 
       'hooks' : {
         'zoom': function(el) {
           document.getElementById('desc').innerHTML = el.desc
-          return true
         },
         'unzoom': function(el) {
           document.getElementById('desc').innerHTML = "Select an item..."
-          return true
         }
       },
       'targetID' : 'my_div',

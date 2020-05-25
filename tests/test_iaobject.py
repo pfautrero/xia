@@ -239,7 +239,7 @@ class TestiaObject(TestCase):
             </svg>')
         group = dom1.getElementsByTagName('g')
         newrecord = ia.extract_g(group[0], "")
-        self.assertEqual(newrecord['detail'], 'description')
+        self.assertEqual(newrecord['desc'], 'description')
         self.assertEqual(newrecord['title'], 'title')
 
     def test_analyzeSVG9(self):

@@ -52,10 +52,10 @@ class hook:
         for i, detail in enumerate(self.iaobject.details):
             if detail['options'].find(u"direct-link") == -1:
                 params = {
-                    'data_state' : "void" if (self.PageFormatter(detail["detail"]).print_html() == "") and (detail["title"] == "") else "full",
+                    'data_state' : "void" if (self.PageFormatter(detail["desc"]).print_html() == "") and (detail["title"] == "") else "full",
                     'article_id' : str(i).encode(),
                     'article_title' : detail['title'],
-                    'article_content' : self.PageFormatter(detail["detail"]).print_html()
+                    'article_content' : self.PageFormatter(detail["desc"]).print_html()
                 }
                 final_str += u"""
                     <article data-state="{data_state}" id="article-{article_id}">

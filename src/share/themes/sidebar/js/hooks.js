@@ -204,6 +204,9 @@ class MyApp {
   //
   unzoom (el) {
     this.article.scrolldown_button.style.opacity = 0
+    this.updateContent(
+      el.parent.parent.params.scene.intro_title,
+      el.parent.parent.params.scene.intro_detail)
     // this.article.wrapper.style.opacity = 0
     // return false
   }

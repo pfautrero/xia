@@ -374,6 +374,7 @@ class MyApp {
         target.classList.add('hidden_image')
       })
       if (this.xiaObject != null) {
+        this.images[this.xiaObject.idText].reset()
         this.xiaObject.iaScene.zoomActive = 0
         this.xiaObject.group.zoomActive = 0
         this.xiaObject.group.scaleX(1)
