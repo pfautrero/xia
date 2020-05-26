@@ -198,7 +198,7 @@ class iaObject:
         # generated with images actives 1
         # (xlink namespace is not available and must be added)
 
-        with open(filePath, 'r') as svgfile:
+        with open(filePath, 'r', encoding="utf8") as svgfile:
             svgcontent = svgfile.read()
             if not re.search(r'xmlns:xlink=', svgcontent, re.M):
                 svgcontent = svgcontent.replace("<svg", '<svg\nxmlns:xlink="http://www.w3.org/1999/xlink"')

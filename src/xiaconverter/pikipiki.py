@@ -283,7 +283,7 @@ class PageFormatter:
         # strings, outputting verbatim any intervening text
         #final_str = u""
         scan_re = re.compile(
-            r"(?:(?P<emph>\*{2,3})"
+            r"(?:(?P<emph>\*{1,2})"
             + r'|(?P<iframe2><iframe(.*)></iframe>)'
             + r"|(?P<iframe>&lt;iframe(.*)&gt;&lt;/iframe&gt;)"
             + r"|(?P<ent>[<>&])"

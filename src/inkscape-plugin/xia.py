@@ -56,7 +56,7 @@ class ImageActive(inkex.Effect):
         #xiaEngine = inkexWorkingDir + "/" + config.get('paths', 'xiaEngine')
 
         try:
-            filePath = f"{tempfile.mkdtemp()}/temp.svg}"
+            filePath = f"{tempfile.mkdtemp()}/temp.svg"
             with open(filePath,"w") as file:
                 self.document.write(filePath)
 

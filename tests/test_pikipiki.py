@@ -24,13 +24,13 @@ class TestPageFormatter(TestCase):
 
     def test_print_html(self):
         raw = "**text**";
-        expected_output = "<em>text</em>";
+        expected_output = "<b>text</b>";
         output = PageFormatter(raw).print_html()
         self.assertEqual(expected_output, output)
 
     def test_print_html2(self):
-        raw = "***text***";
-        expected_output = "<b>text</b>";
+        raw = "*text*";
+        expected_output = "<em>text</em>";
         output = PageFormatter(raw).print_html()
         self.assertEqual(expected_output, output)
 
@@ -149,7 +149,7 @@ class TestPageFormatter(TestCase):
         self.assertEqual(expected_output, output)
 
     def test_print_html22(self):
-        raw = " * ***line 1***\n * [http://test line2]";
+        raw = " * **line 1**\n * [http://test line2]";
         expected_output = '<ul>\n<li><b>line 1</b></li><li><a href="http://test" target="_blank">line2</a></li></ul>';
         output = PageFormatter(raw).print_html()
         self.assertEqual(expected_output, output)
@@ -247,7 +247,7 @@ class TestPageFormatter(TestCase):
     def test_print_html38(self):
         self.maxDiff = None
         raw = "[[answer : my answer]]";
-        expected_output = '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#"  data-target="##">answer </a></div><div class="response" id="response_##"><ul>\n my answer</ul>\n</div>\n';
+        expected_output = '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#"  data-target="##">answer </a></div><div class="response" id="response_##" style="display:none;"><ul>\n my answer</ul>\n</div>\n';
         output = PageFormatter(raw).print_html()
         target_id = ""
         target_entry = re.search('data-target="(.*?)"', output, re.IGNORECASE|re.DOTALL)
@@ -258,7 +258,7 @@ class TestPageFormatter(TestCase):
 
     def test_print_html39(self):
         raw = "[[answer (code=123456):\nmy answer]]";
-        expected_output = '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b" data-target="##">answer </a></div><form class="unlock" style="display:none;" id="form_##"><input type="text"><input type="submit" data-target="##" value="" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b"></form><div class="response" id="response_##">DVBBGws8XEsTVVtFRldB</div>\n';
+        expected_output = '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b" data-target="##">answer </a></div><form class="unlock" style="display:none;" id="form_##"><input type="text"><input type="submit" data-target="##" value="" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b"></form><div class="response" id="response_##" style="display:none;">DVBBGws8XEsTVVtFRldB</div>\n';
         output = PageFormatter(raw).print_html()
         target_id = ""
         target_entry = re.search('data-target="(.*?)"', output, re.IGNORECASE|re.DOTALL)
@@ -269,7 +269,7 @@ class TestPageFormatter(TestCase):
 
     def test_print_html40(self):
         raw = "[[answer (code=123456):\nmy answer\n]]";
-        expected_output = '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b" data-target="##">answer </a></div><form class="unlock" style="display:none;" id="form_##"><input type="text"><input type="submit" data-target="##" value="" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b"></form><div class="response" id="response_##">DVBBGws8XEsTVVtFRldBCFdEHgw5</div>\n';
+        expected_output = '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b" data-target="##">answer </a></div><form class="unlock" style="display:none;" id="form_##"><input type="text"><input type="submit" data-target="##" value="" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b"></form><div class="response" id="response_##" style="display:none;">DVBBGws8XEsTVVtFRldBCFdEHgw5</div>\n';
         output = PageFormatter(raw).print_html()
         target_id = ""
         target_entry = re.search('data-target="(.*?)"', output, re.IGNORECASE|re.DOTALL)
@@ -280,7 +280,7 @@ class TestPageFormatter(TestCase):
 
     def test_print_html41(self):
         raw = "[[answer (code=123456):my answer]]";
-        expected_output = '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b" data-target="##">answer </a></div><form class="unlock" style="display:none;" id="form_##"><input type="text"><input type="submit" data-target="##" value="" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b"></form><div class="response" id="response_##">XEsTVVtFRldB</div>\n';
+        expected_output = '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b" data-target="##">answer </a></div><form class="unlock" style="display:none;" id="form_##"><input type="text"><input type="submit" data-target="##" value="" data-password="7c4a8d09ca3762af61e59520943dc26494f8941b"></form><div class="response" id="response_##" style="display:none;">XEsTVVtFRldB</div>\n';
         output = PageFormatter(raw).print_html()
         target_id = ""
         target_entry = re.search('data-target="(.*?)"', output, re.IGNORECASE|re.DOTALL)
@@ -291,7 +291,7 @@ class TestPageFormatter(TestCase):
 
     def test_print_html42(self):
         raw = "[[answer : my answer";
-        expected_output = '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#"  data-target="##">answer </a></div><div class="response" id="response_##"><ul>\n my answer</div>\n</ul>';
+        expected_output = '<div style="margin-top:5px;margin-bottom:5px;"><a class="button" href="#"  data-target="##">answer </a></div><div class="response" id="response_##" style="display:none;"><ul>\n my answer</div>\n</ul>';
         output = PageFormatter(raw).print_html()
         target_id = ""
         target_entry = re.search('data-target="(.*?)"', output, re.IGNORECASE|re.DOTALL)
