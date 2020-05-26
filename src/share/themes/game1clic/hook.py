@@ -86,7 +86,7 @@ class hook:
                 'kinetic_id' : detail["id"],
                 'tooltip_attr' : self.search('<tooltip>(.*)</tooltip>', detail["desc"], ""),
                 'options' : detail['options'],
-                'article_id' : str(i).encode(),
+                'article_id' : str(i),
                 'detail_title' : detail['title'],
                 'detail_desc' : self.PageFormatter(detail["desc"]).print_html()
             }

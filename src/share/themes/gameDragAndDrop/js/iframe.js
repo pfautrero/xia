@@ -10,7 +10,7 @@
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
 //   
 //   
-// @author : pascal.fautrero@ac-versailles.fr
+// @author : pascal.fautrero@gmail.com
 
 
 // Script used to load youtube resource after main page

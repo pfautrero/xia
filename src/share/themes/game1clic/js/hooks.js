@@ -10,7 +10,7 @@
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
 //
 //
-// @author : pascal.fautrero@ac-versailles.fr
+// @author : pascal.fautrero@gmail.com
 
 
 /*
@@ -106,7 +106,7 @@ hooks.prototype.afterMainConstructor = function(mainScene, layers) {
             strSource = strSource.replace('hide.png', 'show.png')
         }
         else {
-            strSource = strSource.replace('show.png', 'hide.png')    
+            strSource = strSource.replace('show.png', 'hide.png')
         }
         $(this).attr('src', strSource)
 

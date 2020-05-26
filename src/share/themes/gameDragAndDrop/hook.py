@@ -97,7 +97,7 @@ class hook:
                 'magnet' : self.search('<magnet>(.*?)</magnet>', detail["desc"], "off"),
                 'kinetic_id' : detail["id"],
                 'target' : self.search('<target>(.*?)</target>', detail["desc"], ""),
-                'article_id' : str(i).encode(),
+                'article_id' : str(i),
                 'article_title' : detail['title'],
                 'article_content' : self.PageFormatter(detail["desc"]).print_html()
             }
