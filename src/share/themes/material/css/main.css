@@ -497,13 +497,17 @@ header h1 {
   width: 100%;
 }
 .title {
-  /*padding: 10px;*/
   position: absolute;
-  /*bottom: 10%;*/
   width:75%;
   height:100%;
   left: 25%;
   background-color: #0099CC;
+}
+
+.title h1 {
+  position: absolute;
+  display: block;
+  bottom: 0%;
 }
 
 .metadatas {

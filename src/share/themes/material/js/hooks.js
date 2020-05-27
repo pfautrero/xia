@@ -453,6 +453,8 @@ class MyApp {
         'width':  scene.originalRatio * (currentDetail.detail.maxX - Math.max(currentDetail.detail.minX, 0)),
         'height':  scene.originalRatio * (currentDetail.detail.maxY - Math.max(currentDetail.detail.minY, 0))
       }
+
+
       if (currentDetail.kineticElement) {
         groupedImages.getContext('2d').drawImage(
           currentDetail.kineticElement.backgroundImage,

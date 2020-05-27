@@ -36,7 +36,7 @@ class ImageActive(inkex.Effect):
         pathNodes = self.document.xpath('//sodipodi:namedview',namespaces=inkex.NSS)
         pathNodes[0].set('id','base')
 
-        #inkexWorkingDir = "."
+        inkexWorkingDir = "."
 
         # retrieve paths
 

@@ -59,7 +59,7 @@ class hook:
         self.collisions = self.search('<collisions>(.*?)</collisions>', self.iaobject.scene["intro_detail"], "off")
         self.magnet = self.search('<magnet>(.*?)</magnet>', self.iaobject.scene["intro_detail"], "off")
 
-        params_global = {
+        globals = {
             'magnet' : self.magnet,
             'collisions' : self.collisions,
             'score' : self.score,
@@ -70,23 +70,23 @@ class hook:
             'intro_content' : self.PageFormatter(self.iaobject.scene["intro_detail"]).print_html()
         }
 
-        final_str = u"""
-            <article class="message_success" id="message_success" data-magnet="{magnet}" data-collisions="{collisions}" data-score="{score}">
+        final_str = f'''
+            <article class="message_success" id="message_success" data-magnet="{globals["magnet"]}" data-collisions="{globals["collisions"]}" data-score="{globals["score"]}">
                 <div class="message_success_border">
-                    <img id="popup_toggle" src="[[LogoHide]]" alt="toggle"/>
-                    <div id="message_success_content">{message}</div>
+                    <img id="popup_toggle" src="{{{{LogoHide}}}}" alt="toggle"/>
+                    <div id="message_success_content">{globals["message"]}</div>
                 </div>
             </article>
-            <article class="message_success" id="message_success2" data-magnet="{magnet}" data-collisions="{collisions}" data-score="{score2}">
+            <article class="message_success" id="message_success2" data-magnet="{globals["magnet"]}" data-collisions="{globals["collisions"]}" data-score="{globals["score2"]}">
                 <div class="message_success_border">
-                    <img id="popup_toggle2" src="[[LogoHide]]" alt="toggle"/>
-                    <div id="message_success_content2">{message2}</div>
+                    <img id="popup_toggle2" src="{{{{LogoHide}}}}" alt="toggle"/>
+                    <div id="message_success_content2">{globals["message2"]}</div>
                 </div>
             </article>
             <article style="display:none" id="general">
-                <h1>{intro_title}</h1>
-                <p>{intro_content}</p>
-            </article>""".format(**params_global)
+                <h1>{globals["intro_title"]}</h1>
+                <p>{globals["intro_content"]}</p>
+            </article>'''
 
         for i, detail in enumerate(self.iaobject.details):
 
@@ -101,11 +101,18 @@ class hook:
                 'article_title' : detail['title'],
                 'article_content' : self.PageFormatter(detail["desc"]).print_html()
             }
-            final_str += u"""
-                <article class="detail_content" data-tooltip="{tooltip}" data-collisions="{collisions}" data-onfail="{onfail}" data-magnet="{magnet}" data-kinetic_id="{kinetic_id}" data-target="{target}" id="article-{article_id}">
-                    <h1>{article_title}</h1>
-                    <p>{article_content}</p>
-                </article>""".format(**params)
+            final_str += f'''
+                <article class="detail_content"
+                    data-tooltip="{params["tooltip"]}"
+                    data-collisions="{params["collisions"]}"
+                    data-onfail="{params["onfail"]}"
+                    data-magnet="{params["magnet"]}"
+                    data-kinetic_id="{params["kinetic_id"]}"
+                    data-target="{params["target"]}"
+                    id="article-{params["article_id"]}">
+                    <h1>{params["article_title"]}</h1>
+                    <p>{params["article_content"]}</p>
+                </article>'''
 
         with open(templatePath,"rb") as template:
             metadatas = ""
@@ -121,7 +128,7 @@ class hook:
             metadatas += self.add_metadata(self.iaobject.scene["date"])
 
             final_index = template.read().decode("utf-8")
-            final_index = final_index.replace("{{SCENESPECIFICOPTIONS}}", json.dumps(params_global))
+            final_index = final_index.replace("{{SCENESPECIFICOPTIONS}}", json.dumps(globals))
             final_index = final_index.replace("{{METADATAS}}", metadatas)
             final_index = final_index.replace("{{AUTHOR}}", self.iaobject.scene["creator"])
             final_index = final_index.replace("{{DESCRIPTION}}", self.iaobject.scene["description"])
