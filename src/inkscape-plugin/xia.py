@@ -45,15 +45,6 @@ class ImageActive(inkex.Effect):
         numVersion = config.get('version', 'numVersion')
         releaseVersion = config.get('version', 'releaseVersion')
         imagesPath = inkexWorkingDir + "/" + config.get('paths', 'imagesPath')
-        #langPath = inkexWorkingDir + "/" + config.get('paths', 'langPath')
-        #fontsPath = inkexWorkingDir + "/" + config.get('paths', 'fontsPath')
-        #themesPath = inkexWorkingDir + "/" + config.get('paths', 'themesPath')
-        #labjsLib = inkexWorkingDir + "/" + config.get('paths', 'labjsLib')
-        #jqueryLib = inkexWorkingDir + "/" + config.get('paths', 'jqueryLib')
-        #kineticLib = inkexWorkingDir + "/" + config.get('paths', 'kineticLib')
-        #sha1Lib = inkexWorkingDir + "/" + config.get('paths', 'sha1Lib')
-        #quantizeLib = inkexWorkingDir + "/" + config.get('paths', 'quantizeLib')
-        #xiaEngine = inkexWorkingDir + "/" + config.get('paths', 'xiaEngine')
 
         try:
             filePath = f"{tempfile.mkdtemp()}/temp.svg"
@@ -69,6 +60,7 @@ class ImageActive(inkex.Effect):
             img = tkinter.PhotoImage(file= imagesPath + '/xia64.gif')
             root.tk.call('wm', 'iconphoto', root._w, img)
             maindialog = IADialog(root, console, config, "./", filePath)
+            root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
             root.mainloop()
 
         except ValueError:
