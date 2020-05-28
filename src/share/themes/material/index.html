@@ -29,14 +29,14 @@
     </header>
     <section>
       <div id="ripple_background"></div>
-      <div id="canvas"></div>
+      <div role='img' id="canvas" tabindex="1"></div>
     </section>
     <div id="popup_material_background">
       <div id="popup_material_image_background"></div>
       <div id="popup_material">
         <div id="popup_material_title" class="title_material">
           <div  id="popup_material_title_text">
-            <div id="article_title" class="title">
+            <div id="article_title" class="title" aria-live="polite" tabindex="2">
               <h1>{{TITLE}}</h1>
               <div class="footer"></div>
             </div>
@@ -46,7 +46,7 @@
         </div>
         <div id="wrapper_content">
           <div id="popup_material_content">
-            <section id="content">{{CONTENT}}</section>
+            <section id="content" tabindex="3">{{CONTENT}}</section>
           </div>
         </div>
       </div>

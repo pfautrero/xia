@@ -242,6 +242,12 @@ class MyApp {
     this.xiaDetail = el
     var container = document.getElementById('canvas').firstChild.getBoundingClientRect()
     var pointer = el.parent.layer.getStage().getPointerPosition()
+    if (typeof(pointer) == "undefined") {
+      pointer = {
+        x: 0,
+        y: 0
+      }
+    }
     var div = document.createElement('div')
     div.setAttribute('id', 'ripple-effect')
     div.setAttribute('style',
@@ -257,6 +263,70 @@ class MyApp {
     this.update_content(el.title, el.desc)
     return false
   }
+
+  manageKeydownEvent(XiaObject) {
+    var container = XiaObject.stage.container()
+    container.addEventListener('keydown', function (e) {
+      if (e.shiftKey && (e.key === 'Tab')) {
+        if (XiaObject.mainScene.zoomActive === 1) {
+          e.preventDefault()
+          return
+        }
+        if (XiaObject.focusedObj !== null) {
+          XiaObject.focusedObj--
+          if (XiaObject.focusedObj >= 0) {
+            XiaObject.iaObjects[XiaObject.focusedObj + 1].xiaDetail[0].kineticElement.fire('mouseleave')
+            XiaObject.iaObjects[XiaObject.focusedObj].xiaDetail[0].kineticElement.fire('mouseover')
+            e.preventDefault()
+          } else {
+            XiaObject.iaObjects[0].xiaDetail[0].kineticElement.fire('mouseleave')
+            XiaObject.focusedObj = null
+          }
+        } else {
+          XiaObject.iaObjects[0].xiaDetail[0].kineticElement.fire('mouseover')
+          e.preventDefault()
+        }
+      } else if (e.key === 'Tab') {
+        if (XiaObject.mainScene.zoomActive === 1) {
+          e.preventDefault()
+          return
+        }
+        if (XiaObject.focusedObj !== null) {
+          XiaObject.focusedObj++
+          if (XiaObject.focusedObj < XiaObject.iaObjects.length) {
+            XiaObject.iaObjects[XiaObject.focusedObj - 1].xiaDetail[0].kineticElement.fire('mouseleave')
+            XiaObject.iaObjects[XiaObject.focusedObj].xiaDetail[0].kineticElement.fire('mouseover')
+            e.preventDefault()
+          } else {
+            XiaObject.iaObjects[XiaObject.iaObjects.length - 1].xiaDetail[0].kineticElement.fire('mouseleave')
+            XiaObject.focusedObj = null
+          }
+        } else {
+          XiaObject.iaObjects[0].xiaDetail[0].kineticElement.fire('mouseover')
+          e.preventDefault()
+        }
+      } else if (e.key === 'Enter') {
+        if (XiaObject.focusedObj !== null) {
+          var mouseover = false
+          if (XiaObject.mainScene.zoomActive === 1) mouseover = true
+          XiaObject.iaObjects[XiaObject.focusedObj].xiaDetail[0].kineticElement.fire('click')
+          if (mouseover) XiaObject.iaObjects[XiaObject.focusedObj].xiaDetail[0].kineticElement.fire('mouseover')
+        }
+      } else if (e.key === 'Escape') {
+        e.preventDefault()
+        document.getElementById("popup_material_delete").click()
+        if (XiaObject.focusedObj !== null) {
+          if (XiaObject.mainScene.zoomActive === 1) {
+            XiaObject.iaObjects[XiaObject.focusedObj].xiaDetail[0].kineticElement.fire('click')
+          } else {
+            XiaObject.iaObjects[XiaObject.focusedObj].xiaDetail[0].kineticElement.fire('mouseleave')
+          }
+          XiaObject.focusedObj = null
+        }
+      }
+    })
+  }
+
   //
   // hook for Xia Loaded
   //
@@ -277,6 +347,7 @@ class MyApp {
       this.update_content(XiaObject.params.scene.intro_title, XiaObject.params.scene.intro_detail)
     }.bind(this))
 
+    this.manageKeydownEvent(XiaObject)
 
     var about = document.createElement('div')
     about.setAttribute('id', 'about')

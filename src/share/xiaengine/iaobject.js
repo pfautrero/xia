@@ -33,6 +33,7 @@ function IaObject (params) {
   this.backgroundCache_layer.draw()
   this.agrandissement = 0
   this.zoomActive = 0
+  this.index = params.index
   // Bounding Area is defined by details
   this.minX = null
   this.minY = null

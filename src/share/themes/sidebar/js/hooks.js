@@ -235,19 +235,8 @@ class MyApp {
       }
     }.bind(this), 500)
   }
-  //
-  // hook for Xia Loaded
-  //
-  loaded (XiaObject) {
-    // show title and main description
-    this.updateContent(
-      XiaObject.params.scene.intro_title,
-      XiaObject.params.scene.intro_detail)
 
-    // Do not execute following code twice
-    if (this.already_loaded) return
-    this.already_loaded = true
-
+  manageKeydownEvent(XiaObject) {
     var container = XiaObject.stage.container()
     container.addEventListener('keydown', function (e) {
       if (e.shiftKey && (e.key === 'Tab')) {
@@ -307,7 +296,23 @@ class MyApp {
         }
       }
     })
+  }
 
+
+  //
+  // hook for Xia Loaded
+  //
+  loaded (XiaObject) {
+    // show title and main description
+    this.updateContent(
+      XiaObject.params.scene.intro_title,
+      XiaObject.params.scene.intro_detail)
+
+    // Do not execute following code twice
+    if (this.already_loaded) return
+    this.already_loaded = true
+
+    this.manageKeydownEvent(XiaObject)
     this.manageScrolldownButton()
     // Choose color background
     var quantizeImage = new Quantization()

@@ -149,7 +149,8 @@ Xia.prototype.buildScene = function () {
         iaScene: mainScene,
         background_layer: this.layers.baseImage,
         backgroundCache_layer: this.layers.modalBackground,
-        myhooks: this.params.hooks
+        myhooks: this.params.hooks,
+        index: i
       })
     }
     this.addUndoEvents()
