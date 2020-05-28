@@ -25,7 +25,11 @@ import configparser
 from xiaconverter.mainwindow import IADialog
 from xiaconverter.loggerinkscape import LoggerInkscape
 
-class ImageActive(inkex.Effect):
+class ImageActive(inkex.OutputExtension):
+
+    def save(self, stream):
+        pass
+
     def __init__(self):
         inkex.Effect.__init__(self)
 

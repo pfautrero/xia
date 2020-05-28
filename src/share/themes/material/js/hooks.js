@@ -435,50 +435,78 @@ class MyApp {
   // hook for Xia Constructor
   //
   afterIaObjectConstructor(scene, id, jsonDetail, xiaGroup) {
-    let groupedImages = document.createElement('canvas')
-    groupedImages.setAttribute('width', scene.originalRatio * (parseFloat(xiaGroup.maxX / scene.coeff) - parseFloat(xiaGroup.minX / scene.coeff)))
-    groupedImages.setAttribute('height', scene.originalRatio * (parseFloat(xiaGroup.maxY / scene.coeff) - parseFloat(xiaGroup.minY / scene.coeff)))
-    for (let i = 0; i < xiaGroup.xiaDetail.length; i++) {
-      let currentDetail = xiaGroup.xiaDetail[i]
-      let source = {
-        'x': 0,
-        'y': 0,
-        'width':  scene.originalRatio * (currentDetail.detail.maxX - Math.max(currentDetail.detail.minX, 0)),
-        'height':  scene.originalRatio * (currentDetail.detail.maxY - Math.max(currentDetail.detail.minY, 0))
-      }
-
-      let target = {
-        'x' :  scene.originalRatio * (currentDetail.detail.minX - (xiaGroup.minX / scene.coeff)),
-        'y' :  scene.originalRatio * (currentDetail.detail.minY - (xiaGroup.minY / scene.coeff)),
-        'width':  scene.originalRatio * (currentDetail.detail.maxX - Math.max(currentDetail.detail.minX, 0)),
-        'height':  scene.originalRatio * (currentDetail.detail.maxY - Math.max(currentDetail.detail.minY, 0))
-      }
 
 
-      if (currentDetail.kineticElement) {
-        groupedImages.getContext('2d').drawImage(
-          currentDetail.kineticElement.backgroundImage,
-          source.x,
-          source.y,
-          source.width,
-          source.height,
-          target.x,
-          target.y,
-          target.width,
-          target.height
-        )
-      }
+    // workaround to fix size image for standalone images with ratio different than the bg one
+    if ((xiaGroup.xiaDetail.length == 1) && (typeof(xiaGroup.xiaDetail[0].path) == "undefined")){
+      let currentDetail = xiaGroup.xiaDetail[0]
+      let currentRatio = currentDetail.backgroundImage.naturalWidth / (currentDetail.detail.maxX - currentDetail.detail.minX)
+
+      var container = document.getElementById('canvas').firstChild.getBoundingClientRect()
+      this.images[id] = new CroppedImage({
+          id: 'popup_material_image_' + id,
+          src: xiaGroup.xiaDetail[0].backgroundImage.currentSrc,
+          scale: scene.coeff / currentRatio,
+          left: container.left + xiaGroup.minX,
+          top: container.top + xiaGroup.minY
+      })
+      xiaGroup.backgroundImage = this.images[id].img
+
     }
+    // grouped elements
+    else {
+      let groupedImages = document.createElement('canvas')
+      groupedImages.setAttribute('width', scene.originalRatio * (parseFloat(xiaGroup.maxX / scene.coeff) - parseFloat(xiaGroup.minX / scene.coeff)))
+      groupedImages.setAttribute('height', scene.originalRatio * (parseFloat(xiaGroup.maxY / scene.coeff) - parseFloat(xiaGroup.minY / scene.coeff)))
+      for (let i = 0; i < xiaGroup.xiaDetail.length; i++) {
+        let currentDetail = xiaGroup.xiaDetail[i]
 
-    var container = document.getElementById('canvas').firstChild.getBoundingClientRect()
-    this.images[id] = new CroppedImage({
-      id: 'popup_material_image_' + id,
-      src: groupedImages.toDataURL(),
-      scale: scene.coeff / scene.originalRatio,
-      left: container.left + xiaGroup.minX,
-      top: container.top + xiaGroup.minY
-    })
-    xiaGroup.backgroundImage = this.images[id].img
+        let currentRatio = scene.originalRatio
 
+        // Let's suppose it is an image - use its own ratio
+      	if (typeof(currentDetail.path) == "undefined") {
+      	  currentRatio = currentDetail.backgroundImage.naturalWidth / (currentDetail.detail.maxX - currentDetail.detail.minX)
+      	}
+
+        let source = {
+          'x': 0,
+          'y': 0,
+          'width':  currentRatio * (currentDetail.detail.maxX - Math.max(currentDetail.detail.minX, 0)),
+          'height':  currentRatio * (currentDetail.detail.maxY - Math.max(currentDetail.detail.minY, 0))
+        }
+
+        let target = {
+          'x' :  scene.originalRatio * (currentDetail.detail.minX - (xiaGroup.minX / scene.coeff)),
+          'y' :  scene.originalRatio * (currentDetail.detail.minY - (xiaGroup.minY / scene.coeff)),
+          'width':  scene.originalRatio * (currentDetail.detail.maxX - Math.max(currentDetail.detail.minX, 0)),
+          'height':  scene.originalRatio * (currentDetail.detail.maxY - Math.max(currentDetail.detail.minY, 0))
+        }
+
+
+        if (currentDetail.kineticElement) {
+          groupedImages.getContext('2d').drawImage(
+            currentDetail.kineticElement.backgroundImage,
+            source.x,
+            source.y,
+            source.width,
+            source.height,
+            target.x,
+            target.y,
+            target.width,
+            target.height
+          )
+        }
+      }
+
+      var container = document.getElementById('canvas').firstChild.getBoundingClientRect()
+      this.images[id] = new CroppedImage({
+        id: 'popup_material_image_' + id,
+        src: groupedImages.toDataURL(),
+        scale: scene.coeff / scene.originalRatio,
+        left: container.left + xiaGroup.minX,
+        top: container.top + xiaGroup.minY
+      })
+      xiaGroup.backgroundImage = this.images[id].img
+    }
   }
 }
