@@ -50,13 +50,14 @@ h1{
   color : white;
   overflow: hidden;
   text-align: justify;
+  cursor: default;
 }
 #interactive_image {
   display:flex;
   align-items: center;
   justify-content: center;
   border:0px solid black;
-  background-color: blue;
+  background-color: #3090CF;
 }
 #description {
   flex:1;

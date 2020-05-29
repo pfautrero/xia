@@ -298,6 +298,15 @@ class MyApp {
     })
   }
 
+  /*
+   * Stop events bubbling if you click in the sidebar
+   * to avoid unzoom effect
+   */
+  stopPropagation() {
+    document.getElementById('sidebar').addEventListener('click', function (e) {
+      e.stopPropagation()
+    })
+  }
 
   //
   // hook for Xia Loaded
@@ -312,6 +321,7 @@ class MyApp {
     if (this.already_loaded) return
     this.already_loaded = true
 
+    this.stopPropagation()
     this.manageKeydownEvent(XiaObject)
     this.manageScrolldownButton()
     // Choose color background
