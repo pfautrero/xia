@@ -80,5 +80,5 @@ if __name__=='__main__':
         img = tkinter.PhotoImage(file=imagesPath + '/xia64.gif')
         root.tk.call('wm', 'iconphoto', root._w, img)
         IADialog(root, console, config, "", filename)  #.pack(side="left")
-        root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
+        #root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
         root.mainloop()

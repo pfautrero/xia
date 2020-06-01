@@ -131,6 +131,7 @@ Xia.prototype.buildScene = function () {
     this.layers.modalBackground = new Konva.Layer()
     this.layers.baseImage = new Konva.Layer()
     this.layers.mainLayer = new Konva.Layer()
+    this.layers.modalBackground.setAttrs({ opacity: 0 })
     this.layers.modalBackground.add(baseCache)
     this.layers.baseImage.add(baseImage)
 

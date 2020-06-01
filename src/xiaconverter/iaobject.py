@@ -23,7 +23,7 @@ import sys
 import shutil
 import base64
 #import commands
-
+from subprocess import Popen, PIPE
 # import PIL for windows and Linux
 # For MAC OS X, use internal tool called "sips"
 try:
@@ -1397,11 +1397,12 @@ class iaObject:
                 #if sys.platform.startswith('darwin'):
                 if not HANDLE_PIL:
                     shutil.copyfile(imageFile, imageFileFixed)
-                    w = commands.getstatusoutput('sips -g pixelWidth {0}'.format(imageFile))
+                    w = self.getImageWidthDarwin(imageFile)
                     if w != rasterWidth:
-                        commands.getstatusoutput('sips -z {0} {1} {2}'.format(rasterHeight,
-                                                                              rasterWidth,
-                                                                              imageFileFixed))
+                        self.resizeImageWidthDarwin(rasterHeight, rasterWidth, imageFileFixed)
+                        #commands.getstatusoutput('sips -z {0} {1} {2}'.format(rasterHeight,
+                        #                                                      rasterWidth,
+                        #                                                      imageFileFixed))
 
                         with open(imageFileFixed, 'rb') as fixedImage:
                             rasterFixedEncoded = fixedImage.read().encode("base64")
@@ -1451,16 +1452,30 @@ class iaObject:
                 with open(imageFile, "wb") as bgImage:
                     bgImage.write(base64.b64decode(rasterEncoded))
 
-                with open(imageFile, 'rb') as f:
-                    currentImg = Image.open(f)
-                    (w, h) = currentImg.size
-                    ratio = float(w) / float(rasterWidth)
+                if not HANDLE_PIL:
+                    w = self.getImageWidthDarwin(imageFile)
+                else:
+                    with open(imageFile, 'rb') as f:
+                        currentImg = Image.open(f)
+                        (w, h) = currentImg.size
+                ratio = float(w) / float(rasterWidth)
 
         else:
             self.console.display('ERROR : fixRaster() - image is not embedded')
         shutil.rmtree(dirname)
         return ratio
 
+    def resizeImageWidthDarwin(self, height, width, imageFile):
+        """resize image with SIPS for MACOS X users"""
+        p1 = Popen([f"sips -z {height} {width} {imageFile}"], shell=True, stdout=PIPE)
+        out1, out2 = p1.communicate()
+
+    def getImageWidthDarwin(self, imageFile):
+        """extract image width with SIPS for MACOS X users"""
+        p1 = Popen([f"sips -g pixelWidth {imageFile} | grep pixelWidth | awk '{{print $2}}'"], shell=True, stdout=PIPE)
+        w, _ = p1.communicate()
+        w = int(w.decode().rstrip('\n'))
+        return w
 
     def cropImage(self, raster, rasterWidth, rasterHeight):
         """crop image to remove useless transparent pixels"""
@@ -1643,7 +1658,8 @@ class iaObject:
                         newwidth = int(oldwidth * self.ratio)
                         newheight = int(oldheight * self.ratio)
                         shutil.copyfile(imageFile, imageFileSmall)
-                        commands.getstatusoutput('sips -z {0} {1} {2}'.format(newheight, newwidth, imageFileSmall))
+                        self.resizeImageWidthDarwin(newheight, newwidth, imageFileSmall)
+                        #commands.getstatusoutput('sips -z {0} {1} {2}'.format(newheight, newwidth, imageFileSmall))
 
                         with open(imageFileSmall, 'rb') as bgSmallImage:
                             rasterSmallEncoded = bgSmallImage.read().encode("base64")
