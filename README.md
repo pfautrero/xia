@@ -8,7 +8,7 @@ Thanks to it, you can generate three kinds of resources :
 
 Just have a look here to see samples :
 
-[XIA Examples](https://xia.dane.ac-versailles.fr/examples.html)
+[XIA Examples](https://xia.funraiders.org/examples.html)
 
 # Build application in Debian Jessie (used by debian packages)
 
@@ -19,6 +19,8 @@ python setup.py buildstandalone
 ```
 
 # Build application everywhere (using grunt/bower)
+
+**Beware: not working anymore**
 
 First, install nodejs :
 

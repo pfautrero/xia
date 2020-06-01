@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: activit 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-23 09:50+0100\n"
+"POT-Creation-Date: 2020-05-31 23:40+0200\n"
 "PO-Revision-Date: 2015-01-29 12:49+0100\n"
 "Last-Translator: Louis-Maurice De Sousa <louis.de-sousa@ac-versailles.fr>\n"
 "Language-Team: portugais <>\n"
@@ -20,80 +20,93 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Gtranslator 2.91.6\n"
 
-#: share/themes/accordionCloud/hook.py:35
-msgid "export accordionCloud"
-msgstr "exportar em accordionCloud"
-
-#: share/themes/accordionCloud/hook.py:36 share/themes/popYellow/hook.py:36
-#: share/themes/game1clic/hook.py:43 share/themes/buttonBlue/hook.py:35
-#: share/themes/material/hook.py:36 share/themes/gameDragAndDrop/hook.py:42
-#: share/themes/accordionBlack/hook.py:40 share/themes/popBlue/hook.py:36
-#: share/themes/audioBrown/hook.py:35
-msgid "loading"
-msgstr "Carregando..."
-
-#: share/themes/popYellow/hook.py:35
-msgid "export popYellow"
-msgstr "exportar em popYellow"
-
 #: share/themes/game1clic/hook.py:39
 msgid "export game1clic"
 msgstr "exportar em game1clic"
 
-#: share/themes/game1clic/hook.py:41 share/themes/gameDragAndDrop/hook.py:41
+#: share/themes/game1clic/hook.py:40 share/themes/gameDragAndDrop/hook.py:42
 msgid "You win !"
 msgstr "Gagnou!"
 
-#: share/themes/buttonBlue/hook.py:34
-msgid "export buttonBlue"
-msgstr "exportar em buttonBlue"
+#: share/themes/game1clic/hook.py:41 share/themes/sidebar/hook.py:40
+#: share/themes/material/hook.py:36 share/themes/gameDragAndDrop/hook.py:43
+msgid "loading"
+msgstr "Carregando..."
+
+#: share/themes/sidebar/hook.py:39
+msgid "export sidebar !"
+msgstr ""
 
 #: share/themes/material/hook.py:35
 msgid "export material"
 msgstr "exportar em material"
 
-#: share/themes/gameDragAndDrop/hook.py:38
+#: share/themes/material/hook.py:89
+msgid "creator"
+msgstr ""
+
+#: share/themes/material/hook.py:90
+msgid "rights"
+msgstr ""
+
+#: share/themes/material/hook.py:91
+msgid "publisher"
+msgstr ""
+
+#: share/themes/material/hook.py:92
+msgid "identifier"
+msgstr ""
+
+#: share/themes/material/hook.py:93
+msgid "coverage"
+msgstr ""
+
+#: share/themes/material/hook.py:94
+msgid "source"
+msgstr ""
+
+#: share/themes/material/hook.py:95
+msgid "relation"
+msgstr ""
+
+#: share/themes/material/hook.py:96
+msgid "language"
+msgstr ""
+
+#: share/themes/material/hook.py:97
+msgid "contributor"
+msgstr ""
+
+#: share/themes/material/hook.py:98
+msgid "date"
+msgstr ""
+
+#: share/themes/material/hook.py:99
+msgid "license"
+msgstr ""
+
+#: share/themes/gameDragAndDrop/hook.py:39
 msgid "export gameDragAndDrop"
 msgstr "exportar em gameDragAndDrop"
 
-#: share/themes/accordionBlack/hook.py:39
-msgid "export accordionBlack !"
-msgstr "exportar em accordionBlack"
-
-#: share/themes/popBlue/hook.py:35
-msgid "export popBlue"
-msgstr "exportar em popBlue"
-
-#: share/themes/audioBrown/hook.py:34
-msgid "export audioBrown"
-msgstr "exportar em audioBrown"
-
-#: xiaconverter/mainwindow.py:101
-msgid "select svg file"
-msgstr "Selecione un ficheiro svg"
-
-#: xiaconverter/mainwindow.py:115
-msgid "ajust parameters"
-msgstr "ajuste parametros"
-
-#: xiaconverter/mainwindow.py:168
+#: xiaconverter/mainwindow.py:212
 msgid "myfile.svg"
 msgstr "meuficheiro.svg"
 
-#: xiaconverter/mainwindow.py:170
+#: xiaconverter/mainwindow.py:214
 msgid "Select a svg file"
 msgstr "Selecione um ficheiro svg"
 
-#: xiaconverter/mainwindow.py:180
+#: xiaconverter/mainwindow.py:224
 msgid "Select target folder"
 msgstr "Selectione o dossier de destino"
 
-#: xiaconverter/mainwindow.py:195
+#: xiaconverter/mainwindow.py:239
 #, python-brace-format
 msgid "Sorry, impossible to create the {0} directory"
 msgstr "Desculpe, é imposível criar o dossier {0}"
 
-#: xiaconverter/mainwindow.py:220
+#: xiaconverter/mainwindow.py:264
 msgid "Parameters"
 msgstr "Parametros"
 
@@ -106,6 +119,30 @@ msgid "index standalone"
 msgstr ""
 "ativar/desativar a exportação dum ficheiro único \n"
 "O uso dum ficheiro único necesita acesso à Internet."
+
+#~ msgid "export accordionCloud"
+#~ msgstr "exportar em accordionCloud"
+
+#~ msgid "export popYellow"
+#~ msgstr "exportar em popYellow"
+
+#~ msgid "export buttonBlue"
+#~ msgstr "exportar em buttonBlue"
+
+#~ msgid "export accordionBlack !"
+#~ msgstr "exportar em accordionBlack"
+
+#~ msgid "export popBlue"
+#~ msgstr "exportar em popBlue"
+
+#~ msgid "export audioBrown"
+#~ msgstr "exportar em audioBrown"
+
+#~ msgid "select svg file"
+#~ msgstr "Selecione un ficheiro svg"
+
+#~ msgid "ajust parameters"
+#~ msgstr "ajuste parametros"
 
 #~ msgid "create firefox OS files"
 #~ msgstr "ativar/desativar a criação dos ficheiros para firefox OS "

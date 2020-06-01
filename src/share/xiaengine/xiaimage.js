@@ -78,6 +78,7 @@ class XiaImage extends XiaDetail {
       this.parent.nbElements--
       if (this.parent.nbElements === 0) this.parent.resolve('All elements created')
     }.bind(this)
+    rasterObj.crossOrigin = "Anonymous"
     rasterObj.src = this.detail.image
   }
 

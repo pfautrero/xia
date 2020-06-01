@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: activit 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-23 09:50+0100\n"
+"POT-Creation-Date: 2020-05-31 23:40+0200\n"
 "PO-Revision-Date: 2014-11-24 19:10+0100\n"
 "Last-Translator: geoffrey <ggekiere@ac-versailles.fr>\n"
 "Language-Team: français <>\n"
@@ -18,80 +18,93 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: share/themes/accordionCloud/hook.py:35
-msgid "export accordionCloud"
-msgstr "export in accordionCloud"
-
-#: share/themes/accordionCloud/hook.py:36 share/themes/popYellow/hook.py:36
-#: share/themes/game1clic/hook.py:43 share/themes/buttonBlue/hook.py:35
-#: share/themes/material/hook.py:36 share/themes/gameDragAndDrop/hook.py:42
-#: share/themes/accordionBlack/hook.py:40 share/themes/popBlue/hook.py:36
-#: share/themes/audioBrown/hook.py:35
-msgid "loading"
-msgstr "Loading..."
-
-#: share/themes/popYellow/hook.py:35
-msgid "export popYellow"
-msgstr ""
-
 #: share/themes/game1clic/hook.py:39
 msgid "export game1clic"
 msgstr ""
 
-#: share/themes/game1clic/hook.py:41 share/themes/gameDragAndDrop/hook.py:41
+#: share/themes/game1clic/hook.py:40 share/themes/gameDragAndDrop/hook.py:42
 msgid "You win !"
 msgstr ""
 
-#: share/themes/buttonBlue/hook.py:34
-msgid "export buttonBlue"
+#: share/themes/game1clic/hook.py:41 share/themes/sidebar/hook.py:40
+#: share/themes/material/hook.py:36 share/themes/gameDragAndDrop/hook.py:43
+msgid "loading"
+msgstr "Loading..."
+
+#: share/themes/sidebar/hook.py:39
+msgid "export sidebar !"
 msgstr ""
 
 #: share/themes/material/hook.py:35
 msgid "export material"
 msgstr ""
 
-#: share/themes/gameDragAndDrop/hook.py:38
+#: share/themes/material/hook.py:89
+msgid "creator"
+msgstr "Creator"
+
+#: share/themes/material/hook.py:90
+msgid "rights"
+msgstr "Rights"
+
+#: share/themes/material/hook.py:91
+msgid "publisher"
+msgstr "Publisher"
+
+#: share/themes/material/hook.py:92
+msgid "identifier"
+msgstr "Identifier"
+
+#: share/themes/material/hook.py:93
+msgid "coverage"
+msgstr "Coverage"
+
+#: share/themes/material/hook.py:94
+msgid "source"
+msgstr "Source"
+
+#: share/themes/material/hook.py:95
+msgid "relation"
+msgstr "Relation"
+
+#: share/themes/material/hook.py:96
+msgid "language"
+msgstr "Language"
+
+#: share/themes/material/hook.py:97
+msgid "contributor"
+msgstr "Contributor"
+
+#: share/themes/material/hook.py:98
+msgid "date"
+msgstr "Date"
+
+#: share/themes/material/hook.py:99
+msgid "license"
+msgstr "License"
+
+#: share/themes/gameDragAndDrop/hook.py:39
 msgid "export gameDragAndDrop"
 msgstr ""
 
-#: share/themes/accordionBlack/hook.py:39
-msgid "export accordionBlack !"
-msgstr "export in accordionBlack"
-
-#: share/themes/popBlue/hook.py:35
-msgid "export popBlue"
-msgstr ""
-
-#: share/themes/audioBrown/hook.py:34
-msgid "export audioBrown"
-msgstr "export in audioBrown"
-
-#: xiaconverter/mainwindow.py:101
-msgid "select svg file"
-msgstr ""
-
-#: xiaconverter/mainwindow.py:115
-msgid "ajust parameters"
-msgstr ""
-
-#: xiaconverter/mainwindow.py:168
+#: xiaconverter/mainwindow.py:212
 msgid "myfile.svg"
 msgstr ""
 
-#: xiaconverter/mainwindow.py:170
+#: xiaconverter/mainwindow.py:214
 msgid "Select a svg file"
 msgstr ""
 
-#: xiaconverter/mainwindow.py:180
+#: xiaconverter/mainwindow.py:224
 msgid "Select target folder"
 msgstr ""
 
-#: xiaconverter/mainwindow.py:195
+#: xiaconverter/mainwindow.py:239
 #, python-brace-format
 msgid "Sorry, impossible to create the {0} directory"
 msgstr ""
 
-#: xiaconverter/mainwindow.py:220
+#: xiaconverter/mainwindow.py:264
 msgid "Parameters"
 msgstr "Parameters"
 
@@ -104,6 +117,15 @@ msgid "index standalone"
 msgstr ""
 "enable/disable unique file export.\n"
 "Unique file configuration needs internet connection to access the resource."
+
+#~ msgid "export accordionCloud"
+#~ msgstr "export in accordionCloud"
+
+#~ msgid "export accordionBlack !"
+#~ msgstr "export in accordionBlack"
+
+#~ msgid "export audioBrown"
+#~ msgstr "export in audioBrown"
 
 #~ msgid "create firefox OS files"
 #~ msgstr "enable/disable firefox OS files creation"

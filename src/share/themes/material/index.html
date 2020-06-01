@@ -4,7 +4,7 @@
     <title>{{TITLE}}</title>
     <meta charset="utf-8" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, user-scalable=no, shrink-to-fit=no">
     <meta name="description" content="{{DESCRIPTION}}" />
     <meta name="author" content="{{AUTHOR}}" />
     <meta name="keywords" content="{{KEYWORDS}}" />
@@ -52,6 +52,13 @@
       </div>
     </div>
   </div>
+  <template id="metadata">
+    <table>
+      <tbody>
+        {{METADATAS}}
+      </tbody>
+    </table>
+  </template>
   {{datasJS}}
   <script>
     var materialApp = new MyApp({

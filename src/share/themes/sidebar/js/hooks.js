@@ -17,6 +17,7 @@ class MyApp {
     this.alert_mouseover = document.getElementById(params.alert_mouseover)
     this.fullscreen = params.fullscreen
     this.reload = params.reload
+    this.informations = params.informations
     this.already_loaded = false
   }
   rescale (xiaObject) {
@@ -308,6 +309,10 @@ class MyApp {
     })
   }
 
+  displayAbout(XiaObject) {
+    this.updateContent("Infos", document.getElementById("metadata").innerHTML)
+  }
+
   //
   // hook for Xia Loaded
   //
@@ -339,6 +344,10 @@ class MyApp {
       this.restart()
       e.preventDefault()
     }.bind(XiaObject))
+    document.getElementById(this.informations).addEventListener('click', function (e) {
+      this.displayAbout()
+      e.preventDefault()
+    }.bind(this))
     this.article.scrolldown_button.addEventListener('click', this.scrolldown.bind(this))
     this.article.scrolldown_button.addEventListener('touchstart', this.scrolldown.bind(this))
     this.article.scrolldown_button.addEventListener('keypress', function (e) {

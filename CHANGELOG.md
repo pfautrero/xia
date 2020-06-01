@@ -1,14 +1,19 @@
-Version 3.0-beta1 - xx/xx/2020
+Version 3.0-beta1 - 01/06/2020
 -------------------------------
-- Compatible python3
-- Compatible Inkscape 1
+- Compatibilité avec python3
+- Compatibilité avec Inkscape 1
 - Suppression des thèmes popBlue, popYellow, buttonBlue et audioBrown
 - Ajout d'un nouveau thème orienté mobiles baptisé "sidebar"
 - Les images interactives peuvent être intégrées dans une page web sans utiliser d'iframe
+- Documentation pour les développeurs qui veulent intégrer une image interactive dans leurs pages web
 - La qualité de l'image zoomée dans les images interactives a été grandement améliorée
 - Ajout d'un nouveau type d'objet : les sprites (experimental)
-- Doc pour les développeurs qui veulent intégrer une image interactive dans leurs pages web
-- Suppression de la dépendance à jquery
+- Suppression de la dépendance à jquery pour les images interactives
+- Remplacement de la lib KineticJs par KonvaJs 6.0.0 pour les images interactives
+- Accessibilité sur les thèmes d'images interactives (navigation clavier + aria)
+- migration vers xia.funraiders.org
+- Refonte de l'interface de génération
+- Simplification de l'arborescence des fichiers sur l'export fichiers multiples
 
 Version 2.2 - 21/03/2017
 -------------------------------

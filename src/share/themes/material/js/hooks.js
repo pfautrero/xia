@@ -327,6 +327,31 @@ class MyApp {
     })
   }
 
+  createAboutButton(XiaObject) {
+    var target = document.getElementById('canvas').firstChild
+    var about = document.createElement('div')
+    about.setAttribute('id', 'about')
+    target.appendChild(about)
+    var about_button = document.createElement('a')
+    about_button.setAttribute('class', 'infos')
+    about.appendChild(about_button)
+    about.addEventListener('click', function(){
+      this.update_content(document.getElementById("title").innerHTML, document.getElementById("metadata").innerHTML)
+    }.bind(this))
+  }
+
+  createMetadocButton(XiaObject) {
+    var target = document.getElementById('canvas').firstChild
+    var metadoc = document.createElement('div')
+    metadoc.setAttribute('id', 'general_infos')
+    target.appendChild(metadoc)
+    var metadoc_button = document.createElement('a')
+    metadoc_button.setAttribute('class', 'meta-doc')
+    metadoc.appendChild(metadoc_button)
+    metadoc.addEventListener('click', function(){
+      this.update_content(XiaObject.params.scene.title, XiaObject.params.scene.intro_detail)
+    }.bind(this))
+  }
   //
   // hook for Xia Loaded
   //
@@ -336,28 +361,9 @@ class MyApp {
     if (this.already_loaded) return
     this.already_loaded = true
 
-    var target = document.getElementById('canvas').firstChild
-    var metadoc = document.createElement('div')
-    metadoc.setAttribute('id', 'general_infos')
-    target.appendChild(metadoc)
-    var metadoc_button = document.createElement('a')
-    metadoc_button.setAttribute('class', 'meta-doc')
-    metadoc.appendChild(metadoc_button)
-    metadoc.addEventListener('click', function(){
-      this.update_content(XiaObject.params.scene.intro_title, XiaObject.params.scene.intro_detail)
-    }.bind(this))
-
     this.manageKeydownEvent(XiaObject)
-
-    var about = document.createElement('div')
-    about.setAttribute('id', 'about')
-    target.appendChild(about)
-    var about_button = document.createElement('a')
-    about_button.setAttribute('class', 'infos')
-    about.appendChild(about_button)
-    about.addEventListener('click', function(){
-      this.update_content("about", "content")
-    }.bind(this))
+    this.createAboutButton(XiaObject)
+    this.createMetadocButton(XiaObject)
 
     //
     //  When user click on popup title

@@ -28,13 +28,15 @@ class hook:
             t = gettext.translation("xia-converter", langPath, languages=[locale.getdefaultlocale()[0]])
         except:
             t = gettext.translation("xia-converter", langPath, languages=['en_US'])
-        translate = t.gettext
+        self.translate = t.gettext
         self.root = root
         self.iaobject = iaobject
         self.PageFormatter = PageFormatter
-        self.tooltip = translate("export material")
-        self.loading = translate("loading")
+        self.tooltip = self.translate("export material")
+        self.loading = self.translate("loading")
 
+    def add_metadata(self, value, label):
+        return f"<tr><td>{label}</td><td>{value}</td></tr>" if value else ""
 
     def generateIndex(self,filePath, templatePath, localFolder):
         """ generate index file"""
@@ -65,36 +67,29 @@ class hook:
 
         with open(templatePath,"rb") as template:
 
-            rights = self.iaobject.scene["rights"] if self.iaobject.scene["rights"] else ""
-            publisher = self.iaobject.scene["publisher"] if self.iaobject.scene["publisher"] else ""
-            identifier = self.iaobject.scene["identifier"] if self.iaobject.scene["identifier"] else ""
-            coverage = self.iaobject.scene["coverage"] if self.iaobject.scene["coverage"] else ""
-            source = self.iaobject.scene["source"] if self.iaobject.scene["source"] else ""
-            relation = self.iaobject.scene["relation"] if self.iaobject.scene["relation"] else ""
-            languages = self.iaobject.scene["language"] if self.iaobject.scene["language"] else ""
-            contributor = self.iaobject.scene["contributor"] if self.iaobject.scene["contributor"] else ""
-            datecreation = self.iaobject.scene["date"] if self.iaobject.scene["date"] else ""
-            creator = self.iaobject.scene["creator"] if self.iaobject.scene["creator"] else ""
             license_origin = self.iaobject.scene["license"] if self.iaobject.scene["license"] else ""
             if license_origin.startswith('http'):
-                license = u'<a href="{}">{}</a>'.format(license_origin, license_origin)
+                license = f'<a href="{license_origin}">{license_origin}</a>'
             elif license_origin == "":
-                license = u"Propriétaire"
+                license = "Propriétaire"
             else:
                 license = license_origin
 
+            metadatas = ""
+            metadatas += self.add_metadata(self.iaobject.scene["creator"], self.translate("creator"))
+            metadatas += self.add_metadata(self.iaobject.scene["rights"], self.translate("rights"))
+            metadatas += self.add_metadata(self.iaobject.scene["publisher"], self.translate("publisher"))
+            metadatas += self.add_metadata(self.iaobject.scene["identifier"], self.translate("identifier"))
+            metadatas += self.add_metadata(self.iaobject.scene["coverage"], self.translate("coverage"))
+            metadatas += self.add_metadata(self.iaobject.scene["source"], self.translate("source"))
+            metadatas += self.add_metadata(self.iaobject.scene["relation"], self.translate("relation"))
+            metadatas += self.add_metadata(self.iaobject.scene["language"], self.translate("language"))
+            metadatas += self.add_metadata(self.iaobject.scene["contributor"], self.translate("contributor"))
+            metadatas += self.add_metadata(self.iaobject.scene["date"], self.translate("date"))
+            metadatas += self.add_metadata(self.iaobject.scene["license"], self.translate("license"))
+
             final_index = template.read().decode("utf-8")
-            final_index = final_index.replace("{{LICENSE}}", license)
-            final_index = final_index.replace("{{RIGHTS}}", rights)
-            final_index = final_index.replace("{{PUBLISHER}}", publisher)
-            final_index = final_index.replace("{{IDENTIFIER}}", identifier)
-            final_index = final_index.replace("{{COVERAGE}}", coverage)
-            final_index = final_index.replace("{{SOURCE}}", source)
-            final_index = final_index.replace("{{RELATION}}", relation)
-            final_index = final_index.replace("{{LANGUAGES}}", languages)
-            final_index = final_index.replace("{{CONTRIBUTOR}}", contributor)
-            final_index = final_index.replace("{{DATE}}", datecreation)
-            final_index = final_index.replace("{{CREATOR}}", creator)
+            final_index = final_index.replace("{{METADATAS}}", metadatas)
             final_index = final_index.replace("{{AUTHOR}}", self.iaobject.scene["creator"])
             final_index = final_index.replace("{{DESCRIPTION}}", self.iaobject.scene["description"])
             final_index = final_index.replace("{{KEYWORDS}}", self.iaobject.scene["keywords"])
@@ -107,7 +102,7 @@ class hook:
                 final_index = final_index.replace("{{datasJS}}", "<script>" + self.iaobject.jsonContent + "</script>")
                 final_index = final_index.replace("{{lazyDatasJS}}", '')
                 final_index = final_index.replace("{{sha1JS}}", xiaWebsite + "/js/git-sha1.min.js")
-                final_index = final_index.replace("{{konvaJS}}", "https://cdnjs.cloudflare.com/ajax/libs/konva/3.1.7/konva.min.js")
+                final_index = final_index.replace("{{konvaJS}}", "https://cdnjs.cloudflare.com/ajax/libs/konva/6.0.0/konva.min.js")
                 final_index = final_index.replace("{{xiaJS}}", xiaWebsite + "/js/xia.js")
                 final_index = final_index.replace("{{hooksJS}}", xiaWebsite + "/material/js/hooks.js")
                 final_index = final_index.replace("{{LogoDelete}}", xiaWebsite + "/material/img/delete.png")

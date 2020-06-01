@@ -12,4 +12,4 @@ xiaEngine = share/xiaengine/xia.js
 
 [version]
 numVersion = 3.0
-releaseVersion = -alpha6
+releaseVersion = -beta1

@@ -7,6 +7,22 @@ body {
 h1{
   font-family : 'Thasadith';
 }
+
+/*
+ *  Table used in metadata
+ */
+table {
+  width: 100%;
+  border-spacing : 0;
+  border-collapse : collapse;
+}
+tr:nth-child(even) {
+  background-color: rgba(0,153,204,0.2);
+}
+td {
+  padding:10px;
+}
+
 #wrapper {
   display: grid;
   height: 100vh;

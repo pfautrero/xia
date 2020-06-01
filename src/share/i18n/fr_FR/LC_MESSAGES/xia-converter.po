@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: activit 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-23 09:50+0100\n"
+"POT-Creation-Date: 2020-05-31 23:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,39 +17,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: share/themes/accordionCloud/hook.py:35
-msgid "export accordionCloud"
-msgstr ""
-"exporter en accordionCloud\n"
-"Accordéon étroit (zone de texte réduite, image large)"
-
-#: share/themes/accordionCloud/hook.py:36 share/themes/popYellow/hook.py:36
-#: share/themes/game1clic/hook.py:43 share/themes/buttonBlue/hook.py:35
-#: share/themes/material/hook.py:36 share/themes/gameDragAndDrop/hook.py:42
-#: share/themes/accordionBlack/hook.py:40 share/themes/popBlue/hook.py:36
-#: share/themes/audioBrown/hook.py:35
-msgid "loading"
-msgstr "Chargement..."
-
-#: share/themes/popYellow/hook.py:35
-msgid "export popYellow"
-msgstr ""
-"exporter en popYellow\n"
-"Bulles avec zoom possible (commentaire immédiat puis zoom au second clic)"
-
 #: share/themes/game1clic/hook.py:39
 msgid "export game1clic"
 msgstr "exporter en game1clic"
 
-#: share/themes/game1clic/hook.py:41 share/themes/gameDragAndDrop/hook.py:41
+#: share/themes/game1clic/hook.py:40 share/themes/gameDragAndDrop/hook.py:42
 msgid "You win !"
 msgstr "C'est gagné !"
 
-#: share/themes/buttonBlue/hook.py:34
-msgid "export buttonBlue"
+#: share/themes/game1clic/hook.py:41 share/themes/sidebar/hook.py:40
+#: share/themes/material/hook.py:36 share/themes/gameDragAndDrop/hook.py:43
+msgid "loading"
+msgstr "Chargement..."
+
+#: share/themes/sidebar/hook.py:39
+msgid "export sidebar !"
 msgstr ""
-"exporter en buttonBlue\n"
-"Boutons au dessus"
 
 #: share/themes/material/hook.py:35
 msgid "export material"
@@ -57,54 +40,72 @@ msgstr ""
 "exporter en material\n"
 "popup stylisée, image pleine largeur"
 
-#: share/themes/gameDragAndDrop/hook.py:38
+#: share/themes/material/hook.py:89
+msgid "creator"
+msgstr "Créateur"
+
+#: share/themes/material/hook.py:90
+msgid "rights"
+msgstr "Droits"
+
+#: share/themes/material/hook.py:91
+msgid "publisher"
+msgstr "Éditeur "
+
+#: share/themes/material/hook.py:92
+msgid "identifier"
+msgstr "Identifiant"
+
+#: share/themes/material/hook.py:93
+msgid "coverage"
+msgstr "Portée"
+
+#: share/themes/material/hook.py:94
+msgid "source"
+msgstr "Source"
+
+#: share/themes/material/hook.py:95
+msgid "relation"
+msgstr "Relation"
+
+#: share/themes/material/hook.py:96
+msgid "language"
+msgstr "Langue"
+
+#: share/themes/material/hook.py:97
+msgid "contributor"
+msgstr "Contributeurs"
+
+#: share/themes/material/hook.py:98
+msgid "date"
+msgstr "Date"
+
+#: share/themes/material/hook.py:99
+msgid "license"
+msgstr "Licence"
+
+#: share/themes/gameDragAndDrop/hook.py:39
 msgid "export gameDragAndDrop"
 msgstr "exporter en gameDragAndDrop"
 
-#: share/themes/accordionBlack/hook.py:39
-msgid "export accordionBlack !"
-msgstr ""
-"exporter en accordionBlack\n"
-"Accordéon large (grande zone de texte, image réduite)"
-
-#: share/themes/popBlue/hook.py:35
-msgid "export popBlue"
-msgstr ""
-"exporter en popBlue\n"
-"Bulles (détail isolé puis commentaire au premier clic)"
-
-#: share/themes/audioBrown/hook.py:34
-msgid "export audioBrown"
-msgstr ""
-"exporter en audioBrown\n"
-"(adapté pour les bandes audio auto-démarrées)"
-
-#: xiaconverter/mainwindow.py:101
-msgid "select svg file"
-msgstr "sélectionner un fichier svg"
-
-#: xiaconverter/mainwindow.py:115
-msgid "ajust parameters"
-msgstr "Paramètres"
-
-#: xiaconverter/mainwindow.py:168
+#: xiaconverter/mainwindow.py:212
 msgid "myfile.svg"
 msgstr "monfichier.svg"
 
-#: xiaconverter/mainwindow.py:170
+#: xiaconverter/mainwindow.py:214
 msgid "Select a svg file"
 msgstr "sélectionner un fichier svg"
 
-#: xiaconverter/mainwindow.py:180
+#: xiaconverter/mainwindow.py:224
 msgid "Select target folder"
 msgstr "sélectionner un dossier de destination"
 
-#: xiaconverter/mainwindow.py:195
+#: xiaconverter/mainwindow.py:239
 #, python-brace-format
 msgid "Sorry, impossible to create the {0} directory"
 msgstr "Désolé, impossible de créer le répertoire {0}"
 
-#: xiaconverter/mainwindow.py:220
+#: xiaconverter/mainwindow.py:264
 msgid "Parameters"
 msgstr "Paramètres"
 
@@ -121,6 +122,42 @@ msgstr ""
 "activer/désactiver l'export fichier unique.\n"
 "Le fichier unique nécessite une connexion internet pour accéder à la "
 "ressource."
+
+#~ msgid "export accordionCloud"
+#~ msgstr ""
+#~ "exporter en accordionCloud\n"
+#~ "Accordéon étroit (zone de texte réduite, image large)"
+
+#~ msgid "export popYellow"
+#~ msgstr ""
+#~ "exporter en popYellow\n"
+#~ "Bulles avec zoom possible (commentaire immédiat puis zoom au second clic)"
+
+#~ msgid "export buttonBlue"
+#~ msgstr ""
+#~ "exporter en buttonBlue\n"
+#~ "Boutons au dessus"
+
+#~ msgid "export accordionBlack !"
+#~ msgstr ""
+#~ "exporter en accordionBlack\n"
+#~ "Accordéon large (grande zone de texte, image réduite)"
+
+#~ msgid "export popBlue"
+#~ msgstr ""
+#~ "exporter en popBlue\n"
+#~ "Bulles (détail isolé puis commentaire au premier clic)"
+
+#~ msgid "export audioBrown"
+#~ msgstr ""
+#~ "exporter en audioBrown\n"
+#~ "(adapté pour les bandes audio auto-démarrées)"
+
+#~ msgid "select svg file"
+#~ msgstr "sélectionner un fichier svg"
+
+#~ msgid "ajust parameters"
+#~ msgstr "Paramètres"
 
 #~ msgid "create firefox OS files"
 #~ msgstr ""

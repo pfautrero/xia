@@ -31,16 +31,16 @@ class hook:
             t = gettext.translation("xia-converter", langPath, languages=[locale.getdefaultlocale()[0]])
         except:
             t = gettext.translation("xia-converter", langPath, languages=['en_US'])
-        translate = t.gettext
+        self.translate = t.gettext
 
         self.root = root
         self.iaobject = iaobject
         self.PageFormatter = PageFormatter
-        self.tooltip = translate("export sidebar !")
-        self.loading = translate("loading")
+        self.tooltip = self.translate("export sidebar")
+        self.loading = self.translate("loading")
 
-    def add_metadata(self, value):
-        return value + "<br/>" if value else ""
+    def add_metadata(self, value, label):
+        return f"<tr><td>{label}</td><td>{value}</td></tr>" if value else ""
 
     def generateIndex(self,filePath, templatePath, localFolder):
         """ generate index file"""
@@ -49,18 +49,18 @@ class hook:
             final_index = template.read().decode()
 
             metadatas = ""
-            metadatas += self.add_metadata(self.iaobject.scene["creator"])
-            metadatas += self.add_metadata(self.iaobject.scene["rights"])
-            metadatas += self.add_metadata(self.iaobject.scene["publisher"])
-            metadatas += self.add_metadata(self.iaobject.scene["identifier"])
-            metadatas += self.add_metadata(self.iaobject.scene["coverage"])
-            metadatas += self.add_metadata(self.iaobject.scene["source"])
-            metadatas += self.add_metadata(self.iaobject.scene["relation"])
-            metadatas += self.add_metadata(self.iaobject.scene["language"])
-            metadatas += self.add_metadata(self.iaobject.scene["contributor"])
-            metadatas += self.add_metadata(self.iaobject.scene["date"])
+            metadatas += self.add_metadata(self.iaobject.scene["creator"], self.translate('creator'))
+            metadatas += self.add_metadata(self.iaobject.scene["rights"], self.translate('rights'))
+            metadatas += self.add_metadata(self.iaobject.scene["publisher"], self.translate('publisher'))
+            metadatas += self.add_metadata(self.iaobject.scene["identifier"], self.translate('identifier'))
+            metadatas += self.add_metadata(self.iaobject.scene["coverage"], self.translate('coverage'))
+            metadatas += self.add_metadata(self.iaobject.scene["source"], self.translate('source'))
+            metadatas += self.add_metadata(self.iaobject.scene["relation"], self.translate('relation'))
+            metadatas += self.add_metadata(self.iaobject.scene["language"], self.translate('language'))
+            metadatas += self.add_metadata(self.iaobject.scene["contributor"], self.translate('contributor'))
+            metadatas += self.add_metadata(self.iaobject.scene["date"], self.translate('date'))
 
-            #final_index = final_index.replace("{{METADATAS}}", metadatas)
+            final_index = final_index.replace("{{METADATAS}}", metadatas)
             final_index = final_index.replace("{{AUTHOR}}", self.iaobject.scene["creator"])
             final_index = final_index.replace("{{DESCRIPTION}}", self.iaobject.scene["description"])
             final_index = final_index.replace("{{KEYWORDS}}", self.iaobject.scene["keywords"])
@@ -71,10 +71,11 @@ class hook:
                 final_index = final_index.replace("{{arrow_down}}",  xiaWebsite + "/sidebar/img/arrow_down.png")
                 final_index = final_index.replace("{{reload}}",  xiaWebsite + "/sidebar/img/reload.png")
                 final_index = final_index.replace("{{fullscreen}}", xiaWebsite + "/sidebar/img/fullscreen.png")
+                final_index = final_index.replace("{{about}}", xiaWebsite + "/sidebar/img/information-outline.svg")
                 final_index = final_index.replace("{{datasJS}}", "<script>" + self.iaobject.jsonContent + "</script>")
                 final_index = final_index.replace("{{lazyDatasJS}}", '')
                 final_index = final_index.replace("{{sha1JS}}", xiaWebsite + "/js/git-sha1.min.js")
-                final_index = final_index.replace("{{konvaJS}}", "https://cdnjs.cloudflare.com/ajax/libs/konva/3.1.7/konva.min.js")
+                final_index = final_index.replace("{{konvaJS}}", "https://cdnjs.cloudflare.com/ajax/libs/konva/6.0.0/konva.min.js")
                 final_index = final_index.replace("{{xiaJS}}", xiaWebsite + "/js/xia.js")
                 final_index = final_index.replace("{{hooksJS}}", xiaWebsite + "/sidebar/js/hooks.js")
                 final_index = final_index.replace("{{quantizeJS}}", xiaWebsite + "/sidebar/js/quantization.min.js")
@@ -82,6 +83,7 @@ class hook:
                 final_index = final_index.replace("{{MainCSS}}", localFolder +"/css/main.css")
                 final_index = final_index.replace("{{reload}}", localFolder +"/img/reload.png")
                 final_index = final_index.replace("{{fullscreen}}", localFolder +"/img/fullscreen.png")
+                final_index = final_index.replace("{{about}}", localFolder +"/img/information-outline.svg")
                 final_index = final_index.replace("{{arrow_down}}",  localFolder + "/img/arrow_down.png")
                 final_index = final_index.replace("{{datasJS}}", "")
                 final_index = final_index.replace("{{lazyDatasJS}}", localFolder +'/datas/data.js')

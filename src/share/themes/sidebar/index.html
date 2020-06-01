@@ -4,7 +4,7 @@
     <title>{{TITLE}}</title>
     <meta charset="utf-8" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, user-scalable=no, shrink-to-fit=no">
     <meta name="description" content="{{DESCRIPTION}}" />
     <meta name="author" content="{{AUTHOR}}" />
     <meta name="keywords" content="{{KEYWORDS}}" />
@@ -34,8 +34,16 @@
     <div class="options">
       <img id="reload" role="button" alt="recharger" src="{{reload}}" tabindex="4" class="option_button">
       <img id="fullscreen" role="button" alt="passer en plein écran" src="{{fullscreen}}" tabindex="5" class="option_button">
+      <img id="informations" role="button" alt="about" src="{{about}}" tabindex="5" class="option_button">
     </div>
   </div>
+  <template id="metadata">
+    <table>
+      <tbody>
+        {{METADATAS}}
+      </tbody>
+    </table>
+  </template>
   {{datasJS}}
   <script>
     var sidebarApp = new MyApp({
@@ -47,7 +55,8 @@
       'sidebar' : "sidebar",
       'alert_mouseover' : 'alert_mouseover',
       'fullscreen' : "fullscreen",
-      'reload' : "reload"
+      'reload' : "reload",
+      'informations' : "informations"
     })
     var xiaInstance = new Xia({
       'hooks' : sidebarApp,

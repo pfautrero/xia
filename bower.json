@@ -6,7 +6,7 @@
   ],
   "description": "XIA is a svg to html5 converter to generate interactives resources",
   "license": "GPL3.0",
-  "homepage": "http://xia.dane.ac-versailles.fr/",
+  "homepage": "http://xia.funraiders.org/",
   "ignore": [
     "**/.*",
     "node_modules",
