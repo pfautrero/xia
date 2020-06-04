@@ -8,13 +8,13 @@
 //   GNU General Public License for more details.
 //   You should have received a copy of the GNU General Public License
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
-//   
-//   
+//
+//
 // @author : Pascal Fautrero
 
 
 /*
- * 
+ *
  */
 class XiaImage extends XiaDetail {
 
@@ -50,9 +50,9 @@ class XiaImage extends XiaDetail {
 
         var that = this
         rasterObj.onload = function() {
-
-            that.kineticElement.backgroundImageOwnScaleX = that.parent.iaScene.scale * that.detail.width / that.width;
-            that.kineticElement.backgroundImageOwnScaleY = that.parent.iaScene.scale * that.detail.height / that.height;
+            var currentRatio = rasterObj.naturalWidth / that.detail.width
+            that.kineticElement.backgroundImageOwnScaleX = (that.detail.width / that.width) / currentRatio
+            that.kineticElement.backgroundImageOwnScaleY = (that.detail.height / that.height) / currentRatio
             that.parent.group.add(that.kineticElement)
 
             if ((typeof(that.parent.jsonSource.fill) !== 'undefined') &&
