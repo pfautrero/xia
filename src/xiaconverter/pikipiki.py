@@ -173,6 +173,9 @@ class PageFormatter:
         self.in_li = 1
         return '<li>'
 
+    def normalize(self, text):
+        return text.rstrip().lower()
+
     def _link_repl(self, word):
         word_filtered = re.sub(' +', ' ', word[1:-1])
         word_displayed = ""
@@ -186,6 +189,8 @@ class PageFormatter:
                 word_displayed = word_displayed + " " + i
         if word_displayed == "":
             word_displayed = word_url
+        if self.normalize(word_displayed).endswith((".jpg", ".jpeg", ".png", ".gif")):
+            word_displayed = self._img_repl(word_displayed)
         return f'<a href="{word_url}" target="_blank">{word_displayed}</a>'
 
     def _ialink_repl(self, word):
@@ -294,8 +299,8 @@ class PageFormatter:
             + r"|(?P<scolawebtv>(https|http)\:\/\/scolawebtv\.crdp-versailles\.fr\/\?id=(.*))"
             + r"|(?P<webtv>(https|http)\:\/\/webtv\.ac-versailles\.fr\/spip\.php\?article(.*))"
             + r"|(?P<flicker>https\:\/\/flic\.kr\/p\/(.*))"
-            + r"|(?P<link>\[(http|\.\.\/|\.\/)(.*)\])"
             + r"|(?P<img>[^\s'\"]+\.(jpg|jpeg|png|gif)$)"
+            + r"|(?P<link>\[(http|\.\.\/|\.\/)(.*)\])"
             + r"|(?P<pdf>[^\s'\"]+\.(pdf)$)"
             + r"|(?P<audiostart>[^\s'\"]+\.(ogg|mp3)(\s*)autostart$)"
             + r"|(?P<audio>[^\s'\"]+\.(ogg|mp3)$)"
