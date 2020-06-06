@@ -5,12 +5,12 @@
 *Concept* : définir des cibles et indiquer aux images déplaçables quelles sont leur cible. Indiquer un score à obtenir et un message de succès.
 
 Exemples :
-- [Jeu du Dino](http://xia.dane.ac-versailles.fr/demo/dino/index.html)
-- [Jeu des articulations](http://xia.dane.ac-versailles.fr/demo/articulations/index.html)
+- [Jeu du Dino](https://xia.funraiders.org/exemples/dino.html)
+- [Jeu des articulations](https://xia.funraiders.org/exemples/articulations.html)
 
 ## C'est parti !
 
-Pour réaliser cet atelier, veuillez télécharger le dossier suivant : [Monstres](docs/monstres.zip)
+Pour réaliser cet atelier, veuillez télécharger le dossier suivant : [Monstres](https://github.com/pfautrero/xia/raw/XIA_30/doc/monstres.zip)
 
 ### Préparation des images
 
@@ -18,7 +18,7 @@ En amont de la création du jeu, il faut travailler les visuels.
 - Quelle va-t-être l'image de fond ? Est-ce qu'il y aura les cibles dessinées dessus ou pas ?
 - Quelles vont-être les images à déplacer ?
 
-Pour cet atelier, nous avons choisi de dessiner les cibles (les formes des monstres) sur l'image de fond. Et de prendre 4 monstres comme image déplaçables. 
+Pour cet atelier, nous avons choisi de dessiner les cibles (les formes des monstres) sur l'image de fond. Et de prendre 4 monstres comme image déplaçables.
 
 Une fois que vous possédez tout le matériel nécessaire pour créer le jeu, vous pouvez vous attaquer à sa création.
 
@@ -72,4 +72,4 @@ Exemple ici : "Associe chaque monstre à sa silhouette."
 **Extension -> Exporter -> XiaEdu**
 Choisir l'export DragAndDrop.  
 ![draganddrop](images/draganddrop.png)  
-Vous pouvez ensuite tester votre image en allant ouvrir le fichier .html généré. 
+Vous pouvez ensuite tester votre image en allant ouvrir le fichier .html généré.
