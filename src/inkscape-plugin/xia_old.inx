@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+  <name>Xia</name>
+  <id>org.xia.funraiders</id>
+  <effect>
+    <object-type>all</object-type>
+    <effects-menu>
+      <submenu name="Export"/>
+    </effects-menu>
+  </effect>
+  <script>
+      <command location="inx" interpreter="python">xia.py</command>
+  </script>
+
+</inkscape-extension>

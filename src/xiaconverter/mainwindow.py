@@ -210,7 +210,9 @@ class IADialog():
         else:
             options['initialdir'] = os.path.expanduser('~')
         options['initialfile'] = translate('myfile.svg')
-        options['parent'] = root
+        # Remove this option the avoid warning on MAC OS X
+        if not sys.platform.startswith('darwin'):
+            options['parent'] = root
         options['title'] = translate('Select a svg file')
 
         self.dir_opt = options = {}
@@ -220,7 +222,7 @@ class IADialog():
         else:
             options['initialdir'] = os.path.expanduser('~')
         options['mustexist'] = False
-        options['parent'] = root
+        #options['parent'] = root
         options['title'] = translate('Select target folder')
 
         # retrieves source and target directories from config file

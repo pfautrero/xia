@@ -234,6 +234,50 @@ class MyApp {
     })
   }
 
+  mouseover(el) {
+
+    var zoomed = (el.parent.iaScene.cursorState.includes('ZoomOut.cur'))
+    var focused_zoomable = (el.parent.iaScene.cursorState.includes('ZoomIn.cur'))
+    var focused_unzoomable = (el.parent.iaScene.cursorState.includes('ZoomFocus.cur'))
+    var overflown = (el.parent.iaScene.cursorState.includes('HandPointer.cur'))
+
+    if (zoomed || focused_zoomable || focused_unzoomable || overflown) return
+
+    document.body.style.cursor = 'pointer'
+    el.parent.iaScene.cursorState = 'url(img/HandPointer.cur),auto'
+
+    var cacheBackground = true
+    for (let i in el.parent.xiaDetail) {
+      var xiaDetail = el.parent.xiaDetail[i]
+      var kineticElement = xiaDetail.kineticElement
+      var objectType = kineticElement.getClassName()
+      if (objectType === 'Sprite') {
+        kineticElement.animation('idle')
+        kineticElement.frameIndex(0)
+        kineticElement.setAttrs({ opacity: 0 })
+        kineticElement.to({ opacity: 1 })
+      } else if (objectType === 'Image') {
+        if (xiaDetail.persistent === 'on') cacheBackground = false
+        kineticElement.setImage(kineticElement.backgroundImage)
+        kineticElement.setAttrs({ opacity: 0 })
+        kineticElement.to({ opacity: 1 })
+      } else {
+        kineticElement.fillPriority('color')
+        kineticElement.stroke(xiaDetail.parent.iaScene.overColorStroke)
+        kineticElement.strokeWidth(5) //xiaDetail.strokeWidth)
+        kineticElement.dashEnabled()
+        kineticElement.dash([10,10])
+        kineticElement.setAttrs({ opacity: 1 })
+        //kineticElement.to({ opacity: 1 })
+      }
+    }
+    el.parent.layer.moveToTop()
+    el.parent.layer.draw()
+    el.parent.parent.focusedObj = el.parent.index
+
+    return false
+  }
+
   //
   // hook for Xia Zoom
   //

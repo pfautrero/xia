@@ -2,7 +2,23 @@
 <inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
   <name>Xia</name>
   <id>org.xia.funraiders</id>
-  <effect>
+  <param name="tab" type="notebook">
+    <page name="slicer_tab" gui-text="Options">
+      <param name="singlefile" type="bool" gui-text="Single file">true</param>
+      <param name="theme" type="enum" gui-text="Select export: ">
+        <item value="sidebar">Sidebar</item>
+        <item value="material">Material</item>
+        <item value="game1click">Game1Click</item>
+        <item value="gameDragAndDrop">GameDragAndDrop</item>
+      </param>
+      <param name="directory" type="path" mode="folder" gui-text="Target folder: "></param>
+    </page>
+    <page name="about_tab" gui-text="About">
+      <label appearance="header">XIA</label>
+      <label>XIA is a tool to convert your current document into interactive html5 resource.</label>
+    </page>
+  </param>
+  <effect needs-live-preview="false">
     <object-type>all</object-type>
     <effects-menu>
       <submenu name="Export"/>

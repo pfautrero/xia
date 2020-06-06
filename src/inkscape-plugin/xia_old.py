@@ -16,29 +16,25 @@
 # @author : pascal.fautrero@gmail.com
 
 
+#import os, shutil
 import inkex
 import tempfile
+import tkinter
 import os
 import configparser
-from xiaconverter.xiaconsole import XIAConsole
+from xiaconverter.mainwindow import IADialog
 from xiaconverter.loggerinkscape import LoggerInkscape
 
 class ImageActive(inkex.OutputExtension):
+
     def save(self, stream):
         pass
 
     def __init__(self):
         inkex.Effect.__init__(self)
 
-    def add_arguments(self, pars):
-        pars.add_argument("--tab")
-        pars.add_argument("--theme")
-        pars.add_argument("--directory", default=os.path.expanduser("~"),\
-            help="Existing destination directory")
-        pars.add_argument("--singlefile", default="true", help="export a single file or a complete files tree for local usage")
-
     def effect(self):
-        
+
         # fix inkscape bug
         # https://bugs.launchpad.net/ubuntu/+source/inkscape/+bug/944077/comments/11
         pathNodes = self.document.xpath('//sodipodi:namedview',namespaces=inkex.NSS)
@@ -61,19 +57,19 @@ class ImageActive(inkex.OutputExtension):
 
             console = LoggerInkscape()
 
-            options = {}
-            options['input_file'] = filePath
-            options['output_dir'] = self.options.directory
-            options['selected_theme'] = self.options.theme
-            options['export_type'] = "singlefile" if self.options.singlefile == 'true' else "local" 
-            xia = XIAConsole(config, options, console)
-            xia.createIA()            
+            root = tkinter.Tk()
+            root.title("XIA " + numVersion + releaseVersion)
+            root.geometry("465x310")
+            root.resizable(0,0)
+            img = tkinter.PhotoImage(file= imagesPath + '/xia64.gif')
+            root.tk.call('wm', 'iconphoto', root._w, img)
+            maindialog = IADialog(root, console, config, "./", filePath)
+            root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
+            root.mainloop()
 
         except ValueError:
-           #inkex.utils.debug(ValueError)
+           #inkex.debug(ValueError)
            pass
 
-
-if __name__ == '__main__':
-  ia = ImageActive()
-  ia.run()
+ia = ImageActive()
+ia.run()
