@@ -1,3 +1,11 @@
+Version 3.0-beta2 - 06/06/2020
+-------------------------------
+- Changement de visuel de l'extension Inkscape pour être compatible MAC OS X Catalina
+- Material : correctif sur le mouseover pour afficher les pointillés
+- Pikipiki : Les images peuvent être des liens
+- Xia Engine : Désactive le cache par défaut pour accepter les images de fond avec transparence
+- Game1Click : fix un problème de scale sur les images quand elles sont redimensionnées
+
 Version 3.0-beta1 - 01/06/2020
 -------------------------------
 - Compatibilité avec python3
