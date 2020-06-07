@@ -805,6 +805,7 @@ class iaObject:
                     print(f"x = {record_image['x']} y = {record_image['y']}")
                     print(f"w = {record_image['width']} h = {record_image['height']}")
                     """
+                    ctm.rotate = (+1) * math.pi * ctm.rotate / 180
                     cornerA = {}
                     cornerA['x'] = float(record_image['x'])
                     cornerA['y'] = float(record_image['y'])
