@@ -33,12 +33,20 @@ function IaObject(params) {
     this.baseImage = params.baseImage
     this.idText = params.idText
     this.myhooks = params.myhooks
+    this.group = new Kinetic.Group()
 
     if (typeof(params.detail.path) !== 'undefined') {
         this.includePath(params.detail, 0, params.iaScene, params.baseImage, params.idText)
     }
     else if (typeof(params.detail.image) !== 'undefined') {
-        this.includeImage(params.detail, 0, params.iaScene, params.baseImage, params.idText)
+      var re = /sprite(.*)/i;
+      if (params.detail.id.match(re)) {
+          this.includeSprite(params.detail, 0, params.iaScene, params.idText);
+      }
+      else {
+          this.includeImage(params.detail, 0, params.iaScene, params.baseImage, params.idText)
+      }
+
     }
     else if (typeof(params.detail.group) !== 'undefined') {
         this.group = new Kinetic.Group({
@@ -51,7 +59,14 @@ function IaObject(params) {
                 this.includePath(params.detail.group[i], i, params.iaScene, params.baseImage, params.idText)
             }
             else if (typeof(params.detail.group[i].image) !== 'undefined') {
-                this.includeImage(params.detail.group[i], i, params.iaScene, params.baseImage, params.idText)
+              var re = /sprite(.*)/i;
+              if (params.detail.group[i].id.match(re)) {
+                  this.includeSprite(params.detail.group[i], i, params.iaScene, params.idText)
+              }
+              else {
+                  this.includeImage(params.detail.group[i], i, params.iaScene, params.baseImage, params.idText)
+              }
+
             }
         }
     }
@@ -59,6 +74,21 @@ function IaObject(params) {
         console.log(params.detail)
     }
     this.myhooks.afterIaObjectConstructor(params.iaScene, params.idText, params.detail, this)
+}
+
+/*
+ *
+ * @param {type} detail
+ * @param {type} i KineticElement index
+ * @returns {undefined}
+ */
+IaObject.prototype.includeSprite = function(detail, i, iaScene, idDOMElement) {
+
+    this.xiaDetail[i] = new XiaSprite(this, detail, idDOMElement)
+    this.defineImageBoxSize(detail, this.xiaDetail[i]);
+    this.scaleBox(this.xiaDetail[i], iaScene)
+    this.xiaDetail[i].start()
+
 }
 
 /*

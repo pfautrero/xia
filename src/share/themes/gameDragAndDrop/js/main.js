@@ -60,7 +60,22 @@ function main(myhooks) {
             return this.xiaparent;
         }
     });
-
+    Kinetic.Util.addMethods(Kinetic.Sprite,{
+        setXiaParent: function(xiaparent) {
+            this.xiaparent = xiaparent;
+        },
+        getXiaParent: function() {
+            return this.xiaparent;
+        }
+    });
+    Kinetic.Util.addMethods(Kinetic.Sprite,{
+        setIaObject: function(iaobject) {
+            this.iaobject = iaobject;
+        },
+        getIaObject: function() {
+            return this.iaobject;
+        }
+    });
     Kinetic.Util.addMethods(Kinetic.Image,{
         setXiaParent: function(xiaparent) {
             this.xiaparent = xiaparent;
@@ -182,8 +197,8 @@ function main(myhooks) {
           }
 
 
-      };
-    })
+      }.bind(this)
+    }.bind(this))
 
     if (scene.path !== "") {
       var tempCanvas = this.convertPath2Image(scene)

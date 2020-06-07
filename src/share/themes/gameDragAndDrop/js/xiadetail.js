@@ -134,7 +134,7 @@ class XiaDetail {
 
         this.kineticElement.tooltip_area = false;
         // tooltip must be at the bottom
-        this.parent.myhooks.afterXiaObjectCreation(this.parent.mainScene, this)
+        this.parent.myhooks.afterXiaObjectCreation(iaScene, this)
 
         if ($('article[data-tooltip="' + $("#" + this.idText).data("kinetic_id") + '"]').length != 0) {
             this.kineticElement.moveToBottom();
@@ -151,8 +151,8 @@ class XiaDetail {
 
             }
             else if (iaScene.cursorState.indexOf("HandPointer.cur") === -1) {
-                if ((!this.getXiaParent().droparea) && (!this.tooltip_area)  &&
-                   (this.getXiaParent().options.indexOf("disable-click") == -1)) {
+                if ((!this.kineticElement.getXiaParent().droparea) && (!this.tooltip_area)  &&
+                   (this.kineticElement.getXiaParent().options.indexOf("disable-click") == -1)) {
                     document.body.style.cursor = "pointer";
                 }
                 iaScene.cursorState = "url(img/HandPointer.cur),auto";
@@ -178,11 +178,11 @@ class XiaDetail {
 
                     this.tooltip.moveToTop();
                     this.tooltip.draw();
-                    this.getIaObject().layer.draw();
+                    this.kineticElement.getIaObject().layer.draw();
                 }
 
             }
-        });
+        }.bind(this));
 
         this.kineticElement.on('click touchstart', function(e) {
 
@@ -205,8 +205,8 @@ class XiaDetail {
 
             }
             else {
-                var mouseXY = this.getIaObject().layer.getStage().getPointerPosition();
-                if ((this.getIaObject().layer.getStage().getIntersection(mouseXY) != this)) {
+                var mouseXY = this.kineticElement.getIaObject().layer.getStage().getPointerPosition();
+                if ((this.kineticElement.getIaObject().layer.getStage().getIntersection(mouseXY) != this)) {
                     // manage tooltips if present
                     var tooltip = false;
                     if (this.tooltip != "") {
@@ -225,10 +225,10 @@ class XiaDetail {
                     }
                     document.body.style.cursor = "default";
                     iaScene.cursorState = "default";
-                    this.getIaObject().layer.draw();
+                    this.kineticElement.getIaObject().layer.draw();
                 }
             }
-        });
+        }.bind(this));
 
 
         if (this.options.indexOf("disable-click") != -1) {
@@ -348,7 +348,7 @@ class XiaDetail {
         "use strict"
         var x_value = pos.x
         var y_value = pos.y
-        var len = this.parent.mainScene.shapes.length;
+        var len = iaScene.shapes.length;
         var getAbsolutePosition = {
             x : kineticElement.getAbsolutePosition().x,
             y : kineticElement.getAbsolutePosition().y,
@@ -356,14 +356,14 @@ class XiaDetail {
         var objectWidth = kineticElement.getXiaParent().maxX - kineticElement.getXiaParent().minX
         var objectHeight = kineticElement.getXiaParent().maxY - kineticElement.getXiaParent().minY
         for (var i = 0; i < len; i++) {
-            if (kineticElement.getIaObject() != this.parent.mainScene.shapes[i] && this.parent.mainScene.shapes[i].collisions == "on") {
+            if (kineticElement.getIaObject() != iaScene.shapes[i] && iaScene.shapes[i].collisions == "on") {
 
-                for (var j=0; j< this.parent.mainScene.shapes[i].xiaDetail.length;j++) {
+                for (var j=0; j< iaScene.shapes[i].xiaDetail.length;j++) {
                     var shape = {
-                        maxX : this.parent.mainScene.shapes[i].xiaDetail[j].maxX,
-                        maxY : this.parent.mainScene.shapes[i].xiaDetail[j].maxY,
-                        minX : this.parent.mainScene.shapes[i].xiaDetail[j].minX - objectWidth,
-                        minY : this.parent.mainScene.shapes[i].xiaDetail[j].minY - objectHeight
+                        maxX : iaScene.shapes[i].xiaDetail[j].maxX,
+                        maxY : iaScene.shapes[i].xiaDetail[j].maxY,
+                        minX : iaScene.shapes[i].xiaDetail[j].minX - objectWidth,
+                        minY : iaScene.shapes[i].xiaDetail[j].minY - objectHeight
                     };
 
                     var objectLocatedAt = {
