@@ -122,7 +122,7 @@ class CurrentTransformation:
             sin(a)   cos(a)  -cx.sin(a) - cy.cos(a) + cy
             0       0        1
         """
-        self.rotate = groups[0]
+        self.rotate = float(groups[0])
         self.rX = "0"
         self.rY = "0"
         if len(groups) == 3:

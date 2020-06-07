@@ -20,7 +20,7 @@
  */
 function IaObject(params) {
     "use strict";
-    var that = this;
+    //var that = this;
     this.path = [];
     this.xiaDetail = [];
     this.minX = 10000;
@@ -48,33 +48,33 @@ function IaObject(params) {
     this.layer.add(this.group);
 
     if (typeof(params.detail.path) !== 'undefined') {
-        that.includePath(params.detail, 0, params.idText);
+        this.includePath(params.detail, 0, params.idText);
     }
     else if (typeof(params.detail.image) !== 'undefined') {
         var re = /sprite(.*)/i;
         if (params.detail.id.match(re)) {
-            that.includeSprite(params.detail, 0, params.idText);
+            this.includeSprite(params.detail, 0, params.idText);
         }
         else {
-            that.includeImage(params.detail, 0, params.idText);
+            this.includeImage(params.detail, 0, params.idText);
         }
     }
     else if (typeof(params.detail.group) !== 'undefined') {
         for (var i in params.detail.group) {
             if (typeof(params.detail.group[i].path) !== 'undefined') {
-                that.includePath(params.detail.group[i], i, params.idText);
+                this.includePath(params.detail.group[i], i, params.idText);
             }
             else if (typeof(params.detail.group[i].image) !== 'undefined') {
                 var re = /sprite(.*)/i;
                 if (params.detail.group[i].id.match(re)) {
-                    that.includeSprite(params.detail.group[i], i, params.idText);
+                    this.includeSprite(params.detail.group[i], i, params.idText);
                 }
                 else {
-                    that.includeImage(params.detail.group[i], i, params.idText);
+                    this.includeImage(params.detail.group[i], i, params.idText);
                 }
             }
         }
-        that.definePathBoxSize(params.detail, that);
+        this.definePathBoxSize(params.detail, this);
     }
     else {
         console.log(params.detail);
@@ -134,7 +134,7 @@ IaObject.prototype.includePath = function(detail, i, idDOMElement) {
  */
 IaObject.prototype.defineImageBoxSize = function(detail, that) {
     "use strict";
-    var that = this;
+    //var this = this;
     if (that.minX === -1)
         that.minX = (parseFloat(detail.x));
     if (that.maxY === 10000)
@@ -187,4 +187,3 @@ IaObject.prototype.scaleBox = function(that, iaScene) {
     that.maxY = that.maxY * iaScene.coeff;
 
 };
-

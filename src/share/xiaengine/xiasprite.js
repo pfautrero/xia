@@ -42,25 +42,26 @@ class XiaSprite extends XiaDetail {
     this.backgroundImage = rasterObj
     var timeLine = JSON.parse('[' + this.detail.timeline + ']')
 
-    var idle = []
-    for (let k = 0; k < timeLine.length; k++) {
-      idle.push(timeLine[k] * this.detail.width, 0, this.detail.width, this.detail.height)
-    }
-    this.kineticElement = new Konva.Sprite({
-      x: this.detail.x * this.parent.iaScene.coeff,
-      y: this.detail.y * this.parent.iaScene.coeff + this.parent.iaScene.y,
-      image: this.backgroundImage,
-      animation: 'idle',
-      animations: {
-        idle: idle,
-        hidden: [timeLine.length * this.detail.width, 0, this.detail.width, this.detail.height]
-      },
-      frameRate: 10,
-      frameIndex: 0,
-      scale: { x: this.parent.iaScene.coeff, y: this.parent.iaScene.coeff }
-    })
-
     rasterObj.onload = function () {
+
+      var ratioRaster = rasterObj.naturalHeight / this.detail.height
+      var idle = []
+      for (let k = 0; k < timeLine.length; k++) {
+        idle.push(timeLine[k] * this.detail.width * ratioRaster, 0, this.detail.width * ratioRaster, this.detail.height * ratioRaster)
+      }
+      this.kineticElement = new Konva.Sprite({
+        x: this.detail.x * this.parent.iaScene.coeff,
+        y: this.detail.y * this.parent.iaScene.coeff + this.parent.iaScene.y,
+        image: this.backgroundImage,
+        animation: 'idle',
+        animations: {
+          idle: idle,
+          hidden: [timeLine.length * this.detail.width * ratioRaster, 0, this.detail.width * ratioRaster, this.detail.height * ratioRaster]
+        },
+        frameRate: 10,
+        frameIndex: 0,
+        scale: { x: this.parent.iaScene.coeff / ratioRaster, y: this.parent.iaScene.coeff / ratioRaster}
+      })
       this.parent.group.add(this.kineticElement)
       this.kineticElement.animation('hidden')
       this.kineticElement.start()

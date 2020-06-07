@@ -72,8 +72,8 @@ function main(myhooks) {
     Kinetic.draggedshape = null;
 
     //var that=window;
-    var that=this;
-    that.canvas = document.getElementById("canvas");
+    //var this=this;
+    this.canvas = document.getElementById("canvas");
 
     this.backgroundLoaded = $.Deferred()
 
@@ -81,9 +81,9 @@ function main(myhooks) {
 
       // Load background image
 
-      that.imageObj = new Image();
-      that.imageObj.src = scene.image;
-      that.imageObj.onload = function() {
+      this.imageObj = new Image();
+      this.imageObj.src = scene.image;
+      this.imageObj.onload = function() {
 
           var mainScene = new IaScene(scene.width,scene.height);
           mainScene.scale = 1;
@@ -102,16 +102,16 @@ function main(myhooks) {
               width: scene.width,
               height: scene.height,
               scale: {x:mainScene.coeff,y:mainScene.coeff},
-              image: that.imageObj
+              image: this.imageObj
           });
 
           var layers = [];
-          that.layers = layers;
+          this.layers = layers;
           layers[0] = new Kinetic.FastLayer();
           layers[0].add(baseImage);
           stage.add(layers[0]);
 
-          myhooks.beforeMainConstructor(mainScene, that.layers);
+          myhooks.beforeMainConstructor(mainScene, this.layers);
 
           var indice = 1;
           layers[indice] = new Kinetic.Layer();
@@ -119,7 +119,7 @@ function main(myhooks) {
 
           for (var i in details) {
               var iaObj = new IaObject({
-                  imageObj: that.imageObj,
+                  imageObj: this.imageObj,
                   detail: details[i],
                   layer: layers[indice],
                   idText: "article-" + i,
@@ -130,8 +130,8 @@ function main(myhooks) {
               mainScene.shapes.push(iaObj);
           }
 
-          that.afterMainConstructor(mainScene, that.layers);
-          myhooks.afterMainConstructor(mainScene, that.layers);
+          this.afterMainConstructor(mainScene, this.layers);
+          myhooks.afterMainConstructor(mainScene, this.layers);
 
           $("#loader").hide();
 

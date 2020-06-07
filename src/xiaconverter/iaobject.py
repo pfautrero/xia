@@ -794,7 +794,17 @@ class iaObject:
                     # respectively called A2, B2, C2 and D2
                     # and keep X =  min(A2.x, B2.x, C2.x, D2.x)
                     # and Y = min(A2.y, B2.y, C2.y, D2.y)
-
+                    """
+                    print(f"x = {record_image['x']} y = {record_image['y']}")
+                    print(f"w = {oldwidth} h = {oldheight}")
+                    ratio = oldwidth / record_image['original_width']
+                    record_image['x'] = record_image['x'] + (oldwidth / 2) - (ratio * record_image['width'] / 2)
+                    record_image['y'] = record_image['y'] + (oldheight / 2) - (ratio * record_image['height'] / 2)
+                    record_image['width'] = ratio * record_image['width']
+                    record_image['height'] = ratio * record_image['height']
+                    print(f"x = {record_image['x']} y = {record_image['y']}")
+                    print(f"w = {record_image['width']} h = {record_image['height']}")
+                    """
                     cornerA = {}
                     cornerA['x'] = float(record_image['x'])
                     cornerA['y'] = float(record_image['y'])
@@ -1609,7 +1619,7 @@ class iaObject:
                 if HANDLE_PIL:
                     with open(imageFile, 'rb') as f:
                         currentImage = Image.open(f)
-                        rotatedImage = currentImage.rotate( (-1) * 180 * angle / math.pi, expand=1 )
+                        rotatedImage = currentImage.rotate( (-1) * angle, expand=1 )
                         rotatedImage.save(imageFileSmall)
 
                     with open(imageFileSmall, 'rb') as bgSmallImage:

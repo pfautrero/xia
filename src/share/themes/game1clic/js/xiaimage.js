@@ -48,62 +48,62 @@ class XiaImage extends XiaDetail {
         this.kineticElement.droparea = false
         this.kineticElement.tooltip_area = false
 
-        var that = this
-        rasterObj.onload = function() {
-            var currentRatio = rasterObj.naturalWidth / that.detail.width
-            that.kineticElement.backgroundImageOwnScaleX = (that.detail.width / that.width) / currentRatio
-            that.kineticElement.backgroundImageOwnScaleY = (that.detail.height / that.height) / currentRatio
-            that.parent.group.add(that.kineticElement)
 
-            if ((typeof(that.parent.jsonSource.fill) !== 'undefined') &&
-                (that.parent.jsonSource.fill === "#000000")) {
-                that.zoomable = false;
+        rasterObj.onload = function() {
+            var currentRatio = rasterObj.naturalWidth / this.detail.width
+            this.kineticElement.backgroundImageOwnScaleX = (this.detail.width / this.width) / currentRatio
+            this.kineticElement.backgroundImageOwnScaleY = (this.detail.height / this.height) / currentRatio
+            this.parent.group.add(this.kineticElement)
+
+            if ((typeof(this.parent.jsonSource.fill) !== 'undefined') &&
+                (this.parent.jsonSource.fill === "#000000")) {
+                this.zoomable = false;
             }
 
-            if ((typeof(that.parent.jsonSource.fill) !== 'undefined') &&
-                (that.parent.jsonSource.fill === "#ffffff")) {
-                that.persistent = "onImage";
-                that.kineticElement.fillPriority('pattern');
-                that.kineticElement.fillPatternScaleX(that.kineticElement.backgroundImageOwnScaleX * 1/that.parent.iaScene.scale);
-                that.kineticElement.fillPatternScaleY(that.kineticElement.backgroundImageOwnScaleY * 1/that.parent.iaScene.scale);
-                that.kineticElement.fillPatternImage(that.kineticElement.backgroundImage);
-                that.zoomable = false;
+            if ((typeof(this.parent.jsonSource.fill) !== 'undefined') &&
+                (this.parent.jsonSource.fill === "#ffffff")) {
+                this.persistent = "onImage";
+                this.kineticElement.fillPriority('pattern');
+                this.kineticElement.fillPatternScaleX(this.kineticElement.backgroundImageOwnScaleX * 1/this.parent.iaScene.scale);
+                this.kineticElement.fillPatternScaleY(this.kineticElement.backgroundImageOwnScaleY * 1/this.parent.iaScene.scale);
+                this.kineticElement.fillPatternImage(this.kineticElement.backgroundImage);
+                this.zoomable = false;
             }
 
 
             // define hit area excluding transparent pixels
 
-            var cropX = Math.max(parseFloat(that.detail.minX), 0);
-            var cropY = Math.max(parseFloat(that.detail.minY), 0);
-            var cropWidth = (Math.min(parseFloat(that.detail.maxX) - parseFloat(that.detail.minX), Math.floor(parseFloat(that.parent.iaScene.originalWidth) * 1)));
-            var cropHeight = (Math.min(parseFloat(that.detail.maxY) - parseFloat(that.detail.minY), Math.floor(parseFloat(that.parent.iaScene.originalHeight) * 1)));
-            if (cropX + cropWidth > that.parent.iaScene.originalWidth * 1) {
-                cropWidth = Math.abs(that.parent.iaScene.originalWidth * 1 - cropX * 1);
+            var cropX = Math.max(parseFloat(this.detail.minX), 0);
+            var cropY = Math.max(parseFloat(this.detail.minY), 0);
+            var cropWidth = (Math.min(parseFloat(this.detail.maxX) - parseFloat(this.detail.minX), Math.floor(parseFloat(this.parent.iaScene.originalWidth) * 1)));
+            var cropHeight = (Math.min(parseFloat(this.detail.maxY) - parseFloat(this.detail.minY), Math.floor(parseFloat(this.parent.iaScene.originalHeight) * 1)));
+            if (cropX + cropWidth > this.parent.iaScene.originalWidth * 1) {
+                cropWidth = Math.abs(this.parent.iaScene.originalWidth * 1 - cropX * 1);
             }
-            if (cropY * 1 + cropHeight > that.parent.iaScene.originalHeight * 1) {
-                cropHeight = Math.abs(that.parent.iaScene.originalHeight * 1 - cropY * 1);
+            if (cropY * 1 + cropHeight > this.parent.iaScene.originalHeight * 1) {
+                cropHeight = Math.abs(this.parent.iaScene.originalHeight * 1 - cropY * 1);
             }
 
-            var hitCanvas = that.parent.layer.getHitCanvas();
-            that.parent.iaScene.completeImage = hitCanvas.getContext().getImageData(0,0,Math.floor(hitCanvas.width),Math.floor(hitCanvas.height));
+            var hitCanvas = this.parent.layer.getHitCanvas();
+            this.parent.iaScene.completeImage = hitCanvas.getContext().getImageData(0,0,Math.floor(hitCanvas.width),Math.floor(hitCanvas.height));
 
             var canvas_source = document.createElement('canvas');
-            canvas_source.setAttribute('width', that.detail.width);
-            canvas_source.setAttribute('height', that.detail.height);
+            canvas_source.setAttribute('width', this.detail.width);
+            canvas_source.setAttribute('height', this.detail.height);
             var context_source = canvas_source.getContext('2d');
-            context_source.drawImage(rasterObj,0,0, (that.detail.width), (that.detail.height));
+            context_source.drawImage(rasterObj,0,0, (this.detail.width), (this.detail.height));
             //document.body.appendChild(canvas_source)
-            that.imgData = context_source.getImageData(0,0,canvas_source.width,canvas_source.height);
+            this.imgData = context_source.getImageData(0,0,canvas_source.width,canvas_source.height);
 
-            /* that.xiaDetail[i].kineticElement.sceneFunc(function(context) {
-                var yo = that.layer.getHitCanvas().getContext().getImageData(0,0,iaScene.width, iaScene.height);
+            /* this.xiaDetail[i].kineticElement.sceneFunc(function(context) {
+                var yo = this.layer.getHitCanvas().getContext().getImageData(0,0,iaScene.width, iaScene.height);
                 context.putImageData(yo, 0,0);
             });*/
-            //that.addEventsManagement(i,zoomable, that, iaScene, baseImage, idText);
-            that.manageDropAreaAndTooltips()
-            that.parent.group.draw();
+            //this.addEventsManagement(i,zoomable, this, iaScene, baseImage, idText);
+            this.manageDropAreaAndTooltips()
+            this.parent.group.draw();
 
-        };
+        }.bind(this)
         rasterObj.src = this.detail.image;
 
     }

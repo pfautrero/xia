@@ -35,10 +35,10 @@ function IaObject(params) {
     this.myhooks = params.myhooks
 
     if (typeof(params.detail.path) !== 'undefined') {
-        this.includePath(params.detail, 0, this, params.iaScene, params.baseImage, params.idText)
+        this.includePath(params.detail, 0, params.iaScene, params.baseImage, params.idText)
     }
     else if (typeof(params.detail.image) !== 'undefined') {
-        this.includeImage(params.detail, 0, this, params.iaScene, params.baseImage, params.idText)
+        this.includeImage(params.detail, 0, params.iaScene, params.baseImage, params.idText)
     }
     else if (typeof(params.detail.group) !== 'undefined') {
         this.group = new Kinetic.Group({
@@ -48,10 +48,10 @@ function IaObject(params) {
         this.group.setIaObject(this)
         for (var i in params.detail.group) {
             if (typeof(params.detail.group[i].path) !== 'undefined') {
-                this.includePath(params.detail.group[i], i, this, params.iaScene, params.baseImage, params.idText)
+                this.includePath(params.detail.group[i], i, params.iaScene, params.baseImage, params.idText)
             }
             else if (typeof(params.detail.group[i].image) !== 'undefined') {
-                this.includeImage(params.detail.group[i], i, this, params.iaScene, params.baseImage, params.idText)
+                this.includeImage(params.detail.group[i], i, params.iaScene, params.baseImage, params.idText)
             }
         }
     }
@@ -67,7 +67,7 @@ function IaObject(params) {
  * @param {type} i KineticElement index
  * @returns {undefined}
  */
-IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, idText) {
+IaObject.prototype.includeImage = function(detail, i, iaScene, baseImage, idText) {
     this.xiaDetail[i] = new XiaImage(this, detail, idText)
     this.defineImageBoxSize(detail, this.xiaDetail[i])
     this.scaleBox(this.xiaDetail[i], iaScene)
@@ -80,15 +80,15 @@ IaObject.prototype.includeImage = function(detail, i, that, iaScene, baseImage, 
  * @param {type} i KineticElement index
  * @returns {undefined}
  */
-IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, idText) {
-    var that = this
-    that.xiaDetail[i] = new XiaDetail(that,detail, idText)
+IaObject.prototype.includePath = function(detail, i, iaScene, baseImage, idText) {
+    //var this = this
+    this.xiaDetail[i] = new XiaDetail(this,detail, idText)
 
-    that.xiaDetail[i].path = detail.path
+    this.xiaDetail[i].path = detail.path
     // if detail is out of background, hack maxX and maxY
     if (parseFloat(detail.maxX) < 0) detail.maxX = 1
     if (parseFloat(detail.maxY) < 0) detail.maxY = 1
-    that.xiaDetail[i].kineticElement = new Kinetic.Path({
+    this.xiaDetail[i].kineticElement = new Kinetic.Path({
         id: detail.id,
         name: detail.title,
         data: detail.path,
@@ -96,37 +96,37 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         y: parseFloat(detail.y) * iaScene.coeff + iaScene.y,
         scale: {x:iaScene.coeff,y:iaScene.coeff},
         fill: 'rgba(0, 0, 0, 0)',
-        draggable : that.xiaDetail[i].draggable_object
+        draggable : this.xiaDetail[i].draggable_object
     })
-    that.layer.add(that.xiaDetail[i].kineticElement)
-    that.xiaDetail[i].kineticElement.setIaObject(that)
-    that.xiaDetail[i].kineticElement.setXiaParent(that.xiaDetail[i])
-    that.xiaDetail[i].kineticElement.tooltip = ""
+    this.layer.add(this.xiaDetail[i].kineticElement)
+    this.xiaDetail[i].kineticElement.setIaObject(this)
+    this.xiaDetail[i].kineticElement.setXiaParent(this.xiaDetail[i])
+    this.xiaDetail[i].kineticElement.tooltip = ""
 
     var collision_state = $("#" + idText).data("collisions")
     if ($('article[data-target="' + $("#" + idText).data("kinetic_id") + '"]').length != 0) {
         collision_state = "off"
     }
-    that.collisions = collision_state
+    this.collisions = collision_state
 
-    if(that.xiaDetail[i].connectionStart) {
-        that.xiaDetail[i].kineticElement.moveToBottom()
-        that.xiaDetail[i].connectorStart = that.xiaDetail[i].kineticElement.getStage().find(that.xiaDetail[i].connectionStart)[0]
-        that.xiaDetail[i].connectorEnd = that.xiaDetail[i].kineticElement.getStage().find(that.xiaDetail[i].connectionEnd)[0]
-        that.xiaDetail[i].connectorStart.getXiaParent().addObserver(that.xiaDetail[i])
-        that.xiaDetail[i].connectorEnd.getXiaParent().addObserver(that.xiaDetail[i])
+    if(this.xiaDetail[i].connectionStart) {
+        this.xiaDetail[i].kineticElement.moveToBottom()
+        this.xiaDetail[i].connectorStart = this.xiaDetail[i].kineticElement.getStage().find(this.xiaDetail[i].connectionStart)[0]
+        this.xiaDetail[i].connectorEnd = this.xiaDetail[i].kineticElement.getStage().find(this.xiaDetail[i].connectionEnd)[0]
+        this.xiaDetail[i].connectorStart.getXiaParent().addObserver(this.xiaDetail[i])
+        this.xiaDetail[i].connectorEnd.getXiaParent().addObserver(this.xiaDetail[i])
         detail.fill = "#ffffff"
-        if (that.xiaDetail[i].stroke) {
-            that.xiaDetail[i].kineticElement.stroke(that.xiaDetail[i].stroke)
+        if (this.xiaDetail[i].stroke) {
+            this.xiaDetail[i].kineticElement.stroke(this.xiaDetail[i].stroke)
         }
         else {
-            that.xiaDetail[i].kineticElement.stroke("black")
+            this.xiaDetail[i].kineticElement.stroke("black")
         }
-        if (that.xiaDetail[i].strokeWidth) {
-            that.xiaDetail[i].kineticElement.strokeWidth(that.xiaDetail[i].strokeWidth)
+        if (this.xiaDetail[i].strokeWidth) {
+            this.xiaDetail[i].kineticElement.strokeWidth(this.xiaDetail[i].strokeWidth)
         }
         else {
-            that.xiaDetail[i].kineticElement.strokeWidth(5)
+            this.xiaDetail[i].kineticElement.strokeWidth(5)
         }
     }
 
@@ -134,13 +134,13 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
 
     if (global_collision_state == "on" && collision_state != "off") {
 
-        that.xiaDetail[i].kineticElement.dragBoundFunc(function(pos) {
+        this.xiaDetail[i].kineticElement.dragBoundFunc(function(pos) {
             var XiaElements = this.getIaObject().xiaDetail
             var delta = {x:0,y:0}
             var coords = {x:0,y:0}
             var delta_tmp = 0
             for (var i = 0;i < XiaElements.length;i++) {
-                coords = that.dragCollisions(
+                coords = this.dragCollisions(
                     {
                         x:pos.x - this.x() + XiaElements[i].kineticElement.x(),
                         y:pos.y - this.y() + XiaElements[i].kineticElement.y()
@@ -161,22 +161,22 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
                 y: delta.y + (pos.y)
 
             }
-        })
+        }.bind(this))
     }
 
-    that.definePathBoxSize(detail, that.xiaDetail[i])
-    that.scaleBox(that.xiaDetail[i], iaScene)
-    that.xiaDetail[i].lastDragPos.x = that.xiaDetail[i].kineticElement.x()
-    that.xiaDetail[i].lastDragPos.y = that.xiaDetail[i].kineticElement.y()
-    that.xiaDetail[i].originalCoords.x = that.xiaDetail[i].kineticElement.x()
-    that.xiaDetail[i].originalCoords.y = that.xiaDetail[i].kineticElement.y()
-    that.xiaDetail[i].delta = {
-        x:that.xiaDetail[i].minX - that.xiaDetail[i].kineticElement.x(),
-        y:that.xiaDetail[i].minY - that.xiaDetail[i].kineticElement.y()
+    this.definePathBoxSize(detail, this.xiaDetail[i])
+    this.scaleBox(this.xiaDetail[i], iaScene)
+    this.xiaDetail[i].lastDragPos.x = this.xiaDetail[i].kineticElement.x()
+    this.xiaDetail[i].lastDragPos.y = this.xiaDetail[i].kineticElement.y()
+    this.xiaDetail[i].originalCoords.x = this.xiaDetail[i].kineticElement.x()
+    this.xiaDetail[i].originalCoords.y = this.xiaDetail[i].kineticElement.y()
+    this.xiaDetail[i].delta = {
+        x:this.xiaDetail[i].minX - this.xiaDetail[i].kineticElement.x(),
+        y:this.xiaDetail[i].minY - this.xiaDetail[i].kineticElement.y()
     }
     // crop background image to suit shape box
 
-    if (that.xiaDetail[i].options.indexOf("disable-click") == -1) {
+    if (this.xiaDetail[i].options.indexOf("disable-click") == -1) {
         var cropCanvas = document.createElement('canvas');
         cropCanvas.setAttribute('width', parseFloat(detail.maxX) - parseFloat(detail.minX));
         cropCanvas.setAttribute('height', parseFloat(detail.maxY) - parseFloat(detail.minY));
@@ -195,7 +195,7 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         if (cropWidth <= 0) cropWidth = 1;
         if (cropHeight <= 0) cropHeight = 1;
         cropCtx.drawImage(
-            that.imageObj,
+            this.imageObj,
             cropX * iaScene.scale,
             cropY * iaScene.scale,
             cropWidth,
@@ -209,24 +209,24 @@ IaObject.prototype.includePath = function(detail, i, that, iaScene, baseImage, i
         var cropedImage = new Image();
         cropedImage.src = dataUrl;
         cropedImage.onload = function() {
-            that.xiaDetail[i].backgroundImage = cropedImage;
-            that.xiaDetail[i].kineticElement.backgroundImageOwnScaleX = 1;
-            that.xiaDetail[i].kineticElement.backgroundImageOwnScaleY = 1;
-            that.xiaDetail[i].kineticElement.fillPatternRepeat('no-repeat');
-            that.xiaDetail[i].kineticElement.fillPatternX(detail.minX);
-            that.xiaDetail[i].kineticElement.fillPatternY(detail.minY);
-        };
+            this.xiaDetail[i].backgroundImage = cropedImage;
+            this.xiaDetail[i].kineticElement.backgroundImageOwnScaleX = 1;
+            this.xiaDetail[i].kineticElement.backgroundImageOwnScaleY = 1;
+            this.xiaDetail[i].kineticElement.fillPatternRepeat('no-repeat');
+            this.xiaDetail[i].kineticElement.fillPatternX(detail.minX);
+            this.xiaDetail[i].kineticElement.fillPatternY(detail.minY);
+        }.bind(this);
     }
 
-    that.xiaDetail[i].persistent = "off";
+    this.xiaDetail[i].persistent = "off";
     if ((typeof(detail.fill) !== 'undefined') &&
         (detail.fill === "#ffffff")) {
-        that.xiaDetail[i].persistent = "onPath";
-        that.xiaDetail[i].kineticElement.fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');
+        this.xiaDetail[i].persistent = "onPath";
+        this.xiaDetail[i].kineticElement.fill('rgba(' + iaScene.colorPersistent.red + ',' + iaScene.colorPersistent.green + ',' + iaScene.colorPersistent.blue + ',' + iaScene.colorPersistent.opacity + ')');
     }
-    that.addEventsManagement(i, that, iaScene, baseImage, idText);
+    this.addEventsManagement(i, this, iaScene, baseImage, idText);
 
-    that.layer.draw();
+    this.layer.draw();
 };
 
 
@@ -446,8 +446,6 @@ IaObject.prototype.scaleBox = function(that, iaScene) {
 
 IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, idText) {
 
-    var that=this;
-
     that.xiaDetail[i].kineticElement.tooltip_area = false;
     // tooltip must be at the bottom
     that.myhooks.afterXiaObjectCreation(iaScene, that.xiaDetail[i]);
@@ -458,8 +456,6 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
         that.xiaDetail[i].options += " disable-click ";
         return
     }
-
-
 
     that.xiaDetail[i].kineticElement.on('mouseenter touchstart', function() {
         if (iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) {

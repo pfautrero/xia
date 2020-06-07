@@ -20,7 +20,7 @@
  */
 function IaScene(originalWidth, originalHeight) {
     "use strict";
-    var that = this;
+
     //  canvas width
     this.width = 1000;
 

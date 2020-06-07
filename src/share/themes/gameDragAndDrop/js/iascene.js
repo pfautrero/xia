@@ -10,7 +10,7 @@
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
 //
 //
-// @author : pascal.fautrero@crdp.ac-versailles.fr
+// @author : pascal.fautrero@gmail.com
 
 /**
  *
@@ -20,7 +20,7 @@
  */
 function IaScene(originalWidth, originalHeight) {
     "use strict";
-    var that = this;
+
     //  canvas width
     this.width = 1000;
 

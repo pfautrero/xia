@@ -8,13 +8,13 @@
 //   GNU General Public License for more details.
 //   You should have received a copy of the GNU General Public License
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>
-//   
-//   
+//
+//
 // @author : Pascal Fautrero
 
 
 /*
- * 
+ *
  */
 class XiaSprite extends XiaDetail {
 
@@ -24,90 +24,91 @@ class XiaSprite extends XiaDetail {
         this.width = this.parent.jsonSource.width * this.parent.iaScene.scale
         this.height = this.parent.jsonSource.height * this.parent.iaScene.scale
         this.timeLine = JSON.parse("[" + this.parent.jsonSource.timeline + "]")
-        this.idle = this.createTimeLine(this.timeLine)
         this.persistent = "hiddenSprite";
     }
 
-    createTimeLine(timeLine) {
+    createTimeLine(timeLine, ratioRaster) {
         "use strict"
         var idle = []
         for(var k = 0; k < timeLine.length; k++) {
-            idle.push(timeLine[k] * this.parent.jsonSource.width, 0, this.parent.jsonSource.width, this.parent.jsonSource.height)
+            idle.push(timeLine[k] * this.parent.jsonSource.width * ratioRaster, 0, this.parent.jsonSource.width * ratioRaster, this.parent.jsonSource.height * ratioRaster)
         }
         return idle
     }
 
     start() {
         var rasterObj = new Image();
-        this.kineticElement = new Kinetic.Sprite({
-          x: parseFloat(this.parent.jsonSource.x) * this.parent.iaScene.coeff,
-          y: parseFloat(this.parent.jsonSource.y) * this.parent.iaScene.coeff + this.parent.iaScene.y,
-          image: rasterObj,
-          animation: 'idle',
-          animations: {
-            idle: this.idle,
-            hidden : [
-                this.timeLine.length * this.parent.jsonSource.width, 0,
-                this.parent.jsonSource.width, this.parent.jsonSource.height
-            ]
-          },
-          frameRate: this.parent.iaScene.frameRate,
-          frameIndex: 0,
-          scale: {x:this.parent.iaScene.coeff,y:this.parent.iaScene.coeff}
-        });
-
-        this.kineticElement.setXiaParent(this);
-        this.kineticElement.setIaObject(this.parent);
-
-        this.kineticElement.backgroundImage = rasterObj;
-        this.tooltip = "";
-        this.kineticElement.droparea = false;
-        this.kineticElement.tooltip_area = false;
-
-        var that = this
+        //var that = this
         rasterObj.onload = function() {
 
-            that.kineticElement.backgroundImageOwnScaleX = that.parent.iaScene.scale * that.parent.jsonSource.width / that.width;
-            that.kineticElement.backgroundImageOwnScaleY = that.parent.iaScene.scale * that.parent.jsonSource.height / that.height;
+          var ratioRaster = rasterObj.naturalHeight / this.parent.jsonSource.height
+          this.idle = this.createTimeLine(this.timeLine, ratioRaster)
+          this.kineticElement = new Kinetic.Sprite({
+            x: parseFloat(this.parent.jsonSource.x) * this.parent.iaScene.coeff,
+            y: parseFloat(this.parent.jsonSource.y) * this.parent.iaScene.coeff + this.parent.iaScene.y,
+            image: rasterObj,
+            animation: 'idle',
+            animations: {
+              idle: this.idle,
+              hidden : [
+                  this.timeLine.length * this.parent.jsonSource.width * ratioRaster, 0,
+                  this.parent.jsonSource.width * ratioRaster, this.parent.jsonSource.height * ratioRaster
+              ]
+            },
+            frameRate: this.parent.iaScene.frameRate,
+            frameIndex: 0,
+            scale: {x:this.parent.iaScene.coeff / ratioRaster,y:this.parent.iaScene.coeff / ratioRaster}
+          });
 
-            that.parent.group.add(that.kineticElement);
+          this.kineticElement.setXiaParent(this);
+          this.kineticElement.setIaObject(this.parent);
 
-            that.imgData = []
-            for (var k = 0; k < Math.max.apply(null, that.timeLine) + 1; k++) {
-                var canvas_source = document.createElement('canvas')
-                canvas_source.setAttribute('width', that.parent.jsonSource.width)
-                canvas_source.setAttribute('height', that.parent.jsonSource.height)
-                var context_source = canvas_source.getContext('2d')
+          this.kineticElement.backgroundImage = rasterObj;
+          this.tooltip = "";
+          this.kineticElement.droparea = false;
+          this.kineticElement.tooltip_area = false;
 
-                context_source.drawImage(
-                    rasterObj,
-                    that.parent.jsonSource.width * k,
-                    0,
-                    that.parent.jsonSource.width,
-                    that.parent.jsonSource.height,
-                    0,
-                    0,
-                    that.parent.jsonSource.width,
-                    that.parent.jsonSource.height
-                )
+          this.kineticElement.backgroundImageOwnScaleX = this.parent.iaScene.scale * this.parent.jsonSource.width / this.width;
+          this.kineticElement.backgroundImageOwnScaleY = this.parent.iaScene.scale * this.parent.jsonSource.height / this.height;
 
-                //document.body.appendChild(canvas_source)
-                that.imgData[k] = context_source.getImageData(0,0,canvas_source.width,canvas_source.height)
-            }
+          this.parent.group.add(this.kineticElement);
 
-            that.kineticElement.animation('hidden')
-            that.kineticElement.start();
-            if ((typeof(that.parent.jsonSource.fill) !== 'undefined') &&
-                (that.parent.jsonSource.fill == "#ffffff")) {
-                that.persistent = "persistentSprite";
-                that.kineticElement.animation('idle')
-             }
-            //that.parent.addEventsManagement(i,that.zoomable, that.parent, that.parent.iaScene, that.parent.baseImage, that.idText);
-            that.manageDropAreaAndTooltips()
-            that.parent.group.draw()
-            var hitCanvas = that.parent.layer.getHitCanvas();
-            that.parent.iaScene.completeImage = hitCanvas.getContext().getImageData(0,0,Math.floor(hitCanvas.width),Math.floor(hitCanvas.height));
-        };
+          this.imgData = []
+          for (var k = 0; k < Math.max.apply(null, this.timeLine) + 1; k++) {
+              var canvas_source = document.createElement('canvas')
+              canvas_source.setAttribute('width', this.parent.jsonSource.width * ratioRaster)
+              canvas_source.setAttribute('height', this.parent.jsonSource.height * ratioRaster)
+              var context_source = canvas_source.getContext('2d')
+
+              context_source.drawImage(
+                  rasterObj,
+                  this.parent.jsonSource.width * k,
+                  0,
+                  this.parent.jsonSource.width,
+                  this.parent.jsonSource.height,
+                  0,
+                  0,
+                  this.parent.jsonSource.width,
+                  this.parent.jsonSource.height
+              )
+
+              //document.body.appendChild(canvas_source)
+              this.imgData[k] = context_source.getImageData(0,0,canvas_source.width,canvas_source.height)
+          }
+
+          this.kineticElement.animation('hidden')
+          this.kineticElement.start();
+          if ((typeof(this.parent.jsonSource.fill) !== 'undefined') &&
+              (this.parent.jsonSource.fill == "#ffffff")) {
+              this.persistent = "persistentSprite";
+              this.kineticElement.animation('idle')
+           }
+          //this.parent.addEventsManagement(i,this.zoomable, this.parent, this.parent.iaScene, this.parent.baseImage, this.idText);
+          this.manageDropAreaAndTooltips()
+          this.parent.group.draw()
+          var hitCanvas = this.parent.layer.getHitCanvas();
+          this.parent.iaScene.completeImage = hitCanvas.getContext().getImageData(0,0,Math.floor(hitCanvas.width),Math.floor(hitCanvas.height));
+        }.bind(this)
         rasterObj.src = this.parent.jsonSource.image;
 
     }
