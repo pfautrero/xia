@@ -38,7 +38,7 @@ class ImageActive(inkex.OutputExtension):
         pars.add_argument("--singlefile", default="true", help="export a single file or a complete files tree for local usage")
 
     def effect(self):
-        
+
         # fix inkscape bug
         # https://bugs.launchpad.net/ubuntu/+source/inkscape/+bug/944077/comments/11
         pathNodes = self.document.xpath('//sodipodi:namedview',namespaces=inkex.NSS)
@@ -56,8 +56,8 @@ class ImageActive(inkex.OutputExtension):
 
         try:
             filePath = f"{tempfile.mkdtemp()}/temp.svg"
-            with open(filePath,"w") as file:
-                self.document.write(filePath)
+            #with open(filePath,"w") as file:
+            self.document.write(filePath)
 
             console = LoggerInkscape()
 
@@ -65,9 +65,9 @@ class ImageActive(inkex.OutputExtension):
             options['input_file'] = filePath
             options['output_dir'] = self.options.directory
             options['selected_theme'] = self.options.theme
-            options['export_type'] = "singlefile" if self.options.singlefile == 'true' else "local" 
+            options['export_type'] = "singlefile" if self.options.singlefile == 'true' else "local"
             xia = XIAConsole(config, options, console)
-            xia.createIA()            
+            xia.createIA()
 
         except ValueError:
            #inkex.utils.debug(ValueError)

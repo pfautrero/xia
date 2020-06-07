@@ -74,7 +74,7 @@ class TestCurrentTransformation(TestCase):
     def test_analyze_rotate(self):
         ctm = CurrentTransformation()
         ctm.analyze("rotate(10 20 -30)")
-        self.assertEqual(ctm.rotate, "10")
+        self.assertEqual(ctm.rotate, 10)
         self.assertEqual(ctm.rX, "20")
         self.assertEqual(ctm.rY, "-30")
         self.assertEqual(ctm.matrix,
@@ -95,7 +95,7 @@ class TestCurrentTransformation(TestCase):
         ctm = CurrentTransformation()
 
         ctm.analyze("rotate(10)")
-        self.assertEqual(ctm.rotate, "10")
+        self.assertEqual(ctm.rotate, 10)
         self.assertEqual(ctm.rX, "0")
         self.assertEqual(ctm.rY, "0")
         self.assertEqual(ctm.matrix,

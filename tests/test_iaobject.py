@@ -80,8 +80,8 @@ class TestiaObject(TestCase):
 
         self.assertEqual(ia.scene['width'], '10')
         self.assertEqual(ia.scene['height'], '10')
-        self.assertEqual(ia.details[0]['width'], 205.97977516275924)
-        self.assertEqual(ia.details[0]['height'], 210.30661948701845)
+        self.assertEqual(ia.details[0]['width'], 153.22781178537414)
+        self.assertEqual(ia.details[0]['height'], 162.15866384486054)
 
     def test_analyzeSVG3(self):
         console = LoggerMock()
