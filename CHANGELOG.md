@@ -1,3 +1,10 @@
+Version 3.0-beta3 - 08/06/2020
+-------------------------------
+- scaling sur les sprites fixés sur les thèmes sidebar, material et game1clic
+- ajout des sprites sur gameDragAndDrop
+- angle de rotation d'une image fixé
+- mise à jour des documentations
+
 Version 3.0-beta2 - 06/06/2020
 -------------------------------
 - Changement de visuel de l'extension Inkscape pour être compatible MAC OS X Catalina
