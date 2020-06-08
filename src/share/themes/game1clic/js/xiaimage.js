@@ -86,7 +86,7 @@ class XiaImage extends XiaDetail {
 
             var hitCanvas = this.parent.layer.getHitCanvas();
             this.parent.iaScene.completeImage = hitCanvas.getContext().getImageData(0,0,Math.floor(hitCanvas.width),Math.floor(hitCanvas.height));
-
+/*
             var canvas_source = document.createElement('canvas');
             canvas_source.setAttribute('width', this.detail.width);
             canvas_source.setAttribute('height', this.detail.height);
@@ -94,6 +94,44 @@ class XiaImage extends XiaDetail {
             context_source.drawImage(rasterObj,0,0, (this.detail.width), (this.detail.height));
             //document.body.appendChild(canvas_source)
             this.imgData = context_source.getImageData(0,0,canvas_source.width,canvas_source.height);
+*/
+
+            var canvas_source = document.createElement('canvas');
+            canvas_source.setAttribute('width', cropWidth * this.parent.iaScene.coeff);
+            canvas_source.setAttribute('height', cropHeight * this.parent.iaScene.coeff);
+            var context_source = canvas_source.getContext('2d');
+            context_source.drawImage(rasterObj,0,0, Math.floor(cropWidth * this.parent.iaScene.coeff), Math.floor(cropHeight * this.parent.iaScene.coeff));
+
+            var that = this
+            var imageDataSource = context_source.getImageData(0, 0, Math.floor(cropWidth * this.parent.iaScene.coeff), Math.floor(cropHeight * this.parent.iaScene.coeff));
+
+            (function(el, imageDataSource){
+                el.kineticElement.hitFunc(function(context) {
+                    var imageData = imageDataSource.data;
+                    var imageDest = this.parent.iaScene.completeImage.data;
+                    var position1 = 0;
+                    var position2 = 0;
+                    var maxWidth = Math.floor(cropWidth * this.parent.iaScene.coeff);
+                    var maxHeight = Math.floor(cropHeight * this.parent.iaScene.coeff);
+                    var startY = Math.floor(cropY * this.parent.iaScene.coeff);
+                    var startX = Math.floor(cropX * this.parent.iaScene.coeff);
+                    var hitCanvasWidth = Math.floor(this.parent.layer.getHitCanvas().width);
+                    var rgbColorKey = Kinetic.Util._hexToRgb(this.kineticElement.colorKey);
+                    for(var varx = 0; varx < maxWidth; varx +=1) {
+                        for(var vary = 0; vary < maxHeight; vary +=1) {
+                            position1 = 4 * (vary * maxWidth + varx);
+                            position2 = 4 * ((vary + startY) * hitCanvasWidth + varx + startX);
+                            if (imageData[position1 + 3] > 100) {
+                               imageDest[position2 + 0] = rgbColorKey.r;
+                               imageDest[position2 + 1] = rgbColorKey.g;
+                               imageDest[position2 + 2] = rgbColorKey.b;
+                               imageDest[position2 + 3] = 255;
+                            }
+                        }
+                    }
+                    context.putImageData(this.parent.iaScene.completeImage, 0, 0);
+                }.bind(el));
+            })(this, imageDataSource)
 
             /* this.xiaDetail[i].kineticElement.sceneFunc(function(context) {
                 var yo = this.layer.getHitCanvas().getContext().getImageData(0,0,iaScene.width, iaScene.height);
