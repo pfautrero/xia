@@ -346,6 +346,7 @@ class XiaDetail {
      */
     dragCollisions(pos, kineticElement) {
         "use strict"
+        var iaScene = kineticElement.getIaObject().mainScene
         var x_value = pos.x
         var y_value = pos.y
         var len = iaScene.shapes.length;
