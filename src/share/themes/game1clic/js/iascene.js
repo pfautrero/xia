@@ -230,6 +230,8 @@ IaScene.prototype.click = function(kineticElement, mousePos) {
             }
             else if ((iaobject.xiaDetail[i].persistent == "persistentSprite") || (iaobject.xiaDetail[i].persistent == "hiddenSprite")) {
                 iaobject.xiaDetail[i].kineticElement.animation('idle')
+                iaobject.xiaDetail[i].kineticElement.setVisible(true)
+                iaobject.xiaDetail[i].kineticElement.start()
                 iaobject.xiaDetail[i].kineticElement.frameIndex(0)
             }
             //iaobject.xiaDetail[i].kineticElement.moveToTop();
