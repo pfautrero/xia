@@ -43,7 +43,7 @@ Les premières parties de cette documentation (voir la partie [II](#creation-dun
 
 Xia n'est nécessaire qu'à la fin du processus. Comme on peut le voir sur l'illustration ci-dessous, la plus grande partie du travail est réalisée avec un logiciel de dessin vectoriel. Nous recommandons l'utilisation du logiciel libre et multi-plateforme [Inkscape](http://www.inkscape.org/), très simple à utiliser (c'est ce logiciel qui sera utilisé dans ce tutoriel).
 
-<img src='images/process.png' style='display:block;margin:0 auto;width:60%;'>
+<img src='images/process.png' style='display:block;margin:0 auto;width:50%;'>
 
 
 ### 1.3. Installer Inkscape et Xia <a name="installer-inkscape-et-xia"></a>
@@ -66,7 +66,7 @@ Quand Inkscape vous demande de choisir **Lier** et **Incorporer l'image**, chois
 
 Les informations renseignées dans les **Métadonnées du document** (menu `>Fichier >Propriétés du document >metadonnées`) seront conservées dans l'animation générée : titre, créateur, droits, etc. Il est donc fortement conseillé de renseigner ces informations. Le rendu est visible sur l'image ci-dessous :
 
-<img src='images/infos.png' style='display:block;margin:0 auto;width:90%;'>
+<img src='images/infos.png' style='display:block;margin:0 auto;width:70%;'>
 
 Le titre renseigné dans les métadonnées du document apparait au-dessus de l'image interactive et donne son nom à la page web l'affichant. Le créateur et les droits associés apparaissent dans la pop up accessible via l'icône «**i**» située à droite du titre de l'image interactive.
 
@@ -108,14 +108,14 @@ Le processus décrit ci-dessus doit également être effectué avec l'image de f
 
 Quand tous les détails sont détourés et leurs métadonnées renseignées, Xia peut être lancé en cliquant sur `> Extensions > Exporter > Xia`.
 
-<img src='images/menu-inkscape2.png' style='display:block;margin:0 auto;width:90%;'>
+<img src='images/menu-inkscape2.png' style='display:block;margin:0 auto;width:60%;'>
 
 Choisissez un modèle d'export et un répertoire d'enregistrement de l'image interactive.
 
 En appuyant sur *Appliquer*, vous générez un fichier `html`. Double-cliquez dessus pour l'ouvrir dans votre navigateur pour voir votre image interactive au format html5.
 
 
-<img src='images/xia-inkscape.png' style='display:block;margin:0 auto;width:90%;'>
+<img src='images/xia-inkscape.png' style='display:block;margin:0 auto;width:30%;'>
 
 <img src='images/alert_red.png' width='40'>
 La ressource ainsi générée nécessite un accès internet pour fonctionner pleinement.
@@ -182,7 +182,7 @@ Vous pouvez le télécharger ici : https://xia.funraiders.org
 
 Rendu final :
 
-<img src='images/pikipiki.png' style='display:block;margin:0 auto;width:90%;'>
+<img src='images/pikipiki.png' style='display:block;margin:0 auto;width:50%;'>
 
 #### Syntaxe Wiki et intégration de ressources.
 
