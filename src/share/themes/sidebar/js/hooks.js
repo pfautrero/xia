@@ -115,6 +115,20 @@ class MyApp {
       .replace('{TITLE}', title)
       .replace('{DESCRIPTION}', desc)
 
+    this.applyFilter({
+      target: "#" + this.article.wrapper.id + " audio",
+      handler: function (target) {
+        if (target.dataset.state == 'autostart') target.play()
+      }
+    })
+
+    this.applyFilter({
+      target: "#" + this.article.wrapper.id + " video",
+      handler: function (target) {
+        if (target.dataset.state == 'autostart') target.play()
+      }
+    })
+
     // this.load_embed_contents()
     this.applyFilter({
       target: '[data-iframe]',

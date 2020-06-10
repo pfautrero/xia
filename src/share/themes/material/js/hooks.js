@@ -122,7 +122,7 @@ class MyApp {
     }
   }
 
-  apply_filter (params) {
+  applyFilter (params) {
     var target_pattern = params.target
     var handler = params.handler
     var targets = document.querySelectorAll(target_pattern)
@@ -178,8 +178,23 @@ class MyApp {
     // retrieve title and description
     this.article.wrapper.innerHTML = desc
     this.article.title.innerHTML = title
+
+    this.applyFilter({
+      target: "#" + this.article.wrapper.id + " audio",
+      handler: function (target) {
+        if (target.dataset.state == 'autostart') target.play()
+      }
+    })
+
+    this.applyFilter({
+      target: "#" + this.article.wrapper.id + " video",
+      handler: function (target) {
+        if (target.dataset.state == 'autostart') target.play()
+      }
+    })
+
     //this.load_embed_contents()
-    this.apply_filter({
+    this.applyFilter({
       target : '[data-iframe]',
       handler : function(target){
         var source = target.dataset.iframe
@@ -189,7 +204,7 @@ class MyApp {
       }
     })
 
-    this.apply_filter({
+    this.applyFilter({
       target : '.flickr_oembed',
       handler : function(target){
         var source = target.dataset.oembed
@@ -206,7 +221,7 @@ class MyApp {
       }
     })
 
-    this.apply_filter({
+    this.applyFilter({
       target : '.button',
       handler : function(button){
         var password_hash = button.dataset.password
@@ -225,7 +240,7 @@ class MyApp {
       }.bind(this)
     })
 
-    this.apply_filter({
+    this.applyFilter({
       target : '.unlock input[type=submit]',
       handler : function(unlock_button){
         unlock_button.addEventListener('click', this.unlock_input)
