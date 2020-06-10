@@ -8,48 +8,76 @@ Thanks to it, you can generate three kinds of resources :
 
 Just have a look here to see samples :
 
-[XIA Examples](https://xia.funraiders.org/examples.html)
+[XIA Examples](https://xia.funraiders.org/exemples.html)
 
-# Build application in Debian Jessie (used by debian packages)
+XIA comes with a set of tools:
+- An Inkscape extension to transform inkscape svg files to preformatted XIA html5 resources
+- A standalone application to transform svg files to preformatted XIA html5 resource (usable in commandline too)
+- A JS library which is the heart of XIA used to animate your html5 resources
 
-```sh
-apt-get install -y libjavascript-minifier-perl gettext python
-cd project
-python setup.py buildstandalone
-```
+# 1. How to use Inkscape extension?
 
-# Build application everywhere (using grunt/bower)
+see the dedicated documentation [using inkscape extension](./doc/xia.md)
 
-**Beware: not working anymore**
+# 2. How to use XIA standalone App?
 
-First, install nodejs :
+see the dedicated documentation [using XIA Application](./doc/xia-standalone.md)
 
-```
-apt-get install nodejs nodejs-legacy npm
-```
+# 3. How to use xiajs?
 
-nodejs-legacy is used to be able to call nodejs just with "node".
-Finally, install grunt and lodash (used in this project):
+This is the developer corner. **xiajs** is a javascript library based on KonvaJS for building interactives images. Here a first example:
 
 ```
-npm install -g grunt-cli
-npm install lodash
-npm install -g bower
+var XiaInstance = new Xia({
+    'targetID' : 'my_div',
+    'scene' : {
+      'image' : 'img/background.png'
+    },
+    'details' : [
+      {
+        path : "m 50,50 h 100 v 100 H 100 Z"
+      }
+    ]
+  })
+```
+Here, we call Xia object giving these 3 mandatories parameters:
+- the **targetID** : This is the id of HTML element where we want to display the interactive image. XIA will insert the resource calculating the best ratio. That means this HTML element must have its proper dimensions.
+- the **scene** : This is a json object where we define the background image
+- the **details** : This is an array of json objects called details. Each detail becomes a clickable/zoomable element. In this example, we draw a 100x100 rectangle at (50,50)
+
+Here is a complete example:
+
+```
+<!doctype html>
+<html>
+ <head>
+   <meta charset="utf-8">
+   <title>XIA 3</title>
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/konva/3.1.7/konva.min.js"></script>
+   <script type="text/javascript" src="https://xia.funraiders.org/cdn/xia30/js/xia.js"></script>
+ </head>
+ <body style="width:50%;margin:0 auto;">
+  <h1>Example XIA</h1>
+  <div id="my_div" style="width:100%;height:500px;"></div>
+  <script>
+    var XiaInstance = new Xia({
+      'targetID' : 'my_div',
+      'scene' : {
+        'image' : 'img/background.png'
+      },
+      'details' : [
+        {
+          path : "m 50,50 h 100 v 100 H 100 Z"
+        }
+      ]
+    })
+  </script>
+ </body>
+</html>
 ```
 
-App pre-install (launch just once):
+more complex examples there: [dev corner](./doc/xia-fr-dev.md)
 
-```
-cd project
-npm install
-bower install
-```
+## How to build
 
-App install : (must be used each time we want a new release)
-
-```
-cd project
-grunt full
-```
-
-Application is then built in project/build
+See de dedicated documentation [Building xia](./BUILD.md)

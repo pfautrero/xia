@@ -31,22 +31,19 @@
 
 ### 1.1. Qu'est-ce que Xia? <a name="quest-ce-que-xia"></a>
 
-Xia est un logiciel libre développé par des enseignants de l'académie de Versailles. Il est distribué sous la licence [GPLv3](http://www.gnu.org/copyleft/gpl.html). Le logiciel xia a pour fonction de transformer un fichier svg en une animation interactive html5. Xia permet de générer des jeux et activités interactives: jeux de glisser-déposer, sélection, discrimination, etc.
+Xia est un logiciel libre distribué sous la licence [GPLv3](http://www.gnu.org/copyleft/gpl.html). Le logiciel xia a pour fonction de transformer un fichier svg en une animation interactive html5. Xia permet de générer des jeux et activités interactives: jeux de glisser-déposer, sélection, discrimination, etc.
 
 Les premières parties de cette documentation (voir la partie [II](#creation-dune-premiere-image-interactive)) sont consacrées à la réalisation d'une image interactive simple: détails détourés et commentaires en texte sans mise en forme. Par la suite, vous apprendrez à créer des images interactives enrichies (voir la partie [III](#images-interactives-enrichies)).
 
 <img src='images/alert_green.png' width='40'>
-Tous les exemples utilisés sont visibles en ligne (les liens pour visualiser les animations et télécharger les fichiers sources sont indiqués en début de chaque section). À la fin de chaque partie, une rubrique **«En résumé»** rappelle les points essentiels à retenir pour créer une image interactive.
+À la fin de chaque partie, une rubrique **«En résumé»** rappelle les points essentiels à retenir pour créer une image interactive.
 
 
 ### 1.2. Processus général <a name="processus-general"></a>
 
 Xia n'est nécessaire qu'à la fin du processus. Comme on peut le voir sur l'illustration ci-dessous, la plus grande partie du travail est réalisée avec un logiciel de dessin vectoriel. Nous recommandons l'utilisation du logiciel libre et multi-plateforme [Inkscape](http://www.inkscape.org/), très simple à utiliser (c'est ce logiciel qui sera utilisé dans ce tutoriel).
 
-<img src='images/processus-fr.png' style='display:block;margin:0 auto;width:60%;'>
-
-<img src='images/alert_green.png' width='40'>
-Si vous possédez des projets créés avec le logiciel ImagesActives (fichiers possédant une extension .xia), vous pouvez changer l'extension de ces fichiers en .zip, les dézipper, récupérer le fichier svg se trouvant dans le répertoire ainsi obtenu et ouvrir celui-ci avec Inkscape. Si vous utilisez GNU/Linux, explorez le fichier «.xia» et récupérez le fichier «.svg».
+<img src='images/process.png' style='display:block;margin:0 auto;width:60%;'>
 
 
 ### 1.3. Installer Inkscape et Xia <a name="installer-inkscape-et-xia"></a>
@@ -59,26 +56,21 @@ Installez impérativement Inkscape en premier, puis Xia, sous peine de ne pas ê
 
 ### 2.1. Création de la ressource support <a name='creation-ressource-support'></a>
 
-<img src='images/alert_yellow.png' width='40'>
-Visualisez l' [image interactive](https://xia.dane.ac-versailles.fr/demo/tuto/xia1) créée pour cette partie de la documentation. Téléchargez le fichier source au format
-[svg](https://xia.dane.ac-versailles.fr/demo/tuto/xia1/xia1.svg).
-
-
 Les manipulations décrites dans cette partie de la documentation vous permettront de créer une image interactive «basique», comprenant:
 - des détails zoomables
 - des commentaires uniquement constitués de texte non mis en forme
 
-Une fois l'image choisie, ouvrez-la dans Inkscape -> Fichier -> Ouvrir  
+Une fois l'image choisie, ouvrez-la dans Inkscape `> Fichier > Ouvrir`  
 
 Quand Inkscape vous demande de choisir **Lier** et **Incorporer l'image**, choisissez **Incorporer**.
 
-Les informations renseignées dans les **Métadonnées du document** (menu **Fichier**) seront conservées dans l'animation générée : titre, créateur, droits, etc. Il est donc fortement conseillé de renseigner ces informations. Le rendu est visible sur l'image ci-dessous :
+Les informations renseignées dans les **Métadonnées du document** (menu `>Fichier >Propriétés du document >metadonnées`) seront conservées dans l'animation générée : titre, créateur, droits, etc. Il est donc fortement conseillé de renseigner ces informations. Le rendu est visible sur l'image ci-dessous :
 
-<img src='images/ia_title.png' style='display:block;margin:0 auto;width:90%;'>
+<img src='images/infos.png' style='display:block;margin:0 auto;width:90%;'>
 
 Le titre renseigné dans les métadonnées du document apparait au-dessus de l'image interactive et donne son nom à la page web l'affichant. Le créateur et les droits associés apparaissent dans la pop up accessible via l'icône «**i**» située à droite du titre de l'image interactive.
 
-Vous pouvez sauvegarder votre projet au format svg dès le début du travail, en allant dans le menu -> Fichier -> Enregistrer.
+Vous pouvez sauvegarder votre projet au format svg dès le début du travail, en allant dans le menu `> Fichier > Enregistrer`.
 
 Vous pouvez, par souci de clarté, supprimer l'extension d'origine de votre image dans le champ **Nom** de la fenêtre de dialogue. Enfin, dans le menu déroulant, choisissez le format de fichier Inkscape svg:
 
@@ -101,7 +93,7 @@ L'ordre de création des détails dans Inkscape sera respecté dans l'image inte
 Une fois les détails détourés (La couleur du contour des détails dans l'animation générée par Xia sera la même que celle choisie dans Inkscape), vous pouvez les sélectionner avec l'outil **Sélectionner et transformer des objets** afin de les redimensionner, les déplacer, etc.
 
 <img src='images/alert_green.png' width='40'>
-Si vous avez des difficultés pour sélectionner un détail que vous avez détouré, appliquez-lui une couleur de fond. N'importe quelle couleur fera l'affaire, sauf noir et blanc (pour comprendre pourquoi, lisez la rubrique \ref{white_black_background}).
+Si vous avez des difficultés pour sélectionner un détail que vous avez détouré, appliquez-lui une couleur de fond. N'importe quelle couleur fera l'affaire, sauf noir et blanc (nosu verrons plus tard pourquoi).
 
 
 Vous pouvez accéder aux **Propriétés de l'objet** par un clic-droit sur le détail détouré. À partir de là, vous accédez à une fenêtre de dialogue vous permettant d'ajouter le texte qui sera associé au détail dans l'image interactive:
@@ -114,19 +106,19 @@ Le processus décrit ci-dessus doit également être effectué avec l'image de f
 
 ### 2.2. Génération de l'image interactive avec Xia <a name='generation-image-interactive'></a>
 
-Quand tous les détails sont détourés et leurs métadonnées renseignées, Xia peut être lancé en cliquant sur `> Extensions > Exporter > Xia édu`.
+Quand tous les détails sont détourés et leurs métadonnées renseignées, Xia peut être lancé en cliquant sur `> Extensions > Exporter > Xia`.
 
-<img src='images/chemin-xia-inkscape_V2.png' style='display:block;margin:0 auto;width:90%;'>
+<img src='images/menu-inkscape2.png' style='display:block;margin:0 auto;width:90%;'>
 
 Choisissez un modèle d'export et un répertoire d'enregistrement de l'image interactive.
 
-En cliquant sur l'une des icônes des modèles d'export, vous générez un fichier `html`. Double-cliquez dessus pour l'ouvrir dans votre navigateur pour voir votre image interactive au format html5.
+En appuyant sur *Appliquer*, vous générez un fichier `html`. Double-cliquez dessus pour l'ouvrir dans votre navigateur pour voir votre image interactive au format html5.
+
+
+<img src='images/xia-inkscape.png' style='display:block;margin:0 auto;width:90%;'>
 
 <img src='images/alert_red.png' width='40'>
 La ressource ainsi générée nécessite un accès internet pour fonctionner pleinement.
-
-
-<img src='images/interface_xia2.png' style='display:block;margin:0 auto;width:90%;'>
 
 ### 2.3. Usage d'expert ! <a name='export-ligne-de-commande'></a>
 
@@ -135,14 +127,14 @@ Vous pouvez générer vos animations html5 en utilisant le `terminal` avec la co
 
 **Avec GNU/Linux**, pour un export fichier unique utilisant le thème accordionBlack :
 ```
-xia --input monfichier.svg --output ~/export --theme accordionBlack --export singlefile --quality 3
+xia --input monfichier.svg --output ~/export --theme sidebar --export singlefile --quality 3
 ```
 
 **Avec Mac OS X**, pour un export utilisable sans connexion internet, utilisant le thème gameDragAndDrop :
 
 ```
 cd /Applications/xia.app/Contents/Resources/
-python xia.py --input monfichier.svg --output ~/export --theme gameDragAndDrop --export local
+python3 xia.py --input monfichier.svg --output ~/export --theme gameDragAndDrop --export local
 ```
 
 **Avec Windows**, pour un export fichier unique utilisant le thème accordionBlack, il faut utiliser l'outil XIA version portable (téléchargeable sur le site de XIA). Une fois l'archive zip décompressée,(supposons que vous l'ayez fait dans xia-windows), il faut éditer le fichier `xia-windows/xia/xia.bat` comme suit :
@@ -157,9 +149,6 @@ Puis double-cliquer sur le fichier `xia.bat` pour lancer l'export.
 
 ## 3. Images interactives enrichies <a name='images-interactives-enrichies'></a>
 
-<img src='images/alert_green.png' width='40'>
-Visualisez l'[image interactive](https://xia.dane.ac-versailles.fr/demo/tuto/xia2) créée pour cette partie de la documentation. Téléchargez le fichier source au format [svg](https://xia.dane.ac-versailles.fr/demo/tuto/xia2/xia2.svg).
-
 Dans cette section, l'objectif demeure la création d'une image interactive «**simple**» (autrement dit, dans laquelle un détail fait apparaître un commentaire). Cependant, le texte des commentaires sera enrichi par une mise en forme ou des ressources multimédias.
 
 
@@ -170,21 +159,40 @@ Pour enrichir le texte et proposer des ressources multimédia, XIA s'appuie sur 
 
 Texte saisi avec les marqueurs wiki :
 
-<img src='images/pikipiki-fr.png' style='display:block;margin:0 auto;width:90%;'>
+
+```
+# Introduction
+
+XIA est un **logiciel libre**, originellement proposé par l'Académie de Versailles.
+Son logo rappelle le **X** de XIA et son oeil celui du logo de son ancètre *Images Actives*
+https://xia.funraiders.org/img/xia-long.png
+
+Intégré dans *Inkscape*, il permet :
+ * de générer des mini-jeux basés sur les principes du clic et du glisser/déposer
+ * de générer des images interactives
+
+----
+
+# Comment le télécharger ?
+
+Ce logiciel est proposé comme une extension du logiciel [https://inkscape.org/fr Inkscape].
+Vous pouvez le télécharger ici : https://xia.funraiders.org
+
+```
 
 Rendu final :
 
-<img src='images/pikipiki-fr-resultat.png' style='display:block;margin:0 auto;width:90%;'>
+<img src='images/pikipiki.png' style='display:block;margin:0 auto;width:90%;'>
 
 #### Syntaxe Wiki et intégration de ressources.
 
-- `***Mettre en gras***`
-- `**Mettre en italique**`
+- `**Mettre en gras**`
+- `*Mettre en italique*`
 - `# titre de niveau 1`, `## titre de niveau 2` ... (c'est la syntaxe ***markdown*** des titres, on peut aller jusqu'à 6 niveaux)
 - `{{{écrire du texte sans formatage}}}`
 - Pour insérer une image qui se trouve sur internet, écrivez simplement le lien vers cette image :
 ```
-https://xia.dane.ac-versailles.fr/img/xia.png
+https://xia.funraiders.org/img/xia.png
 ```
 - Pour insérer une image qui se trouve à côté de la ressource XIA que vous avez générée, utilisez la syntaxe des chemins relatifs (le `.` signifie `à côté de` et le `..` signifie `remonter dans le dossier parent`) :
 ```
@@ -195,15 +203,15 @@ images/mon_autre_image.jpeg
 
 - Pour créer un hyperlien vers le site XIA, saisissez simplement l'url :
 ```
-https://xia.dane.ac-versailles.fr
+https://xia.funraiders.org
 ```
 - Pour créer un hyperlien sur un mot ou une expression :
 ```
-[https://xia.dane.ac-versailles.fr SITE XIA]
+[https://xia.funraiders.org SITE XIA]
 ```
 - Pour créer un hyperlien sur une adresse mail, saisissez simplement l'adresse mail :
 ```
-dev-xia@ac-versailles.fr
+xia@framalistes.org
 ```
 
 - Utiliser une liste à puces (***Placer un espace devant chaque astérisque***) :

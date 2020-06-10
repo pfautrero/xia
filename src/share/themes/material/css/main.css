@@ -109,6 +109,13 @@ header h1 {
   position:relative;
   overflow: hidden;
 }
+
+#content h1 {
+  font-size: 2em;
+  margin: 0;
+  color: #3090CF;
+  font-weight: 900;
+}
 #popup_material_content {
   padding:15px;
 }
