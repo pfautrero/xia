@@ -17,13 +17,10 @@ XIA comes with a set of tools:
 
 # 1. How to use Inkscape extension?
 
-see the dedicated documentation [using inkscape extension](./doc/xia.md)
+see the dedicated french documentation [using inkscape extension](./doc/xia-fr.md)
 
-# 2. How to use XIA standalone App?
 
-see the dedicated documentation [using XIA Application](./doc/xia-standalone.md)
-
-# 3. How to use xiajs?
+# 2. How to use xiajs?
 
 This is the developer corner. **xiajs** is a javascript library based on KonvaJS for building interactives images. Here a first example:
 

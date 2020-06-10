@@ -9,12 +9,7 @@ module.exports = function(grunt) {
   var locales = ["en_US", "fr_FR", "pt_BR", "pt_PT"];
 
   var themesArray = [
-      "accordionBlack",
-      "accordionCloud",
-      "audioBrown",
-      "popBlue",
-      "popYellow",
-      "buttonBlue",
+      "sidebar",
       "game1clic",
       "gameDragAndDrop",
       "material"
