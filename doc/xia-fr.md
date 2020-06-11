@@ -48,14 +48,15 @@ Vous pouvez, par souci de clarté, supprimer l'extension d'origine de votre imag
 
 De nombreux outils d'Inkscape peuvent être utilisés pour détourer les détails qui deviendront actifs dans l'animation générée par Xia. Parmi ceux-ci:
 
----
+![xx](images/draw-rectangle.png)
+![xx](images/draw-ellipse.png)
+![xx](images/draw-freehand.png)
+![xx](images/draw-path.png)
 
-- ![rectangle](images/draw-rectangle.png)Créer des rectangles et des carrés
-- ![cercle](images/draw-ellipse.png)Créer des cercles, des ellipses et des arcs
-- ![ligne](images/draw-freehand.png)Dessiner des lignes à main levée
-- ![ligne](images/draw-path.png)Tracer des courbes de Bézier et des segments de droite
-
----
+- Créer des rectangles et des carrés
+- Créer des cercles, des ellipses et des arcs
+- Dessiner des lignes à main levée
+- Tracer des courbes de Bézier et des segments de droite
 
 Sans rentrer dans le détail du fonctionnement de ces différents outils (Pour cela, lire le [manuel d'inkscape](http://inkscape.org/doc/shapes/tutorial-shapes.fr.html) ou le [manuel Floss](http://en.flossmanuals.net/inkscape/)), sachez que l'outil **Tracer des courbes de Bézier et des segments de droite** permet de détourer "clic par clic" (les points de construction du polygone sont alors appelés des «**nœuds**»). Vous pouvez refermer votre polygone en cliquant sur le premier nœud de ce même polygone. Vous pouvez dessiner des **Courbes de Bézier** en gardant le clic de votre souris enfoncé après avoir créé un nœud, puis en déplaçant le curseur pour faire apparaître les poignées de contrôle afin de modifier la forme de la courbe.
 
