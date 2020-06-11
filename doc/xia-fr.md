@@ -43,6 +43,8 @@ Les premières parties de cette documentation (voir la partie [II](#creation-dun
 
 Xia n'est nécessaire qu'à la fin du processus. Comme on peut le voir sur l'illustration ci-dessous, la plus grande partie du travail est réalisée avec un logiciel de dessin vectoriel. Nous recommandons l'utilisation du logiciel libre et multi-plateforme [Inkscape](http://www.inkscape.org/), très simple à utiliser (c'est ce logiciel qui sera utilisé dans ce tutoriel).
 
+![process](images/process.png)
+
 <img src='images/process.png' style='display:block;margin:0 auto;width:50%;'>
 
 

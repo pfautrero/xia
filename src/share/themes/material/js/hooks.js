@@ -43,21 +43,21 @@ class CroppedImage {
     this.domElement.classList.remove('hidden_image')
   }
   moveTo(params){
-    //var visibleImage = document.getElementById(this.id)
-    //var section = visibleImage.parentNode.parentNode
+    var duration = 1
+    if ('duration' in params) duration = params.duration
 
     this.domElement.setAttribute('style',
-      'top:{TOP}px;left:{LEFT}px;transform: scale({SCALE});'
+      'top:{TOP}px;left:{LEFT}px;transform: scale({SCALE});transition-duration: {DURATION}s;'
       .replace('{TOP}', params.top)
       .replace('{LEFT}', params.left)
       .replace('{SCALE}', params.scale)
+      .replace('{DURATION}', duration)
     )
     this.width = this.origin.width * params.scale
     this.height = this.origin.height * params.scale
 
   }
   reset(){
-    //var visibleImage = document.getElementById(this.id)
     this.domElement.setAttribute('style',
       'top:{TOP}px;left:{LEFT}px;transform: scale({SCALE});'
       .replace('{TOP}', this.origin.top)
@@ -534,6 +534,39 @@ class MyApp {
     //  Wait and finally move image to popup top left corner
     //
 
+    document.getElementById("popup_material").addEventListener("transitionstart", function(event) {
+      if (this.xiaObject == null) return
+      var popup_material = document.getElementById("popup_material")
+      var popup_material_title = document.getElementById("popup_material_title")
+
+      if (popup_material.offsetTop < document.getElementById(this.xiaObject.parent.params.targetID).offsetHeight) {
+        this.images[this.xiaObject.idText].reset()
+      } else {
+        var currentHeight = this.images[this.xiaObject.idText].origin.height * this.xiaObject.iaScene.coeff
+        var currentWidth = this.images[this.xiaObject.idText].origin.width * this.xiaObject.iaScene.coeff
+
+        let target = {
+          height: popup_material_title.offsetHeight,
+          width: popup_material_title.offsetWidth / 4
+        }
+
+        var minScale = Math.min(
+          target.height / currentHeight,
+          target.width / currentWidth
+        )
+
+
+        this.images[this.xiaObject.idText].moveTo({
+          top: 0,
+          left: ((target.width - minScale * currentWidth) / 2) + popup_material.offsetLeft,
+          scale: this.xiaObject.iaScene.coeff * minScale,
+          duration: 2
+        })
+      }
+
+    }.bind(this), false);
+
+
     document.getElementById("popup_material").addEventListener("transitionend", function(event) {
       if (this.xiaObject == null) return
       var popup_material = document.getElementById("popup_material")
@@ -561,7 +594,7 @@ class MyApp {
           left: ((target.width - minScale * currentWidth) / 2) + popup_material.offsetLeft,
           scale: this.xiaObject.iaScene.coeff * minScale
         })
-     }
+      }
 
     }.bind(this), false);
 
