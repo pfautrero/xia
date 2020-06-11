@@ -1,32 +1,5 @@
 # Créer des images interactives
 
-## Sommaire
-
-- [1. Présentation de Xia](#presentation)
-    - [1.1. Qu'est-ce que Xia ?](#quest-ce-que-xia)
-    - [1.2. Processus général ?](#processus-general)
-    - [1.3. Installer Inkscape et Xia ?](#installer-inkscape-et-xia)
-- [2. Création d'une première image interactive avec Inkscape et Xia](#creation-dune-premiere-image-interactive)
-    - [2.1. Création de la ressource support](#creation-ressource-support)
-    - [2.2. Génération de l'image interactive avec Xia](#generation-image-interactive)
-    - [2.3. Usage d'expert !](#export-ligne-de-commande)
-- [3. Images interactives enrichies](#images-interactives-enrichies)
-    - [3.1. Mise en forme du texte (moteur wiki)](#mise-en-forme-du-texte)
-    - [3.2. Insérer des ressources multimédias dans les commentaires](#inserer-ressources-multimedia)
-        - [3.2.1. Utiliser une ressource locale](#ressource-multimedia-locale)
-        - [3.2.2. Utiliser une intégration iframe](#ressource-multimedia-iframe)
-        - [3.2.3. Utiliser une intégration oembed](#ressource-multimedia-oembed)
-        - [3.2.4. Astuce : Créer une musique d'ambiance ou un descriptif sonore](#ressource-multimedia-ambiance)
-    - [3.3. Insérer des images dans votre image interactive](#inserer-des-images)
-        - [3.3.1. Image de fond composite](#image-de-fond-composite)
-        - [3.3.2. Image sélectionnable](#image-selectionnable)
-    - [3.4. Faire apparaître une question/un indice et dévoiler une réponse](#question-reponse)
-    - [3.5. Contrôler le comportement des détails: affichage immédiat et désactivation](#comportement-details)
-    - [3.6. Contrôler l'ordre d'affichage des détails dans la barre latérale des commentaires](#ordre-details)
-    - [3.7. En résumé](#resume-images-enrichies)
-- [4. Foire aux questions](#faq)
-- [5. Astuces Inkscape](#astuces)
-
 ## 1. Présentation de Xia <a name="presentation"></a>
 
 ### 1.1. Qu'est-ce que Xia? <a name="quest-ce-que-xia"></a>
