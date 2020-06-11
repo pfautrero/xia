@@ -48,10 +48,7 @@ Vous pouvez, par souci de clarté, supprimer l'extension d'origine de votre imag
 
 De nombreux outils d'Inkscape peuvent être utilisés pour détourer les détails qui deviendront actifs dans l'animation générée par Xia. Parmi ceux-ci:
 
-![xx](images/draw-rectangle.png)
-![xx](images/draw-ellipse.png)
-![xx](images/draw-freehand.png)
-![xx](images/draw-path.png)
+![xx](images/inkscape-icons.png)
 
 - Créer des rectangles et des carrés
 - Créer des cercles, des ellipses et des arcs
