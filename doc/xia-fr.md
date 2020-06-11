@@ -1,6 +1,6 @@
-# Créer des images interactives
+# Manuel d'utilisation de XIA
 
-## 1. Présentation de Xia <a name="presentation"></a>
+## 1. Présentation<a name="presentation"></a>
 
 ### 1.1. Qu'est-ce que Xia? <a name="quest-ce-que-xia"></a>
 
@@ -8,7 +8,7 @@ Xia est un logiciel libre distribué sous la licence [GPLv3](http://www.gnu.org/
 
 Les premières parties de cette documentation (voir la partie [II](#creation-dune-premiere-image-interactive)) sont consacrées à la réalisation d'une image interactive simple: détails détourés et commentaires en texte sans mise en forme. Par la suite, vous apprendrez à créer des images interactives enrichies (voir la partie [III](#images-interactives-enrichies)).
 
-<img src='images/alert_green.png' width='40'>
+![alerte](images/alert_red2.png)
 À la fin de chaque partie, une rubrique **«En résumé»** rappelle les points essentiels à retenir pour créer une image interactive.
 
 
@@ -16,10 +16,7 @@ Les premières parties de cette documentation (voir la partie [II](#creation-dun
 
 Xia n'est nécessaire qu'à la fin du processus. Comme on peut le voir sur l'illustration ci-dessous, la plus grande partie du travail est réalisée avec un logiciel de dessin vectoriel. Nous recommandons l'utilisation du logiciel libre et multi-plateforme [Inkscape](http://www.inkscape.org/), très simple à utiliser (c'est ce logiciel qui sera utilisé dans ce tutoriel).
 
-![process](images/process.png)
-
-<img src='images/process.png' style='display:block;margin:0 auto;width:50%;'>
-
+![processus général](images/process.png)
 
 ### 1.3. Installer Inkscape et Xia <a name="installer-inkscape-et-xia"></a>
 
@@ -41,58 +38,58 @@ Quand Inkscape vous demande de choisir **Lier** et **Incorporer l'image**, chois
 
 Les informations renseignées dans les **Métadonnées du document** (menu `>Fichier >Propriétés du document >metadonnées`) seront conservées dans l'animation générée : titre, créateur, droits, etc. Il est donc fortement conseillé de renseigner ces informations. Le rendu est visible sur l'image ci-dessous :
 
-<img src='images/infos.png' style='display:block;margin:0 auto;width:70%;'>
+![meta-données](images/infos.png)
 
 Le titre renseigné dans les métadonnées du document apparait au-dessus de l'image interactive et donne son nom à la page web l'affichant. Le créateur et les droits associés apparaissent dans la pop up accessible via l'icône «**i**» située à droite du titre de l'image interactive.
 
 Vous pouvez sauvegarder votre projet au format svg dès le début du travail, en allant dans le menu `> Fichier > Enregistrer`.
 
-Vous pouvez, par souci de clarté, supprimer l'extension d'origine de votre image dans le champ **Nom** de la fenêtre de dialogue. Enfin, dans le menu déroulant, choisissez le format de fichier Inkscape svg:
-
-**SVG Inkscape (*.svg)**
+Vous pouvez, par souci de clarté, supprimer l'extension d'origine de votre image dans le champ **Nom** de la fenêtre de dialogue. Enfin, dans le menu déroulant, choisissez le format de fichier Inkscape svg: **SVG Inkscape (.svg)**
 
 De nombreux outils d'Inkscape peuvent être utilisés pour détourer les détails qui deviendront actifs dans l'animation générée par Xia. Parmi ceux-ci:
-- ![rectangle](images/square.png) Créer des rectangles et des carrés
-- ![cercle](images/circles.png) Créer des cercles, des ellipses et des arcs
-- ![ligne](images/line.png) Dessiner des lignes à main levée
-- ![ligne](images/bezier.png) Tracer des courbes de Bézier et des segments de droite
+
+---
+
+- ![rectangle](images/draw-rectangle.png)Créer des rectangles et des carrés
+- ![cercle](images/draw-ellipse.png)Créer des cercles, des ellipses et des arcs
+- ![ligne](images/draw-freehand.png)Dessiner des lignes à main levée
+- ![ligne](images/draw-path.png)Tracer des courbes de Bézier et des segments de droite
+
+---
 
 Sans rentrer dans le détail du fonctionnement de ces différents outils (Pour cela, lire le [manuel d'inkscape](http://inkscape.org/doc/shapes/tutorial-shapes.fr.html) ou le [manuel Floss](http://en.flossmanuals.net/inkscape/)), sachez que l'outil **Tracer des courbes de Bézier et des segments de droite** permet de détourer "clic par clic" (les points de construction du polygone sont alors appelés des «**nœuds**»). Vous pouvez refermer votre polygone en cliquant sur le premier nœud de ce même polygone. Vous pouvez dessiner des **Courbes de Bézier** en gardant le clic de votre souris enfoncé après avoir créé un nœud, puis en déplaçant le curseur pour faire apparaître les poignées de contrôle afin de modifier la forme de la courbe.
 
-<img src='images/alert_red.png' width='40'>
-Si vous laissez une forme ouverte dans Inkscape (une courbe par exemple), Xia refermera automatiquement celle-ci en joignant son point de départ et d'arrivée.
-
-<img src='images/alert_red.png' width='40'>
-L'ordre de création des détails dans Inkscape sera respecté dans l'image interactive au format html5 (par exemple, le premier détail détouré dans Inkscape apparaîtra en haut dans le modèle accordéon ou en numéro 1 dans le modèle boutons).
+![alerte](images/alert_red2.png)
+Si vous laissez une forme ouverte dans Inkscape (une courbe par exemple), Xia refermera automatiquement celle-ci en joignant son point de départ et d'arrivée. L'ordre de création des détails dans Inkscape sera respecté dans l'image interactive au format html5 (par exemple, le premier détail détouré dans Inkscape apparaîtra en haut dans le modèle accordéon ou en numéro 1 dans le modèle boutons).
 
 Une fois les détails détourés (La couleur du contour des détails dans l'animation générée par Xia sera la même que celle choisie dans Inkscape), vous pouvez les sélectionner avec l'outil **Sélectionner et transformer des objets** afin de les redimensionner, les déplacer, etc.
-
-<img src='images/alert_green.png' width='40'>
-Si vous avez des difficultés pour sélectionner un détail que vous avez détouré, appliquez-lui une couleur de fond. N'importe quelle couleur fera l'affaire, sauf noir et blanc (nosu verrons plus tard pourquoi).
 
 
 Vous pouvez accéder aux **Propriétés de l'objet** par un clic-droit sur le détail détouré. À partir de là, vous accédez à une fenêtre de dialogue vous permettant d'ajouter le texte qui sera associé au détail dans l'image interactive:
 
-<img src='images/object_properties_fr.png' style='display:block;margin:0 auto;width:40%;'>
-
+![object properties](images/object_properties_fr.png)
 Les deux champs devant nécessairement être renseignés dans cette fenêtre sont les champs **Titre** et **Description**. Le titre deviendra celui du détail, la description son commentaire. N'oubliez pas de cliquer sur le bouton **Définir** avant de fermer la fenêtre des **Propriétés de l'objet**.
 
 Le processus décrit ci-dessus doit également être effectué avec l'image de fond: le titre et la description de celle-ci serviront d'introduction générale à l'image interactive (il s'agit d'un titre et d'un commentaire qui ne sont pas reliés à un détail particulier).
+
+
+![alerte](images/alert_red2.png)
+- Si vous avez des difficultés pour sélectionner un détail que vous avez détouré, appliquez-lui une couleur de fond. N'importe quelle couleur fera l'affaire, sauf noir et blanc (nosu verrons plus tard pourquoi).
+
 
 ### 2.2. Génération de l'image interactive avec Xia <a name='generation-image-interactive'></a>
 
 Quand tous les détails sont détourés et leurs métadonnées renseignées, Xia peut être lancé en cliquant sur `> Extensions > Exporter > Xia`.
 
-<img src='images/menu-inkscape2.png' style='display:block;margin:0 auto;width:60%;'>
+![menu inkscape](images/menu-inkscape2.png)
 
 Choisissez un modèle d'export et un répertoire d'enregistrement de l'image interactive.
 
 En appuyant sur *Appliquer*, vous générez un fichier `html`. Double-cliquez dessus pour l'ouvrir dans votre navigateur pour voir votre image interactive au format html5.
 
+![xia inkscape](images/xia-inkscape.png)
 
-<img src='images/xia-inkscape.png' style='display:block;margin:0 auto;width:30%;'>
-
-<img src='images/alert_red.png' width='40'>
+![alerte](images/alert_red2.png)
 La ressource ainsi générée nécessite un accès internet pour fonctionner pleinement.
 
 ### 2.3. Usage d'expert ! <a name='export-ligne-de-commande'></a>
@@ -102,7 +99,7 @@ Vous pouvez générer vos animations html5 en utilisant le `terminal` avec la co
 
 **Avec GNU/Linux**, pour un export fichier unique utilisant le thème accordionBlack :
 ```
-xia --input monfichier.svg --output ~/export --theme sidebar --export singlefile --quality 3
+xia --input monfichier.svg --output ~/export --theme sidebar --export singlefile
 ```
 
 **Avec Mac OS X**, pour un export utilisable sans connexion internet, utilisant le thème gameDragAndDrop :
@@ -112,10 +109,9 @@ cd /Applications/xia.app/Contents/Resources/
 python3 xia.py --input monfichier.svg --output ~/export --theme gameDragAndDrop --export local
 ```
 
-**Avec Windows**, pour un export fichier unique utilisant le thème accordionBlack, il faut utiliser l'outil XIA version portable (téléchargeable sur le site de XIA). Une fois l'archive zip décompressée,(supposons que vous l'ayez fait dans xia-windows), il faut éditer le fichier `xia-windows/xia/xia.bat` comme suit :
+**Avec Windows**, pour un export fichier unique utilisant le thème sidebar, il faut utiliser l'outil XIA version portable (téléchargeable sur le site de XIA). Une fois l'archive zip décompressée,(supposons que vous l'ayez fait dans xia-windows), il faut éditer le fichier `xia-windows/xia/xia.bat` comme suit :
 
-
-<img src='images/windows-commandline.png' style='display:block;margin:0 auto;width:90%;'>
+![windows](images/windows-commandline.png)
 
 Puis double-cliquer sur le fichier `xia.bat` pour lancer l'export.
 
@@ -157,7 +153,7 @@ Vous pouvez le télécharger ici : https://xia.funraiders.org
 
 Rendu final :
 
-<img src='images/pikipiki.png' style='display:block;margin:0 auto;width:50%;'>
+![pikipiki](images/pikipiki.png)
 
 #### Syntaxe Wiki et intégration de ressources.
 
@@ -221,7 +217,7 @@ Le lien doit être inséré dans le champ `Description` des `Propriétés de l'o
 pour créer le lecteur multimédia.
 
 
-<img src='images/alert_green.png' width='40'>
+![alerte](images/alert_red2.png)
 Les formats vidéos gérés par Xia ne le sont pas par tous les navigateurs web. Il est donc recommandé d'exporter les vidéos dans les 3 formats supportés (mp4, ogv et webm), et de les téléverser dans le même répertoire. Ainsi, même si un format spécifique est renseigné dans la description (si l'on suit l'exemple précédent: `videos/video.ogv`), si le navigateur est incapable de lire
 la ressource, il cherchera automatiquement à lire les fichiers du même nom mais possédant une extension différente (c'est à dire, `video.mp4`  et `video.webm`).
 
@@ -265,11 +261,9 @@ Après avoir réalisé votre image interactive, vous vous rendez compte qu'il ma
 Il arrive que vous ayez besoin d'ajouter des commentaires sur votre image qui ne soient pas liés à un détail. Une méthode simple consiste à ajouter une image à votre composition. Par défaut, cette image ne sera visible qu'au survol. Si vous souhaitez la rendre persistante, il suffit d'avoir recours à un artifice : appliquez une couleur de fond blanche sur cette image.
 L'image importée n'apparaîtra dans l'animation html5 qu'à une condition: que vous lui ayez appliqué un fond blanc dans Inkscape. Choisissez la couleur blanche dans la palette horizontale en bas de l'interface d'Inkscape:
 
-<img src='images/inkscape_palette.png' style='display:block;margin:0 auto;width:90%;'>
-
+![palette](images/inkscape_palette.png)
 
 En indiquant une url dans le champ `Titre` des `Propriétés de l'objet`, cette image incorporée deviendra un lien cliquable.
-
 
 ### 3.4. Faire apparaître une question/un indice et dévoiler une réponse <a name='question-reponse'></a>
 
@@ -318,7 +312,7 @@ Dès que l'élève cliquera sur le bouton `Indice`, un champ de saisie apparaitr
 <img src='images/vador_question_locked.png' style='display:block;margin:0 auto;width:90%;'>
 
 
-<img src='images/alert_green.png' width='40'>
+![alerte](images/alert_red2.png)
 Les éléments `[[..]]` peuvent être imbriqués.
 
 
@@ -341,7 +335,7 @@ Par défaut dans une image interactive de type `accordéon`, les détails appara
 
 Pour changer cet ordre par défaut, utilisez les boutons dédiés de la barre de menu :
 
-<img src='images/inkscape_zindex.png' style='display:block;margin:0 auto;width:20%;'>
+![zindex](images/inkscape_zindex.png)
 
 Commencez par sélectionner le détail sur lequel vous voulez agir et cliquez sur l'un des 4 boutons ci-dessus pour modifier la `profondeur` du détail.
 
