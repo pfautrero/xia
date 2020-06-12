@@ -279,9 +279,9 @@ class MyApp {
       } else {
         kineticElement.fillPriority('color')
         kineticElement.stroke(xiaDetail.parent.iaScene.overColorStroke)
-        kineticElement.strokeWidth(5) //xiaDetail.strokeWidth)
+        kineticElement.strokeWidth(3 / el.parent.iaScene.coeff) //xiaDetail.strokeWidth)
         kineticElement.dashEnabled()
-        kineticElement.dash([10,10])
+        kineticElement.dash([10 / el.parent.iaScene.coeff,10 / el.parent.iaScene.coeff])
         kineticElement.setAttrs({ opacity: 1 })
         //kineticElement.to({ opacity: 1 })
       }
@@ -387,7 +387,8 @@ class MyApp {
   }
 
   createAboutButton(XiaObject) {
-    var target = document.getElementById('canvas').firstChild
+    //var target = document.getElementById('canvas').firstChild
+    var target = document.body
     var about = document.createElement('div')
     about.setAttribute('id', 'about')
     target.appendChild(about)
@@ -400,7 +401,8 @@ class MyApp {
   }
 
   createMetadocButton(XiaObject) {
-    var target = document.getElementById('canvas').firstChild
+    //var target = document.getElementById('canvas').firstChild
+    var target = document.body
     var metadoc = document.createElement('div')
     metadoc.setAttribute('id', 'general_infos')
     target.appendChild(metadoc)
