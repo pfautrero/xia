@@ -163,7 +163,7 @@ class XiaDetail {
                 }
                 else if ($("#" + idText).data("tooltip") != "") {
                     var tooltip_id = $("#" + idText).data("tooltip");
-                    this.tooltip = this.getStage().find("#" + tooltip_id)[0];
+                    this.tooltip = this.kineticElement.getStage().find("#" + tooltip_id)[0];
                     tooltip = true;
                 }
                 if (tooltip) {
@@ -198,35 +198,32 @@ class XiaDetail {
          * if we leave this element, just clear the scene
          */
         this.kineticElement.on('mouseout', function() {
-
-
             if ((iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) ||
-                    (iaScene.cursorState.indexOf("ZoomIn.cur") !== -1)){
-
+              (iaScene.cursorState.indexOf("ZoomIn.cur") !== -1)){
             }
             else {
-                var mouseXY = this.kineticElement.getIaObject().layer.getStage().getPointerPosition();
-                if ((this.kineticElement.getIaObject().layer.getStage().getIntersection(mouseXY) != this)) {
-                    // manage tooltips if present
-                    var tooltip = false;
-                    if (this.tooltip != "") {
-                        tooltip = true;
-                    }
-                    else if ($("#" + idText).data("tooltip") != "") {
-                        var tooltip_id = $("#" + idText).data("tooltip");
-                        this.tooltip = this.getStage().find("#" + tooltip_id)[0];
-                        tooltip = true;
-                    }
-                    if (tooltip) {
-                        this.tooltip.fillPriority('color');
-                        this.tooltip.fill('rgba(0, 0, 0, 0)');
-                        this.tooltip.moveToBottom();
-                        this.tooltip.draw();
-                    }
-                    document.body.style.cursor = "default";
-                    iaScene.cursorState = "default";
-                    this.kineticElement.getIaObject().layer.draw();
+              var mouseXY = this.kineticElement.getIaObject().layer.getStage().getPointerPosition();
+              if ((this.kineticElement.getIaObject().layer.getStage().getIntersection(mouseXY) != this)) {
+                // manage tooltips if present
+                var tooltip = false;
+                if (this.tooltip != "") {
+                    tooltip = true;
                 }
+                else if ($("#" + idText).data("tooltip") != "") {
+                    var tooltip_id = $("#" + idText).data("tooltip");
+                    this.tooltip = this.kineticElement.getStage().find("#" + tooltip_id)[0];
+                    tooltip = true;
+                }
+                if (tooltip) {
+                    this.tooltip.fillPriority('color');
+                    this.tooltip.fill('rgba(0, 0, 0, 0)');
+                    this.tooltip.moveToBottom();
+                    this.tooltip.draw();
+                }
+                document.body.style.cursor = "default";
+                iaScene.cursorState = "default";
+                this.kineticElement.getIaObject().layer.draw();
+              }
             }
         }.bind(this));
 

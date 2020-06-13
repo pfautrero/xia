@@ -42,11 +42,16 @@ class hook:
     def add_metadata(self, value, label):
         return f"<tr><td>{label}</td><td>{value}</td></tr>" if value else ""
 
+    def convert_link(self, entry):
+        return f'<a href="{entry}">{entry}</a>' if entry.startswith('http') else entry
+
     def generateIndex(self,filePath, templatePath, localFolder):
         """ generate index file"""
 
         with open(templatePath,"rb") as template:
             final_index = template.read().decode()
+
+            license = self.convert_link(self.iaobject.scene["license"])
 
             metadatas = ""
             metadatas += self.add_metadata(self.iaobject.scene["creator"], self.translate('creator'))
@@ -59,6 +64,7 @@ class hook:
             metadatas += self.add_metadata(self.iaobject.scene["language"], self.translate('language'))
             metadatas += self.add_metadata(self.iaobject.scene["contributor"], self.translate('contributor'))
             metadatas += self.add_metadata(self.iaobject.scene["date"], self.translate('date'))
+            metadatas += self.add_metadata(license, self.translate("license"))
 
             final_index = final_index.replace("{{METADATAS}}", metadatas)
             final_index = final_index.replace("{{AUTHOR}}", self.iaobject.scene["creator"])

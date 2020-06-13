@@ -64,98 +64,71 @@ class iaObject:
         self.backgroundNode = ""
 
     def get_tag_value(self, node):
-        if node.childNodes:
-            return node.childNodes[0].nodeValue
-        else:
-            return ""
+        result = ""
+        if node is not None:
+            if node.childNodes:
+                result = node.childNodes[0].nodeValue
+        return result
+
+    def extract_metadata_item(self, metadatas, item):
+        metadata = metadatas.getElementsByTagName(item).item(0)
+        return self.get_tag_value(metadata)
+
+    def extract_metadata_item2(self, metadatas, item):
+        result = ""
+        md = metadatas.getElementsByTagName(item).item(0)
+        if md is not None:
+            md2 = md.getElementsByTagName('dc:title').item(0)
+            result = self.get_tag_value(md2)
+        return result
 
     def extractMetadatas(self, xml):
 
-        metadatas = xml.getElementsByTagName('metadata')
-        self.scene['date'] = ""
-        self.scene['identifier'] = ""
-        self.scene['coverage'] = ""
-        self.scene['source'] = ""
-        self.scene['relation'] = ""
-        self.scene['creator'] = ""
-        self.scene['rights'] = ""
-        self.scene['publisher'] = ""
-        self.scene['language'] = ""
+        md = {
+            'title': 'dc:title',
+            'date': 'dc:date',
+            'coverage': 'dc:coverage',
+            'relation': 'dc:relation',
+            'source': 'dc:source',
+            'identifier': 'dc:identifier',
+            'description': 'dc:description',
+            'language': 'dc:language'
+        }
+        md_title = {
+            'creator': 'dc:creator',
+            'rights': 'dc:rights',
+            'publisher': 'dc:publisher',
+            'contributor': 'dc:contributor'
+        }
+
+        metadatas = xml.getElementsByTagName('metadata').item(0)
         self.scene['keywords'] = ""
-        self.scene['description'] = ""
-        self.scene['contributor'] = ""
         self.scene['license'] = ""
-        if metadatas.item(0) is not None:
+        for item in md:
+            self.scene[item] = ""
+        for item in md_title:
+            self.scene[item] = ""
 
-            metadata = metadatas.item(0).getElementsByTagName('cc:license')
-            if metadata.item(0) is not None:
-                if metadata.item(0).hasAttribute("rdf:resource"):
-                    self.scene['license'] = metadata.item(0).attributes["rdf:resource"].value
+        if metadatas is not None:
 
-            metadata = metadatas.item(0).getElementsByTagName('dc:title')
-            if metadata.item(0) is not None:
-                if self.get_tag_value(metadata.item(0)) != "":
-                    self.scene['title'] = self.get_tag_value(metadata.item(0))
+            licenses = metadatas.getElementsByTagName('cc:license')
+            licenses_items = []
+            if licenses is not None:
+                for i in range(licenses.length):
+                    if licenses.item(i).hasAttribute("rdf:resource"):
+                        licenses_items.append(licenses.item(i).attributes["rdf:resource"].value)
+            self.scene['license'] = ",".join(item for item in licenses_items)
 
-            metadata = metadatas.item(0).getElementsByTagName('dc:date')
-            if metadata.item(0) is not None:
-                self.scene['date'] = self.get_tag_value(metadata.item(0))
+            for item in md:
+                self.scene[item] = self.extract_metadata_item(metadatas, md[item])
 
-            metadata = metadatas.item(0).getElementsByTagName('dc:coverage')
-            if metadata.item(0) is not None:
-                self.scene['coverage'] = self.get_tag_value(metadata.item(0))
+            for item in md_title:
+                self.scene[item] = self.extract_metadata_item2(metadatas, md_title[item])
 
-            metadata = metadatas.item(0).getElementsByTagName('dc:relation')
-            if metadata.item(0) is not None:
-                self.scene['relation'] = self.get_tag_value(metadata.item(0))
-
-            metadata = metadatas.item(0).getElementsByTagName('dc:source')
-            if metadata.item(0) is not None:
-                self.scene['source'] = self.get_tag_value(metadata.item(0))
-
-            metadata = metadatas.item(0).getElementsByTagName('dc:identifier')
-            if metadata.item(0) is not None:
-                self.scene['identifier'] = self.get_tag_value(metadata.item(0))
-
-            metadata = metadatas.item(0).getElementsByTagName('dc:creator')
-            if metadata.item(0) is not None:
-                metadata_value = metadata.item(0).getElementsByTagName('dc:title')
-                if metadata_value.item(0) is not None:
-                    self.scene['creator'] = self.get_tag_value(metadata_value.item(0))
-
-            metadata = metadatas.item(0).getElementsByTagName('dc:rights')
-            if metadata.item(0) is not None:
-                metadata_value = metadata.item(0).getElementsByTagName('dc:title')
-                if metadata_value.item(0) is not None:
-                    self.scene['rights'] = self.get_tag_value(metadata_value.item(0))
-
-            metadata = metadatas.item(0).getElementsByTagName('dc:publisher')
-            if metadata.item(0) is not None:
-                metadata_value = metadata.item(0).getElementsByTagName('dc:title')
-                if metadata_value.item(0) is not None:
-                    self.scene['publisher'] = self.get_tag_value(metadata_value.item(0))
-
-            metadata = metadatas.item(0).getElementsByTagName('dc:language')
-            if metadata.item(0) is not None:
-                self.scene['language'] = self.get_tag_value(metadata.item(0))
-
-            metadata = metadatas.item(0).getElementsByTagName('dc:subject')
-            if metadata.item(0) is not None:
-                items = metadata.item(0).getElementsByTagName('rdf:li')
-                for key_word in items:
-                    if self.scene['keywords']:
-                        self.scene['keywords'] += ","
-                    self.scene['keywords'] += self.get_tag_value(key_word)
-
-            metadata = metadatas.item(0).getElementsByTagName('dc:description')
-            if metadata.item(0) is not None:
-                self.scene['description'] = self.get_tag_value(metadata.item(0))
-
-            metadata = metadatas.item(0).getElementsByTagName('dc:contributor')
-            if metadata.item(0) is not None:
-                metadata_value = metadata.item(0).getElementsByTagName('dc:title')
-                if metadata_value.item(0) is not None:
-                    self.scene['contributor'] = self.get_tag_value(metadata_value.item(0))
+            metadata = metadatas.getElementsByTagName('dc:subject').item(0)
+            if metadata is not None:
+                keywords = metadata.getElementsByTagName('rdf:li')
+                self.scene['keywords'] = ",".join(self.get_tag_value(keyword) for keyword in keywords)
 
     def extractRaster(self, xlink):
         """ extract raster from xlink:href attribute """

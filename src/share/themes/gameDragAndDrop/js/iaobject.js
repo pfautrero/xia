@@ -83,12 +83,10 @@ function IaObject(params) {
  * @returns {undefined}
  */
 IaObject.prototype.includeSprite = function(detail, i, iaScene, idDOMElement) {
-
     this.xiaDetail[i] = new XiaSprite(this, detail, idDOMElement)
     this.defineImageBoxSize(detail, this.xiaDetail[i]);
     this.scaleBox(this.xiaDetail[i], iaScene)
     this.xiaDetail[i].start()
-
 }
 
 /*
@@ -543,37 +541,34 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
      */
     that.xiaDetail[i].kineticElement.on('mouseout', function() {
 
-
         if ((iaScene.cursorState.indexOf("ZoomOut.cur") !== -1) ||
                 (iaScene.cursorState.indexOf("ZoomIn.cur") !== -1)){
-
         }
         else {
-            var mouseXY = that.layer.getStage().getPointerPosition();
-            if ((that.layer.getStage().getIntersection(mouseXY) != this)) {
-                // manage tooltips if present
-                var tooltip = false;
-                if ((typeof(this.tooltip) != "undefined") && (this.tooltip != "")) {
-                    tooltip = true;
-                }
-                else if ($("#" + idText).data("tooltip") != "") {
-                    var tooltip_id = $("#" + idText).data("tooltip");
-                    this.tooltip = this.getStage().find("#" + tooltip_id)[0];
-                    tooltip = true;
-                }
-                if (tooltip) {
-                    this.tooltip.fillPriority('color');
-                    this.tooltip.fill('rgba(0, 0, 0, 0)');
-                    this.tooltip.moveToBottom();
-                    this.tooltip.draw();
-                }
-                document.body.style.cursor = "default";
-                iaScene.cursorState = "default";
-                that.layer.draw();
+          var mouseXY = that.layer.getStage().getPointerPosition();
+          if ((that.layer.getStage().getIntersection(mouseXY) != this)) {
+            // manage tooltips if present
+            var tooltip = false;
+            if ((typeof(this.tooltip) != "undefined") && (this.tooltip != "")) {
+                tooltip = true;
             }
+            else if ($("#" + idText).data("tooltip") != "") {
+                var tooltip_id = $("#" + idText).data("tooltip");
+                this.tooltip = this.getStage().find("#" + tooltip_id)[0];
+                tooltip = true;
+            }
+            if (tooltip) {
+                this.tooltip.fillPriority('color');
+                this.tooltip.fill('rgba(0, 0, 0, 0)');
+                this.tooltip.moveToBottom();
+                this.tooltip.draw();
+            }
+            document.body.style.cursor = "default";
+            iaScene.cursorState = "default";
+            that.layer.draw();
+          }
         }
-    });
-
+    })
 
     if (that.xiaDetail[i].options.indexOf("disable-click") != -1) {
         return;
@@ -581,7 +576,6 @@ IaObject.prototype.addEventsManagement = function(i, that, iaScene, baseImage, i
     else {
         if (that.xiaDetail[i].options.indexOf("direct-link") != -1) {
             that.xiaDetail[i].kineticElement.on('mouseup touchend', function(e) {
-                //location.href = that.title[i];
                 location.href = that.xiaDetail[i].title;
             });
         }
@@ -710,39 +704,7 @@ IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElemen
       y:event.target.y() + (kineticElement.getXiaParent().maxY - kineticElement.getXiaParent().minY)/2
     };
 
-    //var mouseXY = kineticElement.getStage().getPointerPosition();
-    //var droparea = kineticElement.getStage().getIntersection(mouseXY);
-
-    var over_droparea = false;
-/*    var droparea = kineticElement.getStage().getIntersection(middle_coords);
-    if (droparea) {
-        if (droparea == kineticElement) {
-            // element dropped on its own area
-            // move current element out of stage, redraw the scene,
-            // find the drop zone element
-            // and move current element to its original position
-            var old_x = kineticElement.x();
-            kineticElement.x(2000);
-            kineticElement.getXiaParent().notify();
-            kineticElement.getLayer().drawHit();
-            kineticElement.getStage().completeImage = "redefine";
-            //droparea = kineticElement.getStage().getIntersection(mouseXY);
-            droparea = kineticElement.getStage().getIntersection(middle_coords);
-            if (droparea) {
-                if (droparea != kineticElement) {
-                    over_droparea = true;
-                }
-            }
-            kineticElement.x(old_x);
-            kineticElement.getXiaParent().notify();
-            kineticElement.getLayer().drawHit();
-        }
-        else if (droparea.getXiaParent().droparea) {
-            over_droparea = true;
-        }
-    }
-*/
-
+    var over_droparea = false
     var found_droparea = false
     var elementsMoved = []
     while (!found_droparea) {
@@ -785,43 +747,40 @@ IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElemen
         //var target_object = this.xiaDetail[0].kineticElement.getStage().find("#" + target_id);
         var target_iaObject = droparea.getXiaParent();
         if ((middle_coords.x > target_iaObject.minX) &
-                (middle_coords.x < target_iaObject.maxX) &
-                (middle_coords.y > target_iaObject.minY) &
-                (middle_coords.y < target_iaObject.maxY)) {
-            if (typeof(target_object) != "undefined" && target_object != null) {
-                if (!kineticElement.getXiaParent().match && droparea == target_object.kineticElement) {
-                    kineticElement.getXiaParent().match = true;
-                    iaScene.currentScore += 1;
-
-                }
-                else {
-                  iaScene.currentScore2 += 1;
-                }
+              (middle_coords.x < target_iaObject.maxX) &
+              (middle_coords.y > target_iaObject.minY) &
+              (middle_coords.y < target_iaObject.maxY)) {
+          if (typeof(target_object) != "undefined" && target_object != null) {
+            if (!kineticElement.getXiaParent().match && droparea == target_object.kineticElement) {
+              kineticElement.getXiaParent().match = true;
+              iaScene.currentScore += 1;
             }
-
-            if (iaScene.global_magnet_enabled || droparea.getXiaParent().magnet_state=="on") {
-                var targetCoords = {
-                    x : target_iaObject.minX - (iaObject_width / 2) + (target_iaObject.maxX - target_iaObject.minX) / 2,
-                    y : target_iaObject.minY - (iaObject_height / 2) + (target_iaObject.maxY - target_iaObject.minY) / 2
-                };
-                var vector = {
-                    x : targetCoords.x - kineticElement.x(),
-                    y : targetCoords.y - kineticElement.y()
-                };
-                var XiaDetails = kineticElement.getIaObject().xiaDetail;
-                for (var i = 0;i < XiaDetails.length;i++) {
-                    XiaDetails[i].kineticElement.x(XiaDetails[i].kineticElement.x() + vector.x);
-                    XiaDetails[i].kineticElement.y(XiaDetails[i].kineticElement.y() + vector.y);
-                }
+            else {
+              iaScene.currentScore2 += 1;
             }
+          }
+
+          if (iaScene.global_magnet_enabled || droparea.getXiaParent().magnet_state=="on") {
+            var targetCoords = {
+              x : target_iaObject.minX - (iaObject_width / 2) + (target_iaObject.maxX - target_iaObject.minX) / 2,
+              y : target_iaObject.minY - (iaObject_height / 2) + (target_iaObject.maxY - target_iaObject.minY) / 2
+            };
+            var vector = {
+              x : targetCoords.x - kineticElement.x(),
+              y : targetCoords.y - kineticElement.y()
+            };
+            var XiaDetails = kineticElement.getIaObject().xiaDetail;
+            for (var i = 0;i < XiaDetails.length;i++) {
+              XiaDetails[i].kineticElement.x(XiaDetails[i].kineticElement.x() + vector.x);
+              XiaDetails[i].kineticElement.y(XiaDetails[i].kineticElement.y() + vector.y);
+            }
+          }
         }
         else {
-            if (kineticElement.getXiaParent().match) {
-                kineticElement.getXiaParent().match = false;
-                iaScene.currentScore -= 1;
-
-            }
-
+          if (kineticElement.getXiaParent().match) {
+            kineticElement.getXiaParent().match = false;
+            iaScene.currentScore -= 1;
+          }
         }
 
         kineticElement.getXiaParent().notify();
@@ -832,32 +791,32 @@ IaObject.prototype.afterDragEnd = function(iaScene, idText, event, kineticElemen
 
         var viewportHeight = $(window).height();
         if ((iaScene.score == iaScene.currentScore) && (iaScene.score != 0)) {
-            $("#content").show();
-            $("#message_success").show();
-            var general_border = $("#message_success").css("border-top-width").substr(0,$("#message_success").css("border-top-width").length - 2);
-            var general_offset = $("#message_success").offset();
-            var content_offset = $("#content").offset();
-            $("#message_success").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});
+          $("#content").show();
+          $("#message_success").show();
+          var general_border = $("#message_success").css("border-top-width").substr(0,$("#message_success").css("border-top-width").length - 2);
+          var general_offset = $("#message_success").offset();
+          var content_offset = $("#content").offset();
+          $("#message_success").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});
         }
         if ((iaScene.score2 == iaScene.currentScore2) && (iaScene.score2 != 0)) {
-            $("#content").show();
-            $("#message_success2").show();
-            var general_border = $("#message_success2").css("border-top-width").substr(0,$("#message_success2").css("border-top-width").length - 2);
-            var general_offset = $("#message_success2").offset();
-            var content_offset = $("#content").offset();
-            $("#message_success2").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});
+          $("#content").show();
+          $("#message_success2").show();
+          var general_border = $("#message_success2").css("border-top-width").substr(0,$("#message_success2").css("border-top-width").length - 2);
+          var general_offset = $("#message_success2").offset();
+          var content_offset = $("#content").offset();
+          $("#message_success2").css({'max-height':(viewportHeight - general_offset.top - content_offset.top - 2 * general_border)});
         }
         $('#' + idText + " audio").each(function(){
-            if ($(this).data("state") === "autostart") {
-                $(this)[0].play();
-            }
+          if ($(this).data("state") === "autostart") {
+              $(this)[0].play();
+          }
         });
 
     }
     else {
-        if (kineticElement.getXiaParent().match) {
-            kineticElement.getXiaParent().match = false;
-            iaScene.currentScore -= 1;
-        }
+      if (kineticElement.getXiaParent().match) {
+        kineticElement.getXiaParent().match = false;
+        iaScene.currentScore -= 1;
+      }
     }
 };
