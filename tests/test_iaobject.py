@@ -38,15 +38,6 @@ class TestiaObject(TestCase):
         rasterExtracted = ia.extractRaster(originalRaster)
         self.assertEqual(rasterExtracted, originalRaster)
 
-
-    def test_fixRaster(self):
-        console = LoggerMock()
-        ia = iaObject(console)
-        # XIA logo 16x16
-        originalRaster = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3gofDSYCgyL5zAAAAlVJREFUOMttk01IVFEUx3/3zodjZoVJWpuytDSS3kMSKneRRtuSdq2sUSGYje3aZNGHm9EyTRetIhUiCAkjC8KgFsJ7JBgKSUE5KpNo2TjOzLu3xczTl/hf3Xu+z/+cI8jBiFrYERMjalUC14CzQFlOPQOMAt12xJx0bQHEJud+oMkNKgN5qEwatMKDPjtihl0f4XEeB2pcK+2kmbrXSOn5VnYZ9WzCZ8AAtPRkrvFaqFSStYXv/By6zRaoBnrsiInM9dyEkCDkuoXOpEEIZF4+ybmvOKt/vHoBhI2oVe4rPdd8U0jfifmRHhIzFqG95TiJZaY7GtGZNCr5l/iHQeZHnyD9QQoOmt5KpDCi1rQM5ldMtNXirK6glQIBQvrwhQrYadSD1ixZI6hUkpKGq5Q0hEFrgIwwolYKCAgpmX3ZyeLH5zjJFQKFxRy99Q6dSWVr9geZvHGG/ZfvsK3MBHRW7gbIFiRZeP2Y2KtHHGkbJLTvMPGxARCC4rpLW5GJBL5tMCNI/44DkLfnAFopluwRZl90uCVvhiOBN+vMK8WOqjqEkMSGuxBScqi1n+r7n0CIbDtCeAP0SqB7468pqKhFKUV8bIBfY8/whQrxhbYTG+5i4vpJfgy1e8fZ6a5yH3DFla7NzfDl7gWklIhAELTOjlQpjrW/xV9YBNBrR8wW7ypbwPHskgicxDLx909ZHB9GSj9Fpy+y+1QjMhgCmAIq/zum3LsHCK+TKiUIX44fxz2qXjtitriJJeCeprYjZnMu8gMgoZVCO2m0k06g1UOgyusM8A8PqAKAYqQluwAAAABJRU5ErkJggg=='
-        rasterFixed = ia.fixRaster(originalRaster, 16, 16)
-        self.assertEqual(rasterFixed, originalRaster)
-
     def test_imageDimensions(self):
         console = LoggerMock()
         ia = iaObject(console)
@@ -327,6 +318,24 @@ class TestiaObject(TestCase):
         self.assertEqual(newrecord["group"][0]['y'],0)
         self.assertEqual(newrecord["group"][0]['width'],50)
         self.assertEqual(newrecord["group"][0]['height'],50)
+
+    def test_analyzeSVG13(self):
+        console = LoggerMock()
+        ia = iaObject(console)
+        dom1 = minidom.parseString("<?xml version='1.0' ?>\
+            <svg>\
+                <ellipse cx='200' cy='200' id='ellipse' rx='100' ry='50' />\
+            </svg>")
+        ellipse = dom1.getElementsByTagName('ellipse')
+        newrecord = ia.extract_ellipse(ellipse[0], "")
+        self.assertEqual(newrecord['path'], '"M100.0 200.0C100.0 186.73917550802278 110.53568403654177 174.02147986307438 129.28932188134524 164.64466094067262C148.0429597261487 155.2678420182709 173.4783510160456 150.0 199.99999999999997 150.0C226.52164898395438 150.0 251.95704027385125 155.2678420182709 270.71067811865476 164.64466094067262C289.4643159634582 174.02147986307438 300.0 186.73917550802278 300.0 200.0C300.0 213.2608244919772 289.4643159634582 225.97852013692568 270.71067811865476 235.3553390593274C251.95704027385125 244.7321579817291 226.5216489839544 250.0 200.0 250.0C173.4783510160456 250.0 148.04295972614872 244.7321579817291 129.28932188134524 235.3553390593274C110.5356840365418 225.97852013692568 100.0 213.2608244919772 100.0 200.0 z"')
+        self.assertEqual(newrecord['maxX'], 300.0)
+        self.assertEqual(newrecord['maxY'], 250.0)
+        self.assertEqual(newrecord['minX'], 100.0)
+        self.assertEqual(newrecord['minY'], 150.0)
+        self.assertEqual(newrecord['x'], 0)
+        self.assertEqual(newrecord['y'], 0)
+        self.assertEqual(newrecord['id'], 'ellipse')
 
     # remove this test because it depends on PIL version
     # Travis uses precise ubuntu container and PILLOW_VERSION is not reliable

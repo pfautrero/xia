@@ -46,7 +46,7 @@ class IADialog():
         self.button_indexStandalone.configure(image=self.indexStandalone_img[self.indexStandalone_param])
 
     def createLabel(self, root, imagePath, posx, posy, span):
-
+        """ Create Tkinter Label"""
         import_img= tkinter.PhotoImage(file=imagePath)
         label = tkinter.Label(root,
             image=import_img,
@@ -63,9 +63,8 @@ class IADialog():
             padx=0, pady=0)
         return label
 
-
     def createButton(self, root, translate, imagePath, tooltipTitle, posx, posy, span):
-
+        """ Create Tkinter Button"""
         import_img= tkinter.PhotoImage(file=imagePath)
         button = tkinter.Button(root,
                     image=import_img,
@@ -104,24 +103,17 @@ class IADialog():
             t = gettext.translation("xia-converter", self.langPath, languages=['en_US'])
         translate = t.gettext
 
-        #self.imagesPath = imagesPath
-        #self.themesPath = themesPath
-        #self.fontsPath = fontsPath
-        #self.langPath = langPath
-        #self.labjsLib = labjsLib
-        #self.kineticLib = kineticLib
-        #self.sha1Lib = sha1Lib
-        #self.quantizeLib = quantizeLib
-        #self.jqueryLib = jqueryLib
         self.root = root
         self.resize = 3
 
-        self.options = {}
-        self.options['export_type'] = "singlefile"
+        self.options = {
+            'export_type': "singlefile"
+        }
 
-        self.grid = {}
-        self.grid["height"] = 150
-        self.grid["width"] = 150
+        self.grid = {
+            "height": 150,
+            "width": 150
+        }
 
         # Don't show hidden files and directories
         # (with tkinter, by default, it's the opposite).
@@ -162,7 +154,6 @@ class IADialog():
             row_params, 1, 1)
         self.button_indexStandalone["command"] = self.indexStandalone
 
-
         # Automatic import of themes
 
         self.themes = []
@@ -201,10 +192,11 @@ class IADialog():
         root.geometry(str(self.grid["width"] * 2) + "x" + str((theme_index // 2) * self.grid["height"]))
 
         # define options for opening or saving a file
-        self.file_opt = options = {}
-        options['defaultextension'] = '.svg'
-        options['filetypes'] = [('svg files', '.svg')]
-
+        self.file_opt = options = {
+            'defaultextension': '.svg',
+            'filetypes': [('svg files', '.svg')]
+        }
+        
         if sys.platform.startswith('win32'):
             options['initialdir'] = self.getwinuser()
         else:

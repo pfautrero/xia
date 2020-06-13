@@ -27,9 +27,6 @@ class ImageActive(inkex.OutputExtension):
     def save(self, stream):
         pass
 
-    def __init__(self):
-        inkex.Effect.__init__(self)
-
     def add_arguments(self, pars):
         pars.add_argument("--tab")
         pars.add_argument("--theme")
@@ -56,23 +53,20 @@ class ImageActive(inkex.OutputExtension):
 
         try:
             filePath = f"{tempfile.mkdtemp()}/temp.svg"
-            #with open(filePath,"w") as file:
             self.document.write(filePath)
-
             console = LoggerInkscape()
-
-            options = {}
-            options['input_file'] = filePath
-            options['output_dir'] = self.options.directory
-            options['selected_theme'] = self.options.theme
-            options['export_type'] = "singlefile" if self.options.singlefile == 'true' else "local"
+            options = {
+                'input_file': filePath,
+                'output_dir': self.options.directory,
+                'selected_theme': self.options.theme,
+                'export_type': "singlefile" if self.options.singlefile == 'true' else "local"
+            }
             xia = XIAConsole(config, options, console)
             xia.createIA()
 
         except ValueError:
            #inkex.utils.debug(ValueError)
            pass
-
 
 if __name__ == '__main__':
   ia = ImageActive()

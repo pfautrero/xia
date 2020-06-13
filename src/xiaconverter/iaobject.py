@@ -256,10 +256,9 @@ class iaObject:
                         int(float(self.scene['width'])) * ctm.scaleX,
                         int(float(self.scene['height'])) * ctm.scaleY)
 
-            #fixedRaster = self.fixRaster(raster, self.scene['width'], self.scene['height'])
             fixedRaster = raster
             self.scene['image'] = fixedRaster
-            self.scene['ratio'] = self.calculateRasterRatio(raster, self.scene['width'], self.scene['height'])
+            self.scene['ratio'] = self.calculate_raster_ratio(raster, self.scene['width'], self.scene['height'])
             #print self.scene['image']
 
 
@@ -542,10 +541,8 @@ class iaObject:
         if ellipse.isSameNode(self.backgroundNode):
             return
         record_ellipse = {}
-        record_ellipse['id'] = hashlib.md5(uuid.uuid4().bytes).hexdigest()
-        if ellipse.hasAttribute("id"):
-            record_ellipse['id'] = ellipse.attributes['id'].value
-
+        record_ellipse['id'] = ellipse.attributes['id'].value \
+            if ellipse.hasAttribute("id") else hashlib.md5(uuid.uuid4().bytes).hexdigest()
         record_ellipse['desc'] = self.getText("desc", ellipse)
         record_ellipse['title'] = self.getText("title", ellipse)
         record_ellipse['cx'] = 0
@@ -677,8 +674,7 @@ class iaObject:
             record_image['width'] = image.attributes['width'].value
             record_image['height'] = image.attributes['height'].value
             raster = self.extractRaster(image.attributes['xlink:href'].value)
-            #fixedRaster = self.fixRaster(raster, record_image["width"], record_image['height'])
-            record_image['ratio'] = self.calculateRasterRatio(raster, record_image["width"], record_image['height'])
+            record_image['ratio'] = self.calculate_raster_ratio(raster, record_image["width"], record_image['height'])
             fixedRaster = raster
             record_image['image'] = fixedRaster
             record_image['desc'] = self.getText("desc", image)
@@ -1218,7 +1214,6 @@ class iaObject:
             record["maxY"] = maxY
             record["timeline"] =  ','.join([str(i) for i in timeLine])
 
-
         if group.hasAttribute("style") and (group.attributes['style'].value != ""):
             str_style = group.attributes['style'].value
             record["style"] = group.attributes['style'].value
@@ -1233,10 +1228,7 @@ class iaObject:
             if 'stroke-width' in style:
                 record['strokewidth'] = style['stroke-width']
 
-
-
         shutil.rmtree(dirname)
-
 
     def extract_g(self, group, stackTransformations):
         """Analyze a svg group"""
@@ -1342,68 +1334,7 @@ class iaObject:
         if record["group"]:
             return record
 
-    def fixRaster(self, raster, rasterWidth, rasterHeight):
-        """modify image internal dimensions to fit raster ones"""
-        dirname = tempfile.mkdtemp()
-        newraster = raster
-
-        rasterStartPosition = raster.find('base64,') + 7
-        rasterEncoded = raster[rasterStartPosition:]
-        rasterPrefix = raster[0:rasterStartPosition]
-        extension = re.search('image/(.*);base64', rasterPrefix)
-        if extension is not None:
-            if extension.group(1):
-                imageFile = dirname + os.path.sep + "image." + extension.group(1)
-                if extension.group(1) == 'png':
-
-                    imageFileFixed = dirname + \
-                                     os.path.sep + "image_small." + extension.group(1)
-                else:
-
-                    imageFileFixed = dirname + \
-                                     os.path.sep + "image_small.jpg"
-
-
-                with open(imageFile, "wb") as bgImage:
-                    bgImage.write(base64.b64decode(rasterEncoded))
-
-                #if sys.platform.startswith('darwin'):
-                if not HANDLE_PIL:
-                    shutil.copyfile(imageFile, imageFileFixed)
-                    w = self.getImageWidthDarwin(imageFile)
-                    if w != rasterWidth:
-                        self.resizeImageWidthDarwin(rasterHeight, rasterWidth, imageFileFixed)
-                        #commands.getstatusoutput('sips -z {0} {1} {2}'.format(rasterHeight,
-                        #                                                      rasterWidth,
-                        #                                                      imageFileFixed))
-
-                        with open(imageFileFixed, 'rb') as fixedImage:
-                            rasterFixedEncoded = fixedImage.read().encode("base64")
-                            newraster = rasterPrefix + rasterFixedEncoded
-
-                else:
-                    with open(imageFile, 'rb') as f:
-                        currentImg = Image.open(f)
-                        (w, h) = currentImg.size
-
-                        if int(float(w)) != int(float(rasterWidth)):
-                            newwidth = int(float(rasterWidth))
-                            newheight = int(float(rasterHeight))
-                            resizedImg = currentImg.resize((newwidth, newheight), Image.ANTIALIAS)
-                            if extension.group(1) == 'png':
-                                resizedImg.save(imageFileFixed)
-                            else:
-                                resizedImg.save(imageFileFixed, 'JPEG', quality=100)
-                            with open(imageFileFixed, 'rb') as fixedImage:
-                                rasterFixedEncoded = fixedImage.read().encode("base64").replace('\n','')
-                                newraster = rasterPrefix + rasterFixedEncoded
-
-        else:
-            self.console.display('ERROR : fixRaster() - image is not embedded')
-        shutil.rmtree(dirname)
-        return newraster
-
-    def calculateRasterRatio(self, raster, rasterWidth, rasterHeight):
+    def calculate_raster_ratio(self, raster, rasterWidth, rasterHeight):
         """modify image internal dimensions to fit raster ones"""
         dirname = tempfile.mkdtemp()
         #newraster = raster
@@ -1558,13 +1489,10 @@ class iaObject:
 
         return [newraster, newrasterWidth, newrasterHeight, x_delta * float(rasterWidth) / w, y_delta * float(rasterHeight) / h, w, h]
 
-
-
     def rotateImage(self, raster, angle, x, y):
         """
         if needed, we must rotate image to be usable
         """
-
         dirname = tempfile.mkdtemp()
         newraster = raster
         rasterStartPosition = raster.find('base64,') + 7
@@ -1594,8 +1522,6 @@ class iaObject:
             self.console.display('ERROR : image is not embedded')
         shutil.rmtree(dirname)
         return [newraster, newrasterWidth, newrasterHeight]
-
-
 
     def resizeImage(self, raster, rasterWidth, rasterHeight):
         """
@@ -1669,91 +1595,91 @@ class iaObject:
 
     def generateJSON(self):
         """ generate json file"""
-        final_str = u""
-        final_str += u'var scene = {\n'
+        final_str = ""
+        final_str += 'var scene = {\n'
         for entry in self.scene:
             if entry == "image":
-                final_str += u'"' + entry + u'":"' + \
+                final_str += '"' + entry + '":"' + \
                              self.scene[entry]. \
                                  replace("\n", ""). \
                                  replace("\t", ""). \
-                                 replace("\r", "") + u'",\n'
+                                 replace("\r", "") + '",\n'
             elif entry == 'group':
                 final_str += self.generateJSONGroup(self.scene['group']['group'])
             else:
-                final_str += u'"' + entry + u'":"' + \
+                final_str += '"' + entry + '":"' + \
                              PageFormatter(self.scene[entry]).print_html(). \
                                  replace('"', "'"). \
                                  replace("\n", " "). \
                                  replace("\t", " "). \
-                                 replace("\r", " ") + u'",\n'
-        final_str += u'};\n'
+                                 replace("\r", " ") + '",\n'
+        final_str += '};\n'
 
-        final_str += u'var details = [\n'
+        final_str += 'var details = [\n'
         for detail in self.details:
-            final_str += u'{\n'
+            final_str += '{\n'
             for entry in detail:
                 if entry == "group":
                     final_str += self.generateJSONGroup(detail['group'])
                 elif entry == "path":
-                    final_str += u'  "' + entry + u'":' + detail[entry] + ',\n'
+                    final_str += '  "' + entry + '":' + detail[entry] + ',\n'
                 elif entry == "image":
-                    final_str += u'  "' + entry + u'":"' + detail[entry]. \
+                    final_str += '  "' + entry + '":"' + detail[entry]. \
                         replace('"', "'"). \
                         replace("\n", " "). \
                         replace("\t", " "). \
-                        replace("\r", " ") + u'",\n'
+                        replace("\r", " ") + '",\n'
                 elif entry == "desc":
-                    final_str += u'  "' + entry + u'":"' + \
+                    final_str += '  "' + entry + '":"' + \
                                  PageFormatter(detail[entry]).print_html(). \
                                      replace('"', "'"). \
                                      replace("\n", " "). \
                                      replace("\t", " "). \
                                      replace("\r", " ") + \
-                                 u'",\n'
+                                 '",\n'
                 else:
                     if type(detail[entry]) is not str:
                         detail[entry] = str(detail[entry])
-                    final_str += u'  "' + entry + u'":"' + \
+                    final_str += '  "' + entry + '":"' + \
                                  detail[entry]. \
                                      replace('"', "'"). \
                                      replace('\t', " "). \
                                      replace('\r', " "). \
                                      replace('\n', " ") + \
-                                 u'",\n'
-            final_str += u'},\n'
-        final_str += u'];\n'
+                                 '",\n'
+            final_str += '},\n'
+        final_str += '];\n'
         self.jsonContent = final_str
 
     def generateJSONGroup(self, group):
         """ generate json file"""
         final_str = ""
-        final_str += u'  "group": [\n'
+        final_str += '  "group": [\n'
         for element in group:
             final_str += '  {\n'
             for entry2 in element:
                 if entry2 == "path":
-                    final_str += u'  "' + entry2 + u'":' + \
+                    final_str += '  "' + entry2 + '":' + \
                                  element[entry2]. \
                                      replace('"', "'"). \
                                      replace("\n", " "). \
                                      replace("\t", " "). \
-                                     replace("\r", " ") + u',\n'
+                                     replace("\r", " ") + ',\n'
                 elif entry2 == "image" or entry2 == "title" or entry2 == "fill" or entry2 == "style":
-                    final_str += u'  "' + entry2 + u'":"' + \
+                    final_str += '  "' + entry2 + '":"' + \
                                  element[entry2]. \
                                      replace('"', "'"). \
                                      replace("\n", " "). \
                                      replace("\t", " "). \
-                                     replace("\r", " ") + u'",\n'
+                                     replace("\r", " ") + '",\n'
                 else:
-                    final_str += u'      "' + entry2 + u'":"' + \
+                    final_str += '      "' + entry2 + '":"' + \
                                  PageFormatter(element[entry2]).print_html(). \
                                      replace('"', "'"). \
                                      replace("\n", " "). \
                                      replace("\t", " "). \
-                                     replace("\r", " ") + u'",\n'
-            final_str += u'  },\n'
-        final_str += u'  ],\n'
+                                     replace("\r", " ") + '",\n'
+            final_str += '  },\n'
+        final_str += '  ],\n'
 
         return final_str
