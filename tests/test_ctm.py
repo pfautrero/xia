@@ -27,67 +27,67 @@ class TestCurrentTransformation(TestCase):
     def test_analyze_translate(self):
         ctm = CurrentTransformation()
         ctm.analyze("translate( 10   )")
-        self.assertEqual(ctm.translateX, "10")
-        self.assertEqual(ctm.translateY, "10")
+        self.assertEqual(ctm.translateX, 10.0)
+        self.assertEqual(ctm.translateY, 10.0)
         self.assertEqual(ctm.matrix, [[1.0, 0.0, 10.0], [0.0, 1.0, 10.0]])
 
     def test_analyze_translate2(self):
         ctm = CurrentTransformation()
 
         ctm.analyze("translate(10   20)")
-        self.assertEqual(ctm.translateX, "10")
-        self.assertEqual(ctm.translateY, "20")
+        self.assertEqual(ctm.translateX, 10.0)
+        self.assertEqual(ctm.translateY, 20.0)
         self.assertEqual(ctm.matrix, [[1.0, 0.0, 10.0], [0.0, 1.0, 20.0]])
 
     def test_analyze_translate3(self):
         ctm = CurrentTransformation()
 
         ctm.analyze("translate(10   , -10)")
-        self.assertEqual(ctm.translateX, "10")
-        self.assertEqual(ctm.translateY, "-10")
+        self.assertEqual(ctm.translateX, 10.0)
+        self.assertEqual(ctm.translateY, -10.0)
         self.assertEqual(ctm.matrix, [[1.0, 0.0, 10.0], [0.0, 1.0, -10.0]])
 
 
     def test_analyze_scale(self):
         ctm = CurrentTransformation()
         ctm.analyze("scale(10)")
-        self.assertEqual(ctm.scaleX, "10")
-        self.assertEqual(ctm.scaleY, "10")
+        self.assertEqual(ctm.scaleX, 10.0)
+        self.assertEqual(ctm.scaleY, 10.0)
         self.assertEqual(ctm.matrix, [[10, 0.0, 0.0], [0.0, 10, 0.0]])
 
     def test_analyze_scale2(self):
         ctm = CurrentTransformation()
 
         ctm.analyze("scale(10 20)")
-        self.assertEqual(ctm.scaleX, "10")
-        self.assertEqual(ctm.scaleY, "20")
+        self.assertEqual(ctm.scaleX, 10.0)
+        self.assertEqual(ctm.scaleY, 20.0)
         self.assertEqual(ctm.matrix, [[10, 0.0, 0.0], [0.0, 20, 0.0]])
 
     def test_analyze_scale3(self):
         ctm = CurrentTransformation()
 
         ctm.analyze("scale(10,-10)")
-        self.assertEqual(ctm.scaleX, "10")
-        self.assertEqual(ctm.scaleY, "-10")
+        self.assertEqual(ctm.scaleX, 10.0)
+        self.assertEqual(ctm.scaleY, -10.0)
         self.assertEqual(ctm.matrix, [[10, 0.0, 0.0], [0.0, -10, 0.0]])
 
     def test_analyze_rotate(self):
         ctm = CurrentTransformation()
         ctm.analyze("rotate(10 20 -30)")
-        self.assertEqual(ctm.rotate, 10)
-        self.assertEqual(ctm.rX, "20")
-        self.assertEqual(ctm.rY, "-30")
+        self.assertEqual(ctm.rotate, 0.17453292519943295)
+        self.assertEqual(ctm.rX, 20.0)
+        self.assertEqual(ctm.rY, -30.0)
         self.assertEqual(ctm.matrix,
             [
                 [
-                    math.cos(10),
-                    -math.sin(10),
-                    -20 * math.cos(10) - 30 * math.sin(10) + 20
+                    math.cos(0.17453292519943295),
+                    -math.sin(0.17453292519943295),
+                    -20 * math.cos(0.17453292519943295) - 30 * math.sin(0.17453292519943295) + 20
                 ],
                 [
-                    math.sin(10),
-                    math.cos(10),
-                    -20 * math.sin(10) + 30 * math.cos(10) - 30
+                    math.sin(0.17453292519943295),
+                    math.cos(0.17453292519943295),
+                    -20 * math.sin(0.17453292519943295) + 30 * math.cos(0.17453292519943295) - 30
                 ]
             ])
 
@@ -95,19 +95,19 @@ class TestCurrentTransformation(TestCase):
         ctm = CurrentTransformation()
 
         ctm.analyze("rotate(10)")
-        self.assertEqual(ctm.rotate, 10)
-        self.assertEqual(ctm.rX, "0")
-        self.assertEqual(ctm.rY, "0")
+        self.assertEqual(ctm.rotate, 0.17453292519943295)
+        self.assertEqual(ctm.rX, 0)
+        self.assertEqual(ctm.rY, 0)
         self.assertEqual(ctm.matrix,
             [
                 [
-                    math.cos(10),
-                    -math.sin(10),
+                    math.cos(0.17453292519943295),
+                    -math.sin(0.17453292519943295),
                     0
                 ],
                 [
-                    math.sin(10),
-                    math.cos(10),
+                    math.sin(0.17453292519943295),
+                    math.cos(0.17453292519943295),
                     0
                 ]
             ])
@@ -115,8 +115,8 @@ class TestCurrentTransformation(TestCase):
     def test_analyze_matrix(self):
         ctm = CurrentTransformation()
         ctm.analyze("matrix(1 2 3 4 5 6)")
-        self.assertEqual(ctm.translateX, "5")
-        self.assertEqual(ctm.translateY, "6")
+        self.assertEqual(ctm.translateX, 5.0)
+        self.assertEqual(ctm.translateY, 6.0)
         self.assertEqual(ctm.scaleX, math.sqrt(float(1)**2+float(3)**2))
         self.assertEqual(ctm.scaleY, math.sqrt(float(2)**2+float(4)**2))
         self.assertEqual(ctm.rotate, math.atan2(float(2),float(4)))

@@ -71,8 +71,8 @@ class TestiaObject(TestCase):
 
         self.assertEqual(ia.scene['width'], '10')
         self.assertEqual(ia.scene['height'], '10')
-        self.assertEqual(ia.details[0]['width'], 153.22781178537414)
-        self.assertEqual(ia.details[0]['height'], 162.15866384486054)
+        self.assertEqual(ia.details[0]['width'], 204)
+        self.assertEqual(ia.details[0]['height'], 208)
 
     def test_analyzeSVG3(self):
         console = LoggerMock()
@@ -164,11 +164,12 @@ class TestiaObject(TestCase):
             </g>")
         group = dom1.getElementsByTagName('g')
         newrecord = ia.extract_g(group[0], "")
-        self.assertEqual(newrecord["group"][0]['path'], '"M0.0 0.0C0.0 0.0 9.649660284921133 -2.6237485370392877 9.649660284921133 -2.6237485370392877C9.649660284921133 -2.6237485370392877 12.273408821960421 7.025911747881844 12.273408821960421 7.025911747881844C12.273408821960421 7.025911747881844 2.6237485370392877 9.649660284921133 2.6237485370392877 9.649660284921133C2.6237485370392877 9.649660284921133 0.0 0.0 0.0 0.0C0.0 0.0 0.0 0.0 0.0 0.0 z"')
-        self.assertEqual(newrecord["group"][0]['maxX'], 12.273408821960421)
-        self.assertEqual(newrecord["group"][0]['maxY'], 9.649660284921133)
-        self.assertEqual(newrecord["group"][0]['minX'], 0.0)
-        self.assertEqual(newrecord["group"][0]['minY'], -2.6237485370392877)
+        self.maxDiff = None
+        self.assertEqual(newrecord["group"][0]['path'], '"M0.0 0.0C0.0 0.0 6.4278760968653925 7.660444431189779 6.4278760968653925 7.660444431189779C6.4278760968653925 7.660444431189779 -1.2325683343243856 14.08832052805517 -1.2325683343243856 14.08832052805517C-1.2325683343243856 14.08832052805517 -7.660444431189779 6.4278760968653925 -7.660444431189779 6.4278760968653925C-7.660444431189779 6.4278760968653925 0.0 0.0 0.0 0.0C0.0 0.0 0.0 0.0 0.0 0.0 z"')
+        self.assertEqual(newrecord["group"][0]['maxX'], 6.4278760968653925)
+        self.assertEqual(newrecord["group"][0]['maxY'], 14.08832052805517)
+        self.assertEqual(newrecord["group"][0]['minX'], -7.660444431189779)
+        self.assertEqual(newrecord["group"][0]['minY'], 0.0)
         self.assertEqual(newrecord["group"][0]['x'], '10')
         self.assertEqual(newrecord["group"][0]['y'], '30')
 
