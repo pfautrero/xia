@@ -422,9 +422,6 @@ class iaObject:
                         if newrecord is not None:
                             self.details.append(newrecord)
 
-
-
-
     def extract_circle(self, circle, stackTransformations):
         """Analyze circle"""
         if circle.isSameNode(self.backgroundNode):
@@ -663,6 +660,105 @@ class iaObject:
         """not yet implemented"""
         self.console.display("polygon is not implemented. Convert it to path.")
 
+    def rotate_point(self, x, y, cx, cy, alpha):
+        """
+        apply rotation on point (x,y) around center (cx, cy) with angle alpha
+        z' = newX + i * newY
+        z = x + i * y
+        a = cx + i * cy
+        z' = (z - a) * (cos(alpha) + i sin(alpha)) + a
+        """
+        newX = (x - cx) * math.cos(alpha) - (y - cy) * math.sin(alpha) + cx
+        newY = (x - cx) * math.sin(alpha) + (y - cy) * math.cos(alpha) + cy
+        return newX, newY
+
+    def transformImage(self, img, ctm):
+        """
+        Apply Affine transformation on Image raster
+        """
+        raster = img['image']
+        width = img['width'] * img['ratio']
+        height = img['height'] * img['ratio']
+        dirname = tempfile.mkdtemp()
+        newraster = raster
+        rasterStartPosition = raster.find('base64,') + 7
+        rasterEncoded = raster[rasterStartPosition:]
+        rasterPrefix = raster[0:rasterStartPosition]
+        extension = re.search('image/(.*);base64', rasterPrefix)
+        if extension is not None:
+            if extension.group(1):
+                imageFile = dirname + os.path.sep + "image." + extension.group(1)
+                imageFile2 = dirname + os.path.sep + "image2.png"
+                with open(imageFile, "wb") as Image1:
+                    Image1.write(base64.b64decode(rasterEncoded))
+
+                if HANDLE_PIL:
+                    with open(imageFile, 'rb') as f:
+                        currentImage = Image.open(f)
+                        newImage = currentImage.transform((int(width), int(height)), Image.AFFINE, data=ctm.inv_matrix(), resample=Image.BICUBIC)
+                        newImage.save(imageFile2)
+
+                    with open(imageFile2, 'rb') as f:
+                        rasterEncoded = base64.b64encode(f.read()).decode()
+                        newraster = rasterPrefix + rasterEncoded
+                else:
+                    self.console.display('Affine transformation not yet implemented')
+
+        else:
+            self.console.display('ERROR : image is not embedded')
+        shutil.rmtree(dirname)
+        return newraster
+
+
+    def transform_points(self, x, y, width, height, ctm):
+        """Apply Affine transformation on box (x,y) (x+width, y+height)"""
+
+        box = {
+            'A': {'x': x, 'y': y},
+            'B': {'x': x + width, 'y': y},
+            'C': {'x': x,'y': y + height},
+            'D': {'x': x + width,'y': y + height}
+        }
+
+        box['A']['x2'], box['A']['y2'] = ctm.applyTransformToPoint(ctm.matrix,[box['A']['x'], box['A']['y']])
+        box['B']['x2'], box['B']['y2'] = ctm.applyTransformToPoint(ctm.matrix,[box['B']['x'], box['B']['y']])
+        box['C']['x2'], box['C']['y2'] = ctm.applyTransformToPoint(ctm.matrix,[box['C']['x'], box['C']['y']])
+        box['D']['x2'], box['D']['y2'] = ctm.applyTransformToPoint(ctm.matrix,[box['D']['x'], box['D']['y']])
+
+        coords_min = {
+            'x': min(box['A']['x2'], box['B']['x2'], box['C']['x2'], box['D']['x2']),
+            'y': min(box['A']['y2'], box['B']['y2'], box['C']['y2'], box['D']['y2'])
+        }
+        coords_max = {
+            'x': max(box['A']['x2'], box['B']['x2'], box['C']['x2'], box['D']['x2']),
+            'y': max(box['A']['y2'], box['B']['y2'], box['C']['y2'], box['D']['y2'])
+        }
+        return coords_min, coords_max
+
+    def transform_image(self, img, transformation):
+        """Prepare affine transformation on image"""
+        ctm = CurrentTransformation()
+        ctm.analyze(transformation)
+
+        # Calculate new box
+        box_min, box_max = self.transform_points(img['x'], img['y'], img['width'], img['height'], ctm)
+
+        # recenter image
+        translate, _ = self.transform_points(0, 0, img['width'] * img['ratio'], img['height'] * img['ratio'], ctm)
+        ctm.matrix[0][2] += (-1) * translate['x']
+        ctm.matrix[1][2] += (-1) * translate['y']
+
+        img['x'] = box_min['x']
+        img['y'] = box_min['y']
+        img['height'] = box_max['y'] - box_min['y']
+        img['width'] = box_max['x'] - box_min['x']
+
+        # transform Image
+        img['image'] = self.transformImage(img, ctm)
+
+        return img
+
+
     def extract_image(self, image, stackTransformations):
         """Analyze images"""
 
@@ -671,12 +767,10 @@ class iaObject:
             record_image['id'] = hashlib.md5(uuid.uuid4().bytes).hexdigest()
             if image.hasAttribute('id'):
                 record_image['id'] = image.attributes['id'].value
-            record_image['width'] = image.attributes['width'].value
-            record_image['height'] = image.attributes['height'].value
-            raster = self.extractRaster(image.attributes['xlink:href'].value)
-            record_image['ratio'] = self.calculate_raster_ratio(raster, record_image["width"], record_image['height'])
-            fixedRaster = raster
-            record_image['image'] = fixedRaster
+            record_image['width'] = float(image.attributes['width'].value)
+            record_image['height'] = float(image.attributes['height'].value)
+            record_image['image'] = self.extractRaster(image.attributes['xlink:href'].value)
+            record_image['ratio'] = self.calculate_raster_ratio(record_image['image'], record_image["width"], record_image['height'])
             record_image['desc'] = self.getText("desc", image)
             record_image['title'] = self.getText("title", image)
             record_image['x'] = 0
@@ -692,17 +786,9 @@ class iaObject:
                 record_image['image'], \
                 record_image['width'], \
                 record_image['height'] = \
-                    self.resizeImage(record_image['image'], record_image['width'], record_image['height'])
-            #if not sys.platform.startswith("darwin"):
-            if HANDLE_PIL:
-                record_image['image'], \
-                record_image['width'], \
-                record_image['height'], \
-                newx, newy, \
-                record_image['original_width'], \
-                record_image['original_height'] = self.cropImage(record_image['image'], record_image['width'], record_image['height'])
-                record_image['y'] = int(float(record_image['y']) + float(newy))
-                record_image['x'] = int(float(record_image['x']) + float(newx))
+                    self.resizeImage(record_image['image'], record_image['width'] * self.ratio, record_image['height'] * self.ratio)
+
+
 
             if record_image['title'].startswith("http://") or \
                     record_image['title'].startswith("https://") or \
@@ -741,86 +827,51 @@ class iaObject:
                 str_onmouseover = image.attributes['onmouseover'].value
                 record_image['options'] += " " + str_onmouseover + " "
 
-            # only apply translate transformation
-            # TODO : implement other transformations
+            # Inkscape can apply scaling just by changing image dimensions
+            # If so, just update raster
+            w,h, success = self.get_dimensions(record_image['image'])
+            if success:
+                if w/h != record_image['width'] / record_image['height']:
+                    scale = {
+                        'x': h/w if w/h < 1 else 1,
+                        'y': 1 if w/h < 1 else w/h
+                        }
+                    record_image['image'], _, _ = self.resizeImage(
+                        record_image['image'],
+                        record_image['width'] * scale['x'] * record_image['ratio'],
+                        record_image['height'] * scale['y'] * record_image['ratio'])
 
-            oldwidth = record_image['width']
-            oldheight =  record_image['height']
-
+            else:
+                self.console.display("failure")
+            
             if image.hasAttribute("transform"):
                 transformation = image.attributes['transform'].value
-                ctm = CurrentTransformation()
-                ctm.analyze(transformation)
-                record_image['x'] = float(record_image['x']) + float(ctm.translateX)
-                record_image['y'] = float(record_image['y']) + float(ctm.translateY)
-                if ctm.rotate != 0:
-                    record_image['image'], \
-                    record_image['width'], \
-                    record_image['height'] = \
-                        self.rotateImage(record_image['image'], ctm.rotate, ctm.rX, ctm.rY)
-
-                    # apply rotation on the 4 corners A (x,y), B (x+w,y), C (x+w,y+h), D (x, y+h)
-                    # respectively called A2, B2, C2 and D2
-                    # and keep X =  min(A2.x, B2.x, C2.x, D2.x)
-                    # and Y = min(A2.y, B2.y, C2.y, D2.y)
-                    ctm.rotate = (+1) * math.pi * ctm.rotate / 180
-                    cornerA = {}
-                    cornerA['x'] = float(record_image['x'])
-                    cornerA['y'] = float(record_image['y'])
-                    cornerA['x2'] = cornerA['x'] * math.cos(ctm.rotate) - cornerA['y'] * math.sin(ctm.rotate)
-                    cornerA['y2'] = cornerA['x'] * math.sin(ctm.rotate) + cornerA['y'] * math.cos(ctm.rotate)
-
-                    cornerB = {}
-                    cornerB['x'] = float(record_image['x']) + float(oldwidth)
-                    cornerB['y'] = float(record_image['y'])
-                    cornerB['x2'] = cornerB['x'] * math.cos(ctm.rotate) - cornerB['y'] * math.sin(ctm.rotate)
-                    cornerB['y2'] = cornerB['x'] * math.sin(ctm.rotate) + cornerB['y'] * math.cos(ctm.rotate)
-
-                    cornerC = {}
-                    cornerC['x'] = float(record_image['x'])
-                    cornerC['y'] = float(record_image['y']) + float(oldheight)
-                    cornerC['x2'] = cornerC['x'] * math.cos(ctm.rotate) - cornerC['y'] * math.sin(ctm.rotate)
-                    cornerC['y2'] = cornerC['x'] * math.sin(ctm.rotate) + cornerC['y'] * math.cos(ctm.rotate)
-
-                    cornerD = {}
-                    cornerD['x'] = float(record_image['x']) + float(oldwidth)
-                    cornerD['y'] = float(record_image['y']) + float(oldheight)
-                    cornerD['x2'] = cornerD['x'] * math.cos(ctm.rotate) - cornerD['y'] * math.sin(ctm.rotate)
-                    cornerD['y2'] = cornerD['x'] * math.sin(ctm.rotate) + cornerD['y'] * math.cos(ctm.rotate)
-
-                    record_image['x'] = min(cornerA['x2'], cornerB['x2'], cornerC['x2'], cornerD['x2'])
-                    record_image['y'] = min(cornerA['y2'], cornerB['y2'], cornerC['y2'], cornerD['y2'])
-                    record_image['height'] = max(cornerA['y2'], cornerB['y2'], cornerC['y2'], cornerD['y2']) - min(cornerA['y2'], cornerB['y2'], cornerC['y2'], cornerD['y2'])
-                    record_image['width'] = max(cornerA['x2'], cornerB['x2'], cornerC['x2'], cornerD['x2']) - min(cornerA['x2'], cornerB['x2'], cornerC['x2'], cornerD['x2'])
+                record_image = self.transform_image(record_image, transformation)
 
             # apply group transformations
             if stackTransformations != "":
                 transformations = stackTransformations.split("#")
+                transformations.pop()   # remove last transformation already applied
                 for transformation in transformations[::-1]:
-                    ctm = CurrentTransformation()
-                    ctm.analyze(transformation)
-                    record_image['x'] = float(record_image['x']) + float(ctm.translateX)
-                    record_image['y'] = float(record_image['y']) + float(ctm.translateY)
+                    record_image = self.transform_image(record_image, transformation)
 
-            minX = 10000
-            minY = 10000
-            maxX = -10000
-            maxY = -10000
+            if HANDLE_PIL:
+                record_image['image'], \
+                record_image['width'], \
+                record_image['height'], \
+                newx, newy, \
+                record_image['original_width'], \
+                record_image['original_height'] = self.cropImage(record_image['image'], record_image['width'], record_image['height'])
+                record_image['y'] = record_image['y'] + newy
+                record_image['x'] = record_image['x'] + newx
 
-            if float(record_image['x']) < float(minX):
-                minX = float(record_image['x'])
-            if (float(record_image['x']) + float(record_image['width'])) > float(maxX):
-                maxX = float(record_image['x']) + float(record_image['width'])
-            if float(record_image['y']) < float(minY):
-                minY = float(record_image['y'])
-            if (float(record_image['y']) + float(record_image['height'])) > float(maxY):
-                maxY = float(record_image['y']) + float(record_image['height'])
 
-            record_image["minX"] = minX
-            record_image["minY"] = minY
-            record_image["maxX"] = maxX
-            record_image["maxY"] = maxY
-
+            record_image["minX"] = record_image['x']
+            record_image["minY"] = record_image['y']
+            record_image["maxX"] = record_image['x'] + record_image['width']
+            record_image["maxY"] = record_image['y'] + record_image['height']
+            record_image['width'] = int(record_image['width'])
+            record_image['height'] = int(record_image['height'])
             return record_image
 
     def extract_rect(self, rect, stackTransformations):
@@ -1287,31 +1338,17 @@ class iaObject:
 
         for childentry in group_childs:
             childnode = childentry['node']
-            #print childentry['node']
-
-            #print childentry['transform']
             if childnode.nodeName in svgElements:
                 newrecord = getattr(self, 'extract_' + \
                                     childnode.nodeName)(childnode, childentry['transform'])
                 if newrecord is not None:
-                    #newrecord["options"] += record["options"]
-                    #record["options"] =  newrecord["options"]
-
                     record["group"].append(newrecord)
-
-                    if record['desc'] == "":
-                        record['desc'] = newrecord['desc']
-                    if record["title"] == "":
-                        record['title'] = newrecord['title']
-
-                    if float(newrecord["minX"]) < minX:
-                        minX = float(newrecord["minX"])
-                    if float(newrecord["minY"]) < minY:
-                        minY = float(newrecord["minY"])
-                    if float(newrecord["maxX"]) > maxX:
-                        maxX = float(newrecord["maxX"])
-                    if float(newrecord["maxY"]) > maxY:
-                        maxY = float(newrecord["maxY"])
+                    if record['desc'] == "": record['desc'] = newrecord['desc'] 
+                    if record["title"] == "": record['title'] = newrecord['title'] 
+                    minX = min(newrecord["minX"], minX)
+                    minY = min(newrecord["minY"], minY)
+                    maxX = max(newrecord["maxX"], maxX)
+                    maxY = max(newrecord["maxY"], maxY)
 
         # look for title and description in subgroups if not yet available
         if (record['title'] == "") or (record['desc'] == ""):
@@ -1346,13 +1383,6 @@ class iaObject:
         if extension is not None:
             if extension.group(1):
                 imageFile = dirname + os.path.sep + "image." + extension.group(1)
-                if extension.group(1) == 'png':
-                    imageFileFixed = dirname + \
-                                     os.path.sep + "image_small." + extension.group(1)
-                else:
-                    imageFileFixed = dirname + \
-                                     os.path.sep + "image_small.jpg"
-
                 with open(imageFile, "wb") as bgImage:
                     bgImage.write(base64.b64decode(rasterEncoded))
 
@@ -1361,7 +1391,7 @@ class iaObject:
                 else:
                     with open(imageFile, 'rb') as f:
                         currentImg = Image.open(f)
-                        (w, h) = currentImg.size
+                        w, _ = currentImg.size
                 ratio = float(w) / float(rasterWidth)
 
         else:
@@ -1372,7 +1402,7 @@ class iaObject:
     def resizeImageWidthDarwin(self, height, width, imageFile):
         """resize image with SIPS for MACOS X users"""
         p1 = Popen([f"sips -z {height} {width} {imageFile}"], shell=True, stdout=PIPE)
-        out1, out2 = p1.communicate()
+        p1.communicate()
 
     def getImageWidthDarwin(self, imageFile):
         """extract image width with SIPS for MACOS X users"""
@@ -1396,28 +1426,22 @@ class iaObject:
         if extension is not None:
             if extension.group(1):
                 imageFile = dirname + os.path.sep + "image." + extension.group(1)
-                imageFileSmall = dirname + \
-                                 os.path.sep + "image_small.png"
+                imageFileSmall = dirname + os.path.sep + "image_small.png"
                 with open(imageFile, "wb") as bgImage:
                     bgImage.write(base64.b64decode(rasterEncoded))
 
-                #if not sys.platform.startswith('darwin'):
                 if HANDLE_PIL:
                     with open(imageFile, 'rb') as f:
                         im = Image.open(f, 'r')
                         im = im.convert("RGBA")
                         red, green, blue, alpha = im.split()
-                        #alpha = alpha.convert("L")
-                        #pix_val = list(im.getdata())
                         (w, h) = im.size
 
                         alpha_threshold = 20
                         y_delta = 0
                         stop_scan = 0
                         for y in range(h):
-                            row = y * w
                             for x in range(w):
-                                #transparency = max(pix_val[x + row][3] - alpha_threshold, 0)
                                 transparency = max(alpha.getpixel((x,y)) - alpha_threshold, 0)
                                 if transparency != 0:
                                     stop_scan = 1
@@ -1430,9 +1454,7 @@ class iaObject:
                         y_delta2 = 0
                         stop_scan = 0
                         for y in range(h - 1, 0, -1):
-                            row = y * w
                             for x in range(w - 1, 0, -1):
-                                #transparency = max(pix_val[x + row][3] - alpha_threshold, 0)
                                 transparency = max(alpha.getpixel((x,y)) - alpha_threshold, 0)
                                 if transparency != 0:
                                     stop_scan = 1
@@ -1446,8 +1468,6 @@ class iaObject:
                         stop_scan = 0
                         for x in range(0, w - 1):
                             for y in range(0, h - 1):
-                                row = y * w
-                                #transparency = max(pix_val[x + row][3] - alpha_threshold, 0)
                                 transparency = max(alpha.getpixel((x,y)) - alpha_threshold, 0)
                                 if transparency != 0:
                                     stop_scan = 1
@@ -1461,8 +1481,6 @@ class iaObject:
                         stop_scan = 0
                         for x in range(w - 1, 0, -1):
                             for y in range(h - 1, 0, -1):
-                                row = y * w
-                                #transparency = max(pix_val[x + row][3] - alpha_threshold, 0)
                                 transparency = max(alpha.getpixel((x,y)) - alpha_threshold, 0)
                                 if transparency != 0:
                                     stop_scan = 1
@@ -1492,7 +1510,11 @@ class iaObject:
     def rotateImage(self, raster, angle, x, y):
         """
         if needed, we must rotate image to be usable
+        input:
+          angle: rotation angle (radius)
+          x,y: rotation center
         """
+        angle = angle * 180 / math.pi
         dirname = tempfile.mkdtemp()
         newraster = raster
         rasterStartPosition = raster.find('base64,') + 7
@@ -1502,8 +1524,7 @@ class iaObject:
         if extension is not None:
             if extension.group(1):
                 imageFile = dirname + os.path.sep + "image." + extension.group(1)
-                imageFileSmall = dirname + \
-                                 os.path.sep + "image_small." + extension.group(1)
+                imageFileSmall = dirname + os.path.sep + "image_small.png"
                 with open(imageFile, "wb") as bgImage:
                     bgImage.write(base64.b64decode(rasterEncoded))
 
@@ -1523,6 +1544,29 @@ class iaObject:
         shutil.rmtree(dirname)
         return [newraster, newrasterWidth, newrasterHeight]
 
+
+    def get_dimensions(self,raster):
+        """extract width and height from base64 raster"""
+        dirname = tempfile.mkdtemp()
+        width = height = 0
+        success = False
+        start_pos = raster.find('base64,') + 7
+        rasterEncoded = raster[start_pos:]
+        rasterPrefix = raster[0:start_pos]
+        extension = re.search('image/(.*);base64', rasterPrefix)
+        if extension is not None:
+            if extension.group(1):
+                if HANDLE_PIL:
+                    imageFile = dirname + os.path.sep + "image." + extension.group(1)
+                    with open(imageFile, "wb") as bgImage:
+                        bgImage.write(base64.b64decode(rasterEncoded))
+                    with open(imageFile, 'rb') as f:
+                        im = Image.open(f)
+                        width, height = im.size
+                        success = True
+        shutil.rmtree(dirname)
+        return width, height, success
+
     def resizeImage(self, raster, rasterWidth, rasterHeight):
         """
         if needed, we must resize background image to be usable
@@ -1540,53 +1584,42 @@ class iaObject:
         if extension is not None:
             if extension.group(1):
                 imageFile = dirname + os.path.sep + "image." + extension.group(1)
-                if extension.group(1) == 'png':
-                    imageFileSmall = dirname + \
-                                     os.path.sep + "image_small." + extension.group(1)
-                else:
-                    imageFileSmall = dirname + \
-                                     os.path.sep + "image_small.jpg"
+                imageFileSmall = dirname + os.path.sep + "image2.png"
                 with open(imageFile, "wb") as bgImage:
                     bgImage.write(base64.b64decode(rasterEncoded))
-                if self.ratio != 1:
-                    # Background image is too big to be used on mobiles
-                    #if sys.platform.startswith('darwin'):
-                    if not HANDLE_PIL:
+
+                if not HANDLE_PIL:
+                    oldwidth = int(float(rasterWidth))
+                    oldheight = int(float(rasterHeight))
+                    newwidth = int(oldwidth * self.ratio)
+                    newheight = int(oldheight * self.ratio)
+                    shutil.copyfile(imageFile, imageFileSmall)
+                    self.resizeImageWidthDarwin(newheight, newwidth, imageFileSmall)
+
+                    with open(imageFileSmall, 'rb') as bgSmallImage:
+                        rasterSmallEncoded = bgSmallImage.read().encode("base64")
+                        newraster = rasterPrefix + rasterSmallEncoded
+
+                    newrasterWidth = newwidth
+                    newrasterHeight = newheight
+
+                else:
+                    # "Platform Linux or Windows : resizing using PIL"
+                    with open(imageFile, 'rb') as f:
+                        currentBg = Image.open(f)
+                        currentBg.convert('RGBA')
                         oldwidth = int(float(rasterWidth))
                         oldheight = int(float(rasterHeight))
                         newwidth = int(oldwidth * self.ratio)
                         newheight = int(oldheight * self.ratio)
-                        shutil.copyfile(imageFile, imageFileSmall)
-                        self.resizeImageWidthDarwin(newheight, newwidth, imageFileSmall)
-                        #commands.getstatusoutput('sips -z {0} {1} {2}'.format(newheight, newwidth, imageFileSmall))
-
+                        resizedBg = currentBg.resize((newwidth, newheight), Image.ANTIALIAS)
+                        resizedBg.save(imageFileSmall)
                         with open(imageFileSmall, 'rb') as bgSmallImage:
-                            rasterSmallEncoded = bgSmallImage.read().encode("base64")
+                            rasterSmallEncoded = base64.b64encode(bgSmallImage.read()).decode()
                             newraster = rasterPrefix + rasterSmallEncoded
 
                         newrasterWidth = newwidth
                         newrasterHeight = newheight
-
-                    else:
-                        # "Platform Linux or Windows : resizing using PIL"
-                        with open(imageFile, 'rb') as f:
-                            currentBg = Image.open(f)
-                            oldwidth = int(float(rasterWidth))
-                            oldheight = int(float(rasterHeight))
-                            newwidth = int(oldwidth * self.ratio)
-                            newheight = int(oldheight * self.ratio)
-                            resizedBg = currentBg.resize((newwidth, newheight), Image.ANTIALIAS)
-                            #resizedBg.save(imageFileSmall)
-                            if extension.group(1) != 'png':
-                                resizedBg.save(imageFileSmall, 'JPEG', quality=100)
-                            else:
-                                resizedBg.save(imageFileSmall)
-                            with open(imageFileSmall, 'rb') as bgSmallImage:
-                                rasterSmallEncoded = base64.b64encode(bgSmallImage.read()).decode()
-                                newraster = rasterPrefix + rasterSmallEncoded
-
-                            newrasterWidth = newwidth
-                            newrasterHeight = newheight
         else:
             self.console.display('ERROR : image is not embedded')
         shutil.rmtree(dirname)

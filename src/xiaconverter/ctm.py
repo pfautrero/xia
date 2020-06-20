@@ -43,6 +43,15 @@ class CurrentTransformation:
         self.scaleX = 1
         self.scaleY = 1
 
+    def print(self):
+        print(f"rotate = {self.rotate}")
+        print(f"rX = {self.rX}")
+        print(f"rY = {self.rY}")
+        print(f"translateX = {self.translateX}")
+        print(f"translateY = {self.translateY}")
+        print(f"scaleX = {self.scaleX}")
+        print(f"scaleY = {self.scaleY}")
+
     def analyze(self,entry):
         """Analyze transform attribute"""
         regex_group = r'([^\s,]*)\s*,?\s*'
@@ -99,21 +108,21 @@ class CurrentTransformation:
 
     def extractTranslate(self,groups):
         """extract a and b from translate(a b) pattern"""
-        self.translateX = groups[0]
-        self.translateY = groups[0]
+        self.translateX = float(groups[0])
+        self.translateY = float(groups[0])
         if len(groups) == 2 and groups[1]:
-            self.translateY = groups[1]
-        self.matrix = [[1.0, 0.0, float(self.translateX)], \
-          [0.0, 1.0, float(self.translateY)]]
+            self.translateY = float(groups[1])
+        self.matrix = [[1.0, 0.0, self.translateX], \
+          [0.0, 1.0, self.translateY]]
 
     def extractScale(self,groups):
         """extract a and b from scale(a b) pattern"""
-        self.scaleX = groups[0]
-        self.scaleY = groups[0]
+        self.scaleX = float(groups[0])
+        self.scaleY = float(groups[0])
         if len(groups) == 2 and groups[1]:
-            self.scaleY = groups[1]
-        self.matrix = [[float(self.scaleX), 0.0, 0.0], \
-          [0.0, float(self.scaleY), 0.0]]
+            self.scaleY = float(groups[1])
+        self.matrix = [[self.scaleX, 0.0, 0.0], \
+          [0.0, self.scaleY, 0.0]]
 
 
     def extractRotate(self,groups):
@@ -122,18 +131,19 @@ class CurrentTransformation:
             sin(a)   cos(a)  -cx.sin(a) - cy.cos(a) + cy
             0       0        1
         """
-        self.rotate = float(groups[0])
-        self.rX = "0"
-        self.rY = "0"
+        self.rotate = math.pi * float(groups[0]) / 180
+        self.rX = 0
+        self.rY = 0
         if len(groups) == 3:
             if groups[1]:
-            	self.rX = groups[1]
+            	self.rX = float(groups[1])
             if groups[2]:
-            	self.rY = groups[2]
+            	self.rY = float(groups[2])
 
-        alpha = float(self.rotate)
-        cx = float(self.rX)
-        cy = float(self.rY)
+        #alpha = float(self.rotate)
+        alpha =  self.rotate
+        cx = self.rX
+        cy = self.rY
         self.matrix = [ [
                           math.cos(alpha),
                           -math.sin(alpha),
@@ -148,18 +158,18 @@ class CurrentTransformation:
 
     def extractMatrix(self,groups):
         """extract a,b,c,d,e,f from matrix(a b c d e f) pattern"""
-        a = groups[0]
-        b = groups[1]
-        c = groups[2]
-        d = groups[3]
-        e = groups[4]
-        f = groups[5]
-        self.matrix=[[float(a),float(c),float(e)], [float(b),float(d),float(f)]]
+        a = float(groups[0])
+        b = float(groups[1])
+        c = float(groups[2])
+        d = float(groups[3])
+        e = float(groups[4])
+        f = float(groups[5])
+        self.matrix=[[a,c,e], [b,d,f]]
         self.translateX = e
         self.translateY = f
-        self.scaleX = math.sqrt(float(a)**2+float(c)**2)
-        self.scaleY = math.sqrt(float(b)**2+float(d)**2)
-        self.rotate = math.atan2(float(b),float(d))
+        self.scaleX = math.sqrt(a**2+c**2)
+        self.scaleY = math.sqrt(b**2+d**2)
+        self.rotate = math.atan2(b,d)
 
     def rectToPath(self,node):
         """inspired from inkscape pathmodifier.py"""
@@ -228,14 +238,26 @@ class CurrentTransformation:
 
         return d
 
+    def inv_matrix(self):
+        a = self.matrix[0][0]
+        b = self.matrix[1][0]
+        c = self.matrix[0][1]
+        d = self.matrix[1][1]
+        e = self.matrix[0][2]
+        f = self.matrix[1][2]
+        delta = a*d-b*c
+        return [d/delta, (-1)*c/delta, (c*f-d*e)/delta,
+                (-1)*b/delta, a/delta, (b*e-a*f)/delta]
+
     def applyTransformToPoint(self,mat,pt):
         x = mat[0][0]*pt[0] + mat[0][1]*pt[1] + mat[0][2]
         y = mat[1][0]*pt[0] + mat[1][1]*pt[1] + mat[1][2]
-        pt[0]=x
-        pt[1]=y
+        #pt[0]=x
+        #pt[1]=y
+        return x, y
 
     def applyTransformToPath(self,mat,path):
         for comp in path:
             for ctl in comp:
                 for pt in ctl:
-                    self.applyTransformToPoint(mat,pt)
+                    pt[0], pt[1] = self.applyTransformToPoint(mat,pt)
