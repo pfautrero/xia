@@ -53,6 +53,7 @@ class XiaDetail {
     this.originalX = 0
     this.originalY = 0
     this.tween = null
+    this.type= null
   }
 
   mouseover () {
@@ -78,7 +79,7 @@ class XiaDetail {
       var objectType = kineticElement.getClassName()
       if (objectType === 'Sprite') {
         kineticElement.animation('idle')
-        kineticElement.frameIndex(0)
+        //kineticElement.frameIndex(0)
         kineticElement.setAttrs({ opacity: 0 })
         kineticElement.to({ opacity: 1 })
       } else if (objectType === 'Image') {
@@ -111,6 +112,12 @@ class XiaDetail {
       var result = this.parent.myhooks.zoom(this)
       if ((typeof result !== 'undefined') && (result === false)) return
     }
+    let delta = {"x": 0, "y":0}
+    if (this.type == "sprite") {
+      delta.x = (-1) * (this.kineticElement.x() - this.parent.minX) * (this.parent.agrandissement)
+      delta.y = (-1) * (this.kineticElement.y() - this.parent.minY) * (this.parent.agrandissement)
+      this.kineticElement.stop()
+    }
     document.body.style.cursor = 'zoom-out'
     this.parent.iaScene.cursorState = 'url(img/ZoomOut.cur),auto'
     this.parent.iaScene.zoomActive = 1
@@ -128,8 +135,8 @@ class XiaDetail {
     this.parent.layer.draw()
     var currentDetail = this
     currentDetail.parent.group.to({
-      x: currentDetail.parent.tweenX,
-      y: currentDetail.parent.tweenY,
+      x: currentDetail.parent.tweenX + delta.x,
+      y: currentDetail.parent.tweenY + delta.y,
       scaleX: currentDetail.parent.agrandissement,
       scaleY: currentDetail.parent.agrandissement,
       easing: Konva.Easings.BackEaseOut,
@@ -141,6 +148,7 @@ class XiaDetail {
       var result = this.parent.myhooks.unzoom(this)
       if ((typeof result !== 'undefined') && (result === false)) return
     }
+    if (this.type == "sprite") this.kineticElement.start()
     if ((this.parent.group.zoomActive === 1) &&
       (this.parent.group.scaleX().toFixed(5) === (this.parent.agrandissement).toFixed(5))) {
       this.parent.iaScene.zoomActive = 0
@@ -176,6 +184,7 @@ class XiaDetail {
         if (xiaDetail.persistent === 'off') {
           kineticElement.animation('hidden')
         }
+        kineticElement.start()
       } else {
         kineticElement.fillPriority('color')
         kineticElement.fill('rgba(0,0,0,0)')

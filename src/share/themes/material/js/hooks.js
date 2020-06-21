@@ -268,7 +268,6 @@ class MyApp {
       var objectType = kineticElement.getClassName()
       if (objectType === 'Sprite') {
         kineticElement.animation('idle')
-        kineticElement.frameIndex(0)
         kineticElement.setAttrs({ opacity: 0 })
         kineticElement.to({ opacity: 1 })
       } else if (objectType === 'Image') {
@@ -293,6 +292,11 @@ class MyApp {
     return false
   }
 
+  unzoom(el) {
+    if (el.type == "sprite") {
+      el.kineticElement.start()
+    }    
+  }
   //
   // hook for Xia Zoom
   //
@@ -319,7 +323,15 @@ class MyApp {
     }.bind(this), 1100)
 
     this.images[this.xiaObject.idText].setVisible()
-    this.update_content(el.title, el.desc)
+    let title = el.title
+    let desc = el.desc
+    if (el.type == "sprite") {
+      el.kineticElement.stop()
+      let frameIndex = el.kineticElement.frameIndex() 
+      if (el.frames[frameIndex]["title"] != "") title = el.frames[frameIndex]["title"]
+      if (el.frames[frameIndex]["desc"] != "") desc = el.frames[frameIndex]["desc"] 
+    }
+    this.update_content(title, desc)
     return false
   }
 
@@ -526,7 +538,6 @@ class MyApp {
         this.xiaObject.iaScene.element = null
         document.body.style.cursor = 'default'
         this.xiaObject.parent.reorderItems()
-
       }
       event.stopPropagation()
     }.bind(this))

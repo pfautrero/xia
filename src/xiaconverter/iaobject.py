@@ -22,6 +22,7 @@ import tempfile
 import sys
 import shutil
 import base64
+import json
 #import commands
 from subprocess import Popen, PIPE
 # import PIL for windows and Linux
@@ -844,14 +845,9 @@ class iaObject:
             else:
                 self.console.display("failure")
             
-            if image.hasAttribute("transform"):
-                transformation = image.attributes['transform'].value
-                record_image = self.transform_image(record_image, transformation)
-
             # apply group transformations
             if stackTransformations != "":
                 transformations = stackTransformations.split("#")
-                transformations.pop()   # remove last transformation already applied
                 for transformation in transformations[::-1]:
                     record_image = self.transform_image(record_image, transformation)
 
@@ -1167,6 +1163,13 @@ class iaObject:
         if root.hasAttribute("transform"):
             stackTransform.pop()
 
+    def format_text(self, text):
+        return PageFormatter(text).print_html() \
+                                .replace('"', "'") \
+                                .replace("\n", " ") \
+                                .replace("\t", " ") \
+                                .replace("\r", " ")
+
     def build_sprite(self, group, record):
 
         minX = 10000
@@ -1178,6 +1181,7 @@ class iaObject:
         svgElements = ['image']
         imagesSHA1 = []
         timeLine = []
+        frames = []
         imagesToConcatenate = []
         group_childs = []
         stackTransform = []
@@ -1231,7 +1235,12 @@ class iaObject:
                         # this image is already recorded
                         currentImageIndex = imagesSHA1.index(rasterSHA1)
                         timeLine.append(currentImageIndex)
-
+                    frames.append({
+                        "x":newrecord['x'], 
+                        "y":newrecord['y'], 
+                        "title":newrecord['title'], 
+                        "desc":self.format_text(newrecord['desc'])
+                        })
 
         # Now, Concatenate Images
         if imageIndex != 0:
@@ -1264,6 +1273,7 @@ class iaObject:
             record["maxX"] = maxX
             record["maxY"] = maxY
             record["timeline"] =  ','.join([str(i) for i in timeLine])
+            record['frames'] = json.dumps(frames)
 
         if group.hasAttribute("style") and (group.attributes['style'].value != ""):
             str_style = group.attributes['style'].value

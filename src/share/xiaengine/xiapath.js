@@ -25,6 +25,7 @@ class XiaPath extends XiaDetail {
     this.tooltip = ''
     this.stroke = (('stroke' in this.detail) && (this.detail.stroke !== 'none')) ? this.detail.stroke : 'rgba(0, 0, 0, 0)'
     this.strokeWidth = ('strokewidth' in this.detail) ? this.detail.strokewidth : '0'
+    this.type = "path"
   }
 
   start () {

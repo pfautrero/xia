@@ -209,7 +209,14 @@ class MyApp {
       delay = 500
     }
     setTimeout(function () {
-      this.updateContent(el.title, el.desc)
+      let title = el.title
+      let desc = el.desc
+      if (el.type == "sprite") {
+        let frameIndex = el.kineticElement.frameIndex() 
+        if (el.frames[frameIndex]["title"] != "") title = el.frames[frameIndex]["title"]
+        if (el.frames[frameIndex]["desc"] != "") desc = el.frames[frameIndex]["desc"] 
+      }
+      this.updateContent(title, desc)
       this.manageScrolldownButton()
     }.bind(this), delay)
     // return false

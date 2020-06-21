@@ -77,7 +77,6 @@ IaObject.prototype.createXiaElement = function (jsonDetail, idDOMElement) {
   } else if ('image' in jsonDetail) {
     var re = /sprite(.*)/i
     if (('id' in jsonDetail) && (jsonDetail.id.match(re))) {
-      console.log('sprite detected')
       xiaDetail = this.includeSprite(jsonDetail, idDOMElement)
     } else {
       xiaDetail = this.includeImage(jsonDetail, idDOMElement)

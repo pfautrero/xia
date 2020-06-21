@@ -26,6 +26,7 @@ class XiaSprite extends XiaDetail {
     this.stroke = (('stroke' in this.detail) && (this.detail.stroke !== 'none')) ? this.detail.stroke : 'rgba(0, 0, 0, 0)'
     this.strokeWidth = ('strokewidth' in this.detail) ? this.detail.strokewidth : '0'
     this.parent.group.zoomActive = 0
+    this.type = "sprite"
   }
 
   defineImageBoxSize () {
@@ -35,13 +36,18 @@ class XiaSprite extends XiaDetail {
     this.parent.maxY = (this.parent.maxY) ? Math.max(this.detail.y + this.detail.height, this.parent.maxY) : this.detail.y + this.detail.height
   }
 
+  frameChange () {
+    this.kineticElement.x(this.frames[this.kineticElement.frameIndex()]['x'] *  this.parent.iaScene.coeff)
+    this.kineticElement.y(this.frames[this.kineticElement.frameIndex()]['y'] *  this.parent.iaScene.coeff)
+  }
+
   start () {
     this.defineImageBoxSize()
     var rasterObj = new Image()
 
     this.backgroundImage = rasterObj
     var timeLine = JSON.parse('[' + this.detail.timeline + ']')
-
+    this.frames = JSON.parse(this.detail.frames.replace(/'/g, '"')) // replacement fixes xiapy weird json encoding 
     rasterObj.onload = function () {
 
       var ratioRaster = rasterObj.naturalHeight / this.detail.height
@@ -58,7 +64,7 @@ class XiaSprite extends XiaDetail {
           idle: idle,
           hidden: [timeLine.length * this.detail.width * ratioRaster, 0, this.detail.width * ratioRaster, this.detail.height * ratioRaster]
         },
-        frameRate: 10,
+        frameRate: 5,
         frameIndex: 0,
         scale: { x: this.parent.iaScene.coeff / ratioRaster, y: this.parent.iaScene.coeff / ratioRaster}
       })
@@ -67,6 +73,7 @@ class XiaSprite extends XiaDetail {
       this.kineticElement.start()
       if (this.persistent === 'on') { this.kineticElement.animation('idle') }
       this.addEventsManagement()
+      this.kineticElement.on('frameIndexChange', this.frameChange.bind(this))
       this.kineticElement.setXiaParent(this)
       this.kineticElement.setIaObject(this.parent)
       this.parent.nbElements--
