@@ -1,3 +1,16 @@
+Version 3.0-beta4 - 23/06/2020
+-------------------------------
+- GameDrag&Drop: correctif sur les liens directs
+- Sprites: les sprites sont désormais fonctionnels
+- GameDrag&Drop: correctif sur les tooltips
+- Images: les transformations affines sont opérationnelles
+- Material: correctif sur les détourages trop épais et déplacement des boutons du bas
+- Material: synchronisation de la popup et de l'image au moment de leur apparition
+- Mise à jour de la documentation sur les images interactives
+- Images interactives: correctif sur l'autostart des images et des videos
+- Game1clic: correctif sur la zone de hitarea qui ne s'adaptait plus aux formes
+- Game1clic: correctif sur la visibilité des sprites
+
 Version 3.0-beta3 - 08/06/2020
 -------------------------------
 - scaling sur les sprites fixés sur les thèmes sidebar, material et game1clic
