@@ -236,7 +236,7 @@ class XiaDetail {
                 this.kineticElement.on('mouseup touchend', function(e) {
                     //location.href = that.title[i];
                     location.href = this.title;
-                });
+                }.bind(this));
             }
 
             if (!this.droparea) {
