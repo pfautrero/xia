@@ -271,9 +271,10 @@ class iaObject:
 
             if self.ratio != 1:
                 self.scene['image'], self.scene['width'], self.scene['height'] = self.resizeImage(self.scene['image'],
-                                                                                                  self.scene['width'],
-                                                                                                  self.scene['height'])
-                self.scene['ratio'] = 1
+                                                                                                  float(self.scene['width']) / self.ratio,
+                                                                                                  float(self.scene['height']) / self.ratio)
+                self.scene['ratio'] = self.calculate_raster_ratio(raster, self.scene['width'], self.scene['height'])
+                self.ratio = 1
 
         svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'image', 'g']
         mainSVG = self.xml.getElementsByTagName('svg')
@@ -842,6 +843,11 @@ class iaObject:
                 self.console.display("failure")
             
             # apply group transformations
+
+            if stackTransformations == "":
+                if image.hasAttribute("transform"):
+                    stackTransformations = image.attributes['transform'].value 
+
             if stackTransformations != "":
                 transformations = stackTransformations.split("#")
                 for transformation in transformations[::-1]:
