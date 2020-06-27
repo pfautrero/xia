@@ -81,7 +81,7 @@ class hook:
                 final_index = final_index.replace("{{datasJS}}", "<script>" + self.iaobject.jsonContent + "</script>")
                 final_index = final_index.replace("{{lazyDatasJS}}", '')
                 final_index = final_index.replace("{{sha1JS}}", xiaWebsite + "/js/git-sha1.min.js")
-                final_index = final_index.replace("{{konvaJS}}", "https://cdnjs.cloudflare.com/ajax/libs/konva/6.0.0/konva.min.js")
+                final_index = final_index.replace("{{konvaJS}}", "https://cdnjs.cloudflare.com/ajax/libs/konva/7.0.0/konva.min.js")
                 final_index = final_index.replace("{{xiaJS}}", xiaWebsite + "/js/xia.js")
                 final_index = final_index.replace("{{hooksJS}}", xiaWebsite + "/sidebar/js/hooks.js")
                 final_index = final_index.replace("{{quantizeJS}}", xiaWebsite + "/sidebar/js/quantization.min.js")

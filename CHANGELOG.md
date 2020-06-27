@@ -1,3 +1,8 @@
+Version 3.0-beta5 - xx/xx/2020
+-------------------------------
+- Use Konvajs 7.0.0
+
+
 Version 3.0-beta4 - 23/06/2020
 -------------------------------
 - GameDrag&Drop: correctif sur les liens directs
