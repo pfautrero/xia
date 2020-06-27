@@ -833,14 +833,10 @@ class iaObject:
             w,h, success = self.get_dimensions(record_image['image'])
             if success:
                 if w/h != record_image['width'] / record_image['height']:
-                    scale = {
-                        'x': h/w if w/h < 1 else 1,
-                        'y': 1 if w/h < 1 else w/h
-                        }
                     record_image['image'], _, _ = self.resizeImage(
                         record_image['image'],
-                        record_image['width'] * scale['x'] * record_image['ratio'],
-                        record_image['height'] * scale['y'] * record_image['ratio'])
+                        record_image['width'] * record_image['ratio'],
+                        record_image['height'] * record_image['ratio'])
 
             else:
                 self.console.display("failure")
