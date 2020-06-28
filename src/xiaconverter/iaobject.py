@@ -229,7 +229,6 @@ class iaObject:
                         if big_group.attributes["class"].value == "Graphic":
                             desc = big_group.getElementsByTagName('desc')
             if desc.item(0) is not None:
-                #if desc.item(0).parentNode == image:
                 self.scene['intro_detail'] = self.get_tag_value(desc.item(0))
 
             title = image.getElementsByTagName('title')
@@ -241,7 +240,6 @@ class iaObject:
                         if big_group.attributes["class"].value == "Graphic":
                             title = big_group.getElementsByTagName('title')
             if title.item(0) is not None:
-                #if title.item(0).parentNode == image:
                 self.scene['intro_title'] = self.get_tag_value(title.item(0))
 
             raster = self.extractRaster(image.attributes['xlink:href'].value)
@@ -250,7 +248,6 @@ class iaObject:
                 transformation = image.attributes['transform'].value
                 ctm = CurrentTransformation()
                 ctm.analyze(transformation)
-                #print str(ctm.scaleX) + " " + str(ctm.scaleY)
                 if ctm.scaleX != 1 or ctm.scaleY != 1:
                     self.scene['image'], self.scene['width'], self.scene['height'] = self.resizeImage(
                         raster,
@@ -260,8 +257,6 @@ class iaObject:
             fixedRaster = raster
             self.scene['image'] = fixedRaster
             self.scene['ratio'] = self.calculate_raster_ratio(raster, self.scene['width'], self.scene['height'])
-            #print self.scene['image']
-
 
             # calculate ratio to resize background image down to maxNumPixels
 
@@ -270,9 +265,12 @@ class iaObject:
                 self.ratio = math.sqrt(maxNumPixels / bgNumPixels)
 
             if self.ratio != 1:
-                self.scene['image'], self.scene['width'], self.scene['height'] = self.resizeImage(self.scene['image'],
-                                                                                                  float(self.scene['width']) / self.ratio,
-                                                                                                  float(self.scene['height']) / self.ratio)
+                self.scene['image'], \
+                self.scene['width'], \
+                self.scene['height'] = self.resizeImage(\
+                    self.scene['image'], \
+                    float(self.scene['width']) / self.ratio,\
+                    float(self.scene['height']) / self.ratio)
                 self.scene['ratio'] = self.calculate_raster_ratio(raster, self.scene['width'], self.scene['height'])
                 self.ratio = 1
 
@@ -317,7 +315,10 @@ class iaObject:
                 if childnode['node'].nodeName in svgElements:
                     firstNode = childnode['node']
                     break
-            if firstNode is not None and firstNode.nodeName != 'image' and firstNode.parentNode.nodeName != 'clipPath' and firstNode.parentNode.nodeName != 'marker':
+            if firstNode is not None and \
+                firstNode.nodeName != 'image' and \
+                firstNode.parentNode.nodeName != 'clipPath' and \
+                firstNode.parentNode.nodeName != 'marker':
 
                 self.translation = 0
                 self.backgroundX = 0
@@ -511,10 +512,6 @@ class iaObject:
                 ctm.analyze(transformation)
                 ctm.applyTransformToPath(ctm.matrix, p)
                 record_circle['path'] = cubicsuperpath.formatPath(p)
-
-                #if ctm_group:
-        #    ctm_group.applyTransformToPath(ctm_group.matrix,p)
-        #    record_circle['path'] = cubicsuperpath.formatPath(p)
 
         if self.translation != 0:
             ctm = CurrentTransformation()
@@ -977,10 +974,6 @@ class iaObject:
                 ctm.applyTransformToPath(ctm.matrix, p)
                 record_rect['path'] = cubicsuperpath.formatPath(p)
 
-                #if ctm_group:
-        #    ctm_group.applyTransformToPath(ctm_group.matrix,p)
-        #    record_rect['path'] = cubicsuperpath.formatPath(p)
-
         if self.translation != 0:
             ctm = CurrentTransformation()
             ctm.applyTransformToPath(self.translation, p)
@@ -1086,11 +1079,6 @@ class iaObject:
 
                 ctm.applyTransformToPath(ctm.matrix, p)
                 record['path'] = cubicsuperpath.formatPath(p)
-
-        # apply group transformation on current object
-        # if ctm_group:
-        #    ctm_group.applyTransformToPath(ctm_group.matrix,p)
-        #    record['path'] = cubicsuperpath.formatPath(p)
 
         else:
             transformations = stackTransformations.split("#")
