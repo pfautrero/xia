@@ -204,8 +204,8 @@ class iaObject:
         if images.item(0) is not None:
             image = images.item(0)
             self.backgroundNode = image
-            self.scene['width'] = image.attributes['width'].value
-            self.scene['height'] = image.attributes['height'].value
+            self.scene['width'] = int(float(image.attributes['width'].value))
+            self.scene['height'] = int(float(image.attributes['height'].value))
             self.backgroundX = 0
             self.backgroundY = 0
             if image.hasAttribute('x'):
@@ -256,22 +256,21 @@ class iaObject:
 
             fixedRaster = raster
             self.scene['image'] = fixedRaster
+
+            # real_dimensions = inkscape_dimensions * scene['ratio']
             self.scene['ratio'] = self.calculate_raster_ratio(raster, self.scene['width'], self.scene['height'])
 
-            # calculate ratio to resize background image down to maxNumPixels
+            # Resize background image down to maxNumPixels if needed
 
-            bgNumPixels = float(int(float(self.scene['width'])) * int(float(self.scene['height'])))
+            bgNumPixels = self.scene['width'] * self.scene['height'] * self.scene['ratio']**2
             if bgNumPixels > maxNumPixels:
                 self.ratio = math.sqrt(maxNumPixels / bgNumPixels)
 
             if self.ratio != 1:
-                self.scene['image'], \
-                self.scene['width'], \
-                self.scene['height'] = self.resizeImage(\
+                self.scene['image'], _, _ = self.resizeImage(\
                     self.scene['image'], \
-                    float(self.scene['width']) / self.ratio,\
-                    float(self.scene['height']) / self.ratio)
-                self.scene['ratio'] = self.calculate_raster_ratio(raster, self.scene['width'], self.scene['height'])
+                    self.scene['width'] * self.scene['ratio'] * self.ratio,\
+                    self.scene['height'] * self.scene['ratio'] * self.ratio)
                 self.ratio = 1
 
         svgElements = ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'image', 'g']
@@ -769,7 +768,10 @@ class iaObject:
             record_image['width'] = float(image.attributes['width'].value)
             record_image['height'] = float(image.attributes['height'].value)
             record_image['image'] = self.extractRaster(image.attributes['xlink:href'].value)
-            record_image['ratio'] = self.calculate_raster_ratio(record_image['image'], record_image["width"], record_image['height'])
+            record_image['ratio'] = self.calculate_raster_ratio(\
+                record_image['image'],\
+                record_image["width"],\
+                record_image['height'])
             record_image['desc'] = self.getText("desc", image)
             record_image['title'] = self.getText("title", image)
             record_image['x'] = 0
@@ -777,17 +779,9 @@ class iaObject:
             record_image['options'] = ""
 
             if image.hasAttribute("x"):
-                record_image['x'] = (float(image.attributes['x'].value) - self.backgroundX) * self.ratio
+                record_image['x'] = float(image.attributes['x'].value)
             if image.hasAttribute("y"):
-                record_image['y'] = (float(image.attributes['y'].value) - self.backgroundY) * self.ratio
-
-            if self.ratio != 1:
-                record_image['image'], \
-                record_image['width'], \
-                record_image['height'] = \
-                    self.resizeImage(record_image['image'], record_image['width'] * self.ratio, record_image['height'] * self.ratio)
-
-
+                record_image['y'] = float(image.attributes['y'].value)
 
             if record_image['title'].startswith("http://") or \
                     record_image['title'].startswith("https://") or \
@@ -841,10 +835,6 @@ class iaObject:
             
             # apply group transformations
 
-            if self.translation != 0:
-                record_image['x'] = record_image['x'] / self.ratio + self.backgroundX
-                record_image['y'] = record_image['y'] / self.ratio + self.backgroundX
-
             if stackTransformations == "":
                 if image.hasAttribute("transform"):
                     stackTransformations = image.attributes['transform'].value 
@@ -854,20 +844,22 @@ class iaObject:
                 for transformation in transformations[::-1]:
                     record_image = self.transform_image(record_image, transformation)
 
-            if self.translation != 0:
-                record_image['x'] = (record_image['x'] - self.backgroundX) * self.ratio
-                record_image['y'] = (record_image['y'] - self.backgroundX) * self.ratio
-
             if HANDLE_PIL:
                 record_image['image'], \
                 record_image['width'], \
                 record_image['height'], \
                 newx, newy, \
                 record_image['original_width'], \
-                record_image['original_height'] = self.cropImage(record_image['image'], record_image['width'], record_image['height'])
+                record_image['original_height'] = self.cropImage(\
+                    record_image['image'],\
+                    record_image['width'],\
+                    record_image['height'])
                 record_image['y'] = record_image['y'] + newy
                 record_image['x'] = record_image['x'] + newx
 
+            if self.translation != 0:
+                record_image['x'] = record_image['x'] - self.backgroundX
+                record_image['y'] = record_image['y'] - self.backgroundY
 
             record_image["minX"] = record_image['x']
             record_image["minY"] = record_image['y']
