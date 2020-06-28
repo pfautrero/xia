@@ -844,6 +844,10 @@ class iaObject:
             
             # apply group transformations
 
+            if self.translation != 0:
+                record_image['x'] = record_image['x'] / self.ratio + self.backgroundX
+                record_image['y'] = record_image['y'] / self.ratio + self.backgroundX
+
             if stackTransformations == "":
                 if image.hasAttribute("transform"):
                     stackTransformations = image.attributes['transform'].value 
@@ -852,6 +856,10 @@ class iaObject:
                 transformations = stackTransformations.split("#")
                 for transformation in transformations[::-1]:
                     record_image = self.transform_image(record_image, transformation)
+
+            if self.translation != 0:
+                record_image['x'] = (record_image['x'] - self.backgroundX) * self.ratio
+                record_image['y'] = (record_image['y'] - self.backgroundX) * self.ratio
 
             if HANDLE_PIL:
                 record_image['image'], \
