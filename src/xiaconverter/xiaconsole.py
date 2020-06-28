@@ -22,6 +22,7 @@ from importlib.machinery import SourceFileLoader
 import types
 import sys
 import re
+import unicodedata
 from .iaobject import iaObject
 from .pikipiki import PageFormatter
 
@@ -65,6 +66,12 @@ class XIAConsole():
         if self.export_type == 'local':
             head, tail = os.path.split(self.filename)
             filenamewithoutext = os.path.splitext(tail)[0]
+            filenamewithoutext = re.sub(r"\s+", "", filenamewithoutext, flags=re.UNICODE)
+            if filenamewithoutext == 'temp':
+                if self.imageActive.scene['title'] != "":
+                    filenamewithoutext = re.sub(r"\s+", "_", self.clean_unicode(self.imageActive.scene['title']), flags=re.UNICODE)
+                    filenamewithoutext = re.sub(r"[^-a-z0-9A-Z_]", "", filenamewithoutext, flags=re.UNICODE)
+                    filenamewithoutext = filenamewithoutext[0:min(len(filenamewithoutext), 15)]
 
             if os.path.isdir("{}/{}".format(self.dirname, filenamewithoutext)):
                 shutil.rmtree("{}/{}".format(self.dirname, filenamewithoutext))
@@ -84,8 +91,7 @@ class XIAConsole():
                 srcname = os.path.join(src, name)
                 dstname = os.path.join(dst, name)
                 shutil.copyfile(srcname, dstname)
-            #shutil.copytree(self.themesPath + '/' + self.theme['name'] + \
-            #    '/js/', self.dirname + '/js/')
+
             shutil.copy(self.labjsLib , f"{self.dirname}/{filenamewithoutext}/js")
             shutil.copy(self.jqueryLib , f"{self.dirname}/{filenamewithoutext}/js")
             shutil.copy(self.kineticLib , f"{self.dirname}/{filenamewithoutext}/js")
@@ -110,6 +116,12 @@ class XIAConsole():
             self.theme['object'].generateIndex(self.dirname + "/" + filenamewithoutext + ".html", \
                 self.themesPath + '/' + self.theme['name'] + '/index.html', filenamewithoutext)
 
+    def clean_unicode(self,u):
+        #assert isinstance(u, unicode)
+        result = ""
+        for c in u:
+            result = result + unicodedata.normalize('NFD', c)[0]
+        return result
 
     def defineMaxPixels(self, resizeCoeff):
         if resizeCoeff == 3:
