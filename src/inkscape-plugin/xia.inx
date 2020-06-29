@@ -14,7 +14,7 @@
       <param name="directory" type="path" mode="folder" gui-text="Target folder: "></param>
     </page>
     <page name="about_tab" gui-text="About">
-      <label appearance="header">XIA</label>
+      <label appearance="header">{{XIA}}</label>
       <label>XIA is a tool to convert your current document into interactive html5 resource.</label>
     </page>
   </param>

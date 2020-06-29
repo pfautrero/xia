@@ -1,7 +1,12 @@
 Version 3.0-beta5 - xx/xx/2020
 -------------------------------
 - Use Konvajs 7.0.0
-
+- fix sprites with images with different dimensions
+- fix image translation when background is huge
+- fix exported filename if title is filled
+- fix transformations applied on image when background is translated
+- fix regression on image transformation when not in a group + fix ratio for huge images
+- fix resize image for sprites
 
 Version 3.0-beta4 - 23/06/2020
 -------------------------------
