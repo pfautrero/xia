@@ -111,7 +111,7 @@ IaObject.prototype.includeImage = function(detail, i, iaScene, baseImage, idText
 IaObject.prototype.includePath = function(detail, i, iaScene, baseImage, idText) {
     //var this = this
     this.xiaDetail[i] = new XiaDetail(this,detail, idText)
-
+    this.xiaDetail[i].type = "path"
     this.xiaDetail[i].path = detail.path
     // if detail is out of background, hack maxX and maxY
     if (parseFloat(detail.maxX) < 0) detail.maxX = 1

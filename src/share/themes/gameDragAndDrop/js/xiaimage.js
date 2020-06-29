@@ -21,6 +21,7 @@ class XiaImage extends XiaDetail {
     constructor(parent, detail, idText) {
         "use strict";
         super(parent, detail, idText)
+        this.type = "image"
 
     }
 

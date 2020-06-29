@@ -106,7 +106,12 @@ class XIAConsole():
         head, tail = os.path.split(self.filename)
         filenamewithoutext = os.path.splitext(tail)[0]
         filenamewithoutext = re.sub(r"\s+", "", filenamewithoutext, flags=re.UNICODE)
-
+        if filenamewithoutext == 'temp':
+            if self.imageActive.scene['title'] != "":
+                filenamewithoutext = re.sub(r"\s+", "_", self.clean_unicode(self.imageActive.scene['title']), flags=re.UNICODE)
+                filenamewithoutext = re.sub(r"[^-a-z0-9A-Z_]", "", filenamewithoutext, flags=re.UNICODE)
+                filenamewithoutext = filenamewithoutext[0:min(len(filenamewithoutext), 15)]
+                
         if self.export_type == 'local':
             with open(f"{self.dirname}/{filenamewithoutext}/datas/data.js","wb") as jsonfile:
                 jsonfile.write(self.imageActive.jsonContent.encode('utf8'))

@@ -241,6 +241,7 @@ class XiaDetail {
 
             if (!this.droparea) {
                 this.kineticElement.on('dragstart', function(e) {
+                    if (this.getXiaParent().type == "sprite") this.stop()
                     iaScene.element = this.getIaObject()
                     this.fire("click")
                     this.getIaObject().afterDragStart(iaScene, idText, this);
@@ -250,6 +251,7 @@ class XiaDetail {
                 });
 
                 this.kineticElement.on('dragend', function(e) {
+                    
                     iaScene.element = this.getIaObject()
 
                     Kinetic.draggedshape = null;
@@ -285,7 +287,18 @@ class XiaDetail {
                         if (all_elements[i].match) match = true
                         if (all_elements[i].onfailreturn) onfailreturn = true
                     }
-
+                    if (this.getXiaParent().type == "sprite") {
+                        let coeff = this.getXiaParent().parent.mainScene.coeff
+                        let translate = {
+                            'x': (this.getXiaParent().frames[0]['x'] *  coeff - this.x()) / coeff,
+                            'y': (this.getXiaParent().frames[0]['y'] *  coeff - this.y()) / coeff
+                        }
+                        for (let k = 0; k < this.getXiaParent().frames.length; k++) {
+                            this.getXiaParent().frames[k]['x'] = this.getXiaParent().frames[k]['x'] - translate['x']
+                            this.getXiaParent().frames[k]['y'] = this.getXiaParent().frames[k]['y'] - translate['y']
+                        }
+                        this.start()
+                    }
 
                     // force draggable shape to come back home if option onfailreturn is active
                     if (!match && onfailreturn) {

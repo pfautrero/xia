@@ -26,6 +26,7 @@ class XiaSprite extends XiaDetail {
     this.stroke = (('stroke' in this.detail) && (this.detail.stroke !== 'none')) ? this.detail.stroke : 'rgba(0, 0, 0, 0)'
     this.strokeWidth = ('strokewidth' in this.detail) ? this.detail.strokewidth : '0'
     this.parent.group.zoomActive = 0
+    this.type = "sprite"
   }
 
   defineImageBoxSize () {
@@ -36,12 +37,18 @@ class XiaSprite extends XiaDetail {
     this.parent.maxY = (this.parent.maxY) ? Math.max(this.detail.y + this.detail.height, this.parent.maxY) : this.detail.y + this.detail.height
   }
 
+  frameChange () {
+    this.kineticElement.x(this.frames[this.kineticElement.frameIndex()]['x'] *  this.parent.mainScene.coeff)
+    this.kineticElement.y(this.frames[this.kineticElement.frameIndex()]['y'] *  this.parent.mainScene.coeff)
+  }
+
   start () {
     //this.defineImageBoxSize()
     var rasterObj = new Image()
 
     this.backgroundImage = rasterObj
     var timeLine = JSON.parse('[' + this.detail.timeline + ']')
+    this.frames = JSON.parse(this.detail.frames.replace(/'/g, '"')) // replacement fixes xiapy weird json encoding 
 
     rasterObj.onload = function () {
 
@@ -69,6 +76,7 @@ class XiaSprite extends XiaDetail {
       this.kineticElement.start()
       if (this.persistent === 'on') { this.kineticElement.animation('idle') }
       this.addEventsManagement(this, this.parent.mainScene, this.idText)
+      this.kineticElement.on('frameIndexChange', this.frameChange.bind(this))
       this.kineticElement.setXiaParent(this)
       this.kineticElement.setIaObject(this.parent)
       this.parent.nbElements--

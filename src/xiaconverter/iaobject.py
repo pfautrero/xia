@@ -1167,6 +1167,9 @@ class iaObject:
         maxX = 0
         maxY = 0
 
+        record['width'] = 0
+        record['height'] = 0
+
         dirname = tempfile.mkdtemp()
         svgElements = ['image']
         imagesSHA1 = []
@@ -1209,12 +1212,13 @@ class iaObject:
                             firstRasterPrefix = rasterPrefix
                             record['x'] = newrecord['x']
                             record['y'] = newrecord['y']
-                            record['width'] = newrecord['width']
-                            record['height'] = newrecord['height']
                             minX = float(newrecord["minX"])
                             minY = float(newrecord["minY"])
                             maxX = float(newrecord["maxX"])
                             maxY = float(newrecord["maxY"])
+
+                        record['width'] = max(newrecord['width'], record['width'])
+                        record['height'] = max(newrecord['height'], record['height'])
 
                         if record['desc'] == "":
                             record['desc'] = newrecord['desc']
@@ -1240,15 +1244,17 @@ class iaObject:
             #images = map(Image.open, imagesToConcatenate)
             widths, heights = zip(*(i.size for i in images))
 
-            total_width = sum(widths)
+            #total_width = sum(widths)
+            max_width = max(widths)
             max_height = max(heights)
-
-            new_im = Image.new('RGBA', (total_width, max_height))
+            new_im = Image.new('RGBA', (max_width * len(images), max_height))
 
             x_offset = 0
             for im in images:
-              new_im.paste(im, (x_offset,0))
-              x_offset += im.size[0]
+              x = int(x_offset + (max_width - im.size[0])/2)
+              y = int((max_height - im.size[1])/2)
+              new_im.paste(im, (x,y))
+              x_offset += max_width
 
             imageFileFixed = dirname + os.path.sep + "imageFinal.png"
             new_im.save(imageFileFixed)

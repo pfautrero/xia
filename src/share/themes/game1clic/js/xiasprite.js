@@ -24,6 +24,7 @@ class XiaSprite extends XiaDetail {
         this.width = this.parent.jsonSource.width * this.parent.iaScene.scale
         this.height = this.parent.jsonSource.height * this.parent.iaScene.scale
         this.timeLine = JSON.parse("[" + this.parent.jsonSource.timeline + "]")
+        this.frames = JSON.parse(this.detail.frames.replace(/'/g, '"')) // replacement fixes xiapy weird json encoding 
         this.persistent = "hiddenSprite";
     }
 
@@ -34,6 +35,11 @@ class XiaSprite extends XiaDetail {
             idle.push(timeLine[k] * this.parent.jsonSource.width * ratioRaster, 0, this.parent.jsonSource.width * ratioRaster, this.parent.jsonSource.height * ratioRaster)
         }
         return idle
+    }
+
+    frameChange () {
+        this.kineticElement.x(this.frames[this.kineticElement.frameIndex()]['x'] *  this.parent.iaScene.coeff)
+        this.kineticElement.y(this.frames[this.kineticElement.frameIndex()]['y'] *  this.parent.iaScene.coeff)
     }
 
     start() {
@@ -105,6 +111,7 @@ class XiaSprite extends XiaDetail {
            }
           //this.parent.addEventsManagement(i,this.zoomable, this.parent, this.parent.iaScene, this.parent.baseImage, this.idText);
           this.manageDropAreaAndTooltips()
+          this.kineticElement.on('frameIndexChange', this.frameChange.bind(this))
           this.parent.group.draw()
           var hitCanvas = this.parent.layer.getHitCanvas();
           this.parent.iaScene.completeImage = hitCanvas.getContext().getImageData(0,0,Math.floor(hitCanvas.width),Math.floor(hitCanvas.height));
