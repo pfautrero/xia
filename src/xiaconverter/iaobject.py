@@ -1191,6 +1191,19 @@ class iaObject:
 
                 if newrecord is not None:
                     raster = newrecord['image']
+
+                    w,h, success = self.get_dimensions(raster)
+                    if success:
+                        if imageIndex == 0:
+                            inkscape_w1 = newrecord['width']
+                            real_w1 = w
+                        a = (newrecord['width'] / inkscape_w1) * (real_w1 / w) 
+                        if a != 1.0:
+                            raster, _, _ = self.resizeImage(
+                                raster,
+                                w * a,
+                                h * a)
+
                     rasterStartPosition = raster.find('base64,') + 7
                     rasterEncoded = raster[rasterStartPosition:]
                     rasterSHA1 = hashlib.sha1(rasterEncoded.encode()).hexdigest()

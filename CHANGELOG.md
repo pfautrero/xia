@@ -1,4 +1,8 @@
-Version 3.0-beta5 - xx/xx/2020
+Version 3.0-beta6 - xx/xx/2020
+-------------------------------
+- fix sprites with same image scaled with different ratios
+
+Version 3.0-beta5 - 29/06/2020
 -------------------------------
 - Use Konvajs 7.0.0
 - fix sprites with images with different dimensions
