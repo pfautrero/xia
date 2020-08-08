@@ -1192,6 +1192,8 @@ class iaObject:
                 if newrecord is not None:
                     raster = newrecord['image']
 
+                    # Resize according to first image dimensions
+                    # Needed to respect global ratio
                     w,h, success = self.get_dimensions(raster)
                     if success:
                         if imageIndex == 0:
