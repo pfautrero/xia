@@ -18,7 +18,7 @@ XIA comes with a set of tools:
 # 1. How to use Inkscape extension?
 
 see the dedicated french documentation [using inkscape extension](./doc/xia-fr.md)
-
+see the dedicated english documentation [using inkscape extension](./doc/xia-en.md)
 
 # 2. How to use xiajs?
 

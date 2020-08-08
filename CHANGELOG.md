@@ -1,6 +1,7 @@
-Version 3.0-beta6 - xx/xx/2020
+Version 3.0-beta6 - 08/08/2020
 -------------------------------
 - fix sprites with same image scaled with different ratios
+- add english doc
 
 Version 3.0-beta5 - 29/06/2020
 -------------------------------
