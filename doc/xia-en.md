@@ -325,7 +325,51 @@ Logical consequence: as a detail cannot simultaneously have a black background a
 - It is possible to prevent users from accessing the comment by inserting a clickable icon and / or a password
 
 
-## 4. FAQ <a name='faq'></a>
+## 4. Using sprites <a name='sprites'></a>
+
+We end this presentation of Xia by presenting something new in version 3. Xia allows you to manage 3 types of objects in your resources:
+
+- Clipping (the inkscape tools by default)
+- Images
+- Sprites
+
+This paragraph will explore the third type of object: sprites.
+A sprite is an object that could look like **animated gif**. In other words, you can integrate animated objects into your compositions. Take for example a seabed offered by https://fr.freepik.com/upklyak:
+
+![fond marin](images/785.jpg)
+
+We are trying to make following fish alive:
+
+![poisson jaune](images/poisson_jaune2.png)
+
+### 4.1 Step 1: Integrate this fish and describe mouvement
+
+First, open the background image in Inkscape and insert the fish. Copy / Paste this fish as many times as necessary to simulate a movement as if we were breaking down the movement into frames.
+
+![inkscape sprite](images/inkscape_sprite.png)
+
+### 4.2 Step 2 : Define the "sprite"
+
+Now it is the time to define all these fishes as one single alive fish. Select all these fishes and group them together. The magic will work if you change the group ID by renaming it **sprite1**. (id should actually be of the form **spriteXXX**)
+
+![inkscape sprite](images/inkscape_sprite2.png)
+
+### 4.3 Step 3 : Make this "sprite" visible
+
+By default, all details in xia are *invisible*. Sprites are no exception to the rule. To make them visible from the start of the interactive resource, it will be necessary to use a trick in Inkscape, define a white background on the group of fishes.
+
+![inkscape sprite](images/inkscape_sprite3.png)
+
+If you generate your interactive image from now on, your fish will come to life without any further setup.
+
+See for yourself the end result here:
+
+[https://xia.funraiders.org/exemples/sprite/fish.html](https://xia.funraiders.org/exemples/sprite/fish.html)
+
+
+> This example is only a rough outline. It is quite possible to apply transformations to the images used or even to use different images for each step of the movement.
+
+## 5. FAQ <a name='faq'></a>
 
 ### I can't see Xia in the Inkscape extensions menu. Why?
 
@@ -346,7 +390,7 @@ Xia can be found in the Mac OS X “~Applications~” folder. On a GNU/Linux sys
 
 If you do not make a bitmap copy of the text, Xia will consider that the text created with the "~Create and edit text objects~" tool is a detail, and not an image to display.
 
-## 5. Inkscape Hints <a name='astuces'></a>
+## 6. Inkscape Hints <a name='astuces'></a>
 
 - Add background colors to your details. This will make the details easier to select and edit, and it won't affect the html5 animation (unless you choose white or black as the fill color).
 - If you want to create a detail from several details, you can ** "Group" ** them.

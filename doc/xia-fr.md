@@ -346,7 +346,51 @@ Commencez par sélectionner le détail sur lequel vous voulez agir et cliquez su
 - L'ordre des détails de l'image interactive dépend de l'ordre de leur création dans Inkscape. Cependant, on peut utiliser l'éditeur XML d'Inkscape pour modifier cet ordre
 - Il est possible d'empêcher les utilisateurs d'accéder au commentaire en insérant une icône cliquable et / ou un mot de passe
 
-## 4. Foire aux questions <a name='faq'></a>
+## 4. Utiliser les sprites <a name='sprites'></a>
+
+Xia permet de gérer 3 types d'objets dans vos ressources :
+
+- Les détourages (les outils d'inkscape par défaut)
+- Les images
+- Les sprites
+
+Ce paragraphe va explorer le troisième type d'objet : les sprites.
+Un sprite est un objet qui pourrait s'apparenter aux **gif animés**. En d'autres termes, vous pouvez intégrer dans vos compositions des objets animés. Prenons pour exemple un fond marin proposé par https://fr.freepik.com/upklyak:
+
+![fond marin](images/785.jpg)
+
+Nous cherchons à y faire bouger le poisson suivant : 
+
+![poisson jaune](images/poisson_jaune2.png)
+
+### 4.1 étape 1 : intégrer le poisson et décrire le mouvement
+
+Pour commencer, ouvrez l'image de fond dans Inkscape et insérez le poisson. Copiez/Collez ce poisson autant de fois que nécessaire pour simuler un mouvement comme si on décomposait le mouvement en image par image.
+
+![inkscape sprite](images/inkscape_sprite.png)
+
+### 4.2 étape 2 : Définir le "sprite"
+
+Il est désormais temps de définir tous ces poissons comme un seul et même poisson qui ne demande qu'à vivre. Sélectionnez tous ces poissons et groupez-les. La magie va opérer si vous changez l'ID du groupe en le renommant **sprite1**. (l'id doit en réalité être de la forme **spriteXXX**)
+
+![inkscape sprite](images/inkscape_sprite2.png)
+
+### 4.3 étape 3 : Rendre votre "sprite" visible
+
+Nous rappelons que par défaut, tous les détails dans xia sont *invisibles*. Les sprites n'échappent pas à la règle. Pour qu'ils soient visibles dès le démarrage de la ressouce interactive, il faudra utiliser une astuce dans Inkscape, définir un fond blanc sur le groupe de poissons.
+
+![inkscape sprite](images/inkscape_sprite3.png)
+
+Si vous générez votre image interactive à partir de maintenant, votre poisson va prendre vie sans autre paramétrage.
+
+Voyez par vous-même le résultat final ici :
+
+[https://xia.funraiders.org/exemples/sprite/fish.html](https://xia.funraiders.org/exemples/sprite/fish.html)
+
+> L'exemple présenté ici n'est qu'une simple ébauche. Il est tout à fait possible d'appliquer des transformations sur les images utilisées voire même d'utiliser des images différentes pour chaque étape du mouvement.
+
+
+## 5. Foire aux questions <a name='faq'></a>
 
 ### Je ne vois pas Xia dans le menu extensions d'Inkscape. Pourquoi?
 
@@ -367,7 +411,7 @@ Xia se trouve dans le dossier des «~Applications~» de Mac OS X.  Sur un sytèm
 
 Si vous ne faites pas de copie bitmap du texte, Xia considèrera que le texte créé avec l'outil «~Créer et éditer des objets textes~» est un détail, et pas une image à afficher.
 
-## 5. Astuces Inkscape <a name='astuces'></a>
+## 6. Astuces Inkscape <a name='astuces'></a>
 
 - Ajoutez des couleurs de fond à vos détails. Les détails seront ainsi plus faciles à sélectionner et modifier, et cela n'aura aucune conséquence sur l'animation html5 (sauf si vous choisissez le blanc ou le noir comme couleur de remplissage).
 - Si vous voulez créer un détail à partir de plusieurs, vous pouvez les **«Grouper»**.
