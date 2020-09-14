@@ -44,8 +44,8 @@ class TestiaObject(TestCase):
         maxNumPixels = 5 * 1024 * 1024
         currentDir  = os.path.dirname(os.path.realpath(__file__))
         ia.analyzeSVG(currentDir + "/fixtures/inkscape1.svg", maxNumPixels)
-        self.assertEqual(ia.scene['width'], '30')
-        self.assertEqual(ia.scene['height'], '30')
+        self.assertEqual(ia.scene['width'], 30)
+        self.assertEqual(ia.scene['height'], 30)
         if PILLOW_VERSION[:1] == '2':
             self.assertEqual(ia.scene['image'], 'data:image/png;base64,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')
         if PILLOW_VERSION[:1] == '3':
@@ -69,8 +69,8 @@ class TestiaObject(TestCase):
         ia = iaObject(console)
         ia.analyzeSVG(tempSvg.name, maxNumPixels)
 
-        self.assertEqual(ia.scene['width'], '10')
-        self.assertEqual(ia.scene['height'], '10')
+        self.assertEqual(ia.scene['width'], 10)
+        self.assertEqual(ia.scene['height'], 10)
         self.assertEqual(ia.details[0]['width'], 204)
         self.assertEqual(ia.details[0]['height'], 208)
 
