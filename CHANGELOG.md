@@ -1,3 +1,7 @@
+Version 3.0-beta7 - 14/09/2020
+- fix regression during xiaconsole refactorisation
+- fix unit tests
+
 Version 3.0-beta6 - 08/08/2020
 -------------------------------
 - fix sprites with same image scaled with different ratios
