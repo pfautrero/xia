@@ -40,7 +40,7 @@ class XIAConsole():
         self.quantizeLib = config.get('paths', 'quantizeLib')
         self.xiaEngine = config.get('paths', 'xiaEngine')
 
-        self.resize = 3
+        self.resize = 0
         self.filename = options['input_file']
         if options['output_dir'].endswith('/'):
             self.dirname = options['output_dir'][:-1]

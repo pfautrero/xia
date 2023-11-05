@@ -104,7 +104,7 @@ class IADialog():
         translate = t.gettext
 
         self.root = root
-        self.resize = 3
+        self.resize = 0
 
         self.options = {
             'export_type': "singlefile"
@@ -365,7 +365,7 @@ class IADialog():
             return float(5 * 1024 * 1024)
         else:
             # arbitrary huge size
-            return float(100 * 512 * 1024)
+            return float(100 * 1024 * 1024)
 
     def quit(self):
         self.root.destroy()
