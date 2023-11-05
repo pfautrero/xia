@@ -1,3 +1,9 @@
+Version 3.0.1 - 05/11/2023
+- disable background image resizing when exceeding MaxNumPixels
+- fix PIL deprecated ANTIALIAS
+- update Konvajs to 9.2.3
+- fix getdefaultlocale deprecated function 
+
 Version 3.0-beta7 - 14/09/2020
 - fix regression during xiaconsole refactorisation
 - fix unit tests
