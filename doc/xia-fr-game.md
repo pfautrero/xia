@@ -24,21 +24,27 @@
 
 Le principe ludique décrit dans cette partie de la documentation est le suivant: le joueur doit sélectionner des détails dans une image, quand il a sélectionné les éléments indiqués dans la consigne, un message de fin apparaît.
 
-Visualisez le [jeu](https://xia.dane.ac-versailles.fr/demo/tuto/xia3) créé pour cette partie de la documentation.
+Visualisez le [jeu](https://xia.funraiders.org/exemples/kiki.html) créé pour cette partie de la documentation.
 
-Téléchargez le fichier source au format [svg](https://xia.dane.ac-versailles.fr/demo/tuto/xia3/svg/xia3.svg)
+Téléchargez le fichier source au format [svg](https://xia.funraiders.org/exemples/kiki.svg)
 
 
 Ce type de jeu est presque le type d'image interactive la plus facile à créer. Vous devez uniquement détourer les détails que le joueur devra sélectionner.
 
 Les consignes doivent être indiquées dans les métadonnées du document. Xia cherchera les informations relatives aux consignes dans le champ `Description` des métadonnées du document, et créera une pop up affichant ces consignes à l'ouverture du jeu. Le joueur pourra les lire, fermer la fenêtre puis jouer.
 
-Quand un joueur termine le jeu, un message apparaît automatiquement. Ce message doit être renseigné dans le champ `Description` des `Propriétés de l'objet` de l'image de fond.
+Quand un joueur termine le jeu, un message apparaît automatiquement.
+
+Pour réaliser un jeu de type `game1Clic`, il suffit donc de renseigner dans le champ `Description` de l'image de fond les 2 éléments suivants :
+-
+Ce message doit être renseigné dans le champ `Description` des `Propriétés de l'objet` de l'image de fond.
 
 
-\begin{tip}
-Le texte inséré dans la balise \verb|<message></message>| peut être enrichi avec des images, des vidéos, du son. On peut aussi imaginer ajouter un lien vers un autre jeu, ce qui permettrait aux utilisateurs d'enchaîner les jeux par degré de difficulté.
-\end{tip}
+<img src='images/kiki.png' style='display:block;margin:0 auto;width:80%;'>
+
+
+>Le texte inséré dans la balise `<message></message>` peut être enrichi avec des images, des vidéos, du son. On peut aussi imaginer ajouter un lien vers un autre jeu, ce qui permettrait aux utilisateurs d'enchaîner les jeux par degré de difficulté.
+
 
 
 Une fois votre fichier svg préparé, choisir le modèle d'export `game1clic` pour générer le jeu.
@@ -51,9 +57,9 @@ Une fois votre fichier svg préparé, choisir le modèle d'export `game1clic` po
 Le second type de jeu pouvant être créé avec Xia est basé sur le principe du glisser-déposer. Des étiquettes déplaçables sont déposées sur l'image de fond. Quand tous les éléments ont été placés sur leur zone de dépôt, un message apparaît, annonçant la fin du jeu comme vous le montre l'exemple suivant :
 
 
-<a href='https://xia.dane.ac-versailles.fr/demo/tuto/xia5'><img src='images/gamedraganddrop.jpg' alt='jeu glisser déposer'></a>
+<a href='https://xia.funraiders.org/exemples/draganddrop.html'><img src='images/gamedraganddrop.jpg' alt='jeu glisser déposer'></a>
 
-Si vous souhaitez voir le fichier source, Téléchargez le au format [svg](https://xia.dane.ac-versailles.fr/demo/tuto/xia5/svg/xia5.svg).
+Si vous souhaitez voir le fichier source, Téléchargez le au format [svg](https://xia.funraiders.org/exemples/draganddrop.svg).
 
 <img src='images/alert_green.png' width='40'>
 Voyons maintenant ensemble comment créer ce mini-jeu.
@@ -77,7 +83,7 @@ A tout ceci s'ajoutent les `meta-données` suivantes :
 
 Suivez la petite procédure pas à pas suivante :
 
-- Commencez par télécharger et décompresser le pack d'images nécessaires pour créer ce jeu : [PACK D'IMAGES](https://xia.dane.ac-versailles.fr/demo/simplegame/simplegame_images.zip)
+- Commencez par télécharger et décompresser le pack d'images nécessaires pour créer ce jeu : [PACK D'IMAGES](https://xia.funraiders.org/demo/simplegame_images.zip)
 - Ouvrez l'image `background.jpg` avec Inkscape (`Fichier > Ouvrir`)
 - Importez les images `circle.png` et `square.png` (`Fichier > Importer`)
 - Tracez un rectangle (notre fameux rectangle gris) au dessus de la zone de réception rectangulaire dessinée sur l'image de fond
@@ -110,60 +116,41 @@ Ceci signifie que lorsque 2 éléments sont bien placés, le message `Bravo !` d
 Résoudre cette enigme !
 ```
 
-- Pour finir, précisons que le rectangle gris est la cible de notre carré jaune. Faites un clic droit sur le rectangle gris, choisissez `propriétés de l'objet` et retenez l'id affiché (vous pouvez aussi le modifier pour lui donner un nom plus explicite)
+##### Liaison entre les cibles et les éléments déplaçables
+
+Si nous générons le jeu à ce stade précis de la conception, le cerle rouge et le carré jaune sont bien déplaçables mais ils ne sont pas associés à leurs cibles respectives.
+
+Précisons donc que le rectangle gris est la cible de notre carré jaune. Faites un clic droit sur le rectangle gris, choisissez `propriétés de l'objet` et modifiez son champ id en inscrivant pas exemple `square`. N'oubliez pas de cliquer sur **Définir** pour enregistrer votre modification.
+
+<img src='images/square_id.png' style='display:block;margin:0 auto;width:80%;'>
 
 
-Faites alors un clic droit
+Faites alors un clic droit sur le carré jaune (qui est rouge sur la capture ci-dessus, sic), choisissez `propriétés de l'objet` et saisissez ce qui suit dans le champ description :
+
+```
+<target>square</target>
+```
+
+Désormais, notre carré est bien configuré pour marquer un point s'il est déposé sur la cible `square`.
 
 
+Faire la même chose pour le cercle et sa cible.
 
-Dans Inkscape:
+##### Générer le jeu
 
-- Choisir et importer une image de fond
-- Créer les éléments que les utilisateurs de votre image interactive auront à déplacer et à déposer (autrement dit: des images, des mots ou groupes de mots: voir ci-dessous les explications)
-- Créer la fenêtre surgissante de consignes en éditant les informations du champ \softmenu{Fichier $\rightarrow$ Métadonnées du document $\rightarrow$ Description}\footnote{Exactement comme dans le jeu game1clic}
-- En renseignant les métadonnées, faites correspondre chaque élément à une zone de dépôt (ces zones de dépôts étant en réalité des détails détourés)
-
-
-- Dans Xia
-- Exporter le fichier source au format svg avec le modèle `gameDragAndDrop`
-
-Deux méthodes peuvent être utilisées pour créer les éléments que les joueurs auront à glisser et déposer. La première, très simple, consiste à utiliser un utilitaire de capture d'écran capable de créer des petites images au format png, puis d'importer celles-ci dans Inkscape. Il est également possible de créer ces éléments directement dans Inkscape. Par exemple, en créant un texte, en regroupant ce texte avec une forme puis en faisant une copie bitmap de cet ensemble (\softmenu{Édition $\rightarrow$ Créer une
-copie bitmap}).
-
-
-Les éléments à déplacer doivent être associés à leur zone de dépôt \footnote{\textbf{Un} objet ne pouvant être associé qu'à \textbf{une} zone de dépôt.}. Pour faire cela, il faut «~jumeler~» les éléments à glisser-déposer avec leur zone de dépôt en faisant correspondre le champ \softmenu{ID} de la zone de dépôt au champ \softmenu{Description} de
-l'élément à glisser déposer. La seule subtilité tient dans la balise \verb|<target></target>| devant être indiquée dans la \softmenu{Description}.
-
-Vous trouverez dans le tableau \ref{tag2_sumup} un résumé des balises à renseigner dans les \softmenu{Propriétés de l'objet} des éléments à déplacer et des zones de dépôts afin de les faire correspondre les unes aux autres.
-
-\begin{table}
-\begin{tabular}{|p{1.in}|p{2.5in}|p{1.5in}|}
-\hline
- & Élément à déplacer (objets à glisser et déposer) & Détail détouré (zone de dépôt)\\
-\hline
-Champ ID & & \verb|Titre_du_détail|\\
-\hline
-Champ description & \verb|<target>Titre_du_détail</target>| & \\
-\hline
-\end{tabular}
-\caption{Résumé des balises à utiliser dans le jeu gameDragAndDrop}
-\label{tag2_sumup}
-\end{table}
-
-Une fois votre fichier svg préparé, choisir le modèle `gameDragAndDrop` pour générer le jeu.
+Vous pouvez alors réaliser votre export en choisissant `gameDragAndDrop`.
 
 #### 4.2.2 Utilisez les collisions
 
 Le principe ludique documenté dans cette section est le suivant: le joueur doit déplacer des éléments vers des zones de dépôt, mais les déplacements de ces éléments ne peuvent avoir lieu que dans certaines limites. Le jeu de type «`collisions`» peut ainsi être utilisé pour créer des labyrinthes, des taquins.
 
-Visualisez le [jeu](https://xia.dane.ac-versailles.fr/demo/tuto/xia6) créée pour cette partie de la documentation.
+Visualisez le [jeu](https://xia.funraiders.org/exemples/lapin.html) créée pour cette partie de la documentation.
 
-Téléchargez le fichier source au format [svg](http://xia.dane.ac-versailles.fr/demo/tuto/xia6/svg/xia6.svg).
+Téléchargez le fichier source au format [svg](https://xia.funraiders.org/exemples/lapin.svg).
 
 Pour créer ce type de jeu, ajoutez la balise `<collisions>on</collisions>` à l'image de fond. Une fois cela fait, tous les détails deviennent «`solides`», et bloquent le déplacement des objets qu'il faut déplacer (images au format png importées, ou copie bitmap de formes dessinées avec Inkscape).
 
-Le jeu de type «~collisions~» est en réalité un jeu de type gameDragAndDrop, puisque la résolution passe par le dépôt d'un ou plusieurs éléments à certains endroits de l'image. Les balises nécessaires dans ce type de jeu sont donc les mêmes que dans le jeu gameDragAndDrop `<target></target>` sur les objets, `<score></score>` et `<message></message>` sur l'image de fond: voir la section \ref{gameDragAndDropsection}.}, mais il faudra penser à appliquer la balise \verb|<collisions>off</collisions>| sur les zones de dépôts, dans le champ \softmenu{Description}.
+Le jeu de type «collisions» est en réalité un jeu de type gameDragAndDrop, puisque la résolution passe par le dépôt d'un ou plusieurs éléments à certains endroits de l'image. Les balises nécessaires dans ce type de jeu sont donc les mêmes que dans le jeu gameDragAndDrop `<target></target>` sur les objets, `<score></score>` et `<message></message>` sur l'image de fond.
 
 Une fois votre fichier svg préparé, choisir le modèle `gameDragAndDrop` pour générer le jeu.
 
@@ -299,111 +286,30 @@ Concentrez-vous et recommencez!...</message2>}\\
 
 Ces tableaux résument les balises pouvant être utilisées dans le cadre de la création de jeux avec Xia:
 
-\begin{table}[thp]
- \begin{tabular}{|p{.5cm}|p{2cm}|p{10cm}|}
- \hline
- \multicolumn{3}{|l|}{Modèle \softmenu{game1clic}} \\
- \hline
- \multicolumn{3}{|l|}{\texttt{<score></score>}}\\
- \hline
- & \emph{Rôle} & Permet de régler le nombre de bonnes réponses nécessaires pour faire
-apparaître le message de fin du jeu\\
- & \emph{Élément}  & Image de fond \\
- & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description} \\
- & \emph{Quoi?} & Le nombre de bonnes réponses nécessaires à la résolution du jeu\\
- \hline
- \multicolumn{3}{|l|}{\texttt{<message></message>} }\\
- \hline
-  & \emph{Rôle} & Fait apparaître le message de fin du jeu \\
-  & \emph{Élément}  & Image de fond \\
-  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\
-  & \emph{Quoi?} & Message que vous pouvez enrichir avec des ressources multimédias ou un lien
-hypertexte\\
-  \hline
-  \multicolumn{3}{|l|}{\texttt{off}}\\
-  \hline
-  & \emph{Rôle} & Rend un détail insensible au clic \\
-  & \emph{Élément} & Détail \\
-  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Interactivité $\rightarrow$
-Onclick}\\
- \hline
-  \multicolumn{3}{|l|}{\texttt{disable-score}}\\
-  \hline
-  & \emph{Rôle} & Rend un détail détouré cliquable, mais sa sélection n'ajoutera pas de point
-au compteur de score \\
-  & \emph{Élément} & Détail \\
-  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Interactivité $\rightarrow$
-Onclick}\\
-  \hline
-    \multicolumn{3}{|l|}{\texttt{score2}}\\
-  \hline
-  & \emph{Rôle} & Ajoute un point au deuxième compteur de score \\
-  & \emph{Élément} & Détail \\
-  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Interactivité $\rightarrow$
-Onclick}\\
-  \hline
-  \multicolumn{3}{|l|}{\texttt{<tooltip></tooltip>}}\\
-  \hline
-  & \emph{Rôle} & Affiche une infobulle au survol de la souris \\
-  & \emph{Élément} & Détail \\
-  & \emph{Quoi?} & Assurez-vous que ce champ est identique à l'ID de l'élément servant
-d'infobulle\\
-  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\
-  \hline
- \multicolumn{3}{|l|}{\texttt{<score2></score2>}}\\
- \hline
- & \emph{Rôle} & Régler le nombre de bonnes réponses nécessaires à l'apparition du second
-message (jeu à double score)\\
- & \emph{Élément}  & Image de fond \\
- & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description} \\
- & \emph{Quoi?} & Le nombre de bonnes réponses nécessaires à la résolution du jeu\\
- \hline
- \multicolumn{3}{|l|}{\texttt{<message2></message2>}}\\
- \hline
-  & \emph{Rôle} & Fait apparaître le second message de fin du jeu (jeu à double score) \\
-  & \emph{Élément}  & Image de fond \\
-  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\
-  & \emph{Quoi?} & Message que vous pouvez enrichir avec des ressources multimédias ou un lien
-hypertexte\\
-  \hline
-  \end{tabular}
-  \caption{Balises à insérer pour un jeu de type game1clic}
- \end{table}
+#### 4.4.1 Balises Game1clic
 
- \begin{table}[thp]
- \begin{tabular}{|p{.5cm}|p{2cm}|p{10cm}|}
- \hline
- \multicolumn{3}{|l|}{Modèle \softmenu{gameDragAndDrop}} \\
- \hline
- \multicolumn{3}{|l|}{\texttt{<score></score>}}\\
- \hline
- & \emph{Rôle} & Permet de régler le nombre de bonnes réponses nécessaires pour faire
-apparaître le message de fin du jeu\\
- & \emph{Élément}  & Image de fond \\
- & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description} \\
- & \emph{Quoi?} & Le nombre de bonnes réponses nécessaires à la résolution du jeu\\
- \hline
- \multicolumn{3}{|l|}{\texttt{<message></message>} }\\
- \hline
-  & \emph{Rôle} & Fait apparaître le message de fin du jeu \\
-  & \emph{Élément}  & Image de fond \\
-  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\
-  & \emph{Quoi?} & Message que vous pouvez enrichir avec des ressources multimédias ou un lien
-hypertexte\\
-  \hline
-  \multicolumn{3}{|l|}{\texttt{<target></target>}}\\
-  \hline
-  & \emph{Rôle} & Indique la correspondance entre l'élément à déplacer et la zone de dépôt \\
-  & \emph{Élément} & Élément à déplacer \\
-  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description}\\
-  & \emph{Quoi?} & Assurez-vous que ce champ est identique à l'ID de la zone de dépôt\\
-  \hline
-  \multicolumn{3}{|l|}{\texttt{<magnet>on</magnet>}}\\
-  \hline
-  & \emph{Rôle} & Ajoute un effet «~aimant~» \\
-  & \emph{Élément} & Zone de dépôt \\
-  & \emph{Où?} & \softmenu{Propriétés de l'objet $\rightarrow$ Description} \\
-  \hline
+|Balise|Rôle|Élément|Où ?|
+|---|---|---|---|
+|`<score></score>`|Permet de régler le nombre de bonnes réponses nécessaires pour faire apparaître le message de fin du jeu|Image de fond|`Propriétés de l'objet` &rarr; `Description`|
+|`<message></message>`|Fait apparaître le message de fin du jeu, que vous pouvez enrichir avec des ressources multimédias ou un lien hypertexte|Image de fond|`Propriétés de l'objet` &rarr; `Description`|
+|`off`|Rend un détail insensible au clic|Détail|`Propriétés de l'objet` &rarr; `Interactivité` &rarr; `Onclick`|
+|`disable-score`|Rend un détail détouré cliquable, mais sa sélection n'ajoutera pas de point au compteur de score|Détail|`Propriétés de l'objet` &rarr; `Interactivité` &rarr; `Onclick`|
+|`score2`|Si on clique sur ce détail, ajoute un point au deuxième compteur de score|Détail|`Propriétés de l'objet` &rarr; `Interactivité` &rarr; `Onclick`|
+|`<tooltip></tooltip>`|Affiche une infobulle au survol de la souris. Assurez-vous que ce champ est identique à l'ID de l'élément servant d'infobulle|Détail|`Propriétés de l'objet` &rarr; `Description`|
+|`<score2></score2>`| Régler le nombre de bonnes réponses nécessaires à l'apparition du second message (jeu à double score)|Image de fond|`Propriétés de l'objet` &rarr; `Description`|
+|`<message2></message2>`|Contient le message de fin de jeu si le second score est atteint (jeu à double score). Message que vous pouvez enrichir avec des ressources multimédias ou un lien hypertexte|Image de fond|`Propriétés de l'objet` &rarr; `Description`|
+
+#### 4.4.2 Balises GameDragAndDrop
+
+|Balise|Rôle|Élément|Où ?|
+|---|---|---|---|
+|`<score></score>`|Permet de régler le nombre de bonnes réponses nécessaires pour faire apparaître le message de fin du jeu|Image de fond|`Propriétés de l'objet` &rarr; `Description`|
+|`<message></message>`|Fait apparaître le message de fin du jeu, que vous pouvez enrichir avec des ressources multimédias ou un lien hypertexte|Image de fond|`Propriétés de l'objet` &rarr; `Description`|
+|`<target></target>`|Indique la correspondance entre l'élément à déplacer et la zone de dépôt. Assurez-vous que ce champ est identique à l'ID de la zone de dépôt|Détail déplaçable|`Propriétés de l'objet` &rarr; `Description`|
+|`<magnet>on</magnet>`|Ajoute un effet «aimant»|Zone de dépôt|`Propriétés de l'objet` &rarr; `Description`|
+|`<collisions>on</collisions>`|Active le jeu de type "collisions". Les détails ne peuvent plus se chevaucher, idéal pour un jeu de type labyrinthe|Image de fond|`Propriétés de l'objet` &rarr; `Description`|
+
+
   \multicolumn{3}{|l|}{\texttt{<collisions>on</collisions>}}\\
   \hline
   & \emph{Rôle} & Active le jeu de type "collisions" \\

@@ -1633,7 +1633,7 @@ class iaObject:
                         oldheight = int(float(rasterHeight))
                         newwidth = int(oldwidth * self.ratio)
                         newheight = int(oldheight * self.ratio)
-                        resizedBg = currentBg.resize((newwidth, newheight), Image.ANTIALIAS)
+                        resizedBg = currentBg.resize((newwidth, newheight), Image.LANCZOS)
                         resizedBg.save(imageFileSmall)
                         with open(imageFileSmall, 'rb') as bgSmallImage:
                             rasterSmallEncoded = base64.b64encode(bgSmallImage.read()).decode()

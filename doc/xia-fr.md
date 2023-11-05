@@ -348,7 +348,7 @@ Commencez par sélectionner le détail sur lequel vous voulez agir et cliquez su
 
 ## 4. Utiliser les sprites <a name='sprites'></a>
 
-Xia permet de gérer 3 types d'objets dans vos ressources :
+Nous finissons cette présentation de Xia en vous présentant une nouveauté de la version 3. Xia permet de gérer 3 types d'objets dans vos ressources :
 
 - Les détourages (les outils d'inkscape par défaut)
 - Les images
