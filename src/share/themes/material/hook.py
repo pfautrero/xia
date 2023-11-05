@@ -25,7 +25,7 @@ class hook:
         """Init"""
 
         try:
-            t = gettext.translation("xia-converter", langPath, languages=[locale.getdefaultlocale()[0]])
+            t = gettext.translation("xia-converter", langPath, languages=[locale.getlocale()[0]])
         except:
             t = gettext.translation("xia-converter", langPath, languages=['en_US'])
         self.translate = t.gettext
